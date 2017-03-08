@@ -22,6 +22,9 @@ return [
 		]
 	    ],
 	],
+        'admin' => [
+            'class' => 'backend\modules\admin\Module',
+        ],
     ],
     'components' => [
 	'request' => [
