@@ -58,13 +58,27 @@ class SiteController extends Controller {
 	 * @return string
 	 */
 	public function actionIndex() {
-
-		return $this->render('index');
+		return $this->render('index', [
+		]);
+//		if (!Yii::$app->user->isGuest) {
+//			return $this->redirect(array('site/home'));
+//		}
+//		$this->layout = 'login';
+//		$model = new LoginForm();
+//		if ($model->load(Yii::$app->request->post()) && $model->login()) {
+//			return $this->redirect(array('site/home'));
+//		} else {
+//			return $this->render('login', [
+//				    'model' => $model,
+//			]);
+//		}
 	}
 
 	public function actionHome() {
-		echo "sdfdskfl";
-		exit;
+		if (Yii::$app->user->isGuest) {
+			return $this->redirect(array('site/index'));
+		}
+		return $this->render('index');
 	}
 
 	/**

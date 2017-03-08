@@ -9,7 +9,20 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+	'gii' => [
+	    'class' => 'yii\gii\Module',
+	    'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*', '192.168.178.20'], // adjust this to your needs
+	    'generators' => [//here
+		'crud' => [// generator name
+		    'class' => 'yii\gii\generators\crud\Generator', // generator class
+		    'templates' => [//setting for out templates
+			'custom' => '@common/myTemplates/crud/custom', // template name => path to template
+		    ]
+		]
+	    ],
+	],
+    ],
     'components' => [
 	'request' => [
 	    'csrfParam' => '_csrf-backend',
@@ -39,6 +52,16 @@ return [
 	    'enablePrettyUrl' => true,
 	    'showScriptName' => false,
 	    'rules' => [
+	    ],
+	],
+	'assetManager' => [
+	    'bundles' => [
+		'yii\web\JqueryAsset' => [
+		    'js' => []
+		],
+		'yii\bootstrap\BootstrapAsset' => [
+		    'css' => [],
+		],
 	    ],
 	],
     ],
