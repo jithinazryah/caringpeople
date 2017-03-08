@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
@@ -10,89 +11,92 @@ use common\models\LoginForm;
 /**
  * Site controller
  */
-class SiteController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+class SiteController extends Controller {
 
-    /**
-     * @inheritdoc
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return [
+		    'access' => [
+			'class' => AccessControl::className(),
+			'rules' => [
+				[
+				'actions' => ['login', 'error', 'index'],
+				'allow' => true,
+			    ],
+				[
+				'actions' => ['logout', 'index'],
+				'allow' => true,
+				'roles' => ['@'],
+			    ],
+			],
+		    ],
+		    'verbs' => [
+			'class' => VerbFilter::className(),
+			'actions' => [
+			    'logout' => ['post'],
+			],
+		    ],
+		];
+	}
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function actions() {
+		return [
+		    'error' => [
+			'class' => 'yii\web\ErrorAction',
+		    ],
+		];
+	}
 
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+	/**
+	 * Displays homepage.
+	 *
+	 * @return string
+	 */
+	public function actionIndex() {
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
+		return $this->render('index');
+	}
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
+	public function actionHome() {
+		echo "sdfdskfl";
+		exit;
+	}
 
-        return $this->goHome();
-    }
+	/**
+	 * Login action.
+	 *
+	 * @return string
+	 */
+	public function actionLogin() {
+
+		if (!Yii::$app->user->isGuest) {
+			return $this->goHome();
+		}
+
+		$model = new LoginForm();
+		if ($model->load(Yii::$app->request->post()) && $model->login()) {
+			return $this->goBack();
+		} else {
+			return $this->render('login', [
+				    'model' => $model,
+			]);
+		}
+	}
+
+	/**
+	 * Logout action.
+	 *
+	 * @return string
+	 */
+	public function actionLogout() {
+		Yii::$app->user->logout();
+
+		return $this->goHome();
+	}
+
 }
