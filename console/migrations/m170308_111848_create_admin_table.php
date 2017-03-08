@@ -12,9 +12,9 @@ class m170308_111848_create_admin_table extends Migration
      */
     public function up()
     {
-        $this->createTable('adminposts', [
+        $this->createTable('admin_posts', [
             'id' => $this->primaryKey(),
-            'postname'=>$this->string(280),
+            'post_name'=>$this->string(280),
             'enquiry'=>$this->integer(),
             'users'=>$this->integer(),
             'employees'=>$this->integer(),
@@ -26,10 +26,10 @@ class m170308_111848_create_admin_table extends Migration
         ]);
         
         
-        $this->createTable('adminusers', [
+        $this->createTable('admin_users', [
             'id' => $this->primaryKey(),
             'postid'=>$this->integer(),
-            'employeecode'=>$this->string(280),
+            'employee_code'=>$this->string(280),
             'username'=>$this->string(280),
             'password'=>$this->string(280),
             'name'=>$this->string(280),
@@ -42,9 +42,9 @@ class m170308_111848_create_admin_table extends Migration
         ]);
         $this->addForeignKey(
             'fk-adminusers-postid',
-            'adminusers',
+            'admin_users',
             'postid',
-            'adminposts',
+            'admin_posts',
             'id',
             'CASCADE'
         );
