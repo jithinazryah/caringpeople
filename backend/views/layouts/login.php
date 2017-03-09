@@ -13,25 +13,27 @@ AppAssetLogin::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <head>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="Caring People Admin Panel" />
-		<meta name="author" content="" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="description" content="Xenon Boostrap Admin Panel" />
+                <meta name="author" content="" />
+                <title><?= Html::encode($this->title) ?></title>
 
-		<title>Caring People Admin Login</title>
-		<script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
+
+                <script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
 		<?php $this->head() ?>
-	</head>
-	<body class="page-body login-page">
+        </head>
+        <body class="page-body login-page">
 		<?php $this->beginBody() ?>
 
 		<?php echo $content; ?>
 
 		<?php $this->endBody() ?>
-	</body>
+        </body>
 </html>
 <?php $this->endPage() ?>

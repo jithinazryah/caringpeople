@@ -7,6 +7,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\AdminUsers;
+use common\models\AdminPosts;
 
 /**
  * Site controller
@@ -22,7 +24,7 @@ class SiteController extends Controller {
 			'class' => AccessControl::className(),
 			'rules' => [
 				[
-				'actions' => ['login', 'error', 'index'],
+				'actions' => ['login', 'error', 'index', 'home', 'logout'],
 				'allow' => true,
 			    ],
 				[
@@ -58,48 +60,30 @@ class SiteController extends Controller {
 	 * @return string
 	 */
 	public function actionIndex() {
-		return $this->render('index', [
-		]);
-//		if (!Yii::$app->user->isGuest) {
-//			return $this->redirect(array('site/home'));
-//		}
-//		$this->layout = 'login';
-//		$model = new LoginForm();
-//		if ($model->load(Yii::$app->request->post()) && $model->login()) {
-//			return $this->redirect(array('site/home'));
-//		} else {
-//			return $this->render('login', [
-//				    'model' => $model,
-//			]);
-//		}
-	}
 
-	public function actionHome() {
-		if (Yii::$app->user->isGuest) {
-			return $this->redirect(array('site/index'));
-		}
-		return $this->render('index');
-	}
+		$this->layout = 'login';
+		$model = new AdminUsers();
+		$model->scenario = 'login';
+		if ($model->load(Yii::$app->request->post()) && $model->login() && $this->setSession()) {
 
-	/**
-	 * Login action.
-	 *
-	 * @return string
-	 */
-	public function actionLogin() {
-
-		if (!Yii::$app->user->isGuest) {
-			return $this->goHome();
-		}
-
-		$model = new LoginForm();
-		if ($model->load(Yii::$app->request->post()) && $model->login()) {
-			return $this->goBack();
+			return $this->redirect(array('site/home'));
 		} else {
 			return $this->render('login', [
 				    'model' => $model,
 			]);
 		}
+	}
+
+	public function setSession() {
+		$post = AdminPosts::findOne(Yii::$app->user->identity->post_id);
+		Yii::$app->session['post'] = $post->attributes;
+
+		return true;
+	}
+
+	public function actionHome() {
+
+		return $this->render('index');
 	}
 
 	/**
@@ -109,7 +93,7 @@ class SiteController extends Controller {
 	 */
 	public function actionLogout() {
 		Yii::$app->user->logout();
-
+		unset(Yii::$app->session['post']);
 		return $this->goHome();
 	}
 

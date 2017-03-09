@@ -117,7 +117,7 @@ AppAsset::register($this);
 						</li>
 
 
-                                                
+
 					</ul>
 
 				</div>
@@ -420,12 +420,16 @@ AppAsset::register($this);
 										Help
 									</a>
 								</li>
-								<li class="last">
-									<a href="extra-lockscreen.html">
-										<i class="fa-lock"></i>
-										Logout
-									</a>
-								</li>
+								<?php
+								echo '<li class="last">'
+								. Html::beginForm(['/site/logout'], 'post') . '<a>'
+								. Html::submitButton(
+									'<i class="fa-lock"></i> Logout', ['class' => 'btn btn-link linker']
+								) . '</a>'
+								. Html::endForm()
+								. '</li>';
+								?>
+
 							</ul>
 						</li>
 

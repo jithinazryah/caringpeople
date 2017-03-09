@@ -29,8 +29,11 @@ class AppAssetLogin extends AssetBundle {
 	    'js/joinable.js',
 	    'js/xenon-api.js',
 	    'js/xenon-toggles.js',
-	    'js/jquery-validate/jquery.validate.min.js',
+	    'js/xenon-widgets.js',
+	    'js/devexpress-web-14.1/js/globalize.min.js',
+	    'js/devexpress-web-14.1/js/dx.chartjs.js',
 	    'js/toastr/toastr.min.js',
+	    'js/xenon-custom.js',
 	];
 	public $depends = [
 	    'yii\web\YiiAsset',
