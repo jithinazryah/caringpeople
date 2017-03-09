@@ -18,7 +18,7 @@ class AdminUsersSearch extends AdminUsers
     public function rules()
     {
         return [
-            [['id', 'post_id', 'CB', 'UB'], 'integer'],
+            [['id', 'post_id', 'status', 'CB', 'UB'], 'integer'],
             [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number', 'DOC', 'DOU'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class AdminUsersSearch extends AdminUsers
         $query->andFilterWhere([
             'id' => $this->id,
             'post_id' => $this->post_id,
+            'status' => $this->status,
             'CB' => $this->CB,
             'UB' => $this->UB,
             'DOC' => $this->DOC,

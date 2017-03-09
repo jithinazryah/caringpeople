@@ -12,26 +12,26 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'post_name')->textInput(['maxlength' => true]) ?>
+<div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'post_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'enquiry')->textInput() ?>
+</div><div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'enquiry')->textInput() ?>
 
-    <?= $form->field($model, 'users')->textInput() ?>
+</div><div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'users')->textInput() ?>
 
-    <?= $form->field($model, 'employees')->textInput() ?>
+</div><div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'employees')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+</div><div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'status')->textInput() ?>
 
-    <?= $form->field($model, 'CB')->textInput() ?>
+</div><div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'CB')->textInput() ?>
 
-    <?= $form->field($model, 'UB')->textInput() ?>
+</div><div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'UB')->textInput() ?>
 
-    <?= $form->field($model, 'DOC')->textInput() ?>
+</div><div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'DOC')->textInput() ?>
 
-    <?= $form->field($model, 'DOU')->textInput() ?>
+</div><div class='col-md-4 col-sm-6 col-xs-12'>    <?= $form->field($model, 'DOU')->textInput() ?>
 
-    <div class="form-group" style="float: right;">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px;']) ?>
+</div>    <div class="form-group" style="float: right;">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -30,11 +30,13 @@ use yii\widgets\ActiveForm;
 
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if (in_array($attribute, $safeAttributes)) {
+        echo "<div class='col-md-4 col-sm-6 col-xs-12'>";
         echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
+        echo "</div>";
     }
 } ?>
     <div class="form-group" style="float: right;">
-        <?= "<?= " ?>Html::submitButton($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px;']) ?>
+        <?= "<?= " ?>Html::submitButton($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
     </div>
 
     <?= "<?php " ?>ActiveForm::end(); ?>

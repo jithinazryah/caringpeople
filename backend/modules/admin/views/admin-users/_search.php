@@ -31,6 +31,8 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'phone_number') ?>
 
+    <?php // echo $form->field($model, 'status') ?>
+
     <?php // echo $form->field($model, 'CB') ?>
 
     <?php // echo $form->field($model, 'UB') ?>
