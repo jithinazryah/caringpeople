@@ -155,7 +155,7 @@ AppAsset::register($this);
 												</span>
 
 												<span class="line desc small">
-													This ain’t our first item, it is the best of the rest.
+													This ainâ€™t our first item, it is the best of the rest.
 												</span>
 											</a>
 										</li>
@@ -209,7 +209,7 @@ AppAsset::register($this);
 												</span>
 
 												<span class="line desc small">
-													This ain’t our first item, it is the best of the rest.
+													This ainâ€™t our first item, it is the best of the rest.
 												</span>
 											</a>
 										</li>
