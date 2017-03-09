@@ -32,15 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-heading">
                                         <h3 class="panel-title"><?= "<?= " ?>Html::encode($this->title) ?></h3>
 
-                                        <div class="panel-options">
-                                                <a href="#" data-toggle="panel">
-                                                        <span class="collapse-icon">&ndash;</span>
-                                                        <span class="expand-icon">+</span>
-                                                </a>
-                                                <a href="#" data-toggle="remove">
-                                                        &times;
-                                                </a>
-                                        </div>
+
                                 </div>
                                 <div class="panel-body">
                                         <?php if (!empty($generator->searchModelClass)): ?>

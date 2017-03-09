@@ -28,15 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= "<?= " ?>Html::encode($this->title) ?></h3>
 
-                                <div class="panel-options">
-                                        <a href="#" data-toggle="panel">
-                                                <span class="collapse-icon">&ndash;</span>
-                                                <span class="expand-icon">+</span>
-                                        </a>
-                                        <a href="#" data-toggle="remove">
-                                                &times;
-                                        </a>
-                                </div>
+
                         </div>
                         <div class="panel-body">
                                 <?= "<?= " ?> Html::a('<i class="fa-th-list"></i><span> Manage <?= Inflector::camel2words(StringHelper::basename($generator->modelClass)); ?></span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>

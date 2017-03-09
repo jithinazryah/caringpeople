@@ -12,51 +12,58 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-posts-index">
 
-        <div class="row">
-                <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
 
-                        <div class="panel panel-default">
-                                <div class="panel-heading">
-                                        <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
-                                        <div class="panel-options">
-                                                <a href="#" data-toggle="panel">
-                                                        <span class="collapse-icon">&ndash;</span>
-                                                        <span class="expand-icon">+</span>
-                                                </a>
-                                                <a href="#" data-toggle="remove">
-                                                        &times;
-                                                </a>
-                                        </div>
-                                </div>
-                                <div class="panel-body">
-                                                                                            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                                        
-                                        <?=  Html::a('<i class="fa-th-list"></i><span> Create Admin Posts</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                                                                                                                                        <?= GridView::widget([
-                                                'dataProvider' => $dataProvider,
-                                                'filterModel' => $searchModel,
-        'columns' => [
-                                                ['class' => 'yii\grid\SerialColumn'],
-
-                                                            'id',
-            'post_name',
-            'enquiry',
-            'users',
-            'employees',
-            // 'status',
-            // 'CB',
-            // 'UB',
-            // 'DOC',
-            // 'DOU',
-
-                                                ['class' => 'yii\grid\ActionColumn'],
-                                                ],
-                                                ]); ?>
-                                                                                                                </div>
-                        </div>
                 </div>
+                <div class="panel-body">
+                    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+                    <?= Html::a('<i class="fa-th-list"></i><span> Create Admin Posts</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                   <?=
+                    GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            //'id',
+                            'post_name',
+                            [
+                                'attribute' => 'enquiry',
+                                'value' => function($model, $key, $index, $column) {
+                                    return $model->enquiry == 0 ? 'No' : 'Yes';
+                                },
+                            ],
+                            [
+                                'attribute' => 'users',
+                                'value' => function($model, $key, $index, $column) {
+                                    return $model->users == 0 ? 'No' : 'Yes';
+                                },
+                            ],
+                            [
+                                'attribute' => 'employees',
+                                'value' => function($model, $key, $index, $column) {
+                                    return $model->employees == 0 ? 'No' : 'Yes';
+                                },
+                            ],
+                            // 'status',
+                            // 'CB',
+                            // 'UB',
+                            // 'DOC',
+                            // 'DOU',
+                            ['class' => 'yii\grid\ActionColumn',
+                                'template' => '{update}{delete}'],
+                        ],
+                    ]);
+                    ?>
+                </div>
+            </div>
         </div>
+    </div>
 </div>
 
 
