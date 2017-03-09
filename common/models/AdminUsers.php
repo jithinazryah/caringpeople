@@ -45,6 +45,7 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 		return [
 			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'create'],
 		    //[['DOC', 'DOU'], 'safe'],
+                        ['email', 'email'],
 		    [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'string', 'max' => 280],
 			[['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdminPosts::className(), 'targetAttribute' => ['post_id' => 'id']],
 			[['user_name', 'password'], 'required', 'on' => 'login'],

@@ -8,6 +8,7 @@ use common\models\AdminPostsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\components\SetValues;
 
 /**
  * AdminPostsController implements the CRUD actions for AdminPosts model.
@@ -66,6 +67,8 @@ class AdminPostsController extends Controller
         $model = new AdminPosts();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            SetValues::attributes($model);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
