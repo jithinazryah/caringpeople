@@ -20,11 +20,19 @@ $this->params['breadcrumbs'][] = 'Update';
 
                         </div>
                         <div class="panel-body">
-                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Admin Users</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="admin-users-create">
-                                                <?= $this->render('_form', [
-                                                'model' => $model,
-                                                ]) ?>
+				<?= Html::a('<i class="fa-th-list"></i><span> Manage Admin Users</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div style="float:right;padding-top: 5px;">
+					<?php
+					echo Html::a('<i class="fa fa-pencil-square-o"></i><span> Change password</span>', ['change-password', 'id' => $model->id], ['class' => 'btn btn-warning dropdown-toggle btn-icon-standalone']);
+					?>
+
+                                </div>
+				<div class="panel-body"><div class="admin-users-create">
+						<?=
+						$this->render('_form', [
+						    'model' => $model,
+						])
+						?>
                                         </div>
                                 </div>
                         </div>

@@ -23,7 +23,7 @@ class AppAsset extends AssetBundle {
 	    'css/custom.css',
 	];
 	public $js = [
-	    //  'js/bootstrap.min.js',
+	    'js/bootstrap.min.js',
 	    'js/TweenMax.min.js',
 	    'js/resizeable.js',
 	    'js/joinable.js',

@@ -119,4 +119,29 @@ class AdminUsersController extends Controller {
 		}
 	}
 
+	public function actionChangePassword($id) {
+
+		$model = $this->findModel($id);
+		if (Yii::$app->request->post()) {
+			if (Yii::$app->getSecurity()->validatePassword(Yii::$app->request->post('old-password'), $model->password)) {
+
+				if (Yii::$app->request->post('new-password') == Yii::$app->request->post('confirm-password')) {
+
+					Yii::$app->getSession()->setFlash('success', 'password changed successfully');
+					$model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post('confirm-password'));
+					$model->update();
+					return $this->redirect(Yii::$app->request->referrer);
+				} else {
+					Yii::$app->getSession()->setFlash('error', 'password mismatch');
+				}
+			} else {
+
+				Yii::$app->getSession()->setFlash('error', 'incorrect old password');
+			}
+		}
+		return $this->render('new-password', [
+			    'model' => $model,
+		]);
+	}
+
 }

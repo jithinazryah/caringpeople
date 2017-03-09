@@ -70,7 +70,7 @@ table.table tr.filters{
 
 table.table tr td:last-child {
 	/*display: inline-flex;*/
-	border: 0;
+	/*border: 0;*/
 }
 table.table tr td:last-child a {
 	padding: 4px;
@@ -94,7 +94,7 @@ table.table tr td:last-child a {
 .form-inline .form-group{
 	width: 100%;
 	color:#000000;
-    height: 81px; 
+	height: 81px;
 }
 .form-group label{
 	color: black;
@@ -109,7 +109,7 @@ table.table tr td:last-child a {
 	padding-left: 0px !important;
 }
 .left_padd{
-    padding-left: 0;
+	padding-left: 0;
 }
 
 
