@@ -52,7 +52,7 @@ class AdminUsers extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'post_id' => 'Post ID',
+            'post_id' => 'Post Name',
             'employee_code' => 'Employee Code',
             'user_name' => 'User Name',
             'password' => 'Password',

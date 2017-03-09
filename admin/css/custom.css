@@ -9,3 +9,48 @@ body {
 
 a {
 }
+
+.panel{
+        background-color: #ffffd9;
+}
+table{
+        font-size: 14px;
+        text-align: center;
+}
+.table>thead:first-child>tr:first-child>th{
+	width: 70px;
+	white-space: nowrap;
+}
+.table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>th, .table>caption+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>td, .table>thead:first-child>tr:first-child>td {
+        border-top: 1px solid #b7b7b7;
+        background-color: #f9cdcd;
+}
+table.table tr.filters{
+        background-color: #d4dec6;
+}
+.table-striped>tbody>tr:nth-child(odd) {
+        background-color: #f5efb5;
+        color: black;
+	font-size: 15px;
+}
+.table-striped>tbody>tr:nth-child(even) {
+        background-color: #caffe6;
+        color: black;
+	font-size: 15px;
+}
+.table.table-bordered>thead>tr>td, .table.table-bordered>tbody>tr>td, .table.table-bordered>tfood>tr>td, .table.table-bordered>thead>tr>th, .table.table-bordered>tbody>tr>th, .table.table-bordered>tfood>tr>th{
+        border-color: #b7b7b7;
+}
+.table>thead>tr>td, .table>tbody>tr>td, .table>tfood>tr>td, .table>thead>tr>th, .table>tbody>tr>th, .table>tfood>tr>th {
+        padding: 6px 15px;
+}
+.filters .form-control{
+        border: 1px solid #afafaf;
+}
+.form-control {
+	border: 1px solid #bdbcbc;
+	color: black;
+}
+.form-control{
+        width: 100% !important;
+}
