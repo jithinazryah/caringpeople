@@ -64,8 +64,10 @@ class AdminUsersController extends Controller
     public function actionCreate()
     {
         $model = new AdminUsers();
+       $model->scenario = 'create';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

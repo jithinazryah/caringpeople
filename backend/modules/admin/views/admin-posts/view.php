@@ -41,6 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 //'id',
                                 'post_name',
                                 [
+                                    'attribute' => 'admin',
+                                    'value' => $model->admin == 1 ? 'yes' : 'no',
+                                ],
+                                [
                                     'attribute' => 'enquiry',
                                     'value' => $model->enquiry == 1 ? 'yes' : 'no',
                                 ],

@@ -33,6 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             //'id',
                             'post_name',
                             [
+                                'attribute' => 'admin',
+                                'value' => function($model, $key, $index, $column) {
+                                    return $model->admin == 0 ? 'No' : 'Yes';
+                                },
+                            ],
+                            [
                                 'attribute' => 'enquiry',
                                 'value' => function($model, $key, $index, $column) {
                                     return $model->enquiry == 0 ? 'No' : 'Yes';
