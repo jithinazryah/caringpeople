@@ -66,6 +66,6 @@ class AdminPosts extends \yii\db\ActiveRecord
      */
     public function getAdminUsers()
     {
-        return $this->hasMany(AdminUsers::className(), ['post_ID' => 'id']);
+        return $this->hasMany(AdminUsers::className(), ['post_id' => 'id']);
     }
 }

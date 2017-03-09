@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "admin_users".
  *
  * @property integer $id
- * @property integer $post_ID
+ * @property integer $post_id
  * @property string $employee_code
  * @property string $user_name
  * @property string $password
@@ -38,10 +38,10 @@ class AdminUsers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['post_ID', 'CB', 'UB'], 'integer'],
+            [['post_id', 'CB', 'UB'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'string', 'max' => 280],
-            [['post_ID'], 'exist', 'skipOnError' => true, 'targetClass' => AdminPosts::className(), 'targetAttribute' => ['post_ID' => 'id']],
+            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdminPosts::className(), 'targetAttribute' => ['post_id' => 'id']],
         ];
     }
 
@@ -52,7 +52,7 @@ class AdminUsers extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'post_ID' => 'Post  ID',
+            'post_id' => 'Post ID',
             'employee_code' => 'Employee Code',
             'user_name' => 'User Name',
             'password' => 'Password',
@@ -71,6 +71,6 @@ class AdminUsers extends \yii\db\ActiveRecord
      */
     public function getPost()
     {
-        return $this->hasOne(AdminPosts::className(), ['id' => 'post_ID']);
+        return $this->hasOne(AdminPosts::className(), ['id' => 'post_id']);
     }
 }

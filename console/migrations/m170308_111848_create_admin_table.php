@@ -28,7 +28,7 @@ class m170308_111848_create_admin_table extends Migration
         
         $this->createTable('admin_users', [
             'id' => $this->primaryKey(),
-            'post_ID'=>$this->integer(),
+            'post_id'=>$this->integer(),
             'employee_code'=>$this->string(280),
             'user_name'=>$this->string(280),
             'password'=>$this->string(280),
@@ -42,9 +42,9 @@ class m170308_111848_create_admin_table extends Migration
         ]);
         
         $this->addForeignKey(
-            'fk-admin_users-post_ID',
+            'fk-admin_users-post_id',
             'admin_users',
-            'post_ID',
+            'post_id',
             'admin_posts',
             'id',
             'CASCADE'
