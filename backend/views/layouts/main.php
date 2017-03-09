@@ -80,41 +80,26 @@ AppAsset::register($this);
 
 
 
+						<?php
+						if (Yii::$app->session['post']['employees'] == 1) {
+							?>
+							<li>
+								<a>
+									<i class="linecons-cog"></i>
+									<span class="title">Administrator</span>
 
-						<li >
-							<a href="extra-gallery.html">
-								<i class="linecons-cog"></i>
-								<span class="title">Administrator</span>
-								<span class="label label-purple pull-right hidden-collapsed">New Items</span>
-							</a>
-							<ul>
+								</a>
+								<ul>
+									<li>
+										<?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
+									</li>
+									<li>
+										<?= Html::a('Employees', ['/admin/admin-users/index'], ['class' => 'title']) ?>
+									</li>
 
-
-								<li>
-									<a href="extra-members-list.html">
-										<span class="title">Sub Menu 1 </span>
-										<span class="label label-warning pull-right">New</span>
-									</a>
-									<ul>
-										<li>
-											<a href="extra-members-list.html">
-												<span class="title">Child 1</span>
-											</a>
-										</li>
-										<li>
-											<a href="extra-members-add.html">
-												<span class="title">Child 2</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<a href="extra-gallery.html">
-										<span class="title">Menu 2</span>
-									</a>
-								</li>
-							</ul>
-						</li>
+								</ul>
+							</li>
+						<?php } ?>
 
 
 

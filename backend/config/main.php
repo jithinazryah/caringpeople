@@ -22,9 +22,12 @@ return [
 		]
 	    ],
 	],
-        'admin' => [
-            'class' => 'backend\modules\admin\Module',
-        ],
+	'admin' => [
+	    'class' => 'backend\modules\admin\Module',
+	],
+	'gridview' => [
+	    'class' => '\kartik\grid\Module',
+	],
     ],
     'components' => [
 	'request' => [
