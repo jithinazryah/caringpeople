@@ -22,13 +22,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->textInput() ?>
 
-    <?= $form->field($model, 'cb')->textInput() ?>
+    <?= $form->field($model, 'CB')->textInput() ?>
 
-    <?= $form->field($model, 'ub')->textInput() ?>
+    <?= $form->field($model, 'UB')->textInput() ?>
 
-    <?= $form->field($model, 'doc')->textInput() ?>
+    <?= $form->field($model, 'DOC')->textInput() ?>
 
-    <?= $form->field($model, 'dou')->textInput() ?>
+    <?= $form->field($model, 'DOU')->textInput() ?>
 
     <div class="form-group" style="float: right;">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px;']) ?>

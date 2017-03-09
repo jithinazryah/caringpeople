@@ -18,8 +18,8 @@ class AdminPostsSearch extends AdminPosts
     public function rules()
     {
         return [
-            [['id', 'enquiry', 'users', 'employees', 'status', 'cb', 'ub'], 'integer'],
-            [['post_name', 'doc', 'dou'], 'safe'],
+            [['id', 'enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
+            [['post_name', 'DOC', 'DOU'], 'safe'],
         ];
     }
 
@@ -64,10 +64,10 @@ class AdminPostsSearch extends AdminPosts
             'users' => $this->users,
             'employees' => $this->employees,
             'status' => $this->status,
-            'cb' => $this->cb,
-            'ub' => $this->ub,
-            'doc' => $this->doc,
-            'dou' => $this->dou,
+            'CB' => $this->CB,
+            'UB' => $this->UB,
+            'DOC' => $this->DOC,
+            'DOU' => $this->DOU,
         ]);
 
         $query->andFilterWhere(['like', 'post_name', $this->post_name]);

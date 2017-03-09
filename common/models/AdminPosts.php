@@ -13,10 +13,10 @@ use Yii;
  * @property integer $users
  * @property integer $employees
  * @property integer $status
- * @property integer $cb
- * @property integer $ub
- * @property string $doc
- * @property string $dou
+ * @property integer $CB
+ * @property integer $UB
+ * @property string $DOC
+ * @property string $DOU
  *
  * @property AdminUsers[] $adminUsers
  */
@@ -36,8 +36,8 @@ class AdminPosts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['enquiry', 'users', 'employees', 'status', 'cb', 'ub'], 'integer'],
-            [['doc', 'dou'], 'safe'],
+            [['enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
+            [['DOC', 'DOU'], 'safe'],
             [['post_name'], 'string', 'max' => 280],
         ];
     }
@@ -54,10 +54,10 @@ class AdminPosts extends \yii\db\ActiveRecord
             'users' => 'Users',
             'employees' => 'Employees',
             'status' => 'Status',
-            'cb' => 'Cb',
-            'ub' => 'Ub',
-            'doc' => 'Doc',
-            'dou' => 'Dou',
+            'CB' => 'Cb',
+            'UB' => 'Ub',
+            'DOC' => 'Doc',
+            'DOU' => 'Dou',
         ];
     }
 
@@ -66,6 +66,6 @@ class AdminPosts extends \yii\db\ActiveRecord
      */
     public function getAdminUsers()
     {
-        return $this->hasMany(AdminUsers::className(), ['postid' => 'id']);
+        return $this->hasMany(AdminUsers::className(), ['post_id' => 'id']);
     }
 }

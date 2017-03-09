@@ -19,31 +19,32 @@ class m170308_111848_create_admin_table extends Migration
             'users'=>$this->integer(),
             'employees'=>$this->integer(),
             'status'=>$this->integer(),
-            'cb'=>$this->integer(),
-            'ub'=>$this->integer(),
-            'doc' => $this->dateTime(),
-            'dou' => $this->timestamp(),
+            'CB'=>$this->integer(),
+            'UB'=>$this->integer(),
+            'DOC' => $this->dateTime(),
+            'DOU' => $this->timestamp(),
         ]);
         
         
         $this->createTable('admin_users', [
             'id' => $this->primaryKey(),
-            'postid'=>$this->integer(),
+            'post_id'=>$this->integer(),
             'employee_code'=>$this->string(280),
-            'username'=>$this->string(280),
+            'user_name'=>$this->string(280),
             'password'=>$this->string(280),
             'name'=>$this->string(280),
             'email'=>$this->string(280),
-            'phoneno'=>$this->string(280),
-            'cb'=>$this->integer(),
-            'ub'=>$this->integer(),
-            'doc' => $this->dateTime(),
-            'dou' => $this->timestamp(),
+            'phone_number'=>$this->string(280),
+            'CB'=>$this->integer(),
+            'UB'=>$this->integer(),
+            'DOC' => $this->dateTime(),
+            'DOU' => $this->timestamp(),
         ]);
+        
         $this->addForeignKey(
-            'fk-adminusers-postid',
+            'fk-admin_users-post_id',
             'admin_users',
-            'postid',
+            'post_id',
             'admin_posts',
             'id',
             'CASCADE'

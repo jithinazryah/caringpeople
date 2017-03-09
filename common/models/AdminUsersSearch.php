@@ -18,8 +18,8 @@ class AdminUsersSearch extends AdminUsers
     public function rules()
     {
         return [
-            [['id', 'postid', 'cb', 'ub'], 'integer'],
-            [['employee_code', 'username', 'password', 'name', 'email', 'phoneno', 'doc', 'dou'], 'safe'],
+            [['id', 'post_id', 'CB', 'UB'], 'integer'],
+            [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number', 'DOC', 'DOU'], 'safe'],
         ];
     }
 
@@ -60,19 +60,19 @@ class AdminUsersSearch extends AdminUsers
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'postid' => $this->postid,
-            'cb' => $this->cb,
-            'ub' => $this->ub,
-            'doc' => $this->doc,
-            'dou' => $this->dou,
+            'post_id' => $this->post_id,
+            'CB' => $this->CB,
+            'UB' => $this->UB,
+            'DOC' => $this->DOC,
+            'DOU' => $this->DOU,
         ]);
 
         $query->andFilterWhere(['like', 'employee_code', $this->employee_code])
-            ->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'user_name', $this->user_name])
             ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'phoneno', $this->phoneno]);
+            ->andFilterWhere(['like', 'phone_number', $this->phone_number]);
 
         return $dataProvider;
     }

@@ -8,17 +8,17 @@ use Yii;
  * This is the model class for table "admin_users".
  *
  * @property integer $id
- * @property integer $postid
+ * @property integer $post_id
  * @property string $employee_code
- * @property string $username
+ * @property string $user_name
  * @property string $password
  * @property string $name
  * @property string $email
- * @property string $phoneno
- * @property integer $cb
- * @property integer $ub
- * @property string $doc
- * @property string $dou
+ * @property string $phone_number
+ * @property integer $CB
+ * @property integer $UB
+ * @property string $DOC
+ * @property string $DOU
  *
  * @property AdminPosts $post
  */
@@ -38,10 +38,10 @@ class AdminUsers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['postid', 'cb', 'ub'], 'integer'],
-            [['doc', 'dou'], 'safe'],
-            [['employee_code', 'username', 'password', 'name', 'email', 'phoneno'], 'string', 'max' => 280],
-            [['postid'], 'exist', 'skipOnError' => true, 'targetClass' => AdminPosts::className(), 'targetAttribute' => ['postid' => 'id']],
+            [['post_id', 'CB', 'UB'], 'integer'],
+            [['DOC', 'DOU'], 'safe'],
+            [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'string', 'max' => 280],
+            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdminPosts::className(), 'targetAttribute' => ['post_id' => 'id']],
         ];
     }
 
@@ -52,17 +52,17 @@ class AdminUsers extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'postid' => 'Postid',
+            'post_id' => 'Post ID',
             'employee_code' => 'Employee Code',
-            'username' => 'Username',
+            'user_name' => 'User Name',
             'password' => 'Password',
             'name' => 'Name',
             'email' => 'Email',
-            'phoneno' => 'Phoneno',
-            'cb' => 'Cb',
-            'ub' => 'Ub',
-            'doc' => 'Doc',
-            'dou' => 'Dou',
+            'phone_number' => 'Phone Number',
+            'CB' => 'Cb',
+            'UB' => 'Ub',
+            'DOC' => 'Doc',
+            'DOU' => 'Dou',
         ];
     }
 
@@ -71,6 +71,6 @@ class AdminUsers extends \yii\db\ActiveRecord
      */
     public function getPost()
     {
-        return $this->hasOne(AdminPosts::className(), ['id' => 'postid']);
+        return $this->hasOne(AdminPosts::className(), ['id' => 'post_id']);
     }
 }

@@ -50,10 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'users',
             'employees',
             'status',
-            'cb',
-            'ub',
-            'doc',
-            'dou',
+            'CB',
+            'UB',
+            'DOC',
+            'DOU',
                                                 ],
                                                 ]) ?>
 </div>
