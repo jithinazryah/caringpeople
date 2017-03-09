@@ -36,7 +36,7 @@ AppAsset::register($this);
 		<?php $this->beginBody() ?>
 
 		<div class="page-container">
-			<div class="sidebar-menu toggle-others fixed collapsed">
+			<div class="sidebar-menu toggle-others fixed " id="side-menuss">
 
 				<div class="sidebar-menu-inner">
 
@@ -45,7 +45,7 @@ AppAsset::register($this);
 						<!-- logo -->
 						<div class="logo">
 							<a href="dashboard-1.html" class="logo-expanded">
-								<img src="<?= Yii::$app->homeUrl; ?>images/themes/logo@2x.png" width="80" alt="" />
+								<?php echo Html::img('@web/images/logos/logo-1.png', $options = ['width' => '200px']) ?>
 							</a>
 
 							<a href="dashboard-1.html" class="logo-collapsed">
@@ -81,10 +81,10 @@ AppAsset::register($this);
 
 
 
-						<li>
+						<li >
 							<a href="extra-gallery.html">
 								<i class="linecons-cog"></i>
-								<span class="title">Menu 1</span>
+								<span class="title">Administrator</span>
 								<span class="label label-purple pull-right hidden-collapsed">New Items</span>
 							</a>
 							<ul>
@@ -396,12 +396,7 @@ AppAsset::register($this);
 							</a>
 
 							<ul class="dropdown-menu user-profile-menu list-unstyled">
-								<li>
-									<a href="#edit-profile">
-										<i class="fa-edit"></i>
-										New Post
-									</a>
-								</li>
+
 								<li>
 									<a href="#settings">
 										<i class="fa-wrench"></i>
@@ -414,21 +409,17 @@ AppAsset::register($this);
 										Profile
 									</a>
 								</li>
-								<li>
-									<a href="#help">
-										<i class="fa-info"></i>
-										Help
-									</a>
-								</li>
+
 								<?php
 								echo '<li class="last">'
 								. Html::beginForm(['/site/logout'], 'post') . '<a>'
 								. Html::submitButton(
-									'<i class="fa-lock"></i> Logout', ['class' => 'btn btn-link linker']
+									'<i class="fa-lock"></i> Logout', ['class' => 'btn logout_btn']
 								) . '</a>'
 								. Html::endForm()
 								. '</li>';
 								?>
+
 
 							</ul>
 						</li>
@@ -480,6 +471,20 @@ AppAsset::register($this);
 
 
 		<?php $this->endBody() ?>
+		<script type="text/javascript">
+			jQuery(document).ready(function ($)
+			{
+
+				if ($(window).width() < 900) {
+					$("#side-menuss").removeClass("collapsed");
+				} else {
+
+					$("#side-menuss").addClass('collapsed');
+				}
+				;
+
+			});
+		</script>
 	</body>
 </html>
 <?php $this->endPage() ?>
