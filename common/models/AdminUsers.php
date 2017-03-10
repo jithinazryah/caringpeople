@@ -43,10 +43,10 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	 */
 	public function rules() {
 		return [
-			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'create'],
-		    //[['DOC', 'DOU'], 'safe'],
-                        ['email', 'email'],
-		    [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'string', 'max' => 280],
+			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number','status'], 'required', 'on' => 'create'],
+                        [['email'], 'email'],
+                        [['user_name'],'unique','on' => 'create'],
+		        [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'string', 'max' => 280],
 			[['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdminPosts::className(), 'targetAttribute' => ['post_id' => 'id']],
 			[['user_name', 'password'], 'required', 'on' => 'login'],
 			[['password'], 'validatePassword', 'on' => 'login'],
@@ -77,6 +77,7 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 		    'name' => 'Name',
 		    'email' => 'Email',
 		    'phone_number' => 'Phone Number',
+                    'status'=>'Status',
 		    'CB' => 'Cb',
 		    'UB' => 'Ub',
 		    'DOC' => 'Doc',

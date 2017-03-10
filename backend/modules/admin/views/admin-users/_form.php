@@ -28,7 +28,11 @@ use yii\helpers\ArrayHelper;
 
     </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'phone_number')->textInput(['maxlength' => true]) ?>
 
-    </div>    <div class="form-group" style="float: right;">
+    </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?=$form->field($model, 'status')->dropDownList(['' => '--Select--','1' => 'Enabled', '0' => 'Disabled']) ?>
+
+    </div>  
+    
+    <div class="form-group" style="float: right;"> 
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
     </div>
 
