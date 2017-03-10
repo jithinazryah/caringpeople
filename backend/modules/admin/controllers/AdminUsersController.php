@@ -82,10 +82,8 @@ class AdminUsersController extends Controller {
 	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
-
-		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
-                    echo $model->status;exit();
-                    $model->save();
+                $model->scenario = 'update';
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
 			return $this->render('update', [
