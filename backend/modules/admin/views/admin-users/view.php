@@ -45,10 +45,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 'employee_code',
                                 'user_name',
-                                'password',
+                                //'password',
                                 'name',
                                 'email:email',
                                 'phone_number',
+                                [
+                                    'attribute' => 'status',
+                                    'value' => $model->status == 1 ? 'Enabled' : 'Disabled',
+                                ],
                                 
                             ],
                         ])

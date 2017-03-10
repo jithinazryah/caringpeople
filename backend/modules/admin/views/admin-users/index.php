@@ -35,9 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'post_id',
                                 'value' => 'post.post_name'
                             ],
+                            
                             'employee_code',
                             'user_name',
-                            'password',
+                           // 'password',
                             'name',
                             // 'email:email',
                             // 'phone_number',
