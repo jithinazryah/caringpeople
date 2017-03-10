@@ -65,7 +65,7 @@ class AdminUsersController extends Controller {
 			if ($model->isNewRecord):
 				$model->password = Yii::$app->security->generatePasswordHash($model->password);
 			endif;
-			if ($model->save())
+			if ($model->save() && $model->validate())
 				return $this->redirect(['view', 'id' => $model->id]);
 			else {
 				return $this->render('create', [
@@ -88,7 +88,7 @@ class AdminUsersController extends Controller {
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
 		$model->scenario = 'update';
-		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)&& $model->save()) {
+		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
 			return $this->render('update', [

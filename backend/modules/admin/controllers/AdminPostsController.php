@@ -13,113 +13,113 @@ use common\components\SetValues;
 /**
  * AdminPostsController implements the CRUD actions for AdminPosts model.
  */
-class AdminPostsController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+class AdminPostsController extends Controller {
 
-    /**
-     * Lists all AdminPosts models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new AdminPostsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return [
+		    'verbs' => [
+			'class' => VerbFilter::className(),
+			'actions' => [
+			    'delete' => ['POST'],
+			],
+		    ],
+		];
+	}
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+	/**
+	 * Lists all AdminPosts models.
+	 * @return mixed
+	 */
+	public function actionIndex() {
+		$searchModel = new AdminPostsSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-    /**
-     * Displays a single AdminPosts model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+		return $this->render('index', [
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+		]);
+	}
 
-    /**
-     * Creates a new AdminPosts model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new AdminPosts();
+	/**
+	 * Displays a single AdminPosts model.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionView($id) {
+		return $this->render('view', [
+			    'model' => $this->findModel($id),
+		]);
+	}
 
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)&& $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+	/**
+	 * Creates a new AdminPosts model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate() {
+		$model = new AdminPosts();
 
-    /**
-     * Updates an existing AdminPosts model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+			if ($model->validate() && $model->save())
+				return $this->redirect(['view', 'id' => $model->id]);
+			else {
+				return $this->render('create', [
+					    'model' => $model,
+				]);
+			}
+		} else {
+			return $this->render('create', [
+				    'model' => $model,
+			]);
+		}
+	}
 
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)&& $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+	/**
+	 * Updates an existing AdminPosts model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUpdate($id) {
+		$model = $this->findModel($id);
 
-    /**
-     * Deletes an existing AdminPosts model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->id]);
+		} else {
+			return $this->render('update', [
+				    'model' => $model,
+			]);
+		}
+	}
 
-        return $this->redirect(['index']);
-    }
+	/**
+	 * Deletes an existing AdminPosts model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionDelete($id) {
+		$this->findModel($id)->delete();
 
-    /**
-     * Finds the AdminPosts model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return AdminPosts the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = AdminPosts::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+		return $this->redirect(['index']);
+	}
+
+	/**
+	 * Finds the AdminPosts model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 * @param integer $id
+	 * @return AdminPosts the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findModel($id) {
+		if (($model = AdminPosts::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
+
 }
