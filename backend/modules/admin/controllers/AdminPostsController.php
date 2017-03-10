@@ -65,16 +65,12 @@ class AdminPostsController extends Controller {
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
 			if ($model->validate() && $model->save())
 				return $this->redirect(['view', 'id' => $model->id]);
-			else {
-				return $this->render('create', [
-					    'model' => $model,
-				]);
-			}
-		} else {
+			
+		} 
 			return $this->render('create', [
 				    'model' => $model,
 			]);
-		}
+		
 	}
 
 	/**

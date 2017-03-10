@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\AdminPosts */
 
-$this->title = 'Update Admin Posts: ';
+$this->title = 'Update Admin Post: ';
 $this->params['breadcrumbs'][] = ['label' => 'Admin Posts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

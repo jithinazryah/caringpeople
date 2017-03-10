@@ -2,7 +2,7 @@
 
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
-
+use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\generators\crud\Generator */
 
@@ -17,7 +17,6 @@ use yii\helpers\Html;
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
 
 $this->title = <?= $generator->generateString('Update {modelClass}: ', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?> . $model-><?= $generator->getNameAttribute() ?>;
-$this->name = <?= $generator->generateString('Update {modelClass}: ', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?> . $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
 $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
@@ -27,7 +26,7 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
 
                 <div class="panel panel-default">
                         <div class="panel-heading">
-                                <h3 class="panel-title"><?= "<?= " ?>Html::encode($this->title) ?><span class="title_span"><?= Html::encode($this->name) ?></span></h3>
+                                <h3 class="panel-title"><?= "<?= " ?>Html::encode($this->title) ?></h3>
 
 
                         </div>
