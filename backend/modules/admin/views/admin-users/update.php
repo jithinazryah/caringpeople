@@ -23,10 +23,10 @@ $this->params['breadcrumbs'][] = 'Update';
 				<?= Html::a('<i class="fa-th-list"></i><span> Manage Admin Users</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <div style="float:right;padding-top: 5px;">
 					<?php
-					echo Html::a('<i class="fa fa-pencil-square-o"></i><span> Change password</span>', ['change-password', 'id' => $model->id], ['class' => 'btn btn-warning dropdown-toggle btn-icon-standalone']);
+					echo Html::a('<i class="fa fa-pencil-square-o"></i><span> Change password</span>', ['change-password', 'id' => $model->id], ['class' => 'btn btn-warning dropdown-toggle btn-icon-standalone pswrd_chnge_button']);
 					?>
 
-                                </div>
+				</div>
 				<div class="panel-body"><div class="admin-users-create">
 						<?=
 						$this->render('_form', [

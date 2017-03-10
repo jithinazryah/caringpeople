@@ -44,7 +44,7 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	public function rules() {
 		return [
 			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'create'],
-                        [['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'update'],
+			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'update'],
 			[['user_name'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
 			[['email'], 'email'],
 			[['post_id', 'status', 'CB', 'UB'], 'integer'],
@@ -52,7 +52,7 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 			[['user_name'], 'string', 'max' => 30],
 			[['password'], 'string', 'max' => 300],
 			[['name', 'email'], 'string', 'max' => 100],
-			[['phone_number'], 'integer', 'max' => 15],
+			[['phone_number'], 'integer'],
 			[['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdminPosts::className(), 'targetAttribute' => ['post_id' => 'id']],
 			[['user_name', 'password'], 'required', 'on' => 'login'],
 			[['password'], 'validatePassword', 'on' => 'login'],

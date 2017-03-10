@@ -49,7 +49,7 @@ AppAsset::register($this);
 							</a>
 
 							<a href="dashboard-1.html" class="logo-collapsed">
-								<img src="<?= Yii::$app->homeUrl; ?>images/themes/logo-collapsed@2x.png" width="40" alt="" />
+								<img src="<?= Yii::$app->homeUrl; ?>images/logos/logo-collapsed.png" width="40" alt="" />
 							</a>
 						</div>
 
@@ -362,7 +362,7 @@ AppAsset::register($this);
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="<?= Yii::$app->homeUrl; ?>images/themes/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
 								<span>
-									John Smith
+									<?= Yii::$app->user->identity->user_name ?>
 									<i class="fa-angle-down"></i>
 								</span>
 							</a>

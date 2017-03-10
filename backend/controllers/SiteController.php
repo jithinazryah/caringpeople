@@ -78,9 +78,12 @@ class SiteController extends Controller {
 
 	public function setSession() {
 		$post = AdminPosts::findOne(Yii::$app->user->identity->post_id);
-		Yii::$app->session['post'] = $post->attributes;
-
-		return true;
+		if (!empty($post)) {
+			Yii::$app->session['post'] = $post->attributes;
+			return true;
+		} else {
+			return FALSE;
+		}
 	}
 
 	public function actionHome() {
