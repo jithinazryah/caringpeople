@@ -12,35 +12,35 @@ use common\widgets\Alert;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+        <head>
+                <meta charset="<?= Yii::$app->charset ?>">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="Caring People Admin Panel" />
-		<meta name="author" content="" />
-		<title>Caring - People</title>
-		<script src="<?= Yii::$app->homeUrl; ?>js/jquery-1.11.1.min.js"></script>
-
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="description" content="Caring People Admin Panel" />
+                <meta name="author" content="" />
+                <title>Caring People</title>
+                <script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
 		<?= Html::csrfMetaTags() ?>
 		<?php $this->head() ?>
-	</head>
-
-	<body class="page-body">
+        </head>
+        <body>
 		<?php $this->beginBody() ?>
 
-		<div class="page-container">
-			<div class="sidebar-menu toggle-others fixed " id="side-menuss">
+                <div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
 
-				<div class="sidebar-menu-inner">
+                        <!-- Add "fixed" class to make the sidebar fixed always to the browser viewport. -->
+                        <!-- Adding class "toggle-others" will keep only one menu item open at a time. -->
+                        <!-- Adding class "collapsed" collapse sidebar root elements and show only icons. -->
+                        <div class="sidebar-menu toggle-others fixed"  id="side-menuss">
 
-					<header class="logo-env">
+                                <div class="sidebar-menu-inner">
+
+                                        <header class="logo-env">
 
 						<!-- logo -->
 						<div class="logo">
@@ -71,45 +71,32 @@ AppAsset::register($this);
 
 
 
-					<ul id="main-menu" class="main-menu">
-						<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-						<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                        <ul id="main-menu" class="main-menu">
+                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                <li class="active opened active">
+                                                        <a href="dashboard-1.html">
+                                                                <i class="linecons-cog"></i>
+                                                                <span class="title">Administrator</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+									<?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
+                                                                </li>
 
+                                                                <li>
+									<?= Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
+                                                                </li>
+                                                        </ul>
+                                                </li>
 
+                                        </ul>
 
+                                </div>
 
+                        </div>
 
-
-						<?php
-						if (Yii::$app->session['post']['employees'] == 1) {
-							?>
-							<li>
-								<a>
-									<i class="linecons-cog"></i>
-									<span class="title">Administrator</span>
-
-								</a>
-								<ul>
-									<li>
-										<?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-										<?= Html::a('Employees', ['/admin/admin-users/index'], ['class' => 'title']) ?>
-									</li>
-
-								</ul>
-							</li>
-						<?php } ?>
-
-
-
-					</ul>
-
-				</div>
-
-			</div>
-
-			<div class="main-content">
+                        <div class="main-content">
 				<nav class="navbar user-info-navbar"  role="navigation"><!-- User Info, Notifications and Menu Bar -->
 
 					<!-- Left links for user info navbar -->
@@ -140,7 +127,7 @@ AppAsset::register($this);
 												</span>
 
 												<span class="line desc small">
-													This ainâ€™t our first item, it is the best of the rest.
+													This ainÃ¢â‚¬â„¢t our first item, it is the best of the rest.
 												</span>
 											</a>
 										</li>
@@ -194,7 +181,7 @@ AppAsset::register($this);
 												</span>
 
 												<span class="line desc small">
-													This ainâ€™t our first item, it is the best of the rest.
+													This ainÃ¢â‚¬â„¢t our first item, it is the best of the rest.
 												</span>
 											</a>
 										</li>
@@ -451,15 +438,201 @@ AppAsset::register($this);
 			</div>
 
 
-		</div>
+                        <div id="chat" class="fixed"><!-- start: Chat Section -->
+
+                                <div class="chat-inner">
 
 
+                                        <h2 class="chat-header">
+                                                <a  href="#" class="chat-close" data-toggle="chat">
+                                                        <i class="fa-plus-circle rotate-45deg"></i>
+                                                </a>
+
+                                                Chat
+                                                <span class="badge badge-success is-hidden">0</span>
+                                        </h2>
+
+                                        <script type="text/javascript">
+						// Here is just a sample how to open chat conversation box
+						jQuery(document).ready(function ($)
+						{
+							var $chat_conversation = $(".chat-conversation");
+
+							$(".chat-group a").on('click', function (ev)
+							{
+								ev.preventDefault();
+
+								$chat_conversation.toggleClass('is-open');
+
+								$(".chat-conversation textarea").trigger('autosize.resize').focus();
+							});
+
+							$(".conversation-close").on('click', function (ev)
+							{
+								ev.preventDefault();
+								$chat_conversation.removeClass('is-open');
+							});
+						});
+                                        </script>
+
+
+                                        <div class="chat-group">
+                                                <strong>Favorites</strong>
+
+                                                <a href="#"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
+                                                <a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
+                                                <a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
+                                                <a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
+                                        </div>
+
+
+                                        <div class="chat-group">
+                                                <strong>Work</strong>
+
+                                                <a href="#"><span class="user-status is-busy"></span> <em>Rodrigo E. Lozano</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Robert J. Garcia</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Daniel A. Pena</em></a>
+                                        </div>
+
+
+                                        <div class="chat-group">
+                                                <strong>Other</strong>
+
+                                                <a href="#"><span class="user-status is-online"></span> <em>Dennis E. Johnson</em></a>
+                                                <a href="#"><span class="user-status is-online"></span> <em>Stuart A. Shire</em></a>
+                                                <a href="#"><span class="user-status is-online"></span> <em>Janet I. Matas</em></a>
+                                                <a href="#"><span class="user-status is-online"></span> <em>Mindy A. Smith</em></a>
+                                                <a href="#"><span class="user-status is-busy"></span> <em>Herman S. Foltz</em></a>
+                                                <a href="#"><span class="user-status is-busy"></span> <em>Gregory E. Robie</em></a>
+                                                <a href="#"><span class="user-status is-busy"></span> <em>Nellie T. Foreman</em></a>
+                                                <a href="#"><span class="user-status is-busy"></span> <em>William R. Miller</em></a>
+                                                <a href="#"><span class="user-status is-idle"></span> <em>Vivian J. Hall</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Melinda A. Anderson</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Gary M. Mooneyham</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Robert C. Medina</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Dylan C. Bernal</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Marc P. Sanborn</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Kenneth M. Rochester</em></a>
+                                                <a href="#"><span class="user-status is-offline"></span> <em>Rachael D. Carpenter</em></a>
+                                        </div>
+
+                                </div>
+
+                                <!-- conversation template -->
+                                <div class="chat-conversation">
+
+                                        <div class="conversation-header">
+                                                <a href="#" class="conversation-close">
+                                                        &times;
+                                                </a>
+
+                                                <span class="user-status is-online"></span>
+                                                <span class="display-name">Arlind Nushi</span>
+                                                <small>Online</small>
+                                        </div>
+
+                                        <ul class="conversation-body">
+                                                <li>
+                                                        <span class="user">Arlind Nushi</span>
+                                                        <span class="time">09:00</span>
+                                                        <p>Are you here?</p>
+                                                </li>
+                                                <li class="odd">
+                                                        <span class="user">Brandon S. Young</span>
+                                                        <span class="time">09:25</span>
+                                                        <p>This message is pre-queued.</p>
+                                                </li>
+                                                <li>
+                                                        <span class="user">Brandon S. Young</span>
+                                                        <span class="time">09:26</span>
+                                                        <p>Whohoo!</p>
+                                                </li>
+                                                <li class="odd">
+                                                        <span class="user">Arlind Nushi</span>
+                                                        <span class="time">09:27</span>
+                                                        <p>Do you like it?</p>
+                                                </li>
+                                        </ul>
+
+                                        <div class="chat-textarea">
+                                                <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
+                                        </div>
+
+                                </div>
+
+                                <!-- end: Chat Section -->
+                        </div>
+
+                </div>
+
+                <div class="footer-sticked-chat"><!-- Start: Footer Sticked Chat -->
+
+                        <script type="text/javascript">
+				function toggleSampleChatWindow()
+				{
+					var $chat_win = jQuery("#sample-chat-window");
+
+					$chat_win.toggleClass('open');
+
+					if ($chat_win.hasClass('open'))
+					{
+						var $messages = $chat_win.find('.ps-scrollbar');
+
+						if ($.isFunction($.fn.perfectScrollbar))
+						{
+							$messages.perfectScrollbar('destroy');
+
+							setTimeout(function () {
+								$messages.perfectScrollbar();
+								$chat_win.find('.form-control').focus();
+							}, 300);
+						}
+					}
+
+					jQuery("#sample-chat-window form").on('submit', function (ev)
+					{
+						ev.preventDefault();
+					});
+				}
+
+				jQuery(document).ready(function ($)
+				{
+					$(".footer-sticked-chat .chat-user, .other-conversations-list a").on('click', function (ev)
+					{
+						ev.preventDefault();
+						toggleSampleChatWindow();
+					});
+
+					$(".mobile-chat-toggle").on('click', function (ev)
+					{
+						ev.preventDefault();
+
+						$(".footer-sticked-chat").toggleClass('mobile-is-visible');
+					});
+				});
+                        </script>
+
+
+
+                        <a href="#" class="mobile-chat-toggle">
+                                <i class="linecons-comment"></i>
+                                <span class="num">6</span>
+                                <span class="badge badge-purple">4</span>
+                        </a>
+
+                        <!-- End: Footer Sticked Chat -->
+                </div>
+
+                <!-- Page Loading Overlay -->
+                <div class="page-loading-overlay">
+                        <div class="loader-2"></div>
+                </div>
 
 		<?php $this->endBody() ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function ($)
 			{
-
 				if ($(window).width() < 900) {
 					$("#side-menuss").removeClass("collapsed");
 				} else {
@@ -470,6 +643,6 @@ AppAsset::register($this);
 
 			});
 		</script>
-	</body>
+        </body>
 </html>
 <?php $this->endPage() ?>

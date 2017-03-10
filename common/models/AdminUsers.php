@@ -43,10 +43,15 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	 */
 	public function rules() {
 		return [
-			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number','status'], 'required', 'on' => 'create'],
-                        [['email'], 'email'],
-                        [['user_name'],'unique','on' => 'create'],
-		        [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'string', 'max' => 280],
+			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'create'],
+			[['user_name'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
+			[['email'], 'email'],
+			[['post_id', 'status', 'CB', 'UB'], 'integer'],
+			[['DOC', 'DOU'], 'safe'],
+			[['user_name'], 'string', 'max' => 30],
+			[['password'], 'string', 'max' => 300],
+			[['name', 'email'], 'string', 'max' => 100],
+			[['phone_number'], 'integer', 'max' => 15],
 			[['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdminPosts::className(), 'targetAttribute' => ['post_id' => 'id']],
 			[['user_name', 'password'], 'required', 'on' => 'login'],
 			[['password'], 'validatePassword', 'on' => 'login'],
@@ -77,19 +82,11 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 		    'name' => 'Name',
 		    'email' => 'Email',
 		    'phone_number' => 'Phone Number',
-                    'status'=>'Status',
 		    'CB' => 'Cb',
 		    'UB' => 'Ub',
 		    'DOC' => 'Doc',
 		    'DOU' => 'Dou',
 		];
-	}
-
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getPost() {
-		return $this->hasOne(AdminPosts::className(), ['id' => 'post_id']);
 	}
 
 	public function login() {
@@ -169,4 +166,8 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
+	public function getPost() {
+		return $this->hasOne(AdminPosts::className(), ['id' => 'post_id']);
+	}
+
 }

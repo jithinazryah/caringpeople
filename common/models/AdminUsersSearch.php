@@ -10,71 +10,69 @@ use common\models\AdminUsers;
 /**
  * AdminUsersSearch represents the model behind the search form about `common\models\AdminUsers`.
  */
-class AdminUsersSearch extends AdminUsers
-{
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['id', 'post_id', 'status', 'CB', 'UB'], 'integer'],
-            [['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number', 'DOC', 'DOU'], 'safe'],
-        ];
-    }
+class AdminUsersSearch extends AdminUsers {
 
-    /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules() {
+		return [
+			[['id', 'post_id', 'status', 'CB', 'UB'], 'integer'],
+			[['employee_code', 'user_name', 'password', 'name', 'email', 'phone_number', 'DOC', 'DOU'], 'safe'],
+		];
+	}
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = AdminUsers::find();
+	/**
+	 * @inheritdoc
+	 */
+	public function scenarios() {
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
 
-        // add conditions that should always apply here
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 */
+	public function search($params) {
+		$query = AdminUsers::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+		// add conditions that should always apply here
 
-        $this->load($params);
+		$dataProvider = new ActiveDataProvider([
+		    'query' => $query,
+		]);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+		$this->load($params);
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'post_id' => $this->post_id,
-            'status' => $this->status,
-            'CB' => $this->CB,
-            'UB' => $this->UB,
-            'DOC' => $this->DOC,
-            'DOU' => $this->DOU,
-        ]);
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
 
-        $query->andFilterWhere(['like', 'employee_code', $this->employee_code])
-            ->andFilterWhere(['like', 'user_name', $this->user_name])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'phone_number', $this->phone_number]);
+		// grid filtering conditions
+		$query->andFilterWhere([
+		    'id' => $this->id,
+		    'post_id' => $this->post_id,
+		    'status' => $this->status,
+		    'CB' => $this->CB,
+		    'UB' => $this->UB,
+		    'DOC' => $this->DOC,
+		    'DOU' => $this->DOU,
+		]);
 
-        return $dataProvider;
-    }
+		$query->andFilterWhere(['like', 'employee_code', $this->employee_code])
+			->andFilterWhere(['like', 'user_name', $this->user_name])
+			->andFilterWhere(['like', 'password', $this->password])
+			->andFilterWhere(['like', 'name', $this->name])
+			->andFilterWhere(['like', 'email', $this->email])
+			->andFilterWhere(['like', 'phone_number', $this->phone_number]);
+
+		return $dataProvider;
+	}
+
 }

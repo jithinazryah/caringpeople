@@ -26,14 +26,14 @@ AppAssetLogin::register($this);
 
 
                 <script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
-		<?php $this->head() ?>
+                <?php $this->head() ?>
         </head>
         <body class="page-body login-page">
-		<?php $this->beginBody() ?>
+                <?php $this->beginBody() ?>
 
-		<?php echo $content; ?>
+                <?php echo $content; ?>
 
-		<?php $this->endBody() ?>
+                <?php $this->endBody() ?>
         </body>
 </html>
 <?php $this->endPage() ?>
