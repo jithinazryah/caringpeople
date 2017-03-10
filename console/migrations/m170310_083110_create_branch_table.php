@@ -23,6 +23,7 @@ class m170310_083110_create_branch_table extends Migration
             'contact_person_number1'=>$this->string(280),
             'contact_person_number2'=>$this->string(280),
             'contact_person_email'=>$this->string(280),
+            'status'=>$this->integer()->notNull(),
             'CB'=>$this->integer(),
             'UB'=>$this->integer(),
             'DOC' => $this->date(),
