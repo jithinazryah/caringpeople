@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'contact_person_number1',
             'contact_person_number2',
             'contact_person_email:email',
+            'status',
             'CB',
             'UB',
             'DOC',

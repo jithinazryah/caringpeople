@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
                 <div class="panel panel-default">
                         <div class="panel-heading">
-                                <h3 class="panel-title"><?= Html::encode($this->title) ?><span class="title_span"><?= Html::encode($model->name) ?></span></h3>
+                                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
 
                         </div>

@@ -18,7 +18,7 @@ class BranchSearch extends Branch
     public function rules()
     {
         return [
-            [['id', 'country', 'state', 'CB', 'UB'], 'integer'],
+            [['id', 'country', 'state', 'status', 'CB', 'UB'], 'integer'],
             [['branch_name', 'branch_code', 'city', 'contact_person_name', 'contact_person_number1', 'contact_person_number2', 'contact_person_email', 'DOC', 'DOU'], 'safe'],
         ];
     }
@@ -62,6 +62,7 @@ class BranchSearch extends Branch
             'id' => $this->id,
             'country' => $this->country,
             'state' => $this->state,
+            'status' => $this->status,
             'CB' => $this->CB,
             'UB' => $this->UB,
             'DOC' => $this->DOC,
