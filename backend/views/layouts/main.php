@@ -44,11 +44,11 @@ AppAsset::register($this);
 
 						<!-- logo -->
 						<div class="logo">
-							<a href="dashboard-1.html" class="logo-expanded">
+							<a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-expanded">
 								<?php echo Html::img('@web/images/logos/logo-1.png', $options = ['width' => '200px']) ?>
 							</a>
 
-							<a href="dashboard-1.html" class="logo-collapsed">
+							<a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-collapsed">
 								<img src="<?= Yii::$app->homeUrl; ?>images/logos/logo-collapsed.png" width="40" alt="" />
 							</a>
 						</div>
@@ -70,27 +70,51 @@ AppAsset::register($this);
 					</header>
 
 
+					<?php
+					if (Yii::$app->session['post']['admin'] == 1) {
+						?>
+						<ul id="main-menu" class="main-menu">
+							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
+							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+							<li class="active opened active">
+								<a href="dashboard-1.html">
+									<i class="linecons-cog"></i>
+									<span class="title">Administrator</span>
+								</a>
+								<ul>
+									<li>
+										<?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
+									</li>
 
-                                        <ul id="main-menu" class="main-menu">
-                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                                                <li class="active opened active">
-                                                        <a href="dashboard-1.html">
-                                                                <i class="linecons-cog"></i>
-                                                                <span class="title">Administrator</span>
-                                                        </a>
-                                                        <ul>
-                                                                <li>
-									<?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
-                                                                </li>
+									<li>
+										<?= Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
+									</li>
+								</ul>
+							</li>
 
-                                                                <li>
-									<?= Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
-                                                                </li>
-                                                        </ul>
-                                                </li>
+						</ul>
+					<?php } ?>
+					<?php
+					if (Yii::$app->session['post']['masters'] == 1) {
+						?>
+						<ul id="main-menu" class="main-menu">
+							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
+							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+							<li class="active opened active">
+								<a href="dashboard-1.html">
+									<i class="fa-database"></i>
+									<span class="title">Masters</span>
+								</a>
+								<ul>
+									<li>
+										<?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>
+									</li>
 
-                                        </ul>
+								</ul>
+							</li>
+
+						</ul>
+					<?php } ?>
 
                                 </div>
 

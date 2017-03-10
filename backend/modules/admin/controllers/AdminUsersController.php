@@ -17,6 +17,14 @@ class AdminUsersController extends Controller {
 	/**
 	 * @inheritdoc
 	 */
+	public function init() {
+		if (Yii::$app->user->isGuest)
+			$this->redirect(['/site/index']);
+
+		if (Yii::$app->session['post']['admin'] != 1)
+			$this->redirect(['/site/home']);
+	}
+
 	public function behaviors() {
 		return [
 		    'verbs' => [
@@ -127,7 +135,7 @@ class AdminUsersController extends Controller {
 		}
 	}
 
-	public function actionChangePassword($data = null) {
+	public function actionChangePassword($data) {
 		if (!empty($data)) {
 			$id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
 		}

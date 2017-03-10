@@ -18,6 +18,14 @@ class AdminPostsController extends Controller {
 	/**
 	 * @inheritdoc
 	 */
+	public function init() {
+		if (Yii::$app->user->isGuest)
+			$this->redirect(['/site/index']);
+
+		if (Yii::$app->session['post']['admin'] != 1)
+			$this->redirect(['/site/home']);
+	}
+
 	public function behaviors() {
 		return [
 		    'verbs' => [
@@ -65,12 +73,10 @@ class AdminPostsController extends Controller {
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
 			if ($model->validate() && $model->save())
 				return $this->redirect(['view', 'id' => $model->id]);
-			
-		} 
-			return $this->render('create', [
-				    'model' => $model,
-			]);
-		
+		}
+		return $this->render('create', [
+			    'model' => $model,
+		]);
 	}
 
 	/**

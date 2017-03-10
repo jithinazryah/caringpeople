@@ -61,9 +61,9 @@ class SiteController extends Controller {
 	 * @return string
 	 */
 	public function actionIndex() {
-//                if (!Yii::$app->user->isGuest) {
-//                        return $this->redirect(array('site/home'));
-//                }
+		if (!Yii::$app->user->isGuest) {
+			return $this->redirect(array('site/home'));
+		}
 		$this->layout = 'login';
 		$model = new AdminUsers();
 		$model->scenario = 'login';

@@ -125,5 +125,9 @@ table.table tr td:last-child a {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+.sidebar-menu .main-menu {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
 
 

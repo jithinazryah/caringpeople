@@ -12,113 +12,115 @@ use yii\filters\VerbFilter;
 /**
  * BranchController implements the CRUD actions for Branch model.
  */
-class BranchController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+class BranchController extends Controller {
 
-    /**
-     * Lists all Branch models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new BranchSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	/**
+	 * @inheritdoc
+	 */
+	public function init() {
+		if (Yii::$app->user->isGuest)
+			$this->redirect(['/site/index']);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+		if (Yii::$app->session['post']['masters'] != 1)
+			$this->redirect(['/site/home']);
+	}
 
-    /**
-     * Displays a single Branch model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+	public function behaviors() {
+		return [
+		    'verbs' => [
+			'class' => VerbFilter::className(),
+			'actions' => [
+			    'delete' => ['POST'],
+			],
+		    ],
+		];
+	}
 
-    /**
-     * Creates a new Branch model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Branch();
+	/**
+	 * Lists all Branch models.
+	 * @return mixed
+	 */
+	public function actionIndex() {
+		$searchModel = new BranchSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+		return $this->render('index', [
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+		]);
+	}
 
-    /**
-     * Updates an existing Branch model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+	/**
+	 * Displays a single Branch model.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionView($id) {
+		return $this->render('view', [
+			    'model' => $this->findModel($id),
+		]);
+	}
 
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+	/**
+	 * Creates a new Branch model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate() {
+		$model = new Branch();
 
-    /**
-     * Deletes an existing Branch model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->id]);
+		} else {
+			return $this->render('create', [
+				    'model' => $model,
+			]);
+		}
+	}
 
-        return $this->redirect(['index']);
-    }
+	/**
+	 * Updates an existing Branch model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUpdate($id) {
+		$model = $this->findModel($id);
 
-    /**
-     * Finds the Branch model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Branch the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Branch::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->id]);
+		} else {
+			return $this->render('update', [
+				    'model' => $model,
+			]);
+		}
+	}
+
+	/**
+	 * Deletes an existing Branch model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionDelete($id) {
+		$this->findModel($id)->delete();
+
+		return $this->redirect(['index']);
+	}
+
+	/**
+	 * Finds the Branch model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 * @param integer $id
+	 * @return Branch the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findModel($id) {
+		if (($model = Branch::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
+
 }

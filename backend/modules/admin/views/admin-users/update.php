@@ -23,8 +23,8 @@ $this->params['breadcrumbs'][] = 'Update';
 				<?= Html::a('<i class="fa-th-list"></i><span> Manage Admin Users</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <div style="float:right;padding-top: 5px;">
 
-					<?php
-					echo Html::a('<i class="fa fa-pencil-square-o"></i><span> Change password</span>', ['change-password', 'data' => Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right']);
+					<?=
+					Html::a('<i class="fa fa-pencil-square-o"></i><span> Change password</span>', ['change-password', 'data' => Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right']);
 					?>
 
 				</div>
