@@ -41,7 +41,7 @@ class BranchSearch extends Branch
      */
     public function search($params)
     {
-        $query = Branch::find();
+        $query = Branch::find()->where(['<>','id','0']);
 
         // add conditions that should always apply here
 

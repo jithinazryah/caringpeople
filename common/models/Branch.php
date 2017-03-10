@@ -23,25 +23,26 @@ use Yii;
  * @property string $DOC
  * @property string $DOU
  */
-class Branch extends \yii\db\ActiveRecord
-{
+class Branch extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'branch';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
+            [['branch_name', 'branch_code', 'country', 'state', 'city', 'contact_person_name', 'contact_person_number1', 'contact_person_number2', 'contact_person_email', 'status'], 'required'],
+            [['contact_person_email'], 'email'],
             [['country', 'state', 'status', 'CB', 'UB'], 'integer'],
-            [['status'], 'required'],
             [['DOC', 'DOU'], 'safe'],
+            [['branch_name', 'contact_person_email'], 'string', 'max' => 100],
+            [['contact_person_number1', 'contact_person_number2'], 'integer'],
             [['branch_name', 'branch_code', 'city', 'contact_person_name', 'contact_person_number1', 'contact_person_number2', 'contact_person_email'], 'string', 'max' => 280],
             [['branch_code'], 'unique'],
         ];
@@ -50,8 +51,7 @@ class Branch extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'branch_name' => 'Branch Name',
@@ -60,8 +60,8 @@ class Branch extends \yii\db\ActiveRecord
             'state' => 'State',
             'city' => 'City',
             'contact_person_name' => 'Contact Person Name',
-            'contact_person_number1' => 'Contact Person Number1',
-            'contact_person_number2' => 'Contact Person Number2',
+            'contact_person_number1' => 'Contact Person Number 1',
+            'contact_person_number2' => 'Contact Person Number 2',
             'contact_person_email' => 'Contact Person Email',
             'status' => 'Status',
             'CB' => 'Cb',
@@ -70,4 +70,5 @@ class Branch extends \yii\db\ActiveRecord
             'DOU' => 'Dou',
         ];
     }
+
 }
