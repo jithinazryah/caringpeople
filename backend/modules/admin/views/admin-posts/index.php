@@ -37,24 +37,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => function($model, $key, $index, $column) {
                                     return $model->admin == 0 ? 'No' : 'Yes';
                                 },
+                                'filter' => [1 => 'Yes', 0 => 'No'],
                             ],
                             [
                                 'attribute' => 'enquiry',
                                 'value' => function($model, $key, $index, $column) {
                                     return $model->enquiry == 0 ? 'No' : 'Yes';
                                 },
+                                'filter' => [1 => 'Yes', 0 => 'No'],
                             ],
                             [
                                 'attribute' => 'users',
                                 'value' => function($model, $key, $index, $column) {
                                     return $model->users == 0 ? 'No' : 'Yes';
                                 },
+                                'filter' => [1 => 'Yes', 0 => 'No'],
                             ],
                             [
                                 'attribute' => 'employees',
                                 'value' => function($model, $key, $index, $column) {
                                     return $model->employees == 0 ? 'No' : 'Yes';
                                 },
+                                'filter' => [1 => 'Yes', 0 => 'No'],
                             ],
                             // 'status',
                             // 'CB',
