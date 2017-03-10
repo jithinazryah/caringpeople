@@ -111,13 +111,7 @@ table.table tr td:last-child a {
 .left_padd{
 	padding-left: 0;
 }
-.pswrd_chnge_button i{
-	background-color: #7c38bc !important;
-	border-right-color: #4c38bc !important;
-}
-.pswrd_chnge_button{
-	background-color: rgba(124, 56, 188, 0.56) !important;
-}
+
 .title_span{
 	font-weight: 700;
 	font-size: 20px;
