@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Country;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Branch */
@@ -16,11 +18,11 @@ use yii\widgets\ActiveForm;
 
     </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'branch_code')->textInput(['maxlength' => true]) ?>
 
-    </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'country')->textInput() ?>
+    </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'> <?php $country =Country::find()->all(); ?>    <?= $form->field($model, 'country')->dropDownList(ArrayHelper::map($country, 'id', 'country_name'), ['prompt' => '--Select--','class'=>'form-control country-change']) ?>
 
-    </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'state')->textInput() ?>
+    </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'state')->dropDownList([],['prompt' => '--Select--','class'=>'form-control state-change']) ?>
 
-    </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+    </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'city')->dropDownList([],['prompt' => '--Select--','class'=>'form-control city-change']) ?>
 
     </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_person_name')->textInput(['maxlength' => true]) ?>
 

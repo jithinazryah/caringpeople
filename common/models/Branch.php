@@ -12,7 +12,7 @@ use Yii;
  * @property string $branch_code
  * @property integer $country
  * @property integer $state
- * @property string $city
+ * @property integer $city
  * @property string $contact_person_name
  * @property string $contact_person_number1
  * @property string $contact_person_number2
@@ -22,36 +22,43 @@ use Yii;
  * @property integer $UB
  * @property string $DOC
  * @property string $DOU
+ *
+ * @property City $city0
+ * @property Country $country0
+ * @property State $state0
  */
-class Branch extends \yii\db\ActiveRecord {
-
+class Branch extends \yii\db\ActiveRecord
+{
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'branch';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
-            [['branch_name', 'branch_code', 'country', 'state', 'city', 'contact_person_name', 'contact_person_number1', 'contact_person_number2', 'contact_person_email', 'status'], 'required'],
-            [['contact_person_email'], 'email'],
-            [['country', 'state', 'status', 'CB', 'UB'], 'integer'],
+            [['country', 'state', 'city', 'status', 'CB', 'UB'], 'integer'],
+            [['status'], 'required'],
             [['DOC', 'DOU'], 'safe'],
-            [['branch_name', 'contact_person_email'], 'string', 'max' => 100],
-            [['contact_person_number1', 'contact_person_number2'], 'integer'],
-            [['branch_name', 'branch_code', 'city', 'contact_person_name', 'contact_person_number1', 'contact_person_number2', 'contact_person_email'], 'string', 'max' => 280],
+            [['branch_name', 'branch_code', 'contact_person_name', 'contact_person_number1', 'contact_person_number2', 'contact_person_email'], 'string', 'max' => 280],
             [['branch_code'], 'unique'],
+            [['city'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city' => 'id']],
+            [['country'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country' => 'id']],
+            [['state'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(), 'targetAttribute' => ['state' => 'id']],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'branch_name' => 'Branch Name',
@@ -60,8 +67,8 @@ class Branch extends \yii\db\ActiveRecord {
             'state' => 'State',
             'city' => 'City',
             'contact_person_name' => 'Contact Person Name',
-            'contact_person_number1' => 'Contact Person Number 1',
-            'contact_person_number2' => 'Contact Person Number 2',
+            'contact_person_number1' => 'Contact Person Number1',
+            'contact_person_number2' => 'Contact Person Number2',
             'contact_person_email' => 'Contact Person Email',
             'status' => 'Status',
             'CB' => 'Cb',
@@ -71,4 +78,27 @@ class Branch extends \yii\db\ActiveRecord {
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity0()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCountry0()
+    {
+        return $this->hasOne(Country::className(), ['id' => 'country']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getState0()
+    {
+        return $this->hasOne(State::className(), ['id' => 'state']);
+    }
 }

@@ -34,6 +34,8 @@ class AppAsset extends AssetBundle {
             'js/devexpress-web-14.1/js/dx.chartjs.js',
             'js/toastr/toastr.min.js',
             'js/xenon-custom.js',
+            'js/script.js',
+           
         ];
         public $depends = [
             'yii\web\YiiAsset',

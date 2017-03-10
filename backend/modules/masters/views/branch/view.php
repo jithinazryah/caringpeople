@@ -42,9 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 'branch_name',
                                 'branch_code',
-                                'country',
-                                'state',
-                                'city',
+                                [
+                                    'attribute' => 'country',
+                                    'value' => $model->country0->country_name,
+                                ],
+                                [
+                                    'attribute' => 'state',
+                                    'value' => $model->state0->state_name,
+                                ],
+                                [
+                                    'attribute' => 'city',
+                                    'value' => $model->city0->city_name,
+                                ],
                                 'contact_person_name',
                                 'contact_person_number1',
                                 'contact_person_number2',

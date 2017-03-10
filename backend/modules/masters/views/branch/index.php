@@ -34,8 +34,19 @@ $this->params['breadcrumbs'][] = $this->title;
                             //'id',
                             'branch_name',
                             'branch_code',
-                            'country',
-                            'state',
+                            [
+                                'attribute' => 'country',
+                                'value' => 'country0.country_name'
+                            ],
+                            [
+                                'attribute' => 'state',
+                                'value' => 'state0.state_name'
+                            ],
+                            [
+                                'attribute' => 'city',
+                                'value' => 'city0.city_name'
+                            ],
+                           
                             // 'city',
                             // 'contact_person_name',
                             // 'contact_person_number1',
