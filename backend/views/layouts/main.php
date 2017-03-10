@@ -99,7 +99,7 @@ AppAsset::register($this);
 						</ul>
 					<?php } ?>
 					<?php
-					if (Yii::$app->session['post']['masters'] == 1) {
+					if (Yii::$app->session['post']['admin'] == 1) {
 						?>
 						<ul id="main-menu" class="main-menu">
 							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
