@@ -66,9 +66,7 @@ class AdminPostsController extends Controller
     {
         $model = new AdminPosts();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            SetValues::attributes($model);
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)&& $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -87,7 +85,7 @@ class AdminPostsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)&& $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

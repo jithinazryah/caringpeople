@@ -26,7 +26,10 @@ class SetValues extends Component {
 				$model->CB = Yii::$app->user->identity->id;
 				$model->DOC = date('Y-m-d');
 			}
-			$model->UB = Yii::$app->user->identity->id;
+                        else{
+                                $model->UB = Yii::$app->user->identity->id;
+                        }
+			
 
 
 			return TRUE;
