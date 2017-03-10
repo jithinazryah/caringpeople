@@ -116,5 +116,14 @@ table.table tr td:last-child a {
 	font-weight: 700;
 	font-size: 20px;
 }
+.forgot-header{
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-bottom: 63px !important;
+}
+.forgot-header hr {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
 
 

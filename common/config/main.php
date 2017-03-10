@@ -15,5 +15,8 @@ return [
 	'NumToWord' => [
 	    'class' => 'common\components\NumToWord'
 	],
+	'EncryptDecrypt' => [
+	    'class' => 'common\components\EncryptDecrypt'
+	],
     ],
 ];

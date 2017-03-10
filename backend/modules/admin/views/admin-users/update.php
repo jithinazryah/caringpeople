@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                 <div style="float:right;padding-top: 5px;">
 
 					<?php
-					echo Html::a('<i class="fa fa-pencil-square-o"></i><span> Change password</span>', ['change-password', 'id' => $model->id], ['class' => 'btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right']);
+					echo Html::a('<i class="fa fa-pencil-square-o"></i><span> Change password</span>', ['change-password', 'data' => Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right']);
 					?>
 
 				</div>

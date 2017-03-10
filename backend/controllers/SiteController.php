@@ -81,6 +81,7 @@ class SiteController extends Controller {
 		$post = AdminPosts::findOne(Yii::$app->user->identity->post_id);
 		if (!empty($post)) {
 			Yii::$app->session['post'] = $post->attributes;
+			Yii::$app->session['encrypted_user_id'] = Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->post_id);
 			return true;
 		} else {
 			return FALSE;
@@ -88,11 +89,14 @@ class SiteController extends Controller {
 	}
 
 	public function actionHome() {
-
-		if (Yii::$app->user->isGuest) {
-			return $this->redirect(array('site/index'));
+		if (isset(Yii::$app->user->identity->id)) {
+			if (Yii::$app->user->isGuest) {
+				return $this->redirect(array('site/index'));
+			}
+			return $this->render('index');
+		} else {
+			throw new \yii\web\HttpException(2000, 'Session Expired.');
 		}
-		return $this->render('index');
 	}
 
 	/**
@@ -136,7 +140,9 @@ class SiteController extends Controller {
 			if (!empty($check_exists)) {
 				$token_value = $this->tokenGenerator();
 				$token = $check_exists->id . '_' . $token_value;
-				$val = base64_encode($token);
+				//$val = base64_encode($token);
+				$val = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $token);
+
 				$token_model = new ForgotPasswordTokens();
 				$token_model->user_id = $check_exists->id;
 				$token_model->token = $token_value;
@@ -157,6 +163,8 @@ class SiteController extends Controller {
 	}
 
 	public function tokenGenerator() {
+
+
 
 		$length = rand(1, 1000);
 		$chars = array_merge(range(0, 9));
@@ -180,7 +188,7 @@ class SiteController extends Controller {
 
 	public function actionNewPassword($token) {
 		$this->layout = 'login';
-		$data = base64_decode($token);
+		$data = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $token);
 		$values = explode('_', $data);
 		$token_exist = ForgotPasswordTokens::find()->where("user_id = " . $values[0] . " AND token = " . $values[1])->one();
 		if (!empty($token_exist)) {

@@ -370,16 +370,10 @@ AppAsset::register($this);
 							<ul class="dropdown-menu user-profile-menu list-unstyled">
 
 								<li>
-									<a href="#settings">
-										<i class="fa-wrench"></i>
-										Settings
-									</a>
+									<?= Html::a('<i class="fa-wrench"></i>Change Password', ['/admin/admin-users/change-password?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
 								</li>
 								<li>
-									<a href="#profile">
-										<i class="fa-user"></i>
-										Profile
-									</a>
+									<?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/admin/admin-users/update?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
 								</li>
 
 								<?php

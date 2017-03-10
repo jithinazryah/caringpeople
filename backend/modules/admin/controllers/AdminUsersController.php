@@ -85,7 +85,10 @@ class AdminUsersController extends Controller {
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionUpdate($id) {
+	public function actionUpdate($id = null, $data = null) {
+		if (!empty($data)) {
+			$id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
+		}
 		$model = $this->findModel($id);
 		$model->scenario = 'update';
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
@@ -124,10 +127,14 @@ class AdminUsersController extends Controller {
 		}
 	}
 
-	public function actionChangePassword($id) {
+	public function actionChangePassword($data = null) {
+		if (!empty($data)) {
+			$id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
+		}
 
 		$model = $this->findModel($id);
 		if (Yii::$app->request->post()) {
+
 			if (Yii::$app->getSecurity()->validatePassword(Yii::$app->request->post('old-password'), $model->password)) {
 
 				if (Yii::$app->request->post('new-password') == Yii::$app->request->post('confirm-password')) {
