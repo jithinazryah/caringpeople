@@ -50,6 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'email:email',
                                 'phone_number',
                                 [
+                                    'attribute' => 'branch_id',
+                                    'value' => $model->branch->branch_name,
+                                ],
+                                [
                                     'attribute' => 'status',
                                     'value' => $model->status == 1 ? 'Enabled' : 'Disabled',
                                 ],

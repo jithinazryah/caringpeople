@@ -12,6 +12,7 @@ return [
     'branches' => 'masters/branch/index',
     'create-branch' => 'masters/branch/create',
     'update-branch/<id:\d+>' => 'masters/branch/update',
+    'view-branch/<id:\d+>' => 'masters/branch/view',
     'countries' => 'masters/country/index',
     'create-country' => 'masters/country/create',
     'update-country/<id:\d+>' => 'masters/country/update',

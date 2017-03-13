@@ -17,6 +17,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $email
  * @property string $phone_number
+ * @property string $branch_id
  * @property integer $CB
  * @property integer $UB
  * @property string $DOC
@@ -43,12 +44,12 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	 */
 	public function rules() {
 		return [
-			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'create'],
+			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number','branch_id'], 'required', 'on' => 'create'],
 			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'update'],
 			[['user_name'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
 			[['user_name'], 'unique', 'message' => 'Username must be unique.', 'on' => 'update'],
 			[['email'], 'email'],
-			[['post_id', 'status', 'CB', 'UB'], 'integer'],
+			[['post_id', 'status', 'CB', 'UB','branch_id'], 'integer'],
 			[['DOC', 'DOU'], 'safe'],
 			[['user_name'], 'string', 'max' => 30],
 			[['password'], 'string', 'max' => 300],
@@ -84,6 +85,7 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 		    'name' => 'Name',
 		    'email' => 'Email',
 		    'phone_number' => 'Phone Number',
+                    'branch_id'=>'Branch',
 		    'CB' => 'Cb',
 		    'UB' => 'Ub',
 		    'DOC' => 'Doc',
@@ -170,6 +172,10 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	 */
 	public function getPost() {
 		return $this->hasOne(AdminPosts::className(), ['id' => 'post_id']);
+	}
+        
+        public function getBranch() {
+		return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
 	}
 
 }
