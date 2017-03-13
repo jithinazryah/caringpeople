@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use common\models\Country;
+use common\models\State;
+use common\models\City;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\BranchSearch */
@@ -36,15 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             'branch_code',
                             [
                                 'attribute' => 'country',
-                                'value' => 'country0.country_name'
+                                'value' => 'country0.country_name',
+                                'filter' => ArrayHelper::map(Country::find()->where(['status'=>'1'])->asArray()->all(), 'id', 'country_name'),
                             ],
                             [
                                 'attribute' => 'state',
-                                'value' => 'state0.state_name'
+                                'value' => 'state0.state_name',
+                                'filter' => ArrayHelper::map(State::find()->where(['status'=>'1'])->asArray()->all(), 'id', 'state_name'),
                             ],
                             [
                                 'attribute' => 'city',
-                                'value' => 'city0.city_name'
+                                'value' => 'city0.city_name',
+                                'filter' => ArrayHelper::map(City::find()->where(['status'=>'1'])->asArray()->all(), 'id', 'city_name'),
                             ],
                            
                             // 'city',

@@ -70,7 +70,7 @@ class StateController extends Controller {
                 $model = new State();
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
+                        return $this->redirect(['index']);
                 } else {
                         return $this->render('create', [
                                     'model' => $model,
@@ -88,7 +88,7 @@ class StateController extends Controller {
                 $model = $this->findModel($id);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
+                        return $this->redirect(['index']);
                 } else {
                         return $this->render('update', [
                                     'model' => $model,

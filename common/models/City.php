@@ -34,7 +34,7 @@ class City extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['country_id', 'state_id', 'CB', 'UB'], 'required'],
+                        [['country_id', 'state_id', 'city_name'], 'required'],
                         [['country_id', 'state_id', 'status', 'CB', 'UB'], 'integer'],
                         [['DOC', 'DOU'], 'safe'],
                         [['city_name'], 'string', 'max' => 100],

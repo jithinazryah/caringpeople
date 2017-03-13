@@ -33,7 +33,7 @@ class State extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['country_id', 'CB', 'UB'], 'required'],
+                        [['country_id', 'state_name','status'], 'required'],
                         [['country_id', 'status', 'CB', 'UB'], 'integer'],
                         [['DOC', 'DOU'], 'safe'],
                         [['state_name'], 'string', 'max' => 100],
