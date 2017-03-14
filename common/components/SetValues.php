@@ -25,16 +25,21 @@ class SetValues extends Component {
 			if ($model->isNewRecord) {
 				$model->CB = Yii::$app->user->identity->id;
 				$model->DOC = date('Y-m-d');
+			} else {
+				$model->UB = Yii::$app->user->identity->id;
 			}
-                        else{
-                                $model->UB = Yii::$app->user->identity->id;
-                        }
-			
+
 
 
 			return TRUE;
 		} else {
 			return FALSE;
+		}
+	}
+
+	public function currentBranch($model) {
+		if ($model->isNewRecord) {
+			$model->branch_id = Yii::$app->user->identity->branch_id;
 		}
 	}
 

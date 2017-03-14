@@ -26,8 +26,8 @@ AppAsset::register($this);
                 <title>Caring People</title>
                 <script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
                 <script type="text/javascript">
-                        var homeUrl = '<?= Yii::$app->homeUrl; ?>';
-                        //var basePath = "<?= Yii::$app->basePath; ?>";
+			var homeUrl = '<?= Yii::$app->homeUrl; ?>';
+			//var basePath = "<?= Yii::$app->basePath; ?>";
                 </script>
 		<?= Html::csrfMetaTags() ?>
 		<?php $this->head() ?>
@@ -99,7 +99,7 @@ AppAsset::register($this);
 						</ul>
 					<?php } ?>
 					<?php
-					if (Yii::$app->session['post']['admin'] == 1) {
+					if (Yii::$app->session['post']['masters'] == 1) {
 						?>
 						<ul id="main-menu" class="main-menu">
 							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
@@ -111,8 +111,39 @@ AppAsset::register($this);
 								</a>
 								<ul>
 									<li>
+										<?= Html::a('Country', ['/masters/country/index'], ['class' => 'title']) ?>
+									</li>
+									<li>
+										<?= Html::a('State', ['/masters/state/index'], ['class' => 'title']) ?>
+									</li>
+									<li>
+										<?= Html::a('City', ['/masters/city/index'], ['class' => 'title']) ?>
+									</li>
+									<li>
 										<?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>
 									</li>
+
+								</ul>
+							</li>
+
+						</ul>
+					<?php } ?>
+					<?php
+					if (Yii::$app->session['post']['enquiry'] == 1) {
+						?>
+						<ul id="main-menu" class="main-menu">
+							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
+							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+							<li class="active opened active">
+								<a href="dashboard-1.html">
+									<i class="fa-envelope-o"></i>
+									<span class="title">Enquiry</span>
+								</a>
+								<ul>
+									<li>
+										<?= Html::a('Enquiry', ['/enquiry/enquiry/index'], ['class' => 'title']) ?>
+									</li>
+
 
 								</ul>
 							</li>
@@ -591,12 +622,12 @@ AppAsset::register($this);
                 <div class="footer-sticked-chat"><!-- Start: Footer Sticked Chat -->
 
                         <script type="text/javascript">
-                            function showLoader() {
-                                        $('.page-loading-overlay').removeClass('loaded');
-                                }
-                                function hideLoader() {
-                                        $('.page-loading-overlay').addClass('loaded');
-                                }
+				function showLoader() {
+					$('.page-loading-overlay').removeClass('loaded');
+				}
+				function hideLoader() {
+					$('.page-loading-overlay').addClass('loaded');
+				}
 				function toggleSampleChatWindow()
 				{
 					var $chat_win = jQuery("#sample-chat-window");
