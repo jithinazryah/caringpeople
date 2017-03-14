@@ -2,11 +2,10 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
 /* @var $model common\models\EnquiryOtherInfo */
 
-$this->title = 'Create Enquiry Other Info';
+$this->title = 'Create Other Information';
 $this->params['breadcrumbs'][] = ['label' => 'Enquiry Other Infos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,15 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Enquiry Other Info</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="enquiry-other-info-create">
-                                                <?= $this->render('_form', [
-                                                'model' => $model,
-                                                ]) ?>
-                                        </div>
-                                </div>
+				<?=
+				$this->render('_enquiry_menus', [
+				    'model' => $model,
+				    'enquiry' => $enquiry,
+				    'hospital_info' => $hospital_info,
+				])
+				?>
+
+				<?=
+				$this->render('_form', [
+				    'model' => $model,
+				])
+				?>
                         </div>
                 </div>
         </div>
 </div>
-                
+

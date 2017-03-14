@@ -22,52 +22,66 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-                                                                                            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                                        
-                                        <?=  Html::a('<i class="fa-th-list"></i><span> Create Enquiry</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                                                                                                                                        <?= GridView::widget([
-                                                'dataProvider' => $dataProvider,
-                                                'filterModel' => $searchModel,
-        'columns' => [
-                                                ['class' => 'yii\grid\SerialColumn'],
+					<?php if (Yii::$app->session->hasFlash('error')): ?>
+						<div class="alert alert-danger" role="alert">
+							<?= Yii::$app->session->getFlash('error') ?>
+						</div>
+					<?php endif; ?>
+					<?php if (Yii::$app->session->hasFlash('success')): ?>
+						<div class="alert alert-success" role="alert">
+							<?= Yii::$app->session->getFlash('success') ?>
+						</div>
+					<?php endif; ?>
+					<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                                            'id',
-            'enquiry_id',
-            'contacted_source',
-            'contacted_date',
-            'incoming_missed',
-            // 'contacted_source_others',
-            // 'outgoing_number_from',
-            // 'outgoing_call_date',
-            // 'caller_name',
-            // 'referral_source',
-            // 'mobile_number',
-            // 'mobile_number_2',
-            // 'mobile_number_3',
-            // 'address',
-            // 'city',
-            // 'zip_pc',
-            // 'email:email',
-            // 'service_required_for',
-            // 'service_required_for_others',
-            // 'age',
-            // 'weight',
-            // 'relationship',
-            // 'veteran_or_spouse',
-            // 'person_address',
-            // 'person_city',
-            // 'person_postal_code',
-            // 'branch_id',
-            // 'status',
-            // 'CB',
-            // 'UB',
-            // 'DOC',
-            // 'DOU',
-
-                                                ['class' => 'yii\grid\ActionColumn'],
-                                                ],
-                                                ]); ?>
-                                                                                                                </div>
+					<?=
+					$this->render('_enquiry_menus', [
+					    'model' => $model,
+					])
+					?>
+					<?=
+					GridView::widget([
+					    'dataProvider' => $dataProvider,
+					    'filterModel' => $searchModel,
+					    'columns' => [
+						    ['class' => 'yii\grid\SerialColumn'],
+						//'id',
+						'enquiry_id',
+						'contacted_source',
+						'contacted_date',
+						'incoming_missed',
+						// 'contacted_source_others',
+						// 'outgoing_number_from',
+						// 'outgoing_call_date',
+						// 'caller_name',
+						// 'referral_source',
+						// 'mobile_number',
+						// 'mobile_number_2',
+						// 'mobile_number_3',
+						// 'address',
+						// 'city',
+						// 'zip_pc',
+						// 'email:email',
+						// 'service_required_for',
+						// 'service_required_for_others',
+						// 'age',
+						// 'weight',
+						// 'relationship',
+						// 'veteran_or_spouse',
+						// 'person_address',
+						// 'person_city',
+						// 'person_postal_code',
+						// 'branch_id',
+						// 'status',
+						// 'CB',
+						// 'UB',
+						// 'DOC',
+						// 'DOU',
+						['class' => 'yii\grid\ActionColumn'],
+					    ],
+					]);
+					?>
+				</div>
                         </div>
                 </div>
         </div>

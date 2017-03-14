@@ -57,13 +57,13 @@ class Enquiry extends \yii\db\ActiveRecord {
 	 */
 	public function rules() {
 		return [
-//			[['enquiry_id', 'contacted_source', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-//		    //[['contacted_date', 'outgoing_call_date', 'DOC', 'DOU', 'branch_id'], 'safe'],
-//		    // [['contacted_source_others', 'service_required_for_others', 'branch_id', 'status', 'CB', 'UB'], 'required'],
+			[['contacted_source', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
+			[['contacted_source_others', 'contacted_date', 'outgoing_call_date', 'DOC', 'DOU', 'branch_id'], 'safe'],
+		    //[['contacted_source_others'], 'required', 'message' => '{attribute}Write Something...'],
 //		    [['weight'], 'number'],
-//			[['email'], 'email'],
-//			[['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code'], 'string', 'max' => 100],
-//			[['address', 'person_address'], 'string', 'max' => 200],
+		    [['email'], 'email'],
+			[['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code'], 'string', 'max' => 100],
+			[['address', 'person_address'], 'string', 'max' => 200],
 		];
 	}
 

@@ -41,6 +41,7 @@ class SetValues extends Component {
 		if ($model->isNewRecord) {
 			$model->branch_id = Yii::$app->user->identity->branch_id;
 		}
+		return true;
 	}
 
 	public function Selected($value) {

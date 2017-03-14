@@ -78,9 +78,13 @@ use kartik\datetime\DateTimePicker;
 
 	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'mobile_number_3')->textInput(['maxlength' => true]) ?>
 
-	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+	</div>
+	<div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="min-height: 150px">
 
-	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+		<?= $form->field($model, 'address')->textarea(['rows' => 6]) ?>
+
+	</div>
+	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
 	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'zip_pc')->textInput(['maxlength' => true]) ?>
 
@@ -121,9 +125,13 @@ use kartik\datetime\DateTimePicker;
 
 	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'person_postal_code')->textInput(['maxlength' => true]) ?>
 
-	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'branch_id')->textInput() ?>
+	</div>
+	<!--	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
-	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'status')->dropDownList(['' => '--Select--', '1' => 'Enabled', '0' => 'Disabled']) ?>
+	<?php // $form->field($model, 'branch_id')->textInput() ?>
+
+		</div>-->
+	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'status')->dropDownList(['' => '--Select--', '1' => 'Enabled', '0' => 'Disabled']) ?>
 
 
 	</div>	<div class='col-md-4 col-sm-6 col-xs-12'>
