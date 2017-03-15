@@ -10,6 +10,8 @@ use common\models\LoginForm;
 use common\models\AdminPosts;
 use common\models\AdminUsers;
 use common\models\ForgotPasswordTokens;
+use common\models\Enquiry;
+use common\models\EnquiryOtherInfo;
 
 /**
  * Site controller
@@ -68,6 +70,10 @@ class SiteController extends Controller {
 		$model = new AdminUsers();
 		$model->scenario = 'login';
 		if ($model->load(Yii::$app->request->post()) && $model->login() && $this->setSession()) {
+			$enquiry_notification = Enquiry::find()->where(['CB' => Yii::$app->user->identity->id])->all();
+			foreach ($enquiry_notification as $enquiries) {
+				$notifications = EnquiryOtherInfo::find()->where(['enquiry_id' => $enquiries->id, 'followup_date' => date('Y-m-d')])->one();
+			}
 
 			return $this->redirect(array('site/home'));
 		} else {

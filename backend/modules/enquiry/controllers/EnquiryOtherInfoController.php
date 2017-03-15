@@ -66,33 +66,26 @@ class EnquiryOtherInfoController extends Controller {
 
 		if (!empty($id)) {
 			$hospital_info = EnquiryHospital::find()->where(['enquiry_id' => $id])->one();
+			$enquiry = Enquiry::find()->where(['id' => $id])->one();
+			if (!empty($enquiry)) {
 
-			if (!empty($hospital_info)) {
-
-
-				$enquiry = Enquiry::find()->where(['id' => $id])->one();
-				if (!empty($enquiry)) {
-
-					$model = new EnquiryOtherInfo();
-					if ($model->load(Yii::$app->request->post())) {
-						$model->followup_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
-						$model->enquiry_id = $id;
-						if ($model->validate() && $model->save()) {
-							Yii::$app->getSession()->setFlash('success', 'Other Information Added Successfully');
-							return $this->redirect(['update', 'id' => $id]);
-						}
-					} else {
-						return $this->render('create', [
-							    'model' => $model,
-							    'enquiry' => $enquiry,
-							    'hospital_info' => $hospital_info,
-						]);
+				$model = new EnquiryOtherInfo();
+				if ($model->load(Yii::$app->request->post())) {
+					$model->followup_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
+					$model->enquiry_id = $id;
+					if ($model->validate() && $model->save()) {
+						Yii::$app->getSession()->setFlash('success', 'Other Information Added Successfully');
+						return $this->redirect(['update', 'id' => $id]);
 					}
 				} else {
-					return $this->redirect(['enquiry/create']);
+					return $this->render('create', [
+						    'model' => $model,
+						    'enquiry' => $enquiry,
+						    'hospital_info' => $hospital_info,
+					]);
 				}
 			} else {
-				return $this->redirect(['enquiry-hospital/create', 'id' => $id]);
+				return $this->redirect(['enquiry/create']);
 			}
 		} else {
 			return $this->redirect(['enquiry-hospital/create', 'id' => $id]);

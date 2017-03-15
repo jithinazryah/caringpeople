@@ -8,8 +8,18 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use common\models\EnquiryOtherInfo;
+use common\models\Enquiry;
 
 AppAsset::register($this);
+$enquiry_notification = Enquiry::find()->where(['CB' => Yii::$app->user->identity->id])->all();
+foreach ($enquiry_notification as $enquiries) {
+	$result = EnquiryOtherInfo::find()->where(['enquiry_id' => $enquiries->id, 'followup_date' => date('Y-m-d')])->one();
+	if (!empty($result)) {
+		$notifications = array();
+		$notifications = $result;
+	}
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -61,7 +71,7 @@ AppAsset::register($this);
 						<div class="mobile-menu-toggle visible-xs">
 							<a href="#" data-toggle="user-info-menu">
 								<i class="fa-bell-o"></i>
-								<span class="badge badge-success">7</span>
+								<span class="badge badge-success"><?= count($notifications) ?></span>
 							</a>
 
 							<a href="#" data-toggle="mobile-menu">
@@ -300,102 +310,35 @@ AppAsset::register($this);
 						<li class="dropdown hover-line">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<i class="fa-bell-o"></i>
-								<span class="badge badge-purple">7</span>
+								<span class="badge badge-purple"><?= count($notifications) ?></span>
 							</a>
 
 							<ul class="dropdown-menu notifications">
 								<li class="top">
 									<p class="small">
 										<a href="#" class="pull-right">Mark all Read</a>
-										You have <strong>3</strong> new notifications.
+										You have <strong><?= count($notifications) ?></strong> new notifications.
 									</p>
 								</li>
 
 								<li>
 									<ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+
 										<li class="active notification-success">
 											<a href="#">
-												<i class="fa-user"></i>
+												<i class="fa-envelope"></i>
 
 												<span class="line">
-													<strong>New user registered</strong>
+													<strong>Enquiry Followup</strong>
 												</span>
 
-												<span class="line small time">
-													30 seconds ago
+												<span class="line small time limit-text">
+													<?= $notifications->follow_up_notes; ?>
 												</span>
 											</a>
 										</li>
 
-										<li class="active notification-secondary">
-											<a href="#">
-												<i class="fa-lock"></i>
 
-												<span class="line">
-													<strong>Privacy settings have been changed</strong>
-												</span>
-
-												<span class="line small time">
-													3 hours ago
-												</span>
-											</a>
-										</li>
-
-										<li class="notification-primary">
-											<a href="#">
-												<i class="fa-thumbs-up"></i>
-
-												<span class="line">
-													<strong>Someone special liked this</strong>
-												</span>
-
-												<span class="line small time">
-													2 minutes ago
-												</span>
-											</a>
-										</li>
-
-										<li class="notification-danger">
-											<a href="#">
-												<i class="fa-calendar"></i>
-
-												<span class="line">
-													John cancelled the event
-												</span>
-
-												<span class="line small time">
-													9 hours ago
-												</span>
-											</a>
-										</li>
-
-										<li class="notification-info">
-											<a href="#">
-												<i class="fa-database"></i>
-
-												<span class="line">
-													The server is status is stable
-												</span>
-
-												<span class="line small time">
-													yesterday at 10:30am
-												</span>
-											</a>
-										</li>
-
-										<li class="notification-warning">
-											<a href="#">
-												<i class="fa-envelope-o"></i>
-
-												<span class="line">
-													New comments waiting approval
-												</span>
-
-												<span class="line small time">
-													last week
-												</span>
-											</a>
-										</li>
 									</ul>
 								</li>
 
@@ -430,7 +373,7 @@ AppAsset::register($this);
 
 								<li>
 									<?= Html::a('<i class="fa-wrench"></i>Change Password', ['/admin/admin-users/change-password?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
-								</li>
+									</									li>
 								<li>
 									<?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/admin/admin-users/update?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
 								</li>
@@ -450,7 +393,7 @@ AppAsset::register($this);
 						</li>
 
 
-
+	
 					</ul>
 
 				</nav>
@@ -685,23 +628,23 @@ AppAsset::register($this);
 
                 <!-- Page Loading Overlay -->
                 <div class="page-loading-overlay">
-                        <div class="loader-2"></div>
-                </div>
+                        <div class="loader-2"><		/div>
+			</div>
 
-		<?php $this->endBody() ?>
-		<script type="text/javascript">
-			jQuery(document).ready(function ($)
-			{
-				if ($(window).width() < 900) {
-					$("#side-menuss").removeClass("collapsed");
-				} else {
+			<?php $this->endBody() ?>
+			<script type="text/javascript">
+				jQuery(document).ready(function ($)
+				{
+					if ($(window).width() < 900) {
+						$("#side-menuss").removeClass("collapsed");
+					} else {
 
-					$("#side-menuss").addClass('collapsed');
-				}
-				;
+						$("#side-menuss").addClass('collapsed');
+					}
+					;
 
-			});
-		</script>
+				});
+			</script>
         </body>
 </html>
 <?php $this->endPage() ?>

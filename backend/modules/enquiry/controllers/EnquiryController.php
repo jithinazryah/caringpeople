@@ -63,6 +63,7 @@ class EnquiryController extends Controller {
 	public function actionCreate() {
 		$model = new Enquiry();
 
+
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && Yii::$app->SetValues->currentBranch($model) /* && $model->save() */) {
 
 			$model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
