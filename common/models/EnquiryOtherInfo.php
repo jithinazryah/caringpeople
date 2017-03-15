@@ -57,7 +57,7 @@ class EnquiryOtherInfo extends \yii\db\ActiveRecord {
                     'id' => 'ID',
                     'enquiry_id' => 'Enquiry ID',
                     'family_support' => 'Nearby Family Support',
-                    'family_support_note' => 'Family Support Note',
+                    'family_support_note' => 'Nearby Family Support Note',
                     'care_currently_provided' => 'Care Currently Being Provided',
                     'details_of_current_care' => 'Details Of Current Care',
                     'difficulty_in_movement' => 'Difficulty In Movement Or Getting Around The House',

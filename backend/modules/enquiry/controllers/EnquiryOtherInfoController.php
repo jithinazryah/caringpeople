@@ -81,8 +81,11 @@ class EnquiryOtherInfoController extends Controller {
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
 
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
+                if ($model->load(Yii::$app->request->post())) {
+                        $model->followup_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
+                        if ($model->validate() && $model->save()) {
+                                return $this->redirect(['view', 'id' => $model->id]);
+                        }
                 } else {
                         return $this->render('update', [
                                     'model' => $model,

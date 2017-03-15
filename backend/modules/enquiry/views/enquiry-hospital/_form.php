@@ -47,11 +47,15 @@ use kartik\datetime\DateTimePicker;
                 <div class="form-group field-enquiryhospital-visit_date">
                         <label class="control-label" for="enquiryhospital-visit_date">Hospital Visit Date</label>
                         <?php
-                        $date = date('d-M-Y h:i');
+                        if (!$model->isNewRecord) {
+                                $model->visit_date = date('d-M-Y h:i', strtotime($model->visit_date));
+                        } else {
+                                $model->visit_date = date('d-M-Y h:i');
+                        }
                         echo DateTimePicker::widget([
                             'name' => 'EnquiryHospital[visit_date]',
                             'type' => DateTimePicker::TYPE_INPUT,
-                            'value' => $date,
+                            'value' => $model->visit_date,
                             'pluginOptions' => [
                                 'autoclose' => true,
                                 'format' => 'dd-M-yyyy hh:ii'
