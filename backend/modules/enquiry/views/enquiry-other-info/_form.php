@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\datetime\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\EnquiryOtherInfo */
@@ -48,7 +49,22 @@ use yii\widgets\ActiveForm;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' style='min-height: 115px;'>    <?= $form->field($model, 'quotation_details')->textarea(['rows' => 4]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'followup_date')->textInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class="form-group field-enquiryotherinfo-followup_date">
+                        <label class="control-label" for="enquiryotherinfo-followup_date">Followup Date</label>
+                        <?php
+                        echo DateTimePicker::widget([
+                            'name' => 'EnquiryOtherInfo[followup_date]',
+                            'type' => DateTimePicker::TYPE_INPUT,
+                            'value' => '01-Mar-2017 10:10',
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => 'dd-M-yyyy hh:ii'
+                            ]
+                        ]);
+                        ?>
+
+                </div>
 
         </div>	<div class='col-md-4 col-sm-6 col-xs-12'>
                 <div class="form-group" style="float: right;">
@@ -81,7 +97,6 @@ use yii\widgets\ActiveForm;
                                 $('#enquiryotherinfo-service_required_other').val('');
                         }
                 });
-
 
         });
 </script>

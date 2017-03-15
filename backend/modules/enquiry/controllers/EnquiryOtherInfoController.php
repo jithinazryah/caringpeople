@@ -61,13 +61,15 @@ class EnquiryOtherInfoController extends Controller {
         public function actionCreate() {
                 $model = new EnquiryOtherInfo();
 
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
-                } else {
-                        return $this->render('create', [
-                                    'model' => $model,
-                        ]);
+                if ($model->load(Yii::$app->request->post())) {
+                        $model->followup_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
+                        if ($model->validate() && $model->save()) {
+                                return $this->redirect(['view', 'id' => $model->id]);
+                        }
                 }
+                return $this->render('create', [
+                            'model' => $model,
+                ]);
         }
 
         /**
