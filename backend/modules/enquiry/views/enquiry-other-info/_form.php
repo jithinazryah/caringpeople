@@ -53,13 +53,14 @@ use kartik\datetime\DateTimePicker;
                 <div class="form-group field-enquiryotherinfo-followup_date">
                         <label class="control-label" for="enquiryotherinfo-followup_date">Followup Date</label>
                         <?php
+                        $date = date('d-m-Y');
                         echo DateTimePicker::widget([
                             'name' => 'EnquiryOtherInfo[followup_date]',
                             'type' => DateTimePicker::TYPE_INPUT,
-                            'value' => '01-Mar-2017 10:10',
+                            'value' => $date,
                             'pluginOptions' => [
                                 'autoclose' => true,
-                                'format' => 'dd-M-yyyy hh:ii'
+                                'format' => 'dd-mm-yyyy'
                             ]
                         ]);
                         ?>
