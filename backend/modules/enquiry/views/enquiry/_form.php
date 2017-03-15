@@ -11,8 +11,9 @@ use kartik\datetime\DateTimePicker;
 
 <div class="enquiry-form form-inline">
 
+
 	<?php $form = ActiveForm::begin(); ?>
-	<?= $form->errorSummary($model); ?>
+	<?php // $form->errorSummary($model); ?>
 
 	<!--	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 	<?php // $form->field($model, 'enquiry_id')->textInput() ?>
@@ -20,8 +21,7 @@ use kartik\datetime\DateTimePicker;
 		</div>-->
 	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
-		<?= $form->field($model, 'contacted_source')->dropDownList(['' => '--Select Contact Source--', '0' => 'Phone', '1' => 'Email', '2' => 'Othres']) ?>
-
+		<?= $form->field($model, 'contacted_source')->dropDownList(['' => '--Select Contact Source--', '0' => 'Phone', '1' => 'Email', '2' => 'Others']) ?>
 	</div>
 	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 		<div class="form-group field-enquiry-contacted_date">
@@ -43,11 +43,13 @@ use kartik\datetime\DateTimePicker;
 	</div>
 	<div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="contact_source">    <?= $form->field($model, 'incoming_missed')->textInput(['maxlength' => true]) ?>
 
-	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="contact_others">
+	</div>
+	<!--	<div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="contact_others">
 
-		<?= $form->field($model, 'contacted_source_others')->textInput(['maxlength' => true]) ?>
+	<?php // $form->field($model, 'contacted_source_others')->textInput(['maxlength' => true]) ?>
 
-	</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'outgoing_number_from')->textInput(['maxlength' => true]) ?>
+		</div>-->
+	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'outgoing_number_from')->textInput(['maxlength' => true]) ?>
 
 	</div>
 
@@ -145,19 +147,17 @@ use kartik\datetime\DateTimePicker;
 </div>
 <script>
 	$(document).ready(function () {
-		$('#contact_others').hide();
+
+
 		$('#service_required_others').hide();
 		$("#enquiry-contacted_source").change(function () {
 			var contact_source = $("#enquiry-contacted_source option:selected").val();
-			if (contact_source == 0)
+			if (contact_source == 0) {
 				$("label[for = enquiry-incoming_missed]").text("Incoming Number");
-			else if (contact_source == 1)
+			} else if (contact_source == 1) {
 				$("label[for = enquiry-incoming_missed]").text("Incoming Email Id");
-			else if (contact_source == 2) {
-				$('#contact_source').hide();
-				$('#contact_others').show();
 			} else {
-				$('#contact_source').hide();
+				$("label[for = enquiry-incoming_missed]").text("Contact Source Others");
 			}
 		});
 		$("#enquiry-relationship").change(function () {
@@ -165,8 +165,13 @@ use kartik\datetime\DateTimePicker;
 				$('#service_required_others').show();
 			else
 				$('#service_required_others').hide();
-
 		});
 
+
 	});
+
+
+
+
 </script>
+

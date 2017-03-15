@@ -15,6 +15,14 @@ use common\models\EnquiryOtherInfo;
  */
 class EnquiryHospitalController extends Controller {
 
+	public function init() {
+		if (Yii::$app->user->isGuest)
+			$this->redirect(['/site/index']);
+
+		if (Yii::$app->session['post']['enquiry'] != 1)
+			$this->redirect(['/site/home']);
+	}
+
 	/**
 	 * @inheritdoc
 	 */
@@ -33,26 +41,26 @@ class EnquiryHospitalController extends Controller {
 	 * Lists all EnquiryHospital models.
 	 * @return mixed
 	 */
-	public function actionIndex() {
-		$searchModel = new EnquiryHospitalSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-		return $this->render('index', [
-			    'searchModel' => $searchModel,
-			    'dataProvider' => $dataProvider,
-		]);
-	}
+//	public function actionIndex() {
+//		$searchModel = new EnquiryHospitalSearch();
+//		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//
+//		return $this->render('index', [
+//			    'searchModel' => $searchModel,
+//			    'dataProvider' => $dataProvider,
+//		]);
+//	}
 
 	/**
 	 * Displays a single EnquiryHospital model.
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionView($id) {
-		return $this->render('view', [
-			    'model' => $this->findModel($id),
-		]);
-	}
+//	public function actionView($id) {
+//		return $this->render('view', [
+//			    'model' => $this->findModel($id),
+//		]);
+//	}
 
 	/**
 	 * Creates a new EnquiryHospital model.
@@ -71,7 +79,7 @@ class EnquiryHospitalController extends Controller {
 				$model->visit_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['EnquiryHospital']['visit_date']));
 				$model->enquiry_id = $id;
 				if ($model->validate() && $model->save()) {
-					Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
+					Yii::$app->getSession()->setFlash('success', 'Hospital Information Added Successfully');
 					return $this->redirect(['update', 'id' => $id]);
 				}
 			}

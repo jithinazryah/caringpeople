@@ -16,6 +16,14 @@ use common\models\Enquiry;
  */
 class EnquiryOtherInfoController extends Controller {
 
+	public function init() {
+		if (Yii::$app->user->isGuest)
+			$this->redirect(['/site/index']);
+
+		if (Yii::$app->session['post']['enquiry'] != 1)
+			$this->redirect(['/site/home']);
+	}
+
 	/**
 	 * @inheritdoc
 	 */
@@ -34,26 +42,26 @@ class EnquiryOtherInfoController extends Controller {
 	 * Lists all EnquiryOtherInfo models.
 	 * @return mixed
 	 */
-	public function actionIndex() {
-		$searchModel = new EnquiryOtherInfoSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-		return $this->render('index', [
-			    'searchModel' => $searchModel,
-			    'dataProvider' => $dataProvider,
-		]);
-	}
+//	public function actionIndex() {
+//		$searchModel = new EnquiryOtherInfoSearch();
+//		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//
+//		return $this->render('index', [
+//			    'searchModel' => $searchModel,
+//			    'dataProvider' => $dataProvider,
+//		]);
+//	}
 
 	/**
 	 * Displays a single EnquiryOtherInfo model.
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionView($id) {
-		return $this->render('view', [
-			    'model' => $this->findModel($id),
-		]);
-	}
+//	public function actionView($id) {
+//		return $this->render('view', [
+//			    'model' => $this->findModel($id),
+//		]);
+//	}
 
 	/**
 	 * Creates a new EnquiryOtherInfo model.
@@ -120,11 +128,11 @@ class EnquiryOtherInfoController extends Controller {
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionDelete($id) {
-		$this->findModel($id)->delete();
-
-		return $this->redirect(['index']);
-	}
+//	public function actionDelete($id) {
+//		$this->findModel($id)->delete();
+//
+//		return $this->redirect(['index']);
+//	}
 
 	/**
 	 * Finds the EnquiryOtherInfo model based on its primary key value.

@@ -16,8 +16,7 @@ $enquiry_notification = Enquiry::find()->where(['CB' => Yii::$app->user->identit
 foreach ($enquiry_notification as $enquiries) {
 	$result = EnquiryOtherInfo::find()->where(['enquiry_id' => $enquiries->id, 'followup_date' => date('Y-m-d')])->one();
 	if (!empty($result)) {
-		$notifications = array();
-		$notifications = $result;
+		$notifications[] = $result;
 	}
 }
 ?>
@@ -323,20 +322,31 @@ foreach ($enquiry_notification as $enquiries) {
 
 								<li>
 									<ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+										<?php
+										if (!empty($notifications)) {
+											foreach ($notifications as $notification) {
+												?>
+												<li class="active notification-success">
+													<a href="<?= Yii::$app->homeUrl; ?>/enquiry/enquiry/view?id=<?= $notification->enquiry_id ?>">
+														<i class="fa-envelope"></i>
 
-										<li class="active notification-success">
-											<a href="#">
-												<i class="fa-envelope"></i>
+														<span class="line">
+															<strong>Followup Enquiry</strong>
+														</span>
 
-												<span class="line">
-													<strong>Enquiry Followup</strong>
-												</span>
-
-												<span class="line small time limit-text">
-													<?= $notifications->follow_up_notes; ?>
-												</span>
-											</a>
-										</li>
+														<span class="line small time limit-text">
+															<?php
+															$text = strlen($notification->follow_up_notes) > 100 ? substr($notification->follow_up_notes, 0, 100) . '&hellip;' : $notification->follow_up_notes;
+															echo $text;
+															?>
+														</span>
+														<span class="line small time "><strong>Date:</strong><?= $notification->followup_date ?></span>
+													</a>
+												</li>
+												<?php
+											}
+										}
+										?>
 
 
 									</ul>
@@ -393,7 +403,7 @@ foreach ($enquiry_notification as $enquiries) {
 						</li>
 
 
-	
+
 					</ul>
 
 				</nav>
