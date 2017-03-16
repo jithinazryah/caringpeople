@@ -79,6 +79,8 @@ class EnquiryOtherInfoController extends Controller {
 
                                 $model = new EnquiryOtherInfo();
                                 if ($model->load(Yii::$app->request->post())) {
+                                        $model->nursing_assessment = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['nursing_assessment']));
+                                        $model->doctor_assessment = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['doctor_assessment']));
                                         $model->followup_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
                                         $model->enquiry_id = $id;
                                         if ($model->validate() && $model->save()) {
@@ -112,6 +114,8 @@ class EnquiryOtherInfoController extends Controller {
                 $model = EnquiryOtherInfo::find()->where(['enquiry_id' => $id])->one();
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                        $model->nursing_assessment = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['nursing_assessment']));
+                        $model->doctor_assessment = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['doctor_assessment']));
                         $model->followup_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
                         if ($model->validate() && $model->save()) {
                                 Yii::$app->getSession()->setFlash('success', 'Other Information Updated Successfully');

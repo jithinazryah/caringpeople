@@ -20,54 +20,52 @@ use Yii;
  *
  * @property AdminUsers[] $adminUsers
  */
-class AdminPosts extends \yii\db\ActiveRecord
-{
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'admin_posts';
-    }
+class AdminPosts extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['post_name', 'enquiry', 'users', 'employees','admin'], 'required'],
-            [['admin','enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
-            [['post_name'], 'string', 'max' => 280],
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'admin_posts';
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'post_name' => 'Post Name',
-            'admin'=>'Admin',
-            'enquiry' => 'Enquiry',
-            'users' => 'Users',
-            'employees' => 'Employees',
-            'status' => 'Status',
-            'CB' => 'Cb',
-            'UB' => 'Ub',
-            'DOC' => 'Doc',
-            'DOU' => 'Dou',
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['post_name', 'enquiry', 'users', 'employees', 'admin', 'masters'], 'required'],
+                        [['admin', 'enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
+                        [['DOC', 'DOU'], 'safe'],
+                        [['post_name'], 'string', 'max' => 280],
+                ];
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAdminUsers()
-    {
-        return $this->hasMany(AdminUsers::className(), ['post_id' => 'id']);
-    }
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'post_name' => 'Post Name',
+                    'admin' => 'Admin',
+                    'masters' => 'Masters',
+                    'enquiry' => 'Enquiry',
+                    'users' => 'Users',
+                    'employees' => 'Employees',
+                    'status' => 'Status',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
+
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getAdminUsers() {
+                return $this->hasMany(AdminUsers::className(), ['post_id' => 'id']);
+        }
+
 }

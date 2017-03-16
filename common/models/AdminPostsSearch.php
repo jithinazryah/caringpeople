@@ -10,69 +10,67 @@ use common\models\AdminPosts;
 /**
  * AdminPostsSearch represents the model behind the search form about `common\models\AdminPosts`.
  */
-class AdminPostsSearch extends AdminPosts
-{
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['id','admin', 'enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
-            [['post_name', 'DOC', 'DOU'], 'safe'],
-        ];
-    }
+class AdminPostsSearch extends AdminPosts {
 
-    /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
-
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = AdminPosts::find();
-
-        // add conditions that should always apply here
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
-        $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['id', 'admin', 'masters', 'enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
+                        [['post_name', 'DOC', 'DOU'], 'safe'],
+                ];
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'admin'=>$this->admin,
-            'enquiry' => $this->enquiry,
-            'users' => $this->users,
-            'employees' => $this->employees,
-            'status' => $this->status,
-            'CB' => $this->CB,
-            'UB' => $this->UB,
-            'DOC' => $this->DOC,
-            'DOU' => $this->DOU,
-        ]);
+        /**
+         * @inheritdoc
+         */
+        public function scenarios() {
+                // bypass scenarios() implementation in the parent class
+                return Model::scenarios();
+        }
 
-        $query->andFilterWhere(['like', 'post_name', $this->post_name]);
+        /**
+         * Creates data provider instance with search query applied
+         *
+         * @param array $params
+         *
+         * @return ActiveDataProvider
+         */
+        public function search($params) {
+                $query = AdminPosts::find();
 
-        return $dataProvider;
-    }
+                // add conditions that should always apply here
+
+                $dataProvider = new ActiveDataProvider([
+                    'query' => $query,
+                ]);
+
+                $this->load($params);
+
+                if (!$this->validate()) {
+                        // uncomment the following line if you do not want to return any records when validation fails
+                        // $query->where('0=1');
+                        return $dataProvider;
+                }
+
+                // grid filtering conditions
+                $query->andFilterWhere([
+                    'id' => $this->id,
+                    'admin' => $this->admin,
+                    'enquiry' => $this->enquiry,
+                    'users' => $this->users,
+                    'employees' => $this->employees,
+                    'status' => $this->status,
+                    'CB' => $this->CB,
+                    'UB' => $this->UB,
+                    'DOC' => $this->DOC,
+                    'DOU' => $this->DOU,
+                ]);
+
+                $query->andFilterWhere(['like', 'post_name', $this->post_name]);
+
+                return $dataProvider;
+        }
+
 }

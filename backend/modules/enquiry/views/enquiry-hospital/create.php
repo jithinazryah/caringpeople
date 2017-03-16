@@ -19,29 +19,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-				<?php if (Yii::$app->session->hasFlash('error')): ?>
-					<div class="alert alert-danger" role="alert">
-						<?= Yii::$app->session->getFlash('error') ?>
-					</div>
-				<?php endif; ?>
-				<?php if (Yii::$app->session->hasFlash('success')): ?>
-					<div class="alert alert-success" role="alert">
-						<?= Yii::$app->session->getFlash('success') ?>
-					</div>
-				<?php endif; ?>
-				<?=
-				$this->render('_enquiry_menus', [
-				    'model' => $model,
-				    'enquiry' => $enquiry,
-				    'other_info' => $other_info,
-				])
-				?>
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['enquiry/index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                        <div class="alert alert-danger" role="alert">
+                                                <?= Yii::$app->session->getFlash('error') ?>
+                                        </div>
+                                <?php endif; ?>
+                                <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                        <div class="alert alert-success" role="alert">
+                                                <?= Yii::$app->session->getFlash('success') ?>
+                                        </div>
+                                <?php endif; ?>
+                                <?=
+                                $this->render('_enquiry_menus', [
+                                    'model' => $model,
+                                    'enquiry' => $enquiry,
+                                    'other_info' => $other_info,
+                                ])
+                                ?>
 
-				<?=
-				$this->render('_form', [
-				    'model' => $model,
-				])
-				?>
+                                <?=
+                                $this->render('_form', [
+                                    'model' => $model,
+                                ])
+                                ?>
 
                         </div>
                 </div>

@@ -57,7 +57,7 @@ class Enquiry extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['contacted_source', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
+                        [['contacted_source', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'whatsapp_reply', 'CB', 'UB'], 'integer'],
                         [['contacted_source_others', 'contacted_date', 'outgoing_call_date', 'DOC', 'DOU', 'branch_id'], 'safe'],
                         [['contacted_source'], 'required', 'on' => 'create'],
 //		    [['weight'], 'number'],
@@ -99,7 +99,8 @@ class Enquiry extends \yii\db\ActiveRecord {
                     'person_address' => 'Person Address',
                     'person_city' => 'Person City',
                     'person_postal_code' => 'Person Postal Code',
-                    'branch_id' => 'Branch ID',
+                    'whatsapp_reply' => 'Whatsapp Reply',
+                    'branch_id' => 'Branch',
                     'status' => 'Status',
                     'CB' => 'Cb',
                     'UB' => 'Ub',

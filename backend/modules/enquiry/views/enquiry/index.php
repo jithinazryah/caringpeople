@@ -49,33 +49,32 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     ['class' => 'yii\grid\SerialColumn'],
                                                 //'id',
                                                 'enquiry_id',
+                                                'contacted_date',
                                                     [
-                                                    'attribute' => 'contacted_source',
+                                                    'attribute' => 'status',
                                                     'value' => function($model, $key, $index, $column) {
-                                                            if ($model->contacted_source == '0') {
-                                                                    return 'Phone';
-                                                            } elseif ($model->contacted_source == '1') {
-                                                                    return 'Email';
-                                                            } elseif ($model->contacted_source == '2') {
-                                                                    return 'Others';
+                                                            if ($model->status == '1') {
+                                                                    return 'Active';
+                                                            } elseif ($model->status == '2') {
+                                                                    return 'Pending';
+                                                            } elseif ($model->status == '3') {
+                                                                    return 'Close';
                                                             }
                                                     },
-                                                    'filter' => [0 => 'Phone', 1 => 'Email', 2 => 'Others'],
+                                                    'filter' => [0 => 'Active', 1 => 'Pending', 2 => 'Close'],
                                                 ],
-                                                'contacted_date',
-                                                'incoming_missed',
                                                 // 'contacted_source_others',
                                                 // 'outgoing_number_from',
                                                 // 'outgoing_call_date',
-                                                // 'caller_name',
+                                                'caller_name',
                                                 // 'referral_source',
                                                 // 'mobile_number',
                                                 // 'mobile_number_2',
                                                 // 'mobile_number_3',
                                                 // 'address',
-                                                // 'city',
+                                                'city',
                                                 // 'zip_pc',
-                                                // 'email:email',
+                                                'email:email',
                                                 // 'service_required_for',
                                                 // 'service_required_for_others',
                                                 // 'age',

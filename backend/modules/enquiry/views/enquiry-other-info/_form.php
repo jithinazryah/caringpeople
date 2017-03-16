@@ -31,9 +31,52 @@ use kartik\date\DatePicker;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'how_long_service_required')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'nursing_assessment')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class="form-group field-enquiryotherinfo-nursing_assessment">
+                        <label class="control-label" for="enquiryotherinfo-nursing_assessment">Nursing Assessment</label>
+                        <?php
+                        if (!$model->isNewRecord) {
+                                $model->nursing_assessment = date('d-m-Y', strtotime($model->nursing_assessment));
+                        } else {
+                                $model->nursing_assessment = date('d-m-Y');
+                        }
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'doctor_assessment')->textInput(['maxlength' => true]) ?>
+                        echo DatePicker::widget([
+                            'name' => 'EnquiryOtherInfo[nursing_assessment]',
+                            'type' => DatePicker::TYPE_INPUT,
+                            'value' => $model->nursing_assessment,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => 'dd-mm-yyyy',
+                            ]
+                        ]);
+                        ?>
+
+                </div>
+
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class="form-group field-enquiryotherinfo-doctor_assessment">
+                        <label class="control-label" for="enquiryotherinfo-doctor_assessment">Doctor Assessment</label>
+                        <?php
+                        if (!$model->isNewRecord) {
+                                $model->doctor_assessment = date('d-m-Y', strtotime($model->doctor_assessment));
+                        } else {
+                                $model->doctor_assessment = date('d-m-Y');
+                        }
+
+                        echo DatePicker::widget([
+                            'name' => 'EnquiryOtherInfo[doctor_assessment]',
+                            'type' => DatePicker::TYPE_INPUT,
+                            'value' => $model->doctor_assessment,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => 'dd-mm-yyyy',
+                            ]
+                        ]);
+                        ?>
+
+                </div>
+
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'priority')->dropDownList(['' => '--Select--', '1' => 'Hot', '2' => 'Warm', '3' => 'Cold']) ?>
 

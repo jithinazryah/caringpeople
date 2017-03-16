@@ -19,7 +19,7 @@ use kartik\datetime\DateTimePicker;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hospital_room_no')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'required_service')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'required_service')->dropDownList(['' => '--Select--', '1' => 'Doctor Visit', '2' => 'Nursing Care', '3' => 'Physiotherapy', '4' => 'Companion Care', '5' => 'Bystander Service', '6' => 'General Information']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'other_services')->textInput(['maxlength' => true]) ?>
 

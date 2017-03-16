@@ -73,7 +73,7 @@ class EnquiryHospital extends \yii\db\ActiveRecord {
                     'dressing' => 'Dressing',
                     'home_or_hospital_visit' => 'Home Or Hospital Visit',
                     'visit_date' => 'Hospital Visit Date',
-                    'bedridden' => 'Bedridden',
+                    'bedridden' => 'Notes',
                 ];
         }
 

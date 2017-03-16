@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datetime\DateTimePicker;
+use yii\helpers\ArrayHelper;
+use common\models\Branch;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Enquiry */
@@ -103,6 +105,7 @@ use kartik\datetime\DateTimePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
         </div>
+
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                 <?= $form->field($model, 'service_required_for')->textInput(['maxlength' => true]) ?>
 
@@ -138,19 +141,28 @@ use kartik\datetime\DateTimePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'person_postal_code')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <!--	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
-        <?php // $form->field($model, 'branch_id')->textInput() ?>
-
-                </div>-->
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'status')->dropDownList(['' => '--Select--', '1' => 'Enabled', '0' => 'Disabled']) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'whatsapp_reply')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
 
-        </div>	<div class='col-md-4 col-sm-6 col-xs-12'>
+        </div>
+        <?php
+        if (Yii::$app->user->identity->branch_id == '0') {
+                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
+                ?>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                </div>
+        <?php } ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Pending', '3' => 'Close']) ?>
+
+
+        </div>
+        <div class='col-md-4 col-sm-6 col-xs-12'>
                 <div class="form-group" style="float: right;">
                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
                 </div>
         </div>
+
 
         <?php ActiveForm::end(); ?>
 

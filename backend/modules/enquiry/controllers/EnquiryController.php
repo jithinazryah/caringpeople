@@ -75,15 +75,16 @@ class EnquiryController extends Controller {
                 $model->scenario = 'create';
 
 
-                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && Yii::$app->SetValues->currentBranch($model) /* && $model->save() */) {
+                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) /* && Yii::$app->SetValues->currentBranch($model) /* && $model->save() */) {
 
                         $model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
                         $model->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['outgoing_call_date']));
-
+                        if (Yii::$app->user->identity->branch_id != '0') {
+                                Yii::$app->SetValues->currentBranch($model);
+                        }
 
                         if ($model->validate() && $model->save()) {
-
-                                $model->enquiry_id = $model->id . '-' . date('d') . date('m') . date('y');
+                                $model->enquiry_id = date('d') . date('m') . date('y') . '-' . sprintf("%04d", $model->id);
                                 $model->update();
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
                                 return $this->redirect(['enquiry-hospital/create', 'id' => $model->id]);

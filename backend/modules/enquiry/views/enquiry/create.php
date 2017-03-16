@@ -19,18 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?=
+                                $this->render('_enquiry_menus', [
+                                    'model' => $model,
+                                ])
+                                ?>
 
-				<?=
-				$this->render('_enquiry_menus', [
-				    'model' => $model,
-				])
-				?>
-
-				<?=
-				$this->render('_form', [
-				    'model' => $model,
-				])
-				?>
+                                <?=
+                                $this->render('_form', [
+                                    'model' => $model,
+                                ])
+                                ?>
 
                         </div>
                 </div>

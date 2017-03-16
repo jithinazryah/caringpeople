@@ -224,7 +224,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </div>
 
                                                                                         <div class="content info">
-                                                                                                <label>Required Services:</label><span><?= $hospital_info->required_service; ?></span>
+                                                                                                <label>Required Services:</label><span><?php
+                                                                                                        if ($hospital_info->required_service == '1') {
+                                                                                                                echo 'Doctor Visit';
+                                                                                                        } elseif ($hospital_info->required_service == '2') {
+                                                                                                                echo 'Nursing Care';
+                                                                                                        } elseif ($hospital_info->required_service == '3') {
+                                                                                                                echo 'Physiotherapy';
+                                                                                                        } elseif ($hospital_info->required_service == '4') {
+                                                                                                                echo 'Companion Care';
+                                                                                                        } elseif ($hospital_info->required_service == '5') {
+                                                                                                                echo 'Bystander Service';
+                                                                                                        } elseif ($hospital_info->required_service == '6') {
+                                                                                                                echo 'General Information';
+                                                                                                        }
+                                                                                                        ?></span>
                                                                                                 <label>Other Service:</label><span><?= $hospital_info->other_services; ?></span>
                                                                                         </div>
 
