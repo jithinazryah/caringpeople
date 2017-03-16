@@ -90,6 +90,7 @@ class EnquiryController extends Controller {
                         if ($model->validate() && $model->save()) {
                                 $model->enquiry_id = date('d') . date('m') . date('y') . '-' . sprintf("%03d", $model->id);
                                 $model->update();
+                                Yii::$app->History->UpdateHistory('enquiry', $model->id, 'create');
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
                                 return $this->redirect(['enquiry-hospital/create', 'id' => $model->id]);
                         } else {
@@ -123,6 +124,7 @@ class EnquiryController extends Controller {
                                 $model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
                                 $model->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['outgoing_call_date']));
                                 if ($model->validate() && $model->save()) {
+                                        Yii::$app->History->UpdateHistory('enquiry', $model->id, 'update');
                                         Yii::$app->getSession()->setFlash('success', 'General Information Updated Successfully');
                                         return $this->redirect(Yii::$app->request->referrer);
                                 }
