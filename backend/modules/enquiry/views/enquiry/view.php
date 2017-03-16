@@ -38,30 +38,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ?>
                                                 </p>
 
-<!--                                                <link rel="stylesheet" href="<?= Yii::$app->homeUrl ?>/css/pdf.css">-->
+
                                                 <style type="text/css">
 
                                                         @media print {
                                                                 thead {display: table-header-group;}
-                                                                .main-tabl{line-height: 30px !important}
-                                                                tfoot {display: table-footer-group}
-                                                                .footer {position: fixed ; left: 0px; bottom: 20px; right: 0px; font-size:10px; }
-                                                                body h6,h1,h2,h3,h4,h5,p,b,tr,td,span,th,div{
-                                                                        color:#525252 !important;
-
-
-
-
-                                                                }
-
-                                                                @page {
-                                                                        size: A4;
-                                                                        /*         margin: 40px;
-                                                                                 margin-top: 100px;*/
-                                                                }
-
 
                                                         }
+                                                        @page {
+                                                                size: A4;
+                                                        }
+
                                                         @media screen{
                                                                 .main-tabl{
                                                                         width: 60%;
@@ -71,25 +58,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 text-align: center;
                                                                 margin-top: 18px;
                                                         }
-                                                        .main-tabl{
-                                                                margin: auto;
-                                                        }
-                                                        /*thead { display: table-header-group;   }*/
+
                                                         tfoot{display: table-footer-group;}
                                                         table { page-break-inside:auto;}
                                                         tr{ page-break-inside:avoid; page-break-after:auto; }
 
-                                                        /*//h6 {page-break-before: always}*/
-                                                        /*//table {page-break-after: always}*/
                                                         table.table{
                                                                 border: .1px solid #969696;
                                                                 border-collapse: collapse;
+                                                                margin: auto;
+                                                                color:#000;
 
                                                         }
                                                         .table th {
                                                                 border: .1px solid #969696;
                                                                 color: #525252;
-                                                                font-size: 14px;
                                                                 font-weight: bold;
                                                         }
                                                         .table td {

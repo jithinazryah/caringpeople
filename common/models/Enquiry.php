@@ -45,81 +45,81 @@ use Yii;
  */
 class Enquiry extends \yii\db\ActiveRecord {
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName() {
-		return 'enquiry';
-	}
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'enquiry';
+        }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules() {
-		return [
-			[['contacted_source', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-			[['contacted_source_others', 'contacted_date', 'outgoing_call_date', 'DOC', 'DOU', 'branch_id'], 'safe'],
-			[['contacted_source'], 'required', 'on' => 'create'],
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['contacted_source', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
+                        [['contacted_source_others', 'contacted_date', 'outgoing_call_date', 'DOC', 'DOU', 'branch_id'], 'safe'],
+                        [['contacted_source'], 'required', 'on' => 'create'],
 //		    [['weight'], 'number'],
-		    [['email'], 'email'],
-			[['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code'], 'string', 'max' => 100],
-			[['address', 'person_address'], 'string', 'max' => 200],
-			[['incoming_missed'], 'required', 'message' => "Contact Source Data cannot be blank"]
-		];
-	}
+                    [['email'], 'email'],
+                        [['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code'], 'string', 'max' => 100],
+                        [['address', 'person_address'], 'string', 'max' => 200],
+                        [['incoming_missed'], 'required', 'message' => "Contact Source Data cannot be blank"]
+                ];
+        }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels() {
-		return [
-		    'id' => 'ID',
-		    'enquiry_id' => 'Enquiry ID',
-		    'contacted_source' => 'Contacted Source',
-		    'contacted_date' => 'Contacted Date',
-		    'incoming_missed' => 'Incoming/missed',
-		    'contacted_source_others' => 'Contacted Source Others',
-		    'outgoing_number_from' => 'Outgoing Number From',
-		    'outgoing_call_date' => 'Outgoing Call Date',
-		    'caller_name' => 'Caller Name',
-		    'referral_source' => 'Referral Source',
-		    'mobile_number' => 'Mobile Number',
-		    'mobile_number_2' => 'Mobile Number 2',
-		    'mobile_number_3' => 'Mobile Number 3',
-		    'address' => 'Address',
-		    'city' => 'City',
-		    'zip_pc' => 'Zip Pc',
-		    'email' => 'Email',
-		    'service_required_for' => 'Service Required For',
-		    'service_required_for_others' => 'Relationship Others',
-		    'age' => 'Age',
-		    'weight' => 'Weight',
-		    'relationship' => 'Relationship',
-		    'veteran_or_spouse' => 'Veteran Or Spouse',
-		    'person_address' => 'Person Address',
-		    'person_city' => 'Person City',
-		    'person_postal_code' => 'Person Postal Code',
-		    'branch_id' => 'Branch ID',
-		    'status' => 'Status',
-		    'CB' => 'Cb',
-		    'UB' => 'Ub',
-		    'DOC' => 'Doc',
-		    'DOU' => 'Dou',
-		];
-	}
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'enquiry_id' => 'Enquiry Number',
+                    'contacted_source' => 'Contacted Source',
+                    'contacted_date' => 'Contacted Date',
+                    'incoming_missed' => 'Incoming/missed',
+                    'contacted_source_others' => 'Contacted Source Others',
+                    'outgoing_number_from' => 'Outgoing Number From',
+                    'outgoing_call_date' => 'Outgoing Call Date',
+                    'caller_name' => 'Caller Name',
+                    'referral_source' => 'Referral Source',
+                    'mobile_number' => 'Mobile Number',
+                    'mobile_number_2' => 'Mobile Number 2',
+                    'mobile_number_3' => 'Mobile Number 3',
+                    'address' => 'Address',
+                    'city' => 'City',
+                    'zip_pc' => 'Zip/PC',
+                    'email' => 'Email',
+                    'service_required_for' => 'Service Required For',
+                    'service_required_for_others' => 'Relationship Others',
+                    'age' => 'Age',
+                    'weight' => 'Weight',
+                    'relationship' => 'Relationship',
+                    'veteran_or_spouse' => 'Veteran Or Spouse',
+                    'person_address' => 'Person Address',
+                    'person_city' => 'Person City',
+                    'person_postal_code' => 'Person Postal Code',
+                    'branch_id' => 'Branch ID',
+                    'status' => 'Status',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
 
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getEnquiryHospitalDoctorInfos() {
-		return $this->hasMany(EnquiryHospitalDoctorInfo::className(), ['enquiry_id' => 'id']);
-	}
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getEnquiryHospitalDoctorInfos() {
+                return $this->hasMany(EnquiryHospitalDoctorInfo::className(), ['enquiry_id' => 'id']);
+        }
 
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getEnquiryOtherInfos() {
-		return $this->hasMany(EnquiryOtherInfo::className(), ['enquiry_id' => 'id']);
-	}
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getEnquiryOtherInfos() {
+                return $this->hasMany(EnquiryOtherInfo::className(), ['enquiry_id' => 'id']);
+        }
 
 }

@@ -23,19 +23,11 @@ use kartik\date\DatePicker;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'difficulty_in_movement')->dropDownList(['' => '--Select--', '1' => 'No difficulty', '2' => 'Assistance required', '3' => 'Wheelchair', '4' => 'Bedridden', '5' => 'Other']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd difficulty_other' <?php if ($model->difficulty_in_movement == 5) { ?>
-                           style="display:show"
-                   <?php } else { ?>
-                           style="display:none"
-                   <?php } ?>>   <?= $form->field($model, 'difficulty_in_movement_other')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="difficulty_in_movement_other">   <?= $form->field($model, 'difficulty_in_movement_other')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'service_required')->dropDownList(['' => '--Select--', '1' => 'Immediately', '2' => 'Couple Weeks', '3' => 'Month', '4' => 'Unsure', '5' => 'Other']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd service_other'  <?php if ($model->service_required == 5) { ?>
-                           style="display:show"
-                   <?php } else { ?>
-                           style="display:none"
-                   <?php } ?>>    <?= $form->field($model, 'service_required_other')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="service_required">    <?= $form->field($model, 'service_required_other')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'how_long_service_required')->textInput(['maxlength' => true]) ?>
 
@@ -85,22 +77,38 @@ use kartik\date\DatePicker;
 
 <script>
         $(document).ready(function () {
+
+
+                $difficulty_in_movement = $("#enquiryotherinfo-difficulty_in_movement").val();
+                if ($difficulty_in_movement === '5') {
+                        $('#difficulty_in_movement_other').show();
+                } else {
+                        $('#difficulty_in_movement_other').hide();
+                }
+
                 $('#enquiryotherinfo-difficulty_in_movement').change(function () {
-                        if ($(this).val() == '5') {
-                                $('.difficulty_other').show();
+                        if ($(this).val() === '5') {
+                                $('#difficulty_in_movement_other').show();
                         } else {
-                                $('.difficulty_other').hide();
-                                $('#enquiryotherinfo-difficulty_in_movement_other').val('');
+                                $('#difficulty_in_movement_other').hide();
+                                $('#difficulty_in_movement_other').val('');
 
                         }
                 });
 
+                $service_required = $("#enquiryotherinfo-service_required").val();
+                if ($service_required === '5') {
+                        $('#service_required').show();
+                } else {
+                        $('#service_required').hide();
+                }
+
                 $('#enquiryotherinfo-service_required').change(function () {
-                        if ($(this).val() == '5') {
-                                $('.service_other').show();
+                        if ($(this).val() === '5') {
+                                $('#service_required').show();
                         } else {
-                                $('.service_other').hide();
-                                $('#enquiryotherinfo-service_required_other').val('');
+                                $('#service_required').hide();
+                                $('#service_required').val('');
                         }
                 });
 
