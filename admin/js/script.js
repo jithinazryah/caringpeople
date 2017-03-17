@@ -14,7 +14,7 @@ $("document").ready(function () {
          */
 
         $('.country-change').change(function () {
-          
+
                 var country_id = $(this).val();
                 showLoader();
                 $.ajax({
@@ -23,7 +23,7 @@ $("document").ready(function () {
                         data: {country_id: country_id},
                         url: homeUrl + 'ajax/state',
                         success: function (data) {
-                           
+
                                 if (data == 0) {
                                         alert('Failed to Load data, please try again error:1001');
                                 } else {
@@ -61,6 +61,42 @@ $("document").ready(function () {
                                 }
                         });
                 }
+        });
+
+        /*
+         * Purpose   :- On change of email field in enquiry form(email duplication check)
+         * parameter :- email
+         * return   :- if email exists.then show the error message.
+         */
+
+
+        $('#enquiry-email').change(function () {
+                var email = $(this).val();
+                if (email != '') {
+                        showLoader();
+                        $.ajax({
+                                type: 'POST',
+                                cache: false,
+                                data: {email: email},
+                                url: homeUrl + 'ajax/email',
+                                success: function (data) {
+                                        if (data == 0) {
+                                                $('#email_check').hide();
+                                        } else if (data == 1) {
+                                                $('#email_check').show();
+                                                $("#email_check a").attr("href", homeUrl + 'enquiry/enquiry/index?email=' + email);
+
+                                        } else {
+                                                $('#email_check').show();
+                                                $("#email_check a").attr("href", homeUrl + 'view-enquiry/' + data);
+                                        }
+                                        hideLoader();
+                                }
+                        });
+                } else {
+                        $('#email_check').hide();
+                }
+
         });
 
 

@@ -22,4 +22,5 @@ return [
     'cities' => 'masters/city/index',
     'create-city' => 'masters/city/create',
     'update-city/<id:\d+>' => 'masters/city/update',
+    'view-enquiry/<id:\d+>' => 'enquiry/enquiry/view',
 ];

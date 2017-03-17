@@ -43,8 +43,12 @@ class EnquiryController extends Controller {
          * @return mixed
          */
         public function actionIndex() {
+
                 $searchModel = new EnquirySearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                if (isset($_GET['email'])) {
+                        $dataProvider->query->where(['email' => $_GET['email']]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,

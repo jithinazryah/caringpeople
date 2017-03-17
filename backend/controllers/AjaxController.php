@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\Enquiry;
 
 class AjaxController extends \yii\web\Controller {
 
@@ -19,7 +20,7 @@ class AjaxController extends \yii\web\Controller {
          */
 
         public function actionState() {
-            
+
                 if (Yii::$app->request->isAjax) {
                         $country_id = $_POST['country_id'];
                         if ($country_id == '') {
@@ -67,6 +68,25 @@ class AjaxController extends \yii\web\Controller {
                         }
 
                         echo $options;
+                }
+        }
+
+        public function actionEmail() {
+                if (Yii::$app->request->isAjax) {
+                        $email = $_POST['email'];
+                        $exists = Enquiry::find()->where(['email' => $email])->exists();
+                        if ($exists == 1) {
+                                $user = Enquiry::find()->where(['email' => $email])->all();
+                                if (count($user) > 1) {
+                                        return 1;
+                                } else {
+                                        foreach ($user as $value) {
+                                                return $value->id;
+                                        }
+                                }
+                        } else {
+                                return $data = 0;
+                        }
                 }
         }
 

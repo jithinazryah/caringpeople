@@ -102,7 +102,18 @@ use common\models\Branch;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'zip_pc')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd '>
+
+                <?=
+                $form->field($model, 'email', ['template' => '<div class="section">
+								<label class="control-label" for="enquiry-email">Email</label>
+								{input}
+                                                                  <p id="email_check" style="display: none;color:red;margin-top:3px;">This email has already been taken.<a target="_Blanak" href="">Click here to view more</a></p>
+								</label>
+
+							</div><div class="help-block"></div>'
+                ])->textInput(['class' => 'form-control',]);
+                ?>
 
         </div>
 
