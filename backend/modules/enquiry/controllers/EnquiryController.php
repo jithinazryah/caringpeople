@@ -84,7 +84,7 @@ class EnquiryController extends Controller {
                         }
 
                         if ($model->validate() && $model->save()) {
-                                $model->enquiry_id = date('d') . date('m') . date('y') . '-' . sprintf("%04d", $model->id);
+                                $model->enquiry_id = date('d') . date('m') . date('y') . '-' . sprintf("%03d", $model->id);
                                 $model->update();
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
                                 return $this->redirect(['enquiry-hospital/create', 'id' => $model->id]);
