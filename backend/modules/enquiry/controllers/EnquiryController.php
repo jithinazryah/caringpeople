@@ -38,10 +38,6 @@ class EnquiryController extends Controller {
                 ];
         }
 
-        /**
-         * Lists all Enquiry models.
-         * @return mixed
-         */
         public function actionIndex() {
 
                 $searchModel = new EnquirySearch();
@@ -56,80 +52,52 @@ class EnquiryController extends Controller {
                 ]);
         }
 
-        /**
-         * Displays a single Enquiry model.
-         * @param integer $id
-         * @return mixed
-         */
-        public function actionView($id) {
-                $hospital_info = EnquiryHospital::findOne(['enquiry_id' => $id]);
-                $other_info = EnquiryOtherInfo::findOne(['enquiry_id' => $id]);
-                return $this->render('view', [
-                            'model' => $this->findModel($id), 'hospital_info' => $hospital_info, 'other_info' => $other_info,
-                ]);
-        }
-
-        /**
-         * Creates a new Enquiry model.
-         * If creation is successful, the browser will be redirected to the 'view' page.
-         * @return mixed
-         */
-        public function actionCreate() {
+        public function actionNewEnquiry() {
                 $model = new Enquiry();
+                $hospital_info = new EnquiryHospital();
+                $other_info = new EnquiryOtherInfo();
                 $model->scenario = 'create';
-
-
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) /* && Yii::$app->SetValues->currentBranch($model) /* && $model->save() */) {
-
                         $model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
                         $model->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['outgoing_call_date']));
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($model);
                         }
-
                         if ($model->validate() && $model->save()) {
                                 $model->enquiry_id = date('d') . date('m') . date('y') . '-' . sprintf("%03d", $model->id);
                                 $model->update();
+                                $this->AddHospitalInfo($model, Yii::$app->request->post(), $hospital_info);
+                                $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->History->UpdateHistory('enquiry', $model->id, 'create');
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
-                                return $this->redirect(['enquiry-hospital/create', 'id' => $model->id]);
-                        } else {
-                                return $this->render('create', [
-                                            'model' => $model,
-                                ]);
+                                $this->redirect('index');
                         }
                 }
 
-                return $this->render('create', [
+                return $this->render('_enquiry_form', [
                             'model' => $model,
+                            'hospital_info' => $hospital_info,
+                            'other_info' => $other_info,
                 ]);
         }
 
-        /**
-         * Updates an existing Enquiry model.
-         * If update is successful, the browser will be redirected to the 'view' page.
-         * @param integer $id
-         * @return mixed
-         */
         public function actionUpdate($id) {
-
                 $model = $this->findModel($id);
-
                 $hospital_info = EnquiryHospital::find()->where(['enquiry_id' => $model->id])->one();
                 $other_info = EnquiryOtherInfo::find()->where(['enquiry_id' => $model->id])->one();
                 if (!empty($model)) {
-
-
                         if ($model->load(Yii::$app->request->post())) {
                                 $model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
                                 $model->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['outgoing_call_date']));
                                 if ($model->validate() && $model->save()) {
+                                        $this->AddHospitalInfo($model, Yii::$app->request->post(), $hospital_info);
+                                        $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                         Yii::$app->History->UpdateHistory('enquiry', $model->id, 'update');
-                                        Yii::$app->getSession()->setFlash('success', 'General Information Updated Successfully');
-                                        return $this->redirect(Yii::$app->request->referrer);
+                                        Yii::$app->getSession()->setFlash('success', 'Enquiry Updated Successfully');
+                                        return $this->redirect('index');
                                 }
                         }
-                        return $this->render('update', [
+                        return $this->render('_enquiry_form', [
                                     'model' => $model,
                                     'hospital_info' => $hospital_info,
                                     'other_info' => $other_info,
@@ -139,12 +107,44 @@ class EnquiryController extends Controller {
                 }
         }
 
-        /**
-         * Deletes an existing Enquiry model.
-         * If deletion is successful, the browser will be redirected to the 'index' page.
-         * @param integer $id
-         * @return mixed
-         */
+        /*
+         * to add hospital informations
+         *  */
+
+        public function AddHospitalInfo($model, $data, $hospital_info) {
+                $hospital_info->enquiry_id = $model->id;
+                $hospital_info->load($data);
+                if (!empty($data['EnquiryHospital']['required_service']))
+                        $hospital_info->required_service = implode(",", $data['EnquiryHospital']['required_service']);
+                $hospital_info->visit_date = date('Y-m-d H:i:s', strtotime($data['EnquiryHospital']['visit_date']));
+
+                if ($hospital_info->validate() && $hospital_info->save()) {
+                        return true;
+                } else {
+                        return FALSE;
+                }
+        }
+
+        /*
+         * to add other informations
+         *  */
+
+        public function AddOtherInfo($model, $data, $other_info) {
+                $other_info->enquiry_id = $model->id;
+                $other_info->load($data);
+                $other_info->nursing_assessment = date('Y-m-d', strtotime($data['EnquiryOtherInfo']['nursing_assessment']));
+                $other_info->doctor_assessment = date('Y-m-d', strtotime($data['EnquiryOtherInfo']['doctor_assessment']));
+                $other_info->followup_date = date('Y-m-d H:i:s', strtotime($data['EnquiryOtherInfo']['followup_date']));
+                $other_info->date_of_discharge = date('Y-m-d', strtotime($data['EnquiryOtherInfo']['date_of_discharge']));
+                $other_info->expected_date_of_service = date('Y-m-d', strtotime($data['EnquiryOtherInfo']['expected_date_of_service']));
+
+                if ($other_info->validate() && $other_info->save()) {
+                        return true;
+                } else {
+                        return FALSE;
+                }
+        }
+
         public function actionDelete($id) {
                 $enquiry = $this->findModel($id);
                 $hospital_info = EnquiryHospital::find()->where(['enquiry_id' => $id])->one();

@@ -86,7 +86,7 @@ use common\models\OutgoingNumbers;
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'caller_name')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'caller_gender')->dropDownList(['' => '--Select--', '1' => 'Male', '2' => 'Female']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'caller_gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'referral_source')->textInput(['maxlength' => true]) ?>
 
@@ -114,7 +114,7 @@ use common\models\OutgoingNumbers;
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>  <?= $form->field($model, 'service_required_for')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'person_gender')->dropDownList(['' => '--Select--', '1' => 'Male', '2' => 'Female']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'person_gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'age')->textInput() ?>
 
@@ -150,11 +150,7 @@ use common\models\OutgoingNumbers;
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Pending', '3' => 'Close']) ?>
 
         </div>
-        <div class='col-md-4 col-sm-6 col-xs-12'>
-                <div class="form-group" style="float: right;">
-                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
-                </div>
-        </div>
+
 
 
         <?php ActiveForm::end(); ?>

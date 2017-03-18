@@ -35,11 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
                                         <?php
-                                        $this->render('_enquiry_menus', [
-                                            'model' => $model,
-                                        ])
                                         ?>
-                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Enquiry</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Enquiry</span>', ['new-enquiry'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
 
                                         <?=
                                         GridView::widget([

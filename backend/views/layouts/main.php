@@ -14,10 +14,10 @@ use common\models\Enquiry;
 AppAsset::register($this);
 $enquiry_notification = Enquiry::find()->where(['CB' => Yii::$app->user->identity->id])->all();
 foreach ($enquiry_notification as $enquiries) {
-	$result = EnquiryOtherInfo::find()->where(['enquiry_id' => $enquiries->id, 'followup_date' => date('Y-m-d')])->one();
-	if (!empty($result)) {
-		$notifications[] = $result;
-	}
+        $result = EnquiryOtherInfo::find()->where(['enquiry_id' => $enquiries->id, 'followup_date' => date('Y-m-d')])->one();
+        if (!empty($result)) {
+                $notifications[] = $result;
+        }
 }
 ?>
 <?php $this->beginPage() ?>
@@ -35,413 +35,413 @@ foreach ($enquiry_notification as $enquiries) {
                 <title>Caring People</title>
                 <script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
                 <script type="text/javascript">
-			var homeUrl = '<?= Yii::$app->homeUrl; ?>';
-			//var basePath = "<?= Yii::$app->basePath; ?>";
+                        var homeUrl = '<?= Yii::$app->homeUrl; ?>';
+                        //var basePath = "<?= Yii::$app->basePath; ?>";
                 </script>
-		<?= Html::csrfMetaTags() ?>
-		<?php $this->head() ?>
+                <?= Html::csrfMetaTags() ?>
+                <?php $this->head() ?>
         </head>
         <body>
-		<?php $this->beginBody() ?>
+                <?php $this->beginBody() ?>
 
                 <div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
 
                         <!-- Add "fixed" class to make the sidebar fixed always to the browser viewport. -->
                         <!-- Adding class "toggle-others" will keep only one menu item open at a time. -->
                         <!-- Adding class "collapsed" collapse sidebar root elements and show only icons. -->
-                        <div class="sidebar-menu toggle-others fixed"  id="side-menuss">
+                        <div class="sidebar-menu toggle-others collapsed"  id="side-menuss">
 
                                 <div class="sidebar-menu-inner">
 
                                         <header class="logo-env">
 
-						<!-- logo -->
-						<div class="logo">
-							<a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-expanded">
-								<?php echo Html::img('@web/images/logos/logo-1.png', $options = ['width' => '200px']) ?>
-							</a>
+                                                <!-- logo -->
+                                                <div class="logo">
+                                                        <a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-expanded">
+                                                                <?php echo Html::img('@web/images/logos/logo-1.png', $options = ['width' => '200px']) ?>
+                                                        </a>
 
-							<a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-collapsed">
-								<img src="<?= Yii::$app->homeUrl; ?>images/logos/logo-collapsed.png" width="40" alt="" />
-							</a>
-						</div>
+                                                        <a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-collapsed">
+                                                                <img src="<?= Yii::$app->homeUrl; ?>images/logos/logo-collapsed.png" width="40" alt="" />
+                                                        </a>
+                                                </div>
 
-						<!-- This will toggle the mobile menu and will be visible only on mobile devices -->
-						<div class="mobile-menu-toggle visible-xs">
-							<a href="#" data-toggle="user-info-menu">
-								<i class="fa-bell-o"></i>
-								<span class="badge badge-success"><?= count($notifications) ?></span>
-							</a>
+                                                <!-- This will toggle the mobile menu and will be visible only on mobile devices -->
+                                                <div class="mobile-menu-toggle visible-xs">
+                                                        <a href="#" data-toggle="user-info-menu">
+                                                                <i class="fa-bell-o"></i>
+                                                                <span class="badge badge-success"><?= count($notifications) ?></span>
+                                                        </a>
 
-							<a href="#" data-toggle="mobile-menu">
-								<i class="fa-bars"></i>
-							</a>
-						</div>
-
-
-
-					</header>
+                                                        <a href="#" data-toggle="mobile-menu">
+                                                                <i class="fa-bars"></i>
+                                                        </a>
+                                                </div>
 
 
-					<?php
-					if (Yii::$app->session['post']['admin'] == 1) {
-						?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li class="active opened active">
-								<a href="dashboard-1.html">
-									<i class="linecons-cog"></i>
-									<span class="title">Administrator</span>
-								</a>
-								<ul>
-									<li>
-										<?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
-									</li>
 
-									<li>
-										<?= Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
-									</li>
-								</ul>
-							</li>
-
-						</ul>
-					<?php } ?>
-					<?php
-					if (Yii::$app->session['post']['masters'] == 1) {
-						?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li class="active opened active">
-								<a href="dashboard-1.html">
-									<i class="fa-database"></i>
-									<span class="title">Masters</span>
-								</a>
-								<ul>
-									<li>
-										<?= Html::a('Country', ['/masters/country/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-										<?= Html::a('State', ['/masters/state/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-										<?= Html::a('City', ['/masters/city/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-										<?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>
-									</li>
-
-								</ul>
-							</li>
-
-						</ul>
-					<?php } ?>
-					<?php
-					if (Yii::$app->session['post']['enquiry'] == 1) {
-						?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li class="active opened active">
-								<a href="dashboard-1.html">
-									<i class="fa-envelope-o"></i>
-									<span class="title">Enquiry</span>
-								</a>
-								<ul>
-									<li>
-										<?= Html::a('Enquiry', ['/enquiry/enquiry/index'], ['class' => 'title']) ?>
-									</li>
+                                        </header>
 
 
-								</ul>
-							</li>
+                                        <?php
+                                        if (Yii::$app->session['post']['admin'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li class="active opened active">
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="linecons-cog"></i>
+                                                                        <span class="title">Administrator</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
+                                                                        </li>
 
-						</ul>
-					<?php } ?>
+                                                                        <li>
+                                                                                <?= Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                        <?php } ?>
+                                        <?php
+                                        if (Yii::$app->session['post']['masters'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li class="active opened active">
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa-database"></i>
+                                                                        <span class="title">Masters</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Country', ['/masters/country/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('State', ['/masters/state/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('City', ['/masters/city/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                        <?php } ?>
+                                        <?php
+                                        if (Yii::$app->session['post']['enquiry'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li class="active opened active">
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa-envelope-o"></i>
+                                                                        <span class="title">Enquiry</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Enquiry', ['/enquiry/enquiry/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                        <?php } ?>
 
                                 </div>
 
                         </div>
 
                         <div class="main-content">
-				<nav class="navbar user-info-navbar"  role="navigation"><!-- User Info, Notifications and Menu Bar -->
-
-					<!-- Left links for user info navbar -->
-					<ul class="user-info-menu left-links list-inline list-unstyled">
-
-						<li class="hidden-sm hidden-xs">
-							<a href="#" data-toggle="sidebar">
-								<i class="fa-bars"></i>
-							</a>
-						</li>
-
-						<li class="dropdown hover-line">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="fa-envelope-o"></i>
-								<span class="badge badge-green">15</span>
-							</a>
-
-							<ul class="dropdown-menu messages">
-								<li>
-
-									<ul class="dropdown-menu-list list-unstyled ps-scrollbar">
-
-										<li class="active"><!-- "active" class means message is unread -->
-											<a href="#">
-												<span class="line">
-													<strong>Luc Chartier</strong>
-													<span class="light small">- yesterday</span>
-												</span>
-
-												<span class="line desc small">
-													This ainÃ¢â‚¬â„¢t our first item, it is the best of the rest.
-												</span>
-											</a>
-										</li>
-
-										<li class="active">
-											<a href="#">
-												<span class="line">
-													<strong>Salma Nyberg</strong>
-													<span class="light small">- 2 days ago</span>
-												</span>
-
-												<span class="line desc small">
-													Oh he decisively impression attachment friendship so if everything.
-												</span>
-											</a>
-										</li>
-
-										<li>
-											<a href="#">
-												<span class="line">
-													Hayden Cartwright
-													<span class="light small">- a week ago</span>
-												</span>
-
-												<span class="line desc small">
-													Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
-												</span>
-											</a>
-										</li>
-
-										<li>
-											<a href="#">
-												<span class="line">
-													Sandra Eberhardt
-													<span class="light small">- 16 days ago</span>
-												</span>
-
-												<span class="line desc small">
-													On so attention necessary at by provision otherwise existence direction.
-												</span>
-											</a>
-										</li>
-
-										<!-- Repeated -->
-
-										<li class="active"><!-- "active" class means message is unread -->
-											<a href="#">
-												<span class="line">
-													<strong>Luc Chartier</strong>
-													<span class="light small">- yesterday</span>
-												</span>
-
-												<span class="line desc small">
-													This ainÃ¢â‚¬â„¢t our first item, it is the best of the rest.
-												</span>
-											</a>
-										</li>
-
-										<li class="active">
-											<a href="#">
-												<span class="line">
-													<strong>Salma Nyberg</strong>
-													<span class="light small">- 2 days ago</span>
-												</span>
-
-												<span class="line desc small">
-													Oh he decisively impression attachment friendship so if everything.
-												</span>
-											</a>
-										</li>
-
-										<li>
-											<a href="#">
-												<span class="line">
-													Hayden Cartwright
-													<span class="light small">- a week ago</span>
-												</span>
-
-												<span class="line desc small">
-													Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
-												</span>
-											</a>
-										</li>
-
-										<li>
-											<a href="#">
-												<span class="line">
-													Sandra Eberhardt
-													<span class="light small">- 16 days ago</span>
-												</span>
-
-												<span class="line desc small">
-													On so attention necessary at by provision otherwise existence direction.
-												</span>
-											</a>
-										</li>
-
-									</ul>
-
-								</li>
-
-								<li class="external">
-									<a href="mailbox-main.html">
-										<span>All Messages</span>
-										<i class="fa-link-ext"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="dropdown hover-line">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="fa-bell-o"></i>
-								<span class="badge badge-purple"><?= count($notifications) ?></span>
-							</a>
-
-							<ul class="dropdown-menu notifications">
-								<li class="top">
-									<p class="small">
-										<a href="#" class="pull-right">Mark all Read</a>
-										You have <strong><?= count($notifications) ?></strong> new notifications.
-									</p>
-								</li>
-
-								<li>
-									<ul class="dropdown-menu-list list-unstyled ps-scrollbar">
-										<?php
-										if (!empty($notifications)) {
-											foreach ($notifications as $notification) {
-												?>
-												<li class="active notification-success">
-													<a href="<?= Yii::$app->homeUrl; ?>/enquiry/enquiry/view?id=<?= $notification->enquiry_id ?>">
-														<i class="fa-envelope"></i>
+                                <nav class="navbar user-info-navbar"  role="navigation"><!-- User Info, Notifications and Menu Bar -->
+
+                                        <!-- Left links for user info navbar -->
+                                        <ul class="user-info-menu left-links list-inline list-unstyled">
+
+                                                <li class="hidden-sm hidden-xs">
+                                                        <a href="#" data-toggle="sidebar">
+                                                                <i class="fa-bars"></i>
+                                                        </a>
+                                                </li>
+
+                                                <li class="dropdown hover-line">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <i class="fa-envelope-o"></i>
+                                                                <span class="badge badge-green">15</span>
+                                                        </a>
+
+                                                        <ul class="dropdown-menu messages">
+                                                                <li>
+
+                                                                        <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+
+                                                                                <li class="active"><!-- "active" class means message is unread -->
+                                                                                        <a href="#">
+                                                                                                <span class="line">
+                                                                                                        <strong>Luc Chartier</strong>
+                                                                                                        <span class="light small">- yesterday</span>
+                                                                                                </span>
+
+                                                                                                <span class="line desc small">
+                                                                                                        This ainÃ¢â‚¬â„¢t our first item, it is the best of the rest.
+                                                                                                </span>
+                                                                                        </a>
+                                                                                </li>
+
+                                                                                <li class="active">
+                                                                                        <a href="#">
+                                                                                                <span class="line">
+                                                                                                        <strong>Salma Nyberg</strong>
+                                                                                                        <span class="light small">- 2 days ago</span>
+                                                                                                </span>
+
+                                                                                                <span class="line desc small">
+                                                                                                        Oh he decisively impression attachment friendship so if everything.
+                                                                                                </span>
+                                                                                        </a>
+                                                                                </li>
+
+                                                                                <li>
+                                                                                        <a href="#">
+                                                                                                <span class="line">
+                                                                                                        Hayden Cartwright
+                                                                                                        <span class="light small">- a week ago</span>
+                                                                                                </span>
+
+                                                                                                <span class="line desc small">
+                                                                                                        Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
+                                                                                                </span>
+                                                                                        </a>
+                                                                                </li>
+
+                                                                                <li>
+                                                                                        <a href="#">
+                                                                                                <span class="line">
+                                                                                                        Sandra Eberhardt
+                                                                                                        <span class="light small">- 16 days ago</span>
+                                                                                                </span>
+
+                                                                                                <span class="line desc small">
+                                                                                                        On so attention necessary at by provision otherwise existence direction.
+                                                                                                </span>
+                                                                                        </a>
+                                                                                </li>
+
+                                                                                <!-- Repeated -->
+
+                                                                                <li class="active"><!-- "active" class means message is unread -->
+                                                                                        <a href="#">
+                                                                                                <span class="line">
+                                                                                                        <strong>Luc Chartier</strong>
+                                                                                                        <span class="light small">- yesterday</span>
+                                                                                                </span>
+
+                                                                                                <span class="line desc small">
+                                                                                                        This ainÃ¢â‚¬â„¢t our first item, it is the best of the rest.
+                                                                                                </span>
+                                                                                        </a>
+                                                                                </li>
+
+                                                                                <li class="active">
+                                                                                        <a href="#">
+                                                                                                <span class="line">
+                                                                                                        <strong>Salma Nyberg</strong>
+                                                                                                        <span class="light small">- 2 days ago</span>
+                                                                                                </span>
+
+                                                                                                <span class="line desc small">
+                                                                                                        Oh he decisively impression attachment friendship so if everything.
+                                                                                                </span>
+                                                                                        </a>
+                                                                                </li>
+
+                                                                                <li>
+                                                                                        <a href="#">
+                                                                                                <span class="line">
+                                                                                                        Hayden Cartwright
+                                                                                                        <span class="light small">- a week ago</span>
+                                                                                                </span>
+
+                                                                                                <span class="line desc small">
+                                                                                                        Whose her enjoy chief new young. Felicity if ye required likewise so doubtful.
+                                                                                                </span>
+                                                                                        </a>
+                                                                                </li>
+
+                                                                                <li>
+                                                                                        <a href="#">
+                                                                                                <span class="line">
+                                                                                                        Sandra Eberhardt
+                                                                                                        <span class="light small">- 16 days ago</span>
+                                                                                                </span>
+
+                                                                                                <span class="line desc small">
+                                                                                                        On so attention necessary at by provision otherwise existence direction.
+                                                                                                </span>
+                                                                                        </a>
+                                                                                </li>
+
+                                                                        </ul>
+
+                                                                </li>
+
+                                                                <li class="external">
+                                                                        <a href="mailbox-main.html">
+                                                                                <span>All Messages</span>
+                                                                                <i class="fa-link-ext"></i>
+                                                                        </a>
+                                                                </li>
+                                                        </ul>
+                                                </li>
+
+                                                <li class="dropdown hover-line">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <i class="fa-bell-o"></i>
+                                                                <span class="badge badge-purple"><?= count($notifications) ?></span>
+                                                        </a>
+
+                                                        <ul class="dropdown-menu notifications">
+                                                                <li class="top">
+                                                                        <p class="small">
+                                                                                <a href="#" class="pull-right">Mark all Read</a>
+                                                                                You have <strong><?= count($notifications) ?></strong> new notifications.
+                                                                        </p>
+                                                                </li>
+
+                                                                <li>
+                                                                        <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+                                                                                <?php
+                                                                                if (!empty($notifications)) {
+                                                                                        foreach ($notifications as $notification) {
+                                                                                                ?>
+                                                                                                <li class="active notification-success">
+                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>/enquiry/enquiry/view?id=<?= $notification->enquiry_id ?>">
+                                                                                                                <i class="fa-envelope"></i>
 
-														<span class="line">
-															<strong>Followup Enquiry</strong>
-														</span>
+                                                                                                                <span class="line">
+                                                                                                                        <strong>Followup Enquiry</strong>
+                                                                                                                </span>
 
-														<span class="line small time limit-text">
-															<?php
-															$text = strlen($notification->follow_up_notes) > 100 ? substr($notification->follow_up_notes, 0, 100) . '&hellip;' : $notification->follow_up_notes;
-															echo $text;
-															?>
-														</span>
-														<span class="line small time "><strong>Date:</strong><?= $notification->followup_date ?></span>
-													</a>
-												</li>
-												<?php
-											}
-										}
-										?>
+                                                                                                                <span class="line small time limit-text">
+                                                                                                                        <?php
+                                                                                                                        $text = strlen($notification->follow_up_notes) > 100 ? substr($notification->follow_up_notes, 0, 100) . '&hellip;' : $notification->follow_up_notes;
+                                                                                                                        echo $text;
+                                                                                                                        ?>
+                                                                                                                </span>
+                                                                                                                <span class="line small time "><strong>Date:</strong><?= $notification->followup_date ?></span>
+                                                                                                        </a>
+                                                                                                </li>
+                                                                                                <?php
+                                                                                        }
+                                                                                }
+                                                                                ?>
 
 
-									</ul>
-								</li>
+                                                                        </ul>
+                                                                </li>
 
-								<li class="external">
-									<a href="#">
-										<span>View all notifications</span>
-										<i class="fa-link-ext"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
+                                                                <li class="external">
+                                                                        <a href="#">
+                                                                                <span>View all notifications</span>
+                                                                                <i class="fa-link-ext"></i>
+                                                                        </a>
+                                                                </li>
+                                                        </ul>
+                                                </li>
 
 
 
-					</ul>
+                                        </ul>
 
 
-					<!-- Right links for user info navbar -->
-					<ul class="user-info-menu right-links list-inline list-unstyled">
+                                        <!-- Right links for user info navbar -->
+                                        <ul class="user-info-menu right-links list-inline list-unstyled">
 
 
-						<li class="dropdown user-profile">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="<?= Yii::$app->homeUrl; ?>images/themes/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
-								<span>
-									<?= Yii::$app->user->identity->user_name ?>
-									<i class="fa-angle-down"></i>
-								</span>
-							</a>
+                                                <li class="dropdown user-profile">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <img src="<?= Yii::$app->homeUrl; ?>images/themes/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
+                                                                <span>
+                                                                        <?= Yii::$app->user->identity->user_name ?>
+                                                                        <i class="fa-angle-down"></i>
+                                                                </span>
+                                                        </a>
 
-							<ul class="dropdown-menu user-profile-menu list-unstyled">
+                                                        <ul class="dropdown-menu user-profile-menu list-unstyled">
 
-								<li>
-									<?= Html::a('<i class="fa-wrench"></i>Change Password', ['/admin/admin-users/change-password?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
-									</									li>
-								<li>
-									<?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/admin/admin-users/update?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
-								</li>
+                                                                <li>
+                                                                        <?= Html::a('<i class="fa-wrench"></i>Change Password', ['/admin/admin-users/change-password?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
+                                                                        </									li>
+                                                                <li>
+                                                                        <?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/admin/admin-users/update?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
+                                                                </li>
 
-								<?php
-								echo '<li class="last">'
-								. Html::beginForm(['/site/logout'], 'post') . '<a>'
-								. Html::submitButton(
-									'<i class="fa-lock"></i> Logout', ['class' => 'btn logout_btn']
-								) . '</a>'
-								. Html::endForm()
-								. '</li>';
-								?>
+                                                                <?php
+                                                                echo '<li class="last">'
+                                                                . Html::beginForm(['/site/logout'], 'post') . '<a>'
+                                                                . Html::submitButton(
+                                                                        '<i class="fa-lock"></i> Logout', ['class' => 'btn logout_btn']
+                                                                ) . '</a>'
+                                                                . Html::endForm()
+                                                                . '</li>';
+                                                                ?>
 
 
-							</ul>
-						</li>
+                                                        </ul>
+                                                </li>
 
 
 
-					</ul>
+                                        </ul>
 
-				</nav>
+                                </nav>
 
 
-				<?= $content; ?>
+                                <?= $content; ?>
 
 
 
-				<footer class="main-footer sticky footer-type-1">
+                                <footer class="main-footer sticky footer-type-1">
 
-					<div class="footer-inner">
+                                        <div class="footer-inner">
 
-						<!-- Add your copyright text here -->
-						<div class="footer-text">
-							&copy; <?= Html::encode(date('Y')) ?>
-							<strong>Caring</strong>
-							People <a href="#" target="_blank"></a>
-						</div>
+                                                <!-- Add your copyright text here -->
+                                                <div class="footer-text">
+                                                        &copy; <?= Html::encode(date('Y')) ?>
+                                                        <strong>Caring</strong>
+                                                        People <a href="#" target="_blank"></a>
+                                                </div>
 
 
-						<!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
-						<div class="go-up">
+                                                <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
+                                                <div class="go-up">
 
-							<a href="#" rel="go-top">
-								<i class="fa-angle-up"></i>
-							</a>
+                                                        <a href="#" rel="go-top">
+                                                                <i class="fa-angle-up"></i>
+                                                        </a>
 
-						</div>
+                                                </div>
 
-					</div>
+                                        </div>
 
-				</footer>
+                                </footer>
 
 
 
 
-			</div>
+                        </div>
 
 
                         <div id="chat" class="fixed"><!-- start: Chat Section -->
@@ -459,26 +459,26 @@ foreach ($enquiry_notification as $enquiries) {
                                         </h2>
 
                                         <script type="text/javascript">
-						// Here is just a sample how to open chat conversation box
-						jQuery(document).ready(function ($)
-						{
-							var $chat_conversation = $(".chat-conversation");
+                                                // Here is just a sample how to open chat conversation box
+                                                jQuery(document).ready(function ($)
+                                                {
+                                                        var $chat_conversation = $(".chat-conversation");
 
-							$(".chat-group a").on('click', function (ev)
-							{
-								ev.preventDefault();
+                                                        $(".chat-group a").on('click', function (ev)
+                                                        {
+                                                                ev.preventDefault();
 
-								$chat_conversation.toggleClass('is-open');
+                                                                $chat_conversation.toggleClass('is-open');
 
-								$(".chat-conversation textarea").trigger('autosize.resize').focus();
-							});
+                                                                $(".chat-conversation textarea").trigger('autosize.resize').focus();
+                                                        });
 
-							$(".conversation-close").on('click', function (ev)
-							{
-								ev.preventDefault();
-								$chat_conversation.removeClass('is-open');
-							});
-						});
+                                                        $(".conversation-close").on('click', function (ev)
+                                                        {
+                                                                ev.preventDefault();
+                                                                $chat_conversation.removeClass('is-open');
+                                                        });
+                                                });
                                         </script>
 
 
@@ -575,54 +575,54 @@ foreach ($enquiry_notification as $enquiries) {
                 <div class="footer-sticked-chat"><!-- Start: Footer Sticked Chat -->
 
                         <script type="text/javascript">
-				function showLoader() {
-					$('.page-loading-overlay').removeClass('loaded');
-				}
-				function hideLoader() {
-					$('.page-loading-overlay').addClass('loaded');
-				}
-				function toggleSampleChatWindow()
-				{
-					var $chat_win = jQuery("#sample-chat-window");
+                                function showLoader() {
+                                        $('.page-loading-overlay').removeClass('loaded');
+                                }
+                                function hideLoader() {
+                                        $('.page-loading-overlay').addClass('loaded');
+                                }
+                                function toggleSampleChatWindow()
+                                {
+                                        var $chat_win = jQuery("#sample-chat-window");
 
-					$chat_win.toggleClass('open');
+                                        $chat_win.toggleClass('open');
 
-					if ($chat_win.hasClass('open'))
-					{
-						var $messages = $chat_win.find('.ps-scrollbar');
+                                        if ($chat_win.hasClass('open'))
+                                        {
+                                                var $messages = $chat_win.find('.ps-scrollbar');
 
-						if ($.isFunction($.fn.perfectScrollbar))
-						{
-							$messages.perfectScrollbar('destroy');
+                                                if ($.isFunction($.fn.perfectScrollbar))
+                                                {
+                                                        $messages.perfectScrollbar('destroy');
 
-							setTimeout(function () {
-								$messages.perfectScrollbar();
-								$chat_win.find('.form-control').focus();
-							}, 300);
-						}
-					}
+                                                        setTimeout(function () {
+                                                                $messages.perfectScrollbar();
+                                                                $chat_win.find('.form-control').focus();
+                                                        }, 300);
+                                                }
+                                        }
 
-					jQuery("#sample-chat-window form").on('submit', function (ev)
-					{
-						ev.preventDefault();
-					});
-				}
+                                        jQuery("#sample-chat-window form").on('submit', function (ev)
+                                        {
+                                                ev.preventDefault();
+                                        });
+                                }
 
-				jQuery(document).ready(function ($)
-				{
-					$(".footer-sticked-chat .chat-user, .other-conversations-list a").on('click', function (ev)
-					{
-						ev.preventDefault();
-						toggleSampleChatWindow();
-					});
+                                jQuery(document).ready(function ($)
+                                {
+                                        $(".footer-sticked-chat .chat-user, .other-conversations-list a").on('click', function (ev)
+                                        {
+                                                ev.preventDefault();
+                                                toggleSampleChatWindow();
+                                        });
 
-					$(".mobile-chat-toggle").on('click', function (ev)
-					{
-						ev.preventDefault();
+                                        $(".mobile-chat-toggle").on('click', function (ev)
+                                        {
+                                                ev.preventDefault();
 
-						$(".footer-sticked-chat").toggleClass('mobile-is-visible');
-					});
-				});
+                                                $(".footer-sticked-chat").toggleClass('mobile-is-visible');
+                                        });
+                                });
                         </script>
 
 
@@ -639,22 +639,22 @@ foreach ($enquiry_notification as $enquiries) {
                 <!-- Page Loading Overlay -->
                 <div class="page-loading-overlay">
                         <div class="loader-2"><		/div>
-			</div>
+                        </div>
 
-			<?php $this->endBody() ?>
-			<script type="text/javascript">
-				jQuery(document).ready(function ($)
-				{
-					if ($(window).width() < 900) {
-						$("#side-menuss").removeClass("collapsed");
-					} else {
+                        <?php $this->endBody() ?>
+                        <script type="text/javascript">
+                                jQuery(document).ready(function ($)
+                                {
+                                        if ($(window).width() < 900) {
+                                                $("#side-menuss").removeClass("collapsed");
+                                        } else {
 
-						$("#side-menuss").addClass('collapsed');
-					}
-					;
+                                                //   $("#side-menuss").addClass('collapsed');
+                                        }
+                                        ;
 
-				});
-			</script>
+                                });
+                        </script>
         </body>
 </html>
 <?php $this->endPage() ?>
