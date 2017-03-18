@@ -57,7 +57,7 @@ use common\models\Branch;
                 <?php // $form->field($model, 'contacted_source_others')->textInput(['maxlength' => true]) ?>
 
                         </div>-->
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'outgoing_number_from')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'outgoing_number_from')->dropDownList(['' => '--Select--', '1' => '']) ?>
 
                 </div>
 

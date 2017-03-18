@@ -33,30 +33,6 @@ use kartik\date\DatePicker;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='required_other_service'>    <?= $form->field($model, 'other_services')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                <div class="form-group field-enquiryhospital-expected_date">
-                        <label class="control-label" for="enquiryhospital-expected_date">Expected Date Of Service Needed</label>
-                        <?php
-                        if (!$model->isNewRecord) {
-                                $model->expected_date = date('d-m-Y', strtotime($model->expected_date));
-                        } else {
-                                $model->expected_date = date('d-m-Y');
-                        }
-
-                        echo DatePicker::widget([
-                            'name' => 'EnquiryHospital[expected_date]',
-                            'type' => DatePicker::TYPE_INPUT,
-                            'value' => $model->expected_date,
-                            'pluginOptions' => [
-                                'autoclose' => true,
-                                'format' => 'dd-mm-yyyy',
-                            ]
-                        ]);
-                        ?>
-
-
-                </div>
-
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'diabetic')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='diabetic_note'>    <?= $form->field($model, 'diabetic_note')->textInput(['maxlength' => true]) ?>
@@ -64,7 +40,7 @@ use kartik\date\DatePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hypertension')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <!--                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'tubes')->textInput(['maxlength' => true])                                                                                               ?>
+        <!--                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'tubes')->textInput(['maxlength' => true])                                                                                                ?>
 
                         </div>-->
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'feeding')->textInput(['maxlength' => true]) ?>
@@ -78,7 +54,7 @@ use kartik\date\DatePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'iv_line')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <!--        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'dressing')->textInput(['maxlength' => true])                                                                                             ?>
+        <!--        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'dressing')->textInput(['maxlength' => true])                                                                                              ?>
 
                 </div>-->
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'visit_type')->dropDownList(['' => '--Select--', '1' => 'Hospital Visit', '0' => 'Home Visit']) ?>

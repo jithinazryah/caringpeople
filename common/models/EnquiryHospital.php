@@ -43,7 +43,7 @@ class EnquiryHospital extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['visit_date', 'expected_date'], 'safe'],
+                        [['visit_date'], 'safe'],
                         [['bedridden'], 'string'],
                         [['hospital_name', 'consultant_doctor', 'department', 'hospital_room_no', 'other_services', 'diabetic', 'diabetic_note', 'hypertension', 'tubes', 'feeding', 'urine', 'oxygen', 'tracheostomy', 'iv_line', 'dressing', 'visit_type', 'visit_note'], 'string', 'max' => 200],
                         [['enquiry_id'], 'exist', 'skipOnError' => true, 'targetClass' => Enquiry::className(), 'targetAttribute' => ['enquiry_id' => 'id']],
@@ -62,7 +62,6 @@ class EnquiryHospital extends \yii\db\ActiveRecord {
                     'department' => 'Department',
                     'hospital_room_no' => 'Hospital Room No',
                     'required_service' => 'Required Service',
-                    'expected_date' => 'Expected Date Of Service Needed',
                     'other_services' => 'Other Services Notes',
                     'diabetic' => 'Diabetic',
                     'diabetic_note' => 'Diabetic Note',

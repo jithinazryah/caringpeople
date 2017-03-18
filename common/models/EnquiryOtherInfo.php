@@ -44,7 +44,7 @@ class EnquiryOtherInfo extends \yii\db\ActiveRecord {
                         [['enquiry_id', 'family_support', 'care_currently_provided', 'difficulty_in_movement', 'service_required', 'priority'], 'integer'],
                         [['follow_up_notes', 'quotation_details'], 'string'],
                         [['followup_date'], 'safe'],
-                        [['family_support_note', 'details_of_current_care', 'difficulty_in_movement_other', 'service_required_other', 'how_long_service_required', 'nursing_assessment', 'doctor_assessment'], 'string', 'max' => 200],
+                        [['family_support_note', 'details_of_current_care', 'care_currently_provided_others', 'difficulty_in_movement_other', 'service_required_other', 'how_long_service_required', 'nursing_assessment', 'doctor_assessment'], 'string', 'max' => 200],
                         [['enquiry_id'], 'exist', 'skipOnError' => true, 'targetClass' => Enquiry::className(), 'targetAttribute' => ['enquiry_id' => 'id']],
                 ];
         }
@@ -59,6 +59,8 @@ class EnquiryOtherInfo extends \yii\db\ActiveRecord {
                     'family_support' => 'Nearby Family Support',
                     'family_support_note' => 'Nearby Family Support Note',
                     'care_currently_provided' => 'Care Currently Being Provided',
+                    'care_currently_provided_others' => 'Care Currently Being Provided Others',
+                    'date_of_discharge' => 'Expected Date Of Discharge',
                     'details_of_current_care' => 'Details Of Current Care',
                     'difficulty_in_movement' => 'Difficulty In Movement Or Getting Around The House',
                     'difficulty_in_movement_other' => 'Difficulty In Movement Other',

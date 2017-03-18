@@ -79,7 +79,6 @@ class EnquiryHospitalController extends Controller {
                                         $model->required_service = implode(",", Yii::$app->request->post()['EnquiryHospital']['required_service']);
                                 }
                                 $model->visit_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['EnquiryHospital']['visit_date']));
-                                $model->expected_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryHospital']['expected_date']));
                                 $model->enquiry_id = $id;
                                 if ($model->validate() && $model->save()) {
                                         Yii::$app->getSession()->setFlash('success', 'Hospital Information Added Successfully');
@@ -113,7 +112,6 @@ class EnquiryHospitalController extends Controller {
                                 $model->required_service = implode(",", Yii::$app->request->post()['EnquiryHospital']['required_service']);
                         }
                         $model->visit_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['EnquiryHospital']['visit_date']));
-                        $model->expected_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryHospital']['expected_date']));
                         if ($model->validate() && $model->save()) {
                                 Yii::$app->getSession()->setFlash('success', 'Hospital Information Updated Successfully');
                                 return $this->redirect(Yii::$app->request->referrer);

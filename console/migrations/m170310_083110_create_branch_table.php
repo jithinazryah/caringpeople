@@ -42,11 +42,13 @@ class m170310_083110_create_branch_table extends Migration {
                 $this->addColumn('enquiry_hospital', 'diabetic_note', 'VARCHAR(200) AFTER diabetic');
                 $this->alterColumn('enquiry_other_info', 'followup_date', 'datetime');
                 $this->addColumn('enquiry_hospital', 'department', 'VARCHAR(200) AFTER consultant_doctor');
-                $this->addColumn('enquiry_hospital', 'expected_date', 'VARCHAR(200) AFTER required_service');
-                $this->addCommentOnColumn('enquiry_hospital', 'expected_date', 'Expected date of service needed');
+                //$this->addColumn('enquiry_hospital', 'expected_date', 'VARCHAR(200) AFTER required_service');
+                // $this->addCommentOnColumn('enquiry_hospital', 'expected_date', 'Expected date of service needed');
                 $this->renameColumn('enquiry_hospital', 'home_or_hospital_visit', 'visit_type');
                 $this->addCommentOnColumn('enquiry_hospital', 'visit_type', '1=Hospital,0=Home');
                 $this->addColumn('enquiry_hospital', 'visit_note', 'VARCHAR(200) AFTER visit_type');
+                $this->addColumn('enquiry_other_info', 'care_currently_provided_others', 'VARCHAR(200) AFTER care_currently_provided');
+                $this->addColumn('enquiry_other_info', 'date_of_discharge', 'DATE AFTER care_currently_provided_others');
         }
 
         /**

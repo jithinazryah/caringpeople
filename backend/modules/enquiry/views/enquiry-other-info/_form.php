@@ -18,7 +18,35 @@ use kartik\datetime\DateTimePicker;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'family_support_note')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Provincial HC', '4' => 'Insurance', '5' => 'Private', '6' => 'VAC']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php // $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Provincial HC', '4' => 'Insurance', '5' => 'Private', '6' => 'VAC'])                                      ?>
+
+                <?= $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Hospital', '4' => 'Others']) ?>
+
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='care_currently_provided_others'>    <?= $form->field($model, 'care_currently_provided_others')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='date_of_discharge'>
+                <div class="form-group field-enquiryotherinfo-date_of_discharge">
+                        <label class="control-label" for="enquiryotherinfo-date_of_discharge">Expected Date Of Discharge</label>
+                        <?php
+                        if (!$model->isNewRecord) {
+                                $model->date_of_discharge = date('d-m-Y', strtotime($model->date_of_discharge));
+                        } else {
+                                $model->date_of_discharge = date('d-m-Y');
+                        }
+
+                        echo DatePicker::widget([
+                            'name' => 'EnquiryOtherInfo[date_of_discharge]',
+                            'type' => DatePicker::TYPE_INPUT,
+                            'value' => $model->date_of_discharge,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => 'dd-mm-yyyy',
+                            ]
+                        ]);
+                        ?>
+
+
+                </div>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'details_of_current_care')->textInput(['maxlength' => true]) ?>
 
@@ -123,7 +151,7 @@ use kartik\datetime\DateTimePicker;
 <script>
         $(document).ready(function () {
 
-
+                /* difficulty in movement others field show/hide on update*/
                 $difficulty_in_movement = $("#enquiryotherinfo-difficulty_in_movement").val();
                 if ($difficulty_in_movement === '5') {
                         $('#difficulty_in_movement_other').show();
@@ -131,29 +159,60 @@ use kartik\datetime\DateTimePicker;
                         $('#difficulty_in_movement_other').hide();
                 }
 
+                /* difficulty in movement others field show/hide on create*/
                 $('#enquiryotherinfo-difficulty_in_movement').change(function () {
                         if ($(this).val() === '5') {
                                 $('#difficulty_in_movement_other').show();
                         } else {
                                 $('#difficulty_in_movement_other').hide();
-                                $('#difficulty_in_movement_other').val('');
 
                         }
                 });
-
+                /* service required other others field show/hide on update*/
                 $service_required = $("#enquiryotherinfo-service_required").val();
                 if ($service_required === '5') {
                         $('#service_required').show();
                 } else {
                         $('#service_required').hide();
                 }
-
+                /* service required other others field show/hide on create*/
                 $('#enquiryotherinfo-service_required').change(function () {
                         if ($(this).val() === '5') {
                                 $('#service_required').show();
                         } else {
                                 $('#service_required').hide();
-                                $('#service_required').val('');
+                        }
+                });
+                /*care currently provided service required other others field show/hide on update*/
+                if ($('#enquiryotherinfo-care_currently_provided').val() === '4')
+                        $('#care_currently_provided_others').show();
+                else
+                        $('#care_currently_provided_others').hide();
+
+
+                /*care currently provided other others field show/hide on cretae*/
+                $('#enquiryotherinfo-care_currently_provided').change(function () {
+                        if ($(this).val() === '4') {
+                                $('#care_currently_provided_others').show();
+                        } else {
+                                $('#care_currently_provided_others').hide();
+                        }
+                });
+
+                /*care currently provided service required expected datre of dischargede on update*/
+                if ($('#enquiryotherinfo-care_currently_provided').val() === '3')
+                        $('#date_of_discharge').show();
+                else
+                        $('#date_of_discharge').hide();
+
+
+                /*care currently provided service required expected datre of dischargede on create*/
+                $('#enquiryotherinfo-care_currently_provided').change(function () {
+                        if ($(this).val() === '3') {
+                                $('#date_of_discharge').show();
+                        } else {
+                                $('#date_of_discharge').hide();
+
                         }
                 });
 
