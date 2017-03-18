@@ -49,7 +49,7 @@ class m170310_083110_create_branch_table extends Migration {
                 $this->addColumn('enquiry_other_info', 'date_of_discharge', 'DATE AFTER care_currently_provided_others');
                 $this->addColumn('enquiry_other_info', 'expected_date_of_service', 'DATE AFTER service_required_other');
                 $this->addCommentOnColumn('enquiry_other_info', 'expected_date_of_service', 'Expected date of service needed');
-                $this->addColumn('enquiry', 'outgoing_number_from_other', 'DATE AFTER outgoing_number_from');
+                $this->addColumn('enquiry', 'outgoing_number_from_other', 'VARCHAR(200) AFTER outgoing_number_from');
 
                 $this->createTable('outgoing_numbers', [
                     'id' => $this->primaryKey(),

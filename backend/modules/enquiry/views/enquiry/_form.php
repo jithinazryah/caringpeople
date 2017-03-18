@@ -210,6 +210,22 @@ use common\models\OutgoingNumbers;
                 });
 
 
+
+                /*outgoing number from other show/hide on update */
+                if ($("#enquiry-outgoing_number_from option:selected").val() === '1')
+                        $('#outgoing_number_from_other').show();
+                else
+                        $('#outgoing_number_from_other').hide();
+
+                /*outgoing number from other show/hide on create */
+                $("#enquiry-outgoing_number_from").change(function () {
+                        if ($("#enquiry-outgoing_number_from option:selected").val() === '1')
+                                $('#outgoing_number_from_other').show();
+                        else
+                                $('#outgoing_number_from_other').hide();
+                });
+
+
         });
 
 
