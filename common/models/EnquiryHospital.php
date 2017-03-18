@@ -45,7 +45,7 @@ class EnquiryHospital extends \yii\db\ActiveRecord {
                 return [
                         [['visit_date', 'expected_date'], 'safe'],
                         [['bedridden'], 'string'],
-                        [['hospital_name', 'consultant_doctor', 'department', 'hospital_room_no', 'other_services', 'diabetic', 'diabetic_note', 'hypertension', 'tubes', 'feeding', 'urine', 'oxygen', 'tracheostomy', 'iv_line', 'dressing', 'visit_type'], 'string', 'max' => 200],
+                        [['hospital_name', 'consultant_doctor', 'department', 'hospital_room_no', 'other_services', 'diabetic', 'diabetic_note', 'hypertension', 'tubes', 'feeding', 'urine', 'oxygen', 'tracheostomy', 'iv_line', 'dressing', 'visit_type', 'visit_note'], 'string', 'max' => 200],
                         [['enquiry_id'], 'exist', 'skipOnError' => true, 'targetClass' => Enquiry::className(), 'targetAttribute' => ['enquiry_id' => 'id']],
                 ];
         }
@@ -75,6 +75,7 @@ class EnquiryHospital extends \yii\db\ActiveRecord {
                     'iv_line' => 'IV LINE',
                     'dressing' => 'Dressing',
                     'visit_type' => 'Visit Type',
+                    'visit_note' => 'Visit Note',
                     'visit_date' => 'Hospital Visit Date',
                     'bedridden' => 'Notes',
                 ];

@@ -46,6 +46,7 @@ class m170310_083110_create_branch_table extends Migration {
                 $this->addCommentOnColumn('enquiry_hospital', 'expected_date', 'Expected date of service needed');
                 $this->renameColumn('enquiry_hospital', 'home_or_hospital_visit', 'visit_type');
                 $this->addCommentOnColumn('enquiry_hospital', 'visit_type', '1=Hospital,0=Home');
+                $this->addColumn('enquiry_hospital', 'visit_note', 'VARCHAR(200) AFTER visit_type');
         }
 
         /**
