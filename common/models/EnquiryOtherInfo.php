@@ -43,7 +43,7 @@ class EnquiryOtherInfo extends \yii\db\ActiveRecord {
                 return [
                         [['enquiry_id', 'family_support', 'care_currently_provided', 'difficulty_in_movement', 'service_required', 'priority'], 'integer'],
                         [['follow_up_notes', 'quotation_details'], 'string'],
-                        [['followup_date'], 'safe'],
+                        [['followup_date', 'expected_date_of_service'], 'safe'],
                         [['family_support_note', 'details_of_current_care', 'care_currently_provided_others', 'difficulty_in_movement_other', 'service_required_other', 'how_long_service_required', 'nursing_assessment', 'doctor_assessment'], 'string', 'max' => 200],
                         [['enquiry_id'], 'exist', 'skipOnError' => true, 'targetClass' => Enquiry::className(), 'targetAttribute' => ['enquiry_id' => 'id']],
                 ];
@@ -66,6 +66,7 @@ class EnquiryOtherInfo extends \yii\db\ActiveRecord {
                     'difficulty_in_movement_other' => 'Difficulty In Movement Other',
                     'service_required' => 'Service Required',
                     'service_required_other' => 'Service Required Other',
+                    'expected_date_of_service' => 'Expected Date Of Service Needed',
                     'how_long_service_required' => 'How Long Service Required',
                     'nursing_assessment' => 'Nursing Assessment',
                     'doctor_assessment' => 'Doctor Assessment',

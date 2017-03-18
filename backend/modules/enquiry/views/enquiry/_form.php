@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\datetime\DateTimePicker;
 use yii\helpers\ArrayHelper;
 use common\models\Branch;
+use common\models\OutgoingNumbers;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Enquiry */
@@ -57,7 +58,7 @@ use common\models\Branch;
                 <?php // $form->field($model, 'contacted_source_others')->textInput(['maxlength' => true]) ?>
 
                         </div>-->
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'outgoing_number_from')->dropDownList(['' => '--Select--', '1' => '']) ?>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'> <?php $outgoing_numbers = OutgoingNumbers::find()->where(['status' => '1'])->orderBy('id DESC')->all() ?>   <?= $form->field($model, 'outgoing_number_from')->dropDownList(ArrayHelper::map($outgoing_numbers, 'id', 'phone_number'), ['prompt' => '--Select--']) ?>
 
                 </div>
 

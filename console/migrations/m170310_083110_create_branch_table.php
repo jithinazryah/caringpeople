@@ -42,13 +42,32 @@ class m170310_083110_create_branch_table extends Migration {
                 $this->addColumn('enquiry_hospital', 'diabetic_note', 'VARCHAR(200) AFTER diabetic');
                 $this->alterColumn('enquiry_other_info', 'followup_date', 'datetime');
                 $this->addColumn('enquiry_hospital', 'department', 'VARCHAR(200) AFTER consultant_doctor');
-                //$this->addColumn('enquiry_hospital', 'expected_date', 'VARCHAR(200) AFTER required_service');
-                // $this->addCommentOnColumn('enquiry_hospital', 'expected_date', 'Expected date of service needed');
                 $this->renameColumn('enquiry_hospital', 'home_or_hospital_visit', 'visit_type');
                 $this->addCommentOnColumn('enquiry_hospital', 'visit_type', '1=Hospital,0=Home');
                 $this->addColumn('enquiry_hospital', 'visit_note', 'VARCHAR(200) AFTER visit_type');
                 $this->addColumn('enquiry_other_info', 'care_currently_provided_others', 'VARCHAR(200) AFTER care_currently_provided');
                 $this->addColumn('enquiry_other_info', 'date_of_discharge', 'DATE AFTER care_currently_provided_others');
+                $this->addColumn('enquiry_other_info', 'expected_date_of_service', 'DATE AFTER service_required_other');
+                $this->addCommentOnColumn('enquiry_other_info', 'expected_date_of_service', 'Expected date of service needed');
+                $this->addColumn('enquiry', 'outgoing_number_from_other', 'DATE AFTER outgoing_number_from');
+
+                $this->createTable('outgoing_numbers', [
+                    'id' => $this->primaryKey(),
+                    'phone_number' => $this->string(280),
+                    'status' => $this->integer()->notNull(),
+                    'CB' => $this->integer(),
+                    'UB' => $this->integer(),
+                    'DOC' => $this->date(),
+                    'DOU' => $this->timestamp(),
+                ]);
+                $this->insert('outgoing_numbers', ['id' => '1', 'phone_number' => 'Other', 'status' => '1', 'CB' => '1', 'UB' => '1', 'DOC' => '2017-03-10', 'DOU' => '2017-03-10 16:11:28']);
+                $this->insert('outgoing_numbers', ['id' => '2', 'phone_number' => '022 40111351', 'status' => '1', 'CB' => '1', 'UB' => '1', 'DOC' => '2017-03-10', 'DOU' => '2017-03-10 16:11:28']);
+                $this->insert('outgoing_numbers', ['id' => '3', 'phone_number' => '82 91087 102', 'status' => '1', 'CB' => '1', 'UB' => '1', 'DOC' => '2017-03-10', 'DOU' => '2017-03-10 16:11:28']);
+                $this->insert('outgoing_numbers', ['id' => '4', 'phone_number' => '97 45304 019', 'status' => '1', 'CB' => '1', 'UB' => '1', 'DOC' => '2017-03-10', 'DOU' => '2017-03-10 16:11:28']);
+                $this->insert('outgoing_numbers', ['id' => '5', 'phone_number' => '97 45201 900', 'status' => '1', 'CB' => '1', 'UB' => '1', 'DOC' => '2017-03-10', 'DOU' => '2017-03-10 16:11:28']);
+                $this->insert('outgoing_numbers', ['id' => '6', 'phone_number' => '97 45301 900', 'status' => '1', 'CB' => '1', 'UB' => '1', 'DOC' => '2017-03-10', 'DOU' => '2017-03-10 16:11:28']);
+                $this->insert('outgoing_numbers', ['id' => '7', 'phone_number' => '0484 4033505', 'status' => '1', 'CB' => '1', 'UB' => '1', 'DOC' => '2017-03-10', 'DOU' => '2017-03-10 16:11:28']);
+                $this->insert('outgoing_numbers', ['id' => '8', 'phone_number' => '90 20599 599', 'status' => '1', 'CB' => '1', 'UB' => '1', 'DOC' => '2017-03-10', 'DOU' => '2017-03-10 16:11:28']);
         }
 
         /**

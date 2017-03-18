@@ -18,7 +18,7 @@ use kartik\datetime\DateTimePicker;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'family_support_note')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php // $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Provincial HC', '4' => 'Insurance', '5' => 'Private', '6' => 'VAC'])                                      ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php // $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Provincial HC', '4' => 'Insurance', '5' => 'Private', '6' => 'VAC'])                                            ?>
 
                 <?= $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Hospital', '4' => 'Others']) ?>
 
@@ -57,6 +57,30 @@ use kartik\datetime\DateTimePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'service_required')->dropDownList(['' => '--Select--', '1' => 'Immediately', '2' => 'Couple Weeks', '3' => 'Month', '4' => 'Unsure', '5' => 'Other']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="service_required">    <?= $form->field($model, 'service_required_other')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class="form-group field-enquiryotherinfo-expected_date_of_service">
+                        <label class="control-label" for="enquiryotherinfo-expected_date_of_service">Expected Date Of Service Needed</label>
+                        <?php
+                        if (!$model->isNewRecord) {
+                                $model->expected_date_of_service = date('d-m-Y', strtotime($model->expected_date_of_service));
+                        } else {
+                                $model->expected_date_of_service = date('d-m-Y');
+                        }
+
+                        echo DatePicker::widget([
+                            'name' => 'EnquiryOtherInfo[expected_date_of_service]',
+                            'type' => DatePicker::TYPE_INPUT,
+                            'value' => $model->expected_date_of_service,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => 'dd-mm-yyyy',
+                            ]
+                        ]);
+                        ?>
+
+
+                </div>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'how_long_service_required')->textInput(['maxlength' => true]) ?>
 
