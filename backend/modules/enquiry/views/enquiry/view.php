@@ -266,7 +266,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </div>
 
                                                                                         <div class="content info">
-                                                                                                <label>Home or Hospital visit</label><span><?= $hospital_info->home_or_hospital_visit; ?></span>
+                                                                                                <label>Visit Type</label><span><?php
+                                                                                                        if ($hospital_info->visit_type == '1') {
+                                                                                                                echo 'Hospital Visit';
+                                                                                                        } elseif ($hospital_info->visit_type == '0') {
+                                                                                                                echo 'Home Visit';
+                                                                                                        }
+                                                                                                        ?></span>
+
                                                                                                 <label>Date</label><span><?= $date = date('d-m-Y', strtotime($hospital_info->visit_date)); ?></span>
                                                                                                 <label>Time</label><span><?= $date = date('H:i', strtotime($hospital_info->visit_date)); ?></span>
                                                                                         </div>

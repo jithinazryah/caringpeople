@@ -81,10 +81,54 @@ class EnquiryOtherInfoController extends Controller {
                                 if ($model->load(Yii::$app->request->post())) {
                                         $model->nursing_assessment = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['nursing_assessment']));
                                         $model->doctor_assessment = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['doctor_assessment']));
-                                        $model->followup_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
+                                        $model->followup_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
                                         $model->enquiry_id = $id;
                                         if ($model->validate() && $model->save()) {
                                                 Yii::$app->getSession()->setFlash('success', 'Other Information Added Successfully');
+                                                if ($hospital_info->required_service == '1') {
+                                                        $required_service = 'Doctor Visit';
+                                                } elseif ($hospital_info->required_service == '2') {
+                                                        $required_service = 'Nursing Care';
+                                                } elseif ($hospital_info->required_service == '3') {
+                                                        $required_service = 'Physiotherapy';
+                                                } elseif ($hospital_info->required_service == '4') {
+                                                        $required_service = 'Companion Care';
+                                                } elseif ($hospital_info->required_service == '5') {
+                                                        $required_service = 'Bystander Service';
+                                                } elseif ($hospital_info->required_service == '6') {
+                                                        $required_service = 'General Information';
+                                                }
+
+
+                                                /* sending email */
+//                                                $to = $enquiry->email;
+//                                                $subject = 'Enquiry';
+//                                                $message = '<html>
+//                                                                <head>
+//                                                                <title>Enquiry</title>
+//                                                                </head>
+//                                                                <body>
+//                                                                <div class = "mail-body" style="width: 50%;text-align: center;border: 1px solid #000;">
+//                                                                <div class = "content" style="margin-left:26px;">
+//                                                                <img src="' . Yii::$app->homeUrl . '/images/logos/logo-1.png" style="width:200px">
+//                                                                <h2>Enquiry </h2>
+//
+//                                                                <p>Hi ' . $enquiry->caller_name . ',</p>
+//                                                                <p>Your request for ' . $required_service . ' has been accepted. We will contact you soon.</p>
+//
+//                                                                </div>
+//                                                                </div>
+//
+//
+//
+//                                                                </body>
+//                                                                </html>';
+                                                // To send HTML mail, the Content-type header must be set
+//                                                $headers = 'MIME-Version: 1.0' . "\r\n";
+//                                                $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
+//                                                        "From: 'noreplay@caringpeople.com";
+//                                                mail($to, $subject, $message, $headers);
+                                                /* sending email */
                                                 return $this->redirect(['update', 'id' => $id]);
                                         }
                                 } else {
@@ -116,7 +160,7 @@ class EnquiryOtherInfoController extends Controller {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                         $model->nursing_assessment = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['nursing_assessment']));
                         $model->doctor_assessment = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['doctor_assessment']));
-                        $model->followup_date = date('Y-m-d', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
+                        $model->followup_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['EnquiryOtherInfo']['followup_date']));
                         if ($model->validate() && $model->save()) {
                                 Yii::$app->getSession()->setFlash('success', 'Other Information Updated Successfully');
                                 return $this->redirect(['enquiry/index']);

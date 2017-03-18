@@ -22,39 +22,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-                                                                                            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                                        
-                                        <?=  Html::a('<i class="fa-th-list"></i><span> Create Enquiry Hospital</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                                                                                                                                        <?= GridView::widget([
-                                                'dataProvider' => $dataProvider,
-                                                'filterModel' => $searchModel,
-        'columns' => [
-                                                ['class' => 'yii\grid\SerialColumn'],
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                                            'id',
-            'enquiry_id',
-            'hospital_name',
-            'consultant_doctor',
-            'hospital_room_no',
-            // 'required_service',
-            // 'other_services',
-            // 'diabetic',
-            // 'hypertension',
-            // 'tubes',
-            // 'feeding',
-            // 'urine',
-            // 'oxygen',
-            // 'tracheostomy',
-            // 'iv_line',
-            // 'dressing',
-            // 'home_or_hospital_visit',
-            // 'visit_date',
-            // 'bedridden:ntext',
-
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Enquiry Hospital</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?=
+                                        GridView::widget([
+                                            'dataProvider' => $dataProvider,
+                                            'filterModel' => $searchModel,
+                                            'columns' => [
+                                                    ['class' => 'yii\grid\SerialColumn'],
+                                                'id',
+                                                'enquiry_id',
+                                                'hospital_name',
+                                                'consultant_doctor',
+                                                'hospital_room_no',
+                                                // 'required_service',
+                                                // 'other_services',
+                                                // 'diabetic',
+                                                // 'hypertension',
+                                                // 'tubes',
+                                                // 'feeding',
+                                                // 'urine',
+                                                // 'oxygen',
+                                                // 'tracheostomy',
+                                                // 'iv_line',
+                                                // 'dressing',
+                                                // 'visit_type',
+                                                // 'visit_date',
+                                                // 'bedridden:ntext',
                                                 ['class' => 'yii\grid\ActionColumn'],
-                                                ],
-                                                ]); ?>
-                                                                                                                </div>
+                                            ],
+                                        ]);
+                                        ?>
+                                </div>
                         </div>
                 </div>
         </div>

@@ -57,7 +57,7 @@ class Enquiry extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['contacted_source', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'whatsapp_reply', 'CB', 'UB'], 'integer'],
+                        [['contacted_source', 'caller_gender', 'whatsapp_number', 'person_gender', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'whatsapp_reply', 'CB', 'UB'], 'integer'],
                         [['contacted_source_others', 'contacted_date', 'outgoing_call_date', 'DOC', 'DOU', 'branch_id'], 'safe'],
                         [['contacted_source'], 'required', 'on' => 'create'],
 //		    [['weight'], 'number'],
@@ -82,6 +82,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                     'outgoing_number_from' => 'Outgoing Number From',
                     'outgoing_call_date' => 'Outgoing Call Date',
                     'caller_name' => 'Caller Name',
+                    'caller_gender' => 'Gender',
                     'referral_source' => 'Referral Source',
                     'mobile_number' => 'Mobile Number',
                     'mobile_number_2' => 'Mobile Number 2',
@@ -92,6 +93,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                     'email' => 'Email',
                     'service_required_for' => 'Service Required For',
                     'service_required_for_others' => 'Relationship Others',
+                    'person_gender' => 'Gender',
                     'age' => 'Age',
                     'weight' => 'Weight',
                     'relationship' => 'Relationship',
@@ -100,6 +102,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                     'person_city' => 'Person City',
                     'person_postal_code' => 'Person Postal Code',
                     'whatsapp_reply' => 'Whatsapp Reply',
+                    'whatsapp_number' => 'Whatsapp Number',
                     'branch_id' => 'Branch',
                     'status' => 'Status',
                     'CB' => 'Cb',

@@ -23,7 +23,7 @@ use Yii;
  * @property string $tracheostomy
  * @property string $iv_line
  * @property string $dressing
- * @property string $home_or_hospital_visit
+ * @property string $visit_type
  * @property string $visit_date
  * @property string $bedridden
  *
@@ -43,9 +43,9 @@ class EnquiryHospital extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['visit_date'], 'safe'],
+                        [['visit_date', 'expected_date'], 'safe'],
                         [['bedridden'], 'string'],
-                        [['hospital_name', 'consultant_doctor', 'hospital_room_no', 'required_service', 'other_services', 'diabetic', 'hypertension', 'tubes', 'feeding', 'urine', 'oxygen', 'tracheostomy', 'iv_line', 'dressing', 'home_or_hospital_visit'], 'string', 'max' => 200],
+                        [['hospital_name', 'consultant_doctor', 'department', 'hospital_room_no', 'other_services', 'diabetic', 'diabetic_note', 'hypertension', 'tubes', 'feeding', 'urine', 'oxygen', 'tracheostomy', 'iv_line', 'dressing', 'visit_type'], 'string', 'max' => 200],
                         [['enquiry_id'], 'exist', 'skipOnError' => true, 'targetClass' => Enquiry::className(), 'targetAttribute' => ['enquiry_id' => 'id']],
                 ];
         }
@@ -59,19 +59,22 @@ class EnquiryHospital extends \yii\db\ActiveRecord {
                     'enquiry_id' => 'Enquiry ID',
                     'hospital_name' => 'Hospital Name',
                     'consultant_doctor' => 'Consultant Doctor',
+                    'department' => 'Department',
                     'hospital_room_no' => 'Hospital Room No',
                     'required_service' => 'Required Service',
-                    'other_services' => 'Other Services',
+                    'expected_date' => 'Expected Date Of Service Needed',
+                    'other_services' => 'Other Services Notes',
                     'diabetic' => 'Diabetic',
+                    'diabetic_note' => 'Diabetic Note',
                     'hypertension' => 'Hypertension',
                     'tubes' => "Tube's",
-                    'feeding' => 'Feeding',
-                    'urine' => 'Urine',
+                    'feeding' => 'Feeding Tube',
+                    'urine' => 'Urine Tube',
                     'oxygen' => 'Oxygen',
                     'tracheostomy' => 'Tracheostomy',
                     'iv_line' => 'IV LINE',
                     'dressing' => 'Dressing',
-                    'home_or_hospital_visit' => 'Home Or Hospital Visit',
+                    'visit_type' => 'Visit Type',
                     'visit_date' => 'Hospital Visit Date',
                     'bedridden' => 'Notes',
                 ];

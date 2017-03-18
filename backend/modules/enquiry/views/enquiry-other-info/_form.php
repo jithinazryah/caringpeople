@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
+use kartik\datetime\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\EnquiryOtherInfo */
@@ -52,6 +53,7 @@ use kartik\date\DatePicker;
                         ]);
                         ?>
 
+
                 </div>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -87,20 +89,20 @@ use kartik\date\DatePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                 <div class="form-group field-enquiryotherinfo-followup_date">
                         <label class="control-label" for="enquiryotherinfo-followup_date">Followup Date</label>
+
                         <?php
                         if (!$model->isNewRecord) {
-                                $model->followup_date = date('d-m-Y', strtotime($model->followup_date));
+                                $model->followup_date = date('d-M-Y h:i', strtotime($model->followup_date));
                         } else {
-                                $model->followup_date = date('d-m-Y');
+                                $model->followup_date = date('d-M-Y h:i');
                         }
-
-                        echo DatePicker::widget([
+                        echo DateTimePicker::widget([
                             'name' => 'EnquiryOtherInfo[followup_date]',
-                            'type' => DatePicker::TYPE_INPUT,
+                            'type' => DateTimePicker::TYPE_INPUT,
                             'value' => $model->followup_date,
                             'pluginOptions' => [
                                 'autoclose' => true,
-                                'format' => 'dd-mm-yyyy',
+                                'format' => 'dd-M-yyyy hh:ii'
                             ]
                         ]);
                         ?>
