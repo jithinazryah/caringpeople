@@ -40,7 +40,7 @@ use kartik\date\DatePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hypertension')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <!--                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'tubes')->textInput(['maxlength' => true])                                                                                                ?>
+        <!--                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'tubes')->textInput(['maxlength' => true])                                                                                                 ?>
 
                         </div>-->
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'feeding')->textInput(['maxlength' => true]) ?>
@@ -54,7 +54,7 @@ use kartik\date\DatePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'iv_line')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <!--        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'dressing')->textInput(['maxlength' => true])                                                                                              ?>
+        <!--        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'dressing')->textInput(['maxlength' => true])                                                                                               ?>
 
                 </div>-->
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'visit_type')->dropDownList(['' => '--Select--', '1' => 'Hospital Visit', '0' => 'Home Visit']) ?>
@@ -130,7 +130,7 @@ use kartik\date\DatePicker;
 
                 });
                 /* Other service note show/hide on update */
-                var required_service = $(this).val();
+                var required_service = $("#enquiryhospital-required_service").val();
                 if (jQuery.inArray("7", required_service) !== -1)
                         $('#required_other_service').show();
                 else
