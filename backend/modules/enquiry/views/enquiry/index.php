@@ -35,6 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
                                         <?php
+                                        $this->render('_enquiry_menus', [
+                                            'model' => $model,
+                                        ])
                                         ?>
                                         <?= Html::a('<i class="fa-th-list"></i><span> Create Enquiry</span>', ['new-enquiry'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
 
@@ -58,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     return 'Close';
                                                             }
                                                     },
-                                                    'filter' => [0 => 'Active', 1 => 'Pending', 2 => 'Close'],
+                                                    'filter' => [1 => 'Active', 2 => 'Pending', 3 => 'Close'],
                                                 ],
                                                 // 'contacted_source_others',
                                                 // 'outgoing_number_from',

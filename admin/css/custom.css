@@ -198,5 +198,14 @@ table.table tr td:last-child a {
 }
 .content{
         text-align: justify;
-        line-height: 25px;
+        line-height: 30px;
+        width: 100%;
+        height: 35px;
+}
+
+.enquiry-hr{
+        margin-top: 5px !important;
+        margin-bottom: 30px !important;
+        border: 0;
+        border-top: 2px solid #979898 !important;
 }

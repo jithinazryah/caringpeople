@@ -52,6 +52,14 @@ class EnquiryController extends Controller {
                 ]);
         }
 
+        public function actionView($id) {
+                $hospital_info = EnquiryHospital::findOne(['enquiry_id' => $id]);
+                $other_info = EnquiryOtherInfo::findOne(['enquiry_id' => $id]);
+                return $this->render('view', [
+                            'model' => $this->findModel($id), 'hospital_info' => $hospital_info, 'other_info' => $other_info,
+                ]);
+        }
+
         public function actionNewEnquiry() {
                 $model = new Enquiry();
                 $hospital_info = new EnquiryHospital();
@@ -87,6 +95,7 @@ class EnquiryController extends Controller {
                 $other_info = EnquiryOtherInfo::find()->where(['enquiry_id' => $model->id])->one();
                 if (!empty($model)) {
                         if ($model->load(Yii::$app->request->post())) {
+
                                 $model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
                                 $model->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['outgoing_call_date']));
                                 if ($model->validate() && $model->save()) {
@@ -112,6 +121,7 @@ class EnquiryController extends Controller {
          *  */
 
         public function AddHospitalInfo($model, $data, $hospital_info) {
+
                 $hospital_info->enquiry_id = $model->id;
                 $hospital_info->load($data);
                 if (!empty($data['EnquiryHospital']['required_service']))

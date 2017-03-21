@@ -12,13 +12,13 @@ use kartik\datetime\DateTimePicker;
 
 <div class="enquiry-other-info-form form-inline">
 
-        <?php $form = ActiveForm::begin(); ?>
+
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'family_support')->dropDownList(['' => '--Select--', '1' => 'Close', '2' => 'Distant', '3' => 'None']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'family_support_note')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php // $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Provincial HC', '4' => 'Insurance', '5' => 'Private', '6' => 'VAC'])                                              ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php // $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Provincial HC', '4' => 'Insurance', '5' => 'Private', '6' => 'VAC'])                                               ?>
 
                 <?= $form->field($model, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Hospital', '4' => 'Others']) ?>
 
@@ -161,9 +161,9 @@ use kartik\datetime\DateTimePicker;
 
                 </div>
 
-        </div>	
+        </div>
 
-        <?php ActiveForm::end(); ?>
+
 
 </div>
 

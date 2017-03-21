@@ -62,7 +62,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                         [['contacted_source'], 'required', 'on' => 'create'],
 //		    [['weight'], 'number'],
                     [['email'], 'email'],
-                        [['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'outgoing_number_from_other', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code'], 'string', 'max' => 100],
+                        [['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'outgoing_number_from_other', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code', 'notes'], 'string', 'max' => 100],
                         [['address', 'person_address'], 'string', 'max' => 200],
                         [['incoming_missed'], 'required', 'message' => "Contact Source Data cannot be blank"]
                 ];
@@ -104,6 +104,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                     'person_postal_code' => 'Person Postal Code',
                     'whatsapp_reply' => 'Whatsapp Reply',
                     'whatsapp_number' => 'Whatsapp Number',
+                    'notes' => 'Notes',
                     'branch_id' => 'Branch',
                     'status' => 'Status',
                     'CB' => 'Cb',

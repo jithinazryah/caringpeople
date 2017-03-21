@@ -24,394 +24,502 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="panel-body">
                                 <?php echo Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+
                                 <div class="panel-body"><div class="enquiry-view">
-                                                <p>
-                                                        <?php //echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                                                        <?php
-                                                        //echo
-                                                        Html::a('Delete', ['delete', 'id' => $model->id], [
-                                                            'class' => 'btn btn-danger',
-                                                            'data' => [
-                                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                                'method' => 'post',
-                                                            ],
-                                                        ])
-                                                        ?>
-                                                </p>
 
 
-                                                <style type="text/css">
+                                                <div id="pdf">
 
-                                                        @media print {
-                                                                thead {display: table-header-group;}
 
-                                                        }
-                                                        @page {
-                                                                size: A4;
-                                                        }
+                                                        <style type="text/css">
 
-                                                        @media screen{
-                                                                .main-tabl{
-                                                                        width: 50%;
+                                                                @media print {
+                                                                        thead {display: table-header-group;}
+                                                                        .table th{ background-color: rgba(155, 156, 157, 0.5);}
                                                                 }
-                                                        }
-                                                        .print{
-                                                                text-align: center;
-                                                                margin-top: 18px;
-                                                        }
+                                                                @page {
+                                                                        size: A4;
+                                                                }
 
-                                                        tfoot{display: table-footer-group;}
-                                                        table { page-break-inside:auto;}
-                                                        tr{ page-break-inside:avoid; page-break-after:auto; }
+                                                                @media screen{
+                                                                        .main-tabl{
+                                                                                width: 50%;
+                                                                        }
+                                                                }
+                                                                .print{
+                                                                        text-align: center;
+                                                                        margin-top: 18px;
+                                                                }
 
-                                                        table.table{
-                                                                border: .1px solid #969696;
-                                                                border-collapse: collapse;
-                                                                margin: auto;
-                                                                color:#000;
+                                                                tfoot{display: table-footer-group;}
+                                                                table { page-break-inside:auto;}
+                                                                tr{ page-break-inside:avoid; page-break-after:auto; }
 
-                                                        }
-                                                        .table th {
-                                                                border: .1px solid #969696;
-                                                                color: #525252;
-                                                                font-weight: bold;
-                                                        }
-                                                        .table td {
-                                                                border: .1px solid #969696;
-                                                                font-size: 12px;
-                                                                text-align: center;
-                                                                padding: 3px;
-                                                        }
-                                                        .header{
-                                                                font-size: 12.5px;
-                                                                display: inline-block;
-                                                                width: 100%;
-                                                        }
-                                                        .main-left{
-                                                                float: left;
-                                                        }
+                                                                table.table{
+                                                                        border: .1px solid #969696;
+                                                                        border-collapse: collapse;
+                                                                        margin: auto;
+                                                                        color:#000;
+
+                                                                }
+                                                                .table th {
+                                                                        border: 1px solid #969696;
+                                                                        color: #525252;
+                                                                        font-weight: bold;
+                                                                }
+                                                                .table td {
+                                                                        border: .1px solid #969696;
+                                                                        font-size: 12px;
+                                                                        text-align: center;
+                                                                        padding: 3px;
+                                                                }
+                                                                .header{
+                                                                        font-size: 12.5px;
+                                                                        display: inline-block;
+                                                                        width: 100%;
+                                                                }
+                                                                .main-left{
+                                                                        float: left;
+                                                                }
+
+                                                                .label_sty{
+                                                                        float: left;
+                                                                }
+                                                                .data_sty{
+                                                                        float: left;
+                                                                        padding: 0px 18px;
+                                                                        border-bottom: 1px solid black;
+                                                                        font-weight: bold;
+                                                                        margin-left: 10px;
+                                                                        text-align: center;
+                                                                        min-height: 30px;
+                                                                }
 
 
 
 
-                                                </style>
-                                                <!--</head>-->
-                                                <!--<body>-->
+                                                        </style>
 
-                                                <table class="main-tabl table table-responsive" border="0" id="pdf" style="line-height:30px;">
-                                                        <thead>
-                                                                <tr>
-                                                                        <th style="width:100%">
-                                                                                <div class="header">
-                                                                                        <div class="main-left">
-                                                                                                <img src="<?= Yii::$app->homeUrl ?>/images/logos/logo-collapsed.png" />
+
+                                                        <table class="main-tabl table" border="0"  style="line-height:30px;">
+                                                                <thead>
+                                                                        <tr>
+                                                                                <th style="width:100%">
+                                                                                        <div class="header">
+                                                                                                <div class="main-left">
+                                                                                                        <img src="<?= Yii::$app->homeUrl ?>/images/logos/logo-collapsed.png" />
+
+                                                                                                </div>
+                                                                                                <div class="enqview_heading">
+                                                                                                        <p>CARING PEOPLE</p>
+                                                                                                        <p>CUSTOMER ENQUIRY CONTACT SHEET</p>
+                                                                                                </div>
+                                                                                                <br/>
+                                                                                        </div>
+                                                                                </th>
+                                                                        </tr>
+
+                                                                </thead>
+
+                                                                <tbody>
+                                                                        <tr>
+                                                                                <td>
+                                                                                        <div class="content info" style="text-align:right;">
+                                                                                                <label><b>NO:<?= $model->enquiry_id; ?></b></label>
+                                                                                        </div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty">
+                                                                                                        <label>Contacted by:</label>
+                                                                                                </div>
+                                                                                                <div class="data_sty">
+                                                                                                        <span><?php
+                                                                                                                if ($model->contacted_source == '0') {
+                                                                                                                        echo 'Phone';
+                                                                                                                } elseif ($model->contacted_source == '1') {
+                                                                                                                        echo 'Email';
+                                                                                                                } elseif ($model->contacted_source == '2') {
+                                                                                                                        echo 'Other';
+                                                                                                                }
+                                                                                                                ?></span>
+                                                                                                </div>
+
+                                                                                                <div class="label_sty"><label>Date:</label></div><div class="data_sty" style="width: 110px;"><span><?= $date = date('d-m-Y', strtotime($model->contacted_date)); ?></span></div>
+                                                                                                <div class="label_sty"><label>Time:</label></div><div class="data_sty"><span><?= $time = date('H:i', strtotime($model->contacted_date)); ?></span></div>
+                                                                                                <div class="label_sty"><label><?php
+                                                                                                                if ($model->contacted_source == '0') {
+                                                                                                                        echo 'Inocming Call Number:';
+                                                                                                                } elseif ($model->contacted_source == '1') {
+                                                                                                                        echo 'Email:';
+                                                                                                                } elseif ($model->contacted_source == '2') {
+                                                                                                                        echo 'Contacted Source Others:';
+                                                                                                                }
+                                                                                                                ?></label></div><div class="data_sty" style="width:120px;"><span><?= $model->incoming_missed; ?></span></div>
 
                                                                                         </div>
-                                                                                        <div class="enqview_heading">
-                                                                                                <p>CARING PEOPLE</p>
-                                                                                                <p>CUSTOMER ENQUIRY CONTACT SHEET</p>
+
+                                                                                        <div style="clear:both"></div>
+
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Outgoing Call from:</label></div>
+                                                                                                <div class="data_sty" style="width:200px;"><span>
+                                                                                                                <?php
+                                                                                                                $outgoing_number = OutgoingNumbers::findOne($model->outgoing_number_from);
+                                                                                                                echo $outgoing_number->phone_number;
+                                                                                                                ?>
+                                                                                                        </span>
+                                                                                                </div>
+                                                                                                <div class="label_sty"><label>Date:</label></div><div class="data_sty" style="width:135px;"><span><?= date('d-m-Y', strtotime($model->outgoing_call_date)); ?></span></div>
+                                                                                                <div class="label_sty"><label>Time:</label></div><div class="data_sty" style="width:135px;"><span><?= date('H:i', strtotime($model->outgoing_call_date)); ?></span></div>
                                                                                         </div>
-                                                                                        <br/>
-                                                                                </div>
-                                                                        </th>
-                                                                </tr>
 
-                                                        </thead>
+                                                                                        <div style="clear:both"></div>
 
-                                                        <tbody>
-                                                                <tr>
-                                                                        <td>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Name of caller:</label></div><div class="data_sty" style="width:395px;"><span><?= $model->caller_name; ?></span></div>
+                                                                                                <div class="label_sty"><label>Gender:</label></div><div class="data_sty" style="width:120px;"><span><?php
+                                                                                                                if ($model->caller_gender == '0') {
+                                                                                                                        echo 'Male';
+                                                                                                                } elseif ($model->caller_gender == '1') {
+                                                                                                                        echo 'Female';
+                                                                                                                }
+                                                                                                                ?></span></div>
 
-                                                                                <div class="content info" style="text-align:right;">
-                                                                                        <label><b>NO:<?= $model->enquiry_id; ?></b></label>
-                                                                                </div>
-                                                                                <div class="content info">
-                                                                                        <label>Contacted by:</label><span><?php
-                                                                                                if ($model->contacted_source == '0') {
-                                                                                                        echo 'Phone';
-                                                                                                } elseif ($model->contacted_source == '1') {
-                                                                                                        echo 'Email';
-                                                                                                } elseif ($model->contacted_source == '2') {
-                                                                                                        echo 'Other';
-                                                                                                }
-                                                                                                ?></span>
+                                                                                        </div>
 
-                                                                                        <label>Date:</label><span><?= $date = date('d-m-Y', strtotime($model->contacted_date)); ?></span>
-                                                                                        <label>Time:</label><span> <?= $time = date('H:i', strtotime($model->contacted_date)); ?></span>
-                                                                                        <label><?php
-                                                                                                if ($model->contacted_source == '0') {
-                                                                                                        echo 'Inocming Call Number:';
-                                                                                                } elseif ($model->contacted_source == '1') {
-                                                                                                        echo 'Email:';
-                                                                                                } elseif ($model->contacted_source == '2') {
-                                                                                                        echo 'Contacted Source Others:';
-                                                                                                }
-                                                                                                ?></label><span><?= $model->incoming_missed; ?></span>
+                                                                                        <div style="clear:both"></div>
 
-                                                                                </div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Referral source:</label></div><div class="data_sty" style="width:560px;"><span><?= $model->referral_source; ?></span></div>
+                                                                                        </div>
+
+                                                                                        <div style="clear:both"></div>
+
+                                                                                        <div class="content">
+
+                                                                                                <div class="label_sty"><label>Mobile:</label></div><div class="data_sty" style="width:165px;"><span><?= $model->mobile_number; ?></span></div>
+                                                                                                <div class="label_sty"><label>Mobile 2:</label></div><div class="data_sty" style="width:165px;"><span><?= $model->mobile_number_2; ?></span></div>
+                                                                                                <div class="label_sty"><label>Mobile 3:</label></div><div class="data_sty" style="width:165px;"><span><?= $model->mobile_number_3; ?></span></div>
+                                                                                        </div>
+
+                                                                                        <div style="clear:both"></div>
 
 
-                                                                                <div class="content info">
-                                                                                        <?php if ($model->outgoing_number_from != '1') { ?>
-                                                                                                <label>Outgoing Call from:</label><span style="padding:0 50px;">
-                                                                                                        <?php
-                                                                                                        $outgoing_number_from = OutgoingNumbers::findOne($model->outgoing_number_from);
-                                                                                                        echo $outgoing_number_from->phone_number;
-                                                                                                        ?>
-                                                                                                </span>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Address:</label></div><div class="data_sty" style="width:610px;"><span><?= $model->address; ?></span> </div>
+
+                                                                                        </div>
+
+                                                                                        <div style="clear:both"></div>
+
+
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>City:</label></div><div class="data_sty" style="width:160px;"><span><?= $model->city; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Zip/PC:</label></div><div class="data_sty" style="width:150px;"><span><?= $model->zip_pc; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Email:</label></div><div class="data_sty" style="width:230px;"><span><?= $model->email; ?></span> </div>
+
+                                                                                        </div>
+
+                                                                                        <div style="clear:both"></div>
+
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Name of person requiring service:</label></div><div class="data_sty" style="width:290px;"><span><?= $model->service_required_for; ?></span></div>
+                                                                                                <div class="label_sty"><label>Gender:</label></div><div class="data_sty" ><span><?php
+                                                                                                                if ($model->person_gender == '0') {
+                                                                                                                        echo 'Male';
+                                                                                                                } elseif ($model->person_gender == '1') {
+                                                                                                                        echo 'Female';
+                                                                                                                }
+                                                                                                                ?></span></div>
+                                                                                                <div class="label_sty"><label>Age:</label></div><div class="data_sty" ><span><?= $model->age; ?></span></div>
+
+                                                                                        </div>
+                                                                                        <div style="clear:both"></div>
+
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Weight:</label></div><div class="data_sty" style="width: 98px;"><span><?= $model->weight; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Relationship:</label></div><div class="data_sty" style="width: 280px;"><span><?php
+                                                                                                                if ($model->relationship != '3') {
+                                                                                                                        if ($model->relationship == '0') {
+                                                                                                                                echo 'Spouse';
+                                                                                                                        } elseif ($model->relationship == '1') {
+                                                                                                                                echo 'Parent';
+                                                                                                                        } elseif ($model->relationship == '2') {
+                                                                                                                                echo 'Grandparent';
+                                                                                                                        } elseif ($model->relationship == '3') {
+                                                                                                                                echo 'Other';
+                                                                                                                        }
+                                                                                                                } else {
+                                                                                                                        echo $model->service_required_for_others;
+                                                                                                                }
+                                                                                                                ?></span> </div>
+                                                                                                <div class="label_sty"><label>Veteran or Spouse:</label></div><div class="data_sty"><span><?php
+                                                                                                                if ($model->veteran_or_spouse == '1') {
+                                                                                                                        echo 'Yes';
+                                                                                                                } elseif ($model->veteran_or_spouse == '0') {
+                                                                                                                        echo 'No';
+                                                                                                                }
+                                                                                                                ?></span> </div>
+
+                                                                                        </div>
+
+                                                                                        <div style="clear:both"></div>
+
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Person Address:</label></div><div class="data_sty" style="width:575px;"><span><?= $model->person_address; ?></span> </div>
+
+                                                                                        </div>
+
+                                                                                        <div style="clear:both"></div>
+
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Person City:</label></div><div class="data_sty" style="width:140px;"><span><?= $model->person_city; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Person Postal Code:</label></div><div class="data_sty" style="width:100px;"><span><?= $model->person_postal_code; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Whatsapp Reply:</label></div><div class="data_sty" style="width:135px;"><span>
+                                                                                                                <?php
+                                                                                                                if ($model->whatsapp_reply == '0') {
+                                                                                                                        echo 'No';
+                                                                                                                } elseif ($model->whatsapp_reply == '1') {
+                                                                                                                        echo 'Yes' . $model->whatsapp_number;
+                                                                                                                }
+                                                                                                                ?></span> </div>
+
+                                                                                        </div>
+
+                                                                                        <div style="clear:both"></div>
+
+                                                                                        <?php if ($model->notes != '') { ?>
+                                                                                                <div style="clear:both"></div>
+                                                                                                <div class="content">
+                                                                                                        <div class="label_sty"><label>Notes:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $model->notes; ?></span></div>
+                                                                                                </div>
                                                                                         <?php } ?>
-                                                                                        <?php if ($model->outgoing_number_from == '1') { ?><label>Outgoing Call from:</label><span style="padding:0 50px;"><?= $model->outgoing_number_from_other; ?></span><?php } ?>
-                                                                                        <label>Date:</label><span style="padding:0 50px;"><?= date('d-m-Y', strtotime($model->outgoing_call_date)); ?></span>
-                                                                                        <label>Time:</label><span style="padding:0 50px;"><?= date('H:i', strtotime($model->outgoing_call_date)); ?></span>
-                                                                                </div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Name of caller:</label><span style="padding:0 60px;"><?= $model->caller_name; ?></span>
-                                                                                        <label>Referral source:</label><span style="padding:0 60px;"><?= $model->referral_source; ?></span>
-                                                                                </div>
+                                                                                        <div style="clear:both"></div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Gender:</label><span><?php
-                                                                                                if ($model->caller_gender == '0') {
-                                                                                                        echo 'Male';
-                                                                                                } elseif ($model->caller_gender == '1') {
-                                                                                                        echo 'Female';
-                                                                                                }
-                                                                                                ?></span>
-                                                                                        <label>Mobile:</label><span><?= $model->mobile_number; ?></span>
-                                                                                        <label>Mobile 2:</label><span><?= $model->mobile_number_2; ?></span>
-                                                                                        <label>Mobile 3:</label><span><?= $model->mobile_number_3; ?></span>
-                                                                                </div>
-                                                                                <div class="content info">
-                                                                                        <label>Address:</label><span><?= $model->address; ?></span>
-                                                                                </div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Hospital:</label></div><div class="data_sty" style="width:200px;"><span><?= $hospital_info->hospital_name; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Room No:</label></div><div class="data_sty" style="width: 65px;"><span><?= $hospital_info->hospital_room_no; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Consultant Doctor:</label></div><div class="data_sty" style="width:180px;"><span><?= $hospital_info->consultant_doctor; ?></span> </div>
+                                                                                        </div>
 
-                                                                                <div class="content info">
+                                                                                        <div style="clear:both"></div>
 
-                                                                                        <label>City:</label><span><?= $model->city; ?></span>
-                                                                                        <label>Zip/PC:</label><span style="padding:0 50px;"><?= $model->zip_pc; ?></span>
-                                                                                        <label>Email:</label><span style="padding:0 50px;"><?= $model->email; ?></span>
-                                                                                </div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Department:</label></div><div class="data_sty" style="width: 265px;"><span><?= $hospital_info->department; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Hypertension </label></div><div class="data_sty" style="width:100px;"><span><?= $hospital_info->hypertension; ?></span></div>
+                                                                                                <div class="label_sty"><label>Feeding Tube:</label></div><div class="data_sty" style="width: 60px;"><span><?= $hospital_info->feeding; ?></span> </div>
+                                                                                        </div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Name of person requiring service:</label><span style="padding: 0 80px;"><?= $model->service_required_for; ?></span>
-                                                                                        <label>Age:</label><span><?= $model->age; ?></span>
-                                                                                        <label>Weight:</label><span><?= $model->weight; ?></span>
-                                                                                </div>
+                                                                                        <div style="clear:both"></div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Relationship:</label><span><?php
-                                                                                                if ($model->relationship == '0') {
-                                                                                                        echo 'Spouse';
-                                                                                                } elseif ($model->relationship == '1') {
-                                                                                                        echo 'Parent';
-                                                                                                } elseif ($model->relationship == '2') {
-                                                                                                        echo 'Grandparent';
-                                                                                                } elseif ($model->relationship == '3') {
-                                                                                                        echo 'Other';
-                                                                                                }
-                                                                                                ?></span>
+                                                                                        <div class="content">
 
-                                                                                        <?php if ($model->service_required_for == '3') { ?> <label>Other:</label><span><?= $model->service_required_for_others; ?></span><?php } ?>
-                                                                                        <label>Veteran or Spouse:</label><span><?php
-                                                                                                if ($model->veteran_or_spouse == '1') {
-                                                                                                        echo 'Yes';
-                                                                                                } elseif ($model->veteran_or_spouse == '0') {
-                                                                                                        echo 'No';
-                                                                                                }
-                                                                                                ?></span>
-                                                                                </div>
-                                                                                <div class="content info">
-                                                                                        <label>Address:</label><span><?= $model->person_address; ?></span>
-                                                                                        <label>City:</label><span><?= $model->person_city; ?></span>
-                                                                                        <label>Postal Code:</label><span><?= $model->person_postal_code; ?></span>
-                                                                                </div>
-                                                                        </td>
-
-                                                                </tr>
-
-                                                                <tr>
-                                                                        <td>
-                                                                                <div class="content info">
-                                                                                        <label>Hospital:</label><span><?= $hospital_info->hospital_name; ?></span>
-                                                                                        <label>Consultant Doctor:</label><span><?= $hospital_info->consultant_doctor; ?></span>
-                                                                                        <label>Hospital Room No:</label><span><?= $hospital_info->hospital_room_no; ?></span>
-                                                                                </div>
-
-                                                                                <div class="content info">
-                                                                                        <label>Required Services:</label><span><?php
-                                                                                                if ($hospital_info->required_service == '1') {
-                                                                                                        echo 'Doctor Visit';
-                                                                                                } elseif ($hospital_info->required_service == '2') {
-                                                                                                        echo 'Nursing Care';
-                                                                                                } elseif ($hospital_info->required_service == '3') {
-                                                                                                        echo 'Physiotherapy';
-                                                                                                } elseif ($hospital_info->required_service == '4') {
-                                                                                                        echo 'Companion Care';
-                                                                                                } elseif ($hospital_info->required_service == '5') {
-                                                                                                        echo 'Bystander Service';
-                                                                                                } elseif ($hospital_info->required_service == '6') {
-                                                                                                        echo 'General Information';
-                                                                                                }
-                                                                                                ?></span>
-                                                                                        <label>Other Service:</label><span><?= $hospital_info->other_services; ?></span>
-                                                                                </div>
-
-                                                                                <div class="content info">
-                                                                                        <label><b>Current Client Situation</b></label>
-                                                                                </div>
+                                                                                                <div class="label_sty"><label>Urine Tube:</label></div><div class="data_sty" style="width: 70px;"><span><?= $hospital_info->urine; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Oxygen </label></div><div class="data_sty" style="width:70px;"><span><?= $hospital_info->oxygen; ?></span></div>
+                                                                                                <div class="label_sty"><label>Tracheostomy </label></div><div class="data_sty" style="width:70px;"><span><?= $hospital_info->tracheostomy; ?></span></div>
+                                                                                                <div class="label_sty"><label>IV LINE:</label></div><div class="data_sty" style="width: 70px;"><span><?= $hospital_info->iv_line; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Diabetic:</label></div><div class="data_sty" style="width: 70px;"><span>
+                                                                                                                <?php
+                                                                                                                if ($hospital_info->diabetic == '0') {
+                                                                                                                        echo 'No';
+                                                                                                                } elseif ($hospital_info->diabetic == '1') {
+                                                                                                                        echo 'Yes';
+                                                                                                                }
+                                                                                                                ?>
+                                                                                                        </span> </div>
+                                                                                        </div>
 
 
-                                                                                <div class="content info">
-                                                                                        <label>Diabetic </label><span><?= $hospital_info->diabetic; ?></span>
-                                                                                        <label>Hypertension </label><span><?= $hospital_info->hypertension; ?></span>
-                                                                                </div>
+                                                                                        <?php if ($hospital_info->diabetic == '1') { ?>
+                                                                                                <div style="clear:both"></div>
+                                                                                                <div class="content">
+                                                                                                        <div class="label_sty"><label>Diabetic Notes:</label></div><div class="data_sty" ><span><?= $hospital_info->diabetic_note; ?></span> </div>
+                                                                                                </div>
+                                                                                        <?php } ?>
 
-                                                                                <div class="content info">
-                                                                                        <label>Tube's</label><span><?= $hospital_info->tubes; ?></span>
-                                                                                        <label>Feeding</label><span><?= $hospital_info->feeding; ?></span>
-                                                                                        <label>Urine</label><span><?= $hospital_info->urine; ?></span>
-                                                                                        <label>Oxygen</label><span><?= $hospital_info->oxygen; ?></span>
-                                                                                </div>
+                                                                                        <div style="clear:both"></div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Tracheostomy</label><span><?= $hospital_info->tracheostomy; ?></span>
-                                                                                        <label>IV LINE</label><span><?= $hospital_info->iv_line; ?></span>
-                                                                                        <label>Dressing</label><span><?= $hospital_info->dressing; ?></span>
-                                                                                </div>
+                                                                                        <div class="content">
 
-                                                                                <div class="content info">
-                                                                                        <label>Visit Type</label><span><?php
-                                                                                                if ($hospital_info->visit_type == '1') {
-                                                                                                        echo 'Hospital Visit';
-                                                                                                } elseif ($hospital_info->visit_type == '0') {
-                                                                                                        echo 'Home Visit';
-                                                                                                }
-                                                                                                ?></span>
+                                                                                                <div class="label_sty"><label>Visit type:</label></div><div class="data_sty" style="width: 120px;"><span>
+                                                                                                                <?php
+                                                                                                                if ($hospital_info->visit_type == '0') {
+                                                                                                                        echo 'Home Visit';
+                                                                                                                } elseif ($hospital_info->visit_type == '1') {
+                                                                                                                        echo 'Hospital Visit';
+                                                                                                                }
+                                                                                                                ?>
+                                                                                                        </span> </div>
+                                                                                                <div class="label_sty"><label>Visit Time</label></div><div class="data_sty" style="width:135px"><span><?= $date = date('d-m-Y H:i', strtotime($hospital_info->visit_date)); ?></span></div>
+                                                                                                <div class="label_sty"><label>Visit Note</label></div><div class="data_sty" style="width:230px"><span><?= $hospital_info->visit_note; ?></span></div>
 
-                                                                                        <label>Date</label><span><?= $date = date('d-m-Y', strtotime($hospital_info->visit_date)); ?></span>
-                                                                                        <label>Time</label><span><?= $date = date('H:i', strtotime($hospital_info->visit_date)); ?></span>
-                                                                                </div>
-                                                                                <div class="content info">
-                                                                                        <label>Bedridden</label><span><?= $hospital_info->bedridden; ?></span>
-                                                                                </div>
-                                                                        </td>
-                                                                </tr>
+                                                                                        </div>
 
-                                                                <tr>
-                                                                        <td>
-                                                                                <div class="content info">
-                                                                                        <p style="page-break-before: always">&nbsp;</p>
-                                                                                        <label>Nearyby family support</label><span><?php
-                                                                                                if ($other_info->family_support == '1') {
-                                                                                                        echo 'Close';
-                                                                                                } elseif ($other_info->family_support == '2') {
-                                                                                                        echo 'Distant';
-                                                                                                } elseif ($other_info->family_support == '3') {
-                                                                                                        echo 'None';
-                                                                                                }
-                                                                                                ?></span>
-                                                                                        <label>Nearyby family support note</label><span><?= $other_info->family_support_note; ?></span>
-                                                                                </div>
+                                                                                        <?php if ($hospital_info->bedridden != '') { ?>
+                                                                                                <div style="clear:both"></div>
+                                                                                                <div class="content">
+                                                                                                        <div class="label_sty"><label>Notes:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $hospital_info->bedridden; ?></span> </div>
+                                                                                                </div>
+                                                                                        <?php } ?>
 
-                                                                                <div class="content info">
-                                                                                        <label>Care currently being provided</label><span><?php
-                                                                                                if ($other_info->care_currently_provided == '1') {
-                                                                                                        echo 'Family';
-                                                                                                } elseif ($other_info->care_currently_provided == '2') {
-                                                                                                        echo 'Friends';
-                                                                                                } elseif ($other_info->care_currently_provided == '3') {
-                                                                                                        echo 'provincial HC';
-                                                                                                } elseif ($other_info->care_currently_provided == '4') {
-                                                                                                        echo 'Insurance';
-                                                                                                } elseif ($other_info->care_currently_provided == '5') {
-                                                                                                        echo 'Private';
-                                                                                                } elseif ($other_info->care_currently_provided == '6') {
-                                                                                                        echo 'VAC';
-                                                                                                }
-                                                                                                ?></span>
-                                                                                        <label>Details of current care</label><span><?= $other_info->details_of_current_care; ?></span>
-                                                                                </div>
+                                                                                        <div style="clear:both"></div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Difficulty in movement</label><span><?php
-                                                                                                if ($other_info->difficulty_in_movement == '1') {
-                                                                                                        echo 'No difficulty';
-                                                                                                } elseif ($other_info->difficulty_in_movement == '2') {
-                                                                                                        echo 'Assistance required';
-                                                                                                } elseif ($other_info->difficulty_in_movement == '3') {
-                                                                                                        echo 'Wheelchair';
-                                                                                                } elseif ($other_info->difficulty_in_movement == '4') {
-                                                                                                        echo 'Bedridden';
-                                                                                                } elseif ($other_info->difficulty_in_movement == '5') {
-                                                                                                        echo 'Other';
-                                                                                                }
-                                                                                                ?></span>
-                                                                                        <?php if ($other_info->difficulty_in_movement == '5') { ?> <label>Difficulty in movement other</label><span><?= $other_info->difficulty_in_movement_other; ?></span><?php } ?>
-                                                                                </div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Nearyby family support:</label></div><div class="data_sty"><span><?php
+                                                                                                                if ($other_info->family_support == '1') {
+                                                                                                                        echo 'Close';
+                                                                                                                } elseif ($other_info->family_support == '2') {
+                                                                                                                        echo 'Distant';
+                                                                                                                } elseif ($other_info->family_support == '3') {
+                                                                                                                        echo 'None';
+                                                                                                                }
+                                                                                                                ?></span> </div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Service required</label><span><?php
-                                                                                                if ($other_info->service_required == '1') {
-                                                                                                        echo 'Immediately';
-                                                                                                } elseif ($other_info->service_required == '2') {
-                                                                                                        echo 'Couple weeks';
-                                                                                                } elseif ($other_info->service_required == '3') {
-                                                                                                        echo 'Month';
-                                                                                                } elseif ($other_info->service_required == '4') {
-                                                                                                        echo 'Unsure';
-                                                                                                } elseif ($other_info->service_required == '5') {
-                                                                                                        echo 'Other';
-                                                                                                }
-                                                                                                ?></span>
-                                                                                        <?php if ($other_info->service_required == '5') { ?><label>Service required other</label><span><?= $other_info->service_required_other; ?></span><?php } ?>
-                                                                                </div>
+                                                                                        </div>
 
-                                                                                <div class="content info">
-                                                                                        <label>How long will service be required  </label><span><?= $other_info->how_long_service_required; ?></span>
-                                                                                        <label>Nursing Assessment </label><span><?= $other_info->nursing_assessment; ?></span>
-                                                                                        <label>Doctor Assessment </label><span><?= $other_info->doctor_assessment; ?></span>
-                                                                                </div>
+                                                                                        <div style="clear:both"></div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Follow up notes</label><span><?= $other_info->follow_up_notes; ?></span>
-                                                                                </div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty" ><label>Nearyby family support Note: </label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $other_info->family_support_note; ?></span></div>
+                                                                                        </div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Quotation Details</label><span><?= $other_info->quotation_details; ?></span>
-                                                                                </div>
+                                                                                        <div style="clear:both"></div>
 
-                                                                                <div class="content info">
-                                                                                        <label>Priority</label><span><?php
-                                                                                                if ($other_info->priority == '1') {
-                                                                                                        echo 'Hot';
-                                                                                                } elseif ($other_info->priority == '2') {
-                                                                                                        echo 'Warm';
-                                                                                                } elseif ($other_info->priority == '3') {
-                                                                                                        echo 'Cold';
-                                                                                                }
-                                                                                                ?></span>
-                                                                                        <?php
-                                                                                        $call_attended = AdminUsers::findOne($model->CB);
-                                                                                        $designation = AdminPosts::findOne($call_attended->post_id);
-                                                                                        ?>
+                                                                                        <?php if ($other_info->care_currently_provided != '4') { ?>
+                                                                                                <div class="content">
 
-                                                                                        <label>Call attended by</label><span><?= $call_attended->name; ?></span>
-                                                                                        <label>Designation</label><span><?= $designation->post_name; ?></span>
-                                                                                </div>
-
-                                                                                <div class="content info">
-                                                                                        <label>Followup Date</label><span><?= date('d-m-Y', strtotime($other_info->followup_date)); ?></span>
-                                                                                </div>
-
-                                                                        </td>
-                                                                </tr>
-
-                                                        </tbody>
+                                                                                                        <div class="label_sty"><label>Care currently being provided:</label></div><div class="data_sty"><span><?php
+                                                                                                                        if ($other_info->care_currently_provided == '1') {
+                                                                                                                                echo 'Family';
+                                                                                                                        } elseif ($other_info->care_currently_provided == '2') {
+                                                                                                                                echo 'Friends';
+                                                                                                                        } elseif ($other_info->care_currently_provided == '3') {
+                                                                                                                                echo 'Hospital';
+                                                                                                                        } elseif ($other_info->care_currently_provided == '4') {
+                                                                                                                                echo 'Others';
+                                                                                                                        }
+                                                                                                                        ?></span> </div>
+                                                                                                        <?php if ($other_info->care_currently_provided == '3') { ?>       <div class="label_sty"><label>Expected Date Of Discharge</label></div><div class="data_sty" style="width:230px"><span><?= $date = date('d-m-Y', strtotime($other_info->date_of_discharge)); ?></span></div><?php } ?>
 
 
-                                                </table>
+                                                                                                </div>
+                                                                                        <?php } else { ?>
+                                                                                                <div class="content">
+                                                                                                        <div class="label_sty"><label>Care currently being provided:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $other_info->care_currently_provided_others; ?></span></div>
+                                                                                                </div>
+                                                                                        <?php } ?>
 
+
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Details Of Current Care:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $other_info->details_of_current_care; ?></span></div>
+                                                                                        </div>
+
+                                                                                        <div class="content">
+
+                                                                                                <?php if ($other_info->difficulty_in_movement != '5') { ?>
+
+
+                                                                                                        <div class="label_sty"><label>Difficulty in movement:</label></div><div class="data_sty" style="width:120px;"><span>
+                                                                                                                        <?php
+                                                                                                                        if ($other_info->difficulty_in_movement == '1') {
+                                                                                                                                echo 'No difficulty';
+                                                                                                                        } elseif ($other_info->difficulty_in_movement == '2') {
+                                                                                                                                echo 'Assistance required';
+                                                                                                                        } elseif ($other_info->difficulty_in_movement == '3') {
+                                                                                                                                echo 'Wheelchair';
+                                                                                                                        } elseif ($other_info->difficulty_in_movement == '4') {
+                                                                                                                                echo 'Bedridden';
+                                                                                                                        } elseif ($other_info->difficulty_in_movement == '5') {
+                                                                                                                                echo 'Other';
+                                                                                                                        }
+                                                                                                                        ?></span> </div>
+
+                                                                                                <?php } else { ?>
+                                                                                                        <div class="label_sty"><label>Difficulty in movement:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $other_info->difficulty_in_movement_other; ?></span></div>
+
+                                                                                                <?php } ?>
+
+                                                                                        </div>
+                                                                                        <div style="clear:both"></div>
+                                                                                        <div class="content">
+                                                                                                <?php if ($other_info->service_required != '5') { ?>
+                                                                                                        <div class="label_sty"><label>Service Required:</label></div><div class="data_sty"><span>
+                                                                                                                        <?php
+                                                                                                                        if ($other_info->service_required == '1') {
+                                                                                                                                echo 'Immediately';
+                                                                                                                        } elseif ($other_info->service_required == '2') {
+                                                                                                                                echo 'Couple weeks';
+                                                                                                                        } elseif ($other_info->service_required == '3') {
+                                                                                                                                echo 'Month';
+                                                                                                                        } elseif ($other_info->service_required == '4') {
+                                                                                                                                echo 'Unsure';
+                                                                                                                        } elseif ($other_info->service_required == '5') {
+                                                                                                                                echo 'Other';
+                                                                                                                        }
+                                                                                                                        ?></span> </div>
+                                                                                                <?php } else { ?>
+                                                                                                        <div class="label_sty"><label>Service Required:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold"> <?= $other_info->service_required_other; ?></span></div>
+
+                                                                                                <?php } ?>
+                                                                                        </div>
+                                                                                        <div style="clear:both"></div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Expected Date Of Service Needed:</label></div><div class="data_sty" ><span> <?= $date = date('d-m-Y', strtotime($other_info->date_of_discharge)); ?></span></div>
+                                                                                                <div class="label_sty"><label>How Long Service Required:</label></div><div class="data_sty" style="width:200px;"><span> <?= $other_info->how_long_service_required; ?></span></div>
+
+
+
+                                                                                        </div>
+
+                                                                                        <div style="clear:both"></div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Nursing Assessment:</label></div><div class="data_sty" style="width:120px;"><span> <?= $date = date('d-m-Y', strtotime($other_info->nursing_assessment)); ?></span></div>
+                                                                                                <div class="label_sty"><label>Doctor Assessment:</label></div><div class="data_sty" style="width:120px;"><span> <?= $date = date('d-m-Y', strtotime($other_info->doctor_assessment)); ?></span></div>
+                                                                                                <div class="label_sty"><label>Priority:</label></div><div class="data_sty" style="width:120px;"><span> <?php
+                                                                                                                if ($other_info->priority == '1') {
+                                                                                                                        echo 'Hot';
+                                                                                                                } elseif ($other_info->priority == '2') {
+                                                                                                                        echo 'Warm';
+                                                                                                                } elseif ($other_info->priority == '3') {
+                                                                                                                        echo 'Cold';
+                                                                                                                }
+                                                                                                                ?></span></div>
+                                                                                        </div>
+
+                                                                                        <?php if ($other_info->follow_up_notes != '') { ?>
+                                                                                                <div style="clear:both"></div>
+                                                                                                <div class="content">
+                                                                                                        <div class="label_sty"><label>Followup Notes:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $other_info->follow_up_notes; ?></span> </div>
+                                                                                                </div>
+                                                                                        <?php } ?>
+
+                                                                                        <?php if ($other_info->quotation_details != '') { ?>
+                                                                                                <div style="clear:both"></div>
+                                                                                                <div class="content">
+                                                                                                        <div class="label_sty"><label>Quotation Details:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $other_info->quotation_details; ?></span></div>
+                                                                                                </div>
+                                                                                        <?php } ?>
+
+                                                                                        <div class="content">
+
+                                                                                                <div class="label_sty"><label>Followup date:</label></div><div class="data_sty" style="width:180px;"><span> <?= $date = date('d-m-Y H:i', strtotime($other_info->followup_date)); ?></span></div>
+
+
+                                                                                        </div>
+
+                                                                                </td>
+
+                                                                        </tr>
+
+
+
+
+
+                                                                </tbody>
+
+
+                                                        </table>
+                                                </div>
                                                 <!--</body>-->
 
 
