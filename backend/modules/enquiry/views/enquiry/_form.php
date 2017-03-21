@@ -156,6 +156,8 @@ use common\models\OutgoingNumbers;
 
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'person_postal_code')->textInput(['maxlength' => true]) ?>
 
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'patient_current_status')->dropDownList(['' => '--Select--', '1' => 'Independent', '2' => 'Bedridden', '3' => 'Assistance Required 1', '4' => 'Assistance Required 2']) ?>
+
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'whatsapp_reply')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='whatsapp_number'>   <?= $form->field($model, 'whatsapp_number')->textInput(['maxlength' => true]) ?>
@@ -169,10 +171,11 @@ use common\models\OutgoingNumbers;
                         </div>
                 <?php } ?>
 
+
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?></div>
+
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Pending', '3' => 'Close']) ?>
 
-                </div>
-                <div class='col-md-12 col-sm-12 col-xs-12 left_padd'>   <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
                 </div>
         </div>
         <div class="row>">

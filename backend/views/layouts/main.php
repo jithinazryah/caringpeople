@@ -129,6 +129,9 @@ foreach ($enquiry_notification as $enquiries) {
                                                                                 <?= Html::a('City', ['/masters/city/index'], ['class' => 'title']) ?>
                                                                         </li>
                                                                         <li>
+                                                                                <?= Html::a('Hospital', ['/masters/hospital/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
                                                                                 <?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>
                                                                         </li>
 
