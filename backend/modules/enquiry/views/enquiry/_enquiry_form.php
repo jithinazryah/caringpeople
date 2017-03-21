@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'model' => $model,
                                 ])
                                 ?>
-                                <div class="panel-body">
+                                <div class="panel-body panel_body_background" >
                                         <?php $form = ActiveForm::begin(); ?>
-                                        <div class="tab-content" style="margin-left: 15px;">
+                                        <div class="tab-content tab_data_margin" >
 
                                                 <div class="tab-pane active" id="home-3">
 
@@ -65,8 +65,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class='col-md-12 col-sm-6 col-xs-12' >
                                                 <div class="form-group" >
                                                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
+                                                        <?= Html::a('<span> Procced To Client</span>', ['index'], ['class' => 'btn btn-success proceed_client']) ?>
                                                 </div>
                                         </div>
+
+
+
                                         <?php ActiveForm::end(); ?>
 
 

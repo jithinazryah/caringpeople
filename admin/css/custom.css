@@ -136,8 +136,8 @@ table.table tr td:last-child a {
         border-collapse: separate;
 }*/
 .nav.nav-tabs>li.active>a {
-        color: #fff !important;
-        background-color: #ffba00  !important;
+        color: #000 !important;
+        background-color: #f2f2f2  !important;
         margin-right: 5px  !important;
         padding-left: 20px  !important;
         padding-right: 20px  !important;
@@ -146,7 +146,7 @@ table.table tr td:last-child a {
 .nav.nav-tabs>li>a {
         color: #fff !important;
         border: none  !important;
-        background-color: rgba(255, 186, 0, 0.64)  !important;
+        background-color: rgba(39, 41, 42, 0.65)  !important;
         margin-right: 5px  !important;
         padding-left: 20px  !important;
         padding-right: 20px  !important;
@@ -208,4 +208,16 @@ table.table tr td:last-child a {
         margin-bottom: 30px !important;
         border: 0;
         border-top: 2px solid #979898 !important;
+}
+.tab_data_margin{
+        margin-left: 28px;
+        margin-right: 16px;
+}
+.panel_body_background{
+        background-color: rgba(151, 152, 152, 0.13);margin-top: -10px;
+}
+.proceed_client{
+        margin-top: 18px;
+        height: 36px;
+        width: 126px;
 }

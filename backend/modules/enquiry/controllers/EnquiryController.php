@@ -104,8 +104,7 @@ class EnquiryController extends Controller {
                                                                 </body>
                                                                 </html>';
 
-                                echo $message;
-                                exit();
+
 
                                 /*   To send HTML mail, the Content-type header must be set */
 

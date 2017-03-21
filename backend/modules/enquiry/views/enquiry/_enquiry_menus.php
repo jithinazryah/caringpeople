@@ -6,7 +6,7 @@ use yii\grid\GridView;
 
 <ul class="nav nav-tabs nav-tabs-justified">
 
-	<li class = "<?= ((Yii::$app->controller->id == 'enquiry') && (Yii::$app->controller->action->id == 'create')) || ($_GET['id'] != '') ? 'active' : '' ?>">
+	<li class = "<?= ((Yii::$app->controller->id == 'enquiry') && (Yii::$app->controller->action->id == 'new-enquiry')) || ($_GET['id'] != '') ? 'active' : '' ?>">
 		<?php if (empty($_GET['id'])) { ?>
 			<?= Html::a('<span class="visible-xs"><i class="fa-envelope-o"></i></span>
 			<span class="hidden-xs span-font-size">General Information</span>', ['enquiry/create'], ['class' => 'btn btn-warning']) ?>

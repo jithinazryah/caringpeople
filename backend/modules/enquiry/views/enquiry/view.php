@@ -160,9 +160,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         <div style="clear:both"></div>
 
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Outgoing Call from:</label></div>
-                                                                                                <div class="data_sty" style="width:200px;"><span>
+                                                                                        <div class = "content">
+                                                                                                <div class = "label_sty"><label>Outgoing Call from:</label></div>
+                                                                                                <div class = "data_sty" style = "width:200px;"><span>
                                                                                                                 <?php
                                                                                                                 $outgoing_number = OutgoingNumbers::findOne($model->outgoing_number_from);
                                                                                                                 echo $outgoing_number->phone_number;
@@ -375,6 +375,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <div class="label_sty"><label>Visit Note</label></div><div class="data_sty" style="width:230px"><span><?= $hospital_info->visit_note; ?></span></div>
 
                                                                                         </div>
+
+                                                                                        <?php if ($hospital_info->required_service != '') { ?>
+                                                                                                <div style="clear:both"></div>
+                                                                                                <div class="content">
+                                                                                                        <div class="label_sty"><label>Required Services:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $hospital_info->bedridden; ?></span> </div>
+                                                                                                </div>
+                                                                                        <?php } ?>
 
                                                                                         <?php if ($hospital_info->bedridden != '') { ?>
                                                                                                 <div style="clear:both"></div>
