@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use common\models\AdminPosts;
 use common\models\AdminUsers;
 use common\models\OutgoingNumbers;
+use common\models\Hospital;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Enquiry */
@@ -297,7 +298,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <div style="clear:both"></div>
 
                                                                                         <div class="content">
-                                                                                                <div class="label_sty"><label>Hospital:</label></div><div class="data_sty" style="width:200px;"><span><?= $hospital_info->hospital_name; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Hospital:</label></div><div class="data_sty" style="width:200px;"><span>
+                                                                                                                <?php
+                                                                                                                $hospital_name = Hospital::findOne($hospital_info->hospital_name);
+                                                                                                                echo $hospital_name->hospital_name;
+                                                                                                                ?>
+                                                                                                        </span> </div>
                                                                                                 <div class="label_sty"><label>Room No:</label></div><div class="data_sty" style="width: 65px;"><span><?= $hospital_info->hospital_room_no; ?></span> </div>
                                                                                                 <div class="label_sty"><label>Consultant Doctor:</label></div><div class="data_sty" style="width:180px;"><span><?= $hospital_info->consultant_doctor; ?></span> </div>
                                                                                         </div>
@@ -330,12 +336,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </div>
 
 
-                                                                                        <?php if ($hospital_info->diabetic == '1') { ?>
+<?php if ($hospital_info->diabetic == '1') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Diabetic Notes:</label></div><div class="data_sty" ><span><?= $hospital_info->diabetic_note; ?></span> </div>
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
                                                                                         <div style="clear:both"></div>
 
@@ -355,12 +361,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         </div>
 
-                                                                                        <?php if ($hospital_info->bedridden != '') { ?>
+<?php if ($hospital_info->bedridden != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Notes:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $hospital_info->bedridden; ?></span> </div>
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
                                                                                         <div style="clear:both"></div>
 
@@ -385,7 +391,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         <div style="clear:both"></div>
 
-                                                                                        <?php if ($other_info->care_currently_provided != '4') { ?>
+<?php if ($other_info->care_currently_provided != '4') { ?>
                                                                                                 <div class="content">
 
                                                                                                         <div class="label_sty"><label>Care currently being provided:</label></div><div class="data_sty"><span><?php
@@ -399,15 +405,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 echo 'Others';
                                                                                                                         }
                                                                                                                         ?></span> </div>
-                                                                                                        <?php if ($other_info->care_currently_provided == '3') { ?>       <div class="label_sty"><label>Expected Date Of Discharge</label></div><div class="data_sty" style="width:230px"><span><?= $date = date('d-m-Y', strtotime($other_info->date_of_discharge)); ?></span></div><?php } ?>
+        <?php if ($other_info->care_currently_provided == '3') { ?>       <div class="label_sty"><label>Expected Date Of Discharge</label></div><div class="data_sty" style="width:230px"><span><?= $date = date('d-m-Y', strtotime($other_info->date_of_discharge)); ?></span></div><?php } ?>
 
 
                                                                                                 </div>
-                                                                                        <?php } else { ?>
+<?php } else { ?>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Care currently being provided:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $other_info->care_currently_provided_others; ?></span></div>
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
 
                                                                                         <div class="content">
@@ -416,7 +422,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         <div class="content">
 
-                                                                                                <?php if ($other_info->difficulty_in_movement != '5') { ?>
+<?php if ($other_info->difficulty_in_movement != '5') { ?>
 
 
                                                                                                         <div class="label_sty"><label>Difficulty in movement:</label></div><div class="data_sty" style="width:120px;"><span>
@@ -434,15 +440,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         }
                                                                                                                         ?></span> </div>
 
-                                                                                                <?php } else { ?>
+<?php } else { ?>
                                                                                                         <div class="label_sty"><label>Difficulty in movement:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $other_info->difficulty_in_movement_other; ?></span></div>
 
-                                                                                                <?php } ?>
+<?php } ?>
 
                                                                                         </div>
                                                                                         <div style="clear:both"></div>
                                                                                         <div class="content">
-                                                                                                <?php if ($other_info->service_required != '5') { ?>
+                                                                                                                <?php if ($other_info->service_required != '5') { ?>
                                                                                                         <div class="label_sty"><label>Service Required:</label></div><div class="data_sty"><span>
                                                                                                                         <?php
                                                                                                                         if ($other_info->service_required == '1') {
@@ -457,10 +463,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 echo 'Other';
                                                                                                                         }
                                                                                                                         ?></span> </div>
-                                                                                                <?php } else { ?>
+<?php } else { ?>
                                                                                                         <div class="label_sty"><label>Service Required:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold"> <?= $other_info->service_required_other; ?></span></div>
 
-                                                                                                <?php } ?>
+<?php } ?>
                                                                                         </div>
                                                                                         <div style="clear:both"></div>
                                                                                         <div class="content">
@@ -486,19 +492,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 ?></span></div>
                                                                                         </div>
 
-                                                                                        <?php if ($other_info->follow_up_notes != '') { ?>
+<?php if ($other_info->follow_up_notes != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Followup Notes:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $other_info->follow_up_notes; ?></span> </div>
                                                                                                 </div>
                                                                                         <?php } ?>
 
-                                                                                        <?php if ($other_info->quotation_details != '') { ?>
+<?php if ($other_info->quotation_details != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Quotation Details:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $other_info->quotation_details; ?></span></div>
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
                                                                                         <div class="content">
 
