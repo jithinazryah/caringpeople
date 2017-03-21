@@ -77,6 +77,42 @@ class EnquiryController extends Controller {
                                 $this->AddHospitalInfo($model, Yii::$app->request->post(), $hospital_info);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->History->UpdateHistory('enquiry', $model->id, 'create');
+
+
+                                /* sending email */
+                                $to = $enquiry->email;
+                                $subject = 'Enquiry';
+                                $message = '<html>
+                                                                <head>
+                                                                <title>Enquiry</title>
+                                                                </head>
+                                                                <body>
+                                                                <div  style="width: 50%;text-align: center;margin:auto;">
+
+                                                                <div  style="margin-left:26px;">
+                                                                <img src="' . Yii::$app->homeUrl . '/images/logos/logo-1.png" style="width:200px">
+                                                                <h2>Enquiry </h2>
+
+                                                                <p>Hi ' . $model->caller_name . ',</p>
+                                                                <p>Your enquiry has been accepted. We will contact you soon.</p>
+
+                                                                </div>
+                                                                </div>
+
+
+
+                                                                </body>
+                                                                </html>';
+
+
+
+                                /*   To send HTML mail, the Content-type header must be set */
+
+//                                $headers = 'MIME-Version: 1.0' . "\r\n";
+//                                $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
+//                                        "From: 'noreplay@caringpeople.com";
+//                                mail($to, $subject, $message, $headers);
+                                /* sending email */
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
                                 $this->redirect('index');
                         }
