@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </style>
 
 
-                                                        <table class="main-tabl table" border="0"  style="line-height:30px;">
+                                                        <table class="main-tabl table table-responsive" border="0"  style="line-height:30px;">
                                                                 <thead>
                                                                         <tr>
                                                                                 <th style="width:100%">
@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 } elseif ($model->contacted_source == '2') {
                                                                                                                         echo 'Contacted Source Others:';
                                                                                                                 }
-                                                                                                                ?></label></div><div class="data_sty" style="width:120px;"><span><?= $model->incoming_missed; ?></span></div>
+                                                                                                                ?></label></div><div class="data_sty" style="width:126px;"><span><?= $model->incoming_missed; ?></span></div>
 
                                                                                         </div>
 
@@ -170,14 +170,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         </span>
                                                                                                 </div>
                                                                                                 <div class="label_sty"><label>Date:</label></div><div class="data_sty" style="width:135px;"><span><?= date('d-m-Y', strtotime($model->outgoing_call_date)); ?></span></div>
-                                                                                                <div class="label_sty"><label>Time:</label></div><div class="data_sty" style="width:135px;"><span><?= date('H:i', strtotime($model->outgoing_call_date)); ?></span></div>
+                                                                                                <div class="label_sty"><label>Time:</label></div><div class="data_sty" style="width:144px;"><span><?= date('H:i', strtotime($model->outgoing_call_date)); ?></span></div>
                                                                                         </div>
 
                                                                                         <div style="clear:both"></div>
 
                                                                                         <div class="content">
                                                                                                 <div class="label_sty"><label>Name of caller:</label></div><div class="data_sty" style="width:395px;"><span><?= $model->caller_name; ?></span></div>
-                                                                                                <div class="label_sty"><label>Gender:</label></div><div class="data_sty" style="width:120px;"><span><?php
+                                                                                                <div class="label_sty"><label>Gender:</label></div><div class="data_sty" style="width:131px;"><span><?php
                                                                                                                 if ($model->caller_gender == '0') {
                                                                                                                         echo 'Male';
                                                                                                                 } elseif ($model->caller_gender == '1') {
@@ -190,7 +190,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <div style="clear:both"></div>
 
                                                                                         <div class="content">
-                                                                                                <div class="label_sty"><label>Referral source:</label></div><div class="data_sty" style="width:560px;"><span><?= $model->referral_source; ?></span></div>
+                                                                                                <div class="label_sty"><label>Referral source:</label></div><div class="data_sty" style="width:572px;"><span><?= $model->referral_source; ?></span></div>
                                                                                         </div>
 
                                                                                         <div style="clear:both"></div>
@@ -199,14 +199,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                 <div class="label_sty"><label>Mobile:</label></div><div class="data_sty" style="width:165px;"><span><?= $model->mobile_number; ?></span></div>
                                                                                                 <div class="label_sty"><label>Mobile 2:</label></div><div class="data_sty" style="width:165px;"><span><?= $model->mobile_number_2; ?></span></div>
-                                                                                                <div class="label_sty"><label>Mobile 3:</label></div><div class="data_sty" style="width:165px;"><span><?= $model->mobile_number_3; ?></span></div>
+                                                                                                <div class="label_sty"><label>Mobile 3:</label></div><div class="data_sty" style="width:174px;"><span><?= $model->mobile_number_3; ?></span></div>
                                                                                         </div>
 
                                                                                         <div style="clear:both"></div>
 
 
                                                                                         <div class="content">
-                                                                                                <div class="label_sty"><label>Address:</label></div><div class="data_sty" style="width:610px;"><span><?= $model->address; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Address:</label></div><div class="data_sty" style="width:612px;"><span><?= $model->address; ?></span> </div>
 
                                                                                         </div>
 
@@ -384,19 +384,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <?php } ?>
 
                                                                                         <div style="clear:both"></div>
+                                                                                        <?php if ($other_info->family_support != '') { ?>
+                                                                                                <div class="content">
+                                                                                                        <div class="label_sty"><label>Nearyby family support:</label></div><div class="data_sty"><span><?php
+                                                                                                                        if ($other_info->family_support == '1') {
+                                                                                                                                echo 'Close';
+                                                                                                                        } elseif ($other_info->family_support == '2') {
+                                                                                                                                echo 'Distant';
+                                                                                                                        } elseif ($other_info->family_support == '3') {
+                                                                                                                                echo 'None';
+                                                                                                                        }
+                                                                                                                        ?></span> </div>
 
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Nearyby family support:</label></div><div class="data_sty"><span><?php
-                                                                                                                if ($other_info->family_support == '1') {
-                                                                                                                        echo 'Close';
-                                                                                                                } elseif ($other_info->family_support == '2') {
-                                                                                                                        echo 'Distant';
-                                                                                                                } elseif ($other_info->family_support == '3') {
-                                                                                                                        echo 'None';
-                                                                                                                }
-                                                                                                                ?></span> </div>
-
-                                                                                        </div>
+                                                                                                </div>
+                                                                                        <?php } ?>
 
                                                                                         <div style="clear:both"></div>
 
@@ -443,11 +444,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 </div>
                                                                                         <?php } ?>
 
-                                                                                        <div class="content">
-
-                                                                                                <?php if ($other_info->difficulty_in_movement != '5' && $other_info->difficulty_in_movement != '') { ?>
 
 
+                                                                                        <?php if ($other_info->difficulty_in_movement != '5' && $other_info->difficulty_in_movement != '') { ?>
+
+                                                                                                <div class="content">
                                                                                                         <div class="label_sty"><label>Difficulty in movement:</label></div><div class="data_sty" style="width:120px;"><span>
                                                                                                                         <?php
                                                                                                                         if ($other_info->difficulty_in_movement == '1') {
@@ -462,20 +463,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 echo 'Other';
                                                                                                                         }
                                                                                                                         ?></span> </div>
+                                                                                                </div>
 
-                                                                                                        <?php
-                                                                                                } else {
-                                                                                                        if ($other_info->care_currently_provided_others != '') {
-                                                                                                                ?>
+                                                                                                <?php
+                                                                                        } else {
+                                                                                                if ($other_info->care_currently_provided_others != '') {
+                                                                                                        ?>
+                                                                                                        <div class="content">
                                                                                                                 <div class="label_sty"><label>Difficulty in movement:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $other_info->difficulty_in_movement_other; ?></span></div>
+                                                                                                        </div>
+                                                                                                        <?php
+                                                                                                }
+                                                                                        }
+                                                                                        ?>
 
-                                                                                                        <?php }
-                                                                                                } ?>
 
-                                                                                        </div>
                                                                                         <div style="clear:both"></div>
-                                                                                        <div class="content">
-                                                                                                                <?php if ($other_info->service_required != '5') { ?>
+
+                                                                                        <?php if ($other_info->service_required != '5' && $other_info->service_required != '') { ?>
+                                                                                                <div class="content">
                                                                                                         <div class="label_sty"><label>Service Required:</label></div><div class="data_sty"><span>
                                                                                                                         <?php
                                                                                                                         if ($other_info->service_required == '1') {
@@ -490,10 +496,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 echo 'Other';
                                                                                                                         }
                                                                                                                         ?></span> </div>
-<?php } else { ?>
-                                                                                                        <div class="label_sty"><label>Service Required:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold"> <?= $other_info->service_required_other; ?></span></div>
-
-<?php } ?>
+                                                                                                </div>
+                                                                                                <?php
+                                                                                        } else {
+                                                                                                if ($other_info->service_required_other != '') {
+                                                                                                        ?>
+                                                                                                        <div class="content">
+                                                                                                                <div class="label_sty"><label>Service Required:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold"> <?= $other_info->service_required_other; ?></span></div>
+                                                                                                        </div>
+                                                                                                        <?php
+                                                                                                }
+                                                                                        }
+                                                                                        ?>
                                                                                         </div>
                                                                                         <div style="clear:both"></div>
                                                                                         <div class="content">
@@ -519,19 +533,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 ?></span></div>
                                                                                         </div>
 
-<?php if ($other_info->follow_up_notes != '') { ?>
+                                                                                        <?php if ($other_info->follow_up_notes != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Followup Notes:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $other_info->follow_up_notes; ?></span> </div>
                                                                                                 </div>
                                                                                         <?php } ?>
 
-<?php if ($other_info->quotation_details != '') { ?>
+                                                                                        <?php if ($other_info->quotation_details != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Quotation Details:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $other_info->quotation_details; ?></span></div>
                                                                                                 </div>
-<?php } ?>
+                                                                                        <?php } ?>
 
                                                                                         <div class="content">
 
