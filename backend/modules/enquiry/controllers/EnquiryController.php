@@ -94,7 +94,7 @@ class EnquiryController extends Controller {
                                                                 <h2>Enquiry </h2>
 
                                                                 <p>Hi ' . $model->caller_name . ',</p>
-                                                                <p>Your enquiry has been accepted. We will contact you soon.</p>
+                                                                <p>Thankyou for your enquiry. We will contact you soon.</p>
 
                                                                 </div>
                                                                 </div>

@@ -467,7 +467,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                 <?php
                                                                                         } else {
-                                                                                                if ($other_info->care_currently_provided_others != '') {
+                                                                                                if ($other_info->difficulty_in_movement_other != '') {
                                                                                                         ?>
                                                                                                         <div class="content">
                                                                                                                 <div class="label_sty"><label>Difficulty in movement:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $other_info->difficulty_in_movement_other; ?></span></div>

@@ -42,7 +42,7 @@ use yii\helpers\ArrayHelper;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hypertension')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <!--                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'tubes')->textInput(['maxlength' => true])                                                                                                             ?>
+        <!--                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'tubes')->textInput(['maxlength' => true])                                                                                                              ?>
 
                         </div>-->
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'feeding')->textInput(['maxlength' => true]) ?>
@@ -56,7 +56,7 @@ use yii\helpers\ArrayHelper;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'iv_line')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <!--        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'dressing')->textInput(['maxlength' => true])                                                                                                           ?>
+        <!--        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php //$form->field($model, 'dressing')->textInput(['maxlength' => true])                                                                                                            ?>
 
                 </div>-->
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'visit_type')->dropDownList(['' => '--Select--', '1' => 'Hospital Visit', '0' => 'Home Visit']) ?>
@@ -94,45 +94,3 @@ use yii\helpers\ArrayHelper;
 </div>
 
 
-<script>
-        $(document).ready(function () {
-
-                $('#diabetic_note').hide();
-                $('#required_other_service').hide();
-
-
-                /* Diabetic note show/hide on diabetic change*/
-
-                $("#enquiryhospital-diabetic").change(function () {
-                        if ($(this).val() === '1')
-                                $('#diabetic_note').show();
-                        else
-                                $('#diabetic_note').hide();
-                });
-
-                /* Diabetic note on update*/
-                if ($('#enquiryhospital-diabetic').val() === '1')
-                        $('#diabetic_note').show();
-                else
-                        $('#diabetic_note').hide();
-
-
-                /* Other service note show/hide on selecting other service from required service*/
-                $("#enquiryhospital-required_service").change(function () {
-                        var required_service = $(this).val();
-                        if (jQuery.inArray("7", required_service) !== -1)
-                                $('#required_other_service').show();
-                        else
-                                $('#required_other_service').hide();
-
-
-                });
-                /* Other service note show/hide on update */
-                var required_service = $("#enquiryhospital-required_service").val();
-                if (jQuery.inArray("7", required_service) !== -1)
-                        $('#required_other_service').show();
-                else
-                        $('#required_other_service').hide();
-
-        });
-</script>
