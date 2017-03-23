@@ -59,10 +59,11 @@ class CasteController extends Controller {
          * @return mixed
          */
         public function actionCreate() {
+                return $this->redirect(['religion/create']);
                 $model = new Caste();
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
-                        return $this->redirect(['index']);
+                        return $this->redirect(['religion/create']);
                 } else {
                         return $this->render('create', [
                                     'model' => $model,

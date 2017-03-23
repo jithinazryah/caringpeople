@@ -55,7 +55,11 @@ use kartik\datetime\DateTimePicker;
         <div class='col-md-4 col-sm-6 col-xs-12' >
                 <div class="form-group">
                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
-                        <?= Html::submitButton('Proceed to Staff', ['class' => 'btn btn-primary']) ?>
+                        <?php
+                        if (!$model->isNewRecord) {
+                                echo Html::submitButton('Proceed to Staff', ['name' => 'proceed', 'class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:125px;']);
+                        }
+                        ?>
                 </div>
         </div>
 

@@ -129,6 +129,15 @@ foreach ($enquiry_notification as $enquiries) {
                                                                                 <?= Html::a('City', ['/masters/city/index'], ['class' => 'title']) ?>
                                                                         </li>
                                                                         <li>
+                                                                                <?= Html::a('Religion', ['/masters/religion/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('Caste', ['/masters/caste/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('Nationality', ['/masters/nationality/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
                                                                                 <?= Html::a('Hospital', ['/masters/hospital/index'], ['class' => 'title']) ?>
                                                                         </li>
                                                                         <li>

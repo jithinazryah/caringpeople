@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\Religion;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ReligionSearch */
@@ -33,11 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'columns' => [
                                                     ['class' => 'yii\grid\SerialColumn'],
                                                 'religion',
-                                                    [
-                                                    'attribute' => 'religion',
-                                                    'value' => 'r.religion',
-                                                    'filter' => ArrayHelper::map(Religion::find()->where(['status' => '1'])->asArray()->all(), 'id', 'religion'),
-                                                ],
                                                     [
                                                     'attribute' => 'status',
                                                     'value' => function($model, $key, $index, $column) {
