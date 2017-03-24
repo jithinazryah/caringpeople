@@ -56,120 +56,118 @@ use Yii;
  * @property StaffOtherInfo[] $staffOtherInfos
  * @property StaffPerviousEmployer[] $staffPerviousEmployers
  */
-class StaffInfo extends \yii\db\ActiveRecord
-{
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'staff_info';
-    }
+class StaffInfo extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'sslc_year_of_passing', 'hse_year_of_passing', 'nursing_year_of_passing', 'timing', 'uniform', 'company_id', 'emergency_conatct_verification', 'panchayath_cleraance_verification', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-            [['dob', 'DOC', 'DOU'], 'safe'],
-            [['branch_id', 'status', 'CB', 'UB'], 'required'],
-            [['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'sslc_institution', 'sslc_place', 'hse_institution', 'hse_place', 'nursing_institution', 'nursing_place', 'profile_image_type', 'biodata'], 'string', 'max' => 200],
-            [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
-            [['caste'], 'exist', 'skipOnError' => true, 'targetClass' => Caste::className(), 'targetAttribute' => ['caste' => 'id']],
-            [['religion'], 'exist', 'skipOnError' => true, 'targetClass' => Religion::className(), 'targetAttribute' => ['religion' => 'id']],
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'staff_info';
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'staff_name' => 'Staff Name',
-            'gender' => 'Gender',
-            'dob' => 'Dob',
-            'blood_group' => 'Blood Group',
-            'religion' => 'Religion',
-            'caste' => 'Caste',
-            'nationality' => 'Nationality',
-            'pan_or_adhar_no' => 'Pan Or Adhar No',
-            'permanent_address' => 'Permanent Address',
-            'pincode' => 'Pincode',
-            'contact_no' => 'Contact No',
-            'email' => 'Email',
-            'present_address' => 'Present Address',
-            'present_pincode' => 'Present Pincode',
-            'present_contact_no' => 'Present Contact No',
-            'present_email' => 'Present Email',
-            'years_of_experience' => 'Years Of Experience',
-            'driving_licence' => 'Driving Licence',
-            'licence_no' => 'Licence No',
-            'sslc_institution' => 'Sslc Institution',
-            'sslc_year_of_passing' => 'Sslc Year Of Passing',
-            'sslc_place' => 'Sslc Place',
-            'hse_institution' => 'Hse Institution',
-            'hse_year_of_passing' => 'Hse Year Of Passing',
-            'hse_place' => 'Hse Place',
-            'nursing_institution' => 'Nursing Institution',
-            'nursing_year_of_passing' => 'Nursing Year Of Passing',
-            'nursing_place' => 'Nursing Place',
-            'timing' => 'Timing',
-            'profile_image_type' => 'Profile Image Type',
-            'uniform' => 'Uniform',
-            'company_id' => 'Company ID',
-            'emergency_conatct_verification' => 'Emergency Conatct Verification',
-            'panchayath_cleraance_verification' => 'Panchayath Cleraance Verification',
-            'biodata' => 'Biodata',
-            'branch_id' => 'Branch ID',
-            'status' => 'Status',
-            'CB' => 'Cb',
-            'UB' => 'Ub',
-            'DOC' => 'Doc',
-            'DOU' => 'Dou',
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['staff_name'], 'required'],
+                        [['email', 'present_email'], 'email'],
+                        [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'sslc_year_of_passing', 'hse_year_of_passing', 'nursing_year_of_passing', 'timing', 'uniform', 'company_id', 'emergency_conatct_verification', 'panchayath_cleraance_verification', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
+                        [['dob', 'DOC', 'DOU'], 'safe'],
+                        [['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'sslc_institution', 'sslc_place', 'hse_institution', 'hse_place', 'nursing_institution', 'nursing_place', 'profile_image_type', 'biodata'], 'string', 'max' => 200],
+                        [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
+                        [['caste'], 'exist', 'skipOnError' => true, 'targetClass' => Caste::className(), 'targetAttribute' => ['caste' => 'id']],
+                        [['religion'], 'exist', 'skipOnError' => true, 'targetClass' => Religion::className(), 'targetAttribute' => ['religion' => 'id']],
+                        [['profile_image_type',], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'jpg, gif, png,jpeg'],
+                        [['biodata'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'pdf, doc, docs,txt'],
+                        [['proofs'], 'file', 'skipOnEmpty' => TRUE, 'maxFiles' => 0],
+                ];
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBranch()
-    {
-        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
-    }
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'staff_name' => 'Staff Name',
+                    'gender' => 'Gender',
+                    'dob' => 'Dob',
+                    'blood_group' => 'Blood Group',
+                    'religion' => 'Religion',
+                    'caste' => 'Caste',
+                    'nationality' => 'Nationality',
+                    'pan_or_adhar_no' => 'Pan Or Adhar No',
+                    'permanent_address' => 'Permanent Address',
+                    'pincode' => 'Pincode',
+                    'contact_no' => 'Contact No',
+                    'email' => 'Email',
+                    'present_address' => 'Present Address',
+                    'present_pincode' => 'Pincode',
+                    'present_contact_no' => 'Contact No',
+                    'present_email' => 'Email',
+                    'years_of_experience' => 'Total Years Of Experience',
+                    'driving_licence' => 'Driving Licence',
+                    'licence_no' => 'Licence No',
+                    'sslc_institution' => 'Institution',
+                    'sslc_year_of_passing' => 'Year Of Passing',
+                    'sslc_place' => 'Place',
+                    'hse_institution' => 'Institution',
+                    'hse_year_of_passing' => 'Year Of Passing',
+                    'hse_place' => 'Place',
+                    'nursing_institution' => 'Institution',
+                    'nursing_year_of_passing' => 'Year Of Passing',
+                    'nursing_place' => 'Place',
+                    'timing' => 'Timing',
+                    'profile_image_type' => 'Profile Image',
+                    'uniform' => 'Uniform',
+                    'company_id' => 'Company ID',
+                    'emergency_conatct_verification' => 'Emergency Conatct Verification',
+                    'panchayath_cleraance_verification' => 'Panchayath Cleraance Verification',
+                    'biodata' => 'Biodata',
+                    'branch_id' => 'Branch',
+                    'proofs' => 'Copy of proofs',
+                    'status' => 'Status',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCaste0()
-    {
-        return $this->hasOne(Caste::className(), ['id' => 'caste']);
-    }
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getBranch() {
+                return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getReligion0()
-    {
-        return $this->hasOne(Religion::className(), ['id' => 'religion']);
-    }
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getCaste0() {
+                return $this->hasOne(Caste::className(), ['id' => 'caste']);
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getStaffOtherInfos()
-    {
-        return $this->hasMany(StaffOtherInfo::className(), ['staff_id' => 'id']);
-    }
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getReligion0() {
+                return $this->hasOne(Religion::className(), ['id' => 'religion']);
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getStaffPerviousEmployers()
-    {
-        return $this->hasMany(StaffPerviousEmployer::className(), ['staff_id' => 'id']);
-    }
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getStaffOtherInfos() {
+                return $this->hasMany(StaffOtherInfo::className(), ['staff_id' => 'id']);
+        }
+
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getStaffPerviousEmployers() {
+                return $this->hasMany(StaffPerviousEmployer::className(), ['staff_id' => 'id']);
+        }
+
 }

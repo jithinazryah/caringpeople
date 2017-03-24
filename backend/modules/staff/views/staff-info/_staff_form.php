@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel common\models\EnquirySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Enquiries';
+$this->title = 'Staffs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="enquiry-index">
@@ -22,8 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
 
-                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?=
+                                $this->render('_menus', [
+                                    'model' => $model,
+                                ])
+                                ?>
                                 <div class="panel-body panel_body_background" >
                                         <?php $form = ActiveForm::begin(); ?>
                                         <div class="tab-content tab_data_margin" >
@@ -41,27 +45,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="tab-pane" id="profile-3">
 
                                                         <?=
-                                                        $this->render('_hospital_form', [
-                                                            'model' => $hospital_info,
-                                                            'form' => $form,
-                                                        ])
-                                                        ?>
-                                                </div>
-                                                <div class="tab-pane" id="messages-3">
-
-                                                        <?=
                                                         $this->render('_other_info_form', [
                                                             'model' => $other_info,
+                                                            'staff_previous_employer' => $staff_previous_employer,
                                                             'form' => $form,
                                                         ])
                                                         ?>
                                                 </div>
+
 
                                         </div>
                                         <div class='col-md-12 col-sm-6 col-xs-12' >
                                                 <div class="form-group" >
                                                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
-                                                        <?= Html::a('<span> Procced To Client</span>', ['index'], ['class' => 'btn btn-success proceed_client']) ?>
+
                                                 </div>
                                         </div>
 

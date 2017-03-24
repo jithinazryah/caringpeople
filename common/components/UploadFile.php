@@ -38,12 +38,13 @@ class UploadFile extends Component {
         }
 
         public function UploadSingle($files, $model, $paths) {
+
                 if ($files != '' && $model != '') {
-                        // $folder = $this->folderName(0, 10000, $model->appointment_id);
-                        //$paths = [Yii::$app->params['mainPath'], Yii::$app->params['appointmentPath'], $folder, $model->appointment_id, $model->type];
-                        $path = $this->CheckPath1($paths);
-                        $name = $this->fileExists($path, $files->baseName . '.' . $files->extension, $files, 1);
-                        $files->saveAs($path . '/' . $name);
+                        $path = $this->CheckPath($paths);
+                        foreach ($files as $file) {
+                                $name = $this->fileExists($path, $file->baseName . '.' . $file->extension, $file, 1);
+                                $file->saveAs($path . '/' . $name);
+                        }
                         return true;
                 } else {
                         return false;
@@ -68,10 +69,11 @@ class UploadFile extends Component {
         }
 
         public function CheckPath($paths) {
+
                 $root = Yii::getAlias(Yii::$app->params['uploadPath']); /* Yii::$app->basePath; */
                 foreach ($paths as $path) {
-
                         $root .= '/' . $path;
+
                         if (!is_dir($root))
                                 mkdir($root);
                 }

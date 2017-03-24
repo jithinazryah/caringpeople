@@ -63,6 +63,37 @@ $("document").ready(function () {
                 }
         });
 
+
+
+
+        /*
+         * Purpose   :- On change of religion dropdown
+         * parameter :- religion
+         * return   :- The list of caste depends on the religion
+         */
+
+        $('.religion-change').change(function () {
+                var religion = $(this).val();
+                showLoader();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {religion: religion},
+                        url: homeUrl + 'ajax/religion',
+                        success: function (data) {
+
+                                if (data == 0) {
+                                        alert('Failed to Load data, please try again error:1001');
+                                } else {
+                                        $(".caste-change").html(data);
+                                }
+                                hideLoader();
+                        }
+                });
+        });
+
+
+
         /*
          * Purpose   :- On change of email field in enquiry form(email duplication check)
          * parameter :- email

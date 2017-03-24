@@ -85,7 +85,7 @@ class StaffEnquiryController extends Controller {
                         $model->follow_up_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffEnquiry']['follow_up_date']));
                         if ($model->save())
                                 if (isset($_POST['proceed']))
-                                        return $this->redirect(['create']);
+                                        return $this->redirect(['staff-info/create']);
                                 else
                                         return $this->redirect(['index']);
                 }

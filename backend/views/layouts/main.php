@@ -36,7 +36,7 @@ foreach ($enquiry_notification as $enquiries) {
                 <script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
                 <script type="text/javascript">
                         var homeUrl = '<?= Yii::$app->homeUrl; ?>';
-                        //var basePath = "<?= Yii::$app->basePath; ?>";
+                        var basePath = "<?= Yii::$app->basePath; ?>";
                 </script>
                 <?= Html::csrfMetaTags() ?>
                 <?php $this->head() ?>
@@ -163,6 +163,24 @@ foreach ($enquiry_notification as $enquiries) {
                                                                 <ul>
                                                                         <li>
                                                                                 <?= Html::a('Enquiry', ['/enquiry/enquiry/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li class="active opened active">
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa-envelope-o"></i>
+                                                                        <span class="title">Enquiry</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Staff-Enquiry', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
                                                                         </li>
 
 

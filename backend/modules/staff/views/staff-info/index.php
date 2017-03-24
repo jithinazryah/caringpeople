@@ -22,62 +22,78 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-                                                                                            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                                        
-                                        <?=  Html::a('<i class="fa-th-list"></i><span> Create Staff Info</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                                                                                                                                        <?= GridView::widget([
-                                                'dataProvider' => $dataProvider,
-                                                'filterModel' => $searchModel,
-        'columns' => [
-                                                ['class' => 'yii\grid\SerialColumn'],
 
-                                                            'id',
-            'staff_name',
-            'gender',
-            'dob',
-            'blood_group',
-            // 'religion',
-            // 'caste',
-            // 'nationality',
-            // 'pan_or_adhar_no',
-            // 'permanent_address',
-            // 'pincode',
-            // 'contact_no',
-            // 'email:email',
-            // 'present_address',
-            // 'present_pincode',
-            // 'present_contact_no',
-            // 'present_email:email',
-            // 'years_of_experience',
-            // 'driving_licence',
-            // 'licence_no',
-            // 'sslc_institution',
-            // 'sslc_year_of_passing',
-            // 'sslc_place',
-            // 'hse_institution',
-            // 'hse_year_of_passing',
-            // 'hse_place',
-            // 'nursing_institution',
-            // 'nursing_year_of_passing',
-            // 'nursing_place',
-            // 'timing',
-            // 'profile_image_type',
-            // 'uniform',
-            // 'company_id',
-            // 'emergency_conatct_verification',
-            // 'panchayath_cleraance_verification',
-            // 'biodata',
-            // 'branch_id',
-            // 'status',
-            // 'CB',
-            // 'UB',
-            // 'DOC',
-            // 'DOU',
+                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                        <?= Yii::$app->session->getFlash('error') ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                <div class="alert alert-success" role="alert">
+                                                        <?= Yii::$app->session->getFlash('success') ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                                ['class' => 'yii\grid\ActionColumn'],
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Staff Info</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?=
+                                        GridView::widget([
+                                            'dataProvider' => $dataProvider,
+                                            'filterModel' => $searchModel,
+                                            'columns' => [
+                                                    ['class' => 'yii\grid\SerialColumn'],
+                                                'staff_name',
+                                                    [
+                                                    'attribute' => 'gender',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            return $model->gender == 0 ? 'Male' : 'Female';
+                                                    },
+                                                    'filter' => [1 => 'Female', 0 => 'Male'],
                                                 ],
-                                                ]); ?>
-                                                                                                                </div>
+                                                'dob',
+                                                'blood_group',
+                                                // 'religion',
+                                                // 'caste',
+                                                // 'nationality',
+                                                // 'pan_or_adhar_no',
+                                                // 'permanent_address',
+                                                // 'pincode',
+                                                // 'contact_no',
+                                                // 'email:email',
+                                                // 'present_address',
+                                                // 'present_pincode',
+                                                // 'present_contact_no',
+                                                // 'present_email:email',
+                                                // 'years_of_experience',
+                                                // 'driving_licence',
+                                                // 'licence_no',
+                                                // 'sslc_institution',
+                                                // 'sslc_year_of_passing',
+                                                // 'sslc_place',
+                                                // 'hse_institution',
+                                                // 'hse_year_of_passing',
+                                                // 'hse_place',
+                                                // 'nursing_institution',
+                                                // 'nursing_year_of_passing',
+                                                // 'nursing_place',
+                                                // 'timing',
+                                                // 'profile_image_type',
+                                                // 'uniform',
+                                                // 'company_id',
+                                                // 'emergency_conatct_verification',
+                                                // 'panchayath_cleraance_verification',
+                                                // 'biodata',
+                                                // 'branch_id',
+                                                // 'status',
+                                                // 'CB',
+                                                // 'UB',
+                                                // 'DOC',
+                                                // 'DOU',
+                                                ['class' => 'yii\grid\ActionColumn'],
+                                            ],
+                                        ]);
+                                        ?>
+                                </div>
                         </div>
                 </div>
         </div>

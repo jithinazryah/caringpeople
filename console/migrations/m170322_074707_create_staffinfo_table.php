@@ -48,6 +48,7 @@ class m170322_074707_create_staffinfo_table extends Migration {
                     'emergency_conatct_verification' => $this->integer(),
                     'panchayath_cleraance_verification' => $this->integer(),
                     'biodata' => $this->string(200),
+                    'proofs' => $this->string(200),
                     'branch_id' => $this->integer()->notNull(),
                     'status' => $this->smallInteger()->notNull(),
                     'CB' => $this->integer()->notNull(),
