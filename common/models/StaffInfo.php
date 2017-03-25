@@ -43,6 +43,15 @@ use Yii;
  * @property integer $emergency_conatct_verification
  * @property integer $panchayath_cleraance_verification
  * @property string $biodata
+ * @property string $sslc
+ * @property string $hse
+ * @property string $KNC
+ * @property string $INC
+ * @property string $marklist
+ * @property string $experience
+ * @property string $id_proof
+ * @property string $PCC
+ * @property string $authorised_letter
  * @property integer $branch_id
  * @property integer $status
  * @property integer $CB
@@ -50,9 +59,6 @@ use Yii;
  * @property string $DOC
  * @property string $DOU
  *
- * @property Branch $branch
- * @property Caste $caste0
- * @property Religion $religion0
  * @property StaffOtherInfo[] $staffOtherInfos
  * @property StaffPerviousEmployer[] $staffPerviousEmployers
  */
@@ -70,17 +76,17 @@ class StaffInfo extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['staff_name'], 'required'],
                         [['email', 'present_email'], 'email'],
                         [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'sslc_year_of_passing', 'hse_year_of_passing', 'nursing_year_of_passing', 'timing', 'uniform', 'company_id', 'emergency_conatct_verification', 'panchayath_cleraance_verification', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
                         [['dob', 'DOC', 'DOU'], 'safe'],
-                        [['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'sslc_institution', 'sslc_place', 'hse_institution', 'hse_place', 'nursing_institution', 'nursing_place', 'profile_image_type', 'biodata'], 'string', 'max' => 200],
+                        [['staff_name'], 'required'],
                         [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
                         [['caste'], 'exist', 'skipOnError' => true, 'targetClass' => Caste::className(), 'targetAttribute' => ['caste' => 'id']],
                         [['religion'], 'exist', 'skipOnError' => true, 'targetClass' => Religion::className(), 'targetAttribute' => ['religion' => 'id']],
+                        [['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'sslc_institution', 'sslc_place', 'hse_institution', 'hse_place', 'nursing_institution', 'nursing_place', 'profile_image_type', 'biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter'], 'string', 'max' => 200],
                         [['profile_image_type',], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'jpg, gif, png,jpeg'],
                         [['biodata'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'pdf, doc, docs,txt'],
-                        [['proofs'], 'file', 'skipOnEmpty' => TRUE, 'maxFiles' => 0],
+                        [['hse'], 'file', 'skipOnEmpty' => TRUE],
                 ];
         }
 
@@ -97,7 +103,7 @@ class StaffInfo extends \yii\db\ActiveRecord {
                     'religion' => 'Religion',
                     'caste' => 'Caste',
                     'nationality' => 'Nationality',
-                    'pan_or_adhar_no' => 'Pan Or Adhar No',
+                    'pan_or_adhar_no' => 'Pan Card/Adhar Card No',
                     'permanent_address' => 'Permanent Address',
                     'pincode' => 'Pincode',
                     'contact_no' => 'Contact No',
@@ -120,40 +126,27 @@ class StaffInfo extends \yii\db\ActiveRecord {
                     'nursing_place' => 'Place',
                     'timing' => 'Timing',
                     'profile_image_type' => 'Profile Image',
-                    'uniform' => 'Uniform',
-                    'company_id' => 'Company ID',
-                    'emergency_conatct_verification' => 'Emergency Conatct Verification',
-                    'panchayath_cleraance_verification' => 'Panchayath Cleraance Verification',
+                    'uniform' => 'Uniform Provided or Not',
+                    'company_id' => 'Company ID Provided or Not',
+                    'emergency_conatct_verification' => 'Emergency Conatct Verification?',
+                    'panchayath_cleraance_verification' => 'Panchayath Cleraance Verification?',
                     'biodata' => 'Biodata',
                     'branch_id' => 'Branch',
-                    'proofs' => 'Copy of proofs',
+                    'sslc' => 'SSLC',
+                    'hse' => '+2',
+                    'KNC' => 'KNC',
+                    'INC' => 'INC',
+                    'marklist' => 'Marklist',
+                    'experience' => 'Experience',
+                    'id_proof' => 'Pan Card/Passport/Voter ID',
+                    'PCC' => 'Police Clearnce Certificate',
+                    'authorised_letter' => 'Authorised letter from Panchayth/Muncipality/Coorporation',
                     'status' => 'Status',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
                 ];
-        }
-
-        /**
-         * @return \yii\db\ActiveQuery
-         */
-        public function getBranch() {
-                return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
-        }
-
-        /**
-         * @return \yii\db\ActiveQuery
-         */
-        public function getCaste0() {
-                return $this->hasOne(Caste::className(), ['id' => 'caste']);
-        }
-
-        /**
-         * @return \yii\db\ActiveQuery
-         */
-        public function getReligion0() {
-                return $this->hasOne(Religion::className(), ['id' => 'religion']);
         }
 
         /**

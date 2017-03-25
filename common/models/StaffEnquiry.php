@@ -20,6 +20,7 @@ use Yii;
  * @property integer $UB
  * @property string $DOC
  * @property string $DOU
+ * @property string $proceed
  *
  * @property Branch $branch
  */
@@ -37,9 +38,9 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['name', 'phone_number', 'email', 'address', 'follow_up_date', 'status'], 'required'],
+                        [['name', 'gender', 'phone_number', 'email', 'address', 'follow_up_date', 'status'], 'required'],
                         [['email'], 'email'],
-                        [['branch_id', 'status', 'CB', 'UB'], 'integer'],
+                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'staff_type'], 'integer'],
                         [['follow_up_date', 'DOC', 'DOU'], 'safe'],
                         [['notes'], 'string'],
                         [['name', 'phone_number', 'email', 'address'], 'string', 'max' => 200],
@@ -55,12 +56,15 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                     'id' => 'ID',
                     'branch_id' => 'Branch ID',
                     'name' => 'Name',
+                    'gender' => 'Gender',
+                    'staff_type' => 'Staff Tpe',
                     'phone_number' => 'Phone Number',
                     'email' => 'Email',
                     'address' => 'Address',
                     'follow_up_date' => 'Followup Date',
                     'notes' => 'Notes',
                     'status' => 'Status',
+                    'proceed' => 'proceed',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',

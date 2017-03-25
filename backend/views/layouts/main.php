@@ -38,6 +38,11 @@ foreach ($enquiry_notification as $enquiries) {
                         var homeUrl = '<?= Yii::$app->homeUrl; ?>';
                         var basePath = "<?= Yii::$app->basePath; ?>";
                 </script>
+                <script>
+                        webshims.setOptions('waitReady', false);
+                        webshims.setOptions('forms-ext', {types: 'date'});
+                        webshims.polyfill('forms forms-ext');
+                </script>
                 <?= Html::csrfMetaTags() ?>
                 <?php $this->head() ?>
         </head>
@@ -175,12 +180,16 @@ foreach ($enquiry_notification as $enquiries) {
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li class="active opened active">
                                                                 <a href="dashboard-1.html">
-                                                                        <i class="fa-envelope-o"></i>
-                                                                        <span class="title">Enquiry</span>
+                                                                        <i class="fa-user"></i>
+                                                                        <span class="title">Staffs</span>
                                                                 </a>
                                                                 <ul>
                                                                         <li>
-                                                                                <?= Html::a('Staff-Enquiry', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Enquiry Staff List', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Staff List', ['/staff/staff-info/index'], ['class' => 'title']) ?>
                                                                         </li>
 
 

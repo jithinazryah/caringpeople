@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
 
 <div class="staff-info-form form-inline">
 
-        <?= $form->errorSummary($model); ?>
+
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'staff_name')->textInput(['maxlength' => true]) ?>
 
@@ -28,7 +28,7 @@ use yii\helpers\ArrayHelper;
                         if (!$model->isNewRecord) {
                                 $model->dob = date('d-m-Y', strtotime($model->dob));
                         } else {
-                                $model->dob = date('d-m-Y');
+                                $model->dob = '';
                         }
 
                         echo DatePicker::widget([
@@ -50,6 +50,7 @@ use yii\helpers\ArrayHelper;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>  <?php $religion = Religion::find()->where(['status' => '1'])->all(); ?>  <?= $form->field($model, 'religion')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control religion-change']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+
                 <?php
                 if (!$model->isNewRecord) {
                         $caste = Caste::find()->where(['r_id' => $model->religion, 'status' => '1'])->all();
@@ -67,7 +68,7 @@ use yii\helpers\ArrayHelper;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>  <?php $nationality = Nationality::find()->where(['status' => '1'])->all(); ?>   <?= $form->field($model, 'nationality')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control religion-change']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>  <?php $nationality = Nationality::find()->where(['status' => '1'])->all(); ?>   <?= $form->field($model, 'nationality')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 
         </div><div class="row"><input type="checkbox" id="checkbox_id" name="check" checkvalue="1" uncheckValue="0" style="margin-left: 20px;"><label style="color:black;font-weight:bold;margin-left: 5px;">Permanent contact details and Present contact details are same</label>
 
@@ -83,7 +84,7 @@ use yii\helpers\ArrayHelper;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'years_of_experience')->textInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'driving_licence')->dropDownList(['' => '--Select--', '0' => 'No', '1' => 'Yes', '2' => 'Motor Cycle', '3' => 'LMV']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'driving_licence')->dropDownList(['' => '--Select--', '0' => 'No', '1' => 'Motor Cycle & LMV', '2' => 'Motor Cycle', '3' => 'LMV']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'licence_no')->textInput(['maxlength' => true]) ?>
 
@@ -132,58 +133,28 @@ use yii\helpers\ArrayHelper;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'profile_image_type')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'proofs[]')->fileInput(['multiple' => true]) ?></div>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sslc')->fileInput() ?>
 
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hse')->fileInput() ?>
 
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'KNC')->fileInput() ?>
 
-        <?php
-        if (Yii::$app->user->identity->branch_id == '0') {
-                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
-                ?>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
-                        </div>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'INC')->fileInput() ?>
 
-                <?php } ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'marklist')->fileInput() ?>
 
-        </div>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'experience')->fileInput() ?>
 
-        <div class="row">
-                <?php
-                if (!$model->isNewRecord) {
-                        if ($model->profile_image_type != '') {
-                                ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'id_proof')->fileInput() ?>
 
-                                <div class = "col-md-2 img-box">
-                                        <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/profile/' . $model->id . '.' . $model->profile_image_type ?>" style="position:relative;" class="img-responsive"/>
-                                </div>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'PCC')->fileInput() ?>
 
-                                <?php
-                        }
-                }
-                ?>
-
-
-                <?php
-                $path = Yii::$app->basePath . '../../uploads/staff/' . $model->id . '/proofs';
-                ?>
-
-                <?php
-                foreach (glob("{$path}/*") as $file) {
-                        $arry = explode('/', $file);
-                        ?>
-                        <div class = "col-md-2 img-box">
-                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/proofs/' . end($arry) ?>" style="position:relative;width:135px;height: 135px;" class="img-responsive" />
-                                <label><?= end($arry); ?></label>
-                        </div>
-                <?php }
-                ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'authorised_letter')->fileInput() ?>
 
         </div>
 
-        <style>
-                .img-box img{
-                        width:135px;
-                        height: 135px;
-                }
-        </style>
+
+</div>
+
+
+

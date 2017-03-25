@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\StaffInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Staff Infos';
+$this->title = 'Staffs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="staff-info-index">
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php endif; ?>
                                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Staff Info</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Staff</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?=
                                         GridView::widget([
                                             'dataProvider' => $dataProvider,

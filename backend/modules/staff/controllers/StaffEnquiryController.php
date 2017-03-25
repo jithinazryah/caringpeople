@@ -84,10 +84,13 @@ class StaffEnquiryController extends Controller {
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && Yii::$app->SetValues->currentBranch($model)) {
                         $model->follow_up_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffEnquiry']['follow_up_date']));
                         if ($model->save())
-                                if (isset($_POST['proceed']))
+                                if (isset($_POST['proceed'])) {
+                                        $model->proceed = '1';
+                                        $model->update();
                                         return $this->redirect(['staff-info/create']);
-                                else
+                                } else {
                                         return $this->redirect(['index']);
+                                }
                 }
                 return $this->render('update', [
                             'model' => $model,

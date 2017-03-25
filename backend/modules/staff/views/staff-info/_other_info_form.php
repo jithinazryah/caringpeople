@@ -55,7 +55,7 @@ use kartik\date\DatePicker;
                         echo DatePicker::widget([
                             'name' => 'StaffOtherInfo[current_to]',
                             'type' => DatePicker::TYPE_INPUT,
-                            'value' => $model->current_from,
+                            'value' => $model->current_to,
                             'pluginOptions' => [
                                 'autoclose' => true,
                                 'format' => 'dd-mm-yyyy',
@@ -71,58 +71,98 @@ use kartik\date\DatePicker;
         <h3 style="color:#148eaf;">Previous Employer</h3>
         <hr class="enquiry-hr"/>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_previous_employer, 'hospital_address')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_previous_employer, 'designation')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_previous_employer, 'length_of_service')->textInput(['maxlength' => true]) ?>
+        <div id="p_scents">
+                <input type="hidden" id="delete_port_vals"  name="delete_port_vals" value="">
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
-                <div class="form-group field-staffperviousemployer-service_from">
-                        <label class="control-label" for="staffperviousemployer-service_from">From</label>
-                        <?php
-                        if (!$model->isNewRecord) {
-                                $staff_previous_employer->service_from = date('d-m-Y', strtotime($staff_previous_employer->service_from));
-                        } else {
-                                $staff_previous_employer->service_from = date('d-m-Y');
+                <?php
+                if (!empty($staff_previous_employer)) {
+
+                        foreach ($staff_previous_employer as $data) {
+                                ?>
+                                <span>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffperviousemployer-hospital_address">
+                                                        <label class="control-label">Hospital Address</label>
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][hospitaladdress][]" value="<?= $data->hospital_address; ?>" required>
+                                                </div>
+                                        </div>
+
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffperviousemployer-designation">
+                                                        <label class="control-label" for="">Designation</label>
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][designation][]" value="<?= $data->designation; ?>" required>
+                                                </div>
+                                        </div>
+
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffperviousemployer-length_of_service">
+                                                        <label class="control-label" >Length of service</label>
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][length][]" value="<?= $data->length_of_service; ?>" required>
+                                                </div>
+                                        </div>
+
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffperviousemployer-service_from">
+                                                        <label class="control-label" >From</label>
+                                                        <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][from][]" value="<?= $data->service_from; ?>" required>
+                                                </div>
+                                        </div>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffperviousemployer-service_to">
+                                                        <label class="control-label" >To</label>
+                                                        <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][to][]" value="<?= $data->service_to; ?>" required>
+                                                </div>
+                                        </div>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" ><i class="fa-remove"></i></a>
+                                        </div>
+                                        <div style="clear:both"></div>
+                                </span>
+                                <br>
+                                <?php
                         }
+                }
+                ?>
 
-                        echo DatePicker::widget([
-                            'name' => 'StaffPerviousEmployer[service_from]',
-                            'type' => DatePicker::TYPE_INPUT,
-                            'value' => $staff_previous_employer->service_from,
-                            'pluginOptions' => [
-                                'autoclose' => true,
-                                'format' => 'dd-mm-yyyy',
-                            ]
-                        ]);
-                        ?>
-                </div>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                <div class="form-group field-staffperviousemployer-service_to">
-                        <label class="control-label" for="staffperviousemployer-service_to">To</label>
-                        <?php
-                        if (!$model->isNewRecord) {
-                                $staff_previous_employer->service_to = date('d-m-Y', strtotime($staff_previous_employer->service_to));
-                        } else {
-                                $staff_previous_employer->service_to = date('d-m-Y');
-                        }
-
-                        echo DatePicker::widget([
-                            'name' => 'StaffPerviousEmployer[service_to]',
-                            'type' => DatePicker::TYPE_INPUT,
-                            'value' => $staff_previous_employer->service_to,
-                            'pluginOptions' => [
-                                'autoclose' => true,
-                                'format' => 'dd-mm-yyyy',
-                            ]
-                        ]);
-                        ?>
-                </div>
-
-        </div> <div style="clear:both"></div>
+                <span>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-hospital_address">
+                                        <label class="control-label">Hospital Address</label>
+                                        <input type="text" class="form-control" name="create[hospitaladdress][]">
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-designation">
+                                        <label class="control-label" for="">Designation</label>
+                                        <input type="text" class="form-control" name="create[designation][]">
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-length_of_service">
+                                        <label class="control-label" >Length of service</label>
+                                        <input type="text" class="form-control" name="create[length][]">
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-service_from">
+                                        <label class="control-label" >From</label>
+                                        <input type="date" class="form-control" name="create[from][]">
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-service_to">
+                                        <label class="control-label" >To</label>
+                                        <input type="date" class="form-control" name="create[to][]">
+                                </div>
+                        </div>
+                        <a id="addScnt" class="btn btn-icon btn-blue addScnt" ><i class="fa-plus"></i>Add</a>
+                        <div style="clear:both"></div>
+                </span>
+                <br/>
+        </div>
 
         <h3 style="color:#148eaf;">Emergency Contact</h3>
         <hr class="enquiry-hr"/>

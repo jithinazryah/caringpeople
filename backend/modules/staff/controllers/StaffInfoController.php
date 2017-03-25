@@ -51,8 +51,13 @@ class StaffInfoController extends Controller {
          * @return mixed
          */
         public function actionView($id) {
+
+                $other_info = StaffOtherInfo::findOne(['staff_id' => $id]);
+                $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $id]);
                 return $this->render('view', [
-                            'model' => $this->findModel($id),
+                            'staff_info' => $this->findModel($id),
+                            'staff_other_info' => $other_info,
+                            'staff_previous_employer' => $staff_previous_employer
                 ]);
         }
 
@@ -61,51 +66,22 @@ class StaffInfoController extends Controller {
          * If creation is successful, the browser will be redirected to the 'view' page.
          * @return mixed
          */
-        public function actionCreate1() {
-                $model = new StaffInfo();
-
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
-                } else {
-                        return $this->render('create', [
-                                    'model' => $model,
-                        ]);
-                }
-        }
-
         public function actionCreate() {
 
                 $model = new StaffInfo();
                 $other_info = new StaffOtherInfo();
-                $staff_previous_employer = new StaffPerviousEmployer();
-                $prof_image_ext = '';
-                $biodata_ext = '';
+                $before_update = '';
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && Yii::$app->SetValues->currentBranch($model)) {
-                        $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
 
+                        $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
                         if ($model->validate() && $model->save()) {
-                                /* profile image upload */
-                                $prof_image = UploadedFile::getInstance($model, 'profile_image_type');
-                                $biodata = UploadedFile::getInstance($model, 'biodata');
-                                $proofs = UploadedFile::getInstances($model, 'proofs');
-                                if (!empty($prof_image)) {
-                                        $model->profile_image_type = $prof_image->extension;
-                                        $model->update();
-                                        $this->upload($model, $prof_image, 'profile', $model->profile_image_type, $prof_image_ext);
+                                if (Yii::$app->user->identity->branch_id != '0') {
+                                        Yii::$app->SetValues->currentBranch($model);
                                 }
-                                /* biodata upload */
-                                if (!empty($biodata)) {
-                                        $model->biodata = $biodata->extension;
-                                        $model->update();
-                                        $this->upload($model, $biodata, 'biodata', $model->biodata, $biodata_ext);
-                                }
-                                /* proofs upload */
-                                if (!empty($proofs)) {
-                                        $root_path = ['staff', $model->id, 'proofs'];
-                                        Yii::$app->UploadFile->UploadSingle($proofs, $model, $root_path);
-                                }
-                                $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info, $staff_previous_employer);
+
+                                $this->Imageupload($model, $before_update);
+                                $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
                                 $this->redirect('index');
                         }
@@ -113,7 +89,6 @@ class StaffInfoController extends Controller {
                 return $this->render('_staff_form', [
                             'model' => $model,
                             'other_info' => $other_info,
-                            'staff_previous_employer' => $staff_previous_employer,
                 ]);
         }
 
@@ -125,42 +100,18 @@ class StaffInfoController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
+                $before_update = StaffInfo::findOne($id);
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $model->id]);
-                $staff_previous_employer = StaffPerviousEmployer::findOne(['staff_id' => $model->id]);
-                $prof_image_ext = $model->profile_image_type;
-                $biodata_ext = $model->biodata;
+                $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $model->id]);
 
-                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && Yii::$app->SetValues->currentBranch($model)) {
+
+                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                         $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
 
                         if ($model->validate() && $model->save()) {
-                                /* profile image upload */
-                                $prof_image = UploadedFile::getInstance($model, 'profile_image_type');
-                                $biodata = UploadedFile::getInstance($model, 'biodata');
-                                $proofs = UploadedFile::getInstances($model, 'proofs');
-                                if (!empty($prof_image)) {
-                                        $model->profile_image_type = $prof_image->extension;
-                                        $model->update();
-                                        $this->upload($model, $prof_image, 'profile', $model->profile_image_type, $prof_image_ext);
-                                } else {
-                                        $model->profile_image_type = $prof_image_ext;
-                                }
-                                /* biodata upload */
-                                if (!empty($biodata)) {
-                                        $model->biodata = $biodata->extension;
-                                        $model->update();
-                                        $this->upload($model, $biodata, 'biodata', $model->biodata, $biodata_ext);
-                                } else {
-                                        $model->biodata = $biodata_ext;
-                                }
-                                /* proofs upload */
-                                if (!empty($proofs)) {
-                                        $model->proofs = '1';
-                                        $model->update();
-                                        $root_path = ['staff', $model->id, 'proofs'];
-                                        Yii::$app->UploadFile->UploadSingle($proofs, $model, $root_path);
-                                }
-                                $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info, $staff_previous_employer);
+
+                                $this->Imageupload($model, $before_update);
+                                $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
                                 return $this->redirect('index');
                         }
@@ -183,9 +134,7 @@ class StaffInfoController extends Controller {
                 $other_info = StaffOtherInfo::find()->where(['staff_id' => $id])->one();
                 $staff_previous_employer = StaffPerviousEmployer::find()->where(['staff_id' => $id])->one();
 
-
                 // ...other DB operations...
-// or alternatively
 
                 $transaction = StaffInfo::getDb()->beginTransaction();
                 try {
@@ -214,53 +163,106 @@ class StaffInfoController extends Controller {
                 return $this->redirect(['index']);
         }
 
-        public function actionDelete2($id) {
-                $staff_info = $this->findModel($id);
-                $hospital_info = EnquiryHospital::find()->where(['enquiry_id' => $id])->one();
-                $other_info = EnquiryOtherInfo::find()->where(['enquiry_id' => $id])->one();
-
-
-
-                // ...other DB operations...
-// or alternatively
-
-                $transaction = Enquiry::getDb()->beginTransaction();
-                try {
-                        if (!empty($other_info)) {
-                                $other_info->delete();
-                        }
-                        if (!empty($hospital_info)) {
-                                $hospital_info->delete();
-                        }
-                        if (!empty($staff_info)) {
-                                $staff_info->delete();
-                        }
-
-                        // ...other DB operations...
-                        $transaction->commit();
-                } catch (\Exception $e) {
-                        $transaction->rollBack();
-                        throw $e;
-                } catch (\Throwable $e) {
-                        $transaction->rollBack();
-                        throw $e;
-                }
-                Yii::$app->getSession()->setFlash('success', 'succuessfully deleted');
-                return $this->redirect(['index']);
-        }
-
         /*
          * to add other informations
          *  */
 
-        public function AddOtherInfo($model, $data, $other_info, $staff_previous_employer) {
+        public function AddOtherInfo($model, $data, $other_info) {
 
                 $other_info->staff_id = $model->id;
                 $other_info->load($data);
+                $other_info->current_from = date('Y-m-d', strtotime($data['StaffOtherInfo']['current_from']));
+                $other_info->current_to = date('Y-m-d', strtotime($data['StaffOtherInfo']['current_to']));
 
-                $staff_previous_employer->staff_id = $model->id;
-                $staff_previous_employer->load($data);
-                $staff_previous_employer->save();
+                /*
+                 * to create additional previous employer
+                 */
+
+                if (isset($_POST['create']) && $_POST['create'] != '') {
+
+                        $arr = [];
+                        $i = 0;
+
+                        foreach ($_POST['create']['hospitaladdress'] as $val) {
+                                $arr[$i]['hospitaladdress'] = $val;
+                                $i++;
+                        }
+                        $i = 0;
+                        foreach ($_POST['create']['designation'] as $val) {
+                                $arr[$i]['designation'] = $val;
+                                $i++;
+                        }
+                        $i = 0;
+                        foreach ($_POST['create']['length'] as $val) {
+                                $arr[$i]['length'] = $val;
+                                $i++;
+                        }
+                        $i = 0;
+                        foreach ($_POST['create']['from'] as $val) {
+                                $arr[$i]['from'] = $val;
+                                $i++;
+                        }
+                        $i = 0;
+                        foreach ($_POST['create']['to'] as $val) {
+                                $arr[$i]['to'] = $val;
+                                $i++;
+                        }
+
+                        foreach ($arr as $val) {
+                                $add_previous = new StaffPerviousEmployer;
+                                $add_previous->staff_id = $model->id;
+                                $add_previous->hospital_address = $val['hospitaladdress'];
+                                $add_previous->designation = $val['designation'];
+                                $add_previous->length_of_service = $val['length'];
+                                $add_previous->service_from = date('Y-m-d', strtotime($val['from']));
+                                $add_previous->service_to = date('Y-m-d', strtotime($val['to']));
+                                if (!empty($add_previous->hospital_address))
+                                        $add_previous->save();
+                        }
+                }
+
+                /*
+                 * to update additional previous employer
+                 */
+
+                if (isset($_POST['updatee']) && $_POST['updatee'] != '') {
+
+                        $arr = [];
+                        $i = 0;
+                        foreach ($_POST['updatee'] as $key => $val) {
+
+                                $arr[$key]['hospitaladdress'] = $val['hospitaladdress'][0];
+                                $arr[$key]['designation'] = $val['designation'][0];
+                                $arr[$key]['length'] = $val['length'][0];
+                                $arr[$key]['from'] = $val['from'][0];
+                                $arr[$key]['to'] = $val['to'][0];
+                                $i++;
+                        }
+
+                        foreach ($arr as $key => $value) {
+                                $add_previous = StaffPerviousEmployer::findOne($key);
+                                $add_previous->hospital_address = $value['hospitaladdress'];
+                                $add_previous->designation = $value['designation'];
+                                $add_previous->length_of_service = $value['length'];
+                                $add_previous->service_from = date('Y-m-d', strtotime($value['from']));
+                                $add_previous->service_to = date('Y-m-d', strtotime($value['to']));
+                                $add_previous->update();
+                        }
+                }
+
+                /*
+                 * to delete additional previous employer
+                 */
+
+                if (isset($_POST['delete_port_vals']) && $_POST['delete_port_vals'] != '') {
+
+                        $vals = rtrim($_POST['delete_port_vals'], ',');
+                        $vals = explode(',', $vals);
+                        foreach ($vals as $val) {
+
+                                StaffPerviousEmployer::findOne($val)->delete();
+                        }
+                }
 
                 if ($other_info->validate() && $other_info->save()) {
                         return true;
@@ -273,20 +275,40 @@ class StaffInfoController extends Controller {
          * to upload image
          *  */
 
-        public function Upload($model, $image, $type, $extension, $exists_type) {
+        public function Imageupload($model, $data) {
 
-                $paths = ['staff', $model->id, $type];
-                $file = '../uploads/staff/' . $model->id . '/' . $type . '/' . $model->id . '.' . $exists_type;
-
-
-                if (file_exists($file)) {
-                        unlink($file);
-                } else {
-
+                $images = array('profile_image_type', 'biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter');
+                foreach ($images as $value) {
+                        $image = UploadedFile::getInstance($model, $value);
+                        $this->image($model, $data, $image, $value);
                 }
+        }
 
+        /* to save exy=tension in database */
+
+        public function image($model, $data, $image, $type) {
+                if (!empty($image)) {
+
+                        $model->$type = $image->extension;
+                        $this->upload($model, $image, $type, $model->$type, $data->$type);
+                } else {
+                        $model->$type = $data->$type;
+                }
+                $model->update();
+        }
+
+        /*
+         * to save the image in folder
+         * if
+         */
+
+        public function Upload($model, $image, $type, $extension, $exists_type) {
+                $paths = ['staff', $model->id];
+                $file = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $model->id . '/' . $type . '.' . $exists_type;
+                if (file_exists($file))
+                        unlink($file);
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
-                $image->saveAs($paths . '/' . $model->id . '.' . $extension);
+                $image->saveAs($paths . '/' . $type . '.' . $extension);
         }
 
         /**
@@ -302,6 +324,19 @@ class StaffInfoController extends Controller {
                 } else {
                         throw new NotFoundHttpException('The requested page does not exist.');
                 }
+        }
+
+        /*
+         * to remove image (proofs-multiple image
+         *  */
+
+        public function actionRemove($id, $name) {
+                $root_path = Yii::$app->basePath . '/../uploads/staff';
+                $path = $root_path . '/' . $id . '/proofs/' . $name;
+                if (file_exists($path)) {
+                        unlink($path);
+                }
+                return $this->redirect(Yii::$app->request->referrer);
         }
 
 }
