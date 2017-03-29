@@ -73,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 }
                                                                 .table1 td{
                                                                         border: 0px solid #969696;
+
                                                                 }
                                                                 .table p{
                                                                         color:#000;
@@ -87,9 +88,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 }
                                                                 .main-left{
                                                                         float: left;
+                                                                        font-size: 13px;
                                                                 }
                                                                 .heading{
-                                                                        font-size: 14px;
+                                                                        font-size: 16px;
                                                                         font-weight: bold;
                                                                 }
                                                                 .label_sty{
@@ -121,16 +123,47 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <table class="main-tabl table table-responsive" border="0"  style="line-height:30px;">
 
                                                                 <tr>
-                                                                        <th style="width:100%">
-                                                                                <div class="header">
+                                                                        <td>
+                                                                                <table class="table1">
+                                                                                        <tr>
+                                                                                                <td>
+                                                                                                        <div class="main-left">
+                                                                                                                <img src="<?= Yii::$app->homeUrl ?>/images/logos/logo-1.png" style="width:250px;"/>
+                                                                                                        </div>
+                                                                                                </td>
 
-                                                                                        <div class="main-left">
-                                                                                                <img src="<?= Yii::$app->homeUrl ?>/images/logos/logo-1.png" style="width:250px;"/>
-                                                                                        </div>
+                                                                                                <td>
+                                                                                                        <div class="main-left" style="width:225px;margin-left: 25px;text-align: justify;">
+                                                                                                                Door No.5 DD Vyapar Bhavan <br>
+                                                                                                                K.P Vallon Road, Kavandthra Jn<br>
+                                                                                                                <b>Koohi-20 | </b>Tel:0484 4033505<br>
 
-                                                                                        <br/>
-                                                                                </div>
-                                                                        </th>
+                                                                                                        </div>
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                        <div class="main-left" style="width:230px;text-align: right;">
+                                                                                                                Shop No 16, Brindavan Co-op Housing <br>
+                                                                                                                Evershine Nagar, Malad West<br>
+                                                                                                                <b>Mumbai -40064 |</b> Tel:022 40 111 351<br>
+
+                                                                                                        </div>
+                                                                                                </td>
+                                                                                        </tr>
+
+                                                                                        <tr>
+                                                                                                <td></td>
+                                                                                                <td colspan="2">
+                                                                                                        <div class="main-left" style="margin-left:25px;">
+                                                                                                                www.caringpeople.in <b>|</b> Email :info@caringpeople.in <b>|</b> Helpline No: 90 20 599 599
+                                                                                                        </div>
+
+                                                                                                </td>
+                                                                                        </tr>
+                                                                                </table>
+                                                                        </td>
+
+
                                                                 </tr>
 
 
@@ -138,7 +171,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <tbody>
 
                                                                         <tr>
-                                                                                <td>
+                                                                                <td style="padding-top:25px;">
                                                                                         <div class="heading">APPLICATION FORM FOR STAFF</div>
                                                                                 </td>
                                                                         </tr>
@@ -148,6 +181,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <tr>
                                                                                 <td>
                                                                                         <table class="table1" style="border:0px sloid #000;">
+
+                                                                                                <?php if ($staff_info->profile_image_type != '') { ?>
+
+                                                                                                        <tr>
+                                                                                                                <td colspan="3">
+                                                                                                                        <div class="profile_image" style="float:right;">
+                                                                                                                                <img src="<?= Yii::$app->homeUrl ?>/images/logos/profile.jpg" style="width:115px;height:100px;"/>
+                                                                                                                        </div>
+                                                                                                                </td>
+
+                                                                                                        </tr>
+                                                                                                <?php } ?>
+
                                                                                                 <tr>
                                                                                                         <td colspan="3">
                                                                                                                 <div class="content">
@@ -155,7 +201,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Name of the applicant :
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:530px;">
+                                                                                                                        <div class="data_sty" style="width:595px;">
                                                                                                                                 <?= $staff_info->staff_name; ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -169,7 +215,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Gender :
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:150px">
+                                                                                                                        <div class="data_sty" style="width:170px">
                                                                                                                                 <?php
                                                                                                                                 if ($staff_info->gender == '0') {
                                                                                                                                         echo 'Male';
@@ -186,7 +232,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 DOB :
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:150px">
+                                                                                                                        <div class="data_sty" style="width:170px">
                                                                                                                                 <?= $date = date('d-m-Y', strtotime($staff_info->dob)); ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -197,7 +243,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Blood Group :
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:150px">
+                                                                                                                        <div class="data_sty" style="width:170px">
                                                                                                                                 <?= $date = $staff_info->blood_group; ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -211,7 +257,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Religion :
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:150px">
+                                                                                                                        <div class="data_sty" style="width:170px">
                                                                                                                                 <?php
                                                                                                                                 $religion = Religion::findOne($staff_info->religion);
                                                                                                                                 echo $religion->religion;
@@ -225,7 +271,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Caste :
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:150px">
+                                                                                                                        <div class="data_sty" style="width:170px">
                                                                                                                                 <?php
                                                                                                                                 $caste = Caste::findOne($staff_info->caste);
                                                                                                                                 echo $caste->caste;
@@ -239,7 +285,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Nationality :
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:160px">
+                                                                                                                        <div class="data_sty" style="width:185px">
                                                                                                                                 <?php
                                                                                                                                 $nationality = Nationality::findOne($staff_info->nationality);
                                                                                                                                 echo $nationality->nationality;
@@ -256,7 +302,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Pan card/Adhar card No :
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:511px;">
+                                                                                                                        <div class="data_sty" style="width:580px;">
                                                                                                                                 <?= $staff_info->pan_or_adhar_no; ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -274,7 +320,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 <td>
                                                                                         <table class="table1">
                                                                                                 <tr>
-                                                                                                        <td>
+                                                                                                        <td style="padding-top:20px;">
                                                                                                                 <div class="content">
                                                                                                                         <div class="label_sty" style="width:325px;font-weight: bold;">
                                                                                                                                 Permanent Address (Residence) :
@@ -282,8 +328,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 </div>
                                                                                                         </td>
 
-                                                                                                        <td>
-                                                                                                                <div class="content" style="width:320px;font-weight: bold;">
+                                                                                                        <td style="padding-top:20px;">
+                                                                                                                <div class="content" style="width:320px;font-weight: bold;margin-left: 30px;">
                                                                                                                         <div class="label_sty">
                                                                                                                                 Present Address :
                                                                                                                         </div>
@@ -297,7 +343,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <div class="label_sty">
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:325px">
+                                                                                                                <div class="data_sty" style="width:355px;margin-left: 2px;">
                                                                                                                         <?= $staff_info->permanent_address; ?>
                                                                                                                 </div>
                                                                                                         </td>
@@ -306,7 +352,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <div class="label_sty">
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:320px">
+                                                                                                                <div class="data_sty" style="width:350px;margin-left: 30px;">
                                                                                                                         <?= $staff_info->present_address; ?>
                                                                                                                 </div>
                                                                                                         </td>
@@ -318,17 +364,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         Pincode :
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:270px">
+                                                                                                                <div class="data_sty" style="width:290px">
                                                                                                                         <?= $staff_info->pincode; ?>
                                                                                                                 </div>
                                                                                                         </td>
 
                                                                                                         <td>
-                                                                                                                <div class="label_sty">
+                                                                                                                <div class="label_sty" style="margin-left: 30px;">
                                                                                                                         Pincode :
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:270px">
+                                                                                                                <div class="data_sty" style="width:280px">
                                                                                                                         <?= $staff_info->present_pincode; ?>
                                                                                                                 </div>
                                                                                                         </td>
@@ -340,17 +386,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         Contact No :
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:253px">
+                                                                                                                <div class="data_sty" style="width:270px">
                                                                                                                         <?= $staff_info->contact_no; ?>
                                                                                                                 </div>
                                                                                                         </td>
 
                                                                                                         <td>
-                                                                                                                <div class="label_sty">
+                                                                                                                <div class="label_sty" style="margin-left: 30px;">
                                                                                                                         Contact No :
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:253px">
+                                                                                                                <div class="data_sty" style="width:261px">
                                                                                                                         <?= $staff_info->present_contact_no; ?>
                                                                                                                 </div>
                                                                                                         </td>
@@ -362,19 +408,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         Email :
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:285px">
-                                                                                                                        <?= $staff_info->email; ?>
-                                                                                                                </div>
+                                                                                                                <div class="data_sty" style="width:305px;"><?= $staff_info->email; ?></div>
                                                                                                         </td>
 
                                                                                                         <td>
-                                                                                                                <div class="label_sty">
+                                                                                                                <div class="label_sty" style="margin-left: 30px;">
                                                                                                                         Email :
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:285px">
-                                                                                                                        <?= $staff_info->present_email; ?>
-                                                                                                                </div>
+                                                                                                                <div class="data_sty" style="width:295px"><?= $staff_info->present_email; ?></div>
                                                                                                         </td>
                                                                                                 </tr>
 
@@ -396,7 +438,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         Driving License :
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:230px">
+                                                                                                                <div class="data_sty" style="width:240px">
                                                                                                                         <?php
                                                                                                                         if ($staff_info->driving_licence == '0') {
                                                                                                                                 echo 'No';
@@ -412,11 +454,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         </td>
 
                                                                                                         <td>
-                                                                                                                <div class="label_sty">
+                                                                                                                <div class="label_sty" style="margin-left:30px;">
                                                                                                                         License No :
                                                                                                                 </div>
 
-                                                                                                                <div class="data_sty" style="width:255px">
+                                                                                                                <div class="data_sty" style="width:260px">
                                                                                                                         <?= $staff_info->licence_no; ?>
                                                                                                                 </div>
                                                                                                         </td>
@@ -426,13 +468,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         </tr>
 
                                                                         <tr>
-                                                                                <td>
+                                                                                <td style="padding-top:25px;">
                                                                                         <table class="table1">
                                                                                                 <tr>
                                                                                                         <td>
                                                                                                                 <div class="content">
-                                                                                                                        <div class="label_sty" style="font-size: 12px;font-weight: bold;width: 150px;">
-                                                                                                                                Educational Qualification
+                                                                                                                        <div class="label_sty" style="font-weight: bold;width: 100px;">
+                                                                                                                                Qualification
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -468,7 +510,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <tr>
                                                                                                         <td>
                                                                                                                 <div class="content">
-                                                                                                                        <div class="label_sty" style="font-weight: bold;width: 150px;">
+                                                                                                                        <div class="label_sty" style="width: 100px;">
                                                                                                                                 SSSLC
                                                                                                                         </div>
                                                                                                                 </div>
@@ -505,7 +547,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <tr>
                                                                                                         <td>
                                                                                                                 <div class="content">
-                                                                                                                        <div class="label_sty" style="font-weight: bold;width: 150px;">
+                                                                                                                        <div class="label_sty" style="width: 100px;">
                                                                                                                                 HSE
                                                                                                                         </div>
                                                                                                                 </div>
@@ -542,7 +584,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <tr>
                                                                                                         <td>
                                                                                                                 <div class="content">
-                                                                                                                        <div class="label_sty" style="font-weight: bold;width: 150px;">
+                                                                                                                        <div class="label_sty" style="width: 100px;">
                                                                                                                                 Nursing
                                                                                                                         </div>
                                                                                                                 </div>
@@ -579,7 +621,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <tr>
                                                                                                         <td>
                                                                                                                 <div class="content">
-                                                                                                                        <div class="label_sty" style="font-weight: bold;width: 150px;">
+                                                                                                                        <div class="label_sty" style="width: 150px;">
                                                                                                                                 Tiiming
                                                                                                                         </div>
                                                                                                                 </div>
@@ -600,6 +642,103 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 </div>
                                                                                                         </td>
 
+                                                                                                        <td>
+                                                                                                                <div class="content">
+                                                                                                                        <div class="label_sty" style="width: 150px;">
+                                                                                                                                Uniform provided
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                        </td>
+
+                                                                                                        <td>
+                                                                                                                <div class="content">
+                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 195px;">
+                                                                                                                                <?php
+                                                                                                                                if ($staff_info->uniform == '0') {
+                                                                                                                                        echo 'No';
+                                                                                                                                } elseif ($staff_info->uniform == '1') {
+                                                                                                                                        echo 'Yes';
+                                                                                                                                }
+                                                                                                                                ?>
+                                                                                                                        </div>
+
+                                                                                                                </div>
+                                                                                                        </td>
+                                                                                                </tr>
+
+                                                                                                <tr>
+                                                                                                        <td>
+                                                                                                                <div class="content">
+                                                                                                                        <div class="label_sty" style="width: 150px;">
+                                                                                                                                Company ID provided
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                        </td>
+
+                                                                                                        <td>
+                                                                                                                <div class="content">
+                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 195px;">
+                                                                                                                                <?php
+                                                                                                                                if ($staff_info->company_id == '0') {
+                                                                                                                                        echo 'No';
+                                                                                                                                } elseif ($staff_info->company_id == '1') {
+                                                                                                                                        echo 'Yes';
+                                                                                                                                }
+                                                                                                                                ?>
+                                                                                                                        </div>
+
+                                                                                                                </div>
+                                                                                                        </td>
+
+                                                                                                        <td>
+                                                                                                                <div class="content">
+                                                                                                                        <div class="label_sty" style="width: 130px;">
+                                                                                                                                Emergency Contact Verification
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                        </td>
+
+                                                                                                        <td>
+                                                                                                                <div class="content">
+                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 195px;">
+                                                                                                                                <?php
+                                                                                                                                if ($staff_info->emergency_conatct_verification == '0') {
+                                                                                                                                        echo 'No';
+                                                                                                                                } elseif ($staff_info->emergency_conatct_verification == '1') {
+                                                                                                                                        echo 'Yes';
+                                                                                                                                }
+                                                                                                                                ?>
+                                                                                                                        </div>
+
+                                                                                                                </div>
+                                                                                                        </td>
+
+                                                                                                </tr>
+
+                                                                                                <tr>
+                                                                                                        <td>
+                                                                                                                <div class="content">
+                                                                                                                        <div class="label_sty" style="width: 130px;">
+                                                                                                                                Panchayath Clearnce Verification
+                                                                                                                        </div>
+                                                                                                                </div>
+
+                                                                                                        </td>
+
+                                                                                                        <td colspan="2">
+                                                                                                                <div class="content">
+                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 195px;">
+                                                                                                                                <?php
+                                                                                                                                if ($staff_info->panchayath_cleraance_verification == '0') {
+                                                                                                                                        echo 'No';
+                                                                                                                                } elseif ($staff_info->panchayath_cleraance_verification == '1') {
+                                                                                                                                        echo 'Yes';
+                                                                                                                                }
+                                                                                                                                ?>
+                                                                                                                        </div>
+
+                                                                                                                </div>
+                                                                                                        </td>
                                                                                                 </tr>
 
 
@@ -623,7 +762,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Hospital Address:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:590px;">
+                                                                                                                        <div class="data_sty" style="width:630px;">
                                                                                                                                 <?= $staff_other_info->hospital_address; ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -636,7 +775,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Designation:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:220px;margin-left: 40px;">
+                                                                                                                        <div class="data_sty" style="width:249px;margin-left: 40px;">
                                                                                                                                 <?= $staff_other_info->designation; ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -649,7 +788,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Length Of Service:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:235px;">
+                                                                                                                        <div class="data_sty" style="width:249px;">
                                                                                                                                 <?= $staff_other_info->length_of_service; ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -665,8 +804,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 From:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:220px;margin-left: 80px;">
-                                                                                                                                <?= date('d-m-Y', strtotime($staff_other_info->current_from)); ?>
+                                                                                                                        <div class="data_sty" style="width:249px;margin-left: 80px;">
+                                                                                                                                <?= date('d-M-Y', strtotime($staff_other_info->current_from)); ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -678,9 +817,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 To:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width: 330px;">
-                                                                                                                                <?= date('d-m-Y', strtotime($staff_other_info->current_to)); ?>
-                                                                                                                        </div>
+                                                                                                                        <div class="data_sty" style="width: 345px;"><?= date('d-M-Y', strtotime($staff_other_info->current_to)); ?></div>
                                                                                                                 </div>
 
                                                                                                         </td>
@@ -701,75 +838,80 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 </div>
                                                                                                         </td>
                                                                                                 </tr>
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Hospital Address:
+                                                                                                <?php
+                                                                                                foreach ($staff_previous_employer as $value) {
+                                                                                                        ?>
+                                                                                                        <tr>
+                                                                                                                <td colspan="2">
+                                                                                                                        <div class="content" >
+                                                                                                                                <div class="label_sty">
+                                                                                                                                        Hospital Address:
+                                                                                                                                </div>
+
+                                                                                                                                <div class="data_sty" style="width:630px;">
+                                                                                                                                        <?= $value->hospital_address; ?>
+                                                                                                                                </div>
+                                                                                                                        </div>
+                                                                                                                </td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                                <td>
+                                                                                                                        <div class="content" >
+                                                                                                                                <div class="label_sty">
+                                                                                                                                        Designation:
+                                                                                                                                </div>
+
+                                                                                                                                <div class="data_sty" style="width:249px;margin-left: 40px;">
+                                                                                                                                        <?= $value->designation; ?>
+                                                                                                                                </div>
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:590px;">
+                                                                                                                </td>
 
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Designation:
-                                                                                                                        </div>
+                                                                                                                <td>
+                                                                                                                        <div class="content" >
+                                                                                                                                <div class="label_sty">
+                                                                                                                                        Length Of Service:
+                                                                                                                                </div>
 
-                                                                                                                        <div class="data_sty" style="width:220px;margin-left: 40px;">
-
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Length Of Service:
+                                                                                                                                <div class="data_sty" style="width:249px;">
+                                                                                                                                        <?= $value->length_of_service; ?>
+                                                                                                                                </div>
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:235px;">
-
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
+                                                                                                                </td>
+                                                                                                        </tr>
 
 
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                From:
-                                                                                                                        </div>
+                                                                                                        <tr>
+                                                                                                                <td>
+                                                                                                                        <div class="content" >
+                                                                                                                                <div class="label_sty">
+                                                                                                                                        From:
+                                                                                                                                </div>
 
-                                                                                                                        <div class="data_sty" style="width:220px;margin-left: 80px;">
-
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                To:
+                                                                                                                                <div class="data_sty" style="width:249px;margin-left: 80px;">
+                                                                                                                                        <?= date('d-M-Y', strtotime($value->service_from)); ?>
+                                                                                                                                </div>
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width: 330px;">
+                                                                                                                </td>
 
+                                                                                                                <td>
+                                                                                                                        <div class="content" >
+                                                                                                                                <div class="label_sty">
+                                                                                                                                        To:
+                                                                                                                                </div>
+
+                                                                                                                                <div class="data_sty" style="width: 345px;">
+                                                                                                                                        <?= date('d-M-Y', strtotime($value->service_to)); ?>
+                                                                                                                                </div>
                                                                                                                         </div>
-                                                                                                                </div>
 
-                                                                                                        </td>
-                                                                                                </tr>
+                                                                                                                </td>
+                                                                                                        </tr>
+
+                                                                                                <?php } ?>
 
 
 
@@ -798,8 +940,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Emergency contact name:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:530px;;">
-
+                                                                                                                        <div class="data_sty" style="width:570px;;">
+                                                                                                                                <?= $staff_other_info->emergency_contact_name; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -813,8 +955,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Relationship:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:610px;">
-
+                                                                                                                        <div class="data_sty" style="width:650px;">
+                                                                                                                                <?= $staff_other_info->relationship; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -828,8 +970,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Phone:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:280px;">
-
+                                                                                                                        <div class="data_sty" style="width:300px;">
+                                                                                                                                <?= $staff_other_info->phone; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -841,8 +983,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Mobile:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:300px;">
-
+                                                                                                                        <div class="data_sty" style="width:320px;">
+                                                                                                                                <?= $staff_other_info->mobile; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -856,8 +998,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Alternate Emergency contact name:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:465px;">
-
+                                                                                                                        <div class="data_sty" style="width:507px;">
+                                                                                                                                <?= $staff_other_info->alt_emergency_contact_name; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -871,8 +1013,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Relationship:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:610px;">
-
+                                                                                                                        <div class="data_sty" style="width:650px;">
+                                                                                                                                <?= $staff_other_info->alt_relationship; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -885,9 +1027,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         <div class="label_sty">
                                                                                                                                 Phone:
                                                                                                                         </div>
-
-                                                                                                                        <div class="data_sty" style="width:280px;">
-
+                                                                                                                        <div class="data_sty" style="width:300px;">
+                                                                                                                                <?= $staff_other_info->alt_phone; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -899,8 +1040,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Mobile:
                                                                                                                         </div>
 
-                                                                                                                        <div class="data_sty" style="width:300px;">
-
+                                                                                                                        <div class="data_sty" style="width:320px;">
+                                                                                                                                <?= $staff_other_info->alt_mobile; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 

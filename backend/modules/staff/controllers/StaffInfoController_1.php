@@ -61,27 +61,6 @@ class StaffInfoController extends Controller {
                 ]);
         }
 
-        public function actionProcced($id) {
-
-                $staff_info = new StaffInfo();
-                $other_info = new StaffOtherInfo();
-                $model = \common\models\StaffEnquiry::findOne($id);
-                $staff_info->staff_enquiry_id = $id;
-                $staff_info->staff_name = $model->name;
-                $staff_info->gender = $model->gender;
-                $staff_info->contact_no = $model->phone_number;
-                $staff_info->email = $model->email;
-                $staff_info->permanent_address = $model->address;
-                $staff_info->place = $model->place;
-                $staff_info->designation = $model->designation;
-
-                if ($staff_info->save()) {
-                        $other_info->staff_id = $staff_info->id;
-                        $other_info->save();
-                        return $this->redirect(['update', 'id' => $staff_info->id]);
-                }
-        }
-
         /**
          * Creates a new StaffInfo model.
          * If creation is successful, the browser will be redirected to the 'view' page.
@@ -93,20 +72,14 @@ class StaffInfoController extends Controller {
                 $other_info = new StaffOtherInfo();
                 $before_update = '';
 
-
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && Yii::$app->SetValues->currentBranch($model)) {
 
                         $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
-                        $other_info->load(Yii::$app->request->post());
-                        $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
-                        $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
-
-                        if ($model->validate() && $other_info->validate() && $model->save() && $other_info->save()) {
-                                $other_info->staff_id = $model->id;
-                                $other_info->update();
+                        if ($model->validate() && $model->save()) {
                                 if (Yii::$app->user->identity->branch_id != '0') {
                                         Yii::$app->SetValues->currentBranch($model);
                                 }
+
                                 $this->Imageupload($model, $before_update);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
@@ -131,13 +104,12 @@ class StaffInfoController extends Controller {
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $model->id]);
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $model->id]);
 
+
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                         $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
-                        $other_info->staff_id = $model->id;
-                        $other_info->load(Yii::$app->request->post());
-                        $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
-                        $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
-                        if ($model->validate() && $other_info->validate() && $model->save() && $other_info->save()) {
+
+                        if ($model->validate() && $model->save()) {
+
                                 $this->Imageupload($model, $before_update);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
@@ -177,8 +149,7 @@ class StaffInfoController extends Controller {
                         if (!empty($staff_info)) {
                                 $staff_info->delete();
                         }
-                        $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $id;
-                        $files = Yii::$app->UploadFile->RemoveFiles($paths);
+
                         // ...other DB operations...
                         $transaction->commit();
                 } catch (\Exception $e) {
@@ -198,7 +169,10 @@ class StaffInfoController extends Controller {
 
         public function AddOtherInfo($model, $data, $other_info) {
 
-
+                $other_info->staff_id = $model->id;
+                $other_info->load($data);
+                $other_info->current_from = date('Y-m-d', strtotime($data['StaffOtherInfo']['current_from']));
+                $other_info->current_to = date('Y-m-d', strtotime($data['StaffOtherInfo']['current_to']));
 
                 /*
                  * to create additional previous employer
@@ -288,6 +262,12 @@ class StaffInfoController extends Controller {
 
                                 StaffPerviousEmployer::findOne($val)->delete();
                         }
+                }
+
+                if ($other_info->validate() && $other_info->save()) {
+                        return true;
+                } else {
+                        return FALSE;
                 }
         }
 

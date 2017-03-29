@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body">
                                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Staff Enquiry</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?= Html::a('<i class="fa-th-list"></i><span> New Staff Enquiry</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?=
                                         GridView::widget([
                                             'dataProvider' => $dataProvider,
@@ -35,7 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'phone_number',
                                                 'email:email',
                                                 'address',
-                                                'follow_up_date',
+                                                // 'follow_up_date',
+                                                [
+                                                    'attribute' => 'follow_up_date',
+                                                    'value' => function($model, $key, $index) {
+                                                            return date('d-M-Y H:i:s', strtotime($model->follow_up_date));
+                                                    },
+                                                ],
                                                 // 'notes:ntext',
                                                 // 'status',
                                                 // 'CB',

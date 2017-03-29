@@ -80,13 +80,13 @@ class UploadFile extends Component {
                 return $root;
         }
 
-        public function CheckPath1($paths) {
-                $root = Yii::getAlias(Yii::$app->params['uploadPath']); /* Yii::$app->basePath; */
-
-                $root .= '/' . $paths;
-                if (!is_dir($root))
-                        mkdir($root);
-                return $root;
+        public function RemoveFiles($paths) {
+                $files = glob($paths . '/*');
+                foreach ($files as $file) {
+                        if (is_file($file))
+                                unlink($file); //delete file
+                }
+                rmdir($paths);
         }
 
         public function folderName($min, $max, $id) {

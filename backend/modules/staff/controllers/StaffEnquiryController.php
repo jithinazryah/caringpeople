@@ -87,7 +87,7 @@ class StaffEnquiryController extends Controller {
                                 if (isset($_POST['proceed'])) {
                                         $model->proceed = '1';
                                         $model->update();
-                                        return $this->redirect(['staff-info/create']);
+                                        return $this->redirect(['staff-info/procced/', 'id' => $model->id]);
                                 } else {
                                         return $this->redirect(['index']);
                                 }

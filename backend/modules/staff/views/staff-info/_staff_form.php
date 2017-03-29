@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
 
-                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
                                 <?=
                                 $this->render('_menus', [
                                     'model' => $model,

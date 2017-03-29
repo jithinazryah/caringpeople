@@ -38,12 +38,12 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['name', 'gender', 'phone_number', 'email', 'address', 'follow_up_date', 'status'], 'required'],
+                        [['name', 'gender', 'phone_number'], 'required'],
                         [['email'], 'email'],
-                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'staff_type'], 'integer'],
+                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'designation'], 'integer'],
                         [['follow_up_date', 'DOC', 'DOU'], 'safe'],
                         [['notes'], 'string'],
-                        [['name', 'phone_number', 'email', 'address'], 'string', 'max' => 200],
+                        [['name', 'phone_number', 'email', 'address', 'place'], 'string', 'max' => 200],
                         [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
                 ];
         }
@@ -57,7 +57,8 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                     'branch_id' => 'Branch ID',
                     'name' => 'Name',
                     'gender' => 'Gender',
-                    'staff_type' => 'Staff Tpe',
+                    'designation' => 'Designation',
+                    'place' => 'Place',
                     'phone_number' => 'Phone Number',
                     'email' => 'Email',
                     'address' => 'Address',

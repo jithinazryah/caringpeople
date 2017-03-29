@@ -27,4 +27,9 @@ return [
     'create-hospital' => 'masters/hospital/create',
     'update-hospital/<id:\d+>' => 'masters/hospital/update',
     'view-hospital/<id:\d+>' => 'masters/hospital/view',
+    'staff-enquiries' => 'staff/staff-enquiry/index',
+    'new-staff-enquiry' => 'staff/staff-enquiry/create',
+    'update-staff-enquiry/<id:\d+>' => 'staff/staff-enquiry/update',
+    'view-staff-enquiry/<id:\d+>' => 'staff/staff-enquiry/view',
+    'proceed-staff/<id:\d+>' => 'staff/staff-info/proceed',
 ];

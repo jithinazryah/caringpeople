@@ -9,6 +9,7 @@ use yii\grid\GridView;
 
 $this->title = 'Staffs';
 $this->params['breadcrumbs'][] = $this->title;
+$path = Yii::getAlias(Yii::$app->params['uploadPath']);
 ?>
 <div class="staff-info-index">
 
@@ -33,25 +34,50 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                 </div>
                                         <?php endif; ?>
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
-                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Staff</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?= Html::a('<i class="fa-th-list"></i><span> New Staff</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?=
                                         GridView::widget([
                                             'dataProvider' => $dataProvider,
                                             'filterModel' => $searchModel,
                                             'columns' => [
                                                     ['class' => 'yii\grid\SerialColumn'],
+                                                    [
+                                                    'attribute' => 'profile_image_type',
+                                                    'format' => 'html',
+                                                    'value' => function($data) {
+                                                            if ($data->profile_image_type != '') {
+                                                                    return Html::img(Yii::$app->homeUrl . '../uploads/staff/' . $data->id . '/profile_image_type.' . $data->profile_image_type, ['width' => '100']);
+                                                            } elseif ($data->gender == '0') {
+                                                                    return Html::img(Yii::$app->homeUrl . '/images/themes/photo.png', ['width' => '100']);
+                                                            } else if ($data->gender == '1') {
+                                                                    return Html::img(Yii::$app->homeUrl . '/images/themes/female.png', ['width' => '100']);
+                                                            } else {
+                                                                    return Html::img(Yii::$app->homeUrl . 'images/themes/no-image.gif', ['width' => '100']);
+                                                            }
+                                                    },
+                                                ],
                                                 'staff_name',
                                                     [
                                                     'attribute' => 'gender',
                                                     'value' => function($model, $key, $index, $column) {
-                                                            return $model->gender == 0 ? 'Male' : 'Female';
+                                                            if ($model->gender == '0') {
+                                                                    return 'Male';
+                                                            } else if ($model->gender == '1') {
+                                                                    return 'Female';
+                                                            }
                                                     },
                                                     'filter' => [1 => 'Female', 0 => 'Male'],
                                                 ],
-                                                'dob',
-                                                'blood_group',
+                                                'place',
+                                                    [
+                                                    'attribute' => 'designation',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            return $model->designation == 0 ? 'Registered Nurse' : 'Care Assistant';
+                                                    },
+                                                    'filter' => [1 => 'Care Assistant', 0 => 'Registered Nurse'],
+                                                ],
                                                 // 'religion',
                                                 // 'caste',
                                                 // 'nationality',

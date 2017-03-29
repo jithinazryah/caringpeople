@@ -7,6 +7,7 @@ use common\models\Religion;
 use common\models\Caste;
 use common\models\Nationality;
 use yii\helpers\ArrayHelper;
+use common\models\Branch;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffInfo */
@@ -25,7 +26,7 @@ use yii\helpers\ArrayHelper;
                 <div class="form-group field-staffinfo-dob">
                         <label class="control-label" for="staffinfo-dob">DOB</label>
                         <?php
-                        if (!$model->isNewRecord) {
+                        if (!$model->isNewRecord && $model->dob != '1970-01-01') {
                                 $model->dob = date('d-m-Y', strtotime($model->dob));
                         } else {
                                 $model->dob = '';
@@ -82,6 +83,10 @@ use yii\helpers\ArrayHelper;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'pan_or_adhar_no')->textInput(['maxlength' => true]) ?>
 
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'place')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'designation')->dropDownList(['' => '--Select--', '0' => 'Registered Nurse', '1' => 'Care Assistant']) ?>
+
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'years_of_experience')->textInput() ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'driving_licence')->dropDownList(['' => '--Select--', '0' => 'No', '1' => 'Motor Cycle & LMV', '2' => 'Motor Cycle', '3' => 'LMV']) ?>
@@ -89,6 +94,7 @@ use yii\helpers\ArrayHelper;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'licence_no')->textInput(['maxlength' => true]) ?>
 
         </div>
+        <div style="clear: both"></div>
         <h2 style="color:#148eaf;">Educational Qualification</h2>
         <hr class="enquiry-hr"/>
 
@@ -129,7 +135,13 @@ use yii\helpers\ArrayHelper;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'biodata')->fileInput() ?>
+        </div><?php
+        if (Yii::$app->user->identity->branch_id == '0') {
+                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
+                ?>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                </div>
+        <?php } ?><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'biodata')->fileInput() ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'profile_image_type')->fileInput() ?>
 
@@ -152,9 +164,70 @@ use yii\helpers\ArrayHelper;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'authorised_letter')->fileInput() ?>
 
         </div>
+        <div style="clear:both"></div>
 
+        <?php if ($model->biodata != '' || $model->profile_image_type != '' || $model->sslc != '') { ?>
+                <div class="row">
+                        <label style="    color: #148eaf;font-size: 19px;margin-left: 14px;">Uploaded Files</label>
+                </div>
+        <?php } ?>
+
+        <div class="row">
+
+                <?php
+                if (!$model->isNewRecord) {
+                        if ($model->profile_image_type != '') {
+                                $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
+                                //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
+                                ?>
+
+                                <div class="col-md-2">
+                                        <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type; ?> " style="width:175px;height: 175px;"/>
+                                </div>
+
+                        <?php } ?>
+
+                        <?php
+                        $images = array('biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter');
+                        $i = 0;
+
+                        foreach ($images as $value) {
+                                if ($model->$value != '') {
+                                        $i++;
+                                        if ($i == 1) {
+
+                                                echo '<div class="col-md-2">';
+                                        }
+                                        ?>
+                                        <div class="img_data">
+                                                <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/' . $value . '.' . $model->$value; ?>" target="_blank"><?= $model->getAttributeLabel($value); ?></a>
+                                        </div>
+                                        <?php
+                                        if ($i == 5) {
+                                                echo '</div><div class="col-md-2">';
+                                        }
+                                }
+                        }
+                        if ($i > 0)
+                                echo '</div>';
+                }
+                ?>
+
+
+
+
+        </div>
 
 </div>
 
+
+<style>
+        .img_data {
+                margin-top: 16px;
+        }
+        a{
+                color: #3c4ba1;
+        }
+</style>
 
 
