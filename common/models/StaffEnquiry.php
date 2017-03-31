@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $branch_id
+ * @property integer $benquiry_id
  * @property string $name
  * @property string $phone_number
  * @property string $email
@@ -43,8 +44,11 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                         [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'designation'], 'integer'],
                         [['follow_up_date', 'DOC', 'DOU'], 'safe'],
                         [['notes'], 'string'],
-                        [['name', 'phone_number', 'email', 'address', 'place'], 'string', 'max' => 200],
+                        [['name', 'phone_number', 'email', 'address', 'place', 'enquiry_id'], 'string', 'max' => 200],
                         [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
+                        [['branch_id'], 'required', 'when' => function ($model) {
+                                return Yii::$app->user->identity->branch_id == 0;
+                        },],
                 ];
         }
 
@@ -54,7 +58,8 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
         public function attributeLabels() {
                 return [
                     'id' => 'ID',
-                    'branch_id' => 'Branch ID',
+                    'branch_id' => 'Branch',
+                    'enquiry_id' => 'Enquiry Number',
                     'name' => 'Name',
                     'gender' => 'Gender',
                     'designation' => 'Designation',

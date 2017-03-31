@@ -58,6 +58,7 @@ $path = Yii::getAlias(Yii::$app->params['uploadPath']);
                                                             }
                                                     },
                                                 ],
+                                                'staff_id',
                                                 'staff_name',
                                                     [
                                                     'attribute' => 'gender',
@@ -74,7 +75,11 @@ $path = Yii::getAlias(Yii::$app->params['uploadPath']);
                                                     [
                                                     'attribute' => 'designation',
                                                     'value' => function($model, $key, $index, $column) {
-                                                            return $model->designation == 0 ? 'Registered Nurse' : 'Care Assistant';
+                                                            if ($model->designation == '0') {
+                                                                    return 'Registered Nurse';
+                                                            } else if ($model->designation == '1') {
+                                                                    return 'Care Assistant';
+                                                            }
                                                     },
                                                     'filter' => [1 => 'Care Assistant', 0 => 'Registered Nurse'],
                                                 ],

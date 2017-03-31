@@ -31,17 +31,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'filterModel' => $searchModel,
                                             'columns' => [
                                                     ['class' => 'yii\grid\SerialColumn'],
+                                                'enquiry_id',
                                                 'name',
                                                 'phone_number',
                                                 'email:email',
                                                 'address',
                                                 // 'follow_up_date',
-                                                [
-                                                    'attribute' => 'follow_up_date',
-                                                    'value' => function($model, $key, $index) {
-                                                            return date('d-M-Y H:i:s', strtotime($model->follow_up_date));
-                                                    },
-                                                ],
+//                                                [
+//                                                    'attribute' => 'follow_up_date',
+//                                                    'value' => function($model, $key, $index) {
+//                                                            return date('d-M-Y H:i:s', strtotime($model->follow_up_date));
+//                                                    },
+//                                                ],
                                                 // 'notes:ntext',
                                                 // 'status',
                                                 // 'CB',

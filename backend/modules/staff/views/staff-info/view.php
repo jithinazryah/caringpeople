@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <div class="panel-body"><div class="staff-info-view">
-                                                <div id="pdf">
+                                                <div id="pdf" class="table-responsive">
 
 
                                                         <style type="text/css">
@@ -118,8 +118,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                         </style>
-
-
+                                                        <?php $path = Yii::getAlias(Yii::$app->params['uploadPath']); ?>
+                                                        <img src="<?= $path . '/staff/' . $staff_info->id . '/profile_image_type.' . $staff_info->profile_image_type; ?> " style="width:115px;height:100px;"/>
+                                                        <?php exit(); ?>
                                                         <table class="main-tabl table table-responsive" border="0"  style="line-height:30px;">
 
                                                                 <tr>
@@ -187,7 +188,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <tr>
                                                                                                                 <td colspan="3">
                                                                                                                         <div class="profile_image" style="float:right;">
-                                                                                                                                <img src="<?= Yii::$app->homeUrl ?>/images/logos/profile.jpg" style="width:115px;height:100px;"/>
+                                                                                                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/profile_image_type.' . $staff_info->profile_image_type; ?> " style="width:115px;height:100px;"/>
                                                                                                                         </div>
                                                                                                                 </td>
 

@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body"><div class="enquiry-view">
 
 
-                                                <div id="pdf">
+                                                <div id="pdf" class="table-responsive">
 
 
                                                         <style type="text/css">
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 @media screen{
                                                                         .main-tabl{
-                                                                                width: 50%;
+                                                                                width: 42%;
                                                                         }
                                                                 }
                                                                 .print{

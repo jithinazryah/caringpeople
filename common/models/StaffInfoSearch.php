@@ -18,7 +18,7 @@ class StaffInfoSearch extends StaffInfo {
         public function rules() {
                 return [
                         [['id', 'designation', 'gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'sslc_year_of_passing', 'hse_year_of_passing', 'nursing_year_of_passing', 'timing', 'uniform', 'company_id', 'emergency_conatct_verification', 'panchayath_cleraance_verification', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-                        [['staff_name', 'dob', 'place', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'sslc_institution', 'sslc_place', 'hse_institution', 'hse_place', 'nursing_institution', 'nursing_place', 'profile_image_type', 'biodata', 'DOC', 'DOU'], 'safe'],
+                        [['staff_name', 'dob', 'place', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'sslc_institution', 'sslc_place', 'hse_institution', 'hse_place', 'nursing_institution', 'nursing_place', 'profile_image_type', 'biodata', 'DOC', 'DOU', 'staff_id'], 'safe'],
                 ];
         }
 
@@ -88,6 +88,7 @@ class StaffInfoSearch extends StaffInfo {
                         ->andFilterWhere(['like', 'pincode', $this->pincode])
                         ->andFilterWhere(['like', 'contact_no', $this->contact_no])
                         ->andFilterWhere(['like', 'email', $this->email])
+                        ->andFilterWhere(['like', 'staff_id', $this->staff_id])
                         ->andFilterWhere(['like', 'present_address', $this->present_address])
                         ->andFilterWhere(['like', 'present_pincode', $this->present_pincode])
                         ->andFilterWhere(['like', 'present_contact_no', $this->present_contact_no])

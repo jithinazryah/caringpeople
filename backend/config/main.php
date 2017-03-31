@@ -34,6 +34,9 @@ return [
         'staff' => [
             'class' => 'backend\modules\staff\Module',
         ],
+        'followup' => [
+            'class' => 'backend\modules\followup\Module',
+        ],
     ],
     'components' => [
         'request' => [

@@ -38,6 +38,9 @@ class StaffInfoController extends Controller {
         public function actionIndex() {
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                if (Yii::$app->user->identity->branch_id != '0') {
+                        $dataProvider->query->where(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,
@@ -178,7 +181,9 @@ class StaffInfoController extends Controller {
                                 $staff_info->delete();
                         }
                         $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $id;
-                        $files = Yii::$app->UploadFile->RemoveFiles($paths);
+                        if (file_exists($paths)) {
+                                $files = Yii::$app->UploadFile->RemoveFiles($paths);
+                        }
                         // ...other DB operations...
                         $transaction->commit();
                 } catch (\Exception $e) {

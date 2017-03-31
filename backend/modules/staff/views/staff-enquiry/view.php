@@ -40,10 +40,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'model' => $model,
                                                     'attributes' => [
                                                         'name',
+                                                            [
+                                                            'attribute' => 'gender',
+                                                            'value' => function($model) {
+                                                                    if ($model->gender == '0') {
+                                                                            return 'Male';
+                                                                    } else if ($model->gender == '1') {
+                                                                            return 'Female';
+                                                                    }
+                                                            }
+                                                        ],
                                                         'phone_number',
                                                         'email:email',
                                                         'address',
-                                                        'follow_up_date',
+                                                            [
+                                                            'attribute' => 'designation',
+                                                            'value' => function($model) {
+                                                                    if ($model->designation == '0') {
+                                                                            return 'Registered Nurse';
+                                                                    } else if ($model->designation == '1') {
+                                                                            return 'Care Assistant';
+                                                                    }
+                                                            }
+                                                        ],
+                                                        // 'follow_up_date',
                                                         'notes:ntext',
                                                             [
                                                             'attribute' => 'status',

@@ -13,6 +13,7 @@ use Yii;
  * @property integer $users
  * @property integer $employees
  * @property integer $status
+ * @property integer $staffs
  * @property integer $CB
  * @property integer $UB
  * @property string $DOC
@@ -34,8 +35,8 @@ class AdminPosts extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['post_name', 'enquiry', 'users', 'employees', 'admin', 'masters'], 'required'],
-                        [['admin', 'enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
+                        [['post_name', 'enquiry', 'users', 'employees', 'admin', 'masters', 'staffs'], 'required'],
+                        [['admin', 'enquiry', 'staffs', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
                         [['DOC', 'DOU'], 'safe'],
                         [['post_name'], 'string', 'max' => 280],
                 ];
@@ -51,6 +52,7 @@ class AdminPosts extends \yii\db\ActiveRecord {
                     'admin' => 'Admin',
                     'masters' => 'Masters',
                     'enquiry' => 'Enquiry',
+                    'staffs' => 'Staffs',
                     'users' => 'Users',
                     'employees' => 'Employees',
                     'status' => 'Status',

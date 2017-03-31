@@ -22,6 +22,7 @@ return [
     'cities' => 'masters/city/index',
     'create-city' => 'masters/city/create',
     'update-city/<id:\d+>' => 'masters/city/update',
+    'new-enquiry' => 'enquiry/enquiry/new-enquiry',
     'view-enquiry/<id:\d+>' => 'enquiry/enquiry/view',
     'hospitals' => 'masters/hospital/index',
     'create-hospital' => 'masters/hospital/create',

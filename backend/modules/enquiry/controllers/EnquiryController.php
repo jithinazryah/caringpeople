@@ -45,6 +45,9 @@ class EnquiryController extends Controller {
                 if (isset($_GET['email'])) {
                         $dataProvider->query->where(['email' => $_GET['email']]);
                 }
+                if (Yii::$app->user->identity->branch_id != '0') {
+                        $dataProvider->query->where(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,
@@ -72,49 +75,21 @@ class EnquiryController extends Controller {
                                 Yii::$app->SetValues->currentBranch($model);
                         }
                         if ($model->validate() && $model->save()) {
-                                $model->enquiry_id = date('d') . date('m') . date('y') . '-' . sprintf("%03d", $model->id);
+                                if ($model->branch_id == '1') {
+                                        $code = 'CPCSE';
+                                } else if ($model->branch_id == '2') {
+                                        $code = 'CPBSE';
+                                }
+                                $model->enquiry_id = $code . '-' . date('d') . date('m') . date('y') . '-' . $model->id;
                                 $model->update();
                                 $this->AddHospitalInfo($model, Yii::$app->request->post(), $hospital_info);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->History->UpdateHistory('enquiry', $model->id, 'create');
+                                $this->sendMail($model);
 
-
-                                /* sending email */
-                                $to = $enquiry->email;
-                                $subject = 'Enquiry';
-                                $message = '<html>
-                                                                <head>
-                                                                <title>Enquiry</title>
-                                                                </head>
-                                                                <body>
-                                                                <div  style="width: 50%;text-align: center;margin:auto;">
-
-                                                                <div  style="margin-left:26px;">
-                                                                <img src="' . Yii::$app->homeUrl . '/images/logos/logo-1.png" style="width:200px">
-                                                                <h2>Enquiry </h2>
-
-                                                                <p>Hi ' . $model->caller_name . ',</p>
-                                                                <p>Thankyou for your enquiry. We will contact you soon.</p>
-
-                                                                </div>
-                                                                </div>
-
-
-
-                                                                </body>
-                                                                </html>';
-
-
-
-                                /*   To send HTML mail, the Content-type header must be set */
-
-//                                $headers = 'MIME-Version: 1.0' . "\r\n";
-//                                $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
-//                                        "From: 'noreplay@caringpeople.com";
-//                                mail($to, $subject, $message, $headers);
-                                /* sending email */
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
-                                $this->redirect('index');
+                                return $this->redirect('enquiry/enquiry/index');
+                                exit();
                         }
                 }
 
@@ -129,7 +104,12 @@ class EnquiryController extends Controller {
                 $model = $this->findModel($id);
                 $hospital_info = EnquiryHospital::find()->where(['enquiry_id' => $model->id])->one();
                 $other_info = EnquiryOtherInfo::find()->where(['enquiry_id' => $model->id])->one();
-                if (!empty($model)) {
+//                if (!isset($hospital_info))
+//                        $hospital_info = new EnquiryHospital;
+//                if (!isset($other_info))
+//                        $other_info = new EnquiryOtherInfo;
+
+                if (!empty($model) && !empty($hospital_info) && !empty($other_info)) {
                         if ($model->load(Yii::$app->request->post())) {
 
                                 $model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
@@ -148,7 +128,7 @@ class EnquiryController extends Controller {
                                     'other_info' => $other_info,
                         ]);
                 } else {
-                        return $this->redirect(['create']);
+                        throw new \yii\web\HttpException(400, 'Error code 1000', 405);
                 }
         }
 
@@ -189,6 +169,19 @@ class EnquiryController extends Controller {
                 } else {
                         return FALSE;
                 }
+        }
+
+        public function sendMail($model) {
+
+                $to = $model->email;
+                $subject = 'Enquiry Received';
+                $message = $this->renderPartial('send_mail', ['model' => $model]);
+
+                // To send HTML mail, the Content-type header must be set
+                $headers = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
+                        "From: 'info@caringpeople.in";
+                // mail($to, $subject, $message, $headers);
         }
 
         public function actionDelete($id) {

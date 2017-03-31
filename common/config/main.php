@@ -21,5 +21,8 @@ return [
         'History' => [
             'class' => 'common\components\History'
         ],
+        'Followups' => [
+            'class' => 'common\components\Followups'
+        ],
     ],
 ];

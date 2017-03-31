@@ -136,29 +136,32 @@ foreach ($enquiry_notification as $enquiries) {
                                                 </ul>
 
                                         <?php } ?>
-                                        <ul id="main-menu" class="main-menu">
-                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                                                <li>
-                                                        <a href="dashboard-1.html">
-                                                                <i class="fa-user"></i>
-                                                                <span class="title">Staffs</span>
-                                                        </a>
-                                                        <ul>
-                                                                <li>
-                                                                        <?= Html::a('Staff Enquiry', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
-                                                                </li>
+                                        <?php
+                                        if (Yii::$app->session['post']['staffs'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li>
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa-user"></i>
+                                                                        <span class="title">Staffs</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Staff Enquiry', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
+                                                                        </li>
 
-                                                                <li>
-                                                                        <?= Html::a('Staffs', ['/staff/staff-info/index'], ['class' => 'title']) ?>
-                                                                </li>
+                                                                        <li>
+                                                                                <?= Html::a('Staffs', ['/staff/staff-info/index'], ['class' => 'title']) ?>
+                                                                        </li>
 
 
-                                                        </ul>
-                                                </li>
+                                                                </ul>
+                                                        </li>
 
-                                        </ul>
-
+                                                </ul>
+                                        <?php } ?>
                                         <?php
                                         if (Yii::$app->session['post']['masters'] == 1) {
                                                 ?>

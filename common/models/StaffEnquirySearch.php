@@ -18,7 +18,7 @@ class StaffEnquirySearch extends StaffEnquiry {
         public function rules() {
                 return [
                         [['id', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-                        [['name', 'phone_number', 'email', 'address', 'follow_up_date', 'notes', 'DOC', 'DOU'], 'safe'],
+                        [['name', 'phone_number', 'email', 'address', 'follow_up_date', 'notes', 'DOC', 'DOU', 'enquiry_id'], 'safe'],
                 ];
         }
 
@@ -69,9 +69,11 @@ class StaffEnquirySearch extends StaffEnquiry {
 
                 $query->andFilterWhere(['like', 'name', $this->name])
                         ->andFilterWhere(['like', 'phone_number', $this->phone_number])
+                        ->andFilterWhere(['like', 'enquiry_id', $this->enquiry_id])
                         ->andFilterWhere(['like', 'email', $this->email])
                         ->andFilterWhere(['like', 'address', $this->address])
                         ->andFilterWhere(['like', 'notes', $this->notes]);
+
 
                 return $dataProvider;
         }

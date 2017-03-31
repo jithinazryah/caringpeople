@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'enquiry')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'staffs')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'users')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'employees')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
