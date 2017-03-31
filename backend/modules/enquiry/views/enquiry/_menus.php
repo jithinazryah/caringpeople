@@ -35,5 +35,22 @@ use yii\helpers\Html;
         </li>
 
 
+        <li>
+                <a href="#settings-3" data-toggle="tab"><span class="visible-xs"><i class="fa-info-circle"></i></span>
+                        <span class="hidden-xs span-font-size">Followup</span></a>
+        </li>
+
+
 </ul>
 
+<script>
+        $(document).ready(function () {
+                var current_page = "<?php echo $followup_id; ?>";
+                if (current_page != '')
+                        activaTab('settings-3');
+        });
+
+        function activaTab(tab) {
+                $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+        }
+</script>

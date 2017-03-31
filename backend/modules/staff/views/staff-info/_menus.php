@@ -3,29 +3,34 @@
 use yii\helpers\Html;
 ?>
 
+
+
 <ul class="nav nav-tabs nav-tabs-justified">
-        <li class = "<?= ((Yii::$app->controller->id == 'staff-info') && (Yii::$app->controller->action->id == 'create')) || ($_GET['id'] != '') ? 'active' : '' ?>">
-                <?php if (empty($_GET['id'])) { ?>
-                        <?= Html::a('<span class="visible-xs"><i class="fa-envelope-o"></i></span>
-			<span class="hidden-xs span-font-size">General Information</span>', ['#home-3'], ['class' => '', 'data-toggle' => 'tab']) ?>
-                <?php } else { ?>
-                        <?= Html::a('<span class="visible-xs"><i class="fa-envelope-o"></i></span>
-			<span class="hidden-xs span-font-size">General Information</span>', ['#home-3',], ['class' => '', 'data-toggle' => 'tab']) ?>
-                <?php } ?>
+        <li class="active">
+                <a href="#home-3" data-toggle="tab"><span class="visible-xs"><i class="fa-envelope-o"></i></span>
+                        <span class="hidden-xs span-font-size">Enquiry</span></a>
         </li>
 
-        <li class="<?= !empty($other_info) ? 'active' : '' ?>">
-                <?php if (empty($other_info)) { ?>
-                        <?= Html::a('<span class="visible-xs"><i class="fa-hospital-o"></i></span>
-			<span class="hidden-xs span-font-size">Other Information</span>', ['#profile-3'], ['class' => 'btn btn-warning  ', 'data-toggle' => 'tab']) ?>
-                <?php } else { ?>
-                        <?= Html::a('<span class="visible-xs"><i class="fa-hospital-o"></i></span>
-			<span class="hidden-xs span-font-size">Other Information</span>', ['#profile-3'], ['class' => 'btn btn-warning  ', 'data-toggle' => 'tab']) ?>
-                <?php } ?>
+        <li>
+                <a href="#profile-3" data-toggle="tab"><span class="visible-xs"><i class="fa-hospital-o"></i></span>
+                        <span class="hidden-xs span-font-size">Other Information</span></a>
         </li>
 
-
-
-
+        <li>
+                <a href="#messages-3" data-toggle="tab"><span class="visible-xs"><i class="fa-info-circle"></i></span>
+                        <span class="hidden-xs span-font-size">Followup</span></a>
+        </li>
 </ul>
+
+<script>
+        $(document).ready(function () {
+                var current_page = "<?php echo $followup_id; ?>";
+                if (current_page != '')
+                        activaTab('messages-3');
+        });
+
+        function activaTab(tab) {
+                $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+        }
+</script>
 

@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?=
                                 $this->render('_menus', [
                                     'model' => $model,
+                                    'followup_id' => $followup_id,
                                 ])
                                 ?>
                                 <div class="panel-body panel_body_background" >
@@ -52,6 +53,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ])
                                                         ?>
                                                 </div>
+
+                                                <div class="tab-pane" id="messages-3">
+
+                                                        <?=
+                                                        $this->render('_followup_form', [
+                                                            'followup_info' => $followup_info,
+                                                            'form' => $form,
+                                                            'model' => $model,
+                                                            'dataProvider' => $dataProvider,
+                                                            'followup_id' => $followup_id,
+                                                        ])
+                                                        ?>
+
+                                                </div>
+
 
 
                                         </div>

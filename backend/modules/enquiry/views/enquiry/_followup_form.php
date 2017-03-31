@@ -86,7 +86,7 @@ use common\models\Followups;
 
 
 <?php
-$count = Followups::find()->where(['type_id' => $staff_enquiry->id, 'type' => '2'])->count();
+$count = Followups::find()->where(['type_id' => $model->id, 'type' => '0'])->count();
 if ($count > 0) {
         ?>
 
@@ -97,7 +97,7 @@ if ($count > 0) {
                 ListView::widget([
                     'dataProvider' => $dataProvider,
                     'itemView' => '_followups',
-                    'viewParams' => ['staff_enquiry_id' => $staff_enquiry->id],
+                    'viewParams' => ['client_enquiry_id' => $model->id],
                 ]);
                 ?>
 

@@ -22,11 +22,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
 
-                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-
-                                <div class="panel-body panel_body_background" >
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px']) ?>
+                                <?=
+                                $this->render('_menus', [
+                                    'model' => $model,
+                                    'followup_id' => $followup_id,
+                                ])
+                                ?>
+                                <div class="panel-body">
                                         <?php $form = ActiveForm::begin(); ?>
-                                        <div class="tab-content tab_data_margin" >
+                                        <div class="tab-content" style="margin-left: 15px;">
 
                                                 <div class="tab-pane active" id="home-3">
 
@@ -57,16 +62,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ?>
                                                 </div>
 
+                                                <div class="tab-pane" id="settings-3">
+
+                                                        <?=
+                                                        $this->render('_followup_form', [
+                                                            'followup_info' => $followup_info,
+                                                            'form' => $form,
+                                                            'model' => $model,
+                                                            'dataProvider' => $dataProvider,
+                                                            'followup_id' => $followup_id,
+                                                        ])
+                                                        ?>
+                                                </div>
+
                                         </div>
                                         <div class='col-md-12 col-sm-6 col-xs-12' >
                                                 <div class="form-group" >
                                                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
-                                                        <?= Html::a('<span> Procced To Client</span>', ['index'], ['class' => 'btn btn-success proceed_client']) ?>
                                                 </div>
                                         </div>
-
-
-
                                         <?php ActiveForm::end(); ?>
 
 

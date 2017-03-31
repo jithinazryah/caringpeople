@@ -5,6 +5,8 @@ namespace backend\modules\enquiry\controllers;
 use Yii;
 use common\models\Enquiry;
 use common\models\EnquirySearch;
+use common\models\Followups;
+use common\models\FollowupsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,10 +69,13 @@ class EnquiryController extends Controller {
                 $model = new Enquiry();
                 $hospital_info = new EnquiryHospital();
                 $other_info = new EnquiryOtherInfo();
+                $followup_info = new Followups();
                 $model->scenario = 'create';
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) /* && Yii::$app->SetValues->currentBranch($model) /* && $model->save() */) {
                         $model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
                         $model->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['outgoing_call_date']));
+                        $followup_info->load(Yii::$app->request->post());
+                        $followup_info->status = '0';
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($model);
                         }
@@ -84,12 +89,11 @@ class EnquiryController extends Controller {
                                 $model->update();
                                 $this->AddHospitalInfo($model, Yii::$app->request->post(), $hospital_info);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
+                                Yii::$app->Followups->addfollowups('0', $model->id, $followup_info);
                                 Yii::$app->History->UpdateHistory('enquiry', $model->id, 'create');
                                 $this->sendMail($model);
-
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
                                 return $this->redirect('enquiry/enquiry/index');
-                                exit();
                         }
                 }
 
@@ -97,6 +101,7 @@ class EnquiryController extends Controller {
                             'model' => $model,
                             'hospital_info' => $hospital_info,
                             'other_info' => $other_info,
+                            'followup_info' => $followup_info,
                 ]);
         }
 
@@ -104,31 +109,49 @@ class EnquiryController extends Controller {
                 $model = $this->findModel($id);
                 $hospital_info = EnquiryHospital::find()->where(['enquiry_id' => $model->id])->one();
                 $other_info = EnquiryOtherInfo::find()->where(['enquiry_id' => $model->id])->one();
-//                if (!isset($hospital_info))
-//                        $hospital_info = new EnquiryHospital;
-//                if (!isset($other_info))
-//                        $other_info = new EnquiryOtherInfo;
+                if (isset($_GET['followup']))
+                        $followup_info = Followups::findOne($_GET['followup']);
+                else
+                        $followup_info = new Followups();
 
+                $searchModel = new FollowupsSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['type' => '0', 'type_id' => $id]);
+
+                if (!isset($hospital_info))
+                        $hospital_info = new EnquiryHospital;
+                if (!isset($other_info))
+                        $other_info = new EnquiryOtherInfo;
                 if (!empty($model) && !empty($hospital_info) && !empty($other_info)) {
                         if ($model->load(Yii::$app->request->post())) {
 
                                 $model->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['contacted_date']));
                                 $model->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['Enquiry']['outgoing_call_date']));
+                                $followup_info->load(Yii::$app->request->post());
                                 if ($model->validate() && $model->save()) {
                                         $this->AddHospitalInfo($model, Yii::$app->request->post(), $hospital_info);
                                         $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
+                                        if (isset($_GET['followup'])) {
+                                                Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
+                                        } else {
+                                                $followup_info->status = '0';
+                                                Yii::$app->Followups->addfollowups('3', $model->id, $followup_info);
+                                        }
                                         Yii::$app->History->UpdateHistory('enquiry', $model->id, 'update');
                                         Yii::$app->getSession()->setFlash('success', 'Enquiry Updated Successfully');
-                                        return $this->redirect('index');
+                                        return $this->redirect(array('index'));
                                 }
                         }
                         return $this->render('_enquiry_form', [
                                     'model' => $model,
                                     'hospital_info' => $hospital_info,
                                     'other_info' => $other_info,
+                                    'followup_info' => $followup_info,
+                                    'dataProvider' => $dataProvider,
+                                    'followup_id' => $_GET['followup'],
                         ]);
                 } else {
-                        throw new \yii\web\HttpException(400, 'Error code 1000', 405);
+                        return $this->redirect(['create']);
                 }
         }
 
@@ -180,8 +203,8 @@ class EnquiryController extends Controller {
                 // To send HTML mail, the Content-type header must be set
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
-                        "From: 'info@caringpeople.in";
-                // mail($to, $subject, $message, $headers);
+                        "From: info@caringpeople.in";
+                //mail($to, $subject, $message, $headers);
         }
 
         public function actionDelete($id) {

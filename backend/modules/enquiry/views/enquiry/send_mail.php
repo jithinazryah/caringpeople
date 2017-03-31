@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
                 <div  style="width: 50%;text-align: center;margin:auto;">
 
                         <div  style="margin-left:26px;">
-                                <img src="<?= Yii::$app->homeUrl ?>/images/logos/logo-1.png" style="width:200px">
+                                <img src="http://azryah.com/caring-people/admin/images/logos/logo-1.png" style="width:200px">
                                 <h2>Enquiry </h2>
 
                                 <p>Hi <?= $model->caller_name; ?>,</p>

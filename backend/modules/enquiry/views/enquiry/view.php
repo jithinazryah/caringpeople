@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body"><div class="enquiry-view">
 
 
-                                                <div id="pdf" class="table-responsive">
+                                                <div id="pdf">
 
 
                                                         <style type="text/css">
@@ -160,9 +160,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         <div style="clear:both"></div>
 
-                                                                                        <div class = "content">
-                                                                                                <div class = "label_sty"><label>Outgoing Call from:</label></div>
-                                                                                                <div class = "data_sty" style = "width:200px;"><span>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Outgoing Call from:</label></div>
+                                                                                                <div class="data_sty" style="width:200px;"><span>
                                                                                                                 <?php
                                                                                                                 $outgoing_number = OutgoingNumbers::findOne($model->outgoing_number_from);
                                                                                                                 echo $outgoing_number->phone_number;
@@ -376,13 +376,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         </div>
 
-                                                                                        <?php if ($hospital_info->required_service != '') { ?>
-                                                                                                <div style="clear:both"></div>
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty"><label>Required Services:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $hospital_info->bedridden; ?></span> </div>
-                                                                                                </div>
-                                                                                        <?php } ?>
-
                                                                                         <?php if ($hospital_info->bedridden != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
@@ -474,7 +467,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                 <?php
                                                                                         } else {
-                                                                                                if ($other_info->difficulty_in_movement_other != '') {
+                                                                                                if ($other_info->care_currently_provided_others != '') {
                                                                                                         ?>
                                                                                                         <div class="content">
                                                                                                                 <div class="label_sty"><label>Difficulty in movement:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $other_info->difficulty_in_movement_other; ?></span></div>

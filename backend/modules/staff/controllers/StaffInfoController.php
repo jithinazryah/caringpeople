@@ -7,6 +7,8 @@ use common\models\StaffInfo;
 use common\models\StaffInfoSearch;
 use common\models\StaffOtherInfo;
 use common\models\StaffPerviousEmployer;
+use common\models\Followups;
+use common\models\FollowupsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -95,6 +97,7 @@ class StaffInfoController extends Controller {
                 $model = new StaffInfo();
                 $other_info = new StaffOtherInfo();
                 $before_update = '';
+                $followup_info = new Followups();
 
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && Yii::$app->SetValues->currentBranch($model)) {
@@ -103,22 +106,26 @@ class StaffInfoController extends Controller {
                         $other_info->load(Yii::$app->request->post());
                         $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
                         $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
+                        $followup_info->load(Yii::$app->request->post());
+                        $followup_info->status = '0';
 
                         if ($model->validate() && $other_info->validate() && $model->save() && $other_info->save()) {
                                 $other_info->staff_id = $model->id;
                                 $other_info->update();
+                                Yii::$app->Followups->addfollowups('3', $model->id, $followup_info);
                                 if (Yii::$app->user->identity->branch_id != '0') {
                                         Yii::$app->SetValues->currentBranch($model);
                                 }
                                 $this->Imageupload($model, $before_update);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
-                                $this->redirect('index');
+                                return $this->redirect(array('index'));
                         }
                 }
                 return $this->render('_staff_form', [
                             'model' => $model,
                             'other_info' => $other_info,
+                            'followup_info' => $followup_info,
                 ]);
         }
 
@@ -133,6 +140,13 @@ class StaffInfoController extends Controller {
                 $before_update = StaffInfo::findOne($id);
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $model->id]);
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $model->id]);
+                if (isset($_GET['followup']))
+                        $followup_info = Followups::findOne($_GET['followup']);
+                else
+                        $followup_info = new Followups();
+                $searchModel = new FollowupsSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['type' => '3', 'type_id' => $id]);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                         $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
@@ -140,17 +154,28 @@ class StaffInfoController extends Controller {
                         $other_info->load(Yii::$app->request->post());
                         $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
                         $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
+                        $followup_info->load(Yii::$app->request->post());
+
                         if ($model->validate() && $other_info->validate() && $model->save() && $other_info->save()) {
                                 $this->Imageupload($model, $before_update);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
+                                if (isset($_GET['followup'])) {
+                                        Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
+                                } else {
+                                        $followup_info->status = '0';
+                                        Yii::$app->Followups->addfollowups('3', $model->id, $followup_info);
+                                }
                                 Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
-                                return $this->redirect('index');
+                                return $this->redirect(array('index'));
                         }
                 }
                 return $this->render('_staff_form', [
                             'model' => $model,
                             'other_info' => $other_info,
                             'staff_previous_employer' => $staff_previous_employer,
+                            'followup_info' => $followup_info,
+                            'dataProvider' => $dataProvider,
+                            'followup_id' => $_GET['followup'],
                 ]);
         }
 

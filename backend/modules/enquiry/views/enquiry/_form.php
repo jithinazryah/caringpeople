@@ -15,7 +15,7 @@ use common\models\OutgoingNumbers;
 <div class="enquiry-form form-inline">
 
 
-
+        
         <?php // $form->errorSummary($model); ?>
 
         <!--	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -156,8 +156,6 @@ use common\models\OutgoingNumbers;
 
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'person_postal_code')->textInput(['maxlength' => true]) ?>
 
-                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'patient_current_status')->dropDownList(['' => '--Select--', '1' => 'Independent', '2' => 'Bedridden', '3' => 'Assistance Required 1', '4' => 'Assistance Required 2']) ?>
-
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'whatsapp_reply')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='whatsapp_number'>   <?= $form->field($model, 'whatsapp_number')->textInput(['maxlength' => true]) ?>
@@ -171,9 +169,6 @@ use common\models\OutgoingNumbers;
                         </div>
                 <?php } ?>
 
-
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?></div>
-
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Pending', '3' => 'Close']) ?>
 
                 </div>
@@ -183,7 +178,92 @@ use common\models\OutgoingNumbers;
         </div>
 
 
-
+        
 </div>
+<script>
+        $(document).ready(function () {
 
+
+                $('#service_required_others').hide();
+                $('#whatsapp_number').hide();
+                $("#enquiry-contacted_source").change(function () {
+                        var contact_source = $("#enquiry-contacted_source option:selected").val();
+                        if (contact_source == 0) {
+                                $("label[for = enquiry-incoming_missed]").text("Incoming Number");
+                        } else if (contact_source == 1) {
+                                $("label[for = enquiry-incoming_missed]").text("Incoming Email Id");
+                        } else {
+                                $("label[for = enquiry-incoming_missed]").text("Contact Source Others");
+                        }
+                });
+
+                $relationship = $("#enquiry-relationship option:selected").val();
+                if ($relationship === '3') {
+                        $('#service_required_others').show();
+                } else {
+                        $('#service_required_others').hide();
+                }
+
+                $("#enquiry-relationship").change(function () {
+                        if ($("#enquiry-relationship option:selected").val() === '3')
+                                $('#service_required_others').show();
+                        else
+                                $('#service_required_others').hide();
+                });
+
+
+                $whatsapp_number = $("#enquiry-whatsapp_reply option:selected").val();
+
+                if ($whatsapp_number === '1') {
+                        $('#whatsapp_number').show();
+                } else {
+                        $('#whatsapp_number').hide();
+                }
+
+
+
+                $("#enquiry-whatsapp_reply").change(function () {
+                        if ($("#enquiry-whatsapp_reply option:selected").val() === '1')
+                                $('#whatsapp_number').show();
+                        else
+                                $('#whatsapp_number').hide();
+                });
+
+
+
+                /*outgoing number from other show/hide on update */
+                if ($("#enquiry-outgoing_number_from option:selected").val() === '1')
+                        $('#outgoing_number_from_other').show();
+                else
+                        $('#outgoing_number_from_other').hide();
+
+                /*outgoing number from other show/hide on create */
+                $("#enquiry-outgoing_number_from").change(function () {
+                        if ($("#enquiry-outgoing_number_from option:selected").val() === '1')
+                                $('#outgoing_number_from_other').show();
+                        else
+                                $('#outgoing_number_from_other').hide();
+                });
+                $('#checkbox_id').on('change', function (e) {
+                        if (this.checked) {
+                                var address = $("#enquiry-address").val();
+                                var city = $("#enquiry-city").val();
+                                var postal_code = $("#enquiry-zip_pc").val();
+                                $("#enquiry-person_address").val(address);
+                                $("#enquiry-person_city").val(city);
+                                $("#enquiry-person_postal_code").val(postal_code);
+                        }
+                        if (!this.checked) {
+                                $("#enquiry-person_address").val('');
+                                $("#enquiry-person_city").val('');
+                                $("#enquiry-person_postal_code").val('');
+                        }
+                });
+
+        });
+
+
+
+
+</script>
 
