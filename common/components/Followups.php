@@ -30,6 +30,8 @@ class Followups extends Component {
                                 $status = $this->Checkstatus($followup_info->followup_date, $followup_info->status);
                         else
                                 $status = $followup_info->status;
+
+                        $followp->status = $status;
                         $followp->DOC = date('Y-m-d');
                         $followp->save();
                 }
@@ -67,6 +69,7 @@ class Followups extends Component {
         }
 
         public function Checkstatus($followupdate, $status) {
+
                 $followupdate = date('Y-m-d', strtotime($followupdate));
                 $current_date = date('Y-m-d');
                 $followupdate = date_create($followupdate);
@@ -74,6 +77,7 @@ class Followups extends Component {
 
                 $diff = date_diff($current_date, $followupdate);
                 $date_difference = $diff->format("%R%a");
+
                 if ($date_difference < 0) {
                         $status = '3';
                 } else {

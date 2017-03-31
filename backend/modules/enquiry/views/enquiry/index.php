@@ -2,13 +2,16 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\Branch;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\EnquirySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Enquiries';
+$this->title = 'Client Enquiries';
 $this->params['breadcrumbs'][] = $this->title;
+$branch = Branch::branch();
 ?>
 <div class="enquiry-index">
 
@@ -16,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-12">
 
                         <div class="panel panel-default">
+
                                 <div class="panel-heading">
                                         <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
@@ -35,6 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
+                                        <a class="advanced-search" style="font-size: 17px;color:#0e62c7;cursor: pointer;">Advanced Search</a>
+                                        <hr class="appoint_history" style="margin-top:5px;"/>
+
+
+
+                                        <?= $this->render('advanced_search', ['model' => $searchModel]) ?>
                                         <?= Html::a('<i class="fa-th-list"></i><span> New Enquiry</span>', ['new-enquiry'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
 
                                         <?=
@@ -80,7 +90,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 // 'person_address',
                                                 // 'person_city',
                                                 // 'person_postal_code',
-                                                // 'branch_id',
+                                                [
+                                                    'attribute' => 'branch_id',
+                                                    'value' => function($data) {
+                                                            return Branch::findOne($data->branch_id)->branch_name;
+                                                    },
+                                                    'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
+                                                ],
                                                 // 'status',
                                                 // 'CB',
                                                 // 'UB',
@@ -95,5 +111,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
         </div>
 </div>
+<script>
+        $(document).ready(function () {
+                $('.hidediv1').hide();
+                $('.advanced-search').click(function () {
+                        $('.hidediv1').slideToggle();
+                });
+        });
+</script>
 
 

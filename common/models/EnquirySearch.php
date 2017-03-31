@@ -91,7 +91,11 @@ class EnquirySearch extends Enquiry {
                         ->andFilterWhere(['like', 'service_required_for_others', $this->service_required_for_others])
                         ->andFilterWhere(['like', 'person_address', $this->person_address])
                         ->andFilterWhere(['like', 'person_city', $this->person_city])
-                        ->andFilterWhere(['like', 'person_postal_code', $this->person_postal_code]);
+                        ->andFilterWhere(['like', 'person_postal_code', $this->person_postal_code])
+                        ->andFilterWhere(['>=', 'contacted_date', $params['Enquiry']['contactedFrom']])
+                        ->andFilterWhere(['<=', 'contacted_date', $params['Enquiry']['contactedTo']])
+                        ->andFilterWhere(['>=', 'outgoing_call_date', $params['Enquiry']['$outgoingFrom']])
+                        ->andFilterWhere(['<=', 'outgoing_call_date', $params['Enquiry']['$outgoingTo']]);
 
                 return $dataProvider;
         }

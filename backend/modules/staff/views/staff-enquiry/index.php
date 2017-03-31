@@ -22,6 +22,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
+                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+
+                                                <div class="alert alert-danger">
+                                                        <button type="button" class="close" data-dismiss="alert">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                        </button>
+                                                        <?= Yii::$app->session->getFlash('error') ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                <div class="alert alert-success">
+                                                        <button type="button" class="close" data-dismiss="alert">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                        </button>
+
+                                                        <?= Yii::$app->session->getFlash('success') ?>
+                                                </div>
+                                        <?php endif; ?>
                                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> New Staff Enquiry</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>

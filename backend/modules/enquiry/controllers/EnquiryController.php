@@ -76,9 +76,9 @@ class EnquiryController extends Controller {
                         }
                         if ($model->validate() && $model->save()) {
                                 if ($model->branch_id == '1') {
-                                        $code = 'CPCSE';
+                                        $code = 'CPCUE';
                                 } else if ($model->branch_id == '2') {
-                                        $code = 'CPBSE';
+                                        $code = 'CPBUE';
                                 }
                                 $model->enquiry_id = $code . '-' . date('d') . date('m') . date('y') . '-' . $model->id;
                                 $model->update();

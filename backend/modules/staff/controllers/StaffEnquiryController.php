@@ -84,6 +84,7 @@ class StaffEnquiryController extends Controller {
                                 $staff_enquiry->enquiry_id = $code . '-' . date('d') . date('m') . date('y') . '-' . $staff_enquiry->id;
                                 $staff_enquiry->update();
                                 Yii::$app->Followups->addfollowups('2', $staff_enquiry->id, $followup_info);
+                                Yii::$app->getSession()->setFlash('success', 'Staff Enquiry Added Successfully');
                                 return $this->redirect(['index']);
                         }
                 }
@@ -112,19 +113,22 @@ class StaffEnquiryController extends Controller {
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['type' => '2', 'type_id' => $id]);
 
-                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && Yii::$app->SetValues->currentBranch($staff_enquiry)) {
+                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry)) {
                         $staff_enquiry->follow_up_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffEnquiry']['follow_up_date']));
                         $followup_info->load(Yii::$app->request->post());
                         if ($staff_enquiry->save())
-                                if (isset($_GET['followup']))
+                                if (isset($_GET['followup'])) {
                                         Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
-                                else
+                                } else {
+                                        $followup_info->status = '0';
                                         Yii::$app->Followups->addfollowups('2', $staff_enquiry->id, $followup_info);
+                                }
                         if (isset($_POST['proceed'])) {
                                 $staff_enquiry->proceed = '1';
                                 $staff_enquiry->update();
                                 return $this->redirect(['staff-info/procced/', 'id' => $staff_enquiry->id]);
                         } else {
+                                Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
                                 return $this->redirect(['index']);
                         }
                 }

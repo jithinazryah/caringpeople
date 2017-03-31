@@ -50,10 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         <?=
                                                         $this->render('_followup_form', [
+                                                            'form' => $form,
                                                             'followup_info' => $followup_info,
                                                             'staff_enquiry' => $staff_enquiry,
-                                                            'form' => $form,
                                                             'dataProvider' => $dataProvider,
+                                                            'followup_id' => $followup_id,
                                                         ])
                                                         ?>
                                                 </div>

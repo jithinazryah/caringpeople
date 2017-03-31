@@ -16,18 +16,25 @@ use common\models\AdminUsers;
 <?php
 if ($model->status == '0') {
         $color = 'blockquote-info'; //status-open
+        $status = 'Open';
 } else if ($model->status == '1') {
         $color = 'blockquote-success'; //status-closed
+        $status = 'Closed';
 } else if ($model->status == '2') {
         $color = 'blockquote-warning'; //status-void
+        $status = 'Void';
 } else if ($model->status == '3') {
         $color = 'blockquote-red'; //status-pending
+        $status = 'Pending';
 }
 
 $assigned_to = AdminUsers::findOne($model->assigned_to);
 $assigned_to = $assigned_to->name;
 $assigned_from = AdminUsers::findOne($model->assigned_from);
 $assigned_from = $assigned_from->name;
+$counts = ++$index;
+if ($counts % 2 == 0)
+        echo '</div><div class="row">';
 ?>
 
 
@@ -41,7 +48,11 @@ $assigned_from = $assigned_from->name;
                                 <a href="<?= Yii::$app->homeUrl . 'update-staff-enquiry/' . $staff_enquiry_id . '?followup=' . $model->id ?>" title="Edit"> <i class="fa-edit" style="color:#000;margin-left: 10px;font-size: 20px;"></i></a>
                         </span>
                 </p>
-                <span style="float: right;color: #7c38bc;font-size: 12px;">Status: open</span>
+
+                <p style="text-align:right;font-size: 12px;margin-top: 3px;">
+                        <span>Status:<?= $status; ?></span>
+                </p>
+
                 <p>
                         <small><?= $model->followup_notes; ?></small>
                 </p>

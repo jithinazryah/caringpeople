@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 use kartik\datetime\DateTimePicker;
 use common\models\AdminUsers;
 use yii\helpers\ArrayHelper;
-use dosamigos\ckeditor\CKEditor;
+use common\models\Followups;
 
 /* @var $this yii\web\View */
 /* @var $followup_info common\models\Followups */
@@ -21,7 +21,7 @@ use dosamigos\ckeditor\CKEditor;
                         <label class="control-label" for="followups-followup_date">Followup Date</label>
 
                         <?php
-                        if (!$model->isNewRecord && isset($_GET['followup'])) {
+                        if (!$model->isNewRecord && isset($followup_id)) {
                                 $followup_info->followup_date = date('d-M-Y h:i', strtotime($followup_info->followup_date));
                         } else {
                                 $followup_info->followup_date = date('d-M-Y h:i');
@@ -66,8 +66,8 @@ use dosamigos\ckeditor\CKEditor;
         </div>
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                <?php // $form->field($followup_info, 'followup_notes')->widget(CKEditor::className(), ['options' => ['rows' => 6], 'preset' => 'basic']) ?>
-                <?= $form->field($followup_info, 'followup_notes')->textarea(['rows' => 6]) ?>
+
+                <?php echo $form->field($followup_info, 'followup_notes')->textarea(['rows' => 6]) ?>
         </div>
 
         <?php if (!$followup_info->isNewRecord) {
@@ -86,7 +86,8 @@ use dosamigos\ckeditor\CKEditor;
 
 
 <?php
-if (isset($dataProvider)) {
+$count = Followups::find()->where(['type_id' => $staff_enquiry->id, 'type' => '2'])->count();
+if ($count > 0) {
         ?>
 
         <label style="color: #148eaf;font-size: 20px;">Followups</label>
