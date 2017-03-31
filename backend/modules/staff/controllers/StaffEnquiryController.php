@@ -83,6 +83,7 @@ class StaffEnquiryController extends Controller {
                                 }
                                 $staff_enquiry->enquiry_id = $code . '-' . date('d') . date('m') . date('y') . '-' . $staff_enquiry->id;
                                 $staff_enquiry->update();
+                                $followup_info->status = '0';
                                 Yii::$app->Followups->addfollowups('2', $staff_enquiry->id, $followup_info);
                                 Yii::$app->getSession()->setFlash('success', 'Staff Enquiry Added Successfully');
                                 return $this->redirect(['index']);
