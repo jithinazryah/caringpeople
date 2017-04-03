@@ -15,7 +15,7 @@ use common\models\OutgoingNumbers;
 <div class="enquiry-form form-inline">
 
 
-        
+
         <?php // $form->errorSummary($model); ?>
 
         <!--	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -178,7 +178,7 @@ use common\models\OutgoingNumbers;
         </div>
 
 
-        
+
 </div>
 <script>
         $(document).ready(function () {

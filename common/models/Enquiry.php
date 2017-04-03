@@ -59,7 +59,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                 return [
                         [['contacted_source', 'caller_gender', 'whatsapp_number', 'person_gender', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'whatsapp_reply', 'patient_current_status', 'CB', 'UB'], 'integer'],
                         [['contacted_source_others', 'contacted_date', 'outgoing_call_date', 'DOC', 'DOU', 'branch_id'], 'safe'],
-                        [['contacted_source'], 'required', 'on' => 'create'],
+                        [['contacted_source', 'email', 'status'], 'required', 'on' => 'create'],
 //		    [['weight'], 'number'],
                     [['email'], 'email'],
                         [['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'outgoing_number_from_other', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code', 'notes'], 'string', 'max' => 100],
@@ -95,7 +95,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                     'city' => 'City',
                     'zip_pc' => 'Zip/PC',
                     'email' => 'Email',
-                    'service_required_for' => 'Service Required For',
+                    'service_required_for' => 'Required Person Name ',
                     'service_required_for_others' => 'Relationship Others',
                     'person_gender' => 'Gender',
                     'age' => 'Age',
