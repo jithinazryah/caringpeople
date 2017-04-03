@@ -6,13 +6,14 @@
 
 $("document").ready(function () {
 
-
         /*
          -----------------ENQUIRY FORM--------------
          */
 
         $('#service_required_others').hide();
         $('#whatsapp_number').hide();
+        $('#whatsapp_note').hide();
+
         $("#enquiry-contacted_source").change(function () {
                 var contact_source = $("#enquiry-contacted_source option:selected").val();
                 if (contact_source == 0) {
@@ -40,20 +41,24 @@ $("document").ready(function () {
 
 
         $whatsapp_number = $("#enquiry-whatsapp_reply option:selected").val();
-
         if ($whatsapp_number === '1') {
                 $('#whatsapp_number').show();
-        } else {
+                $('#whatsapp_note').hide();
+        } else if ($whatsapp_number === '0') {
                 $('#whatsapp_number').hide();
+                $('#whatsapp_note').show();
         }
 
 
 
         $("#enquiry-whatsapp_reply").change(function () {
-                if ($("#enquiry-whatsapp_reply option:selected").val() === '1')
+                if ($("#enquiry-whatsapp_reply option:selected").val() === '1') {
                         $('#whatsapp_number').show();
-                else
+                        $('#whatsapp_note').hide();
+                } else if ($("#enquiry-whatsapp_reply option:selected").val() === '0') {
                         $('#whatsapp_number').hide();
+                        $('#whatsapp_note').show();
+                }
         });
 
 
@@ -89,7 +94,7 @@ $("document").ready(function () {
 
 
         /*
-         -----------------ENQUIRY FORM--------------
+         -----------------ENQUIRY FORM----------------------------
          */
 
 

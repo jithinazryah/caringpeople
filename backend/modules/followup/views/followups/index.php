@@ -8,7 +8,7 @@ use yii\widgets\ListView;
 /* @var $searchModel common\models\FollowupsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Followups';
+$this->title = 'My Tasks';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="followups-index">
@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body">
                                         <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
-                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Followups</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?php
                                         echo ListView::widget([
                                             'dataProvider' => $dataProvider,
@@ -39,3 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
+<style>
+        .summary{display: none;}
+</style>

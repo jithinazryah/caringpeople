@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\Branch;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\StaffInfoSearch */
@@ -10,6 +12,7 @@ use yii\grid\GridView;
 $this->title = 'Staffs';
 $this->params['breadcrumbs'][] = $this->title;
 $path = Yii::getAlias(Yii::$app->params['uploadPath']);
+$branch = Branch::branch();
 ?>
 <div class="staff-info-index">
 
@@ -34,7 +37,7 @@ $path = Yii::getAlias(Yii::$app->params['uploadPath']);
                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                 </div>
                                         <?php endif; ?>
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> New Staff</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?=
@@ -114,7 +117,13 @@ $path = Yii::getAlias(Yii::$app->params['uploadPath']);
                                                 // 'emergency_conatct_verification',
                                                 // 'panchayath_cleraance_verification',
                                                 // 'biodata',
-                                                // 'branch_id',
+                                                [
+                                                    'attribute' => 'branch_id',
+                                                    'value' => function($data) {
+                                                            return Branch::findOne($data->branch_id)->branch_name;
+                                                    },
+                                                    'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
+                                                ],
                                                 // 'status',
                                                 // 'CB',
                                                 // 'UB',

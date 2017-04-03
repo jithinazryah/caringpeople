@@ -10,15 +10,10 @@ use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 use common\models\EnquiryOtherInfo;
 use common\models\Enquiry;
+use common\models\Followups;
 
 AppAsset::register($this);
-$enquiry_notification = Enquiry::find()->where(['CB' => Yii::$app->user->identity->id])->all();
-foreach ($enquiry_notification as $enquiries) {
-        $result = EnquiryOtherInfo::find()->where(['enquiry_id' => $enquiries->id, 'followup_date' => date('Y-m-d')])->one();
-        if (!empty($result)) {
-                $notifications[] = $result;
-        }
-}
+$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'followup_date' => date('Y-m-d H:i:s')])->all();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -127,6 +122,10 @@ foreach ($enquiry_notification as $enquiries) {
                                                                 <ul>
                                                                         <li>
                                                                                 <?= Html::a('Client Enquiry', ['/enquiry/enquiry/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Clients', ['/enquiry/patient-information/index'], ['class' => 'title']) ?>
                                                                         </li>
 
 
@@ -372,7 +371,7 @@ foreach ($enquiry_notification as $enquiries) {
                                                                                         foreach ($notifications as $notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>/enquiry/enquiry/view?id=<?= $notification->enquiry_id ?>">
+                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -381,7 +380,7 @@ foreach ($enquiry_notification as $enquiries) {
 
                                                                                                                 <span class="line small time limit-text">
                                                                                                                         <?php
-                                                                                                                        $text = strlen($notification->follow_up_notes) > 100 ? substr($notification->follow_up_notes, 0, 100) . '&hellip;' : $notification->follow_up_notes;
+                                                                                                                        $text = strlen($notification->followup_notes) > 100 ? substr($notification->followup_notes, 0, 100) . '&hellip;' : $notification->followup_notes;
                                                                                                                         echo $text;
                                                                                                                         ?>
                                                                                                                 </span>
@@ -408,13 +407,18 @@ foreach ($enquiry_notification as $enquiries) {
 
 
 
+
                                         </ul>
+
+
+
 
 
                                         <!-- Right links for user info navbar -->
                                         <ul class="user-info-menu right-links list-inline list-unstyled">
 
-
+                                                <a href="<?= Yii::$app->homeUrl; ?>followup/followups" class="btn btn-primary btn-icon" style="margin-top: 20px;float: left;background-color: #0e62c7;"><i class="fa fa-tasks" aria-hidden="true"></i>
+                                                        <span> My Tasks</span></a>
                                                 <li class="dropdown user-profile">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                                 <img src="<?= Yii::$app->homeUrl; ?>images/themes/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />

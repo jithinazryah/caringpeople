@@ -41,6 +41,7 @@ class EnquiryOtherInfo extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
+                        [['priority', 'care_currently_provided'], 'required'],
                         [['enquiry_id', 'family_support', 'care_currently_provided', 'difficulty_in_movement', 'service_required', 'priority'], 'integer'],
                         [['follow_up_notes', 'quotation_details'], 'string'],
                         [['followup_date', 'expected_date_of_service'], 'safe'],

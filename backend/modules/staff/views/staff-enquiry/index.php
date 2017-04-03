@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\Branch;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\StaffEnquirySearch */
@@ -9,6 +11,7 @@ use yii\grid\GridView;
 
 $this->title = 'Staff Enquiries';
 $this->params['breadcrumbs'][] = $this->title;
+$branch = Branch::branch();
 ?>
 <div class="staff-enquiry-index">
 
@@ -42,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                 </div>
                                         <?php endif; ?>
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> New Staff Enquiry</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?=
@@ -56,6 +59,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'phone_number',
                                                 'email:email',
                                                 'address',
+                                                    [
+                                                    'attribute' => 'branch_id',
+                                                    'value' => function($data) {
+                                                            return Branch::findOne($data->branch_id)->branch_name;
+                                                    },
+                                                    'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
+                                                ],
                                                 // 'follow_up_date',
 //                                                [
 //                                                    'attribute' => 'follow_up_date',
@@ -63,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                                                            return date('d-M-Y H:i:s', strtotime($model->follow_up_date));
 //                                                    },
 //                                                ],
+//
                                                 // 'notes:ntext',
                                                 // 'status',
                                                 // 'CB',

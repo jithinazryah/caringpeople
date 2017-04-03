@@ -35,4 +35,5 @@ return [
     'proceed-staff/<id:\d+>' => 'staff/staff-info/proceed',
     'update-staff/<id:\d+>' => 'staff/staff-info/update',
     'update-enquiry/<id:\d+>' => 'enquiry/enquiry/update',
+    'update-followup/<id:\d+>' => 'followup/followups/update',
 ];
