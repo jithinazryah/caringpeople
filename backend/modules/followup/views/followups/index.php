@@ -40,4 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <style>
         .summary{display: none;}
+        .follow_notes{margin-top: 10px;
+                      display: block;
+                      font-size: 80%;
+                      line-height: 1.42857143;
+                      color: #777;
+                      border:none;}
 </style>

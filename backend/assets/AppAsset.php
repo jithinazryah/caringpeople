@@ -37,6 +37,7 @@ class AppAsset extends AssetBundle {
             'js/script.js',
             'js/enquiry.js',
             'js/staff.js',
+            'js/followup.js',
         ];
         public $depends = [
             'yii\web\YiiAsset',

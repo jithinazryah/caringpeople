@@ -36,6 +36,7 @@ class FollowupsController extends Controller {
                 $searchModel = new FollowupsSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['assigned_to' => Yii::$app->user->identity->id]);
+                $dataProvider->query->andWhere(['<>', 'status', '1']);
 
 
                 return $this->render('index', [

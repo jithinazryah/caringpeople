@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\Enquiry;
+use common\models\Followups;
 
 class AjaxController extends \yii\web\Controller {
 
@@ -100,6 +101,11 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * This function is for check email duplication
+         *
+         */
+
         public function actionEmail() {
                 if (Yii::$app->request->isAjax) {
                         $email = $_POST['email'];
@@ -116,6 +122,37 @@ class AjaxController extends \yii\web\Controller {
                         } else {
                                 return $data = 0;
                         }
+                }
+        }
+
+        /*
+         * This function is for update followup notes
+         *
+         */
+
+        public function actionFollowup() {
+
+                if (Yii::$app->request->isAjax) {
+                        $followup_id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $_POST['followup_id']);
+                        $followup = Followups::find()->where(['id' => $followup_id])->one();
+                        $followup->followup_notes = $_POST['notes'];
+                        $followup->DOU = date('Y-m-d H:i');
+                        $followup->save();
+                }
+        }
+
+        /*
+         * This function is for update followup status
+         *
+         */
+
+        public function actionFollowupstatus() {
+
+                if (Yii::$app->request->isAjax) {
+                        $followup_id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $_POST['followup_id']);
+                        $followup = Followups::find()->where(['id' => $followup_id])->one();
+                        $followup->status = 1;
+                        $followup->update();
                 }
         }
 
