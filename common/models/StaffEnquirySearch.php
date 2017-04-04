@@ -38,6 +38,7 @@ class StaffEnquirySearch extends StaffEnquiry {
          * @return ActiveDataProvider
          */
         public function search($params) {
+
                 $query = StaffEnquiry::find();
 
                 // add conditions that should always apply here
@@ -46,6 +47,7 @@ class StaffEnquirySearch extends StaffEnquiry {
                     'query' => $query,
                     'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
                 ]);
+
 
                 $this->load($params);
 

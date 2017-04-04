@@ -38,13 +38,14 @@ class StaffInfoSearch extends StaffInfo {
          * @return ActiveDataProvider
          */
         public function search($params) {
+
                 $query = StaffInfo::find();
 
                 // add conditions that should always apply here
 
                 $dataProvider = new ActiveDataProvider([
                     'query' => $query,
-                    'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
+                        //'sort' => ['defaultOrder' => ['id' => SORT_DESC]]
                 ]);
 
                 $this->load($params);

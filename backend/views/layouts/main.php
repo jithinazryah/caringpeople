@@ -33,11 +33,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                         var homeUrl = '<?= Yii::$app->homeUrl; ?>';
                         var basePath = "<?= Yii::$app->basePath; ?>";
                 </script>
-                <script>
-                        webshims.setOptions('waitReady', false);
-                        webshims.setOptions('forms-ext', {types: 'date'});
-                        webshims.polyfill('forms forms-ext');
-                </script>
+
                 <?= Html::csrfMetaTags() ?>
                 <?php $this->head() ?>
         </head>

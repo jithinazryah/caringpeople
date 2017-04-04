@@ -48,7 +48,8 @@ class EnquiryController extends Controller {
                         $dataProvider->query->where(['email' => $_GET['email']]);
                 }
                 if (Yii::$app->user->identity->branch_id != '0') {
-                        $dataProvider->query->where(['branch_id' => Yii::$app->user->identity->branch_id]);
+
+                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
 
                 return $this->render('index', [
