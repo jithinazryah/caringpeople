@@ -34,6 +34,6 @@ return [
     'view-staff-enquiry/<id:\d+>' => 'staff/staff-enquiry/view',
     'proceed-staff/<id:\d+>' => 'staff/staff-info/proceed',
     'update-staff/<id:\d+>' => 'staff/staff-info/update',
-    'update-enquiry/<id:\d+>' => 'enquiry/enquiry/update',
+    'update-patient-enquiry/<id:\d+>' => 'patient/patient-enquiry-general-first/update',
     'update-followup/<id:\d+>' => 'followup/followups/update',
 ];

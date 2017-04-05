@@ -113,15 +113,15 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                         <li>
                                                                 <a href="dashboard-1.html">
                                                                         <i class="fa-envelope-o"></i>
-                                                                        <span class="title">Clients</span>
+                                                                        <span class="title">Patients</span>
                                                                 </a>
                                                                 <ul>
                                                                         <li>
-                                                                                <?= Html::a('Client Enquiry', ['/enquiry/enquiry/index'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Patient Enquiry', ['/patient/patient-enquiry-general-first/index'], ['class' => 'title']) ?>
                                                                         </li>
 
                                                                         <li>
-                                                                                <?= Html::a('Clients', ['/enquiry/patient-information/index'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Patients', ['/enquiry/patient-information/index'], ['class' => 'title']) ?>
                                                                         </li>
 
 

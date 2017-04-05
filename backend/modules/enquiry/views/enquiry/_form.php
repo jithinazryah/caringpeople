@@ -47,7 +47,7 @@ use common\models\OutgoingNumbers;
                                 ]);
                                 ?>
 
-                                <?php $form->field($model, 'contacted_date')->textInput() ?>
+
                         </div>
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="contact_source">    <?= $form->field($model, 'incoming_missed')->textInput(['maxlength' => true]) ?>
 

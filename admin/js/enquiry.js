@@ -7,40 +7,115 @@
 $("document").ready(function () {
 
         /*
-         -----------------ENQUIRY FORM--------------
+         -----------------PATIENT ENQUIRY GENERAL INFO FORM--------------
          */
-
-        $('#service_required_others').hide();
+        $('#referral_source_others').hide();
         $('#whatsapp_number').hide();
         $('#whatsapp_note').hide();
+        $('#required_other_service').hide();
+        $('#service_required').hide();
 
-        $("#enquiry-contacted_source").change(function () {
-                var contact_source = $("#enquiry-contacted_source option:selected").val();
+
+        /*
+         *Change the label of incoming and missed field
+         */
+        $("#patientenquirygeneralfirst-contacted_source").change(function () {
+                var contact_source = $("#patientenquirygeneralfirst-contacted_source option:selected").val();
                 if (contact_source == 0) {
-                        $("label[for = enquiry-incoming_missed]").text("Incoming Number");
+                        $("label[for = patientenquirygeneralfirst-incoming_missed]").text("Incoming Number");
                 } else if (contact_source == 1) {
-                        $("label[for = enquiry-incoming_missed]").text("Incoming Email Id");
+                        $("label[for = patientenquirygeneralfirst-incoming_missed]").text("Incoming Email Id");
                 } else {
-                        $("label[for = enquiry-incoming_missed]").text("Contact Source Others");
+                        $("label[for = patientenquirygeneralfirst-incoming_missed]").text("Contact Source Others");
                 }
         });
 
-        $relationship = $("#enquiry-relationship option:selected").val();
-        if ($relationship === '3') {
-                $('#service_required_others').show();
-        } else {
-                $('#service_required_others').hide();
-        }
 
-        $("#enquiry-relationship").change(function () {
-                if ($("#enquiry-relationship option:selected").val() === '3')
-                        $('#service_required_others').show();
+        /*
+         * Incoming number from other show/hide on update
+         */
+
+        if ($("#patientenquirygeneralfirst-incoming_missed option:selected").val() === '1')
+                $('#incoming_missed_other').show();
+        else
+                $('#incoming_missed_other').hide();
+
+
+        /*
+         * Incoming number from other show/hide on create
+         */
+
+        $("#patientenquirygeneralfirst-incoming_missed").change(function () {
+                if ($("#patientenquirygeneralfirst-incoming_missed option:selected").val() === '1')
+                        $('#incoming_missed_other').show();
                 else
-                        $('#service_required_others').hide();
+                        $('#incoming_missed_other').hide();
         });
 
 
-        $whatsapp_number = $("#enquiry-whatsapp_reply option:selected").val();
+        /*
+         * outgoing number from other show/hide on update
+         */
+
+        if ($("#patientenquirygeneralfirst-outgoing_number_from option:selected").val() === '1')
+                $('#outgoing_number_from_other').show();
+        else
+                $('#outgoing_number_from_other').hide();
+
+
+        /*
+         * outgoing number from other show/hide on create
+         */
+
+        $("#patientenquirygeneralfirst-outgoing_number_from").change(function () {
+                if ($("#patientenquirygeneralfirst-outgoing_number_from option:selected").val() === '1')
+                        $('#outgoing_number_from_other').show();
+                else
+                        $('#outgoing_number_from_other').hide();
+        });
+
+
+        /*
+         *  If referal source field value is other show referal source others field
+         */
+
+        $("#patientenquirygeneralfirst-referral_source").change(function () {
+                if ($("#patientenquirygeneralfirst-referral_source option:selected").val() === '5')
+                        $('#referral_source_others').show();
+                else
+                        $('#referral_source_others').hide();
+
+        });
+
+        /*
+         *  If referal source field value is other show referal source others field on update
+         */
+        $referal_source = $("#patientenquirygeneralfirst-referral_source option:selected").val();
+        if ($referal_source === '5') {
+                $('#referral_source_others').show();
+        } else {
+                $('#referral_source_others').hide();
+        }
+
+        /*
+         *  If whatsapp_reply field value is yes show whatsapp_number field or if no show note field
+         */
+
+        $("#patientenquirygeneralsecond-whatsapp_reply").change(function () {
+                if ($("#patientenquirygeneralsecond-whatsapp_reply option:selected").val() === '1') {
+                        $('#whatsapp_number').show();
+                        $('#whatsapp_note').hide();
+                } else if ($("#patientenquirygeneralsecond-whatsapp_reply option:selected").val() === '0') {
+                        $('#whatsapp_number').hide();
+                        $('#whatsapp_note').show();
+                }
+        });
+
+        /*
+         *  If whatsapp_reply field value is yes show whatsapp_number field or if no show note field on update
+         */
+
+        $whatsapp_number = $("#patientenquirygeneralsecond-whatsapp_reply option:selected").val();
         if ($whatsapp_number === '1') {
                 $('#whatsapp_number').show();
                 $('#whatsapp_note').hide();
@@ -50,32 +125,48 @@ $("document").ready(function () {
         }
 
 
+        /* Other service note show/hide on selecting other service from required service*/
+        $("#patientenquirygeneralsecond-required_service").change(function () {
+                var required_service = $(this).val();
+                if (jQuery.inArray("8", required_service) !== -1)
+                        $('#required_other_service').show();
+                else
+                        $('#required_other_service').hide();
 
-        $("#enquiry-whatsapp_reply").change(function () {
-                if ($("#enquiry-whatsapp_reply option:selected").val() === '1') {
-                        $('#whatsapp_number').show();
-                        $('#whatsapp_note').hide();
-                } else if ($("#enquiry-whatsapp_reply option:selected").val() === '0') {
-                        $('#whatsapp_number').hide();
-                        $('#whatsapp_note').show();
+
+        });
+        /* Other service note show/hide on update */
+        var required_service = $("#patientenquirygeneralsecond-required_service").val();
+        if (jQuery.inArray("8", required_service) !== -1)
+                $('#required_other_service').show();
+        else
+                $('#required_other_service').hide();
+
+        /*
+         * service required other others field show/hide on update
+         */
+
+        $service_required = $("#patientenquirygeneralsecond-service_required").val();
+        if ($service_required === '5') {
+                $('#service_required').show();
+        } else {
+                $('#service_required').hide();
+        }
+        /*
+         * service required other others field show/hide on create
+         */
+
+        $('#patientenquirygeneralsecond-service_required').change(function () {
+                if ($(this).val() === '5') {
+                        $('#service_required').show();
+                } else {
+                        $('#service_required').hide();
                 }
         });
 
 
 
-        /*outgoing number from other show/hide on update */
-        if ($("#enquiry-outgoing_number_from option:selected").val() === '1')
-                $('#outgoing_number_from_other').show();
-        else
-                $('#outgoing_number_from_other').hide();
 
-        /*outgoing number from other show/hide on create */
-        $("#enquiry-outgoing_number_from").change(function () {
-                if ($("#enquiry-outgoing_number_from option:selected").val() === '1')
-                        $('#outgoing_number_from_other').show();
-                else
-                        $('#outgoing_number_from_other').hide();
-        });
         $('#checkbox_id').on('change', function (e) {
                 if (this.checked) {
                         var address = $("#enquiry-address").val();
@@ -93,9 +184,18 @@ $("document").ready(function () {
         });
 
 
+
+
+
+
         /*
-         -----------------ENQUIRY FORM----------------------------
+         -----------------PATIENT ENQUIRY GENERAL INFO FORM----------------------------
          */
+
+
+
+
+
 
 
         /*
@@ -104,94 +204,68 @@ $("document").ready(function () {
 
 
         $('#diabetic_note').hide();
-        $('#required_other_service').hide();
+        $('#relationship_others').hide();
 
 
-        /* Diabetic note show/hide on diabetic change*/
+        /*
+         *  Relationship show/hide on update
+         */
 
-        $("#enquiryhospital-diabetic").change(function () {
+        $relationship = $("#patientenquiryhospitalfirst-relationship option:selected").val();
+        if ($relationship === '3') {
+                $('#relationship_others').show();
+        } else {
+                $('#relationship_others').hide();
+        }
+
+        /*
+         *  Relationship show/hide
+         */
+
+        $("#patientenquiryhospitalfirst-relationship").change(function () {
+                if ($("#patientenquiryhospitalfirst-relationship option:selected").val() === '3')
+                        $('#relationship_others').show();
+                else
+                        $('#relationship_others').hide();
+        });
+
+
+
+        /*
+         * Diabetic note show/hide on diabetic change
+         */
+
+        $("#patientenquiryhospitalsecond-diabetic").change(function () {
                 if ($(this).val() === '1')
                         $('#diabetic_note').show();
                 else
                         $('#diabetic_note').hide();
         });
 
-        /* Diabetic note on update*/
-        if ($('#enquiryhospital-diabetic').val() === '1')
+        /*
+         * Diabetic note on update
+         */
+
+        if ($('#patientenquiryhospitalsecond-diabetic').val() === '1')
                 $('#diabetic_note').show();
         else
                 $('#diabetic_note').hide();
 
-
-        /* Other service note show/hide on selecting other service from required service*/
-        $("#enquiryhospital-required_service").change(function () {
-                var required_service = $(this).val();
-                if (jQuery.inArray("7", required_service) !== -1)
-                        $('#required_other_service').show();
-                else
-                        $('#required_other_service').hide();
-
-
-        });
-        /* Other service note show/hide on update */
-        var required_service = $("#enquiryhospital-required_service").val();
-        if (jQuery.inArray("7", required_service) !== -1)
-                $('#required_other_service').show();
-        else
-                $('#required_other_service').hide();
-
-
         /*
-         -----------------ENQUIRY HOSPITAL INFO FORM--------------
+         * care currently provided service required other others field show/hide on update
          */
 
-
-        /*
-         -----------------ENQUIRY OTHER INFO FORM--------------
-         */
-
-
-        /* difficulty in movement others field show/hide on update*/
-        $difficulty_in_movement = $("#enquiryotherinfo-difficulty_in_movement").val();
-        if ($difficulty_in_movement === '5') {
-                $('#difficulty_in_movement_other').show();
-        } else {
-                $('#difficulty_in_movement_other').hide();
-        }
-
-        /* difficulty in movement others field show/hide on create*/
-        $('#enquiryotherinfo-difficulty_in_movement').change(function () {
-                if ($(this).val() === '5') {
-                        $('#difficulty_in_movement_other').show();
-                } else {
-                        $('#difficulty_in_movement_other').hide();
-
-                }
-        });
-        /* service required other others field show/hide on update*/
-        $service_required = $("#enquiryotherinfo-service_required").val();
-        if ($service_required === '5') {
-                $('#service_required').show();
-        } else {
-                $('#service_required').hide();
-        }
-        /* service required other others field show/hide on create*/
-        $('#enquiryotherinfo-service_required').change(function () {
-                if ($(this).val() === '5') {
-                        $('#service_required').show();
-                } else {
-                        $('#service_required').hide();
-                }
-        });
-        /*care currently provided service required other others field show/hide on update*/
-        if ($('#enquiryotherinfo-care_currently_provided').val() === '4')
+        if ($('#patientenquiryhospitalsecond-care_currently_provided').val() === '4')
                 $('#care_currently_provided_others').show();
         else
                 $('#care_currently_provided_others').hide();
 
 
-        /*care currently provided other others field show/hide on cretae*/
-        $('#enquiryotherinfo-care_currently_provided').change(function () {
+        /*
+         * care currently provided other others field show/hide on cretae
+         */
+
+        $('#patientenquiryhospitalsecond-care_currently_provided').change(function () {
                 if ($(this).val() === '4') {
                         $('#care_currently_provided_others').show();
                 } else {
@@ -199,15 +273,44 @@ $("document").ready(function () {
                 }
         });
 
-        /*care currently provided service required expected datre of dischargede on update*/
-        if ($('#enquiryotherinfo-care_currently_provided').val() === '3')
+        /*
+         * difficulty in movement others field show/hide on update
+         */
+
+        $difficulty_in_movement = $("#patientenquiryhospitalsecond-difficulty_in_movement").val();
+        if ($difficulty_in_movement === '5') {
+                $('#difficulty_in_movement_other').show();
+        } else {
+                $('#difficulty_in_movement_other').hide();
+        }
+
+        /*
+         * difficulty in movement others field show/hide on create
+         */
+        $('#patientenquiryhospitalsecond-difficulty_in_movement').change(function () {
+                if ($(this).val() === '5') {
+                        $('#difficulty_in_movement_other').show();
+                } else {
+                        $('#difficulty_in_movement_other').hide();
+
+                }
+        });
+
+        /*
+         * care currently provided service required expected datre of dischargede on update
+         */
+
+        if ($('#patientenquiryhospitalsecond-care_currently_provided').val() === '3')
                 $('#date_of_discharge').show();
         else
                 $('#date_of_discharge').hide();
 
 
-        /*care currently provided service required expected datre of dischargede on create*/
-        $('#enquiryotherinfo-care_currently_provided').change(function () {
+        /*
+         * care currently provided service required expected datre of dischargede on create
+         */
+
+        $('#patientenquiryhospitalsecond-care_currently_provided').change(function () {
                 if ($(this).val() === '3') {
                         $('#date_of_discharge').show();
                 } else {
@@ -218,8 +321,11 @@ $("document").ready(function () {
 
 
         /*
-         -----------------ENQUIRY OTHER INFO FORM--------------
+         -----------------ENQUIRY HOSPITAL INFO FORM--------------
          */
+
+
+
 
 
 });

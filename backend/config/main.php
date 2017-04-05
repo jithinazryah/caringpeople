@@ -37,6 +37,9 @@ return [
         'followup' => [
             'class' => 'backend\modules\followup\Module',
         ],
+        'patient' => [
+            'class' => 'backend\modules\patient\Module',
+        ],
     ],
     'components' => [
         'request' => [

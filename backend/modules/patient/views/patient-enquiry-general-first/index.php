@@ -1,0 +1,129 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+use common\models\Branch;
+use yii\helpers\ArrayHelper;
+
+$branch = Branch::branch();
+
+/* @var $this yii\web\View */
+/* @var $searchModel common\models\PatientEnquiryGeneralFirstSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Patient Enquiries';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="patient-enquiry-general-first-index">
+
+        <div class="row">
+                <div class="col-md-12">
+
+                        <div class="panel panel-default">
+                                <div class="panel-heading">
+                                        <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+
+
+                                </div>
+                                <div class="panel-body">
+                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+
+                                                <div class="alert alert-danger">
+                                                        <button type="button" class="close" data-dismiss="alert">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                        </button>
+                                                        <?= Yii::$app->session->getFlash('error') ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                <div class="alert alert-success">
+                                                        <button type="button" class="close" data-dismiss="alert">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                        </button>
+
+                                                        <?= Yii::$app->session->getFlash('success') ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php // $this->render('advanced_search', ['model' => $searchModel])  ?>
+                                        <a class="advanced-search" style="font-size: 17px;color:#0e62c7;cursor: pointer;">Advanced Search</a>
+                                        <hr class="appoint_history" style="margin-top:5px;"/>
+
+
+
+                                        <?= $this->render('advanced_search', ['model' => $searchModel]) ?>
+
+                                        <?= Html::a('<i class="fa-th-list"></i><span> New Enquiry </span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?=
+                                        GridView::widget([
+                                            'dataProvider' => $dataProvider,
+                                            'filterModel' => $searchModel,
+                                            'columns' => [
+                                                    ['class' => 'yii\grid\SerialColumn'],
+                                                'enquiry_number',
+                                                'caller_name',
+                                                    [
+                                                    'attribute' => 'email',
+                                                    'value' => 'patientGeneralInfo.email'
+                                                ],
+                                                    [
+                                                    'attribute' => 'patient_name',
+                                                    'value' => 'patientHospitalInfo.required_person_name'
+                                                ],
+                                                // 'outgoing_number_from',
+                                                // 'outgoing_number_from_other',
+                                                // 'outgoing_call_date',
+                                                // 'caller_name',
+                                                // 'caller_gender',
+                                                // 'referral_source',
+                                                // 'referral_source_others',
+                                                // 'mobile_number',
+                                                // 'mobile_number_2',
+                                                // 'mobile_number_3',
+                                                [
+                                                    'attribute' => 'status',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            if ($model->status == '1') {
+                                                                    return 'Active';
+                                                            } elseif ($model->status == '2') {
+                                                                    return 'Pending';
+                                                            } elseif ($model->status == '3') {
+                                                                    return 'Close';
+                                                            }
+                                                    },
+                                                    'filter' => [1 => 'Active', 2 => 'Pending', 3 => 'Close', 4 => 'Home/Hospital Visit'],
+                                                ],
+                                                    [
+                                                    'attribute' => 'branch_id',
+                                                    'value' => function($data) {
+                                                            return Branch::findOne($data->branch_id)->branch_name;
+                                                    },
+                                                    'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
+                                                ],
+                                                    ['class' => 'yii\grid\ActionColumn',
+                                                    'visibleButtons' => [
+                                                        'delete' => function ($model, $key, $index) {
+                                                                return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                        }
+                                                    ]
+                                                ],
+                                            ],
+                                        ]);
+                                        ?>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+
+
+<script>
+        $(document).ready(function () {
+                $('.hidediv1').hide();
+                $('.advanced-search').click(function () {
+                        $('.hidediv1').slideToggle();
+                });
+        });
+</script>
+
