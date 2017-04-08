@@ -328,6 +328,29 @@ $("document").ready(function () {
 
 
 
+        /*
+         * patient module if address same
+         */
 
-
+        $('#address_id').on('change', function (e) {
+                if (this.checked) {
+                        var address = $("#patientguardiandetails-permanent_address").val();
+                        var landmark = $("#patientguardiandetails-landmark").val();
+                        var pincode = $("#patientguardiandetails-pincode").val();
+                        var contact_number = $("#patientguardiandetails-contact_number").val();
+                        var email = $("#patientguardiandetails-email").val();
+                        $("#patientgeneral-present_address").val(address);
+                        $("#patientgeneral-landmark").val(landmark);
+                        $("#patientgeneral-pin_code").val(pincode);
+                        $("#patientgeneral-contact_number").val(contact_number);
+                        $("#patientgeneral-email").val(email);
+                }
+                if (!this.checked) {
+                        $("#patientgeneral-present_address").val('');
+                        $("#patientgeneral-landmark").val('');
+                        $("#patientgeneral-pin_code").val('');
+                        $("#patientgeneral-contact_number").val('');
+                        $("#patientgeneral-email").val('');
+                }
+        });
 });

@@ -20,8 +20,20 @@ $("document").ready(function () {
 
         });
 
+        $('#staffenquiry-agreement_copy').change(function () {
+                if ($('#staffenquiry-agreement_copy').val() == '4')
+                        $('#agreement_copy_other').show();
+                else
+                        $('#agreement_copy_other').hide();
+
+        });
 
 
+
+        if ($('#staffenquiry-agreement_copy').val() == '4')
+                $('#agreement_copy_other').show();
+        else
+                $('#agreement_copy_other').hide();
 
 
 

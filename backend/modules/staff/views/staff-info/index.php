@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\Branch;
 use yii\helpers\ArrayHelper;
+use common\models\StaffInfoUploads;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\StaffInfoSearch */
@@ -50,8 +51,9 @@ $branch = Branch::branch();
                                                     'attribute' => 'profile_image_type',
                                                     'format' => 'html',
                                                     'value' => function($data) {
-                                                            if ($data->profile_image_type != '') {
-                                                                    return Html::img(Yii::$app->homeUrl . '../uploads/staff/' . $data->id . '/profile_image_type.' . $data->profile_image_type, ['width' => '100']);
+                                                            $staff_uploads = StaffInfoUploads::findOne(['staff_id' => $data->id]);
+                                                            if ($staff_uploads->profile_image_type != '') {
+                                                                    return Html::img(Yii::$app->homeUrl . '../uploads/staff/' . $data->id . '/profile_image_type.' . $staff_uploads->profile_image_type, ['width' => '100']);
                                                             } elseif ($data->gender == '0') {
                                                                     return Html::img(Yii::$app->homeUrl . '/images/themes/photo.png', ['width' => '100']);
                                                             } else if ($data->gender == '1') {

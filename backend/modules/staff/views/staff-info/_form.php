@@ -87,7 +87,7 @@ use common\models\Branch;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'blood_group')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'designation')->dropDownList(['' => '--Select--', '0' => 'Registered Nurse', '1' => 'Care Assistant']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'designation')->dropDownList(['' => '--Select--', '1' => 'Registered Nurse', '2' => 'Care Assistant', '3' => 'Doctor visit at home', '4' => 'OP Clinic', '5' => 'DV + OP', '6' => 'Physio', '7' => 'Psychologist', '8' => 'Dietician', '9' => 'Receptionist', '10' => 'Office Staff', '11' => 'Accountant']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'years_of_experience')->textInput() ?>
 
@@ -103,37 +103,37 @@ use common\models\Branch;
 
         <div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="margin-top: 20px;font-size: 17px;color:#000;"> <span >SSLC </span></div>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sslc_institution')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'sslc_institution')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sslc_year_of_passing')->textInput() ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'sslc_year_of_passing')->textInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sslc_place')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'sslc_place')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="margin-top: 20px;font-size: 17px;color:#000;"> <span >HSE </span></div>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hse_institution')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'hse_institution')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hse_year_of_passing')->textInput() ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'hse_year_of_passing')->textInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hse_place')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'hse_place')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="margin-top: 20px;font-size: 17px;color:#000;"> <span >Nursing </span></div>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'nursing_institution')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'nursing_institution')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'nursing_year_of_passing')->textInput() ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'nursing_year_of_passing')->textInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'nursing_place')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'nursing_place')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'timing')->dropDownList(['' => '--Select--', '1' => 'Full Time', '0' => 'Part Time']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'timing')->dropDownList(['' => '--Select--', '1' => 'Full Time', '0' => 'Part Time']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'uniform')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'uniform')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'company_id')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'company_id')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'emergency_conatct_verification')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'emergency_conatct_verification')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'panchayath_cleraance_verification')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'panchayath_cleraance_verification')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
 
@@ -143,32 +143,32 @@ use common\models\Branch;
                 ?>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
                 </div>
-        <?php } ?><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'biodata')->fileInput() ?>
+        <?php } ?><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'biodata')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'profile_image_type')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'profile_image_type')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sslc')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'sslc')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hse')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'hse')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'KNC')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'KNC')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'INC')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'INC')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'marklist')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'marklist')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'experience')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'experience')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'id_proof')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'id_proof')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'PCC')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'PCC')->fileInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'authorised_letter')->fileInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'authorised_letter')->fileInput() ?>
 
         </div>
         <div style="clear:both"></div>
 
-        <?php if ($model->biodata != '' || $model->profile_image_type != '' || $model->sslc != '') { ?>
+        <?php if ($staff_uploads->biodata != '' || $staff_uploads->profile_image_type != '' || $staff_uploads->sslc != '') { ?>
                 <div class="row">
                         <label style="    color: #148eaf;font-size: 19px;margin-left: 14px;">Uploaded Files</label>
                 </div>
@@ -178,13 +178,13 @@ use common\models\Branch;
 
                 <?php
                 if (!$model->isNewRecord) {
-                        if ($model->profile_image_type != '') {
+                        if ($staff_uploads->profile_image_type != '') {
                                 $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
                                 //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
                                 ?>
 
                                 <div class="col-md-2">
-                                        <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type; ?> " style="width:175px;height: 175px;"/>
+                                        <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:175px;height: 175px;"/>
                                 </div>
 
                         <?php } ?>
@@ -198,7 +198,9 @@ use common\models\Branch;
                         $i = 0;
 
                         foreach ($images as $value) {
-                                if ($model->$value != '') {
+
+                                if ($staff_uploads->$value != '') {
+
                                         $i++;
                                         if ($i == 1) {
 
@@ -206,7 +208,7 @@ use common\models\Branch;
                                         }
                                         ?>
                                         <div class="img_data">
-                                                <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/' . $value . '.' . $model->$value; ?>" target="_blank"><?= $model->getAttributeLabel($value); ?></a>
+                                                <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/' . $value . '.' . $staff_uploads->$value; ?>" target="_blank"><?= $staff_uploads->getAttributeLabel($value); ?></a>
                                         </div>
                                         <?php
                                         if ($i == 5) {

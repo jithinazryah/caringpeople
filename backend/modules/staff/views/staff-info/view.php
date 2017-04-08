@@ -118,9 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                         </style>
-                                                        <?php $path = Yii::getAlias(Yii::$app->params['uploadPath']); ?>
-                                                        <img src="<?= $path . '/staff/' . $staff_info->id . '/profile_image_type.' . $staff_info->profile_image_type; ?> " style="width:115px;height:100px;"/>
-                                                        <?php exit(); ?>
+
                                                         <table class="main-tabl table table-responsive" border="0"  style="line-height:30px;">
 
                                                                 <tr>
@@ -183,12 +181,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 <td>
                                                                                         <table class="table1" style="border:0px sloid #000;">
 
-                                                                                                <?php if ($staff_info->profile_image_type != '') { ?>
+                                                                                                <?php if ($staff_uploads->profile_image_type != '') { ?>
 
                                                                                                         <tr>
                                                                                                                 <td colspan="3">
                                                                                                                         <div class="profile_image" style="float:right;">
-                                                                                                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/profile_image_type.' . $staff_info->profile_image_type; ?> " style="width:115px;height:100px;"/>
+                                                                                                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:115px;height:100px;"/>
                                                                                                                         </div>
                                                                                                                 </td>
 
@@ -520,7 +518,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content" >
                                                                                                                         <div class="data_sty" style="font-weight: bold;width: 220px;">
-                                                                                                                                <?= $staff_info->sslc_institution; ?>
+                                                                                                                                <?= $staff_edu->sslc_institution; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -529,7 +527,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content" >
                                                                                                                         <div class="data_sty" style="font-weight: bold;width: 100px;">
-                                                                                                                                <?= $staff_info->sslc_year_of_passing; ?>
+                                                                                                                                <?= $staff_edu->sslc_year_of_passing; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -538,7 +536,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content">
                                                                                                                         <div class="data_sty"  style="font-weight: bold;width: 200px;">
-                                                                                                                                <?= $staff_info->sslc_place; ?>
+                                                                                                                                <?= $staff_edu->sslc_place; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -557,7 +555,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content" >
                                                                                                                         <div class="data_sty" style="font-weight: bold;width: 220px;">
-                                                                                                                                <?= $staff_info->hse_institution; ?>
+                                                                                                                                <?= $staff_edu->hse_institution; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -566,7 +564,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content" >
                                                                                                                         <div class="data_sty" style="font-weight: bold;width: 100px;">
-                                                                                                                                <?= $staff_info->hse_year_of_passing; ?>
+                                                                                                                                <?= $staff_edu->hse_year_of_passing; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -575,7 +573,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content">
                                                                                                                         <div class="data_sty"  style="font-weight: bold;width: 200px;">
-                                                                                                                                <?= $staff_info->hse_place; ?>
+                                                                                                                                <?= $staff_edu->hse_place; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -594,7 +592,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content" >
                                                                                                                         <div class="data_sty" style="font-weight: bold;width: 220px;">
-                                                                                                                                <?= $staff_info->nursing_institution; ?>
+                                                                                                                                <?= $staff_edu->nursing_institution; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -603,7 +601,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content" >
                                                                                                                         <div class="data_sty" style="font-weight: bold;width: 100px;">
-                                                                                                                                <?= $staff_info->nursing_year_of_passing; ?>
+                                                                                                                                <?= $staff_edu->nursing_year_of_passing; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -612,7 +610,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <td>
                                                                                                                 <div class="content">
                                                                                                                         <div class="data_sty"  style="font-weight: bold;width: 200px;">
-                                                                                                                                <?= $staff_info->nursing_place; ?>
+                                                                                                                                <?= $staff_edu->nursing_place; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -632,9 +630,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <div class="content">
                                                                                                                         <div class="data_sty"  style="font-weight: bold;width: 220px;">
                                                                                                                                 <?php
-                                                                                                                                if ($staff_info->timing == '0') {
+                                                                                                                                if ($staff_edu->timing == '0') {
                                                                                                                                         echo 'Part Time';
-                                                                                                                                } elseif ($staff_info->timing == '1') {
+                                                                                                                                } elseif ($staff_edu->timing == '1') {
                                                                                                                                         echo 'Full Time';
                                                                                                                                 }
                                                                                                                                 ?>
@@ -655,9 +653,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <div class="content">
                                                                                                                         <div class="data_sty"  style="font-weight: bold;width: 195px;">
                                                                                                                                 <?php
-                                                                                                                                if ($staff_info->uniform == '0') {
+                                                                                                                                if ($staff_edu->uniform == '0') {
                                                                                                                                         echo 'No';
-                                                                                                                                } elseif ($staff_info->uniform == '1') {
+                                                                                                                                } elseif ($staff_edu->uniform == '1') {
                                                                                                                                         echo 'Yes';
                                                                                                                                 }
                                                                                                                                 ?>
@@ -680,9 +678,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <div class="content">
                                                                                                                         <div class="data_sty"  style="font-weight: bold;width: 195px;">
                                                                                                                                 <?php
-                                                                                                                                if ($staff_info->company_id == '0') {
+                                                                                                                                if ($staff_edu->company_id == '0') {
                                                                                                                                         echo 'No';
-                                                                                                                                } elseif ($staff_info->company_id == '1') {
+                                                                                                                                } elseif ($staff_edu->company_id == '1') {
                                                                                                                                         echo 'Yes';
                                                                                                                                 }
                                                                                                                                 ?>
@@ -703,9 +701,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <div class="content">
                                                                                                                         <div class="data_sty"  style="font-weight: bold;width: 195px;">
                                                                                                                                 <?php
-                                                                                                                                if ($staff_info->emergency_conatct_verification == '0') {
+                                                                                                                                if ($staff_edu->emergency_conatct_verification == '0') {
                                                                                                                                         echo 'No';
-                                                                                                                                } elseif ($staff_info->emergency_conatct_verification == '1') {
+                                                                                                                                } elseif ($staff_edu->emergency_conatct_verification == '1') {
                                                                                                                                         echo 'Yes';
                                                                                                                                 }
                                                                                                                                 ?>
@@ -730,9 +728,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <div class="content">
                                                                                                                         <div class="data_sty"  style="font-weight: bold;width: 195px;">
                                                                                                                                 <?php
-                                                                                                                                if ($staff_info->panchayath_cleraance_verification == '0') {
+                                                                                                                                if ($staff_edu->panchayath_cleraance_verification == '0') {
                                                                                                                                         echo 'No';
-                                                                                                                                } elseif ($staff_info->panchayath_cleraance_verification == '1') {
+                                                                                                                                } elseif ($staff_edu->panchayath_cleraance_verification == '1') {
                                                                                                                                         echo 'Yes';
                                                                                                                                 }
                                                                                                                                 ?>
