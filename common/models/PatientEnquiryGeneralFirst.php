@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\PatientEnquiryGeneralSecond;
 
 /**
  * This is the model class for table "patient_enquiry_general_first".
@@ -91,6 +92,45 @@ class PatientEnquiryGeneralFirst extends \yii\db\ActiveRecord {
 
         public function getPatientHospitalInfo() {
                 return $this->hasOne(PatientEnquiryHospitalFirst::className(), ['enquiry_id' => 'id']);
+        }
+
+        public static function Service($id) {
+                $patient_details = PatientEnquiryGeneralSecond::find()->where(['enquiry_id' => $id])->one();
+                $required_services = explode(',', $patient_details->required_service);
+                $services = '';
+                $i = 0;
+                foreach ($required_services as $service) {
+
+                        if ($i != 0) {
+                                $services .= ',';
+                        }
+                        if ($service == '1') {
+                                $services .= 'DV';
+                        } else if ($service == '2') {
+                                $services .= 'Nursing Care';
+                        } else if ($service == '3') {
+                                $services .= 'Physiotherapy';
+                        } else if ($service == '5') {
+                                $services .= 'Caregiver';
+                        } else if ($service == '4') {
+                                $services .= 'Helath Checkup';
+                        } else if ($service == '6') {
+                                $services .= 'Lab';
+                        } else if ($service == '7') {
+                                $services .= 'Equipment';
+                        } else if ($service == '8') {
+                                $services .= 'Other';
+                        } else if ($service == '9') {
+                                $services .= 'General Enquiry';
+                        } else if ($service == '10') {
+                                $services .= 'Wrong Number';
+                        }
+                        $i++;
+                }
+
+
+
+                return $services;
         }
 
 }

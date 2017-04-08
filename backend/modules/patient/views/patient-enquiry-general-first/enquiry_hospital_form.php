@@ -30,7 +30,11 @@ use yii\helpers\ArrayHelper;
 
         </div><div style="clear:both;">
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'person_address')->textarea(['rows' => 6]) ?>
+        </div>
+        <div class="row>">
+                <input type="checkbox" id="checkbox_id" name="check" checkvalue="1" uncheckValue="0"><label style="color:black;font-weight:bold; margin-left: 5px;"> Caller address and person address are same</label>
+        </div>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'person_address')->textarea(['rows' => 6]) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'person_city')->textInput(['maxlength' => true]) ?>
 

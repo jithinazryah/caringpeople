@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $type
+ * @property integer $sub_type
  * @property integer $type_id
  * @property string $followup_date
  * @property string $followup_notes
@@ -30,7 +31,7 @@ class Followups extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['type', 'type_id', 'assigned_to', 'status'], 'integer'],
+                        [['type', 'sub_type', 'type_id', 'assigned_to', 'status'], 'integer'],
                         [['followup_date', 'DOC'], 'safe'],
                         [['followup_notes'], 'string'],
                 ];
@@ -43,6 +44,7 @@ class Followups extends \yii\db\ActiveRecord {
                 return [
                     'id' => 'ID',
                     'type' => 'Type',
+                    'sub_type' => 'Type',
                     'type_id' => 'Type ID',
                     'followup_date' => 'Followup Date',
                     'followup_notes' => 'Followup Notes',

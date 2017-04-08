@@ -121,7 +121,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                                         </li>
 
                                                                         <li>
-                                                                                <?= Html::a('Patients', ['/enquiry/patient-information/index'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Patients', ['/patient/patient-information/index'], ['class' => 'title']) ?>
                                                                         </li>
 
 
@@ -189,6 +189,10 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                                         </li>
                                                                         <li>
                                                                                 <?= Html::a('Hospital', ['/masters/hospital/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Followup Types', ['/masters/followup-sub-type/index'], ['class' => 'title']) ?>
                                                                         </li>
                                                                         <li>
                                                                                 <?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>

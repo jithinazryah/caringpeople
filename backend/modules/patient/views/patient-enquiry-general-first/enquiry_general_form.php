@@ -40,7 +40,7 @@ use kartik\date\DatePicker;
 
                 </div>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="contact_source">    <?php $outgoing_numbers = OutgoingNumbers::find()->where(['status' => '1'])->orderBy('id DESC')->all() ?>   <?= $form->field($patient_info, 'incoming_missed')->dropDownList(ArrayHelper::map($outgoing_numbers, 'id', 'phone_number'), ['prompt' => '--Select--']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="contact_source">    <?php $outgoing_numbers = OutgoingNumbers::find()->where(['status' => '1'])->orderBy('id DESC')->all() ?>   <?= $form->field($patient_info, 'incoming_missed')->dropDownList(ArrayHelper::map($outgoing_numbers, 'phone_number', 'phone_number'), ['prompt' => '--Select--']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='incoming_missed_other'>    <?= $form->field($patient_info, 'incoming_missed_other')->textInput(['maxlength' => true]) ?>
 
@@ -109,7 +109,7 @@ use kartik\date\DatePicker;
                         $patient_info_second->required_service = explode(',', $patient_info_second->required_service);
                 }
                 ?>
-                <?= $form->field($patient_info_second, 'required_service')->dropDownList(['1' => 'Doctor Visit', '2' => 'Nursing Care', '3' => 'Physiotherapy', '4' => 'Caregiver', '5' => 'Helath Checkup', '6' => 'Lab', '7' => 'Equipment', '8' => 'Other', '9' => 'General Enquiry', '10' => 'Wrong Number '], ['multiple' => 'multiple', 'style' => 'height:125px !important', 'selected' => $required]) ?>
+                <?= $form->field($patient_info_second, 'required_service')->dropDownList(['1' => 'Doctor Visit', '2' => 'Nursing Care', '3' => 'Physiotherapy', '4' => 'Helath Checkup', '5' => 'Caregiver', '6' => 'Lab', '7' => 'Equipment', '8' => 'Other', '9' => 'General Enquiry', '10' => 'Wrong Number '], ['multiple' => 'multiple', 'style' => 'height:125px !important', 'selected' => $required]) ?>
 
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='required_other_service'>    <?= $form->field($patient_info_second, 'required_service_other')->textInput(['maxlength' => true]) ?>

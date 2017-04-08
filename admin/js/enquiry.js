@@ -16,6 +16,7 @@ $("document").ready(function () {
         $('#service_required').hide();
 
 
+
         /*
          *Change the label of incoming and missed field
          */
@@ -25,6 +26,7 @@ $("document").ready(function () {
                         $("label[for = patientenquirygeneralfirst-incoming_missed]").text("Incoming Number");
                 } else if (contact_source == 1) {
                         $("label[for = patientenquirygeneralfirst-incoming_missed]").text("Incoming Email Id");
+                        $('#patientenquirygeneralfirst-incoming_missed').replaceWith($('<input/>', {'type': 'text', 'name': 'Other', 'class': 'form-control'}));
                 } else {
                         $("label[for = patientenquirygeneralfirst-incoming_missed]").text("Contact Source Others");
                 }
@@ -35,7 +37,7 @@ $("document").ready(function () {
          * Incoming number from other show/hide on update
          */
 
-        if ($("#patientenquirygeneralfirst-incoming_missed option:selected").val() === '1')
+        if ($("#patientenquirygeneralfirst-incoming_missed option:selected").val() === 'Other')
                 $('#incoming_missed_other').show();
         else
                 $('#incoming_missed_other').hide();
@@ -46,7 +48,7 @@ $("document").ready(function () {
          */
 
         $("#patientenquirygeneralfirst-incoming_missed").change(function () {
-                if ($("#patientenquirygeneralfirst-incoming_missed option:selected").val() === '1')
+                if ($("#patientenquirygeneralfirst-incoming_missed option:selected").val() === 'Other')
                         $('#incoming_missed_other').show();
                 else
                         $('#incoming_missed_other').hide();
@@ -169,17 +171,17 @@ $("document").ready(function () {
 
         $('#checkbox_id').on('change', function (e) {
                 if (this.checked) {
-                        var address = $("#enquiry-address").val();
-                        var city = $("#enquiry-city").val();
-                        var postal_code = $("#enquiry-zip_pc").val();
-                        $("#enquiry-person_address").val(address);
-                        $("#enquiry-person_city").val(city);
-                        $("#enquiry-person_postal_code").val(postal_code);
+                        var address = $("#patientenquirygeneralsecond-address").val();
+                        var city = $("#patientenquirygeneralsecond-city").val();
+                        var postal_code = $("#patientenquirygeneralsecond-zip_pc").val();
+                        $("#patientenquiryhospitalfirst-person_address").val(address);
+                        $("#patientenquiryhospitalfirst-person_city").val(city);
+                        $("#patientenquiryhospitalfirst-person_postal_code").val(postal_code);
                 }
                 if (!this.checked) {
-                        $("#enquiry-person_address").val('');
-                        $("#enquiry-person_city").val('');
-                        $("#enquiry-person_postal_code").val('');
+                        $("#patientenquiryhospitalfirst-person_address").val('');
+                        $("#patientenquiryhospitalfirst-person_city").val('');
+                        $("#patientenquiryhospitalfirst-person_postal_code").val('');
                 }
         });
 

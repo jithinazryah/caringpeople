@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\PatientEnquiryHospitalSecond */
+/* @var $model common\models\FollowupSubType */
 
-$this->title = 'Update Patient Enquiry Hospital Second: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Patient Enquiry Hospital Seconds', 'url' => ['index']];
+$this->title = 'Update Followup Sub Type: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Followup Sub Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
                         </div>
                         <div class="panel-body">
-				<?=  Html::a('<i class="fa-th-list"></i><span> Manage Patient Enquiry Hospital Second</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="patient-enquiry-hospital-second-create">
+				<?=  Html::a('<i class="fa-th-list"></i><span> Manage Followup Sub Type</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div class="panel-body"><div class="followup-sub-type-create">
 						<?= $this->render('_form', [
                                                 'model' => $model,
                                                 ]) ?>

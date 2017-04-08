@@ -13,11 +13,22 @@ use common\models\FollowupsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\EnquiryHospital;
+use common\models\EnquiryOtherInfo;
 
 /**
  * PatientEnquiryGeneralFirstController implements the CRUD actions for PatientEnquiryGeneralFirst model.
  */
 class PatientEnquiryGeneralFirstController extends Controller {
+
+        public function init() {
+
+                if (Yii::$app->user->isGuest)
+                        $this->redirect(['/site/index']);
+
+                if (Yii::$app->session['post']['enquiry'] != 1)
+                        $this->redirect(['/site/home']);
+        }
 
         /**
          * @inheritdoc
@@ -40,7 +51,9 @@ class PatientEnquiryGeneralFirstController extends Controller {
         public function actionIndex() {
                 $searchModel = new PatientEnquiryGeneralFirstSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+                if (Yii::$app->user->identity->branch_id != '0') {
+                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
@@ -67,6 +80,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
          * @return mixed
          */
         public function actionCreate() {
+
                 $patient_info = new PatientEnquiryGeneralFirst();
                 $patient_info_second = new PatientEnquiryGeneralSecond();
                 $patient_hospital = new PatientEnquiryHospitalFirst();
@@ -80,28 +94,27 @@ class PatientEnquiryGeneralFirstController extends Controller {
                         $patient_info->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['outgoing_call_date']));
                         $followup_info->load(Yii::$app->request->post());
                         $followup_info->status = '0';
-
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($patient_info);
                         }
 
-
-                        if ($patient_info->validate() && $patient_info_second->validate() && $patient_hospital->validate() && $patient_hospital_second->validate() && $patient_info->save() && $patient_info_second->save() && $patient_hospital->save() && $patient_hospital_second->save()) {
-
-                                if ($patient_info->branch_id == '1') {
-                                        $code = 'CPCUE';
-                                } else if ($patient_info->branch_id == '2') {
-                                        $code = 'CPBUE';
+                        if ($patient_info->validate() && $patient_info_second->validate() && $patient_hospital->validate() && $patient_hospital_second->validate()) {
+                                if ($patient_info->save() && $patient_info_second->save() && $patient_hospital->save() && $patient_hospital_second->save()) {
+                                        if ($patient_info->branch_id == '1') {
+                                                $code = 'CPCUE';
+                                        } else if ($patient_info->branch_id == '2') {
+                                                $code = 'CPBUE';
+                                        }
+                                        $patient_info->enquiry_number = $code . '-' . date('d') . date('m') . date('y') . '-' . $patient_info->id;
+                                        $patient_info->update();
+                                        $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
+                                        $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
+                                        Yii::$app->Followups->addfollowups('1', $patient_info->id, $followup_info);
+                                        Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'create');
+                                        $this->sendMail($patient_info, $patient_info_second);
+                                        Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
+                                        return $this->redirect(array('index'));
                                 }
-                                $patient_info->enquiry_number = $code . '-' . date('d') . date('m') . date('y') . '-' . $patient_info->id;
-                                $patient_info->update();
-                                $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
-                                $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
-                                Yii::$app->Followups->addfollowups('0', $patient_info->id, $followup_info);
-                                Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'create');
-                                $this->sendMail($patient_info, $patient_info_second);
-                                Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
-                                return $this->redirect(array('index'));
                         }
                 }
 
@@ -121,6 +134,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
          * @return mixed
          */
         public function actionUpdate($id) {
+
                 $patient_info = $this->findModel($id);
                 $patient_info_second = PatientEnquiryGeneralSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $patient_hospital = PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $patient_info->id])->one();
@@ -132,29 +146,33 @@ class PatientEnquiryGeneralFirstController extends Controller {
 
                 $searchModel = new FollowupsSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type' => '0', 'type_id' => $id]);
+                $dataProvider->query->andWhere(['type' => '1', 'type_id' => $id]);
 
                 if (!empty($patient_info) && !empty($patient_info_second) && !empty($patient_hospital) && !empty($patient_hospital_second)) {
-
                         if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post())) {
-
                                 $patient_info->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['contacted_date']));
                                 $patient_info->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['outgoing_call_date']));
                                 $followup_info->load(Yii::$app->request->post());
 
-                                if ($patient_info->validate() && $patient_info->save() && $patient_info_second->validate() && $patient_info_second->save() && $patient_hospital->validate() && $patient_hospital->save() && $patient_hospital_second->validate() && $patient_hospital_second->save()) {
+                                if ($patient_info->validate() && $patient_info_second->validate() && $patient_hospital->validate() && $patient_hospital_second->validate()) {
+                                        if ($patient_info->save() && $patient_info_second->save() && $patient_hospital->save() && $patient_hospital_second->save()) {
+                                                $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
+                                                $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
+                                                if (isset($_GET['followup'])) {
+                                                        Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
+                                                } else {
+                                                        $followup_info->status = '0';
+                                                        Yii::$app->Followups->addfollowups('1', $patient_info->id, $followup_info);
+                                                }
 
-                                        $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
-                                        $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
-                                        if (isset($_GET['followup'])) {
-                                                Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
-                                        } else {
-                                                $followup_info->status = '0';
-                                                Yii::$app->Followups->addfollowups('0', $patient_info->id, $followup_info);
+                                                Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'update');
+                                                Yii::$app->getSession()->setFlash('success', 'Enquiry Updated Successfully');
+
+                                                if (isset($_POST['patinet_info'])) {
+                                                        return $this->AddPatientInformation($id);
+                                                }
+                                                return $this->redirect(array('index'));
                                         }
-                                        Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'update');
-                                        Yii::$app->getSession()->setFlash('success', 'Enquiry Updated Successfully');
-                                        return $this->redirect(array('index'));
                                 }
                         }
                         return $this->render('_enquiry_form', [
@@ -176,7 +194,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
          *  */
 
         public function AddGeneralInfo($patient_info, $data, $patient_info_second) {
-                $patient_info->id;
 
                 $patient_info_second->enquiry_id = $patient_info->id;
                 $patient_info_second->load($data);
@@ -201,10 +218,42 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_hospital->load($data);
                 $patient_hospital_second->load($data);
 
-                if ($patient_hospital->validate() && $patient_hospital->save() && $patient_hospital_second->validate() && $patient_hospital_second->save()) {
+                if ($patient_hospital->save() && $patient_hospital_second->save()) {
                         return true;
                 } else {
                         return FALSE;
+                }
+        }
+
+        /*
+         * to send email
+         */
+
+        public function sendMail($patient_info, $model) {
+
+                $to = $model->email;
+                $subject = 'Enquiry Received';
+                $message = $this->renderPartial('send_mail', ['model' => $model, 'patient_info' => $patient_info]);
+
+                // To send HTML mail, the Content-type header must be set
+                $headers = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
+                        "From: info@caringpeople.in";
+                mail($to, $subject, $message, $headers);
+        }
+
+        /*
+         * To add Pateint Information $id is Enquiry data id
+         *  */
+
+        public function AddPatientInformation($id) {
+
+                $model = PatientEnquiryGeneralFirst::find()->where(['id' => $id])->one();
+
+                if (!empty($model)) {
+                        return $this->redirect(['patient-information/create', 'id' => $model->id]);
+                } else {
+                        return $this->redirect(['site/error']);
                 }
         }
 
@@ -214,19 +263,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
          * @param integer $id
          * @return mixed
          */
-        public function sendMail($patient_info, $model) {
-
-                $to = $model->email;
-                $subject = 'Enquiry Received';
-                $message = $this->renderPartial('send_mail', ['model' => $model, 'patient_info' => $patient_info]);
-
-// To send HTML mail, the Content-type header must be set
-                $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
-                        "From: info@caringpeople.in";
-                mail($to, $subject, $message, $headers);
-        }
-
         public function actionDelete($id) {
 
                 $patient_info = $this->findModel($id);
@@ -234,8 +270,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_hospital = PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $id])->one();
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $id])->one();
 
-// ...other DB operations...
-// or alternatively
 
                 $transaction = PatientEnquiryGeneralFirst::getDb()->beginTransaction();
                 try {
@@ -252,7 +286,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                 $patient_info->delete();
                         }
 
-// ...other DB operations...
                         $transaction->commit();
                 } catch (\Exception $e) {
                         $transaction->rollBack();

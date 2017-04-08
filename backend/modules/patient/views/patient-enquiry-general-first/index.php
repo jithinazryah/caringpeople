@@ -71,17 +71,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'attribute' => 'patient_name',
                                                     'value' => 'patientHospitalInfo.required_person_name'
                                                 ],
-                                                // 'outgoing_number_from',
-                                                // 'outgoing_number_from_other',
-                                                // 'outgoing_call_date',
-                                                // 'caller_name',
-                                                // 'caller_gender',
-                                                // 'referral_source',
-                                                // 'referral_source_others',
-                                                // 'mobile_number',
-                                                // 'mobile_number_2',
-                                                // 'mobile_number_3',
-                                                [
+                                                    [
+                                                    'attribute' => 'required_service',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            return $model->service($model->id);
+                                                    },
+                                                    'filter' => [1 => 'Doctor Visit', 2 => 'Nursing Care', 3 => 'Physiotherapy', 5 => 'Caregiver', 4 => 'Helath Checkup', 6 => 'Lab', 7 => 'Equipment', 8 => 'Other', 9 => 'General Enquiry', 10 => 'Wrong Number '],
+                                                ],
+                                                    [
                                                     'attribute' => 'status',
                                                     'value' => function($model, $key, $index, $column) {
                                                             if ($model->status == '1') {

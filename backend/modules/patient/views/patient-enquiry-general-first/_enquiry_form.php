@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         } else {
                                                                 ?>
                                                                 <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => update_button]) ?>
-                                                                <?php // Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
+                                                                <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
                                                         <?php } ?>
                                                 </div>
                                         </div>
@@ -93,32 +93,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 </div>
 
-<script>
-        $('#form_button').click(function (e) { // using click function
-                // on contact form submit button
-                e.preventDefault();  // stop form from submitting right away
 
-                var error = false;
-
-                $(this).find('.required').each(function () {
-                        if ($(this).val().length < 1) {
-                                error = true;
-                        }
-                });
-                if (error == false) {
-
-                        var Id = $('.tab-pane.active').attr('id');
-                        $('#'.Id).removeClass('active');
-                        $('#home-3').addClass('active');  // you submit form
-                        $("#w0").submit();
-                }
-                if (!error) {
-                        return true;
-                }
-
-        });
-
-
-</script>
 
 

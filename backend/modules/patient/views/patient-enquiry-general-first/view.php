@@ -189,7 +189,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <div style="clear:both"></div>
 
                                                                                         <div class="content">
-                                                                                                <div class="label_sty"><label>Referral source:</label></div><div class="data_sty" style="width:572px;"><span><?= $model->referral_source; ?></span></div>
+                                                                                                <div class="label_sty"><label>Referral source:</label></div><div class="data_sty" style="width:572px;"><span><?= $model->referral_source; ?>
+                                                                                                                <?php
+                                                                                                                if ($model->referral_source != '5') {
+                                                                                                                        if ($model->referral_source == '0') {
+                                                                                                                                echo 'Internet';
+                                                                                                                        } elseif ($model->referral_source == '1') {
+                                                                                                                                echo 'Care and care';
+                                                                                                                        } elseif ($model->referral_source == '2') {
+                                                                                                                                echo 'Guardian Angel';
+                                                                                                                        } elseif ($model->referral_source == '3') {
+                                                                                                                                echo 'Caremark';
+                                                                                                                        } elseif ($model->referral_source == '4') {
+                                                                                                                                echo 'Cancure';
+                                                                                                                        }
+                                                                                                                } else {
+                                                                                                                        echo $model->referral_source_others;
+                                                                                                                }
+                                                                                                                ?></span></div>
                                                                                         </div>
 
                                                                                         <div style="clear:both"></div>
@@ -306,32 +323,87 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <div style="clear:both"></div>
 
                                                                                         <div class="content">
-                                                                                                <div class="label_sty"><label>Department:</label></div><div class="data_sty" style="width: 265px;"><span><?= $patient_hospital->department; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Hypertension </label></div><div class="data_sty" style="width:100px;"><span><?= $patient_hospital_second->hypertension; ?></span></div>
-                                                                                                <div class="label_sty"><label>Feeding Tube:</label></div><div class="data_sty" style="width: 60px;"><span><?= $patient_hospital_second->feeding; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Department:</label></div><div class="data_sty" style="width: 315px;"><span><?= $patient_hospital->department; ?></span> </div>
+                                                                                                <div class="label_sty"><label>Hypertension </label></div><div class="data_sty" style="width:205px;"><span><?= $patient_hospital_second->hypertension; ?></span></div>
                                                                                         </div>
 
                                                                                         <div style="clear:both"></div>
 
+
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Feeding Tube:</label></div><div class="data_sty" style="width: 195px;"><span>
+                                                                                                                <?php
+                                                                                                                if ($patient_hospital_second->feeding == '0') {
+                                                                                                                        echo 'Nasogastric';
+                                                                                                                } elseif ($patient_hospital_second->feeding == '1') {
+                                                                                                                        echo 'Nasoduodenal';
+                                                                                                                } elseif ($patient_hospital_second->feeding == '2') {
+                                                                                                                        echo 'Nasojejunal Tubes';
+                                                                                                                } elseif ($patient_hospital_second->feeding == '3') {
+                                                                                                                        echo 'Gastrostomy';
+                                                                                                                } elseif ($patient_hospital_second->feeding == '4') {
+                                                                                                                        echo 'Gastrojejunostomy';
+                                                                                                                } elseif ($patient_hospital_second->feeding == '5') {
+                                                                                                                        echo 'Jejunostomyfeeding tube';
+                                                                                                                }
+                                                                                                                ?>
+                                                                                                        </span> </div>
+
+                                                                                                <div class="label_sty"><label>Urine Tube:</label></div><div class="data_sty" style="width: 140px;"><span>
+                                                                                                                <?php
+                                                                                                                if ($patient_hospital_second->urine == '0') {
+                                                                                                                        echo 'Foleys catheter';
+                                                                                                                } elseif ($patient_hospital_second->urine == '1') {
+                                                                                                                        echo 'Suprapubic';
+                                                                                                                } elseif ($patient_hospital_second->urine == '2') {
+                                                                                                                        echo 'Condom catheter';
+                                                                                                                }
+                                                                                                                ?></span> </div>
+
+                                                                                                <div class="label_sty"><label>IV LINE:</label></div><div class="data_sty" style="width: 125px;"><span><?= $patient_hospital_second->iv_line; ?></span> </div>
+
+
+                                                                                        </div>
+                                                                                        <div style="clear:both"></div>
+
                                                                                         <div class="content">
 
-                                                                                                <div class="label_sty"><label>Urine Tube:</label></div><div class="data_sty" style="width: 70px;"><span><?= $patient_hospital_second->urine; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Oxygen </label></div><div class="data_sty" style="width:70px;"><span><?= $patient_hospital_second->oxygen; ?></span></div>
-                                                                                                <div class="label_sty"><label>Tracheostomy </label></div><div class="data_sty" style="width:70px;"><span><?= $patient_hospital_second->tracheostomy; ?></span></div>
-                                                                                                <div class="label_sty"><label>IV LINE:</label></div><div class="data_sty" style="width: 70px;"><span><?= $patient_hospital_second->iv_line; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Diabetic:</label></div><div class="data_sty" style="width: 70px;"><span>
+
+                                                                                                <div class="label_sty"><label>Oxygen </label></div><div class="data_sty" style="width:130px;"><span>
+                                                                                                                <?php
+                                                                                                                if ($patient_hospital_second->oxygen == '0') {
+                                                                                                                        echo 'No';
+                                                                                                                } elseif ($patient_hospital_second->oxygen == '1') {
+                                                                                                                        echo 'Yes';
+                                                                                                                } elseif ($patient_hospital_second->oxygen == '2') {
+                                                                                                                        echo 'Ventilator';
+                                                                                                                } elseif ($patient_hospital_second->oxygen == '3') {
+                                                                                                                        echo 'BiPAP';
+                                                                                                                } elseif ($patient_hospital_second->oxygen == '4') {
+                                                                                                                        echo 'SOS';
+                                                                                                                }
+                                                                                                                ?>
+                                                                                                        </span></div>
+                                                                                                <div class="label_sty"><label>Tracheostomy </label></div><div class="data_sty" style="width:180px;"><span><?= $patient_hospital_second->tracheostomy; ?></span></div>
+                                                                                                <div class="label_sty"><label>Diabetic:</label></div><div class="data_sty" style="width: 170px;"><span>
                                                                                                                 <?php
                                                                                                                 if ($patient_hospital_second->diabetic == '0') {
                                                                                                                         echo 'No';
                                                                                                                 } elseif ($patient_hospital_second->diabetic == '1') {
                                                                                                                         echo 'Yes';
+                                                                                                                } elseif ($patient_hospital_second->diabetic == '2') {
+                                                                                                                        echo 'Yes,Insulin';
+                                                                                                                } elseif ($patient_hospital_second->diabetic == '3') {
+                                                                                                                        echo 'Yes, On Tablet';
+                                                                                                                } elseif ($patient_hospital_second->diabetic == '4') {
+                                                                                                                        echo 'Dont Know';
                                                                                                                 }
                                                                                                                 ?>
                                                                                                         </span> </div>
                                                                                         </div>
 
 
-                                                                                        <?php if ($patient_hospital_second->diabetic == '1') { ?>
+                                                                                        <?php if ($patient_hospital_second->diabetic == '1' && $patient_hospital_second->diabetic_note != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Diabetic Notes:</label></div><div class="data_sty" ><span><?= $patient_hospital_second->diabetic_note; ?></span> </div>
@@ -346,7 +418,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <div style="clear:both"></div>
                                                                                         <?php if ($patient_hospital_second->family_support != '') { ?>
                                                                                                 <div class="content">
-                                                                                                        <div class="label_sty"><label>Nearyby family support:</label></div><div class="data_sty"><span><?php
+                                                                                                        <div class="label_sty"><label>Nearyby family support:</label></div><div class="data_sty" style="width:538px;"><span><?php
                                                                                                                         if ($patient_hospital_second->family_support == '1') {
                                                                                                                                 echo 'Close';
                                                                                                                         } elseif ($patient_hospital_second->family_support == '2') {
@@ -409,7 +481,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <?php if ($patient_hospital_second->difficulty_in_movement != '5' && $patient_hospital_second->difficulty_in_movement != '') { ?>
 
                                                                                                 <div class="content">
-                                                                                                        <div class="label_sty"><label>Difficulty in movement:</label></div><div class="data_sty" style="width:120px;"><span>
+                                                                                                        <div class="label_sty"><label>Difficulty in movement:</label></div><div class="data_sty" style="width:540px;"><span>
                                                                                                                         <?php
                                                                                                                         if ($patient_hospital_second->difficulty_in_movement == '1') {
                                                                                                                                 echo 'No difficulty';
@@ -427,7 +499,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                 <?php
                                                                                         } else {
-                                                                                                if ($patient_hospital_second->care_currently_provided_others != '') {
+                                                                                                if ($patient_hospital_second->difficulty_in_movement_other != '') {
                                                                                                         ?>
                                                                                                         <div class="content">
                                                                                                                 <div class="label_sty"><label>Difficulty in movement:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $patient_hospital_second->difficulty_in_movement_other; ?></span></div>
@@ -442,7 +514,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         <?php if ($patient_info_second->service_required != '5' && $patient_info_second->service_required != '') { ?>
                                                                                                 <div class="content">
-                                                                                                        <div class="label_sty"><label>Service Required:</label></div><div class="data_sty"><span>
+                                                                                                        <div class="label_sty"><label>Service Required:</label></div><div class="data_sty" style="width:565px;"><span>
                                                                                                                         <?php
                                                                                                                         if ($patient_info_second->service_required == '1') {
                                                                                                                                 echo 'Immediately';
@@ -480,7 +552,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         <div style="clear:both"></div>
                                                                                         <div class="content">
-                                                                                                <div class="label_sty"><label>Priority:</label></div><div class="data_sty" style="width:120px;"><span> <?php
+                                                                                                <div class="label_sty"><label>Priority:</label></div><div class="data_sty" style="width:615px;"><span> <?php
                                                                                                                 if ($patient_info_second->priority == '1') {
                                                                                                                         echo 'Hot';
                                                                                                                 } elseif ($patient_info_second->priority == '2') {
@@ -500,8 +572,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 </div>
                                                                                         <?php } ?>
 
+                                                                                        <div style="clear:both"></div>
+                                                                                        <div class="content">
+                                                                                                <div class="label_sty"><label>Data Entered By:</label></div><div class="data_sty" style="width:200px;">
+                                                                                                        <span>
+                                                                                                                <?php
+                                                                                                                $data_entered = AdminUsers::findOne($model->CB);
+                                                                                                                ?>
+                                                                                                                <?= $data_entered->name; ?>
+                                                                                                        </span></div>
+                                                                                                <div class="label_sty"><label>Data Entered On:</label></div><div class="data_sty" style="width:200px;">
+                                                                                                        <span>
+                                                                                                                <?= date('d-m-Y', strtotime($model->DOC)); ?>
+                                                                                                        </span></div>
+                                                                                        </div>
+                                                                                        </div>
 
-                                                                                        <
+
+
+
                                                                                 </td>
 
                                                                         </tr>

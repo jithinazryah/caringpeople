@@ -21,12 +21,13 @@ class Followups extends Component {
                 if ($followup_info->assigned_to != '') {
                         $followp = new \common\models\Followups;
                         $followp->type = $type;
+                        $followp->sub_type = $followup_info->sub_type;
                         $followp->type_id = $type_id;
                         $followp->followup_date = date('Y-m-d H:i:s', strtotime($followup_info->followup_date));
                         $followp->followup_notes = $followup_info->followup_notes;
                         $followp->assigned_to = $followup_info->assigned_to;
                         $followp->assigned_from = Yii::$app->user->identity->id;
-                        if ($followup_info->status != 2)
+                        if ($followup_info->status != 1)
                                 $status = $this->Checkstatus($followup_info->followup_date, $followup_info->status);
                         else
                                 $status = $followup_info->status;
@@ -43,11 +44,12 @@ class Followups extends Component {
 
         public function Updatefollowups($id, $followup_info) {
                 $followp = \common\models\Followups::findOne($id);
+                $followp->sub_type = $followup_info->sub_type;
                 $followp->followup_date = date('Y-m-d H:i:s', strtotime($followup_info->followup_date));
                 $followp->followup_notes = $followup_info->followup_notes;
                 $followp->assigned_to = $followup_info->assigned_to;
                 $followp->assigned_from = Yii::$app->user->identity->id;
-                if ($followup_info->status != 2)
+                if ($followup_info->status != 1)
                         $status = $this->Checkstatus($followup_info->followup_date, $followup_info->status);
                 else
                         $status = $followup_info->status;

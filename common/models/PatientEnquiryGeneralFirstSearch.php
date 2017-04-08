@@ -16,12 +16,13 @@ class PatientEnquiryGeneralFirstSearch extends PatientEnquiryGeneralFirst {
          * @inheritdoc
          */
         public $email;
+        public $required_service;
         public $patient_name;
 
         public function rules() {
                 return [
                         [['id', 'contacted_source', 'caller_gender', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-                        [['enquiry_number', 'email', 'patient_name', 'contacted_date', 'incoming_missed', 'outgoing_number_from', 'outgoing_number_from_other', 'outgoing_call_date', 'caller_name', 'referral_source', 'referral_source_others', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'DOC', 'DOU'], 'safe'],
+                        [['enquiry_number', 'email', 'required_service', 'patient_name', 'contacted_date', 'incoming_missed', 'outgoing_number_from', 'outgoing_number_from_other', 'outgoing_call_date', 'caller_name', 'referral_source', 'referral_source_others', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'DOC', 'DOU'], 'safe'],
                 ];
         }
 
@@ -91,6 +92,7 @@ class PatientEnquiryGeneralFirstSearch extends PatientEnquiryGeneralFirst {
                         ->andFilterWhere(['like', 'mobile_number', $this->mobile_number])
                         ->andFilterWhere(['like', 'mobile_number_2', $this->mobile_number_2])
                         ->andFilterWhere(['like', 'patient_enquiry_general_second.email', $this->email])
+                        ->andFilterWhere(['like', 'patient_enquiry_general_second.required_service', $this->required_service])
                         ->andFilterWhere(['like', 'patient_enquiry_hospital_first.required_person_name', $this->patient_name])
                         ->andFilterWhere(['like', 'mobile_number_3', $this->mobile_number_3])
                         ->andFilterWhere(['>=', 'contacted_date', $params['Enquiry']['contactedFrom']])

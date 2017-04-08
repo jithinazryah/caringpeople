@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\PatientEnquiryHospitalSecond */
+/* @var $model common\models\FollowupSubType */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Patient Enquiry Hospital Seconds', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Followup Sub Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Patient Enquiry Hospital Second</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="patient-enquiry-hospital-second-view">
+                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Followup Sub Type</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div class="panel-body"><div class="followup-sub-type-view">
                                                 <p>
                                                         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                                                         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -37,23 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'model' => $model,
                                                 'attributes' => [
                                                             'id',
-            'enquiry_id',
-            'diabetic',
-            'diabetic_note',
-            'hypertension',
-            'feeding',
-            'urine',
-            'oxygen',
-            'tracheostomy',
-            'iv_line',
-            'family_support',
-            'family_support_note:ntext',
-            'care_currently_provided',
-            'care_currently_provided_others',
-            'date_of_discharge',
-            'details_of_current_care:ntext',
-            'difficulty_in_movement',
-            'difficulty_in_movement_other:ntext',
+            'type_id',
+            'sub_type',
+            'status',
+            'CB',
+            'UB',
+            'DOC',
+            'DOU',
                                                 ],
                                                 ]) ?>
 </div>

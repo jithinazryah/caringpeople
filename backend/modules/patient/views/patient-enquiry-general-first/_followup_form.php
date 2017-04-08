@@ -7,6 +7,7 @@ use kartik\datetime\DateTimePicker;
 use common\models\AdminUsers;
 use yii\helpers\ArrayHelper;
 use common\models\Followups;
+use common\models\FollowupSubType;
 
 /* @var $this yii\web\View */
 /* @var $followup_info common\models\Followups */
@@ -14,6 +15,15 @@ use common\models\Followups;
 ?>
 
 <div class="followups-form form-inline">
+
+
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <?php
+                $followup_type = FollowupSubType::find()->where(['type_id' => '1', 'status' => '1'])->all();
+                echo $form->field($followup_info, 'sub_type')->dropDownList(ArrayHelper::map($followup_type, 'id', 'sub_type'), ['prompt' => 'Select', 'class' => 'form-control'])
+                ?>
+        </div>
+
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
@@ -51,6 +61,11 @@ use common\models\Followups;
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
+                <?php echo $form->field($followup_info, 'followup_notes')->textarea(['rows' => 6]) ?>
+        </div>
+
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+
                 <?php
                 if (!$followup_info->isNewRecord)
                         $userid = $followup_info->assigned_from;
@@ -65,10 +80,7 @@ use common\models\Followups;
 
         </div>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
-                <?php echo $form->field($followup_info, 'followup_notes')->textarea(['rows' => 6]) ?>
-        </div>
 
         <?php if (!$followup_info->isNewRecord) {
                 ?>
@@ -86,7 +98,7 @@ use common\models\Followups;
 
 
 <?php
-$count = Followups::find()->where(['type_id' => $model->id, 'type' => '0'])->count();
+$count = Followups::find()->where(['type_id' => $model->id, 'type' => '1'])->count();
 if ($count > 0) {
         ?>
 
