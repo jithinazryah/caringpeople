@@ -333,16 +333,18 @@ $("document").ready(function () {
         $('#addHosp').on('click', function () {
 
                 var id = 1;
-
+                showLoader();
                 $.ajax({
                         type: 'POST',
                         cache: false,
                         data: {id: id},
                         url: homeUrl + 'ajax/patienthospitaldetails',
                         success: function (data) {
+                                hideLoader();
                                 $(data).appendTo(scntDiv);
                                 i++;
                                 return false;
+
                         }
                 });
 
