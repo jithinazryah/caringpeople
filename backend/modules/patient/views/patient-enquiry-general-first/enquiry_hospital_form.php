@@ -40,15 +40,96 @@ use yii\helpers\ArrayHelper;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'person_postal_code')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $hospital_name = Hospital::find()->where(['status' => '1'])->all() ?>   <?= $form->field($patient_hospital, 'hospital_name')->dropDownList(ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['prompt' => '--Select--']) ?>
+        </div><div style="clear:both;"></div>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'consultant_doctor')->textInput(['maxlength' => true]) ?>
+        <div id="p_scents1">
+                <input type="hidden" id="delete_port_vals"  name="delete_port_vals" value="">
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'department')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'hospital_room_no')->textInput(['maxlength' => true]) ?>
+                <?php
+                if (!empty($hospital_details)) {
+                        $hospital_name = Hospital::find()->where(['status' => '1'])->all();
+                        $selected[] = '';
+                        foreach ($hospital_details as $data) {
+                                $selected[] = $data->hospital_name;
+                                ?>
+                                <span>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-patientenquiryhospitaldetails-hospital_name">
+                                                        <label class="control-label">Hospital Name</label>
+                                                        <?= Html::dropDownList('updatee[' . $data->id . '][hospital_name][]', $selected, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--',]); ?>
+                                                </div>
+                                        </div>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'diabetic')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No', '2' => 'Yes,Insulin', '3' => 'Yes, On Tablet', '4' => 'Dont Know']) ?>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
+                                                        <label class="control-label" for="">Consultant Doctor</label>
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][consultant_doctor][]" value="<?= $data->consultant_doctor; ?>" required>
+                                                </div>
+                                        </div>
+
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-patientenquiryhospitaldetails-department">
+                                                        <label class="control-label">Department</label>
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][department][]" value="<?= $data->department; ?>" required>
+                                                </div>
+                                        </div>
+
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-patientenquiryhospitaldetails-hospital_room_no">
+                                                        <label class="control-label" >Hospital Room No</label>
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][hospital_room_no][]" value="<?= $data->hospital_room_no; ?>" required>
+                                                </div>
+                                        </div>
+
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" style="margin-top:15px;"><i class="fa-remove"></i></a>
+                                        </div>
+                                        <div style="clear:both"></div>
+                                </span>
+                                <br>
+                                <?php
+                                unset($selected);
+                        }
+                }
+                ?>
+
+                <span>
+                        <?php $hospital_name = Hospital::find()->where(['status' => '1'])->all() ?>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-patientenquiryhospitaldetails-hospital_name">
+                                        <label class="control-label">Hospital Name</label>
+
+                                        <?= Html::dropDownList('create[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--']);
+                                        ?>
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
+                                        <label class="control-label" for="">Consultant Doctor</label>
+                                        <input type="text" class="form-control" name="create[consultant_doctor][]">
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-patientenquiryhospitaldetails-department">
+                                        <label class="control-label">Department</label>
+                                        <input type="text" class="form-control" name="create[department][]">
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-patientenquiryhospitaldetails-hospital_room_no">
+                                        <label class="control-label" >Hospital Room No</label>
+                                        <input type="text" class="form-control" name="create[hospital_room_no][]">
+                                </div>
+                        </div>
+
+                        <a id="addHosp" class="btn btn-icon btn-blue addHosp" style="margin-top:15px;"><i class="fa-plus"></i>Add</a>
+                        <div style="clear:both"></div>
+                </span>
+
+        </div>
+
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'diabetic')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No', '2' => 'Yes,Insulin', '3' => 'Yes, On Tablet', '4' => 'Dont Know']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='diabetic_note'>    <?= $form->field($patient_hospital_second, 'diabetic_note')->textInput(['maxlength' => true]) ?>
 

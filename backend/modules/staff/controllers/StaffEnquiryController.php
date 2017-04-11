@@ -39,7 +39,7 @@ class StaffEnquiryController extends Controller {
                 $searchModel = new StaffEnquirySearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 if (Yii::$app->user->identity->branch_id != '0') {
-                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+                        $dataProvider->query->where(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
 
                 return $this->render('index', [
@@ -84,9 +84,9 @@ class StaffEnquiryController extends Controller {
                                 $staff_enquiry->enquiry_id = $code . '-' . date('d') . date('m') . date('y') . '-' . $staff_enquiry->id;
                                 $staff_enquiry->update();
                                 $followup_info->status = '0';
-                                Yii::$app->Followups->addfollowups('2', $staff_enquiry->id, $followup_info);
+                                Yii::$app->Followups->addfollowups('3', $staff_enquiry->id, $followup_info);
                                 Yii::$app->getSession()->setFlash('success', 'Staff Enquiry Added Successfully');
-                                return $this->redirect(array('index'));
+                                return $this->redirect(['index']);
                         }
                 }
 
@@ -112,7 +112,7 @@ class StaffEnquiryController extends Controller {
 
                 $searchModel = new FollowupsSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type' => '2', 'type_id' => $id]);
+                $dataProvider->query->andWhere(['type' => '3', 'type_id' => $id]);
 
                 if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry)) {
                         $staff_enquiry->follow_up_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffEnquiry']['follow_up_date']));
@@ -122,7 +122,7 @@ class StaffEnquiryController extends Controller {
                                         Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
                                 } else {
                                         $followup_info->status = '0';
-                                        Yii::$app->Followups->addfollowups('2', $staff_enquiry->id, $followup_info);
+                                        Yii::$app->Followups->addfollowups('3', $staff_enquiry->id, $followup_info);
                                 }
                         if (isset($_POST['proceed'])) {
                                 $staff_enquiry->proceed = '1';
@@ -130,7 +130,7 @@ class StaffEnquiryController extends Controller {
                                 return $this->redirect(['staff-info/procced/', 'id' => $staff_enquiry->id]);
                         } else {
                                 Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
-                                return $this->redirect(array('index'));
+                                return $this->redirect(['index']);
                         }
                 }
 

@@ -45,7 +45,7 @@ $branch = Branch::branch();
                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                 </div>
                                         <?php endif; ?>
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> New Staff Enquiry</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?=
@@ -59,6 +59,13 @@ $branch = Branch::branch();
                                                 'phone_number',
                                                 'email:email',
                                                 'address',
+                                                    [
+                                                    'attribute' => 'branch_id',
+                                                    'value' => function($data) {
+                                                            return Branch::findOne($data->branch_id)->branch_name;
+                                                    },
+                                                    'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
+                                                ],
                                                 // 'follow_up_date',
 //                                                [
 //                                                    'attribute' => 'follow_up_date',
@@ -66,13 +73,7 @@ $branch = Branch::branch();
 //                                                            return date('d-M-Y H:i:s', strtotime($model->follow_up_date));
 //                                                    },
 //                                                ],
-                                                 [
-                                                    'attribute' => 'branch_id',
-                                                    'value' => function($data) {
-                                                            return Branch::findOne($data->branch_id)->branch_name;
-                                                    },
-                                                    'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
-                                                ],
+//
                                                 // 'notes:ntext',
                                                 // 'status',
                                                 // 'CB',

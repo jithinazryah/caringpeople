@@ -10,6 +10,7 @@ use common\models\PatientEnquiryHospitalFirst;
 use common\models\PatientEnquiryHospitalSecond;
 use common\models\Followups;
 use common\models\FollowupsSearch;
+use common\models\PatientEnquiryHospitalDetails;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,8 +22,7 @@ use common\models\EnquiryOtherInfo;
  */
 class PatientEnquiryGeneralFirstController extends Controller {
 
-
- public function init() {
+        public function init() {
 
                 if (Yii::$app->user->isGuest)
                         $this->redirect(['/site/index']);
@@ -30,7 +30,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 if (Yii::$app->session['post']['enquiry'] != 1)
                         $this->redirect(['/site/home']);
         }
-
 
         /**
          * @inheritdoc
@@ -45,8 +44,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                     ],
                 ];
         }
-
-
 
         /**
          * Lists all PatientEnquiryGeneralFirst models.
@@ -114,6 +111,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                         $patient_info->update();
                                         $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
                                         $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
+                                        $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
                                         Yii::$app->Followups->addfollowups('1', $patient_info->id, $followup_info);
                                         Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'create');
                                         $this->sendMail($patient_info, $patient_info_second);
@@ -132,9 +130,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 ]);
         }
 
-
-
-
         /**
          * Updates an existing PatientEnquiryGeneralFirst model.
          * If update is successful, the browser will be redirected to the 'view' page.
@@ -147,6 +142,8 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_info_second = PatientEnquiryGeneralSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $patient_hospital = PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
+                $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $patient_info->id]);
+
                 if (isset($_GET['followup']))
                         $followup_info = Followups::findOne($_GET['followup']);
                 else
@@ -167,6 +164,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                         if ($patient_info->save() && $patient_info_second->save() && $patient_hospital->save() && $patient_hospital_second->save()) {
                                                 $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
                                                 $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
+                                                $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
                                                 if (isset($_GET['followup'])) {
                                                         Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
                                                 } else {
@@ -179,7 +177,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
 
                                                         return $this->AddPatientInformation($id);
                                                 }
-                                                return $this->redirect('index');
+                                                return $this->redirect(array('index'));
                                         }
                                 }
                         }
@@ -188,6 +186,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                     'patient_info_second' => $patient_info_second,
                                     'patient_hospital' => $patient_hospital,
                                     'patient_hospital_second' => $patient_hospital_second,
+                                    'hospital_details' => $hospital_details,
                                     'followup_info' => $followup_info,
                                     'dataProvider' => $dataProvider,
                                     'followup_id' => $_GET['followup'],
@@ -230,6 +229,97 @@ class PatientEnquiryGeneralFirstController extends Controller {
                         return true;
                 } else {
                         return FALSE;
+                }
+        }
+
+        /*
+         * to add hospital details
+         *  */
+
+        public function AddHospitalDetails($patient_info, $data) {
+                /*
+                 * to create hospital details
+                 */
+
+                if (isset($_POST['create']) && $_POST['create'] != '') {
+
+                        $arr = [];
+                        $i = 0;
+
+                        foreach ($_POST['create']['hospital_name'] as $val) {
+                                $arr[$i]['hospital_name'] = $val;
+                                $i++;
+                        }
+                        $i = 0;
+                        foreach ($_POST['create']['consultant_doctor'] as $val) {
+                                $arr[$i]['consultant_doctor'] = $val;
+                                $i++;
+                        }
+                        $i = 0;
+                        foreach ($_POST['create']['department'] as $val) {
+                                $arr[$i]['department'] = $val;
+                                $i++;
+                        }
+                        $i = 0;
+                        foreach ($_POST['create']['hospital_room_no'] as $val) {
+                                $arr[$i]['hospital_room_no'] = $val;
+                                $i++;
+                        }
+
+
+                        foreach ($arr as $val) {
+                                $add_previous = new PatientEnquiryHospitalDetails;
+                                $add_previous->enquiry_id = $patient_info->id;
+                                $add_previous->hospital_name = $val['hospital_name'];
+                                $add_previous->consultant_doctor = $val['consultant_doctor'];
+                                $add_previous->department = $val['department'];
+                                $add_previous->hospital_room_no = $val['hospital_room_no'];
+
+                                if (!empty($add_previous->hospital_name))
+                                        $add_previous->save();
+                        }
+                }
+                /*
+                 * to update hospital details
+                 */
+
+                if (isset($_POST['updatee']) && $_POST['updatee'] != '') {
+
+                        $arr = [];
+                        $i = 0;
+                        foreach ($_POST['updatee'] as $key => $val) {
+
+
+                                $arr[$key]['hospital_name'] = $val['hospital_name'][0];
+                                $arr[$key]['consultant_doctor'] = $val['consultant_doctor'][0];
+                                $arr[$key]['department'] = $val['department'][0];
+                                $arr[$key]['hospital_room_no'] = $val['hospital_room_no'][0];
+                                $arr[$key]['to'] = $val['to'][0];
+                                $i++;
+                        }
+
+                        foreach ($arr as $key => $value) {
+                                $add_previous = PatientEnquiryHospitalDetails::findOne($key);
+                                $add_previous->hospital_name = $value['hospital_name'];
+                                $add_previous->consultant_doctor = $value['consultant_doctor'];
+                                $add_previous->department = $value['department'];
+                                $add_previous->hospital_room_no = $value['hospital_room_no'];
+                                $add_previous->update();
+                        }
+                }
+
+                /*
+                 * to delete hospital details
+                 */
+
+                if (isset($_POST['delete_port_vals']) && $_POST['delete_port_vals'] != '') {
+
+                        $vals = rtrim($_POST['delete_port_vals'], ',');
+                        $vals = explode(',', $vals);
+                        foreach ($vals as $val) {
+
+                                PatientEnquiryHospitalDetails::findOne($val)->delete();
+                        }
                 }
         }
 

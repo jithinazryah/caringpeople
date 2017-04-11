@@ -161,27 +161,30 @@ class StaffInfoController extends Controller {
                 $searchModel = new FollowupsSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['type' => '4', 'type_id' => $id]);
+                if (!empty($model) && !empty($other_info) && !empty($staff_edu) && !empty($staff_uploads)) {
+                        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post())) {
+                                $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
+                                $other_info->staff_id = $model->id;
+                                $other_info->load(Yii::$app->request->post());
+                                $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
+                                $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
+                                $followup_info->load(Yii::$app->request->post());
 
-                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post())) {
-                        $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
-                        $other_info->staff_id = $model->id;
-                        $other_info->load(Yii::$app->request->post());
-                        $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
-                        $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
-                        $followup_info->load(Yii::$app->request->post());
-
-                        if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_uploads->save()) {
-                                $this->Imageupload($model, $staff_uploads, $before_update);
-                                $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
-                                if (isset($_GET['followup'])) {
-                                        Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
-                                } else {
-                                        $followup_info->status = '0';
-                                        Yii::$app->Followups->addfollowups('4', $model->id, $followup_info);
+                                if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_uploads->save()) {
+                                        $this->Imageupload($model, $staff_uploads, $before_update);
+                                        $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
+                                        if (isset($_GET['followup'])) {
+                                                Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
+                                        } else {
+                                                $followup_info->status = '0';
+                                                Yii::$app->Followups->addfollowups('4', $model->id, $followup_info);
+                                        }
+                                        Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
+                                        return $this->redirect(array('index'));
                                 }
-                                Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
-                                return $this->redirect(array('index'));
                         }
+                } else {
+                        throw new \yii\base\UserException("Error Code : 2001");
                 }
                 return $this->render('_staff_form', [
                             'model' => $model,

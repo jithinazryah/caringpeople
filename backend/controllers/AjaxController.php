@@ -8,6 +8,9 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\Enquiry;
 use common\models\Followups;
+use common\models\Hospital;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 class AjaxController extends \yii\web\Controller {
 
@@ -153,6 +156,51 @@ class AjaxController extends \yii\web\Controller {
                         $followup = Followups::find()->where(['id' => $followup_id])->one();
                         $followup->status = 1;
                         $followup->update();
+                }
+        }
+
+        /*
+         * This function is for update followup status
+         */
+
+        public function actionPatienthospitaldetails() {
+                if (Yii::$app->request->isAjax) {
+
+                        $hospital_name = Hospital::find()->where(['status' => '1'])->all();
+                        $options = Html::dropDownList('create[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--']);
+
+                        $data = "<span>
+
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class='form-group field-patientenquiryhospitaldetails-hospital_name'>
+                                        <label class='control-label'>Hospital Name</label>
+                                        $options
+                                </div>
+                        </div>
+
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class='form-group field-patientenquiryhospitaldetails-consultant_doctor'>
+                                        <label class='control-label' for=''>Consultant Doctor</label>
+                                        <input type='text' class='form-control' name='create[consultant_doctor][]'>
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class='form-group field-patientenquiryhospitaldetails-department'>
+                                        <label class='control-label'>Department</label>
+                                        <input type='text' class='form-control' name='create[department][]'>
+                                </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class='form-group field-patientenquiryhospitaldetails-hospital_room_no'>
+                                        <label class='control-label' >Hospital Room No</label>
+                                        <input type='text' class='form-control' name='create[hospital_room_no][]'>
+                                </div>
+                        </div>
+
+                        <a id='remScnt' class='btn btn-icon btn-red remScnt' style='margin-top: 15px;'><i class='fa-remove'></i></a>
+                        <div style='clear:both'></div>
+                </span>";
+                        echo $data;
                 }
         }
 

@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         $this->render('enquiry_hospital_form', [
                                                             'patient_hospital' => $patient_hospital,
                                                             'patient_hospital_second' => $patient_hospital_second,
+                                                            'hospital_details' => $hospital_details,
                                                             'form' => $form,
                                                         ])
                                                         ?>

@@ -86,7 +86,7 @@ use common\models\Followups;
 
 
 <?php
-$count = Followups::find()->where(['type_id' => $model->id, 'type' => '3'])->count();
+$count = Followups::find()->where(['type_id' => $model->id, 'type' => '4'])->count();
 if ($count > 0) {
         ?>
 

@@ -327,6 +327,40 @@ $("document").ready(function () {
          */
 
 
+        var scntDiv = $('#p_scents1');
+        var i = $('#p_scents1 span').size() + 1;
+
+        $('#addHosp').on('click', function () {
+
+                var id = 1;
+
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {id: id},
+                        url: homeUrl + 'ajax/patienthospitaldetails',
+                        success: function (data) {
+                                $(data).appendTo(scntDiv);
+                                i++;
+                                return false;
+                        }
+                });
+
+        });
+
+        $('#p_scents1').on('click', '.remScnt', function () {
+
+                if (i > 2) {
+                        $(this).parents('span').remove();
+                        i--;
+                }
+                if (this.hasAttribute("val")) {
+                        var valu = $(this).attr('val');
+                        $('#delete_port_vals').val($('#delete_port_vals').val() + valu + ',');
+                        var value = $('#delete_port_vals').val();
+                }
+                return false;
+        });
 
         /*
          * patient module if address same
