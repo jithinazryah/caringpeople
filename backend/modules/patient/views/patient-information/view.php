@@ -174,7 +174,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 									<tr>
 										<td style="padding-top:25px;">
-											<div class="heading">PATIENT REGISTRAIION FORM</div>
+											<div class="heading">PATIENT REGISTRAION FORM</div>
 										</td>
 									</tr>
 
@@ -197,7 +197,7 @@ $this->params['breadcrumbs'][] = $this->title;
 																Name:
 															</div>
 
-															<div class="data_sty" style="width: 415px;text-transform: uppercase;">
+															<div class="data_sty" style="width: 300px;text-transform: uppercase;">
 																<?= $guardian_details->first_name . ' ' . $guardian_details->last_name; ?>
 															</div>
 														</div>
@@ -396,59 +396,40 @@ $this->params['breadcrumbs'][] = $this->title;
 									<tr>
 										<td>
 											<table class="table1" style="border:0px sloid #000;">
-
-												<?php if ($patient_details->patient_image != '') { ?>
-
-													<tr>
-														<td colspan="3">
-															<div class="profile_image" style="float:right;">
-																<img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_details->id . '/patient_image.' . $patient_details->patient_image; ?> " style="width:115px;height:100px;"/>
-															</div>
-														</td>
-
-													</tr>
-												<?php } ?>
 												<tr>
 													<td colspan="2">
 														<div class="heading" style="text-align:left;">Patient Details</div>
 													</td>
 												</tr>
-
 												<tr>
-													<td colspan="3">
-														<div class="content">
+													<td width="80%">
+
+														<div class="content" style="">
 															<div class="label_sty">
-																First Name:
+																Name:
 															</div>
 
-															<div class="data_sty" style="width:595px;text-transform: uppercase;">
-																<?= $patient_details->first_name; ?>
+															<div class="data_sty" style="width: 415px;text-transform: uppercase;">
+																<?= $patient_details->first_name . ' ' . $patient_details->last_name; ?>
 															</div>
 														</div>
+
 													</td>
+													<?php if ($patient_details->patient_image != '') { ?>
+														<td>
+															<div class="view-profile_image">
+																<img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_details->id . '/patient_image.' . $patient_details->patient_image; ?> "/>
+															</div>
+														</td>
+													<?php } ?>
 												</tr>
 												<tr>
-													<td colspan="3">
-														<div class="content">
-															<div class="label_sty">
-																Last Name:
-															</div>
-
-															<div class="data_sty" style="width:595px;">
-																<?= $patient_details->last_name; ?>
-															</div>
-														</div>
-													</td>
-												</tr>
-
-												<tr>
-													<td>
-														<div class="content">
-															<div class="label_sty">
+													<td colspan="2">
+														<div class="content" style="width: 33%;float: left">
+															<div class="label_sty" style="width: auto;">
 																Sex :
 															</div>
-
-															<div class="data_sty" style="width:249px;">
+															<div class="data_sty" style="width: 170px;">
 																<?php
 																if ($patient_details->gender == 0)
 																	echo "Male";
@@ -460,33 +441,27 @@ $this->params['breadcrumbs'][] = $this->title;
 																?>
 															</div>
 														</div>
-													</td>
-													<td>
-														<div class="content">
-															<div class="label_sty">
+														<div class="content" style="width: 33%;float: right">
+															<div class="label_sty" style="width: auto;">
 																Age :
 															</div>
-
-															<div class="data_sty" style="width:170px">
+															<div class="data_sty" style="width: 170px;">
 																<?= $patient_details->age; ?>
 															</div>
 														</div>
-													</td>
-
-												</tr>
-												<tr>
-													<td>
-														<div class="content">
-															<div class="label_sty">
+														<div class="content" style="width: 33%;float: right">
+															<div class="label_sty" style="width: auto;">
 																Weight :
 															</div>
-
-															<div class="data_sty" style="width:170px">
+															<div class="data_sty" style="width: 170px;">
 																<?= $patient_details->weight; ?>
 															</div>
 														</div>
 													</td>
 												</tr>
+
+
+
 
 
 												<tr>
@@ -676,7 +651,7 @@ $this->params['breadcrumbs'][] = $this->title;
 																Others(specify):
 															</div>
 
-															<div class="data_sty" style="width:580px;">
+															<div class="data_sty" style="width:580px;text-align: left">
 																<?= $chronic_imformation->othersspecify; ?>
 															</div>
 
