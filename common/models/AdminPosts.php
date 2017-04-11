@@ -35,8 +35,8 @@ class AdminPosts extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['post_name', 'enquiry', 'users', 'employees', 'admin', 'masters', 'staffs'], 'required'],
-                        [['admin', 'enquiry', 'staffs', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
+                        [['post_name', 'enquiry', 'users', 'employees', 'admin', 'masters','staffs'], 'required'],
+                        [['admin', 'enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
                         [['DOC', 'DOU'], 'safe'],
                         [['post_name'], 'string', 'max' => 280],
                 ];

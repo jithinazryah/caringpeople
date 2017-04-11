@@ -57,15 +57,15 @@ class Enquiry extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['contacted_source', 'caller_gender', 'whatsapp_number', 'person_gender', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'whatsapp_reply', 'patient_current_status', 'CB', 'UB'], 'integer'],
+                        [['contacted_source', 'caller_gender', 'whatsapp_number', 'person_gender', 'age', 'relationship', 'veteran_or_spouse', 'branch_id', 'status', 'whatsapp_reply', 'CB', 'UB'], 'integer'],
                         [['contacted_source_others', 'contacted_date', 'outgoing_call_date', 'DOC', 'DOU', 'branch_id'], 'safe'],
-                        [['contacted_source', 'email', 'status'], 'required', 'on' => 'create'],
+                        [['contacted_source','email','status','whatsapp_reply'], 'required', 'on' => 'create'],
 //		    [['weight'], 'number'],
                     [['email'], 'email'],
-                        [['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'outgoing_number_from_other', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code', 'notes'], 'string', 'max' => 100],
+                        [['incoming_missed', 'contacted_source_others', 'outgoing_number_from', 'outgoing_number_from_other', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'city', 'zip_pc', 'email', 'service_required_for', 'service_required_for_others', 'person_city', 'person_postal_code','notes','whatsapp_note'], 'string', 'max' => 100],
                         [['address', 'person_address'], 'string', 'max' => 200],
                         [['incoming_missed'], 'required', 'message' => "Contact Source Data cannot be blank"],
-                        [['branch_id'], 'required', 'when' => function ($model) {
+[['branch_id'], 'required', 'when' => function ($model) {
                                 return Yii::$app->user->identity->branch_id == 0;
                         },],
                 ];
@@ -95,7 +95,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                     'city' => 'City',
                     'zip_pc' => 'Zip/PC',
                     'email' => 'Email',
-                    'service_required_for' => 'Required Person Name ',
+                    'service_required_for' => 'Required Person Name',
                     'service_required_for_others' => 'Relationship Others',
                     'person_gender' => 'Gender',
                     'age' => 'Age',
@@ -107,7 +107,7 @@ class Enquiry extends \yii\db\ActiveRecord {
                     'person_postal_code' => 'Person Postal Code',
                     'whatsapp_reply' => 'Whatsapp Reply',
                     'whatsapp_number' => 'Whatsapp Number',
-                    'patient_current_status' => 'Patient Current Status',
+                    'whatsapp_note' => 'Whatsapp Note',
                     'notes' => 'Notes',
                     'branch_id' => 'Branch',
                     'status' => 'Status',

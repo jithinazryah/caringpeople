@@ -69,8 +69,8 @@ class PatientInformation extends \yii\db\ActiveRecord {
                 return [
                     'id' => 'ID',
                     'enquiry_id' => 'Enquiry ID',
-                    'patient_id' => 'Patient ID',
-                    'branch_id' => 'Branch ID',
+                    'patient_id' => 'Client ID',
+                    'branch_id' => 'Branch',
                     'contact_address' => 'Contact Address',
                     'contact_name' => 'Contact Name',
                     'contact_gender' => 'Contact Gender',

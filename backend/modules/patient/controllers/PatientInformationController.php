@@ -108,7 +108,7 @@ class PatientInformationController extends Controller {
 		}
 
 		if ($patient_general->load(Yii::$app->request->post()) && $guardian_details->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_general)) {
-
+			$patient_general->weight = Yii::$app->request->post()['PatientGeneral']['weight'];
 			if (Yii::$app->user->identity->branch_id != '0') {
 				Yii::$app->SetValues->currentBranch($patient_general);
 			}
@@ -303,8 +303,13 @@ class PatientInformationController extends Controller {
 		if (!empty($patient_general) && !empty($guardian_details) && !empty($chronic_imformation && $present_condition && !empty($bystander_details))) {
 
 			if ($patient_general->load(Yii::$app->request->post()) && $guardian_details->load(Yii::$app->request->post())) {
+				$patient_general->weight = Yii::$app->request->post()['PatientGeneral']['weight'];
+				$guardian_details->contact_number = Yii::$app->request->post()['PatientGuardianDetails']['contact_number'];
+				$patient_general->contact_number = Yii::$app->request->post()['PatientGeneral']['contact_number'];
 				$chronic_imformation->load(Yii::$app->request->post());
 				$present_condition->load(Yii::$app->request->post());
+				$present_condition->last_change_date = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientPresentCondition']['last_change_date']));
+				$present_condition->foleys_last_change_date = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientPresentCondition']['foleys_last_change_date']));
 				$bystander_details->load(Yii::$app->request->post());
 				if ($patient_general->validate() && $guardian_details->validate() && $patient_general->save() && $guardian_details->save() && $chronic_imformation->validate() && $chronic_imformation->save() && $bystander_details->validate()) {
 					$guardian_datas = array('passport', 'driving_license', 'pan_card', 'voters_id', 'guardian_profile_image');

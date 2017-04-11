@@ -181,21 +181,21 @@ use yii\helpers\Html;
 
 		</div>
 		<div style="clear:both"></div>
-		<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name_of_doctor_1')->textInput(['maxlength' => true]) ?>
+		<div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name_of_doctor_1')->textInput(['maxlength' => true]) ?>
 
-		</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'doctor1_mob')->textInput() ?>
+		</div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'doctor1_mob')->textInput() ?>
 
-		</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name_of_hospital_1')->textInput(['maxlength' => true]) ?>
+		</div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name_of_hospital_1')->textInput(['maxlength' => true]) ?>
 
-		</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hospital1_phone_no')->textInput() ?>
+		</div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hospital1_phone_no')->textInput() ?>
 
-		</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name_of_doctor_2')->textInput(['maxlength' => true]) ?>
+		</div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name_of_doctor_2')->textInput(['maxlength' => true]) ?>
 
-		</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'doctor2_mob')->textInput() ?>
+		</div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'doctor2_mob')->textInput() ?>
 
-		</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name_of_hospital_2')->textInput(['maxlength' => true]) ?>
+		</div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name_of_hospital_2')->textInput(['maxlength' => true]) ?>
 
-		</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hospital2_phone_no')->textInput() ?>
+		</div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hospital2_phone_no')->textInput() ?>
 
 		</div>        </div>
 

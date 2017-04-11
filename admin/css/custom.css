@@ -223,28 +223,39 @@ table.table tr td:last-child a {
 }
 input[type=checkbox]
 {
-  /* Double-sized Checkboxes */
-/*  -ms-transform: scale(2);  IE 
-  -moz-transform: scale(2);  FF */
-  -webkit-transform: scale(2);  /*Safari and Chrome */
- /* -o-transform: scale(2);  Opera */
-  padding: 10px;
-  width: 15px;
-  height: 12px;
- margin-left: 11px;
-  
+	/* Double-sized Checkboxes */
+	/*  -ms-transform: scale(2);  IE
+	  -moz-transform: scale(2);  FF */
+	-webkit-transform: scale(2);  /*Safari and Chrome */
+	/* -o-transform: scale(2);  Opera */
+	padding: 10px;
+	width: 15px;
+	height: 12px;
+	margin-left: 11px;
+
 }
 
 /* Might want to wrap a span around your checkbox text */
 .checkboxtext
 {
-  /* Checkbox text */
-  font-size: 110%;
-  display: inline;
-  padding-left: 10px;
+	/* Checkbox text */
+	font-size: 110%;
+	display: inline;
+	padding-left: 10px;
 }
 .patient_consent{
-    font-size: 14px;
-    line-height: 2.5;
-    text-align: left;
+	font-size: 14px;
+	line-height: 2.5;
+	text-align: left;
+}
+.view-profile_image{
+
+	height: 102px;
+	overflow: hidden;
+
+}
+.view-profile_image img{
+
+	max-width: 100%;
+	max-height: 100%;
 }

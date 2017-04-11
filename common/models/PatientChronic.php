@@ -48,81 +48,78 @@ use Yii;
  *
  * @property PatientGeneral $patient
  */
-class PatientChronic extends \yii\db\ActiveRecord
-{
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'patient_chronic';
-    }
+class PatientChronic extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['patient_id', 'asthma', 'cardiac', 'emotional_behaviour_disturbance', 'bleeding_disorders', 'urinary_infection', 'vision_contacts', 'convolutions', 'syncope', 'teeth_dentures', 'ear_infection', 'psychiatry', 'Other', 'diabetic', 'hypertension', 'allergy', 'serology', 'psychiatry_disease', 'communicable_disease', 'history_of_surgery', 'doctor1_mob', 'hospital1_phone_no', 'doctor2_mob', 'hospital2_phone_no'], 'integer'],
-            [['othersspecify', 'diabetic_since', 'diabetic_medication', 'hypertension_since', 'hypertension_medication', 'allergy_specify', 'serology_specify', 'others_specify', 'specify_surgery_details'], 'string'],
-            [['name_of_doctor_1', 'name_of_hospital_1', 'name_of_doctor_2', 'name_of_hospital_2'], 'string', 'max' => 100],
-            [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public static function tableName() {
+		return 'patient_chronic';
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'patient_id' => 'Patient ID',
-            'asthma' => 'Asthma',
-            'cardiac' => 'Cardiac',
-            'emotional_behaviour_disturbance' => 'Emotional Behaviour Disturbance',
-            'bleeding_disorders' => 'Bleeding Disorders',
-            'urinary_infection' => 'Urinary Infection',
-            'vision_contacts' => 'Vision Contacts',
-            'convolutions' => 'Convolutions',
-            'syncope' => 'Syncope',
-            'teeth_dentures' => 'Teeth Dentures',
-            'ear_infection' => 'Ear Infection',
-            'psychiatry' => 'Psychiatry',
-            'Other' => 'Other',
-            'othersspecify' => 'Othersspecify',
-            'diabetic' => 'Diabetic',
-            'diabetic_since' => 'Diabetic Since',
-            'diabetic_medication' => 'Diabetic Medication',
-            'hypertension' => 'Hypertension',
-            'hypertension_since' => 'Hypertension Since',
-            'hypertension_medication' => 'Hypertension Medication',
-            'allergy' => 'Allergy',
-            'allergy_specify' => 'Allergy Specify',
-            'serology' => 'Serology',
-            'serology_specify' => 'Serology Specify',
-            'psychiatry_disease' => 'Psychiatry Disease',
-            'communicable_disease' => 'Communicable Disease',
-            'others_specify' => 'Others Specify',
-            'history_of_surgery' => 'History Of Surgery',
-            'specify_surgery_details' => 'Specify Surgery Details',
-            'name_of_doctor_1' => 'Name Of Doctor 1',
-            'doctor1_mob' => 'Doctor1 Mob',
-            'name_of_hospital_1' => 'Name Of Hospital 1',
-            'hospital1_phone_no' => 'Hospital1 Phone No',
-            'name_of_doctor_2' => 'Name Of Doctor 2',
-            'doctor2_mob' => 'Doctor2 Mob',
-            'name_of_hospital_2' => 'Name Of Hospital 2',
-            'hospital2_phone_no' => 'Hospital2 Phone No',
-        ];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function rules() {
+		return [
+			[['patient_id', 'asthma', 'cardiac', 'emotional_behaviour_disturbance', 'bleeding_disorders', 'urinary_infection', 'vision_contacts', 'convolutions', 'syncope', 'teeth_dentures', 'ear_infection', 'psychiatry', 'Other', 'diabetic', 'hypertension', 'allergy', 'serology', 'psychiatry_disease', 'communicable_disease', 'history_of_surgery', 'doctor1_mob', 'hospital1_phone_no', 'doctor2_mob', 'hospital2_phone_no'], 'integer'],
+			[['othersspecify', 'diabetic_since', 'diabetic_medication', 'hypertension_since', 'hypertension_medication', 'allergy_specify', 'serology_specify', 'others_specify', 'specify_surgery_details'], 'string'],
+			[['name_of_doctor_1', 'name_of_hospital_1', 'name_of_doctor_2', 'name_of_hospital_2'], 'string', 'max' => 100],
+			[['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
+		];
+	}
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPatient()
-    {
-        return $this->hasOne(PatientGeneral::className(), ['id' => 'patient_id']);
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels() {
+		return [
+		    'id' => 'ID',
+		    'patient_id' => 'Patient ID',
+		    'asthma' => 'Asthma',
+		    'cardiac' => 'Cardiac',
+		    'emotional_behaviour_disturbance' => 'Emotional Behaviour Disturbance',
+		    'bleeding_disorders' => 'Bleeding Disorders',
+		    'urinary_infection' => 'Urinary Infection',
+		    'vision_contacts' => 'Vision Contacts',
+		    'convolutions' => 'Convolutions',
+		    'syncope' => 'Syncope',
+		    'teeth_dentures' => 'Teeth Dentures',
+		    'ear_infection' => 'Ear Infection',
+		    'psychiatry' => 'Psychiatry',
+		    'Other' => 'Other',
+		    'othersspecify' => 'Othersspecify',
+		    'diabetic' => 'Diabetic',
+		    'diabetic_since' => 'Diabetic Since',
+		    'diabetic_medication' => 'Diabetic Medication',
+		    'hypertension' => 'Hypertension',
+		    'hypertension_since' => 'Hypertension Since',
+		    'hypertension_medication' => 'Hypertension Medication',
+		    'allergy' => 'Allergy',
+		    'allergy_specify' => 'Allergy Specify',
+		    'serology' => 'Serology',
+		    'serology_specify' => 'Serology Specify',
+		    'psychiatry_disease' => 'Psychiatry Disease',
+		    'communicable_disease' => 'Communicable Disease',
+		    'others_specify' => 'Others Specify',
+		    'history_of_surgery' => 'History Of Surgery',
+		    'specify_surgery_details' => 'Specify Surgery Details',
+		    'name_of_doctor_1' => 'Name Of Doctor',
+		    'doctor1_mob' => 'Mobile',
+		    'name_of_hospital_1' => 'Name Of Hospital',
+		    'hospital1_phone_no' => 'Phone No',
+		    'name_of_doctor_2' => 'Name Of Doctor',
+		    'doctor2_mob' => 'Mobile',
+		    'name_of_hospital_2' => 'Name Of Hospital',
+		    'hospital2_phone_no' => 'Phone No',
+		];
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getPatient() {
+		return $this->hasOne(PatientGeneral::className(), ['id' => 'patient_id']);
+	}
+
 }

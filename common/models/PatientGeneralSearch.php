@@ -18,7 +18,7 @@ class PatientGeneralSearch extends PatientGeneral
     public function rules()
     {
         return [
-            [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'age', 'pin_code', 'contact_number', 'patient_old_id', 'patient_current_status', 'dob', 'status', 'CB', 'UB'], 'integer'],
+            [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'age', 'pin_code', 'contact_number',  'status', 'CB', 'UB'], 'integer'],
             [['patient_id', 'first_name', 'last_name', 'blood_group', 'patient_image', 'present_address', 'landmark', 'email', 'DOC', 'DOU'], 'safe'],
         ];
     }
@@ -66,9 +66,8 @@ class PatientGeneralSearch extends PatientGeneral
             'age' => $this->age,
             'pin_code' => $this->pin_code,
             'contact_number' => $this->contact_number,
-            'patient_old_id' => $this->patient_old_id,
-            'patient_current_status' => $this->patient_current_status,
-            'dob' => $this->dob,
+            
+            
             'status' => $this->status,
             'CB' => $this->CB,
             'UB' => $this->UB,

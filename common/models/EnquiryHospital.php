@@ -43,7 +43,7 @@ class EnquiryHospital extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['diabetic', 'feeding', 'urine', 'oxygen', 'visit_type'], 'required'],
+                        [['diabetic', 'feeding', 'urine', 'oxygen'], 'required'],
                         [['visit_date'], 'safe'],
                         [['bedridden'], 'string'],
                         [['hospital_name', 'consultant_doctor', 'department', 'hospital_room_no', 'other_services', 'diabetic', 'diabetic_note', 'hypertension', 'tubes', 'feeding', 'urine', 'oxygen', 'tracheostomy', 'iv_line', 'dressing', 'visit_type', 'visit_note'], 'string', 'max' => 200],

@@ -9,7 +9,6 @@ use Yii;
  *
  * @property integer $id
  * @property integer $branch_id
- * @property integer $benquiry_id
  * @property string $name
  * @property string $phone_number
  * @property string $email
@@ -41,12 +40,12 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                 return [
                         [['name', 'gender', 'phone_number'], 'required'],
                         [['email'], 'email'],
-                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'designation', 'agreement_copy'], 'integer'],
+                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'designation','agreement_copy'], 'integer'],
                         [['follow_up_date', 'DOC', 'DOU'], 'safe'],
                         [['notes'], 'string'],
-                        [['name', 'phone_number', 'email', 'address', 'place', 'enquiry_id', 'agreement_copy_other'], 'string', 'max' => 200],
+                        [['name', 'phone_number', 'email', 'address', 'place','enquiry_id','agreement_copy_other'], 'string', 'max' => 200],
                         [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
-                        [['branch_id'], 'required', 'when' => function ($model) {
+[['branch_id'], 'required', 'when' => function ($model) {
                                 return Yii::$app->user->identity->branch_id == 0;
                         },],
                 ];
@@ -59,17 +58,17 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                 return [
                     'id' => 'ID',
                     'branch_id' => 'Branch',
-                    'enquiry_id' => 'Enquiry Number',
+                    'enquiry_id'=>'Enquiry Number',
                     'name' => 'Name',
                     'gender' => 'Gender',
                     'designation' => 'Designation',
+                    'agreement_copy' => 'Agreement Copy',
+                    'agreement_copy_other' => 'Agreement Copy Other',
                     'place' => 'Place',
                     'phone_number' => 'Phone Number',
                     'email' => 'Email',
                     'address' => 'Address',
                     'follow_up_date' => 'Followup Date',
-                    'agreement_copy' => 'Agreement Copy',
-                    'agreement_copy_other' => 'Agreement Copy Other',
                     'notes' => 'Notes',
                     'status' => 'Status',
                     'proceed' => 'proceed',
