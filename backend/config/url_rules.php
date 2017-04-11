@@ -36,4 +36,5 @@ return [
     'update-staff/<id:\d+>' => 'staff/staff-info/update',
     'update-enquiry/<id:\d+>' => 'enquiry/enquiry/update',
     'update-patient-enquiry/<id:\d+>' => 'patient/patient-enquiry-general-first/update',
+    'update-patient/<id:\d+>' => 'patient/patient-information/update',
 ];

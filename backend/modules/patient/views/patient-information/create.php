@@ -13,100 +13,112 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
-	<div class="col-md-12">
+        <div class="col-md-12">
 
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
-			</div>
+                        </div>
 
-			<?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-			<?=
-			$this->render('_menus', [
-			    'model' => $model,
-			    'followup_id' => $followup_id,
-			])
-			?>
-			<div class="panel-body panel_body_background" >
-				<?php
-				$form = ActiveForm::begin();
-				?>
-				<div class="tab-content tab_data_margin" >
+                        <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                        <?=
+                        $this->render('_menus', [
+                            'model' => $model,
+                            'followup_id' => $followup_id,
+                        ])
+                        ?>
+                        <div class="panel-body panel_body_background" >
+                                <?php
+                                $form = ActiveForm::begin();
+                                ?>
+                                <div class="tab-content tab_data_margin" >
 
-					<div class="tab-pane active" id="home-3">
+                                        <div class="tab-pane active" id="home-3">
 
-						<?=
-						$this->render('_general_information', [
-						    'form' => $form,
-						    'model' => $model,
-						    'patient_general' => $patient_general,
-						])
-						?>
+                                                <?=
+                                                $this->render('_general_information', [
+                                                    'form' => $form,
+                                                    'model' => $model,
+                                                    'patient_general' => $patient_general,
+                                                ])
+                                                ?>
 
-					</div>
-					<div class="tab-pane" id="profile-3">
+                                        </div>
+                                        <div class="tab-pane" id="profile-3">
 
-						<?=
-						$this->render('_chronic_information', [
-						    'form' => $form,
-						    'model' => $chronic_imformation,
-						])
-						?>
+                                                <?=
+                                                $this->render('_chronic_information', [
+                                                    'form' => $form,
+                                                    'model' => $chronic_imformation,
+                                                ])
+                                                ?>
 
-					</div>
-					<div class="tab-pane" id="medication">
+                                        </div>
+                                        <div class="tab-pane" id="medication">
 
-						<?=
-						$this->render('_present_medication', [
-						    'form' => $form,
-						    'model' => $present_medication,
-						    'pationt_medication_details' => $pationt_medication_details,
-						])
-						?>
+                                                <?=
+                                                $this->render('_present_medication', [
+                                                    'form' => $form,
+                                                    'model' => $present_medication,
+                                                    'pationt_medication_details' => $pationt_medication_details,
+                                                ])
+                                                ?>
 
-					</div>
-					<div class="tab-pane" id="condition">
+                                        </div>
+                                        <div class="tab-pane" id="condition">
 
-						<?=
-						$this->render('_present_condition', [
-						    'form' => $form,
-						    'model' => $present_condition,
-						])
-						?>
+                                                <?=
+                                                $this->render('_present_condition', [
+                                                    'form' => $form,
+                                                    'model' => $present_condition,
+                                                ])
+                                                ?>
 
-					</div>
-					<div class="tab-pane" id="bystander">
+                                        </div>
+                                        <div class="tab-pane" id="bystander">
 
-						<?=
-						$this->render('_bystander_details', [
-						    'form' => $form,
-						    'model' => $bystander_details,
-						])
-						?>
+                                                <?=
+                                                $this->render('_bystander_details', [
+                                                    'form' => $form,
+                                                    'model' => $bystander_details,
+                                                ])
+                                                ?>
 
-					</div>
+                                        </div>
+                                        <div class="tab-pane" id="followup">
 
-
-
-
-				</div>
-				<div class='col-md-12 col-sm-6 col-xs-12' >
-					<div class="form-group" >
-						<?= Html::submitButton($patient_general->isNewRecord ? 'Create' : 'Update', ['class' => $staff_enquiry->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
-
-					</div>
-				</div>
-
-
-
-				<?php ActiveForm::end(); ?>
+                                                <?=
+                                                $this->render('_followup_form', [
+                                                    'followup_info' => $followup_info,
+                                                    'form' => $form,
+                                                    'model' => $patient_general,
+                                                    'dataProvider' => $dataProvider,
+                                                    'followup_id' => $followup_id,
+                                                ])
+                                                ?>
+                                        </div>
 
 
 
 
-			</div>
-		</div>
-	</div>
+                                </div>
+                                <div class='col-md-12 col-sm-6 col-xs-12' >
+                                        <div class="form-group" >
+                                                <?= Html::submitButton($patient_general->isNewRecord ? 'Create' : 'Update', ['class' => $staff_enquiry->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
+
+                                        </div>
+                                </div>
+
+
+
+                                <?php ActiveForm::end(); ?>
+
+
+
+
+                        </div>
+                </div>
+        </div>
 </div>
 
