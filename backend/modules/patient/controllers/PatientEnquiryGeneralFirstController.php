@@ -21,7 +21,8 @@ use common\models\EnquiryOtherInfo;
  */
 class PatientEnquiryGeneralFirstController extends Controller {
 
-        public function init() {
+
+ public function init() {
 
                 if (Yii::$app->user->isGuest)
                         $this->redirect(['/site/index']);
@@ -29,6 +30,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 if (Yii::$app->session['post']['enquiry'] != 1)
                         $this->redirect(['/site/home']);
         }
+
 
         /**
          * @inheritdoc
@@ -44,6 +46,8 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 ];
         }
 
+
+
         /**
          * Lists all PatientEnquiryGeneralFirst models.
          * @return mixed
@@ -54,6 +58,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
+
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
@@ -127,6 +132,9 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 ]);
         }
 
+
+
+
         /**
          * Updates an existing PatientEnquiryGeneralFirst model.
          * If update is successful, the browser will be redirected to the 'view' page.
@@ -150,6 +158,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
 
                 if (!empty($patient_info) && !empty($patient_info_second) && !empty($patient_hospital) && !empty($patient_hospital_second)) {
                         if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post())) {
+
                                 $patient_info->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['contacted_date']));
                                 $patient_info->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['outgoing_call_date']));
                                 $followup_info->load(Yii::$app->request->post());
@@ -164,14 +173,13 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                                         $followup_info->status = '0';
                                                         Yii::$app->Followups->addfollowups('1', $patient_info->id, $followup_info);
                                                 }
-
                                                 Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'update');
                                                 Yii::$app->getSession()->setFlash('success', 'Enquiry Updated Successfully');
-
                                                 if (isset($_POST['patinet_info'])) {
+
                                                         return $this->AddPatientInformation($id);
                                                 }
-                                                return $this->redirect(array('index'));
+                                                return $this->redirect('index');
                                         }
                                 }
                         }
@@ -194,7 +202,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
          *  */
 
         public function AddGeneralInfo($patient_info, $data, $patient_info_second) {
-
+                $patient_info->id;
                 $patient_info_second->enquiry_id = $patient_info->id;
                 $patient_info_second->load($data);
                 $patient_info_second->expected_date_of_service = date('Y-m-d', strtotime($data['PatientEnquiryGeneralSecond']['expected_date_of_service']));
@@ -249,7 +257,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
         public function AddPatientInformation($id) {
 
                 $model = PatientEnquiryGeneralFirst::find()->where(['id' => $id])->one();
-
                 if (!empty($model)) {
                         return $this->redirect(['patient-information/create', 'id' => $model->id]);
                 } else {

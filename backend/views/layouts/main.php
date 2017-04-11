@@ -12,8 +12,11 @@ use common\models\EnquiryOtherInfo;
 use common\models\Enquiry;
 use common\models\Followups;
 
+
 AppAsset::register($this);
+
 $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'followup_date' => date('Y-m-d H:i:s')])->all();
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -31,9 +34,8 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                 <script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
                 <script type="text/javascript">
                         var homeUrl = '<?= Yii::$app->homeUrl; ?>';
-                        var basePath = "<?= Yii::$app->basePath; ?>";
+                        //var basePath = "<?= Yii::$app->basePath; ?>";
                 </script>
-
                 <?= Html::csrfMetaTags() ?>
                 <?php $this->head() ?>
         </head>
@@ -103,7 +105,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 
                                                 </ul>
                                         <?php } ?>
-
+                                        
                                         <?php
                                         if (Yii::$app->session['post']['enquiry'] == 1) {
                                                 ?>
@@ -113,7 +115,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                         <li>
                                                                 <a href="dashboard-1.html">
                                                                         <i class="fa-envelope-o"></i>
-                                                                        <span class="title">Patients</span>
+                                                                        <span class="title">Client</span>
                                                                 </a>
                                                                 <ul>
                                                                         <li>
@@ -129,11 +131,9 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                         </li>
 
                                                 </ul>
-
                                         <?php } ?>
-                                        <?php
-                                        if (Yii::$app->session['post']['staffs'] == 1) {
-                                                ?>
+                                        <?php if (Yii::$app->session['post']['staffs'] == 1) { ?>
+
                                                 <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
@@ -144,7 +144,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                                 </a>
                                                                 <ul>
                                                                         <li>
-                                                                                <?= Html::a('Staff Enquiry', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Staff Enquiry ', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
                                                                         </li>
 
                                                                         <li>
@@ -156,8 +156,8 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                         </li>
 
                                                 </ul>
-                                        <?php } ?>
-                                        <?php
+<?php } ?>
+<?php
                                         if (Yii::$app->session['post']['masters'] == 1) {
                                                 ?>
                                                 <ul id="main-menu" class="main-menu">
@@ -190,10 +190,6 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                                         <li>
                                                                                 <?= Html::a('Hospital', ['/masters/hospital/index'], ['class' => 'title']) ?>
                                                                         </li>
-
-                                                                        <li>
-                                                                                <?= Html::a('Followup Types', ['/masters/followup-sub-type/index'], ['class' => 'title']) ?>
-                                                                        </li>
                                                                         <li>
                                                                                 <?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>
                                                                         </li>
@@ -203,7 +199,6 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 
                                                 </ul>
                                         <?php } ?>
-
                                 </div>
 
                         </div>
@@ -239,7 +234,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                                                                 </span>
 
                                                                                                 <span class="line desc small">
-                                                                                                        This ainÃ¢â‚¬â„¢t our first item, it is the best of the rest.
+                                                                                                        This ainÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t our first item, it is the best of the rest.
                                                                                                 </span>
                                                                                         </a>
                                                                                 </li>
@@ -293,7 +288,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                                                                 </span>
 
                                                                                                 <span class="line desc small">
-                                                                                                        This ainÃ¢â‚¬â„¢t our first item, it is the best of the rest.
+                                                                                                        This ainÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t our first item, it is the best of the rest.
                                                                                                 </span>
                                                                                         </a>
                                                                                 </li>
@@ -407,17 +402,13 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 
 
 
-
                                         </ul>
-
-
-
 
 
                                         <!-- Right links for user info navbar -->
                                         <ul class="user-info-menu right-links list-inline list-unstyled">
 
-                                                <a href="<?= Yii::$app->homeUrl; ?>followup/followups" class="btn btn-primary btn-icon" style="margin-top: 20px;float: left;background-color: #0e62c7;"><i class="fa fa-tasks" aria-hidden="true"></i>
+ <a href="<?= Yii::$app->homeUrl; ?>followup/followups" class="btn btn-primary btn-icon" style="margin-top: 20px;float: left;background-color: #0e62c7;"><i class="fa fa-tasks" aria-hidden="true"></i>
                                                         <span> My Tasks</span></a>
                                                 <li class="dropdown user-profile">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

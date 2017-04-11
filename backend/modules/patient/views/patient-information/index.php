@@ -31,11 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'filterModel' => $searchModel,
                                             'columns' => [
                                                     ['class' => 'yii\grid\SerialColumn'],
-                                                'id',
-                                                'enquiry_id',
                                                 'patient_id',
-                                                'branch_id',
-                                                'contact_address',
+                                                'first_name',
+                                                'last_name',
                                                 // 'contact_name',
                                                 // 'contact_gender',
                                                 // 'referral_source',
@@ -58,12 +56,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 // 'patient_current_status',
                                                 // 'follow_up_date',
                                                 // 'notes:ntext',
-                                                // 'status',
+                                                [
+                                                    'attribute' => 'status',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            if ($model->status == '1') {
+                                                                    return 'Active';
+                                                            } elseif ($model->status == '2') {
+                                                                    return 'Closed';
+                                                            } elseif ($model->status == '3') {
+                                                                    return 'Pending';
+                                                            } elseif ($model->status == '4') {
+                                                                    return 'Deseased';
+                                                            }
+                                                    },
+                                                    'filter' => [1 => 'Active', 2 => 'Closed', 3 => 'Pending', 4 => 'Deseased'],
+                                                ],
                                                 // 'CB',
                                                 // 'UB',
                                                 // 'DOC',
                                                 // 'DOU',
-                                                ['class' => 'yii\grid\ActionColumn'],
+                                                ['class' => 'yii\grid\ActionColumn',
+                                                    'template' => '{update}{delete}',
+                                                ],
                                             ],
                                         ]);
                                         ?>

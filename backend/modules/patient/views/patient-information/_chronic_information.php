@@ -176,7 +176,7 @@ use yii\helpers\Html;
 		</div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'others_specify')->textarea(['rows' => 1]) ?>
 
 		</div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-			<?= $form->field($model, 'history_of_surgery')->radioList(array('1' => 'Yes', 2 => 'No')); ?>
+			<?= $form->field($model, 'history_of_surgery')->radioList(array('1' => 'Yes', '2' => 'No')); ?>
 		</div><div class='col-md-9 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'specify_surgery_details')->textarea(['rows' => 1]) ?>
 
 		</div>
