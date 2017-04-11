@@ -7,6 +7,7 @@ use kartik\datetime\DateTimePicker;
 use common\models\AdminUsers;
 use yii\helpers\ArrayHelper;
 use common\models\Followups;
+use common\models\FollowupSubType;
 
 /* @var $this yii\web\View */
 /* @var $followup_info common\models\Followups */
@@ -14,6 +15,13 @@ use common\models\Followups;
 ?>
 
 <div class="followups-form form-inline">
+
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <?php
+                $followup_type = FollowupSubType::find()->where(['type_id' => '4', 'status' => '1'])->all();
+                echo $form->field($followup_info, 'sub_type')->dropDownList(ArrayHelper::map($followup_type, 'id', 'sub_type'), ['prompt' => 'Select', 'class' => 'form-control'])
+                ?>
+        </div>
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
