@@ -42,7 +42,7 @@ class PatientGeneral extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['patient_id','first_name'], 'required'],
+                        [['patient_id', 'first_name'], 'required'],
                         [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'age', 'pin_code', 'contact_number', 'status', 'CB', 'UB'], 'integer'],
                         [['present_address'], 'string'],
                         [['DOC', 'DOU'], 'safe'],
@@ -80,6 +80,10 @@ class PatientGeneral extends \yii\db\ActiveRecord {
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
                 ];
+        }
+
+        public function getPatientGuardianInfo() {
+                return $this->hasOne(PatientGuardianDetails::className(), ['patient_id' => 'id']);
         }
 
 }

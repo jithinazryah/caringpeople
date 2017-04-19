@@ -1,6 +1,7 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $content string */
+
 use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -13,11 +14,10 @@ use common\models\Followups;
 use common\models\AdminUsers;
 use yii\helpers\ArrayHelper;
 
-
 AppAsset::register($this);
 
-$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'followup_date' => date('Y-m-d')])->all();
-
+//$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'followup_date' => date('Y-m-d')])->all();
+$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['like', 'followup_date.first_name', date('Y-m-d')])->all();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -106,7 +106,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 
                                                 </ul>
                                         <?php } ?>
-                                        
+
                                         <?php
                                         if (Yii::$app->session['post']['enquiry'] == 1) {
                                                 ?>
@@ -157,8 +157,8 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                         </li>
 
                                                 </ul>
-<?php } ?>
-<?php
+                                        <?php } ?>
+                                        <?php
                                         if (Yii::$app->session['post']['masters'] == 1) {
                                                 ?>
                                                 <ul id="main-menu" class="main-menu">
@@ -427,7 +427,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                         <!-- Right links for user info navbar -->
                                         <ul class="user-info-menu right-links list-inline list-unstyled">
 
- 
+
                                                 <li class="dropdown user-profile">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                                 <img src="<?= Yii::$app->homeUrl; ?>images/themes/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
@@ -697,22 +697,22 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                 <!-- Page Loading Overlay -->
                 <div class="page-loading-overlay">
                         <div class="loader-2"></div>
-                        </div>
+                </div>
 
-                        <?php $this->endBody() ?>
-                        <script type="text/javascript">
-                                jQuery(document).ready(function ($)
-                                {
-                                        if ($(window).width() < 900) {
-                                                $("#side-menuss").removeClass("collapsed");
-                                        } else {
+                <?php $this->endBody() ?>
+                <script type="text/javascript">
+                        jQuery(document).ready(function ($)
+                        {
+                                if ($(window).width() < 900) {
+                                        $("#side-menuss").removeClass("collapsed");
+                                } else {
 
-                                                //   $("#side-menuss").addClass('collapsed');
-                                        }
-                                        ;
+                                        //   $("#side-menuss").addClass('collapsed');
+                                }
+                                ;
 
-                                });
-                        </script>
+                        });
+                </script>
         </body>
 
 </html>

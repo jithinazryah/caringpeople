@@ -18,11 +18,15 @@ class PatientEnquiryGeneralFirstSearch extends PatientEnquiryGeneralFirst {
         public $email;
         public $required_service;
         public $patient_name;
+        public $city;
+        public $patient_gender;
+        public $patient_age;
+        public $patient_city;
 
         public function rules() {
                 return [
                         [['id', 'contacted_source', 'caller_gender', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-                        [['enquiry_number', 'email', 'required_service', 'patient_name', 'contacted_date', 'incoming_missed', 'outgoing_number_from', 'outgoing_number_from_other', 'outgoing_call_date', 'caller_name', 'referral_source', 'referral_source_others', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'DOC', 'DOU'], 'safe'],
+                        [['enquiry_number', 'email', 'required_service', 'city', 'patient_name', 'patient_gender', 'patient_age', 'patient_city', 'contacted_date', 'incoming_missed', 'outgoing_number_from', 'outgoing_number_from_other', 'outgoing_call_date', 'caller_name', 'referral_source', 'referral_source_others', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'DOC', 'DOU'], 'safe'],
                 ];
         }
 
@@ -94,8 +98,16 @@ class PatientEnquiryGeneralFirstSearch extends PatientEnquiryGeneralFirst {
                         ->andFilterWhere(['like', 'patient_enquiry_general_second.email', $this->email])
                         ->andFilterWhere(['like', 'patient_enquiry_general_second.required_service', $this->required_service])
                         ->andFilterWhere(['like', 'patient_enquiry_hospital_first.required_person_name', $this->patient_name])
+                        ->andFilterWhere(['like', 'patient_enquiry_general_second.city', $this->city])
+                        ->andFilterWhere(['like', 'patient_enquiry_hospital_first.patient_gender', $this->patient_gender])
+                        ->andFilterWhere(['like', 'patient_enquiry_hospital_first.patient_age', $this->patient_age])
+                        ->andFilterWhere(['like', 'patient_enquiry_hospital_first.person_city', $this->patient_city])
+                        ->andFilterWhere(['>=', 'contacted_date', $params['PatientEnquiryGeneralFirst']['contactedFrom']])
+                        ->andFilterWhere(['<=', 'contacted_date', $params['PatientEnquiryGeneralFirst']['contactedTo']])
+                        ->andFilterWhere(['>=', 'outgoing_call_date', $params['PatientEnquiryGeneralFirst']['outgoingFrom']])
+                        ->andFilterWhere(['<=', 'outgoing_call_date', $params['PatientEnquiryGeneralFirst']['outgoingTo']])
                         ->andFilterWhere(['like', 'mobile_number_3', $this->mobile_number_3]);
-                        
+
 
                 return $dataProvider;
         }

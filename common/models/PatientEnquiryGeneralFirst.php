@@ -99,37 +99,36 @@ class PatientEnquiryGeneralFirst extends \yii\db\ActiveRecord {
                 $required_services = explode(',', $patient_details->required_service);
                 $services = '';
                 $i = 0;
-if(!empty($required_services)){
-                foreach ($required_services as $service) {
+                if (!empty($required_services)) {
+                        foreach ($required_services as $service) {
 
-                        if ($i != 0) {
-                                $services .= ',';
+                                if ($i != 0) {
+                                        $services .= ',';
+                                }
+                                if ($service == '1') {
+                                        $services .= 'DV';
+                                } else if ($service == '2') {
+                                        $services .= 'Nursing Care';
+                                } else if ($service == '3') {
+                                        $services .= 'Physiotherapy';
+                                } else if ($service == '5') {
+                                        $services .= 'Caregiver';
+                                } else if ($service == '4') {
+                                        $services .= 'Helath Checkup';
+                                } else if ($service == '6') {
+                                        $services .= 'Lab';
+                                } else if ($service == '7') {
+                                        $services .= 'Equipment';
+                                } else if ($service == '8') {
+                                        $services .= 'Other';
+                                } else if ($service == '9') {
+                                        $services .= 'General Enquiry';
+                                } else if ($service == '10') {
+                                        $services .= 'Wrong Number';
+                                }
+                                $i++;
                         }
-                        if ($service == '1') {
-                                $services .= 'DV';
-                        } else if ($service == '2') {
-                                $services .= 'Nursing Care';
-                        } else if ($service == '3') {
-                                $services .= 'Physiotherapy';
-                        } else if ($service == '5') {
-                                $services .= 'Caregiver';
-                        } else if ($service == '4') {
-                                $services .= 'Helath Checkup';
-                        } else if ($service == '6') {
-                                $services .= 'Lab';
-                        } else if ($service == '7') {
-                                $services .= 'Equipment';
-                        } else if ($service == '8') {
-                                $services .= 'Other';
-                        } else if ($service == '9') {
-                                $services .= 'General Enquiry';
-                        } else if ($service == '10') {
-                                $services .= 'Wrong Number';
-                        }
-                        $i++;
                 }
-
-}
 
                 return $services;
         }

@@ -10,80 +10,75 @@ use yii\widgets\ActiveForm;
 
 <div class="patient-information-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+        <?php
+        $form = ActiveForm::begin([
+                    'action' => ['index'],
+                    'method' => 'get',
+        ]);
+        ?>
+        <div class="row patient-advanced-search-form">
+                <div class="col-md-12">
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'patient_id') ?>
+                        </div>
 
-    <?= $form->field($model, 'id') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'first_name') ?>
+                        </div>
 
-    <?= $form->field($model, 'enquiry_id') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+                        </div>
 
-    <?= $form->field($model, 'patient_id') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'age') ?>
+                        </div>
 
-    <?= $form->field($model, 'branch_id') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'blood_group') ?>
+                        </div>
 
-    <?= $form->field($model, 'contact_address') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'landmark') ?>
+                        </div>
 
-    <?php // echo $form->field($model, 'contact_name') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'contact_number') ?>
+                        </div>
 
-    <?php // echo $form->field($model, 'contact_gender') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'email') ?>
+                        </div>
 
-    <?php // echo $form->field($model, 'referral_source') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'guardian_name') ?>
+                        </div>
 
-    <?php // echo $form->field($model, 'contact_mobile_number_1') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'guardian_id_or_passport_no') ?>
+                        </div>
 
-    <?php // echo $form->field($model, 'contact_mobile_number_2') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'guardian_landmark') ?>
+                        </div>
 
-    <?php // echo $form->field($model, 'contact_mobile_number_3') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'guardian_contact_no') ?>
+                        </div>
 
-    <?php // echo $form->field($model, 'contact_city') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'guardian_email') ?>
+                        </div>
 
-    <?php // echo $form->field($model, 'contact_zip_or_pc') ?>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group">
+                                        <?= Html::submitButton('Search', ['class' => 'btn btn-primary', 'style' => 'margin-top:20px']) ?>
+                                        <?= Html::resetButton('Reset', ['class' => 'btn btn-default', 'style' => 'margin-top:20px']) ?>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <?php ActiveForm::end(); ?>
 
-    <?php // echo $form->field($model, 'contact_email') ?>
-
-    <?php // echo $form->field($model, 'contact_perosn_relationship') ?>
-
-    <?php // echo $form->field($model, 'patient_name') ?>
-
-    <?php // echo $form->field($model, 'patient_gender') ?>
-
-    <?php // echo $form->field($model, 'patient_age') ?>
-
-    <?php // echo $form->field($model, 'patient_weight') ?>
-
-    <?php // echo $form->field($model, 'other_relationships') ?>
-
-    <?php // echo $form->field($model, 'veteran_or_spouse') ?>
-
-    <?php // echo $form->field($model, 'patient_address') ?>
-
-    <?php // echo $form->field($model, 'patient_city') ?>
-
-    <?php // echo $form->field($model, 'patient_postal_code') ?>
-
-    <?php // echo $form->field($model, 'patient_current_status') ?>
-
-    <?php // echo $form->field($model, 'follow_up_date') ?>
-
-    <?php // echo $form->field($model, 'notes') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'CB') ?>
-
-    <?php // echo $form->field($model, 'UB') ?>
-
-    <?php // echo $form->field($model, 'DOC') ?>
-
-    <?php // echo $form->field($model, 'DOU') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>

@@ -145,7 +145,7 @@ use common\models\AdminUsers;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-sub_type">
                                                                 <label class="control-label" for="followups-sub_type">Sub Type</label>
-                                                                <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'prompt' => '--Select--']); ?>
+                                                                <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'prompt' => '--Select--', 'required' => "required"]); ?>
                                                         </div>
                                                 </div>
 
@@ -163,7 +163,7 @@ use common\models\AdminUsers;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-assigned_to">
                                                                 <label class="control-label" for="followups-assigned_to">Assigned To</label>
-                                                                <?= Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
+                                                                <?= Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]); ?>
                                                         </div>
                                                 </div>
 

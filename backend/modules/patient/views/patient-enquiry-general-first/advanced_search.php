@@ -101,10 +101,50 @@ use yii\db\Expression;
                         </div>
 
                         <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'mobile_number')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'required_service')->dropDownList(['' => '--Select', '1' => 'Doctor Visit', '2' => 'Nursing Care', '3' => 'Physiotherapy', '4' => 'Helath Checkup', '5' => 'Caregiver', '6' => 'Lab', '7' => 'Equipment', '8' => 'Other', '9' => 'General Enquiry', '10' => 'Wrong Number ']) ?>
+
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'patient_name')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'patient_gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'patient_age')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'patient_city')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group">
                                         <?= Html::submitButton('Search', ['class' => 'btn btn-primary', 'style' => 'margin-top:16px;']) ?>
                                 </div>
                         </div>
+
+
 
 
                 </div>
