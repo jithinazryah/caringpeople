@@ -164,14 +164,15 @@ $("document").ready(function () {
 // $('.followup_type').on('change', function () {
         $(document).on('change', '.followup_type', function () {
                 var type = $(this).val();
+                var id_rand = $(this).attr('id');
                 $.ajax({
                         type: 'POST',
                         cache: false,
                         data: {type: type},
                         url: homeUrl + 'followupajax/subtype',
                         success: function (data) {
-
-                                $(".followup_subtype").html(data);
+                                $('#sub_' + id_rand).html(data);
+                                //  $('#' + id_rand).html(data);
                                 hideLoader();
                         }
                 });

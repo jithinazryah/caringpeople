@@ -126,6 +126,7 @@ use common\models\AdminUsers;
                                         <?php
                                         $followup_type = FollowupType::find()->all();
                                         $followup_subtype = FollowupSubType::find()->where(['type_id' => $type, 'status' => '1'])->all();
+                                        $rand = rand();
                                         ?>
                                         <span>
                                                 <input type="hidden" name="create[type][]" value="<?= $type; ?>" id="type">
@@ -135,7 +136,7 @@ use common\models\AdminUsers;
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-sub_type">
                                                                         <label class="control-label" for="followups-sub_type">Type</label>
-                                                                        <?= Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--', 'required' => "required"]); ?>
+                                                                        <?= Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'id' => $rand, 'prompt' => '--Select--', 'required' => "required"]); ?>
                                                                 </div>
                                                         </div>
                                                 <?php }
@@ -145,7 +146,7 @@ use common\models\AdminUsers;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-sub_type">
                                                                 <label class="control-label" for="followups-sub_type">Sub Type</label>
-                                                                <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'prompt' => '--Select--', 'required' => "required"]); ?>
+                                                                <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--', 'required' => "required"]); ?>
                                                         </div>
                                                 </div>
 
