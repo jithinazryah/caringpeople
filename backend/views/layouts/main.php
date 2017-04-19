@@ -745,7 +745,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                         <div class="form-group">
                                                                 <label for="field-2" class="control-label ">Followup Date</label>
 
-                                                                <input type="datetime-local" class="form-control some_class" id="field-2" data-mask="datetime">
+                                                                <input type="datetime-local" class="form-control some_class" id="field-2" data-mask="datetime" required="required">
                                                         </div>
 
                                                 </div>

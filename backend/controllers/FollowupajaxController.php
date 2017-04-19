@@ -58,7 +58,7 @@ class FollowupajaxController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
 
                         $followup_type = FollowupType::find()->all();
-                        $type = Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--',]);
+                        $type = Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--', 'required' => "required"]);
 
                         $followup_subtype = FollowupSubType::find()->where(['type_id' => $_POST['type'], 'status' => '1'])->all();
 

@@ -135,7 +135,7 @@ use common\models\AdminUsers;
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-sub_type">
                                                                         <label class="control-label" for="followups-sub_type">Type</label>
-                                                                        <?= Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--']); ?>
+                                                                        <?= Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--', 'required' => "required"]); ?>
                                                                 </div>
                                                         </div>
                                                 <?php }
@@ -153,7 +153,7 @@ use common\models\AdminUsers;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-followup_date">
                                                                 <label class="control-label" for="followups-followup_date">Followup Date</label>
-                                                                <input type="datetime-local" class="form-control some_class" name="create[followup_date][]" data-mask="datetime">
+                                                                <input type="datetime-local" class="form-control some_class" name="create[followup_date][]" data-mask="datetime" required="required">
 
                                                         </div>
                                                 </div>
