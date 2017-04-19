@@ -12,7 +12,7 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use frontend\models\ContactForm;
+use common\models\ContactUs;
 
 /**
  * Site controller
@@ -107,24 +107,153 @@ class SiteController extends Controller {
 
     /**
      * Displays contact page.
+     * Accept contact message from user and send mail to administrator
      *
      * @return mixed
      */
     public function actionContact() {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
+        if (isset($_POST['contact-send'])) {
+            $model = new ContactUs();
+            $model->first_name = $fname = $_POST['first-name'];
+            $model->last_name = $lname = $_POST['last-name'];
+            $model->email = $email = $_POST['email'];
+            $model->phone = $phone = $_POST['phone'];
+            $model->message = $message = $_POST['message'];
+            $model->date = date('Y-m-d');
+            if ($model->save()) {
+                $this->sendContactMail($model);
+                $this->sendResponseMail($model);
             }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                        'model' => $model,
-            ]);
         }
+        return $this->render('contact');
+    }
+
+    /**
+     * Accept messages from contact page in footer.
+     * send mail to the administrator
+     *
+     * @return mixed
+     */
+    public function actionContactform() {
+        if (isset($_POST['contact-sends'])) {
+
+            $model = new ContactUs();
+            $model->first_name = $fname = $_POST['first-name'];
+            $model->email = $email = $_POST['email'];
+            $model->message = $message = $_POST['message'];
+            $model->date = date('Y-m-d');
+            if ($model->save()) {
+                $this->sendContactMail($model);
+                $this->sendResponseMail($model);
+            }
+        }
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionContacts() {
+        if (isset($_POST['contact-send'])) {
+            $model = new ContactUs();
+            $model->first_name = $fname = $_POST['first-name'];
+            $model->email = $email = $_POST['email'];
+            $model->phone = $email = $_POST['phone'];
+            $model->message = $message = $_POST['message'];
+            $model->location = $message = $_POST['Location'];
+            $model->date = date('Y-m-d');
+            if ($model->save()) {
+                $this->sendContactMail($model);
+                $this->sendResponseMail($model);
+            }
+        }
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
+     * Response Mail function
+     *
+     * @return mixed
+     */
+    public function sendResponseMail($model) {
+        $to = $model->email;
+        $subject = 'Welcome to Caringpeople';
+        $msg = 'Thanks for your valuable comment .';
+        $headers = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
+                "From: 'info@caringpeople.in";
+        mail($to, $subject, $msg, $headers);
+        return TRUE;
+    }
+
+    /**
+     * Mail function
+     * Send  contact messages from user to the administrator
+     *
+     * @return mixed
+     */
+    public function sendContactMail($model) {
+
+        $to = 'info@caringpeople.in';
+//        $to = 'manu@azryah.com';
+
+// subject
+        $subject = 'Enquiry From Website';
+
+// message
+        $message = "
+<html>
+<head>
+
+</head>
+<body>
+<p><b>Enquiry Received From Website</b></p>
+<table>
+<tr>
+<th>Firstname</th>
+<th>:-</th>
+
+<td>" . $model->first_name . "</td>
+    </tr>
+
+    <tr>
+<tr>
+<th>Lastname</th>
+<th>:-</th>
+
+<td>" . $model->last_name . "</td>
+    </tr>
+
+    <tr>
+
+<th>Email</th>
+<th>:-</th>
+<td>" . $model->email . "</td>
+         </tr>
+    <tr>
+
+<th>Phone Number</th>
+<th>:-</th>
+<td>" . $model->phone . "</td>
+         </tr>
+                 <tr>
+
+<th>Message</th>
+<th>:-</th>
+<td>" . $model->message . "</td>
+
+</tr>
+<tr>
+
+
+</table>
+</body>
+</html>
+";
+
+// To send HTML mail, the Content-type header must be set
+        $headers = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
+                "From: 'info@caringpeople.in/";
+        mail($to, $subject, $message, $headers);
+        return true;
     }
 
     /**
@@ -161,17 +290,6 @@ class SiteController extends Controller {
      */
     public function actionGallery() {
         return $this->render('gallery');
-    }
-
-    /**
-     * Displays services page.
-     *
-     * @return mixed
-     */
-    public function actionServices($service) {
-        return $this->render('services', [
-                    'service' => $service,
-        ]);
     }
 
     /**

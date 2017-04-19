@@ -1,71 +1,7 @@
 <?php
-if (isset($_POST['submit'])) {
-    $to = "vishal@azryah.com";
-    $subject = "Enquiry From Website";
 
-    $message = "
-<html>
-<head>
-
-</head>
-<body>
-<p><b>Enquiry Received From Website</b></p>
-<table>
-<tr>
-<th>Firstname</th>
-<th>:-</th>
-
-<td>" . $_POST['first-name'] . "</td>
-    </tr>
-
-    <tr>
-<tr>
-<th>Lastname</th>
-<th>:-</th>
-
-<td>" . $_POST['last-name'] . "</td>
-    </tr>
-
-    <tr>
-
-<th>Email</th>
-<th>:-</th>
-<td>" . $_POST['email'] . "</td>
-         </tr>
-    <tr>
-
-<th>Phone Number</th>
-<th>:-</th>
-<td>" . $_POST['phone'] . "</td>
-         </tr>
-                 <tr>
-
-<th>Message</th>
-<th>:-</th>
-<td>" . $_POST['message'] . "</td>
-
-</tr>
-<tr>
-
-
-</table>
-</body>
-</html>
-";
-//    exit();
-// Always set content-type when sending HTML email
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-
-// More headers
-    $headers .= 'From: <no-reply@comtrusttiles.com/>' . "\r\n";
-    //$headers .= 'Cc: myboss@example.com' . "\r\n";
-
-    mail($to, $subject, $message, $headers);
-}
+use yii\helpers\Html;
 ?>
-
-
 <div class="mkdf-full-width location-map">
     <div class="mkdf-full-width-inner">
         <div class="vc_row wpb_row vc_row-fluid mkdf-section vc_custom_1455028506356 mkdf-content-aligment-left" style="">
@@ -90,7 +26,7 @@ if (isset($_POST['submit'])) {
                                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241316.28261616433!2d72.74111683395239!3d19.082769887427222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C+Maharashtra!5e0!3m2!1sen!2sin!4v1491203047412" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
                                         <div class="mkdf-google-map-overlay"></div>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>
@@ -159,7 +95,7 @@ if (isset($_POST['submit'])) {
                                 <div class="vc_column-inner ">
                                     <div class="wpb_wrapper">
 
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div data-original-height="22" class="vc_empty_space" style="height: 22px"><span class="vc_empty_space_inner"></span></div>
                                             <div class="wpb_text_column wpb_content_element ">
                                                 <div class="wpb_wrapper">
@@ -200,7 +136,7 @@ if (isset($_POST['submit'])) {
                                         </div>
 
 
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div data-original-height="22" class="vc_empty_space" style="height: 22px"><span class="vc_empty_space_inner"></span></div>
                                             <div class="wpb_text_column wpb_content_element ">
                                                 <div class="wpb_wrapper">
@@ -252,51 +188,43 @@ if (isset($_POST['submit'])) {
                                             </div>
                                         </div>
                                         <div data-original-height="35" class="vc_empty_space" style="height: 35px"><span class="vc_empty_space_inner"></span></div>
-                                        <div role="form" class="wpcf7" id="wpcf7-f3016-p777-o1" lang="en-US" dir="ltr">
-                                            <div class="screen-reader-response"></div>
-                                            <form action="contact.php" method="post" class="wpcf7-form cf7_custom_style_3">
-                                                <div style="display: none;">
-                                                    <input type="hidden" name="_wpcf7" value="3016" />
-                                                    <input type="hidden" name="_wpcf7_version" value="4.3.1" />
-                                                    <input type="hidden" name="_wpcf7_locale" value="en_US" />
-                                                    <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f3016-p777-o1" />
-                                                    <input type="hidden" name="_wpnonce" value="0e5a515c3d" />
-                                                </div>
-                                                <div class="mkdf-two-columns-50-50">
-                                                    <div class="mkdf-two-columns-50-50-inner">
-                                                        <div class="mkdf-column">
-                                                            <div class="mkdf-column-inner">
-                                                                <span class="wpcf7-form-control-wrap first-name"><input type="text" name="first-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="First name*" /></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mkdf-column">
-                                                            <div class="mkdf-column-inner">
-                                                                <span class="wpcf7-form-control-wrap last-name"><input type="text" name="last-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Last name*" /></span>
-                                                            </div>
-                                                        </div>
+                                        <!--<div role="form" class="wpcf7" id="wpcf7-f3016-p777-o1" lang="en-US" dir="ltr">-->
+                                        <div class="screen-reader-response"></div>
+                                        <?= Html::beginForm(['site/contact'], 'post') ?>
+                                        <div class="mkdf-two-columns-50-50">
+                                            <div class="mkdf-two-columns-50-50-inner">
+                                                <div class="mkdf-column">
+                                                    <div class="mkdf-column-inner">
+                                                        <span class="wpcf7-form-control-wrap first-name"><input type="text" name="first-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="First name*" required /></span>
                                                     </div>
                                                 </div>
-                                                <div class="mkdf-two-columns-50-50">
-                                                    <div class="mkdf-two-columns-50-50-inner">
-                                                        <div class="mkdf-column">
-                                                            <div class="mkdf-column-inner">
-                                                                <span class="wpcf7-form-control-wrap your-email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email*" /></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mkdf-column">
-                                                            <div class="mkdf-column-inner">
-                                                                <span class="wpcf7-form-control-wrap your-phone"><input type="text" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Phone" /></span>
-                                                            </div>
-                                                        </div>
+                                                <div class="mkdf-column">
+                                                    <div class="mkdf-column-inner">
+                                                        <span class="wpcf7-form-control-wrap last-name"><input type="text" name="last-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Last name*" required /></span>
                                                     </div>
                                                 </div>
-                                                <div><span class="wpcf7-form-control-wrap your-message"><textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Type your message..."></textarea></span></div>
-                                                <div>
-                                                    <input type="submit" value="Submit" class="wpcf7-form-control wpcf7-submit" />
-                                                </div>
-                                                <!--<div class="wpcf7-response-output wpcf7-display-none"></div>-->
-                                            </form>
+                                            </div>
                                         </div>
+                                        <div class="mkdf-two-columns-50-50">
+                                            <div class="mkdf-two-columns-50-50-inner">
+                                                <div class="mkdf-column">
+                                                    <div class="mkdf-column-inner">
+                                                        <span class="wpcf7-form-control-wrap your-email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email*" required /></span>
+                                                    </div>
+                                                </div>
+                                                <div class="mkdf-column">
+                                                    <div class="mkdf-column-inner">
+                                                        <span class="wpcf7-form-control-wrap your-phone"><input type="text" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Phone" required /></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       <div><span class="wpcf7-form-control-wrap your-message"><textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Type your message..." required></textarea></span></div>
+                                       <div>
+                                          <?= Html::submitButton('<span>Submit</span>', ['class' => 'wpcf7-form-control wpcf7-submit contact-subtn', 'name' => 'contact-send']) ?> 
+                                       </div>
+                                        <?= Html::endForm() ?>
+                                        <!--</div>-->
                                     </div>
                                 </div>
                             </div>
@@ -308,3 +236,4 @@ if (isset($_POST['submit'])) {
     </div>
     <!-- close div.content_inner -->
 </div>
+

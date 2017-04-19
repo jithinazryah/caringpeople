@@ -1,3 +1,4 @@
+
 <div class="mkdf-content">
     <div class="mkdf-content-inner">
         <div class="mkdf-full-width">
@@ -19,13 +20,13 @@
                                                         <div class="tp-caption Default-Title-1 tp-layer-selectable  tp-resizeme" id="slide-115-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-90','-85','-150','-144']" data-fontsize="['75','73','75','55']" data-lineheight="['80','80','80','65']" data-width="['none','none','606','457']" data-height="['none','none','161','131']" data-whitespace="['nowrap','nowrap','normal','normal']" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:800;" data-start="800" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4900" style="z-index: 5; white-space: nowrap;text-align:center;">Nurturing Body and Mind.
                                                         </div>
 
-                                                        <!--                                                        <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" id="slide-115-layer-6" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','5','0','0']" data-fontsize="['22','22','22','20']" data-lineheight="['36','36','36','33']" data-width="['980','980','626','407']" data-height="none" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4800" style="z-index: 6; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
-                                                                                                                </div>-->
+<!--                                                        <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" id="slide-115-layer-6" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','5','0','0']" data-fontsize="['22','22','22','20']" data-lineheight="['36','36','36','33']" data-width="['980','980','626','407']" data-height="none" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4800" style="z-index: 6; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
+                                                        </div>-->
 
-                                                        <!--                                                                        <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme"
-                                                                                                                                         id="slide-115-layer-4"
-                                                                                                                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                                                                                                                         data-y="['middle','middle','middle','middle']" data-voffset="['110','115','110','130']"
+                                                        <!--                                                                        <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme" 
+                                                                                                                                         id="slide-115-layer-4" 
+                                                                                                                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                                                                                         data-y="['middle','middle','middle','middle']" data-voffset="['110','115','110','130']" 
                                                                                                                                          data-width="none"
                                                                                                                                          data-height="none"
                                                                                                                                          data-whitespace="nowrap"
@@ -33,36 +34,36 @@
                                                                                                                                          data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:200;e:Linear.easeNone;"
                                                                                                                                          data-style_hover="c:rgba(79, 191, 112, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);"
 
-                                                                                                                                         data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;"
-                                                                                                                                         data-transform_out="auto:auto;s:600;"
-                                                                                                                                         data-start="1200"
-                                                                                                                                         data-splitin="none"
-                                                                                                                                         data-splitout="none"
+                                                                                                                                         data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" 
+                                                                                                                                         data-transform_out="auto:auto;s:600;" 
+                                                                                                                                         data-start="1200" 
+                                                                                                                                         data-splitin="none" 
+                                                                                                                                         data-splitout="none" 
                                                                                                                                          data-actions='[{"event":"click","action":"simplelink","target":"_blank","url":"http:\/\/themeforest.net\/item\/wellspring-a-health-lifestyle-fitness-theme\/14994151"}]'
-                                                                                                                                         data-responsive_offset="on"
+                                                                                                                                         data-responsive_offset="on" 
 
-                                                                                                                                         data-end="4700"
+                                                                                                                                         data-end="4700" 
 
-                                                                                                                                         style="z-index: 7; white-space: nowrap;padding:19px 48px 19px 48px;border-width:0px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">Purchase
+                                                                                                                                         style="z-index: 7; white-space: nowrap;padding:19px 48px 19px 48px;border-width:0px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">Purchase 
                                                                                                                                     </div>-->
                                                     </li>
                                                     <li data-index="rs-122" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="http://wellspring.mikado-themes.com/wp-content/uploads/2016/02/home-1-slide-1-100x50.jpg" data-delay="5000" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
                                                         <img src="<?= Yii::$app->homeUrl; ?>images/banner/3.png" alt="q" width="1920" height="1100" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
 
                                                         <div class="tp-caption tp-layer-selectable  tp-resizeme" id="slide-122-layer-5" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-160','-155','-210','-190']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1500;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="800" data-responsive_offset="on" data-end="4990" style="z-index: 5;">
-                                                            <!--<img src="<images/f-logo.png" alt="q" width="103" height="103" data-ww="['103px','103px','103px','92px']" data-hh="['103px','103px','103px','92px']" data-no-retina> -->
+                                                            <!--<img src="<?= Yii::$app->homeUrl; ?><images/f-logo.png" alt="q" width="103" height="103" data-ww="['103px','103px','103px','92px']" data-hh="['103px','103px','103px','92px']" data-no-retina> -->
                                                         </div>
 
                                                         <div class="tp-caption Default-Title-1 tp-layer-selectable  tp-resizeme" id="slide-122-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-40','-30','-50','-55']" data-fontsize="['75','73','75','55']" data-lineheight="['80','80','80','65']" data-width="['none','none','626','479']" data-height="none" data-whitespace="['nowrap','nowrap','normal','normal']" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:800;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4900" style="z-index: 6; white-space: nowrap;text-align:center;">Keeping Your Body at its Best.
                                                         </div>
 
-                                                        <!--                                                        <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" id="slide-122-layer-6" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['55','65','105','85']" data-fontsize="['22','22','22','20']" data-lineheight="['36','36','36','33']" data-width="['980','980','626','407']" data-height="none" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="1200" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4800" style="z-index: 7; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
-                                                                                                                </div>-->
+<!--                                                        <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" id="slide-122-layer-6" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['55','65','105','85']" data-fontsize="['22','22','22','20']" data-lineheight="['36','36','36','33']" data-width="['980','980','626','407']" data-height="none" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="1200" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4800" style="z-index: 7; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
+                                                        </div>-->
 
-                                                        <!--                                                                        <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme"
-                                                                                                                                         id="slide-122-layer-4"
-                                                                                                                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                                                                                                                         data-y="['middle','middle','middle','middle']" data-voffset="['160','170','220','220']"
+                                                        <!--                                                                        <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme" 
+                                                                                                                                         id="slide-122-layer-4" 
+                                                                                                                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                                                                                         data-y="['middle','middle','middle','middle']" data-voffset="['160','170','220','220']" 
                                                                                                                                          data-width="none"
                                                                                                                                          data-height="none"
                                                                                                                                          data-whitespace="nowrap"
@@ -70,36 +71,36 @@
                                                                                                                                          data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:200;e:Linear.easeNone;"
                                                                                                                                          data-style_hover="c:rgba(79, 191, 112, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);"
 
-                                                                                                                                         data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;"
-                                                                                                                                         data-transform_out="auto:auto;s:600;"
-                                                                                                                                         data-start="1400"
-                                                                                                                                         data-splitin="none"
-                                                                                                                                         data-splitout="none"
+                                                                                                                                         data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" 
+                                                                                                                                         data-transform_out="auto:auto;s:600;" 
+                                                                                                                                         data-start="1400" 
+                                                                                                                                         data-splitin="none" 
+                                                                                                                                         data-splitout="none" 
                                                                                                                                          data-actions='[{"event":"click","action":"simplelink","target":"_blank","url":"http:\/\/themeforest.net\/item\/wellspring-a-health-lifestyle-fitness-theme\/14994151"}]'
-                                                                                                                                         data-responsive_offset="on"
+                                                                                                                                         data-responsive_offset="on" 
 
-                                                                                                                                         data-end="4700"
+                                                                                                                                         data-end="4700" 
 
-                                                                                                                                         style="z-index: 8; white-space: nowrap;padding:19px 48px 19px 48px;border-width:0px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">Purchase
+                                                                                                                                         style="z-index: 8; white-space: nowrap;padding:19px 48px 19px 48px;border-width:0px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">Purchase 
                                                                                                                                     </div>-->
                                                     </li>
                                                     <li data-index="rs-124" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="http://wellspring.mikado-themes.com/wp-content/uploads/2016/02/home-1-slide-6-100x50.jpg" data-delay="5000" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
                                                         <img src="<?= Yii::$app->homeUrl; ?>images/banner/2.png" alt="q" width="1920" height="1000" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
 
                                                         <div class="tp-caption tp-layer-selectable  tp-resizeme" id="slide-124-layer-5" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-160','-155','-210','-190']" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1500;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="800" data-responsive_offset="on" data-end="4990" style="z-index: 5;">
-                                                            <!--<img src="images/f-logo.png" alt="q" width="103" height="103" data-ww="['103px','103px','103px','92px']" data-hh="['103px','103px','103px','92px']" data-no-retina> -->
+                                                            <!--<img src="<?= Yii::$app->homeUrl; ?>images/f-logo.png" alt="q" width="103" height="103" data-ww="['103px','103px','103px','92px']" data-hh="['103px','103px','103px','92px']" data-no-retina> -->
                                                         </div>
 
                                                         <div class="tp-caption Default-Title-1 tp-layer-selectable  tp-resizeme" id="slide-124-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-40','-30','-50','-55']" data-fontsize="['75','73','75','55']" data-lineheight="['80','80','80','65']" data-width="['none','none','626','479']" data-height="none" data-whitespace="['nowrap','nowrap','normal','normal']" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:800;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4900" style="z-index: 6; white-space: nowrap;text-align:center;">Experience the Difference.
                                                         </div>
 
-                                                        <!--                                                        <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" id="slide-124-layer-6" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['55','65','105','85']" data-fontsize="['22','22','22','20']" data-lineheight="['36','36','36','33']" data-width="['980','980','626','407']" data-height="none" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="1200" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4800" style="z-index: 7; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
-                                                                                                                </div>-->
+<!--                                                        <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" id="slide-124-layer-6" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['55','65','105','85']" data-fontsize="['22','22','22','20']" data-lineheight="['36','36','36','33']" data-width="['980','980','626','407']" data-height="none" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="1200" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4800" style="z-index: 7; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
+                                                        </div>-->
 
-                                                        <!--                                                                        <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme"
-                                                                                                                                         id="slide-124-layer-4"
-                                                                                                                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                                                                                                                         data-y="['middle','middle','middle','middle']" data-voffset="['160','170','220','220']"
+                                                        <!--                                                                        <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme" 
+                                                                                                                                         id="slide-124-layer-4" 
+                                                                                                                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                                                                                         data-y="['middle','middle','middle','middle']" data-voffset="['160','170','220','220']" 
                                                                                                                                          data-width="none"
                                                                                                                                          data-height="none"
                                                                                                                                          data-whitespace="nowrap"
@@ -107,17 +108,17 @@
                                                                                                                                          data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:200;e:Linear.easeNone;"
                                                                                                                                          data-style_hover="c:rgba(79, 191, 112, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);"
 
-                                                                                                                                         data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;"
-                                                                                                                                         data-transform_out="auto:auto;s:600;"
-                                                                                                                                         data-start="1400"
-                                                                                                                                         data-splitin="none"
-                                                                                                                                         data-splitout="none"
+                                                                                                                                         data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" 
+                                                                                                                                         data-transform_out="auto:auto;s:600;" 
+                                                                                                                                         data-start="1400" 
+                                                                                                                                         data-splitin="none" 
+                                                                                                                                         data-splitout="none" 
                                                                                                                                          data-actions='[{"event":"click","action":"simplelink","target":"_blank","url":"http:\/\/themeforest.net\/item\/wellspring-a-health-lifestyle-fitness-theme\/14994151"}]'
-                                                                                                                                         data-responsive_offset="on"
+                                                                                                                                         data-responsive_offset="on" 
 
-                                                                                                                                         data-end="4700"
+                                                                                                                                         data-end="4700" 
 
-                                                                                                                                         style="z-index: 8; white-space: nowrap;padding:19px 48px 19px 48px;border-width:0px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">Purchase
+                                                                                                                                         style="z-index: 8; white-space: nowrap;padding:19px 48px 19px 48px;border-width:0px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">Purchase 
                                                                                                                                     </div>-->
                                                     </li>
                                                     <li data-index="rs-123" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="http://wellspring.mikado-themes.com/wp-content/uploads/2016/02/home-1-slide-2-100x50.jpg" data-delay="5000" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
@@ -126,13 +127,13 @@
                                                         <div class="tp-caption Default-Title-1 tp-layer-selectable  tp-resizeme" id="slide-123-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-90','-85','-150','-145']" data-fontsize="['75','73','75','55']" data-lineheight="['80','80','80','65']" data-width="['none','none','626','479']" data-height="none" data-whitespace="['nowrap','nowrap','normal','normal']" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:800;" data-start="800" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4900" style="z-index: 5; white-space: nowrap;text-align:center;">Your Place to Discover Wellness.
                                                         </div>
 
-                                                        <!--                                                        <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" id="slide-123-layer-6" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','5','0','0']" data-fontsize="['22','22','22','20']" data-lineheight="['36','36','36','33']" data-width="['980','980','626','407']" data-height="none" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4800" style="z-index: 6; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
-                                                                                                                </div>-->
+<!--                                                        <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" id="slide-123-layer-6" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','5','0','0']" data-fontsize="['22','22','22','20']" data-lineheight="['36','36','36','33']" data-width="['980','980','626','407']" data-height="none" data-whitespace="normal" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" data-transform_out="auto:auto;s:600;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-end="4800" style="z-index: 6; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
+                                                        </div>-->
 
-                                                        <!--                                                                        <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme"
-                                                                                                                                         id="slide-123-layer-4"
-                                                                                                                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                                                                                                                         data-y="['middle','middle','middle','middle']" data-voffset="['110','115','110','130']"
+                                                        <!--                                                                        <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme" 
+                                                                                                                                         id="slide-123-layer-4" 
+                                                                                                                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                                                                                         data-y="['middle','middle','middle','middle']" data-voffset="['110','115','110','130']" 
                                                                                                                                          data-width="none"
                                                                                                                                          data-height="none"
                                                                                                                                          data-whitespace="nowrap"
@@ -140,45 +141,45 @@
                                                                                                                                          data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:200;e:Linear.easeNone;"
                                                                                                                                          data-style_hover="c:rgba(79, 191, 112, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);"
 
-                                                                                                                                         data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;"
-                                                                                                                                         data-transform_out="auto:auto;s:600;"
-                                                                                                                                         data-start="1200"
-                                                                                                                                         data-splitin="none"
-                                                                                                                                         data-splitout="none"
+                                                                                                                                         data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" 
+                                                                                                                                         data-transform_out="auto:auto;s:600;" 
+                                                                                                                                         data-start="1200" 
+                                                                                                                                         data-splitin="none" 
+                                                                                                                                         data-splitout="none" 
                                                                                                                                          data-actions='[{"event":"click","action":"simplelink","target":"_blank","url":"http:\/\/themeforest.net\/item\/wellspring-a-health-lifestyle-fitness-theme\/14994151"}]'
-                                                                                                                                         data-responsive_offset="on"
+                                                                                                                                         data-responsive_offset="on" 
 
-                                                                                                                                         data-end="4700"
+                                                                                                                                         data-end="4700" 
 
                                                                                                                                          style="">
                                                                                                                                     </div>-->
                                                     </li>
                                                     <!--                                                                    <li data-index="rs-112" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-thumb="http://wellspring.mikado-themes.com/wp-content/uploads/2016/02/home-1-slide-5-100x50.jpg"  data-delay="5000"  data-rotate="0"  data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-                                                                                                                                <img src="wp-content/uploads/2016/02/home-1-slide-5.jpg"  alt="q"  width="1920" height="1000" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
+                                                                                                                                <img src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/02/home-1-slide-5.jpg"  alt="q"  width="1920" height="1000" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
 
-                                                                                                                                <div class="tp-caption tp-layer-selectable  tp-resizeme"
-                                                                                                                                     id="slide-112-layer-5"
-                                                                                                                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                                                                                                                     data-y="['middle','middle','middle','middle']" data-voffset="['-160','-155','-210','-190']"
+                                                                                                                                <div class="tp-caption tp-layer-selectable  tp-resizeme" 
+                                                                                                                                     id="slide-112-layer-5" 
+                                                                                                                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                                                                                     data-y="['middle','middle','middle','middle']" data-voffset="['-160','-155','-210','-190']" 
                                                                                                                                      data-width="none"
                                                                                                                                      data-height="none"
                                                                                                                                      data-whitespace="nowrap"
                                                                                                                                      data-transform_idle="o:1;"
 
-                                                                                                                                     data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1500;e:Power3.easeOut;"
-                                                                                                                                     data-transform_out="auto:auto;s:600;"
-                                                                                                                                     data-start="800"
-                                                                                                                                     data-responsive_offset="on"
+                                                                                                                                     data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1500;e:Power3.easeOut;" 
+                                                                                                                                     data-transform_out="auto:auto;s:600;" 
+                                                                                                                                     data-start="800" 
+                                                                                                                                     data-responsive_offset="on" 
 
-                                                                                                                                     data-end="4990"
+                                                                                                                                     data-end="4990" 
 
-                                                                                                                                     style="z-index: 5;"><img src="wp-content/uploads/2016/02/logo-slider.png" alt="q" width="103" height="103" data-ww="['103px','103px','103px','92px']" data-hh="['103px','103px','103px','92px']" data-no-retina>
+                                                                                                                                     style="z-index: 5;"><img src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/02/logo-slider.png" alt="q" width="103" height="103" data-ww="['103px','103px','103px','92px']" data-hh="['103px','103px','103px','92px']" data-no-retina> 
                                                                                                                                 </div>
 
-                                                                                                                                <div class="tp-caption Default-Title-1 tp-layer-selectable  tp-resizeme"
-                                                                                                                                     id="slide-112-layer-1"
-                                                                                                                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                                                                                                                     data-y="['middle','middle','middle','middle']" data-voffset="['-40','-30','-50','-55']"
+                                                                                                                                <div class="tp-caption Default-Title-1 tp-layer-selectable  tp-resizeme" 
+                                                                                                                                     id="slide-112-layer-1" 
+                                                                                                                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                                                                                     data-y="['middle','middle','middle','middle']" data-voffset="['-40','-30','-50','-55']" 
                                                                                                                                      data-fontsize="['75','73','75','55']"
                                                                                                                                      data-lineheight="['80','80','80','65']"
                                                                                                                                      data-width="['none','none','626','455']"
@@ -186,22 +187,22 @@
                                                                                                                                      data-whitespace="['nowrap','nowrap','normal','normal']"
                                                                                                                                      data-transform_idle="o:1;"
 
-                                                                                                                                     data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;"
-                                                                                                                                     data-transform_out="auto:auto;s:800;"
-                                                                                                                                     data-start="1000"
-                                                                                                                                     data-splitin="none"
-                                                                                                                                     data-splitout="none"
-                                                                                                                                     data-responsive_offset="on"
+                                                                                                                                     data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" 
+                                                                                                                                     data-transform_out="auto:auto;s:800;" 
+                                                                                                                                     data-start="1000" 
+                                                                                                                                     data-splitin="none" 
+                                                                                                                                     data-splitout="none" 
+                                                                                                                                     data-responsive_offset="on" 
 
-                                                                                                                                     data-end="4900"
+                                                                                                                                     data-end="4900" 
 
-                                                                                                                                     style="z-index: 6; white-space: nowrap;text-align:center;">Beautiful Body. Built by You.
+                                                                                                                                     style="z-index: 6; white-space: nowrap;text-align:center;">Beautiful Body. Built by You. 
                                                                                                                                 </div>
 
-                                                                                                                                <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme"
-                                                                                                                                     id="slide-112-layer-6"
-                                                                                                                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                                                                                                                     data-y="['middle','middle','middle','middle']" data-voffset="['55','65','105','85']"
+                                                                                                                                <div class="tp-caption Default-Subtitle tp-layer-selectable  tp-resizeme" 
+                                                                                                                                     id="slide-112-layer-6" 
+                                                                                                                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                                                                                     data-y="['middle','middle','middle','middle']" data-voffset="['55','65','105','85']" 
                                                                                                                                      data-fontsize="['22','22','22','20']"
                                                                                                                                      data-lineheight="['36','36','36','33']"
                                                                                                                                      data-width="['980','980','626','407']"
@@ -209,22 +210,22 @@
                                                                                                                                      data-whitespace="normal"
                                                                                                                                      data-transform_idle="o:1;"
 
-                                                                                                                                     data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;"
-                                                                                                                                     data-transform_out="auto:auto;s:600;"
-                                                                                                                                     data-start="1200"
-                                                                                                                                     data-splitin="none"
-                                                                                                                                     data-splitout="none"
-                                                                                                                                     data-responsive_offset="on"
+                                                                                                                                     data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" 
+                                                                                                                                     data-transform_out="auto:auto;s:600;" 
+                                                                                                                                     data-start="1200" 
+                                                                                                                                     data-splitin="none" 
+                                                                                                                                     data-splitout="none" 
+                                                                                                                                     data-responsive_offset="on" 
 
-                                                                                                                                     data-end="4800"
+                                                                                                                                     data-end="4800" 
 
-                                                                                                                                     style="z-index: 7; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia.
+                                                                                                                                     style="z-index: 7; min-width: 980px; max-width: 980px; white-space: normal; font-size: 22px; line-height: 36px; color: rgba(255, 255, 255, 1.00);text-align:center;">Lorem ipsum dolor. Sit amet pellentesque. Nec sociis urna. Dui quam vestibulum. Luctus a vel scelerisque ornare vivamus. Eleifend in cubilia. 
                                                                                                                                 </div>
 
-                                                                                                                                <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme"
-                                                                                                                                     id="slide-112-layer-4"
-                                                                                                                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                                                                                                                     data-y="['middle','middle','middle','middle']" data-voffset="['160','170','220','220']"
+                                                                                                                                <div class="tp-caption Button rev-btn tp-layer-selectable  tp-resizeme" 
+                                                                                                                                     id="slide-112-layer-4" 
+                                                                                                                                     data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+                                                                                                                                     data-y="['middle','middle','middle','middle']" data-voffset="['160','170','220','220']" 
                                                                                                                                      data-width="none"
                                                                                                                                      data-height="none"
                                                                                                                                      data-whitespace="nowrap"
@@ -232,17 +233,17 @@
                                                                                                                                      data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:200;e:Linear.easeNone;"
                                                                                                                                      data-style_hover="c:rgba(79, 191, 112, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);"
 
-                                                                                                                                     data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;"
-                                                                                                                                     data-transform_out="auto:auto;s:600;"
-                                                                                                                                     data-start="1400"
-                                                                                                                                     data-splitin="none"
-                                                                                                                                     data-splitout="none"
+                                                                                                                                     data-transform_in="y:50px;opacity:0;s:1000;e:Power3.easeOut;" 
+                                                                                                                                     data-transform_out="auto:auto;s:600;" 
+                                                                                                                                     data-start="1400" 
+                                                                                                                                     data-splitin="none" 
+                                                                                                                                     data-splitout="none" 
                                                                                                                                      data-actions='[{"event":"click","action":"simplelink","target":"_blank","url":"http:\/\/themeforest.net\/item\/wellspring-a-health-lifestyle-fitness-theme\/14994151"}]'
-                                                                                                                                     data-responsive_offset="on"
+                                                                                                                                     data-responsive_offset="on" 
 
-                                                                                                                                     data-end="4700"
+                                                                                                                                     data-end="4700" 
 
-                                                                                                                                     style="z-index: 8; white-space: nowrap;padding:19px 48px 19px 48px;border-width:0px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">Purchase
+                                                                                                                                     style="z-index: 8; white-space: nowrap;padding:19px 48px 19px 48px;border-width:0px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">Purchase 
                                                                                                                                 </div>
                                                                                                                             </li>-->
                                                 </ul>
@@ -309,7 +310,7 @@
                                                         <div class="mkdf-ptfs-item-content">
                                                             <div class="mkdf-ptfs-item-icon-holder">
                                                                 <i style="color: rgb(19, 168, 176);font-size: 43px;" class="fa fa-user-md attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
-                                                                <!--<img width="48" height="46" src="wp-content/uploads/2016/01/portfolio-custom-icon-1-1.png" class="attachment-thumbnail size-thumbnail" alt="p" /> -->
+                                                                <!--<img width="48" height="46" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/portfolio-custom-icon-1-1.png" class="attachment-thumbnail size-thumbnail" alt="p" /> -->
                                                             </div>
                                                             <h5 class="mkdf-ptfs-item-title">
                                                                 <a href="#">Doctor Visit</a>
@@ -334,7 +335,7 @@
                                                             <div class="mkdf-ptfs-item-icon-holder">
                                                                 <i style="color: rgb(19, 168, 176);font-size: 43px;" class="fa fa-medkit attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
 
-                                                                <!--<img width="48" height="46" src="wp-content/uploads/2016/01/portfolio-custom-icon-2.png" class="attachment-thumbnail size-thumbnail" alt="p" />-->
+                                                                <!--<img width="48" height="46" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/portfolio-custom-icon-2.png" class="attachment-thumbnail size-thumbnail" alt="p" />--> 
                                                             </div>
                                                             <h5 class="mkdf-ptfs-item-title">
                                                                 <a href="#">Nursing Care (Palliative Care)</a>
@@ -358,7 +359,7 @@
                                                         <div class="mkdf-ptfs-item-content">
                                                             <div class="mkdf-ptfs-item-icon-holder">
                                                                 <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-physical-therapy  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
-                                                                <!--<img width="48" height="46" src="wp-content/uploads/2016/01/portfolio-custom-icon-3-2.png" class="attachment-thumbnail size-thumbnail" alt="p" />-->
+                                                                <!--<img width="48" height="46" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/portfolio-custom-icon-3-2.png" class="attachment-thumbnail size-thumbnail" alt="p" />--> 
                                                             </div>
                                                             <h5 class="mkdf-ptfs-item-title">
                                                                 <a href="#">Caregiving Services (24<span style="font-size: 14px;">&#10005;</span>7)</a>
@@ -406,7 +407,7 @@
                                                         </div>
                                                         <div class="mkdf-ptfs-item-content">
                                                             <div class="mkdf-ptfs-item-icon-holder">
-                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-pharmacy  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-pharmacy  attachment-thumbnail size-thumbnail" aria-hidden="true"></i> 
                                                             </div>
                                                             <h5 class="mkdf-ptfs-item-title">
                                                                 <a href="#">Pharmacy</a>
@@ -429,7 +430,7 @@
                                                         </div>
                                                         <div class="mkdf-ptfs-item-content">
                                                             <div class="mkdf-ptfs-item-icon-holder">
-                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-intensive-care  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-intensive-care  attachment-thumbnail size-thumbnail" aria-hidden="true"></i> 
                                                             </div>
                                                             <h5 class="mkdf-ptfs-item-title">
                                                                 <a href="#">Equipment Hire or Purchase</a>
@@ -452,7 +453,7 @@
                                                         </div>
                                                         <div class="mkdf-ptfs-item-content">
                                                             <div class="mkdf-ptfs-item-icon-holder">
-                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-family-practice  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-family-practice  attachment-thumbnail size-thumbnail" aria-hidden="true"></i> 
                                                             </div>
                                                             <h5 class="mkdf-ptfs-item-title">
                                                                 <a href="#">Health Check-up</a>
@@ -475,7 +476,7 @@
                                                         </div>
                                                         <div class="mkdf-ptfs-item-content">
                                                             <div class="mkdf-ptfs-item-icon-holder">
-                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-family-practice  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-family-practice  attachment-thumbnail size-thumbnail" aria-hidden="true"></i> 
                                                             </div>
                                                             <h5 class="mkdf-ptfs-item-title">
                                                                 <a href="#">Health Check-up</a>
@@ -511,7 +512,7 @@
                             <source type="video/ogg" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/02/health-video-1.ogv">
                             <object width="320" height="240" type="application/x-shockwave-flash" data="wp-content/themes/wellspring/assets/js/flashmediaelement.swf">
                                 <param name="movie" value="http://wellspring.mikado-themes.com/wp-content/themes/wellspring/assets/js/flashmediaelement.swf" />
-                                <param name="flashvars" value="controls=true&amp;file=http://wellspring.mikado-themes.com/wp-content/uploads/2016/02/health-video-1.mp4" /><img src="wp-content/uploads/2016/01/health-video-screenshot-1.jpg" width="1920" height="800" title="No video playback capabilities" alt="Video thumb" /></object>
+                                <param name="flashvars" value="controls=true&amp;file=http://wellspring.mikado-themes.com/wp-content/uploads/2016/02/health-video-1.mp4" /><img src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/health-video-screenshot-1.jpg" width="1920" height="800" title="No video playback capabilities" alt="Video thumb" /></object>
                         </video>
                     </div>
                     <div class="clearfix mkdf-full-section-inner">
@@ -566,9 +567,9 @@
                                                             <div class="mkdf-testimonial-text-inner light">
                                                                 <div class="mkdf-testimonial-slider-image-holder">
                                                                     <img width="122" height="122" src="<?= Yii::$app->homeUrl; ?>images/testimonial/sree.jpg" class="attachment-110 size-110 wp-post-image" alt="p" srcset="images/testimonial/sree.jpg" sizes="(max-width: 122px) 100vw, 122px" /> </div>
-                                                                <p class="mkdf-testimonial-text" style="padding-left: 200px;padding-right: 200px">Caring People Home Care provides amazing service!
-                                                                    My personal experience with Caring people has been extremely smooth and pleasant. I hired baby care nurse for my 5month old baby. Nurses were dedicated and very caring. Caring People bureau were also very helpful and understanding in case of replacing the nurse with immediate effect and personal involvement. Thank u for the exceptional care you have showed for my baby. I really appreciate caring people and their team for their amazing services. I look forward for their services for the coming baby too.
-                                                                    I will recommend caring people nursing bureau to anyone.
+                                                                <p class="mkdf-testimonial-text" style="padding-left: 200px;padding-right: 200px">Caring People Home Care provides amazing service! 
+                                                                    My personal experience with Caring people has been extremely smooth and pleasant. I hired baby care nurse for my 5month old baby. Nurses were dedicated and very caring. Caring People bureau were also very helpful and understanding in case of replacing the nurse with immediate effect and personal involvement. Thank u for the exceptional care you have showed for my baby. I really appreciate caring people and their team for their amazing services. I look forward for their services for the coming baby too. 
+                                                                    I will recommend caring people nursing bureau to anyone. 
                                                                     Thank you so much for the love and services.  </p>
                                                                 <div class="mkdf-testimonial-author">
                                                                     <h3 class="mkdf-testimonial-author-text light">Mrs.Bhuvneshwari Sreesanth</h3>
@@ -603,7 +604,7 @@
                                                 Welcome to Caring People</h2>
                                             <h3 class="mkdf-item-title">
                                                 <!--<a href="#" >-->
-                                                Our Name is our Guarantee
+                                                Our Name is our Guarantee				
                                                 <!--</a>-->
                                             </h3>
                                         </div>
@@ -631,6 +632,505 @@
 
                 <!---------------------------------------------about-section-end------------------------------------>
 
+                <!-------------------------------------------------------------------tab-selector------------------------------>
+
+                <!--                                <div class="vc_row wpb_row vc_row-fluid mkdf-section vc_custom_1453982497008 mkdf-content-aligment-left mkdf-grid-section" style=""><div class="clearfix mkdf-section-inner"><div class="mkdf-section-inner-margin clearfix"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="mkdf-tabs mkdf-vertical mkdf-tab-text clearfix">
+                                                                                <ul class="mkdf-tabs-nav">
+                                                                                    <li>
+                                                                                        <a href="#tab-get-up-and-go">
+                                                                                            Get up and Go				</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <a href="#tab-dare-to-be-great">
+                                                                                            Dare To Be Great				</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <a href="#tab-grown-by-nature">
+                                                                                            Grown by Nature				</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <a href="#tab-best-fitness-foods">
+                                                                                            Best Fitness Foods				</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <a href="#tab-ways-to-get-motivated">
+                                                                                            Ways to Get Motivated				</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <a href="#tab-healthy-snacks">
+                                                                                            Healthy Snacks				</a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                                <div class="mkdf-tab-container mkdf-tab-image" style="background-image: url(wp-content/uploads/2016/01/tab-background-1.jpg)" id="tab-get-up-and-go" data-icon-pack="font_awesome" data-icon-html="&lt;i class=&quot;mkdf-icon-font-awesome fa  &quot; &gt;&lt;/i&gt;">
+                                                                                    <div data-original-height="20" class="vc_empty_space"  style="height: 20px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div class="mkdf-section-title-holder">
+                                                                                        <h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
+                                                                                            Eat Good. Feel Good.</h2>
+                                                                                    </div><div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left" >
+                                                                                        <p style="text-align: left" class="mkdf-section-subtitle">Lorem ipsum dolor sit amet auctor egestas libero arcu. Wisi ante at. Mi pulvinar officiis neque odio magna aliquet pede morbi erat massa egestas.</p>
+                                                                                    </div><div data-original-height="40" class="vc_empty_space"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A natural way of improving your health.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Train Yourself to Exercise in the Morning in Just One Week.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Enhancing the personal healing experience.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A Whole New Way to Take Your Vitamins.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Smoothie Recipes Loaded with Winter Superfoods.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Healthy Desserts Shockingly High in Protein.</p>
+                                                                                    </div></div>	
+
+                                                                                <div class="mkdf-tab-container mkdf-tab-image" style="background-image: url(wp-content/uploads/2016/01/tab-background-2.jpg)" id="tab-dare-to-be-great" data-icon-pack="font_awesome" data-icon-html="&lt;i class=&quot;mkdf-icon-font-awesome fa  &quot; &gt;&lt;/i&gt;">
+                                                                                    <div data-original-height="20" class="vc_empty_space"  style="height: 20px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div class="mkdf-section-title-holder">
+                                                                                        <h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
+                                                                                            Warm Winter Desserts</h2>
+                                                                                    </div><div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left" >
+                                                                                        <p style="text-align: left" class="mkdf-section-subtitle">Quis et nec parturient in cursus at placerat amet integer et id. Dolor habitant metus. Enim eu praesent primis quam quis ante laoreet diam sit.</p>
+                                                                                    </div><div data-original-height="40" class="vc_empty_space"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Train Yourself to Exercise in the Morning in Just One Week.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Enhancing the personal healing experience.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A Whole New Way to Take Your Vitamins.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Smoothie Recipes Loaded with Winter Superfoods.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Healthy Desserts Shockingly High in Protein.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A natural way of improving your health.</p>
+                                                                                    </div></div>	
+
+                                                                                <div class="mkdf-tab-container mkdf-tab-image" style="background-image: url(wp-content/uploads/2016/01/tab-background-5.jpg)" id="tab-grown-by-nature" data-icon-pack="font_awesome" data-icon-html="&lt;i class=&quot;mkdf-icon-font-awesome fa  &quot; &gt;&lt;/i&gt;">
+                                                                                    <div data-original-height="20" class="vc_empty_space"  style="height: 20px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div class="mkdf-section-title-holder">
+                                                                                        <h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
+                                                                                            Healthy and Delicious Recipes</h2>
+                                                                                    </div><div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left" >
+                                                                                        <p style="text-align: left" class="mkdf-section-subtitle">Odio etiam vivamus convallis fusce tortor. Parturient et mi libero luctus habitant pretium venenatis morbi. Sollicitudin tincidunt rhoncus amet donec sodales. </p>
+                                                                                    </div><div data-original-height="40" class="vc_empty_space"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Enhancing the personal healing experience.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A Whole New Way to Take Your Vitamins.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Smoothie Recipes Loaded with Winter Superfoods.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Healthy Desserts Shockingly High in Protein.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Train Yourself to Exercise in the Morning in Just One Week.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A natural way of improving your health.</p>
+                                                                                    </div></div>	
+
+                                                                                <div class="mkdf-tab-container mkdf-tab-image" style="background-image: url(wp-content/uploads/2016/01/tab-background-6.jpg)" id="tab-best-fitness-foods" data-icon-pack="font_awesome" data-icon-html="&lt;i class=&quot;mkdf-icon-font-awesome fa  &quot; &gt;&lt;/i&gt;">
+                                                                                    <div data-original-height="20" class="vc_empty_space"  style="height: 20px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div class="mkdf-section-title-holder">
+                                                                                        <h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
+                                                                                            Workout Excuses Busted</h2>
+                                                                                    </div><div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left" >
+                                                                                        <p style="text-align: left" class="mkdf-section-subtitle">Felis vitae dui facilisis sem malesuada. Etiam lectus fringilla. Metus sit lorem mi vel nunc dolor ipsum amet neque fringilla con. Et porta amet vestibulum.</p>
+                                                                                    </div><div data-original-height="40" class="vc_empty_space"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A Whole New Way to Take Your Vitamins.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Smoothie Recipes Loaded with Winter Superfoods.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Healthy Desserts Shockingly High in Protein.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A natural way of improving your health.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Enhancing the personal healing experience.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Train Yourself to Exercise in the Morning in Just One Week.</p>
+                                                                                    </div></div>	
+
+                                                                                <div class="mkdf-tab-container mkdf-tab-image" style="background-image: url(wp-content/uploads/2016/01/tab-background-4.jpg)" id="tab-ways-to-get-motivated" data-icon-pack="font_awesome" data-icon-html="&lt;i class=&quot;mkdf-icon-font-awesome fa  &quot; &gt;&lt;/i&gt;">
+                                                                                    <div data-original-height="20" class="vc_empty_space"  style="height: 20px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div class="mkdf-section-title-holder">
+                                                                                        <h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
+                                                                                            Running to the Future</h2>
+                                                                                    </div><div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left" >
+                                                                                        <p style="text-align: left" class="mkdf-section-subtitle">Et diam tellus nullam dui gravida. Aliquam posuere sollicitudin eros sed mi. Leo sit sit sollicitudin wisi pellentesque aliquam quisque et accumsan.</p>
+                                                                                    </div><div data-original-height="40" class="vc_empty_space"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Enhancing the personal healing experience.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Healthy Desserts Shockingly High in Protein.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Smoothie Recipes Loaded with Winter Superfoods.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Train Yourself to Exercise in the Morning in Just One Week.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A natural way of improving your health.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A Whole New Way to Take Your Vitamins.</p>
+                                                                                    </div></div>	
+
+                                                                                <div class="mkdf-tab-container mkdf-tab-image" style="background-image: url(wp-content/uploads/2016/01/tab-background-8.jpg)" id="tab-healthy-snacks" data-icon-pack="font_awesome" data-icon-html="&lt;i class=&quot;mkdf-icon-font-awesome fa  &quot; &gt;&lt;/i&gt;">
+                                                                                    <div data-original-height="20" class="vc_empty_space"  style="height: 20px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div class="mkdf-section-title-holder">
+                                                                                        <h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
+                                                                                            Creating Healthier Lives</h2>
+                                                                                    </div><div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left" >
+                                                                                        <p style="text-align: left" class="mkdf-section-subtitle">Non at arcu nonummy tristique tortor. Sed quisque pellentesque. Posuere sapien quam accumsan nullam ut. Molestie dui quisque. Fringilla pellentesque.</p>
+                                                                                    </div><div data-original-height="40" class="vc_empty_space"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
+                                                                                    <div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Healthy Desserts Shockingly High in Protein.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A natural way of improving your health.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Train Yourself to Exercise in the Morning in Just One Week.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Enhancing the personal healing experience.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > A Whole New Way to Take Your Vitamins.</p>
+                                                                                    </div><div  class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                        <div class="mkdf-icon-list-icon-holder">
+                                                                                            <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                <span aria-hidden="true" class="mkdf-icon-font-elegant icon_check " style="color:#4fbf70;font-size:18px" ></span>		</div>
+                                                                                        </div>
+                                                                                        <p class="mkdf-icon-list-text"  > Smoothie Recipes Loaded with Winter Superfoods.</p>
+                                                                                    </div></div>	
+
+                                                                            </div>
+
+                                                                        </div></div></div></div></div></div>-->
+
+                <!-------------------------------------------------------------------tab-selector-end------------------------------>
+
+                <!--                                <div class="vc_row wpb_row vc_row-fluid mkdf-section vc_custom_1454930627059 mkdf-content-aligment-left mkdf-grid-section" style=""><div class="clearfix mkdf-section-inner"><div class="mkdf-section-inner-margin clearfix"><div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="mkdf-section-title-holder">
+                                                                                <h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
+                                                                                    Clients / Partners</h2>
+                                                                            </div><div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left" >
+                                                                                <p style="text-align: left" class="mkdf-section-subtitle">Lorem ipsum dolor sit amet facilisis sed vitae lorem pede at eu arcu vulputate metus luctus ut quis vivamus vitae id habitasse.</p>
+                                                                            </div><div data-original-height="42" class="vc_empty_space"  style="height: 42px" ><span class="vc_empty_space_inner"></span></div>
+                                                                            <div class="mkdf-carousel-holder clearfix mkdf-carousel-three-rows mkdf-carousel-navigation"><div class="mkdf-carousel " data-items="3" data-navigation="yes"><div class="mkdf-carousel-item-outer-holder border"><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-1.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-4.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-7.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div></div><div class="mkdf-carousel-item-outer-holder border"><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-2.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-5.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-8.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div></div><div class="mkdf-carousel-item-outer-holder border"><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-3.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-6.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div><div class="mkdf-carousel-item-holder">
+                                                                                            <span class="mkdf-carousel-first-image-holder  mkdf-image-zoom">
+                                                                                                <img width="217" height="98" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/client-9.png" class="attachment-full size-full" alt="p" />			</span>
+                                                                                        </div></div></div></div><div data-original-height="40" class="vc_empty_space"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
+                                                                        </div></div></div><div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-6"><div class="vc_column-inner "><div class="wpb_wrapper"><div class="mkdf-section-title-holder">
+                                                                                <h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left;margin-bottom: 30px">
+                                                                                    What We Offer</h2>
+                                                                            </div><div class="mkdf-accordion-holder clearfix mkdf-accordion mkdf-boxed ">
+                                                                                <h5 class="clearfix mkdf-title-holder">
+                                                                                    <span class="mkdf-accordion-mark mkdf-left-mark">
+                                                                                        <span class="mkdf-accordion-mark-icon">
+                                                                                            <span class="icon_plus"></span>
+                                                                                            <span class="icon_minus-06"></span>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="mkdf-tab-title">
+                                                                                        <span class="mkdf-tab-title-inner">
+                                                                                            Body balance		</span>
+                                                                                    </span>
+                                                                                </h5>
+                                                                                <div class="mkdf-accordion-content">
+                                                                                    <div class="mkdf-accordion-content-inner">
+                                                                                        <div style="margin-bottom: 10px" class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                            <div class="mkdf-icon-list-icon-holder">
+                                                                                                <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                    <span aria-hidden="true" class="mkdf-icon-font-elegant icon_clock_alt " style="color:#808080;font-size:14px" ></span>		</div>
+                                                                                            </div>
+                                                                                            <p class="mkdf-icon-list-text" style="color:#808080;font-size:14px;font-weight: 700;padding-left: 10px" > 45 MINUTES</p>
+                                                                                        </div>
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p><a href="#">Read More</a></p>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <h5 class="clearfix mkdf-title-holder">
+                                                                                    <span class="mkdf-accordion-mark mkdf-left-mark">
+                                                                                        <span class="mkdf-accordion-mark-icon">
+                                                                                            <span class="icon_plus"></span>
+                                                                                            <span class="icon_minus-06"></span>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="mkdf-tab-title">
+                                                                                        <span class="mkdf-tab-title-inner">
+                                                                                            Zumba		</span>
+                                                                                    </span>
+                                                                                </h5>
+                                                                                <div class="mkdf-accordion-content">
+                                                                                    <div class="mkdf-accordion-content-inner">
+                                                                                        <div style="margin-bottom: 10px" class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                            <div class="mkdf-icon-list-icon-holder">
+                                                                                                <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                    <span aria-hidden="true" class="mkdf-icon-font-elegant icon_clock_alt " style="color:#808080;font-size:14px" ></span>		</div>
+                                                                                            </div>
+                                                                                            <p class="mkdf-icon-list-text" style="color:#808080;font-size:14px;font-weight: 700;padding-left: 10px" > 1 HOUR 15 MINUTES</p>
+                                                                                        </div>
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</p>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p><a href="#">Read More</a></p>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <h5 class="clearfix mkdf-title-holder">
+                                                                                    <span class="mkdf-accordion-mark mkdf-left-mark">
+                                                                                        <span class="mkdf-accordion-mark-icon">
+                                                                                            <span class="icon_plus"></span>
+                                                                                            <span class="icon_minus-06"></span>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="mkdf-tab-title">
+                                                                                        <span class="mkdf-tab-title-inner">
+                                                                                            Basic Pilates		</span>
+                                                                                    </span>
+                                                                                </h5>
+                                                                                <div class="mkdf-accordion-content">
+                                                                                    <div class="mkdf-accordion-content-inner">
+                                                                                        <div style="margin-bottom: 10px" class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                            <div class="mkdf-icon-list-icon-holder">
+                                                                                                <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                    <span aria-hidden="true" class="mkdf-icon-font-elegant icon_clock_alt " style="color:#808080;font-size:14px" ></span>		</div>
+                                                                                            </div>
+                                                                                            <p class="mkdf-icon-list-text" style="color:#808080;font-size:14px;font-weight: 700;padding-left: 10px" > 1 HOUR 30 MINUTES</p>
+                                                                                        </div>
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p>Nam vehicula commodo pulvinar. Morbi vel luctus dui. Maecenas faucibus dignissim ante, et sollicitudin eros rutrum viverra. Sed viverra leo eget aliquam ultricies. Lorem ipsum.</p>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p><a href="#">Read More</a></p>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <h5 class="clearfix mkdf-title-holder">
+                                                                                    <span class="mkdf-accordion-mark mkdf-left-mark">
+                                                                                        <span class="mkdf-accordion-mark-icon">
+                                                                                            <span class="icon_plus"></span>
+                                                                                            <span class="icon_minus-06"></span>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="mkdf-tab-title">
+                                                                                        <span class="mkdf-tab-title-inner">
+                                                                                            Yoga Zen		</span>
+                                                                                    </span>
+                                                                                </h5>
+                                                                                <div class="mkdf-accordion-content">
+                                                                                    <div class="mkdf-accordion-content-inner">
+                                                                                        <div style="margin-bottom: 10px" class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                            <div class="mkdf-icon-list-icon-holder">
+                                                                                                <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                    <span aria-hidden="true" class="mkdf-icon-font-elegant icon_clock_alt " style="color:#808080;font-size:14px" ></span>		</div>
+                                                                                            </div>
+                                                                                            <p class="mkdf-icon-list-text" style="color:#808080;font-size:14px;font-weight: 700;padding-left: 10px" > 30 MINUTES</p>
+                                                                                        </div>
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                            <div class="wpb_wrapper">
+                                                                                                <p><a href="#">Read More</a></p>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div><div data-original-height="40" class="vc_empty_space"  style="height: 40px" ><span class="vc_empty_space_inner"></span></div>
+                                                                        </div></div></div></div></div></div>-->
             </div>
         </div>
         <div class="mkdf-content-bottom" style="background-color: #2a2b2a">

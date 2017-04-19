@@ -15,25 +15,13 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="en-US">
 
-    <!-- Mirrored from wellspring.mikado-themes.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Mar 2017 04:22:00 GMT -->
-    <!-- Added by HTTrack -->
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <!-- /Added by HTTrack -->
 
     <head>
         <meta charset="UTF-8" />
-        <!--<link rel="profile" href="http://gmpg.org/xfn/11"/>-->
-        <!--<link rel="pingback" href="xmlrpc.php"/>-->
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 
         <title>Caringpeople</title>
-        <!--<script type="application/javascript">var mkdfBmiCalculatorAjaxUrl = "http://wellspring.mikado-themes.com/wp-admin/admin-ajax.php"</script><script type="application/javascript">var mkdCoreAjaxUrl = "http://wellspring.mikado-themes.com/wp-admin/admin-ajax.php"</script><script type="application/javascript">var MikadofAjaxUrl = "http://wellspring.mikado-themes.com/wp-admin/admin-ajax.php"</script><link rel="alternate" type="application/rss+xml" title="Wellspring &raquo; Feed" href="feed/index.php" />-->
-        <!--<link rel="alternate" type="application/rss+xml" title="Wellspring &raquo; Comments Feed" href="comments/feed/index.php" />-->
-        <!--<link rel="alternate" type="text/calendar" title="Wellspring &raquo; iCal Feed" href="events/indexedf3.php?ical=1" />-->
-        <!--        <script type="text/javascript">
-                        window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/", "ext":".png", "source":{"concatemoji":"http:\/\/wellspring.mikado-themes.com\/wp-includes\/js\/wp-emoji-release.min.js"}};
-                        !function(a, b, c){function d(a){var c, d, e, f = b.createElement("canvas"), g = f.getContext && f.getContext("2d"), h = String.fromCharCode; return g && g.fillText?(g.textBaseline = "top", g.font = "600 32px Arial", "flag" === a?(g.fillText(h(55356, 56806, 55356, 56826), 0, 0), f.toDataURL().length > 3e3):"diversity" === a?(g.fillText(h(55356, 57221), 0, 0), c = g.getImageData(16, 16, 1, 1).data, g.fillText(h(55356, 57221, 55356, 57343), 0, 0), c = g.getImageData(16, 16, 1, 1).data, e = c[0] + "," + c[1] + "," + c[2] + "," + c[3], d !== e):("simple" === a?g.fillText(h(55357, 56835), 0, 0):g.fillText(h(55356, 57135), 0, 0), 0 !== g.getImageData(16, 16, 1, 1).data[0])):!1}function e(a){var c = b.createElement("script"); c.src = a, c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c)}var f, g; c.supports = {simple:d("simple"), flag:d("flag"), unicode8:d("unicode8"), diversity:d("diversity")}, c.DOMReady = !1, c.readyCallback = function(){c.DOMReady = !0}, c.supports.simple && c.supports.flag && c.supports.unicode8 && c.supports.diversity || (g = function(){c.readyCallback()}, b.addEventListener?(b.addEventListener("DOMContentLoaded", g, !1), a.addEventListener("load", g, !1)):(a.attachEvent("onload", g), b.attachEvent("onreadystatechange", function(){"complete" === b.readyState && c.readyCallback()})), f = c.source || {}, f.concatemoji?e(f.concatemoji):f.wpemoji && f.twemoji && (e(f.twemoji), e(f.wpemoji)))}(window, document, window._wpemojiSettings);
-                    </script>-->
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/jquery.js'></script>
         <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
@@ -128,7 +116,7 @@ AppAsset::register($this);
             .vc_custom_1453373153343 {
                 padding-top: 121px !important;
                 padding-bottom: 155px !important;
-                background-image: url(wp-content/uploads/2016/01/parallax-1bc58.jpg?id=78) !important;
+                background-image: url(<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/parallax-1bc58.jpg?id=78) !important;
             }
 
             .vc_custom_1453373235263 {
@@ -193,15 +181,16 @@ AppAsset::register($this);
             }
         </style>
         </noscript>
-        <link rel="stylesheet" href="css/wfmi-style.css">
+        <link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/wfmi-style.css">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
         <link href="<?= Yii::$app->homeUrl; ?>css/style.css" rel="stylesheet" />
+        <link href="<?= Yii::$app->homeUrl; ?>css/responsive.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="home page page-id-5 page-template page-template-full-width page-template-full-width-php mkdf-bmi-calculator-1.0 mkd-core-1.0 wellspring-ver-1.0 mkdf-smooth-scroll  mkdf-ajax mkdf-grid-1300 mkdf-blog-installed mkdf-bbpress-installed mkdf-header-standard mkdf-sticky-header-on-scroll-down-up mkdf-default-mobile-header mkdf-sticky-up-mobile-header mkdf-dropdown-default mkdf-top-bar-light mkdf-search-dropdown mkdf-side-menu-slide-with-content mkdf-width-470 wpb-js-composer js-comp-ver-4.10 vc_responsive">
 
         <!------------------------selector-div----------------------------------->
-        <a id="btnright" href="javascript:void(0);" class="btn-close">How Do I Start&nbsp;<i class="fa fa-question"></i>
+        <a id="btnright" href="javascript:void(0);" class="btn-close in">How Do I Start&nbsp;<i class="fa fa-question"></i>
             <img class="help-box-arrow" src="<?= Yii::$app->homeUrl; ?>images/help-box-arrow.png"/>
         </a>
 
@@ -210,7 +199,9 @@ AppAsset::register($this);
 
 
             <div class="help-box">
-                <h5 class="title-big">How Do I Start</h5>
+                <h5 class="title-big">
+                    <br/>
+                </h5>
                 <div class="style-selector-wrapper">
                     <!--<h5 class="title">Choose Layout</h5>-->
                     <!--                                        <a class="btn-gray active" href="index.php">Wide</a> <a class="btn-gray" href="http://codelayers.net/templates/hasta/construction/boxed/index.php">Boxed</a>
@@ -225,36 +216,29 @@ AppAsset::register($this);
                         <div class="row">
                             <h5 class="title-big">CALL US TODAY ON +91 90 20 599 599</h5>
                             <div class="col-md-12">
-                                <div role="form" class="wpcf7" id="wpcf7-f140-o2" lang="en-US" dir="ltr">
-                                    <div class="screen-reader-response"></div>
-                                    <form action="/#wpcf7-f140-o2" method="post" class="wpcf7-form" novalidate="novalidate">
-                                        <div style="display: none;">
-                                            <input type="hidden" name="_wpcf7" value="140">
-                                            <input type="hidden" name="_wpcf7_version" value="4.5.1">
-                                            <input type="hidden" name="_wpcf7_locale" value="en_US">
-                                            <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f140-o2">
-                                            <input type="hidden" name="_wpnonce" value="a1d65a68c0">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><span class="wpcf7-form-control-wrap YourLocation"><select name="YourLocation" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false"><option value="Location">Location</option><option value="Kerala">Kerala</option><option value="Mumbai">Mumbai</option></select></span></p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name"></span> </p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><span class="wpcf7-form-control-wrap PhoneNumber"><input type="tel" name="PhoneNumber" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" placeholder="Phone"></span></p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email"></span> </p>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <p><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message"></textarea></span> </p>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <p><input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit"><img class="ajax-loader" src="http://caringpeople.in/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden;"></p>
-                                        </div>
-                                        <div class="wpcf7-response-output wpcf7-display-none"></div></form>
+                                <!--<div role="form" class="wpcf7" id="wpcf7-f140-o2" lang="en-US" dir="ltr">-->
+                                <div class="screen-reader-response"></div>
+                                <?= Html::beginForm(['site/contacts'], 'post', ['class' => 'wpcf7-form']) ?>
+                                <div class="col-md-6">
+                                    <p><span class="wpcf7-form-control-wrap YourLocation"><select name="Location" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false"><option value="Location">Location</option><option value="Kerala">Kerala</option><option value="Mumbai">Mumbai</option></select></span></p>
                                 </div>
+                                <div class="col-md-6">
+                                    <p><span class="wpcf7-form-control-wrap your-name"><input type="text" name="first-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name"></span> </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><span class="wpcf7-form-control-wrap PhoneNumber"><input type="tel" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel" aria-required="true" aria-invalid="false" placeholder="Phone"></span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><span class="wpcf7-form-control-wrap your-email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email"></span> </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p><span class="wpcf7-form-control-wrap your-message"><textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message"></textarea></span> </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p><?= Html::submitButton('SEND', ['class' => 'wpcf7-form-control contact-submit-btn', 'name' => 'contact-send']) ?></p>
+                                </div>
+                                <?= Html::endForm() ?>
+                                <!--</div>-->
                             </div>
                         </div>
                     </div>
@@ -277,124 +261,79 @@ AppAsset::register($this);
                 <div class="textwidget">
                     <div data-original-height="25" class="vc_empty_space" style="height: 25px"><span class="vc_empty_space_inner"></span></div>
 
-                    <a href="index.php">
+                    <a href="<?= Yii::$app->homeUrl; ?>site/index">
                         <img width="auto" height="100%" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="logo" />
                     </a>
-
-                    <h2 style="margin:23px 0">Welcome to Caring People</h2> Living in your own surroundings where you feel loved and comfortable is always the best choice when it comes to difficult moments like being unwell. Home care is the right kind of support what people in need always wish for. Caring People Home care offers the best quality care and support at home. Our aim is to enable our needy clients to continue living in their own households with dignity, individuality and with control over their lives, irrespective of the level of support required. Caring People will always work with you to plan a service package that will aid you or your loved one to live a life to the full at home.
-
-                    <div data-original-height="40" class="vc_empty_space" style="height: 40px"><span class="vc_empty_space_inner"></span></div>
-
-                    <h5 style="color: #808080;">Working Hours</h5>
-
-                    <div data-original-height="15" class="vc_empty_space" style="height: 15px"><span class="vc_empty_space_inner"></span></div>
-
-                    <div class="mkdf-working-hours-holder mkdf-working-hours-dark">
-                        <div class="mkdf-wh-holder-inner">
-
-                            <div class="mkdf-wh-item clearfix">
-                                <span class="mkdf-wh-day">
-                                    <span class="mkdf-wh-icon">
-                                        <span class="icon_clock_alt"></span>
-                                    </span>
-                                    Monday - Saturday </span>
-                                <span class="mkdf-wh-dots"><span class="mkdf-wh-dots-inner"></span></span>
-                                <span class="mkdf-wh-hours">
-                                    <span class="mkdf-wh-from">10:00AM - 17:00PM</span>
-                                </span>
-                            </div>
-                            <div class="mkdf-wh-item clearfix">
-                                <span class="mkdf-wh-day">
-                                    <span class="mkdf-wh-icon">
-                                        <span class="icon_clock_alt"></span>
-                                    </span>
-                                    Sunday </span>
-                                <span class="mkdf-wh-dots"><span class="mkdf-wh-dots-inner"></span></span>
-                                <span class="mkdf-wh-hours">
-                                    <span class="mkdf-wh-from">CLOSED</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div data-original-height="15" class="vc_empty_space" style="height: 15px"><span class="vc_empty_space_inner"></span></div>
-
-                    <div class="mkdf-separator-holder clearfix  mkdf-separator-center mkdf-separator-full-width">
-                        <div class="mkdf-separator" style="border-color: #e5e5e5;border-style: dashed;border-bottom-width: 1px;margin-top: 17px;margin-bottom: 35px"></div>
-                    </div>
-
-                    <h5 style="color:#808080;">From Our Gallery</h5>
-
                     <div data-original-height="10" class="vc_empty_space" style="height: 10px"><span class="vc_empty_space_inner"></span></div>
+                    <br/>
 
-                    <div class="mkdf-image-gallery">
-                        <div class="mkdf-image-gallery-grid mkdf-gallery-columns-4 mkdf-small-space ">
-                            <div class="mkdf-gallery-image">
-                                <div class="mkdf-overlay-holder">
-                                    <div class="mkdf-overlay-inner"></div>
-                                    <a href="#" data-rel="prettyPhoto[single_pretty_photo]" title="sidearea-image-1">
-                                        <div class="mkdf-overlay-inner"></div>
-                                        <img width="110" height="110" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/sidearea-image-1-110x110.jpg" class="attachment-thumbnail size-thumbnail" alt="q" srcset="http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-1-110x110.jpg 110w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-1-300x300.jpg 300w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-1-188x188.jpg 188w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-1-550x550.jpg 550w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-1.jpg 600w" sizes="(max-width: 110px) 100vw, 110px" /> </a>
-                                </div>
-                            </div>
-                            <div class="mkdf-gallery-image">
-                                <div class="mkdf-overlay-holder">
-                                    <div class="mkdf-overlay-inner"></div>
-                                    <a href="#" data-rel="prettyPhoto[single_pretty_photo]" title="sidearea-image-2">
-                                        <div class="mkdf-overlay-inner"></div>
-                                        <img width="110" height="110" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/sidearea-image-2-110x110.jpg" class="attachment-thumbnail size-thumbnail" alt="q" srcset="http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-2-110x110.jpg 110w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-2-300x300.jpg 300w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-2-188x188.jpg 188w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-2-550x550.jpg 550w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-2.jpg 600w" sizes="(max-width: 110px) 100vw, 110px" /> </a>
-                                </div>
-                            </div>
-                            <div class="mkdf-gallery-image">
-                                <div class="mkdf-overlay-holder">
-                                    <div class="mkdf-overlay-inner"></div>
-                                    <a href="#" data-rel="prettyPhoto[single_pretty_photo]" title="sidearea-image-3">
-                                        <div class="mkdf-overlay-inner"></div>
-                                        <img width="110" height="110" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/sidearea-image-3-110x110.jpg" class="attachment-thumbnail size-thumbnail" alt="q" srcset="http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-3-110x110.jpg 110w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-3-300x300.jpg 300w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-3-188x188.jpg 188w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-3-550x550.jpg 550w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-3.jpg 600w" sizes="(max-width: 110px) 100vw, 110px" /> </a>
-                                </div>
-                            </div>
-                            <div class="mkdf-gallery-image">
-                                <div class="mkdf-overlay-holder">
-                                    <div class="mkdf-overlay-inner"></div>
-                                    <a href="#" data-rel="prettyPhoto[single_pretty_photo]" title="sidearea-image-4">
-                                        <div class="mkdf-overlay-inner"></div>
-                                        <img width="110" height="110" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/sidearea-image-4-110x110.jpg" class="attachment-thumbnail size-thumbnail" alt="q" srcset="http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-4-110x110.jpg 110w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-4-300x300.jpg 300w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-4-188x188.jpg 188w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-4-550x550.jpg 550w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-4.jpg 600w" sizes="(max-width: 110px) 100vw, 110px" /> </a>
-                                </div>
-                            </div>
-                            <div class="mkdf-gallery-image">
-                                <div class="mkdf-overlay-holder">
-                                    <div class="mkdf-overlay-inner"></div>
-                                    <a href="#" data-rel="prettyPhoto[single_pretty_photo]" title="sidearea-image-5">
-                                        <div class="mkdf-overlay-inner"></div>
-                                        <img width="110" height="110" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/sidearea-image-5-110x110.jpg" class="attachment-thumbnail size-thumbnail" alt="q" srcset="http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-5-110x110.jpg 110w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-5-300x300.jpg 300w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-5-188x188.jpg 188w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-5-550x550.jpg 550w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-5.jpg 600w" sizes="(max-width: 110px) 100vw, 110px" /> </a>
-                                </div>
-                            </div>
-                            <div class="mkdf-gallery-image">
-                                <div class="mkdf-overlay-holder">
-                                    <div class="mkdf-overlay-inner"></div>
-                                    <a href="#" data-rel="prettyPhoto[single_pretty_photo]" title="sidearea-image-6">
-                                        <div class="mkdf-overlay-inner"></div>
-                                        <img width="110" height="110" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/sidearea-image-6-110x110.jpg" class="attachment-thumbnail size-thumbnail" alt="q" srcset="http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-6-110x110.jpg 110w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-6-300x300.jpg 300w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-6-188x188.jpg 188w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-6-550x550.jpg 550w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-6.jpg 600w" sizes="(max-width: 110px) 100vw, 110px" /> </a>
-                                </div>
-                            </div>
-                            <div class="mkdf-gallery-image">
-                                <div class="mkdf-overlay-holder">
-                                    <div class="mkdf-overlay-inner"></div>
-                                    <a href="#" data-rel="prettyPhoto[single_pretty_photo]" title="sidearea-image-7">
-                                        <div class="mkdf-overlay-inner"></div>
-                                        <img width="110" height="110" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/sidearea-image-7-110x110.jpg" class="attachment-thumbnail size-thumbnail" alt="q" srcset="http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-7-110x110.jpg 110w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-7-300x300.jpg 300w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-7-188x188.jpg 188w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-7-550x550.jpg 550w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-7.jpg 600w" sizes="(max-width: 110px) 100vw, 110px" /> </a>
-                                </div>
-                            </div>
-                            <div class="mkdf-gallery-image">
-                                <div class="mkdf-overlay-holder">
-                                    <div class="mkdf-overlay-inner"></div>
-                                    <a href="#" data-rel="prettyPhoto[single_pretty_photo]" title="sidearea-image-8">
-                                        <div class="mkdf-overlay-inner"></div>
-                                        <img width="110" height="110" src="<?= Yii::$app->homeUrl; ?>wp-content/uploads/2016/01/sidearea-image-8-110x110.jpg" class="attachment-thumbnail size-thumbnail" alt="q" srcset="http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-8-110x110.jpg 110w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-8-300x300.jpg 300w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-8-188x188.jpg 188w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-8-550x550.jpg 550w, http://wellspring.mikado-themes.com/wp-content/uploads/2016/01/sidearea-image-8.jpg 600w" sizes="(max-width: 110px) 100vw, 110px" /> </a>
+                    <div class="vc_row wpb_row vc_row-fluid mkdf-section vc_custom_1455028506356 mkdf-content-aligment-left" style="">
+                        <div class="clearfix mkdf-full-section-inner">
+                            <div class="wpb_column vc_column_container vc_col-sm-12">
+                                <div class="vc_column-inner ">
+                                    <div class="wpb_wrapper">
+                                        <div class="mkdf-tabs mkdf-horizontal mkdf-tab-text-icon clearfix">
+                                            <ul class="mkdf-tabs-nav">
+                                                <li>
+                                                    <a href="#Log-in">
+                                                        <span class="mkdf-icon-frame"></span>
+                                                        <span class="mkdf-tab-text-after-icon">
+                                                            Log In					</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#Register">
+                                                        <span class="mkdf-icon-frame"></span>
+                                                        <span class="mkdf-tab-text-after-icon">
+                                                            Register					</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="mkdf-tab-container" id="Log-in" data-icon-pack="linear_icons" data-icon-html="&lt;i class=&quot;mkdf-icon-linear-icon lnr lnr-shirt &quot; &gt;&lt;/i&gt;">
+                                                <form class="modal-content animate" action="">
+
+                                                    <div class="container login-field">
+                                                        <label><b>Username</b></label>
+                                                        <input type="text" placeholder="Enter Username" name="uname" required>
+
+                                                        <label><b>Password</b></label>
+                                                        <input type="password" placeholder="Enter Password" name="psw" required>
+
+                                                        <button type="submit">Login</button>
+                                                        <input type="checkbox" checked="checked"> Remember me<span class="psw"><a href="#">Forgot password?</a></span>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+                                            <div class="mkdf-tab-container" id="Register" data-icon-pack="linear_icons" data-icon-html="&lt;i class=&quot;mkdf-icon-linear-icon lnr lnr-smile &quot; &gt;&lt;/i&gt;">
+                                                <div data-original-height="10" class="vc_empty_space" style="height: 10px"><span class="vc_empty_space_inner"></span></div>
+                                                <div id="logbox">
+                                                    <form class=" animate" id="signup" method="post" action="">
+                                                        <div class="container register-field">
+                                                            <!--<h1>create an account</h1>-->
+                                                            <input name="user[name]" type="text" placeholder="What's your username?" pattern="^[\w]{3,16}$" autofocus="autofocus" required="required" class="input pass"/>
+                                                            <input name="user[password]" type="password" placeholder="Choose a password" required="required" class="input pass"/>
+                                                            <input name="user[password2]" type="password" placeholder="Confirm password" required="required" class="input pass"/>
+                                                            <input name="user[email]" type="email" placeholder="Email address" class="input pass"/>
+                                                            <input type="submit" value="Sign me up!" class="inputButton"/>
+                                                            <div class="text-center">
+                                                                already have an account? <a href="#" id="login_id">login</a>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -508,6 +447,7 @@ AppAsset::register($this);
                 </div>
 
                 <header class="mkdf-page-header">
+                    <?php $action = Yii::$app->controller->action->id; // controller action id ?>
                     <div class="mkdf-menu-area">
                         <div class="mkdf-grid">
                             <div class="mkdf-vertical-align-containers">
@@ -515,9 +455,9 @@ AppAsset::register($this);
                                     <div class="mkdf-position-left-inner">
 
                                         <div class="mkdf-logo-wrapper">
-                                            <a href="index.php" style="height: 60px;">
+                                            <a href="<?= Yii::$app->homeUrl; ?>site/index" style="height: 60px;">
                                                 <img height="88" width="358" class="mkdf-normal-logo" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="logo" />
-                                                <img height="88" width="358" class="mkdf-dark-logo" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="dark logo" /> <img height="88" width="358" class="mkdf-light-logo" src="images/logo.png" alt="light logo" /> </a>
+                                                <img height="88" width="358" class="mkdf-dark-logo" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="dark logo" /> <img height="88" width="358" class="mkdf-light-logo" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="light logo" /> </a>
                                         </div>
 
                                     </div>
@@ -527,13 +467,11 @@ AppAsset::register($this);
 
                                         <nav class="mkdf-main-menu mkdf-drop-down mkdf-default-nav">
                                             <ul id="menu-top-menu" class="clearfix">
-                                                <li id="nav-menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'index' ? 'mkdf-active-item' : '' ?>"><a href="<?= Yii::$app->homeUrl ?>site/index" class=" current"><span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span><span class="plus"></span></span></a>
-                                                </li>
-                                                <li id="nav-menu-item-13" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'about-us' ? 'mkdf-active-item' : '' ?>"><a href="<?= Yii::$app->homeUrl ?>site/about"><span class="item_outer"><span class="item_inner"><span class="item_text">About Us</span></span><span class="plus"></span></span></a>
-                                                </li>
+                                                <li id="nav-menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children has_sub narrow <?php if ($action == 'index') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span><span class="plus"></span></span>', ['site/index'], ['class' => 'current']) ?></li>
+                                                <li id="nav-menu-item-13" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide <?php if ($action == 'about') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">About Us</span></span><span class="plus"></span></span>', ['site/about'], ['class' => '']) ?></li>
 
                                                 <?php
-                                                if (basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'doctor-visit' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'nursing-care' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'caregiver-service' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction') {
+                                                if ($action == 'doctor-visit' || $action == 'nursing-care' || $action == 'caregive' || $action == 'laboratory' || $action == 'pharmacy' || $action == 'equipment-hire' || $action == 'doctor-visit') {
                                                     $active = 'mkdf-active-item';
                                                 } else {
                                                     $active = '';
@@ -544,27 +482,21 @@ AppAsset::register($this);
                                                     <div class="second ">
                                                         <div class="inner">
                                                             <ul>
-                                                                <li id="nav-menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="<?= Yii::$app->homeUrl; ?>site/services?service=doctor-visit" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Doctor Visit</span></span><span class="plus"></span></span></a></li>
-                                                                <li id="nav-menu-item-601" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="<?= Yii::$app->homeUrl; ?>site/services?service=nursing-care" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Nursing Care</span></span><span class="plus"></span></span></a></li>
-                                                                <li id="nav-menu-item-600" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="<?= Yii::$app->homeUrl; ?>site/services?service=nursing-carecaregiver" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Caregiver Service</span></span><span class="plus"></span></span></a></li>
-                                                                <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="<?= Yii::$app->homeUrl; ?>site/services?service=laboratory" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Laboratory</span></span><span class="plus"></span></span></a></li>
-                                                                <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="<?= Yii::$app->homeUrl; ?>site/services?service=pharmacy" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Pharmacy</span></span><span class="plus"></span></span></a></li>
-                                                                <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="<?= Yii::$app->homeUrl; ?>site/services?service=equipment-hire" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span></a></li>
-                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><a href="<?= Yii::$app->homeUrl; ?>site/services?service=health-check-up" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Health Check-up</span></span><span class="plus"></span><!--<i class="q_menu_arrow fa fa-angle-right"></i>--></span></a>
-                                                                </li>
+                                                                <li id="nav-menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Doctor Visit</span></span><span class="plus"></span></span>', ['services/doctor-visit'], ['class' => '']) ?></li>
+                                                                <li id="nav-menu-item-601" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Nursing Care</span></span><span class="plus"></span></span>', ['services/nursing-care'], ['class' => '']) ?></li>
+                                                                <li id="nav-menu-item-600" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Caregiver Service</span></span><span class="plus"></span></span>', ['services/caregiver'], ['class' => '']) ?></li>
+                                                                <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Laboratory</span></span><span class="plus"></span></span>', ['services/laboratory'], ['class' => '']) ?></li>
+                                                                <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Pharmacy</span></span><span class="plus"></span></span>', ['services/pharmacy'], ['class' => '']) ?></li>
+                                                                <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => '']) ?></li>
+                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Health Check-up</span></span><span class="plus"></span></span>', ['services/health-check-up'], ['class' => '']) ?></li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </li>
-
-                                                <li id="nav-menu-item-2597" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'testimonial' ? 'mkdf-active-item' : '' ?>"><a href="<?= Yii::$app->homeUrl; ?>site/testimonial"><span class="item_outer"><span class="item_inner"><span class="item_text">Testimonials</span></span><span class="plus"></span></span></a>
-                                                </li>
-                                                <li id="nav-menu-item-14" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'feedback' ? 'mkdf-active-item' : '' ?>"><a href="<?= Yii::$app->homeUrl; ?>site/feedback"><span class="item_outer"><span class="item_inner"><span class="item_text">Feedback</span></span><span class="plus"></span></span></a>
-                                                </li>
-                                                <li id="nav-menu-item-501" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'gallery' ? 'mkdf-active-item' : '' ?>"><a href="<?= Yii::$app->homeUrl; ?>site/gallery"><span class="item_outer"><span class="item_inner"><span class="item_text">Gallery</span></span><span class="plus"></span></span></a>
-                                                </li>
-                                                <li id="nav-menu-item-16" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'contact' ? 'mkdf-active-item' : '' ?>"><a href="<?= Yii::$app->homeUrl; ?>site/contact"><span class="item_outer"><span class="item_inner"><span class="item_text">Contact</span></span><span class="plus"></span></span></a>
-                                                </li>
+                                                <li id="nav-menu-item-2597" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?php if ($action == 'testimonial') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Testimonials</span></span><span class="plus"></span></span>', ['site/testimonial'], ['class' => '']) ?></li>
+                                                <li id="nav-menu-item-14" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?php if ($action == 'feedback') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Feedback</span></span><span class="plus"></span></span>', ['site/feedback'], ['class' => '']) ?></li>
+                                                <li id="nav-menu-item-501" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?php if ($action == 'gallery') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Gallery</span></span><span class="plus"></span></span>', ['site/gallery'], ['class' => '']) ?></li>
+                                                <li id="nav-menu-item-16" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?php if ($action == 'contact') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Contact</span></span><span class="plus"></span></span>', ['site/contact'], ['class' => '']) ?></li>
                                             </ul>
                                         </nav>
 
@@ -572,10 +504,8 @@ AppAsset::register($this);
                                             <div class="mkdf-main-menu-widget-area-inner">
                                                 <div id="mkdf_side_area_opener-2" class="widget widget_mkdf_side_area_opener mkdf-right-from-main-menu-widget">
                                                     <div class="mkdf-right-from-main-menu-widget-inner">
-                                                        <a href="javascript:void(0)" class=" no_link" onclick="JavaScript: return false;">
+                                                        <a href="javascript:void(0)" class=" mkdf-side-menu-button-opener large " onclick="JavaScript: return false;">
                                                             <span aria-hidden="true">LogIn</span> </a>
-                                                        <!--                                                        <a class="mkdf-side-menu-button-opener large " href="javascript:void(0)" class=" no_link" onclick="JavaScript: return false;">
-                                                                                                                    <span aria-hidden="true">LogIn</span> </a>-->
 
                                                     </div>
                                                 </div>
@@ -596,9 +526,9 @@ AppAsset::register($this);
                                         <div class="mkdf-position-left-inner">
 
                                             <div class="mkdf-logo-wrapper">
-                                                <a href="index.php" style="height: 44px;">
+                                                <a href="<?= Yii::$app->homeUrl; ?>site/index" style="height: 44px;">
                                                     <img height="88" width="358" class="mkdf-normal-logo" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="logo" />
-                                                    <img height="88" width="358" class="mkdf-dark-logo" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="dark logo" /> <img height="88" width="358" class="mkdf-light-logo" src="images/logo.png" alt="light logo" /> </a>
+                                                    <img height="88" width="358" class="mkdf-dark-logo" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="dark logo" /> <img height="88" width="358" class="mkdf-light-logo" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="light logo" /> </a>
                                             </div>
 
                                         </div>
@@ -608,13 +538,11 @@ AppAsset::register($this);
 
                                             <nav class="mkdf-main-menu mkdf-drop-down mkdf-sticky-nav">
                                                 <ul id="menu-top-menu-1" class="clearfix">
-                                                    <li id="sticky-nav-menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'index' ? 'mkdf-active-item' : '' ?>"><a href="index.php" class=" current"><span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span><span class="plus"></span></span></a>
-                                                    </li>
-                                                    <li id="sticky-nav-menu-item-13" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'about-us' ? 'mkdf-active-item' : '' ?>"><a href="about-us.php"><span class="item_outer"><span class="item_inner"><span class="item_text">About Us</span></span><span class="plus"></span></span></a>
-                                                    </li>
+                                                    <li id="sticky-nav-menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children has_sub narrow <?php if ($action == 'index') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span><span class="plus"></span></span>', ['site/index'], ['class' => 'current']) ?></li>
+                                                    <li id="sticky-nav-menu-item-13" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub wide <?php if ($action == 'about') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">About Us</span></span><span class="plus"></span></span>', ['site/about'], ['class' => '']) ?></li>
 
                                                     <?php
-                                                    if (basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'doctor-visit' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'nursing-care' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'caregiver-service' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction' || basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'under-construction') {
+                                                    if ($action == 'doctor-visit' || $action == 'nursing-care' || $action == 'caregive' || $action == 'laboratory' || $action == 'pharmacy' || $action == 'equipment-hire' || $action == 'doctor-visit') {
                                                         $active = 'mkdf-active-item';
                                                     } else {
                                                         $active = '';
@@ -625,48 +553,23 @@ AppAsset::register($this);
                                                         <div class="second ">
                                                             <div class="inner">
                                                                 <ul>
-                                                                    <li id="nav-menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="doctor-visit.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Doctor Visit</span></span><span class="plus"></span></span></a></li>
-                                                                    <li id="nav-menu-item-601" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="nursing-care.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Nursing Care</span></span><span class="plus"></span></span></a></li>
-                                                                    <li id="nav-menu-item-600" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="caregiver-service.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Caregiver Service</span></span><span class="plus"></span></span></a></li>
-                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="under-construction.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Laboratory</span></span><span class="plus"></span></span></a></li>
-                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="under-construction.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Pharmacy</span></span><span class="plus"></span></span></a></li>
-                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="under-construction.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span></a></li>
-                                                                    <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><a href="under-construction.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Health Check-up</span></span><span class="plus"></span><!--<i class="q_menu_arrow fa fa-angle-right"></i>--></span></a>
-                                                                        <!--                                                                    <ul  >
-                                                                                                                                                    <li id="nav-menu-item-614" class="menu-item menu-item-type-custom menu-item-object-custom "><a href="the-benefits-of-detoxification/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Standard</span></span><span class="plus"></span></span></a></li>
-                                                                                                                                                    <li id="nav-menu-item-617" class="menu-item menu-item-type-custom menu-item-object-custom "><a href="you-dont-need-another-excuse/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Gallery</span></span><span class="plus"></span></span></a></li>
-                                                                                                                                                    <li id="nav-menu-item-615" class="menu-item menu-item-type-custom menu-item-object-custom "><a href="superfood-secrets-for-a-healthy-life/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Audio</span></span><span class="plus"></span></span></a></li>
-                                                                                                                                                    <li id="nav-menu-item-619" class="menu-item menu-item-type-custom menu-item-object-custom "><a href="walk-a-little-lose-a-lot/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Video</span></span><span class="plus"></span></span></a></li>
-                                                                                                                                                    <li id="nav-menu-item-618" class="menu-item menu-item-type-custom menu-item-object-custom "><a href="dalai-lama/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Quote</span></span><span class="plus"></span></span></a></li>
-                                                                                                                                                    <li id="nav-menu-item-616" class="menu-item menu-item-type-custom menu-item-object-custom "><a href="secrets-to-regular-exercise-motivation/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Link</span></span><span class="plus"></span></span></a></li>
-                                                                                                                                                </ul>-->
-                                                                    </li>
+                                                                    <li id="nav-menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Doctor Visit</span></span><span class="plus"></span></span>', ['services/doctor-visit'], ['class' => '']) ?></li>
+                                                                    <li id="nav-menu-item-601" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Nursing Care</span></span><span class="plus"></span></span>', ['services/nursing-care'], ['class' => '']) ?></li>
+                                                                    <li id="nav-menu-item-600" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Caregiver Service</span></span><span class="plus"></span></span>', ['services/caregiver'], ['class' => '']) ?></li>
+                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Laboratory</span></span><span class="plus"></span></span>', ['services/laboratory'], ['class' => '']) ?></li>
+                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Pharmacy</span></span><span class="plus"></span></span>', ['services/pharmacy'], ['class' => '']) ?></li>
+                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => '']) ?></li>
+                                                                    <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Health Check-up</span></span><span class="plus"></span></span>', ['services/health-check-up'], ['class' => '']) ?></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </li>
 
-                                                    <li id="sticky-nav-menu-item-2597" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'testimonial' ? 'mkdf-active-item' : '' ?>"><a href="testimonial.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Testimonials</span></span><span class="plus"></span></span></a>
-                                                    </li>
-                                                    <li id="sticky-nav-menu-item-14" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'feedback' ? 'mkdf-active-item' : '' ?>"><a href="feedback.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Feedback</span></span><span class="plus"></span></span></a>
-                                                    </li>
-                                                    <li id="sticky-nav-menu-item-501" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'gallery' ? 'mkdf-active-item' : '' ?>"><a href="gallery.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Gallery</span></span><span class="plus"></span></span></a>
-                                                        <!--                                                    <div class="second " ><div class="inner"><ul  >
-                                                                                                                            <li id="nav-menu-item-609" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="shop-home/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Shop Home<span class="mkdf-menu-featured-icon icon_star" aria-hidden="true"></span></span></span><span class="plus"></span></span></a></li>
-                                                                                                                            <li id="nav-menu-item-567" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="shop/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Shop With Sidebar</span></span><span class="plus"></span></span></a></li>
-                                                                                                                            <li id="nav-menu-item-571" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="shop-three-columns/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Shop Three Columns</span></span><span class="plus"></span></span></a></li>
-                                                                                                                            <li id="nav-menu-item-574" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="shop-four-columns/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Shop Four Columns</span></span><span class="plus"></span></span></a></li>
-                                                                                                                            <li id="nav-menu-item-577" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="shop-full-width/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Shop Full Width</span></span><span class="plus"></span></span></a></li>
-                                                                                                                            <li id="nav-menu-item-579" class="menu-item menu-item-type-custom menu-item-object-custom "><a href="product/foam-toning-roller/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">Single Product</span></span><span class="plus"></span></span></a></li>
-                                                                                                                        </ul></div></div>-->
-                                                    </li>
-                                                    <li id="sticky-nav-menu-item-16" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?= basename($_SERVER["SCRIPT_FILENAME"], '.php') == 'contact' ? 'mkdf-active-item' : '' ?>"><a href="contact.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Contact</span></span><span class="plus"></span></span></a>
-                                                    </li>
-                                                    <li id="sticky-nav-menu-item-2022" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow"><a href="#" class=" no_link" onclick="JavaScript: return false;"><span class="item_outer"><span class="item_inner"><span class="item_text">Log In</span></span><span class="plus"></span></span></a>
-                                                        <!--                                                        <div class="second " ><div class="inner"><ul  >
-                                                                                                                                <li id="sticky-nav-menu-item-2027" class="menu-item menu-item-type-post_type_archive menu-item-object-forum "><a href="forums/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">All Forums</span></span><span class="plus"></span></span></a></li>
-                                                                                                                                <li id="sticky-nav-menu-item-2334" class="menu-item menu-item-type-post_type menu-item-object-forum "><a href="forums/forum/general-fitness/index.php" class=""><span class="item_outer"><span class="item_inner"><span class="item_text">General Fitness</span></span><span class="plus"></span></span></a></li>
-                                                                                                                            </ul></div></div>-->
+                                                    <li id="sticky-nav-menu-item-2597" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?php if ($action == 'testimonial') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Testimonials</span></span><span class="plus"></span></span>', ['site/testimonial'], ['class' => '']) ?></li>
+                                                    <li id="sticky-nav-menu-item-14" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?php if ($action == 'feedback') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Feedback</span></span><span class="plus"></span></span>', ['site/feedback'], ['class' => '']) ?></li>
+                                                    <li id="sticky-nav-menu-item-501" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?php if ($action == 'gallery') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Gallery</span></span><span class="plus"></span></span>', ['site/gallery'], ['class' => '']) ?></li>
+                                                    <li id="sticky-nav-menu-item-16" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow <?php if ($action == 'contact') { ?> mkdf-active-item <?php } ?>"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Contact</span></span><span class="plus"></span></span>', ['site/contact'], ['class' => '']) ?></li>
+                                                    <li id="sticky-nav-menu-item-2022" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub narrow"><a href="javascript:void(0)" class=" mkdf-side-menu-button-opener " onclick="JavaScript: return false;"><span class="item_outer"><span class="item_inner"><span  aria-hidden="true">Log In</span></span><span class="plus"></span></span></a>
                                                     </li>
                                                 </ul>
                                             </nav>
@@ -695,7 +598,7 @@ AppAsset::register($this);
                                         <div class="mkdf-position-center-inner">
 
                                             <div class="mkdf-mobile-logo-wrapper">
-                                                <a href="index.php" style="height: 44px">
+                                                <a href="<?= Yii::$app->homeUrl; ?>site/index" style="height: 44px">
                                                     <img height="88" width="358" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="mobile-logo" />
                                                 </a>
                                             </div>
@@ -714,34 +617,26 @@ AppAsset::register($this);
                         <nav class="mkdf-mobile-nav">
                             <div class="mkdf-grid">
                                 <ul id="menu-top-menu-2" class="">
-                                    <li id="mobile-menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children mkdf-active-item has_sub">
-                                        <h4><a href="index.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span><span class="mobile_arrow"></span></span></a>
-                                    </li>
-                                    <li id="mobile-menu-item-13" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
-                                        <h4><a href="about-us.php"><span class="item_outer"><span class="item_inner"><span class="item_text">About US</span></span><span class="mobile_arrow"></span></span></a>
-                                    </li>
+                                    <li id="mobile-menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children mkdf-active-item has_sub"><h4><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span><span class="plus"></span></span>', ['site/index'], ['class' => 'current']) ?></h4></li>
+                                    <li id="mobile-menu-item-13" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub"><h4><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">About US</span></span><span class="plus"></span></span>', ['site/about'], ['class' => '']) ?></h4></li>
+
                                     <li id="mobile-menu-item-15" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
                                         <h4><span>Services</span></h4><span class="mobile_arrow"><i class="mkdf-sub-arrow fa fa-angle-right"></i><i class="fa fa-angle-down"></i></span>
                                         <ul class="sub_menu">
-                                            <li id="mobile-menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span>Doctor Visit</span></a></li>
-                                            <li id="mobile-menu-item-601" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span>Nursing Care at Home</span></a></li>
-                                            <li id="mobile-menu-item-600" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span>Physiotherapy</span></a></li>
-                                            <li id="mobile-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span>Bystander or Caregiver Service</span></a></li>
-                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page "><a href="#" class=""><span>Companion Care</span></a></li>
+                                            <li id="mobile-menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Doctor Visit</span></span><span class="plus"></span></span>', ['services/doctor-visit'], ['class' => '']) ?></li>
+                                            <li id="mobile-menu-item-601" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Nursing Care</span></span><span class="plus"></span></span>', ['services/nursing-care'], ['class' => '']) ?></li>
+                                            <li id="mobile-menu-item-600" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Caregiver Service</span></span><span class="plus"></span></span>', ['services/caregiver'], ['class' => '']) ?></li>
+                                            <li id="mobile-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Laboratory</span></span><span class="plus"></span></span>', ['services/laboratory'], ['class' => '']) ?></li>
+                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Pharmacy</span></span><span class="plus"></span></span>', ['services/pharmacy'], ['class' => '']) ?></li>
+                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => '']) ?></li>
                                         </ul>
+
                                     </li>
-                                    <li id="mobile-menu-item-2022" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
-                                        <h4><a href="testimonial.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Testimonials</span></span><span class="mobile_arrow"></span></span></a>
-                                    </li>
-                                    <li id="mobile-menu-item-2597" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
-                                        <h4><a href="feedback.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Feedback</span></span><span class="mobile_arrow"></span></span></a>
-                                    </li>
-                                    <li id="mobile-menu-item-14" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
-                                        <h4><a href="gallery.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Gallery</span></span><span class="mobile_arrow"></span></span></a>
-                                    </li>
-                                    <li id="mobile-menu-item-16" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub">
-                                        <h4><a href="contact.php"><span class="item_outer"><span class="item_inner"><span class="item_text">Contact</span></span><span class="mobile_arrow"></span></span></a>
-                                    </li>
+                                    <li id="mobile-menu-item-2022" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Testimonials</span></span><span class="mobile_arrow"></span></span>', ['site/testimonial'], ['class' => '']) ?></li>
+                                    <li id="mobile-menu-item-2597" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Feedback</span></span><span class="mobile_arrow"></span></span>', ['site/feedback'], ['class' => '']) ?></li>
+                                    <li id="mobile-menu-item-14" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Gallery</span></span><span class="mobile_arrow"></span></span>', ['site/gallery'], ['class' => '']) ?></li>
+                                    <li id="mobile-menu-item-16" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Contact</span></span><span class="mobile_arrow"></span></span>', ['site/contact'], ['class' => '']) ?></li>
+
                                 </ul>
                             </div>
                         </nav>
@@ -784,7 +679,7 @@ AppAsset::register($this);
                                                             <div class="textwidget">
                                                                 <div data-original-height="15" class="vc_empty_space" style="height: 15px"><span class="vc_empty_space_inner"></span></div>
 
-                                                                <a href="index.html">
+                                                                <a href="<?= Yii::$app->homeUrl; ?>site/index">
                                                                     <img width="179" height="44" src="<?= Yii::$app->homeUrl; ?>images/logo.png" alt="logo">
                                                                 </a>
                                                                 <div data-original-height="16" class="vc_empty_space" style="height: 16px"><span class="vc_empty_space_inner"></span></div>
@@ -894,25 +789,19 @@ AppAsset::register($this);
                                                                 <h3 style="color: #ffffff;">Contact</h3>
                                                                 <div data-original-height="1" class="vc_empty_space" style="height: 1px"><span class="vc_empty_space_inner"></span></div>
 
-                                                                <div role="form" class="wpcf7" id="wpcf7-f219-o1" lang="en-US" dir="ltr">
-                                                                    <div class="screen-reader-response"></div>
-                                                                    <form action="#" method="post" class="wpcf7-form cf7_custom_style_1" novalidate="novalidate">
-                                                                        <div style="display: none;">
-                                                                            <input type="hidden" name="_wpcf7" value="219" />
-                                                                            <input type="hidden" name="_wpcf7_version" value="4.3.1" />
-                                                                            <input type="hidden" name="_wpcf7_locale" value="en_US" />
-                                                                            <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f219-o1" />
-                                                                            <input type="hidden" name="_wpnonce" value="39df413e57" />
-                                                                        </div>
-                                                                        <p><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name*" /></span></p>
-                                                                        <p><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email*" /></span></p>
-                                                                        <div><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Comment*"></textarea></span></div>
-                                                                        <div>
-                                                                            <input type="submit" value="Submit" class="wpcf7-form-control wpcf7-submit" />
-                                                                        </div>
-                                                                        <div class="wpcf7-response-output wpcf7-display-none"></div>
-                                                                    </form>
+                                                                <!--<div role="form" class="wpcf7" id="wpcf7-f219-o1" lang="en-US" dir="ltr">-->
+                                                                <!--<div class="screen-reader-response"></div>-->
+                                                                <?= Html::beginForm(['site/contactform'], 'post', ['class' => 'wpcf7-form cf7_custom_style_1']) ?>
+
+                                                                <p><span class="wpcf7-form-control-wrap your-name"><input type="text" name="first-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name*" required /></span></p>
+                                                                <p><span class="wpcf7-form-control-wrap your-email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email*" required /></span></p>
+                                                                <div><span class="wpcf7-form-control-wrap your-message"><textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Comment*" required></textarea></span></div>
+                                                                <div>
+                                                                    <input type="submit" name="contact-sends" value="Submit" class="wpcf7-form-control wpcf7-submit" >
                                                                 </div>
+                                                                <div class="wpcf7-response-output wpcf7-display-none"></div>
+                                                                <?= Html::endForm() ?>
+                                                                <!--</div>-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1137,16 +1026,47 @@ AppAsset::register($this);
             jQuery.noConflict();
             jQuery(document).ready(function () {
                 jQuery(".btn-close").click(function () {
+                    if (jQuery(".btn-close").hasClass('out')) {
+                        jQuery(".btn-close").addClass('in').removeClass('out');
+                        jQuery('.btn-close').animate({right: '0'}, "500");
+                        jQuery('.btn-close img').animate({right: '-138'}, "500");
+                    } else if (jQuery(".btn-close").hasClass('in')) {
+                        jQuery(".btn-close").addClass('out').removeClass('in');
+                        jQuery('.btn-close').animate({right: '432'}, "500");
+                        jQuery('.btn-close img').animate({right: '0'}, "500");
+                    }
+
 
                     // Set the effect type
                     var effect = 'slide';
                     // Set the options for the effect type chosen
                     var options = {direction: 'right'};
+                    console.log(options);
                     // Set the duration (default: 400 milliseconds)
                     var duration = 500;
                     jQuery('#style-selector').toggle(effect, options, duration);
                 });
             });</script>
+
+        <script>
+            function checkPosition() {
+                if (window.matchMedia('(max-width: 767px)').matches) {
+                    alert('aSg');
+                    jQuery(".btn-close").click(function () {
+                        if (jQuery(".btn-close").hasClass('out')) {
+                            jQuery(".btn-close").addClass('in').removeClass('out');
+                            jQuery('.btn-close').animate({right: '0'}, "500");
+                            jQuery('.btn-close img').animate({right: '-138'}, "500");
+                        } else if (jQuery(".btn-close").hasClass('in')) {
+                            jQuery(".btn-close").addClass('out').removeClass('in');
+                            jQuery('.btn-close').animate({right: '201'}, "500");
+                            jQuery('.btn-close img').animate({right: '0'}, "500");
+                        }
+                    }
+                }
+            }
+        </script>
+
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/ui/core.min.js'></script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/ui/widget.min.js'></script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/ui/mouse.min.js'></script>
@@ -1168,12 +1088,10 @@ AppAsset::register($this);
             /* ]]> */
         </script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/plugins/contact-form-7/includes/js/scripts.js'></script>
-        <!--<script type='text/javascript' src='wp-content/plugins/mikado-bmi-calculator/assets/js/bmi-calculator.js'></script>-->
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/ui/tabs.min.js'></script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/plugins/timetable/js/jquery.ba-bbq.min.js'></script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/plugins/timetable/js/jquery.carouFredSel-6.2.1-packed.js'></script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/plugins/timetable/js/timetable.js'></script>
-        <!--<script type='text/javascript' src='wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js'></script>-->
         <script type='text/javascript'>
             /* <![CDATA[ */
             var woocommerce_params = {
@@ -1182,7 +1100,6 @@ AppAsset::register($this);
             };
             /* ]]> */
         </script>
-        <!--<script type='text/javascript' src='wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js'></script>-->
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/plugins/woocommerce/assets/js/jquery-cookie/jquery.cookie.min.js'></script>
         <script type='text/javascript'>
             /* <![CDATA[ */
@@ -1193,7 +1110,6 @@ AppAsset::register($this);
             };
             /* ]]> */
         </script>
-        <!--<script type='text/javascript' src='wp-content/plugins/woocommerce/assets/js/frontend/cart-fragments.min.js'></script>-->
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/ui/accordion.min.js'></script>
         <script type='text/javascript'>
             /* <![CDATA[ */
@@ -1220,9 +1136,7 @@ AppAsset::register($this);
             /* ]]> */
         </script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/mediaelement/mediaelement-and-player.min.js'></script>
-        <!--<script type='text/javascript' src='wp-includes/js/mediaelement/wp-mediaelement.js'></script>-->
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/themes/wellspring/assets/js/third-party.min.js'></script>
-        <!--<script type='text/javascript' src='wp-content/plugins/js_composer/assets/lib/bower/isotope/dist/isotope.pkgd.min.js'></script>-->
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/themes/wellspring/assets/js/smoothPageScroll.js'></script>
         <script type='text/javascript' src='http://maps.googleapis.com/maps/api/js'></script>
         <script type='text/javascript'>
@@ -1253,16 +1167,7 @@ AppAsset::register($this);
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/themes/wellspring/assets/js/modules.min.js'></script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/themes/wellspring/assets/js/blog.min.js'></script>
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/comment-reply.min.js'></script>
-        <!--<script type='text/javascript' src='wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js'></script>-->
-        <!--        <script type='text/javascript'>
-                        /* <![CDATA[ */
-                        var mkdfLike = {"ajaxurl":"http:\/\/wellspring.mikado-themes.com\/wp-admin\/admin-ajax.php", "labels":{"likeLabel":"Like", "likedLabel":"Liked", "likedTitle":"You already liked this"}};
-                        /* ]]> */
-                    </script>-->
-        <!--<script type='text/javascript' src='wp-content/themes/wellspring/assets/js/like.min.js'></script>-->
         <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/wp-embed.min.js'></script>
     </body>
-
-    <!-- Mirrored from wellspring.mikado-themes.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Mar 2017 04:29:19 GMT -->
 
 </html>

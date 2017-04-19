@@ -4,6 +4,14 @@
             <div class="mkdf-title-image"><img src="<?= Yii::$app->homeUrl; ?>images/banner/2.png" alt="&nbsp;" /> </div>
             <div class="mkdf-title-holder" style="height:385px;">
                 <div class="mkdf-container clearfix">
+<!--                    <div class="mkdf-container-inner">
+                        <div class="mkdf-title-subtitle-holder" style="">
+                            <div class="mkdf-title-subtitle-holder-inner">
+                                <h1 style="color:#ffffff;"><span>About Us</span></h1>
+                                <span class="mkdf-subtitle" style="color:#ffffff;"><span>Who We Are And What We Do</span></span>
+                            </div>
+                        </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -43,6 +51,10 @@
                                             <h2 class="mkdf-section-title mkdf-section-title-large" style="text-align: center">
                                                 Our Team</h2>
                                         </div>
+<!--                                        <div class="mkdf-section-subtitle-holder mkdf-section-subtitle-center" style="width: 58%">
+                                            <p style="text-align: center" class="mkdf-section-subtitle">Lorem ipsum dolor sit amet facilisis sed vitae lorem pede at eu arcu vulputate metus luctus ut quis vivamus vitae id habitasse et morbi</p>
+                                        </div>-->
+                                        <!--<div data-original-height="74" class="vc_empty_space" style="height: 74px"><span class="vc_empty_space_inner"></span></div>-->
                                         <div data-mkdf-parallax-speed="1" class="vc_row wpb_row vc_inner vc_row-fluid mkdf-section mkdf-content-aligment-left" style="">
                                             <div class="mkdf-full-section-inner">
                                                 <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-12 vc_col-md-12">
@@ -64,6 +76,13 @@
                                                                                     <h6 class="mkdf-team-position ">Patron</h6>
                                                                                 </div>
 
+                                                                                <!--                                                                                                <div class='mkdf-team-text'>
+                                                                                                                                                                                    <div class='mkdf-team-text-inner'>
+                                                                                                                                                                                        <div class='mkdf-team-description '>
+                                                                                                                                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean feugiat dictum lacus, ut hendrerit mi pulvinar vel. Fusce id nibh at neque eleifend tristique at sit amet libero</p>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                </div>-->
 
                                                                                 <div class="mkdf-team-social-holder-between">
                                                                                     <div class="mkdf-team-social circle">
@@ -113,7 +132,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_text_column wpb_content_element ">
+                                                <div class="wpb_text_column wpb_content_element vc_col-md-12 vc_col-sm-12 vc_col-xs-12  ">
                                                     <div class="wpb_wrapper">
                                                         <h3>Management Team</h3>
 
@@ -122,7 +141,7 @@
                                                 <div class="mkdf-separator-holder clearfix  mkdf-separator-center mkdf-separator-full-width">
                                                     <div class="mkdf-separator" style="border-color: #eaeaea;border-bottom-width: 1px;margin-top: 25px;margin-bottom: 25px"></div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-4 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-4 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -190,7 +209,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-4 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-4 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459158369">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -259,7 +278,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-4 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-4 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -328,7 +347,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="wpb_text_column wpb_content_element ">
+                                                <div class="wpb_text_column wpb_content_element vc_col-md-12 vc_col-sm-12 vc_col-xs-12 ">
                                                     <div class="wpb_wrapper">
                                                         <h3>Administrative Panel</h3>
 
@@ -338,7 +357,7 @@
                                                     <div class="mkdf-separator" style="border-color: #eaeaea;border-bottom-width: 1px;margin-top: 25px;margin-bottom: 25px"></div>
                                                 </div>
 
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -406,7 +425,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -474,7 +493,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -542,7 +561,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -610,7 +629,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -678,7 +697,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -746,7 +765,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -814,7 +833,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -882,7 +901,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -950,7 +969,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -1018,7 +1037,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -1086,7 +1105,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -1154,7 +1173,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -1222,7 +1241,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
@@ -1290,7 +1309,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-3 vc_col-md-4">
+                                                <div class="wpb_column vc_column_container vc_col-sm-4 vc_col-xs-6 vc_col-lg-3 vc_col-md-4">
                                                     <div class="vc_column-inner vc_custom_1453459152818">
                                                         <div class="wpb_wrapper">
                                                             <div class="mkdf-animations-holder mkdf-element-from-fade" data-animation="mkdf-element-from-fade">
