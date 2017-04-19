@@ -43,9 +43,8 @@ class PatientGuardianDetails extends \yii\db\ActiveRecord {
 	public function rules() {
 		return [
 		    //[['id'], 'required'],
-			[['id', 'patient_id', 'gender', 'pincode'], 'integer'],
+			[['id', 'patient_id', 'gender', 'pincode', 'contact_number'], 'integer'],
 			[['permanent_address'], 'string'],
-			['email', 'email'],
 			[['first_name', 'last_name', 'id_card_or_passport_no', 'religion', 'nationality', 'occupatiion', 'landmark', 'email', 'adhar_card_no', 'passport', 'driving_license', 'pan_card', 'voters_id'], 'string', 'max' => 100],
 		];
 	}
@@ -63,7 +62,7 @@ class PatientGuardianDetails extends \yii\db\ActiveRecord {
 		    'id_card_or_passport_no' => 'Id Card/Passport No',
 		    'religion' => 'Religion',
 		    'nationality' => 'Nationality',
-		    'occupatiion' => 'Occupation',
+		    'occupatiion' => 'Occupatiion',
 		    'permanent_address' => 'Permanent Address',
 		    'pincode' => 'Pincode',
 		    'landmark' => 'Landmark',

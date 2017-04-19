@@ -75,9 +75,28 @@ $this->params['breadcrumbs'][] = $this->title;
 						// 'UB',
 						// 'DOC',
 						// 'DOU',
-						['class' => 'yii\grid\ActionColumn',
-						    'template' => '{view}{update}{delete}',
-						],
+						 ['class' => 'yii\grid\ActionColumn',
+                                                    'template' => '{view}{update}{followup}{delete}',
+                                                    'visibleButtons' => [
+                                                        'delete' => function ($model, $key, $index) {
+                                                                return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                        }
+                                                    ],
+                                                    'buttons' => [
+                                                        'followup' => function ($url, $model) {
+
+                                                                $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=2';
+                                                                return Html::a(
+                                                                                '<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
+                                                                            'data-pjax' => '0',
+                                                                            'id' => $model->id,
+                                                                            'title' => 'Add Followups',
+                                                                            'target' => '_blank',
+                                                                                ]
+                                                                );
+                                                        },
+                                                    ],
+                                                ],
 					    ],
 					]);
 					?>

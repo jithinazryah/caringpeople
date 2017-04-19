@@ -23,10 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
+<?php if (!$model->isNewRecord) { ?>
+                                        <a href="javascript:;" id="4_<?= $model->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
+                                <?php } ?>
                                 <?=
                                 $this->render('_menus', [
                                     'model' => $model,
-                                    'followup_id' => $followup_id,
+                                    
                                 ])
                                 ?>
                                 <div class="panel-body panel_body_background" >
@@ -56,19 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ?>
                                                 </div>
 
-                                                <div class="tab-pane" id="messages-3">
-
-                                                        <?=
-                                                        $this->render('_followup_form', [
-                                                            'followup_info' => $followup_info,
-                                                            'form' => $form,
-                                                            'model' => $model,
-                                                            'dataProvider' => $dataProvider,
-                                                            'followup_id' => $followup_id,
-                                                        ])
-                                                        ?>
-
-                                                </div>
+                                                
 
 
 

@@ -99,6 +99,7 @@ class PatientEnquiryGeneralFirst extends \yii\db\ActiveRecord {
                 $required_services = explode(',', $patient_details->required_service);
                 $services = '';
                 $i = 0;
+if(!empty($required_services)){
                 foreach ($required_services as $service) {
 
                         if ($i != 0) {
@@ -128,7 +129,7 @@ class PatientEnquiryGeneralFirst extends \yii\db\ActiveRecord {
                         $i++;
                 }
 
-
+}
 
                 return $services;
         }

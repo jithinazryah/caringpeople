@@ -43,7 +43,7 @@ class StaffInfoController extends Controller {
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 if (Yii::$app->user->identity->branch_id != '0') {
-                        $dataProvider->query->where(['branch_id' => Yii::$app->user->identity->branch_id]);
+                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
 
                 return $this->render('index', [
@@ -75,6 +75,8 @@ class StaffInfoController extends Controller {
 
                 $staff_info = new StaffInfo();
                 $other_info = new StaffOtherInfo();
+                $staff_education = new StaffInfoEducation();
+                $staff_uploads = new StaffInfoUploads();
                 $model = \common\models\StaffEnquiry::findOne($id);
                 $staff_info->staff_enquiry_id = $id;
                 $staff_info->staff_name = $model->name;
@@ -84,10 +86,15 @@ class StaffInfoController extends Controller {
                 $staff_info->permanent_address = $model->address;
                 $staff_info->place = $model->place;
                 $staff_info->designation = $model->designation;
+                $staff_info->branch_id = $model->branch_id;
 
                 if ($staff_info->save()) {
                         $other_info->staff_id = $staff_info->id;
+                        $staff_education->staff_id = $staff_info->id;
+                        $staff_uploads->staff_id = $staff_info->id;
                         $other_info->save();
+                        $staff_education->save();
+                        $staff_uploads->save();
                         return $this->redirect(['update', 'id' => $staff_info->id]);
                 }
         }
@@ -104,7 +111,9 @@ class StaffInfoController extends Controller {
                 $other_info = new StaffOtherInfo();
                 $staff_uploads = new StaffInfoUploads();
                 $before_update = '';
-                $followup_info = new Followups();
+               
+                $staff_previous_employer = '';
+
 
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
@@ -114,15 +123,14 @@ class StaffInfoController extends Controller {
                         $staff_edu->load(Yii::$app->request->post());
                         $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
                         $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
-                        $followup_info->load(Yii::$app->request->post());
-                        $followup_info->status = '0';
+                        
 
                         if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $staff_edu->save() && $model->save() && $other_info->save() && $staff_uploads->save()) {
                                 $other_info->staff_id = $model->id;
                                 $staff_edu->staff_id = $model->id;
                                 $staff_edu->save(false);
                                 $other_info->update();
-                                Yii::$app->Followups->addfollowups('4', $model->id, $followup_info);
+                                
                                 if (Yii::$app->user->identity->branch_id != '0') {
                                         Yii::$app->SetValues->currentBranch($model);
                                 }
@@ -136,8 +144,9 @@ class StaffInfoController extends Controller {
                             'model' => $model,
                             'staff_edu' => $staff_edu,
                             'staff_uploads' => $staff_uploads,
+                            'staff_previous_employer' => $staff_previous_employer,
                             'other_info' => $other_info,
-                            'followup_info' => $followup_info,
+                            
                 ]);
         }
 
@@ -154,47 +163,32 @@ class StaffInfoController extends Controller {
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $model->id]);
                 $staff_uploads = StaffInfoUploads::findOne(['staff_id' => $model->id]);
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $model->id]);
-                if (isset($_GET['followup']))
-                        $followup_info = Followups::findOne($_GET['followup']);
-                else
-                        $followup_info = new Followups();
-                $searchModel = new FollowupsSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type' => '4', 'type_id' => $id]);
-                if (!empty($model) && !empty($other_info) && !empty($staff_edu) && !empty($staff_uploads)) {
-                        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post())) {
-                                $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
-                                $other_info->staff_id = $model->id;
-                                $other_info->load(Yii::$app->request->post());
-                                $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
-                                $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
-                                $followup_info->load(Yii::$app->request->post());
+                
 
-                                if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_uploads->save()) {
-                                        $this->Imageupload($model, $staff_uploads, $before_update);
-                                        $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
-                                        if (isset($_GET['followup'])) {
-                                                Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
-                                        } else {
-                                                $followup_info->status = '0';
-                                                Yii::$app->Followups->addfollowups('4', $model->id, $followup_info);
-                                        }
-                                        Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
-                                        return $this->redirect(array('index'));
-                                }
+                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post())) {
+                        $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
+                        $other_info->staff_id = $model->id;
+                        $other_info->load(Yii::$app->request->post());
+                        $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
+                        $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
+                        
+
+                        if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_uploads->save()) {
+                                $this->Imageupload($model, $staff_uploads, $before_update);
+                                $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
+                                
+                                Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
+                                return $this->redirect(array('index'));
                         }
-                } else {
-                        throw new \yii\base\UserException("Error Code : 2001");
                 }
+
                 return $this->render('_staff_form', [
                             'model' => $model,
                             'staff_edu' => $staff_edu,
                             'other_info' => $other_info,
                             'staff_uploads' => $staff_uploads,
                             'staff_previous_employer' => $staff_previous_employer,
-                            'followup_info' => $followup_info,
-                            'dataProvider' => $dataProvider,
-                            'followup_id' => $_GET['followup'],
+                            
                 ]);
         }
 
@@ -352,25 +346,38 @@ class StaffInfoController extends Controller {
          * to upload image
          *  */
 
-        public function Imageupload($model, $staff_uploads, $data) {
+        public function Imageupload($model, $staff_uploads, $data = null) {
+
 
                 $images = array('profile_image_type', 'biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter');
+
                 foreach ($images as $value) {
+
                         $image = UploadedFile::getInstance($staff_uploads, $value);
+
                         $this->image($model, $staff_uploads, $data, $image, $value);
                 }
         }
 
         /* to save exy=tension in database */
 
-        public function image($model, $staff_uploads, $data, $image, $type) {
+        public function image($model, $staff_uploads, $data = null, $image, $type) {
+
+
                 if (!empty($image)) {
 
+
                         $staff_uploads->$type = $image->extension;
-                        $this->upload($model, $image, $type, $staff_uploads->$type, $data->$type);
+                        if (!empty($data)) {
+                                $this->upload($model, $image, $type, $staff_uploads->$type, $data->$type);
+                        } else {
+                                $this->upload($model, $image, $type, $staff_uploads->$type);
+                        }
                 } else {
-                        $staff_uploads->$type = $data->$type;
+                        if (!empty($data))
+                                $staff_uploads->$type = $data->$type;
                 }
+
                 $staff_uploads->staff_id = $model->id;
                 $staff_uploads->update();
         }
@@ -380,13 +387,15 @@ class StaffInfoController extends Controller {
          * if
          */
 
-        public function Upload($model, $image, $type, $extension, $exists_type) {
+        public function Upload($model, $image, $type, $extension, $exists_type = null) {
+
                 $paths = ['staff', $model->id];
                 $file = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $model->id . '/' . $type . '.' . $exists_type;
                 if (file_exists($file))
                         unlink($file);
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
                 $image->saveAs($paths . '/' . $type . '.' . $extension);
+                return true;
         }
 
         /**

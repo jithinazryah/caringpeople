@@ -90,10 +90,14 @@ class PatientInformationController extends Controller {
                 $guardian_details = new PatientGuardianDetails();
                 $patient_general = new PatientGeneral();
                 $chronic_imformation = new PatientChronic();
-                $present_medication = new PatientPresentMedication();
+                $pationt_medication_details = '';
                 $present_condition = new PatientPresentCondition();
                 $bystander_details = new PatientBystanderDetails();
-                $followup_info = new Followups();
+                
+                $before_update_guardian_details = '';
+                $before_update_patient_details = '';
+                
+                
                 $enquiry_data = PatientEnquiryGeneralFirst::find()->where(['id' => $id])->one();
                 $check_data = PatientGeneral::find()->where(['patient_enquiry_id' => $id])->one();
                 if ((!empty($enquiry_data))) {
@@ -111,6 +115,7 @@ class PatientInformationController extends Controller {
                 }
 
                 if ($patient_general->load(Yii::$app->request->post()) && $guardian_details->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_general)) {
+
                         $patient_general->weight = Yii::$app->request->post()['PatientGeneral']['weight'];
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($patient_general);
@@ -118,8 +123,8 @@ class PatientInformationController extends Controller {
                         $chronic_imformation->load(Yii::$app->request->post());
                         $present_condition->load(Yii::$app->request->post());
                         $bystander_details->load(Yii::$app->request->post());
-                        $followup_info->load(Yii::$app->request->post());
-                        $followup_info->status = '0';
+                        
+
                         if ($patient_general->validate() && $guardian_details->validate() && $chronic_imformation->validate() && $present_condition->validate()) {
 
                                 if ($patient_general->save() && $guardian_details->save() && $chronic_imformation->save() && $present_condition->save()) {
@@ -138,7 +143,13 @@ class PatientInformationController extends Controller {
 
                                         $this->AddPresentMedication($patient_general);
                                         $this->AddBystanderDetails(Yii::$app->request->post(), $bystander_details);
-                                        Yii::$app->Followups->addfollowups('2', $patient_general->id, $followup_info);
+                                        
+
+                                        $guardian_datas = array('passport', 'driving_license', 'pan_card', 'voters_id', 'guardian_profile_image');
+                                        $this->Imageupload($guardian_details, $before_update_guardian_details, $guardian_datas, $patient_general->id);
+                                        $patient_datas = array('patient_image');
+                                        $this->Imageupload($patient_general, $before_update_patient_details, $patient_datas, $patient_general->id);
+
                                         return $this->redirect(['index']);
                                 }
                         }
@@ -148,10 +159,10 @@ class PatientInformationController extends Controller {
                             'model' => $guardian_details,
                             'patient_general' => $patient_general,
                             'chronic_imformation' => $chronic_imformation,
-                            'present_medication' => $present_medication,
+                            'pationt_medication_details' => $pationt_medication_details ,
                             'present_condition' => $present_condition,
                             'bystander_details' => $bystander_details,
-                            'followup_info' => $followup_info,
+                            
                 ]);
         }
 
@@ -177,7 +188,7 @@ class PatientInformationController extends Controller {
                 $guardian_details->permanent_address = $guardian_contact_details->address;
                 $guardian_details->pincode = $guardian_contact_details->zip_pc;
                 $guardian_details->contact_number = $enquiry_data->mobile_number;
-                $guardian_details->email = $enquiry_patient_details->email;
+                $guardian_details->email = $guardian_contact_details->email;
                 return $guardian_details;
         }
 
@@ -307,13 +318,7 @@ class PatientInformationController extends Controller {
                 $pationt_medication_details = PatientPresentMedication::find()->where(['patient_id' => $id])->all();
                 $present_condition = PatientPresentCondition::find()->where(['patient_id' => $id])->one();
                 $bystander_details = PatientBystanderDetails::find()->where(['patient_id' => $id])->one();
-                if (isset($_GET['followup']))
-                        $followup_info = Followups::findOne($_GET['followup']);
-                else
-                        $followup_info = new Followups();
-                $searchModel = new FollowupsSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type' => '2', 'type_id' => $id]);
+               
 
                 if (!empty($patient_general) && !empty($guardian_details) && !empty($chronic_imformation && $present_condition && !empty($bystander_details))) {
 
@@ -323,7 +328,7 @@ class PatientInformationController extends Controller {
                                 $patient_general->contact_number = Yii::$app->request->post()['PatientGeneral']['contact_number'];
                                 $chronic_imformation->load(Yii::$app->request->post());
                                 $present_condition->load(Yii::$app->request->post());
-                                $followup_info->load(Yii::$app->request->post());
+                                
                                 $present_condition->last_change_date = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientPresentCondition']['last_change_date']));
                                 $present_condition->foleys_last_change_date = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientPresentCondition']['foleys_last_change_date']));
                                 $bystander_details->load(Yii::$app->request->post());
@@ -336,12 +341,7 @@ class PatientInformationController extends Controller {
                                         $bystander_details->save();
                                         $this->AddPresentMedication($patient_general);
                                         $this->AddBystanderDetails(Yii::$app->request->post(), $bystander_details);
-                                        if (isset($_GET['followup'])) {
-                                                Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
-                                        } else {
-                                                $followup_info->status = '0';
-                                                Yii::$app->Followups->addfollowups('2', $patient_general->id, $followup_info);
-                                        }
+                                        
                                         return $this->redirect(['view', 'id' => $patient_general->id]);
                                 }
                         }
@@ -352,9 +352,7 @@ class PatientInformationController extends Controller {
                                     'pationt_medication_details' => $pationt_medication_details,
                                     'present_condition' => $present_condition,
                                     'bystander_details' => $bystander_details,
-                                    'followup_info' => $followup_info,
-                                    'dataProvider' => $dataProvider,
-                                    'followup_id' => $_GET['followup'],
+                                    
                         ]);
                 } else {
                         return $this->redirect([
@@ -366,22 +364,32 @@ class PatientInformationController extends Controller {
          * to upload image
          *  */
 
-        public function Imageupload($model, $data, $images, $id) {
+        public function Imageupload($model, $data = null, $images, $id) {
 
                 foreach ($images as $value) {
+
                         $image = UploadedFile:: getInstance($model, $value);
+
                         $this->image($model, $data, $image, $value, $id);
                 }
         }
 
         /* to save extension in database */
 
-        public function image($model, $data, $image, $type, $id) {
+        public function image($model, $data = null, $image, $type, $id) {
+
                 if (!empty($image)) {
+                       
                         $model->$type = $image->extension;
-                        $this->upload($model, $image, $type, $model->$type, $data->$type, $id);
+                        if (!empty($data)) {
+                          $this->upload($model, $image, $type, $model->$type,  $id,$data->$type);
+                        }
+                       else{
+                            $this->upload($model, $image, $type, $model->$type, $id);
+                         }
                 } else {
-                        $model->$type = $data->$type;
+                        if (!empty($data))
+                           $model->$type = $data->$type;
                 }
                 $model->update();
         }
@@ -391,7 +399,7 @@ class PatientInformationController extends Controller {
          * if
          */
 
-        public function Upload($model, $image, $type, $extension, $exists_type, $id) {
+        public function Upload($model, $image, $type, $extension,  $id,$exists_type = null) {
                 $paths = ['patient', $id];
                 $file = Yii::getAlias(Yii::$app->params ['uploadPath']) . '/patient/' . $id . '/' .
                         $type . '.' . $exists_type;

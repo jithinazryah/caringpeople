@@ -8,7 +8,7 @@ use common\models\Nationality;
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffInfo */
 
-$this->title = $model->first_name;
+$this->title = $patient_details->first_name;
 $this->params['breadcrumbs'][] = ['label' => 'Staff Infos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -247,8 +247,9 @@ $this->params['breadcrumbs'][] = $this->title;
 															</div>
 															<div class="data_sty" style="width: 250px;">
 																<?php
+if(isset($guardian_details->religion) && $guardian_details->religion!=''){
 																$religion = Religion::findOne($guardian_details->religion);
-																echo $religion->religion;
+																echo $religion->religion;}
 																?>
 															</div>
 														</div>
@@ -258,8 +259,9 @@ $this->params['breadcrumbs'][] = $this->title;
 															</div>
 															<div class="data_sty" style="width: 170px;">
 																<?php
+if(isset($guardian_details->nationality) && $guardian_details->nationality!=''){
 																$nationality = Nationality::findOne($guardian_details->nationality);
-																echo $nationality->nationality;
+																echo $nationality->nationality; }
 																?>
 															</div>
 														</div>

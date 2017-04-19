@@ -163,8 +163,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <div class="label_sty"><label>Outgoing Call from:</label></div>
                                                                                                 <div class="data_sty" style="width:200px;"><span>
                                                                                                                 <?php
+                                                                                                                if(isset($model->outgoing_number_from) && $model->outgoing_number_from!=''){
+
                                                                                                                 $outgoing_number = OutgoingNumbers::findOne($model->outgoing_number_from);
                                                                                                                 echo $outgoing_number->phone_number;
+                                                                                                                }
                                                                                                                 ?>
                                                                                                         </span>
                                                                                                 </div>
@@ -312,8 +315,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <div class="content">
                                                                                                 <div class="label_sty"><label>Hospital:</label></div><div class="data_sty" style="width:200px;"><span>
                                                                                                                 <?php
+                                                                                                                if(isset($patient_hospital->hospital_name) && $patient_hospital->hospital_name!=''){
                                                                                                                 $hospital_name = Hospital::findOne($patient_hospital->hospital_name);
-                                                                                                                echo $hospital_name->hospital_name;
+                                                                                                                echo $hospital_name->hospital_name; }
                                                                                                                 ?>
                                                                                                         </span> </div>
                                                                                                 <div class="label_sty"><label>Room No:</label></div><div class="data_sty" style="width: 65px;"><span><?= $patient_hospital->hospital_room_no; ?></span> </div>

@@ -32,7 +32,7 @@ use yii\db\Expression;
                                         <label class="control-label" for="enquiry-contacted_date">Contacted Date From</label>
                                         <?php
                                         echo DateTimePicker::widget([
-                                            'name' => 'Enquiry[contactedFrom]',
+                                            'name' => 'PatientEnquiryGeneralFirst[contactedFrom]',
                                             'type' => DateTimePicker::TYPE_INPUT,
                                             'pluginOptions' => [
                                                 'autoclose' => true,
@@ -48,7 +48,7 @@ use yii\db\Expression;
                                         <label class="control-label" for="enquiry-contacted_date">Contacted Date To</label>
                                         <?php
                                         echo DateTimePicker::widget([
-                                            'name' => 'Enquiry[contactedTo]',
+                                            'name' => 'PatientEnquiryGeneralFirst[contactedTo]',
                                             'type' => DateTimePicker::TYPE_INPUT,
                                             'pluginOptions' => [
                                                 'autoclose' => true,
@@ -68,7 +68,7 @@ use yii\db\Expression;
                                         <label class="control-label" for="enquiry-contacted_date">Outgoing Call From</label>
                                         <?php
                                         echo DateTimePicker::widget([
-                                            'name' => 'Enquiry[outgoingFrom]',
+                                            'name' => 'PatientEnquiryGeneralFirst[outgoingFrom]',
                                             'type' => DateTimePicker::TYPE_INPUT,
                                             'pluginOptions' => [
                                                 'autoclose' => true,
@@ -84,7 +84,7 @@ use yii\db\Expression;
                                         <label class="control-label" for="enquiry-contacted_date">Outgoing Call To</label>
                                         <?php
                                         echo DateTimePicker::widget([
-                                            'name' => 'Enquiry[outgoingTo]',
+                                            'name' => 'PatientEnquiryGeneralFirst[outgoingTo]',
                                             'type' => DateTimePicker::TYPE_INPUT,
                                             'pluginOptions' => [
                                                 'autoclose' => true,

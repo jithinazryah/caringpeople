@@ -48,6 +48,7 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
 [['branch_id'], 'required', 'when' => function ($model) {
                                 return Yii::$app->user->identity->branch_id == 0;
                         },],
+                        [['attachments'], 'file', 'skipOnEmpty' => TRUE, 'maxFiles' => 0],
                 ];
         }
 
@@ -72,6 +73,7 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                     'notes' => 'Notes',
                     'status' => 'Status',
                     'proceed' => 'proceed',
+                    'attachments' => 'Attachments',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',

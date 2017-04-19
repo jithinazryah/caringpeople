@@ -38,12 +38,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'attributes' => [
                                                             'id',
             'type',
+            'sub_type',
             'type_id',
             'followup_date',
             'followup_notes:ntext',
             'assigned_to',
             'assigned_from',
+            'status',
             'DOC',
+            'DOU',
+            'CB',
+            'UB',
                                                 ],
                                                 ]) ?>
 </div>

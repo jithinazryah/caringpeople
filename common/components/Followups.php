@@ -21,7 +21,7 @@ class Followups extends Component {
                 if ($followup_info->assigned_to != '') {
                         $followp = new \common\models\Followups;
                         $followp->type = $type;
-                        $followp->sub_type = $followup_info->sub_type;
+                       $followp->sub_type = $followup_info->sub_type;
                         $followp->type_id = $type_id;
                         $followp->followup_date = date('Y-m-d H:i:s', strtotime($followup_info->followup_date));
                         $followp->followup_notes = $followup_info->followup_notes;

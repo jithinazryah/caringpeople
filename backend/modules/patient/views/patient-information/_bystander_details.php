@@ -18,7 +18,7 @@ use yii\helpers\Html;
             }
             ?>
 
-            <?= $form->field($model, 'service_need_for')->dropDownList(['1' => 'Home', '2' => 'Hospital'], ['multiple' => 'multiple', 'style' => 'height:58px !important', 'selected' => $required]) ?>
+            <?= $form->field($model, 'service_need_for')->dropDownList(['1' => 'Home', '2' => 'Hospital'], ['multiple' => 'multiple', 'style' => 'height:58px !important']) ?>
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hospital_name')->textInput(['maxlength' => true]) ?>
@@ -39,7 +39,7 @@ use yii\helpers\Html;
                 $model->can_provide = explode(',', $model->can_provide);
             }
             ?>
-            <?= $form->field($model, 'can_provide')->dropDownList(['1' => 'Food', '2' => 'Accommodation', '3' => 'Transportation'], ['multiple' => 'multiple', 'style' => 'height:58px !important', 'selected' => $required]) ?>
+            <?= $form->field($model, 'can_provide')->dropDownList(['1' => 'Food', '2' => 'Accommodation', '3' => 'Transportation'], ['multiple' => 'multiple', 'style' => 'height:58px !important']) ?>
 
         </div>        </div>
 

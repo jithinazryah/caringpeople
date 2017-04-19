@@ -109,7 +109,7 @@ use kartik\date\DatePicker;
                         $patient_info_second->required_service = explode(',', $patient_info_second->required_service);
                 }
                 ?>
-                <?= $form->field($patient_info_second, 'required_service')->dropDownList(['1' => 'Doctor Visit', '2' => 'Nursing Care', '3' => 'Physiotherapy', '4' => 'Helath Checkup', '5' => 'Caregiver', '6' => 'Lab', '7' => 'Equipment', '8' => 'Other', '9' => 'General Enquiry', '10' => 'Wrong Number '], ['multiple' => 'multiple', 'style' => 'height:125px !important', 'selected' => $required]) ?>
+                <?= $form->field($patient_info_second, 'required_service')->dropDownList(['1' => 'Doctor Visit', '2' => 'Nursing Care', '3' => 'Physiotherapy', '4' => 'Helath Checkup', '5' => 'Caregiver', '6' => 'Lab', '7' => 'Equipment', '8' => 'Other', '9' => 'General Enquiry', '10' => 'Wrong Number '], ['multiple' => 'multiple', 'style' => 'height:125px !important']) ?>
 
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id='required_other_service'>    <?= $form->field($patient_info_second, 'required_service_other')->textInput(['maxlength' => true]) ?>

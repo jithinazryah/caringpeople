@@ -2,70 +2,43 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\datetime\DateTimePicker;
-use common\models\AdminUsers;
-use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Followups */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-
-
 <div class="followups-form form-inline">
 
         <?php $form = ActiveForm::begin(); ?>
+        <div class="row">
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'type')->textInput() ?>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <div class="form-group field-followups-followup_date">
-                        <label class="control-label" for="followups-followup_date">Followup Date</label>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sub_type')->textInput() ?>
 
-                        <?php
-                        if (!$model->isNewRecord && isset($followup_id)) {
-                                $model->followup_date = date('d-M-Y h:i', strtotime($model->followup_date));
-                        } else {
-                                $model->followup_date = date('d-M-Y h:i');
-                        }
-                        echo DateTimePicker::widget([
-                            'name' => 'Followups[followup_date]',
-                            'type' => DateTimePicker::TYPE_INPUT,
-                            'value' => $model->followup_date,
-                            'pluginOptions' => [
-                                'autoclose' => true,
-                                'format' => 'dd-M-yyyy hh:ii'
-                            ]
-                        ]);
-                        ?>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'type_id')->textInput() ?>
 
-                </div>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'followup_date')->textInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php
-                if (!$model->isNewRecord)
-                        $userid = $model->assigned_from;
-                else
-                        $userid = Yii::$app->user->identity->id;
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'followup_notes')->textarea(['rows' => 6]) ?>
 
-                $user = AdminUsers::findOne($userid);
-                $model->assigned_from = $user->name;
-                ?>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'assigned_to')->textInput() ?>
 
-                <?= $form->field($model, 'assigned_from')->textInput(['readonly' => true]) ?>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'assigned_from')->textInput() ?>
 
-        </div>
-        <?php if (!$followup_info->isNewRecord) {
-                ?>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->textInput() ?>
 
-                <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'> <?= $form->field($model, 'status')->dropDownList(['0' => 'Open', '1' => 'Closed', '2' => 'Void']) ?>
-                        <?php if ($model->status == '3') { ?><label style="color: #d5080f;"> * This followup is currently in Pending stage</label><?php } ?>
-                </div>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'DOC')->textInput() ?>
 
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'DOU')->textInput() ?>
 
-        <?php } ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'followup_notes')->textarea(['rows' => 6]) ?>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'CB')->textInput() ?>
 
-        </div>
-        <div class='col-md-4 col-sm-6 col-xs-12' >
-                <div class="form-group" >
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'UB')->textInput() ?>
+
+                </div>        </div>
+        <div class='col-md-4 col-sm-6 col-xs-12' style="float:right;">
+                <div class="form-group" style="float: right;">
                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
                 </div>
         </div>

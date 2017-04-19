@@ -2,13 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\ListView;
+use common\components\FollowupsviewWidget;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\FollowupsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'My Tasks';
+$this->title = 'Followups';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="followups-index">
@@ -26,10 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
                                         <?php
-                                        echo ListView::widget([
-                                            'dataProvider' => $dataProvider,
-                                            'itemView' => '_followups',
-                                        ]);
+                                        if (!empty($followups))
+                                                foreach ($followups as $value) {
+
+                                                        echo FollowupsviewWidget::widget(['data' => $value]);
+                                                }
                                         ?>
                                 </div>
                         </div>
@@ -38,12 +39,3 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
-<style>
-        .summary{display: none;}
-        .follow_notes{margin-top: 10px;
-                      display: block;
-                      font-size: 80%;
-                      line-height: 1.42857143;
-                      color: #777;
-                      border:none;}
-</style>

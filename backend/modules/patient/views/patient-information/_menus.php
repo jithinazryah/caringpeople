@@ -26,21 +26,7 @@ use yii\helpers\Html;
                 <a href="#bystander" data-toggle="tab"><span class="visible-xs"><i class="fa-info-circle"></i></span>
                         <span class="hidden-xs span-font-size">Bystander Details</span></a>
         </li>
-        <li>
-                <a href="#followup" data-toggle="tab"><span class="visible-xs"><i class="fa-info-circle"></i></span>
-                        <span class="hidden-xs span-font-size">Followup</span></a>
-        </li>
+        
 </ul>
 
 
-<script>
-        $(document).ready(function () {
-                var current_page = "<?php echo $followup_id; ?>";
-                if (current_page != '')
-                        activaTab('followup');
-        });
-
-        function activaTab(tab) {
-                $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-        }
-</script>

@@ -40,8 +40,8 @@ class StaffInfoEducation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sslc_year_of_passing', 'hse_year_of_passing', 'nursing_year_of_passing', 'timing', 'uniform', 'company_id', 'emergency_conatct_verification', 'panchayath_cleraance_verification'], 'integer'],
-            [['staff_id', 'sslc_institution', 'sslc_place', 'hse_institution', 'hse_place', 'nursing_institution', 'nursing_place'], 'string', 'max' => 200],
+            [['staff_id','sslc_year_of_passing', 'hse_year_of_passing', 'nursing_year_of_passing', 'timing', 'uniform', 'company_id', 'emergency_conatct_verification', 'panchayath_cleraance_verification'], 'integer'],
+            [[ 'sslc_institution', 'sslc_place', 'hse_institution', 'hse_place', 'nursing_institution', 'nursing_place'], 'string', 'max' => 200],
         ];
     }
 

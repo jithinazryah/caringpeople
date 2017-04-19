@@ -1,7 +1,6 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $content string */
-
 use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -11,10 +10,14 @@ use common\widgets\Alert;
 use common\models\EnquiryOtherInfo;
 use common\models\Enquiry;
 use common\models\Followups;
+use common\models\AdminUsers;
+use yii\helpers\ArrayHelper;
+
 
 AppAsset::register($this);
 
-$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'followup_date' => date('Y-m-d H:i:s')])->all();
+$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'followup_date' => date('Y-m-d')])->all();
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -31,14 +34,14 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                 <title>Caring People</title>
                 <script src="<?= Yii::$app->homeUrl; ?>/js/jquery-1.11.1.min.js"></script>
                 <script type="text/javascript">
-			var homeUrl = '<?= Yii::$app->homeUrl; ?>';
-			//var basePath = "<?= Yii::$app->basePath; ?>";
+                        var homeUrl = '<?= Yii::$app->homeUrl; ?>';
+                        //var basePath = "<?= Yii::$app->basePath; ?>";
                 </script>
-<?= Html::csrfMetaTags() ?>
-		<?php $this->head() ?>
+                <?= Html::csrfMetaTags() ?>
+                <?php $this->head() ?>
         </head>
         <body>
-<?php $this->beginBody() ?>
+                <?php $this->beginBody() ?>
 
                 <div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
 
@@ -54,7 +57,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                 <!-- logo -->
                                                 <div class="logo">
                                                         <a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-expanded">
-<?php echo Html::img('@web/images/logos/logo-1.png', $options = ['width' => '200px']) ?>
+                                                                <?php echo Html::img('@web/images/logos/logo-1.png', $options = ['width' => '200px']) ?>
                                                         </a>
 
                                                         <a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-collapsed">
@@ -79,124 +82,124 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                         </header>
 
 
+                                        <?php
+                                        if (Yii::$app->session['post']['admin'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li>
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="linecons-cog"></i>
+                                                                        <span class="title">Administrator</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                        <?php } ?>
+                                        
+                                        <?php
+                                        if (Yii::$app->session['post']['enquiry'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li>
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa-envelope-o"></i>
+                                                                        <span class="title">Client</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Patient Enquiry', ['/patient/patient-enquiry-general-first/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Patients', ['/patient/patient-information/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                        <?php } ?>
+                                        <?php if (Yii::$app->session['post']['staffs'] == 1) { ?>
+
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li>
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa-user"></i>
+                                                                        <span class="title">Staffs</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Staff Enquiry ', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Staffs', ['/staff/staff-info/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+<?php } ?>
 <?php
-if (Yii::$app->session['post']['admin'] == 1) {
-	?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li>
-								<a href="dashboard-1.html">
-									<i class="linecons-cog"></i>
-									<span class="title">Administrator</span>
-								</a>
-								<ul>
-									<li>
-	<?= Html::a('Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
-									</li>
+                                        if (Yii::$app->session['post']['masters'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li>
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa-database"></i>
+                                                                        <span class="title">Masters</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Country', ['/masters/country/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('State', ['/masters/state/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('City', ['/masters/city/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('Religion', ['/masters/religion/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('Caste', ['/masters/caste/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('Nationality', ['/masters/nationality/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('Hospital', ['/masters/hospital/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
+                                                                                <?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>
+                                                                        </li>
 
-									<li>
-	<?= Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
-									</li>
-								</ul>
-							</li>
+                                                                </ul>
+                                                        </li>
 
-						</ul>
-<?php } ?>
-
-					<?php
-					if (Yii::$app->session['post']['enquiry'] == 1) {
-						?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li>
-								<a href="dashboard-1.html">
-									<i class="fa-envelope-o"></i>
-									<span class="title">Client</span>
-								</a>
-								<ul>
-									<li>
-	<?= Html::a('Patient Enquiry', ['/patient/patient-enquiry-general-first/index'], ['class' => 'title']) ?>
-									</li>
-
-									<li>
-	<?= Html::a('Patients', ['/patient/patient-information/index'], ['class' => 'title']) ?>
-									</li>
-
-
-								</ul>
-							</li>
-
-						</ul>
-<?php } ?>
-					<?php if (Yii::$app->session['post']['staffs'] == 1) { ?>
-
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li>
-								<a href="dashboard-1.html">
-									<i class="fa-user"></i>
-									<span class="title">Staffs</span>
-								</a>
-								<ul>
-									<li>
-	<?= Html::a('Staff Enquiry ', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
-									</li>
-
-									<li>
-	<?= Html::a('Staffs', ['/staff/staff-info/index'], ['class' => 'title']) ?>
-									</li>
-
-
-								</ul>
-							</li>
-
-						</ul>
-<?php } ?>
-					<?php
-					if (Yii::$app->session['post']['masters'] == 1) {
-						?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li>
-								<a href="dashboard-1.html">
-									<i class="fa-database"></i>
-									<span class="title">Masters</span>
-								</a>
-								<ul>
-									<li>
-	<?= Html::a('Country', ['/masters/country/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-	<?= Html::a('State', ['/masters/state/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-	<?= Html::a('City', ['/masters/city/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-	<?= Html::a('Religion', ['/masters/religion/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-	<?= Html::a('Caste', ['/masters/caste/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-	<?= Html::a('Nationality', ['/masters/nationality/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-	<?= Html::a('Hospital', ['/masters/hospital/index'], ['class' => 'title']) ?>
-									</li>
-									<li>
-	<?= Html::a('Branches', ['/masters/branch/index'], ['class' => 'title']) ?>
-									</li>
-
-								</ul>
-							</li>
-
-						</ul>
-<?php } ?>
+                                                </ul>
+                                        <?php } ?>
                                 </div>
 
                         </div>
@@ -232,7 +235,7 @@ if (Yii::$app->session['post']['admin'] == 1) {
                                                                                                 </span>
 
                                                                                                 <span class="line desc small">
-                                                                                                        This ainÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t our first item, it is the best of the rest.
+                                                                                                        This ainÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢t our first item, it is the best of the rest.
                                                                                                 </span>
                                                                                         </a>
                                                                                 </li>
@@ -286,7 +289,7 @@ if (Yii::$app->session['post']['admin'] == 1) {
                                                                                                 </span>
 
                                                                                                 <span class="line desc small">
-                                                                                                        This ainÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢t our first item, it is the best of the rest.
+                                                                                                        This ainÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢t our first item, it is the best of the rest.
                                                                                                 </span>
                                                                                         </a>
                                                                                 </li>
@@ -359,31 +362,31 @@ if (Yii::$app->session['post']['admin'] == 1) {
 
                                                                 <li>
                                                                         <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
-<?php
-if (!empty($notifications)) {
-	foreach ($notifications as $notification) {
-		?>
-												<li class="active notification-success">
-													<a href="<?= Yii::$app->homeUrl; ?>followup/followups">
-														<i class="fa-envelope"></i>
+                                                                                <?php
+                                                                                if (!empty($notifications)) {
+                                                                                        foreach ($notifications as $notification) {
+                                                                                                ?>
+                                                                                                <li class="active notification-success">
+                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/view">
+                                                                                                                <i class="fa-envelope"></i>
 
-														<span class="line">
-															<strong>Followup Enquiry</strong>
-														</span>
+                                                                                                                <span class="line">
+                                                                                                                        <strong>Followup Enquiry</strong>
+                                                                                                                </span>
 
-														<span class="line small time limit-text">
-		<?php
-		$text = strlen($notification->followup_notes) > 100 ? substr($notification->followup_notes, 0, 100) . '&hellip;' : $notification->followup_notes;
-		echo $text;
-		?>
-														</span>
-														<span class="line small time "><strong>Date:</strong><?= $notification->followup_date ?></span>
-													</a>
-												</li>
-		<?php
-	}
-}
-?>
+                                                                                                                <span class="line small time limit-text">
+                                                                                                                        <?php
+                                                                                                                        $text = strlen($notification->followup_notes) > 100 ? substr($notification->followup_notes, 0, 100) . '&hellip;' : $notification->followup_notes;
+                                                                                                                        echo $text;
+                                                                                                                        ?>
+                                                                                                                </span>
+                                                                                                                <span class="line small time "><strong>Date:</strong><?= $notification->followup_date ?></span>
+                                                                                                        </a>
+                                                                                                </li>
+                                                                                                <?php
+                                                                                        }
+                                                                                }
+                                                                                ?>
 
 
                                                                         </ul>
@@ -398,6 +401,24 @@ if (!empty($notifications)) {
                                                         </ul>
                                                 </li>
 
+                                                <li class="dropdown hover-line">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="My Tasks">
+                                                                <i class="linecons-calendar"></i>
+
+                                                        </a>
+
+                                                        <ul class="dropdown-menu notifications">
+                                                                <li style="in-height: 50px;padding: 11px;">
+
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/view"> My Tasks</a>
+                                                                </li>
+
+                                                                <li style="in-height: 50px;padding: 11px;">
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/followups"> Add Tasks</a>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
 
 
                                         </ul>
@@ -406,13 +427,12 @@ if (!empty($notifications)) {
                                         <!-- Right links for user info navbar -->
                                         <ul class="user-info-menu right-links list-inline list-unstyled">
 
-						<a href="<?= Yii::$app->homeUrl; ?>followup/followups" class="btn btn-primary btn-icon" style="margin-top: 20px;float: left;background-color: #0e62c7;"><i class="fa fa-tasks" aria-hidden="true"></i>
-                                                        <span> My Tasks</span></a>
+ 
                                                 <li class="dropdown user-profile">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                                 <img src="<?= Yii::$app->homeUrl; ?>images/themes/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
                                                                 <span>
-<?= Yii::$app->user->identity->user_name ?>
+                                                                        <?= Yii::$app->user->identity->user_name ?>
                                                                         <i class="fa-angle-down"></i>
                                                                 </span>
                                                         </a>
@@ -420,21 +440,21 @@ if (!empty($notifications)) {
                                                         <ul class="dropdown-menu user-profile-menu list-unstyled">
 
                                                                 <li>
-<?= Html::a('<i class="fa-wrench"></i>Change Password', ['/admin/admin-users/change-password?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
+                                                                        <?= Html::a('<i class="fa-wrench"></i>Change Password', ['/admin/admin-users/change-password?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
                                                                         </									li>
                                                                 <li>
-<?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/admin/admin-users/update?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
+                                                                        <?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/admin/admin-users/update?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
                                                                 </li>
 
-<?php
-echo '<li class="last">'
- . Html::beginForm(['/site/logout'], 'post') . '<a>'
- . Html::submitButton(
-	'<i class="fa-lock"></i> Logout', ['class' => 'btn logout_btn']
-) . '</a>'
- . Html::endForm()
- . '</li>';
-?>
+                                                                <?php
+                                                                echo '<li class="last">'
+                                                                . Html::beginForm(['/site/logout'], 'post') . '<a>'
+                                                                . Html::submitButton(
+                                                                        '<i class="fa-lock"></i> Logout', ['class' => 'btn logout_btn']
+                                                                ) . '</a>'
+                                                                . Html::endForm()
+                                                                . '</li>';
+                                                                ?>
 
 
                                                         </ul>
@@ -447,7 +467,7 @@ echo '<li class="last">'
                                 </nav>
 
 
-<?= $content; ?>
+                                <?= $content; ?>
 
 
 
@@ -497,26 +517,26 @@ echo '<li class="last">'
                                         </h2>
 
                                         <script type="text/javascript">
-						// Here is just a sample how to open chat conversation box
-						jQuery(document).ready(function ($)
-						{
-							var $chat_conversation = $(".chat-conversation");
+                                                // Here is just a sample how to open chat conversation box
+                                                jQuery(document).ready(function ($)
+                                                {
+                                                        var $chat_conversation = $(".chat-conversation");
 
-							$(".chat-group a").on('click', function (ev)
-							{
-								ev.preventDefault();
+                                                        $(".chat-group a").on('click', function (ev)
+                                                        {
+                                                                ev.preventDefault();
 
-								$chat_conversation.toggleClass('is-open');
+                                                                $chat_conversation.toggleClass('is-open');
 
-								$(".chat-conversation textarea").trigger('autosize.resize').focus();
-							});
+                                                                $(".chat-conversation textarea").trigger('autosize.resize').focus();
+                                                        });
 
-							$(".conversation-close").on('click', function (ev)
-							{
-								ev.preventDefault();
-								$chat_conversation.removeClass('is-open');
-							});
-						});
+                                                        $(".conversation-close").on('click', function (ev)
+                                                        {
+                                                                ev.preventDefault();
+                                                                $chat_conversation.removeClass('is-open');
+                                                        });
+                                                });
                                         </script>
 
 
@@ -613,54 +633,54 @@ echo '<li class="last">'
                 <div class="footer-sticked-chat"><!-- Start: Footer Sticked Chat -->
 
                         <script type="text/javascript">
-				function showLoader() {
-					$('.page-loading-overlay').removeClass('loaded');
-				}
-				function hideLoader() {
-					$('.page-loading-overlay').addClass('loaded');
-				}
-				function toggleSampleChatWindow()
-				{
-					var $chat_win = jQuery("#sample-chat-window");
+                                function showLoader() {
+                                        $('.page-loading-overlay').removeClass('loaded');
+                                }
+                                function hideLoader() {
+                                        $('.page-loading-overlay').addClass('loaded');
+                                }
+                                function toggleSampleChatWindow()
+                                {
+                                        var $chat_win = jQuery("#sample-chat-window");
 
-					$chat_win.toggleClass('open');
+                                        $chat_win.toggleClass('open');
 
-					if ($chat_win.hasClass('open'))
-					{
-						var $messages = $chat_win.find('.ps-scrollbar');
+                                        if ($chat_win.hasClass('open'))
+                                        {
+                                                var $messages = $chat_win.find('.ps-scrollbar');
 
-						if ($.isFunction($.fn.perfectScrollbar))
-						{
-							$messages.perfectScrollbar('destroy');
+                                                if ($.isFunction($.fn.perfectScrollbar))
+                                                {
+                                                        $messages.perfectScrollbar('destroy');
 
-							setTimeout(function () {
-								$messages.perfectScrollbar();
-								$chat_win.find('.form-control').focus();
-							}, 300);
-						}
-					}
+                                                        setTimeout(function () {
+                                                                $messages.perfectScrollbar();
+                                                                $chat_win.find('.form-control').focus();
+                                                        }, 300);
+                                                }
+                                        }
 
-					jQuery("#sample-chat-window form").on('submit', function (ev)
-					{
-						ev.preventDefault();
-					});
-				}
+                                        jQuery("#sample-chat-window form").on('submit', function (ev)
+                                        {
+                                                ev.preventDefault();
+                                        });
+                                }
 
-				jQuery(document).ready(function ($)
-				{
-					$(".footer-sticked-chat .chat-user, .other-conversations-list a").on('click', function (ev)
-					{
-						ev.preventDefault();
-						toggleSampleChatWindow();
-					});
+                                jQuery(document).ready(function ($)
+                                {
+                                        $(".footer-sticked-chat .chat-user, .other-conversations-list a").on('click', function (ev)
+                                        {
+                                                ev.preventDefault();
+                                                toggleSampleChatWindow();
+                                        });
 
-					$(".mobile-chat-toggle").on('click', function (ev)
-					{
-						ev.preventDefault();
+                                        $(".mobile-chat-toggle").on('click', function (ev)
+                                        {
+                                                ev.preventDefault();
 
-						$(".footer-sticked-chat").toggleClass('mobile-is-visible');
-					});
-				});
+                                                $(".footer-sticked-chat").toggleClass('mobile-is-visible');
+                                        });
+                                });
                         </script>
 
 
@@ -677,22 +697,107 @@ echo '<li class="last">'
                 <!-- Page Loading Overlay -->
                 <div class="page-loading-overlay">
                         <div class="loader-2"></div>
-		</div>
+                        </div>
 
-<?php $this->endBody() ?>
-		<script type="text/javascript">
-			jQuery(document).ready(function ($)
-			{
-				if ($(window).width() < 900) {
-					$("#side-menuss").removeClass("collapsed");
-				} else {
+                        <?php $this->endBody() ?>
+                        <script type="text/javascript">
+                                jQuery(document).ready(function ($)
+                                {
+                                        if ($(window).width() < 900) {
+                                                $("#side-menuss").removeClass("collapsed");
+                                        } else {
 
-					//   $("#side-menuss").addClass('collapsed');
-				}
-				;
+                                                //   $("#side-menuss").addClass('collapsed');
+                                        }
+                                        ;
 
-			});
-		</script>
+                                });
+                        </script>
         </body>
+
 </html>
+
+<!------------------------------------------------------followup popup---------------------------------------------------->
+<div class="modal fade" id="modal-6">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                        <form id="follow_up">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Add Followups</h4>
+                                </div>
+
+                                <div class="modal-body">
+
+                                        <input type="hidden" name="type" id="add_type">
+                                        <input type="hidden" name="type_id" id="add_type_id">
+                                        <div class="row">
+                                                <div class="col-md-6">
+
+                                                        <div class="form-group subtype">
+
+                                                        </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                                <label for="field-2" class="control-label ">Followup Date</label>
+
+                                                                <input type="datetime-local" class="form-control some_class" id="field-2" data-mask="datetime">
+                                                        </div>
+
+                                                </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                                <div class="col-md-6">
+                                                        <?php $all_users = AdminUsers::find()->where(['post_id' => '5'])->andWhere(['<>', 'id', Yii::$app->user->identity->id])->all(); ?>
+                                                        <div class="form-group">
+                                                                <label for="field-1" class="control-label">Assigned To</label>
+
+                                                                <?= Html::dropDownList('assigned_to', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'id' => 'field-3', 'prompt' => '--Select--']); ?>
+                                                        </div>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                        <?php
+                                                        $userid = Yii::$app->user->identity->id;
+                                                        $user = AdminUsers::findOne($userid);
+                                                        ?>
+                                                        <div class="form-group">
+                                                                <label for="field-2" class="control-label">Assigned From</label>
+
+                                                                <input type="text" class="form-control" id="field-4" value="<?= $user->name; ?>" readonly="readonly">
+                                                        </div>
+
+                                                </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                                <div class="col-md-12">
+
+                                                        <div class="form-group no-margin">
+                                                                <label for="field-7" class="control-label">Followup Notes</label>
+
+                                                                <textarea class="form-control autogrow" id="field-5"></textarea>
+                                                        </div>
+
+                                                </div>
+                                        </div>
+
+
+                                </div>
+
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" id="addFollowupsubmit">Submit</button>
+                                </div>
+                        </form>
+                </div>
+        </div>
+</div>
 <?php $this->endPage() ?>

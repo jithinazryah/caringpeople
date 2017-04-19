@@ -1,0 +1,9 @@
+.mkdf-main-menu>ul>li.mkdf-active-item>a, body:not(.mkdf-menu-item-first-level-bg-color) .mkdf-main-menu>ul>li:hover>a {
+    color: #13a8b0 !important;
+}
+.bbp-login-form .user-submit:not(.mkdf-btn-custom-hover-color):hover, .bbpress div:not(.bbp-logged-in)>.submit:not(.mkdf-btn-custom-hover-color):hover, .mkdf-btn.mkdf-btn-hover-outline:not(.mkdf-btn-custom-hover-color):hover, .tribe-events-button:not(.mkdf-btn-custom-hover-color):hover, .tribe-events-read-more:not(.mkdf-btn-custom-hover-color):hover, .woocommerce .button:not(.mkdf-btn-custom-hover-color):hover:not(.add_to_cart_button){
+    
+}
+a{
+    text-decoration: none;
+}

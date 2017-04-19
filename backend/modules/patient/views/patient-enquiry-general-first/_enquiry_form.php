@@ -23,10 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px']) ?>
+<?php if (!$patient_info->isNewRecord) { ?>
+                                        <a href="javascript:;" id="1_<?= $patient_info->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
+                                <?php } ?>
+
                                 <?=
                                 $this->render('_menus', [
-                                    'model' => $model,
-                                    'followup_id' => $followup_id,
+                                    'model' => $patient_info,
+                                    
                                 ])
                                 ?>
                                 <div class="panel-body panel_body_background">
@@ -57,18 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </div>
 
 
-                                                <div class="tab-pane" id="settings-3">
-
-                                                        <?=
-                                                        $this->render('_followup_form', [
-                                                            'followup_info' => $followup_info,
-                                                            'form' => $form,
-                                                            'model' => $patient_info,
-                                                            'dataProvider' => $dataProvider,
-                                                            'followup_id' => $followup_id,
-                                                        ])
-                                                        ?>
-                                                </div>
+                                                
 
                                         </div>
                                         <div class='col-md-12 col-sm-6 col-xs-12' >
@@ -78,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?php
                                                         } else {
                                                                 ?>
-                                                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => update_button]) ?>
+                                                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
                                                                 <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
                                                         <?php } ?>
                                                 </div>

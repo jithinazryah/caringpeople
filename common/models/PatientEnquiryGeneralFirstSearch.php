@@ -94,11 +94,8 @@ class PatientEnquiryGeneralFirstSearch extends PatientEnquiryGeneralFirst {
                         ->andFilterWhere(['like', 'patient_enquiry_general_second.email', $this->email])
                         ->andFilterWhere(['like', 'patient_enquiry_general_second.required_service', $this->required_service])
                         ->andFilterWhere(['like', 'patient_enquiry_hospital_first.required_person_name', $this->patient_name])
-                        ->andFilterWhere(['like', 'mobile_number_3', $this->mobile_number_3])
-                        ->andFilterWhere(['>=', 'contacted_date', $params['Enquiry']['contactedFrom']])
-                        ->andFilterWhere(['<=', 'contacted_date', $params['Enquiry']['contactedTo']])
-                        ->andFilterWhere(['>=', 'outgoing_call_date', $params['Enquiry']['$outgoingFrom']])
-                        ->andFilterWhere(['<=', 'outgoing_call_date', $params['Enquiry']['$outgoingTo']]);
+                        ->andFilterWhere(['like', 'mobile_number_3', $this->mobile_number_3]);
+                        
 
                 return $dataProvider;
         }

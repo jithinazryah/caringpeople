@@ -42,6 +42,9 @@ use yii\helpers\ArrayHelper;
 
         </div><div style="clear:both;"></div>
 
+        <h3 style="color:#148eaf;">Hospital Details</h3>
+        <hr class="enquiry-hr"/>
+
         <div id="p_scents1">
                 <input type="hidden" id="delete_port_vals"  name="delete_port_vals" value="">
 
@@ -87,6 +90,7 @@ use yii\helpers\ArrayHelper;
                                         </div>
                                         <div style="clear:both"></div>
                                 </span>
+                                <hr style="border-top: 1px solid #979898 !important;">
                                 <br>
                                 <?php
                                 unset($selected);
@@ -123,10 +127,16 @@ use yii\helpers\ArrayHelper;
                                 </div>
                         </div>
 
-                        <a id="addHosp" class="btn btn-icon btn-blue addHosp" style="margin-top:15px;"><i class="fa-plus"></i>Add</a>
+
                         <div style="clear:both"></div>
                 </span>
 
+        </div>
+
+        <hr style="border-top: 1px solid #979898 !important;">
+
+        <div class="row">
+                <div class="col-md-6"> <a id="addHosp" class="btn btn-icon btn-blue addHosp"><i class="fa-plus"></i>Add Hospital Details</a></div>
         </div>
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'diabetic')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No', '2' => 'Yes,Insulin', '3' => 'Yes, On Tablet', '4' => 'Dont Know']) ?>

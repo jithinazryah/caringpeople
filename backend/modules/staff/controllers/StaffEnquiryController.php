@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use common\models\Followups;
 use common\models\FollowupsSearch;
 use yii\data\ActiveDataProvider;
-
+use yii\web\UploadedFile;
 /**
  * StaffEnquiryController implements the CRUD actions for StaffEnquiry model.
  */
@@ -39,7 +39,7 @@ class StaffEnquiryController extends Controller {
                 $searchModel = new StaffEnquirySearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 if (Yii::$app->user->identity->branch_id != '0') {
-                        $dataProvider->query->where(['branch_id' => Yii::$app->user->identity->branch_id]);
+                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
 
                 return $this->render('index', [
@@ -66,14 +66,14 @@ class StaffEnquiryController extends Controller {
          */
         public function actionCreate() {
                 $staff_enquiry = new StaffEnquiry();
-                $followup_info = new Followups();
+                
 
                 if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry)) {
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($staff_enquiry);
                         }
-                        $staff_enquiry->follow_up_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffEnquiry']['follow_up_date']));
-                        $followup_info->load(Yii::$app->request->post());
+                        $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
+                        $staff_enquiry->attachments=0;  
                         if ($staff_enquiry->save()) {
 
                                 if ($staff_enquiry->branch_id == '1') {
@@ -81,18 +81,22 @@ class StaffEnquiryController extends Controller {
                                 } else if ($staff_enquiry->branch_id == '2') {
                                         $code = 'CPBSE';
                                 }
+                                if (!empty($attachments)) {
+                                        $root_path = ['staff-enquiry', $staff_enquiry->id];
+                                        Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
+                                }
                                 $staff_enquiry->enquiry_id = $code . '-' . date('d') . date('m') . date('y') . '-' . $staff_enquiry->id;
                                 $staff_enquiry->update();
-                                $followup_info->status = '0';
-                                Yii::$app->Followups->addfollowups('3', $staff_enquiry->id, $followup_info);
+                                
+                                
                                 Yii::$app->getSession()->setFlash('success', 'Staff Enquiry Added Successfully');
-                                return $this->redirect(['index']);
+                                return $this->redirect(array('index'));
                         }
                 }
 
                 return $this->render('_staff_enquiry_form', [
                             'staff_enquiry' => $staff_enquiry,
-                            'followup_info' => $followup_info,
+                            
                 ]);
         }
 
@@ -105,40 +109,32 @@ class StaffEnquiryController extends Controller {
         public function actionUpdate($id) {
 
                 $staff_enquiry = $this->findModel($id);
-                if (isset($_GET['followup']))
-                        $followup_info = Followups::findOne($_GET['followup']);
-                else
-                        $followup_info = new Followups();
-
-                $searchModel = new FollowupsSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type' => '3', 'type_id' => $id]);
+               
 
                 if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry)) {
-                        $staff_enquiry->follow_up_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffEnquiry']['follow_up_date']));
-                        $followup_info->load(Yii::$app->request->post());
+                        
+                         $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');                       
+                         $staff_enquiry->attachments=0;  
                         if ($staff_enquiry->save())
-                                if (isset($_GET['followup'])) {
-                                        Yii::$app->Followups->Updatefollowups($_GET['followup'], $followup_info);
-                                } else {
-                                        $followup_info->status = '0';
-                                        Yii::$app->Followups->addfollowups('3', $staff_enquiry->id, $followup_info);
-                                }
+ if (!empty($attachments)) {
+                                $root_path = ['staff-enquiry', $staff_enquiry->id];
+                                Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
+                        }
+                         
+      
                         if (isset($_POST['proceed'])) {
                                 $staff_enquiry->proceed = '1';
                                 $staff_enquiry->update();
                                 return $this->redirect(['staff-info/procced/', 'id' => $staff_enquiry->id]);
                         } else {
                                 Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
-                                return $this->redirect(['index']);
+                                return $this->redirect(array('index'));
                         }
                 }
 
                 return $this->render('_staff_enquiry_form', [
                             'staff_enquiry' => $staff_enquiry,
-                            'followup_info' => $followup_info,
-                            'dataProvider' => $dataProvider,
-                            'followup_id' => $_GET['followup'],
+                            
                 ]);
         }
 
@@ -150,7 +146,10 @@ class StaffEnquiryController extends Controller {
          */
         public function actionDelete($id) {
                 $this->findModel($id)->delete();
-
+                $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $id;
+                if (file_exists($paths)) {
+                        $files = Yii::$app->UploadFile->RemoveFiles($paths);
+                }
                 return $this->redirect(['index']);
         }
 
@@ -167,6 +166,16 @@ class StaffEnquiryController extends Controller {
                 } else {
                         throw new NotFoundHttpException('The requested page does not exist.');
                 }
+        }
+
+ public function actionRemove($id, $name) {
+
+                $root_path = Yii::$app->basePath . '/../uploads/staff-enquiry';
+                $path = $root_path . '/' . $id . '/' . $name;
+                if (file_exists($path)) {
+                        unlink($path);
+                }
+                return $this->redirect(Yii::$app->request->referrer);
         }
 
 }

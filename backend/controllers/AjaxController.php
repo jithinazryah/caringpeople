@@ -170,7 +170,7 @@ class AjaxController extends \yii\web\Controller {
                         $options = Html::dropDownList('create[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--']);
 
                         $data = "<span>
-
+<hr style='border-top: 1px solid #979898 !important;'>
                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-hospital_name'>
                                         <label class='control-label'>Hospital Name</label>

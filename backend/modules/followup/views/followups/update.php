@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Followups */
 
-$this->title = 'Update Followup ';
+$this->title = 'Update Followups: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Followups', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -20,13 +20,11 @@ $this->params['breadcrumbs'][] = 'Update';
 
                         </div>
                         <div class="panel-body">
-                                <?= Html::a('<i class="fa-th-list"></i><span> My Tasks</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+				<?=  Html::a('<i class="fa-th-list"></i><span> Manage Followups</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <div class="panel-body"><div class="followups-create">
-                                                <?=
-                                                $this->render('_form', [
-                                                    'model' => $model,
-                                                ])
-                                                ?>
+						<?= $this->render('_form', [
+                                                'model' => $model,
+                                                ]) ?>
                                         </div>
                                 </div>
                         </div>

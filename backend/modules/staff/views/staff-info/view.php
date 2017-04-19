@@ -9,7 +9,7 @@ use common\models\Nationality;
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffInfo */
 
-$this->title = $model->staff_name;
+$this->title = $staff_info->staff_name;
 $this->params['breadcrumbs'][] = ['label' => 'Staff Infos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -258,8 +258,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <div class="data_sty" style="width:170px">
                                                                                                                                 <?php
+                                                                                                                                if(isset($staff_info->religion)) { 
                                                                                                                                 $religion = Religion::findOne($staff_info->religion);
                                                                                                                                 echo $religion->religion;
+                                                                                                                                 }
                                                                                                                                 ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -272,8 +274,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <div class="data_sty" style="width:170px">
                                                                                                                                 <?php
+                                                                                                                                if(isset($staff_info->caste)) { 
                                                                                                                                 $caste = Caste::findOne($staff_info->caste);
                                                                                                                                 echo $caste->caste;
+                                                                                                                                }
                                                                                                                                 ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -286,8 +290,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <div class="data_sty" style="width:185px">
                                                                                                                                 <?php
+                                                                                                                                if(isset($staff_info->nationality)) {
                                                                                                                                 $nationality = Nationality::findOne($staff_info->nationality);
                                                                                                                                 echo $nationality->nationality;
+                                                                                                                                }
                                                                                                                                 ?>
                                                                                                                         </div>
                                                                                                                 </div>
