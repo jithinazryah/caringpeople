@@ -16,6 +16,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\EnquiryHospital;
 use common\models\EnquiryOtherInfo;
+use common\models\Branch;
 
 /**
  * PatientEnquiryGeneralFirstController implements the CRUD actions for PatientEnquiryGeneralFirst model.
@@ -87,38 +88,34 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_info_second = new PatientEnquiryGeneralSecond();
                 $patient_hospital = new PatientEnquiryHospitalFirst();
                 $patient_hospital_second = new PatientEnquiryHospitalSecond();
-                
+
                 $patient_info->scenario = 'create';
-                $hospital_details='';
-                
+                $hospital_details = '';
+
 
                 if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post())) {
 
                         $patient_info->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['contacted_date']));
                         $patient_info->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['outgoing_call_date']));
-                        
+
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($patient_info);
                         }
-                       $patient_info_second->expected_date_of_service = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['expected_date_of_service']));
-                       if (!empty(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']))
-                        $patient_info_second->required_service = implode(",", Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']);
+                        $patient_info_second->expected_date_of_service = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['expected_date_of_service']));
+                        if (!empty(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']))
+                                $patient_info_second->required_service = implode(",", Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']);
 
                         if ($patient_info->validate() && $patient_info_second->validate() && $patient_hospital->validate() && $patient_hospital_second->validate()) {
 
                                 if ($patient_info->save() && $patient_info_second->save() && $patient_hospital->save() && $patient_hospital_second->save()) {
-
-                                        if ($patient_info->branch_id == '1') {
-                                                $code = 'CPCUE';
-                                        } else if ($patient_info->branch_id == '2') {
-                                                $code = 'CPBUE';
-                                        }
+                                        $branch = Branch::findOne($patient_info->branch_id);
+                                        $code = $branch->branch_code . 'UE';
                                         $patient_info->enquiry_number = $code . '-' . date('d') . date('m') . date('y') . '-' . $patient_info->id;
                                         $patient_info->update();
                                         $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
                                         $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
                                         $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
-                                        
+
                                         Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'create');
                                         $this->sendMail($patient_info, $patient_info_second);
                                         Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
@@ -132,9 +129,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                             'patient_info_second' => $patient_info_second,
                             'patient_hospital' => $patient_hospital,
                             'patient_hospital_second' => $patient_hospital_second,
-                            
-                             'hospital_details' => $hospital_details,
-                            
+                            'hospital_details' => $hospital_details,
                 ]);
         }
 
@@ -152,17 +147,17 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $patient_info->id]);
 
-                
+
 
                 if (!empty($patient_info) && !empty($patient_info_second) && !empty($patient_hospital) && !empty($patient_hospital_second)) {
                         if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post())) {
 
                                 $patient_info->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['contacted_date']));
                                 $patient_info->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['outgoing_call_date']));
-                                
+
                                 $patient_info_second->expected_date_of_service = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['expected_date_of_service']));
                                 if (!empty(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']))
-                                $patient_info_second->required_service = implode(",", Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']);
+                                        $patient_info_second->required_service = implode(",", Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']);
 
                                 if ($patient_info->validate() && $patient_info_second->validate() && $patient_hospital->validate() && $patient_hospital_second->validate()) {
 
@@ -170,7 +165,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                                 $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
                                                 $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
                                                 $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
-                                                
+
                                                 Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'update');
                                                 Yii::$app->getSession()->setFlash('success', 'Enquiry Updated Successfully');
                                                 if (isset($_POST['patinet_info'])) {
@@ -187,7 +182,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                     'patient_hospital' => $patient_hospital,
                                     'patient_hospital_second' => $patient_hospital_second,
                                     'hospital_details' => $hospital_details,
-                                    
                         ]);
                 } else {
                         throw new \yii\base\UserException("Error Code : 2000");
@@ -292,7 +286,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                 $arr[$key]['consultant_doctor'] = $val['consultant_doctor'][0];
                                 $arr[$key]['department'] = $val['department'][0];
                                 $arr[$key]['hospital_room_no'] = $val['hospital_room_no'][0];
-                                
+
                                 $i++;
                         }
 
@@ -335,7 +329,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
                         "From: info@caringpeople.in";
-                mail($to, $subject, $message, $headers);
+                //mail($to, $subject, $message, $headers);
         }
 
         /*

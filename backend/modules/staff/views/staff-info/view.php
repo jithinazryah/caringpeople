@@ -186,7 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <tr>
                                                                                                                 <td colspan="3">
                                                                                                                         <div class="profile_image" style="float:right;">
-                                                                                                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:115px;height:100px;"/>
+                                                                                                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:115px;height:115px;"/>
                                                                                                                         </div>
                                                                                                                 </td>
 
@@ -258,10 +258,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <div class="data_sty" style="width:170px">
                                                                                                                                 <?php
-                                                                                                                                if(isset($staff_info->religion)) { 
-                                                                                                                                $religion = Religion::findOne($staff_info->religion);
-                                                                                                                                echo $religion->religion;
-                                                                                                                                 }
+                                                                                                                                if (isset($staff_info->religion)) {
+                                                                                                                                        $religion = Religion::findOne($staff_info->religion);
+                                                                                                                                        echo $religion->religion;
+                                                                                                                                }
                                                                                                                                 ?>
                                                                                                                         </div>
                                                                                                                 </div>
@@ -274,9 +274,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <div class="data_sty" style="width:170px">
                                                                                                                                 <?php
-                                                                                                                                if(isset($staff_info->caste)) { 
-                                                                                                                                $caste = Caste::findOne($staff_info->caste);
-                                                                                                                                echo $caste->caste;
+                                                                                                                                if (isset($staff_info->caste)) {
+                                                                                                                                        $caste = Caste::findOne($staff_info->caste);
+                                                                                                                                        echo $caste->caste;
                                                                                                                                 }
                                                                                                                                 ?>
                                                                                                                         </div>
@@ -290,9 +290,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <div class="data_sty" style="width:185px">
                                                                                                                                 <?php
-                                                                                                                                if(isset($staff_info->nationality)) {
-                                                                                                                                $nationality = Nationality::findOne($staff_info->nationality);
-                                                                                                                                echo $nationality->nationality;
+                                                                                                                                if (isset($staff_info->nationality)) {
+                                                                                                                                        $nationality = Nationality::findOne($staff_info->nationality);
+                                                                                                                                        echo $nationality->nationality;
                                                                                                                                 }
                                                                                                                                 ?>
                                                                                                                         </div>
@@ -1052,6 +1052,76 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                         </td>
                                                                                                 </tr>
+
+                                                                                        </table>
+                                                                                </td>
+                                                                        </tr>
+
+
+                                                                        <tr>
+                                                                                <td>
+                                                                                        <table class="table1" style="border:0px sloid #000;">
+
+                                                                                                <tr>
+                                                                                                        <td>
+
+                                                                                                                <p class="patient_consent">The information in this section is true and complete. I agree that any deliberate omission falsification
+                                                                                                                        or misrepresentation in the application form will be grounds for rejecting this application or subsequent dismissal if employed by the organisation.
+                                                                                                                        Where applicable, I consent that the organisation can seek clarification regarding professional registration details. I agree to the above declaration.
+
+                                                                                                                </p>
+
+                                                                                                        </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                        <td colspan="2">
+                                                                                                                <div class="content" style="width: 50%;float: left">
+                                                                                                                        <div class="label_sty" style="width: 100px;">
+                                                                                                                                Place:
+                                                                                                                        </div>
+                                                                                                                        <div class="" style="width: 100px;">
+
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                                <div class="content" style="width: 50%;float: right">
+                                                                                                                        <div class="label_sty" style="width: 100px;">
+                                                                                                                                Name:
+                                                                                                                        </div>
+                                                                                                                        <div class="" style="width: 100px;">
+
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                        </td>
+
+
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                        <td colspan="2">
+                                                                                                                <div class="content" style="width: 50%;float: left">
+                                                                                                                        <div class="label_sty" style="width: 100px;">
+                                                                                                                                Date:
+                                                                                                                        </div>
+                                                                                                                        <div class="" style="width: 100px;">
+
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                                <div class="content" style="width: 50%;float: right">
+                                                                                                                        <div class="label_sty" style="width: 100px;">
+                                                                                                                                Signature:
+                                                                                                                        </div>
+                                                                                                                        <div class="" style="width: 100px;">
+
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                        </td>
+
+
+                                                                                                </tr>
+
+
+
+
+
 
                                                                                         </table>
                                                                                 </td>
