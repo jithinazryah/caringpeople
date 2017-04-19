@@ -58,7 +58,7 @@ class FollowupajaxController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
 
                         $followup_type = FollowupType::find()->all();
-                        $type = Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--']);
+                        $type = Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--',]);
 
                         $followup_subtype = FollowupSubType::find()->where(['type_id' => $_POST['type'], 'status' => '1'])->all();
 
@@ -135,7 +135,7 @@ class FollowupajaxController extends \yii\web\Controller {
         public function actionAddfollowups() {
                 if (Yii::$app->request->isAjax) {
                         $followup_subtype = FollowupSubType::find()->where(['type_id' => $_POST['type'], 'status' => '1'])->all();
-                        $options = Html::dropDownList('sub_type', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control subtypediv', 'id' => 'field-1', 'prompt' => '--Select--']);
+                        $options = Html::dropDownList('sub_type', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control subtypediv', 'id' => 'field-1', 'prompt' => '--Select--', 'required' => 'required']);
                         $datas = "<div class='subtypediv'><label for='field-1' class='control-label subtypediv'>Sub Type</label>
                                  $options</div>";
                         echo $datas;

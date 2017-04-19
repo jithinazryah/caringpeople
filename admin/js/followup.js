@@ -132,7 +132,8 @@ $("document").ready(function () {
         /*
          * Add followup on popup submit
          */
-        $('#addFollowupsubmit').on('click', function () {
+        $(document).on('submit', '#addFollowupsubmit', function () {
+
                 $('#modal-6').modal('hide');
                 var type = $('#add_type').val();
                 var type_id = $('#add_type_id').val();
@@ -141,18 +142,18 @@ $("document").ready(function () {
                 var assignedto = $('#field-3').val();
                 var assignedfrom = $('#field-4').val();
                 var notes = $('#field-5').val();
-                if (assignedto && assignedto != '') {
-                        showLoader();
-                        $.ajax({
-                                type: 'POST',
-                                cache: false,
-                                data: {type: type, type_id: type_id, subtype: subtype, followupdate: followupdate, assignedto: assignedto, assignedfrom: assignedfrom, notes: notes},
-                                url: homeUrl + 'followupajax/add',
-                                success: function (data) {
-                                        hideLoader();
-                                }
-                        });
-                }
+
+                showLoader();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {type: type, type_id: type_id, subtype: subtype, followupdate: followupdate, assignedto: assignedto, assignedfrom: assignedfrom, notes: notes},
+                        url: homeUrl + 'followupajax/add',
+                        success: function (data) {
+                                hideLoader();
+                        }
+                });
+
         });
 
 
@@ -160,7 +161,7 @@ $("document").ready(function () {
          * Followup subtype on followup type chanf
          */
 
-        // $('.followup_type').on('change', function () {
+// $('.followup_type').on('change', function () {
         $(document).on('change', '.followup_type', function () {
                 var type = $(this).val();
                 $.ajax({
@@ -171,10 +172,9 @@ $("document").ready(function () {
                         success: function (data) {
 
                                 $(".followup_subtype").html(data);
-
                                 hideLoader();
                         }
                 });
         });
-
-});
+}
+);

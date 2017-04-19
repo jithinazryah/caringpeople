@@ -721,7 +721,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 <div class="modal fade" id="modal-6">
         <div class="modal-dialog">
                 <div class="modal-content">
-                        <form id="follow_up">
+                        <form id="addFollowupsubmit">
                                 <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         <h4 class="modal-title">Add Followups</h4>
@@ -758,7 +758,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                         <div class="form-group">
                                                                 <label for="field-1" class="control-label">Assigned To</label>
 
-                                                                <?= Html::dropDownList('assigned_to', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'id' => 'field-3', 'prompt' => '--Select--']); ?>
+                                                                <?= Html::dropDownList('assigned_to', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'id' => 'field-3', 'prompt' => '--Select--', 'required' => 'required']); ?>
                                                         </div>
 
                                                 </div>
@@ -794,7 +794,8 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                 </div>
 
                                 <div class="modal-footer">
-                                        <button type="button" class="btn btn-info" id="addFollowupsubmit">Submit</button>
+                                        <!--                                        <button type="button" class="btn btn-info" id="addFollowupsubmit">Submit</button>-->
+                                        <input  type="submit" class="btn btn-info" value="Submit">
                                 </div>
                         </form>
                 </div>
