@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
 AppAsset::register($this);
 
 //$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'followup_date' => date('Y-m-d')])->all();
-$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['like', 'followup_date.first_name', date('Y-m-d')])->all();
+$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['like', 'followup_date', date('Y-m-d')])->all();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
