@@ -29,6 +29,7 @@ use common\models\AdminUsers;
                                                 $followup_type_Selected[] = $update_followup->type;
                                                 $followup_subtype_Selected[] = $update_followup->sub_type;
                                                 $assigned_to_selected[] = $update_followup->assigned_to;
+                                                $date = date("m/d/Y H:i:s", strtotime(str_replace('/', '-', $update_followup->followup_date)));
                                                 ?>
                                                 <span>
 
@@ -44,7 +45,7 @@ use common\models\AdminUsers;
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-followup_date">
                                                                         <label class="control-label" for="followups-followup_date">Followup Date</label>
-                                                                        <input type="datetime-local" data-mask="datetime" class="form-control" name="updatee[<?= $update_followup->id; ?>][followup_date][]" value="<?= $update_followup->followup_date; ?>">
+                                                                        <input type="datetime-local" data-mask="datetime" class="form-control" name="updatee[<?= $update_followup->id; ?>][followup_date][]" value="<?= $date; ?>">
                                                                 </div>
                                                         </div>
 
@@ -80,20 +81,20 @@ use common\models\AdminUsers;
                                                                         <label class="control-label" for="followups-status">Status</label>
                                                                         <select name="updatee[<?= $update_followup->id; ?>][status][]" class="form-control">
                                                                                 <option value="0" <?php
-                                                                                if ($update_followup->status == '0' || $update_followup->status == '3') {
-                                                                                        echo 'selected';
-                                                                                }
-                                                                                ?>>Open</option>
+                                                if ($update_followup->status == '0' || $update_followup->status == '3') {
+                                                        echo 'selected';
+                                                }
+                                                        ?>>Open</option>
                                                                                 <option value="1" <?php
-                                                                                if ($update_followup->status == '1') {
-                                                                                        echo 'selected';
-                                                                                }
-                                                                                ?>>Closed</option>
+                                                                        if ($update_followup->status == '1') {
+                                                                                echo 'selected';
+                                                                        }
+                                                        ?>>Closed</option>
                                                                                 <option value="2" <?php
-                                                                                if ($update_followup->status == '2') {
-                                                                                        echo 'selected';
-                                                                                }
-                                                                                ?>>Void</option>
+                                                                        if ($update_followup->status == '2') {
+                                                                                echo 'selected';
+                                                                        }
+                                                        ?>>Void</option>
                                                                         </select>
                                                                 </div>
                                                         </div>
@@ -136,7 +137,7 @@ use common\models\AdminUsers;
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-sub_type">
                                                                         <label class="control-label" for="followups-sub_type">Type</label>
-                                                                        <?= Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'id' => $rand, 'prompt' => '--Select--', 'required' => "required"]); ?>
+                                                                        <?= Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'id' => $rand, 'prompt' => '--Select--',]); ?>
                                                                 </div>
                                                         </div>
                                                 <?php }
@@ -146,7 +147,7 @@ use common\models\AdminUsers;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-sub_type">
                                                                 <label class="control-label" for="followups-sub_type">Sub Type</label>
-                                                                <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--', 'required' => "required"]); ?>
+                                                                <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--',]); ?>
                                                         </div>
                                                 </div>
 
@@ -154,7 +155,7 @@ use common\models\AdminUsers;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-followup_date">
                                                                 <label class="control-label" for="followups-followup_date">Followup Date</label>
-                                                                <input type="datetime-local" class="form-control some_class" name="create[followup_date][]" data-mask="datetime" required="required">
+                                                                <input type="datetime-local" class="form-control some_class" name="create[followup_date][]" data-mask="datetime" >
 
                                                         </div>
                                                 </div>
@@ -164,7 +165,7 @@ use common\models\AdminUsers;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-assigned_to">
                                                                 <label class="control-label" for="followups-assigned_to">Assigned To</label>
-                                                                <?= Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]); ?>
+                                                                <?= Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
                                                         </div>
                                                 </div>
 

@@ -42,7 +42,7 @@ class FollowupajaxController extends \yii\web\Controller {
         public function actionFollowupstatus() {
 
                 if (Yii::$app->request->isAjax) {
-// $followup_id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $_POST['followup_id']);
+                        // $followup_id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $_POST['followup_id']);
                         $followup_id = $_POST['followup_id'];
                         $followup = Followups::find()->where(['id' => $followup_id])->one();
                         $followup->status = 1;
@@ -73,10 +73,10 @@ class FollowupajaxController extends \yii\web\Controller {
                                 $followtype = '';
                         }
 
-                        $options = Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => ' --Select--', 'required' => "required"]);
+                        $options = Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--', 'required' => "required"]);
 
                         $all_users = AdminUsers::find()->where(['post_id' => '5'])->andWhere(['<>', 'id', Yii::$app->user->identity->id])->all();
-                        $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => ' --Select--', 'required' => "required"]);
+                        $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
 
                         $userid = Yii::$app->user->identity->id;
                         $user = AdminUsers::findOne($userid);
@@ -85,49 +85,49 @@ class FollowupajaxController extends \yii\web\Controller {
 
                         $datas = "<span>
                                 <hr style='border-top: 1px solid #979898 !important;'>
-<input type = 'hidden' name = 'create[type][]' value = '" . $_POST['type'] . "'>
-<input type = 'hidden' name = 'create[type_id][]' value = '" . $_POST['type_id'] . "'>
-$followtype
-<div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
-<div class = 'form-group field-followups-sub_type'>
-<label class = 'control-label'>Sub Type</label>
-$options
-</div>
-</div>
+                                <input type='hidden' name='create[type][]' value='" . $_POST['type'] . "'>
+                                <input type='hidden' name='create[type_id][]' value='" . $_POST['type_id'] . "'>
+                                        $followtype
+                                          <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                              <div class='form-group field-followups-sub_type'>
+                                                 <label class='control-label'>Sub Type</label>
+                                                 $options
+                                              </div>
+                                          </div>
 
-<div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
-<div class = 'form-group field-followups-followup_date'>
-<label class = 'control-label followup_date' for = 'followups-followup_date'>Followup Date</label>
-<input type = 'datetime-local' class = 'form-control some_class' name = 'create[followup_date][]' data-mask = 'datetime'>
-</div>
-</div>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                            <div class='form-group field-followups-followup_date'>
+                                               <label class='control-label followup_date' for='followups-followup_date'>Followup Date</label>
+                                                 <input type='datetime-local' class='form-control some_class' name='create[followup_date][]' data-mask='datetime'>
+                                            </div>
+                                        </div>
 
-<div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
-<div class = 'form-group field-followups-assigned_to'>
-<label class = 'control-label'>Assigned To</label>
-$assigned_to
-</div>
-</div>
+                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                              <div class='form-group field-followups-assigned_to'>
+                                                 <label class='control-label'>Assigned To</label>
+                                                 $assigned_to
+                                              </div>
+                                          </div>
 
-<div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
-<div class = 'form-group field-followups-followup_notes'>
-<label class = 'control-label' for = 'followups-followup_notes'>Followup Notes</label>
-<textarea class = 'form-control' name = 'create[followup_notes][]'></textarea>
-</div>
-</div>
+                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                            <div class='form-group field-followups-followup_notes'>
+                                               <label class='control-label' for='followups-followup_notes'>Followup Notes</label>
+                                                 <textarea class='form-control' name='create[followup_notes][]'></textarea>
+                                            </div>
+                                        </div>
 
-<div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
-<div class = 'form-group field-followups-assigned_from'>
-<label class = 'control-label' for = 'followups-assigned_from'>Assigned From</label>
-<input type = 'text' class = 'form-control' name = 'create[assigned_from][]' value = '.$user->name' readonly = 'readonly'>
-</div>
-</div>
+                                          <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                            <div class='form-group field-followups-assigned_from'>
+                                               <label class='control-label' for='followups-assigned_from'>Assigned From</label>
+                                                 <input type='text' class='form-control' name='create[assigned_from][]' value='.$user->name' readonly='readonly'>
+                                            </div>
+                                        </div>
 
-<a id = 'remFollowup' class = 'btn btn-icon btn-red remFollowup' title = 'Delete' style = 'margin-top: 15px;'><i class = 'fa-remove'></i></a>
-<div style = 'clear:both'></div>
+                                          <a id='remFollowup' class='btn btn-icon btn-red remFollowup' title='Delete' style='margin-top: 15px;'><i class='fa-remove'></i></a>
+                                          <div style='clear:both'></div>
 
 
-</span>";
+                                  </span>";
                         echo $datas;
                 }
         }
@@ -136,8 +136,8 @@ $assigned_to
                 if (Yii::$app->request->isAjax) {
                         $followup_subtype = FollowupSubType::find()->where(['type_id' => $_POST['type'], 'status' => '1'])->all();
                         $options = Html::dropDownList('sub_type', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control subtypediv', 'id' => 'field-1', 'prompt' => '--Select--', 'required' => 'required']);
-                        $datas = "<div class = 'subtypediv'><label for = 'field-1' class = 'control-label subtypediv'>Sub Type</label>
-$options</div>";
+                        $datas = "<div class='subtypediv'><label for='field-1' class='control-label subtypediv'>Sub Type</label>
+                                 $options</div>";
                         echo $datas;
                 }
         }
@@ -175,7 +175,7 @@ $options</div>";
                                 } else {
                                         $options = '<option value="">--Select--</option>';
                                         foreach ($state_datas as $state_data) {
-                                                $options .= "<option value = '" . $state_data->id . "'>" . $state_data->sub_type . "</option>";
+                                                $options .= "<option value='" . $state_data->id . "'>" . $state_data->sub_type . "</option>";
                                         }
                                 }
                         }
