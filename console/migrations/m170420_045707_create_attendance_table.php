@@ -11,10 +11,7 @@ class m170420_045707_create_attendance_table extends Migration {
          * @inheritdoc
          */
         public function up() {
-                $tableOptions = null;
-                if ($this->db->driverName === 'mysql') {
-                        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
-                }
+
                 $this->createTable('master_attendance_type', [
                     'id' => $this->primaryKey(),
                     'type' => $this->string(),
@@ -57,6 +54,26 @@ class m170420_045707_create_attendance_table extends Migration {
                 $this->addForeignKey("attendanceid", "attendance_entry", "attendance_id", "attendance", "id", "RESTRICT", "RESTRICT");
                 $this->addForeignKey("staffid_1", "attendance_entry", "staff_id", "staff_info", "id", "RESTRICT", "RESTRICT");
                 $this->addForeignKey("attendance_type", "attendance_entry", "attendance", "master_attendance_type", "id", "RESTRICT", "RESTRICT");
+
+                $this->addColumn('admin_posts', 'status', 'INTEGER AFTER staffs');
+//                $this->createTable('contacts', [
+//                    'id' => $this->primaryKey(),
+//                    'category' => $this->integer(),
+//                    'name' => $this->string(200),
+//                    'email' => $this->string(200),
+//                    'email_1' => $this->string(200),
+//                    'phone_no' => $this->string(200),
+//                    'phone_no_1' => $this->string(200),
+//                    'designation' => $this->string(200),
+//                    'company_name' => $this->string(200),
+//                    'references' => $this->string(200),
+//                    'remarks' => $this->text(),
+//                    'status' => $this->integer(),
+//                    'CB' => $this->integer(),
+//                    'UB' => $this->integer(),
+//                    'DOC' => $this->dateTime(),
+//                    'DOU' => $this->timestamp(),
+//                ]);
         }
 
         /**

@@ -53,6 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'value' => $model->enquiry == 1 ? 'Yes' : 'No',
                                                         ],
                                                             [
+                                                            'attribute' => 'staffs',
+                                                            'value' => $model->staffs == 1 ? 'Yes' : 'No',
+                                                        ],
+                                                            [
+                                                            'attribute' => 'attendance',
+                                                            'value' => $model->attendance == 1 ? 'Yes' : 'No',
+                                                        ],
+                                                            [
                                                             'attribute' => 'users',
                                                             'value' => $model->users == 1 ? 'Yes' : 'No',
                                                         ],

@@ -16,6 +16,15 @@ use common\models\AttendanceEntry;
  */
 class AttendanceController extends Controller {
 
+        public function init() {
+
+                if (Yii::$app->user->isGuest)
+                        $this->redirect(['/site/index']);
+
+                if (Yii::$app->session['post']['attendance'] != 1)
+                        $this->redirect(['/site/home']);
+        }
+
         /**
          * @inheritdoc
          */
