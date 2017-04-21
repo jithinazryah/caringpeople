@@ -158,6 +158,30 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 
                                                 </ul>
                                         <?php } ?>
+
+
+                                        <ul id="main-menu" class="main-menu">
+                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                <li>
+                                                        <a href="dashboard-1.html">
+                                                                <i class="fa-check"></i>
+                                                                <span class="title">Attendabce</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Attendance ', ['/attendance/attendance/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                                <li>
+                                                                        <?= Html::a('Attendance Report ', ['/attendance/attendance/report'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
+
+                                        </ul>
+
                                         <?php
                                         if (Yii::$app->session['post']['masters'] == 1) {
                                                 ?>
@@ -200,6 +224,11 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 
                                                 </ul>
                                         <?php } ?>
+
+
+
+
+
                                 </div>
 
                         </div>

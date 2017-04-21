@@ -104,7 +104,7 @@ $("document").ready(function () {
         $('#enquiry-email').change(function () {
                 var email = $(this).val();
                 if (email != '') {
-                        
+
                         $.ajax({
                                 type: 'POST',
                                 cache: false,
@@ -121,7 +121,7 @@ $("document").ready(function () {
                                                 $('#email_check').show();
                                                 $("#email_check a").attr("href", homeUrl + 'view-enquiry/' + data);
                                         }
-                                        
+
                                 }
                         });
                 } else {
@@ -129,6 +129,13 @@ $("document").ready(function () {
                 }
 
         });
+        /*
+         * On attendance entry user ca enter numbers only
+         */
+        $('.number_only').keypress(function () {
+                return event.charCode >= 48 && event.charCode <= 57;
+        });
+
 
 
 });
