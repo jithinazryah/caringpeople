@@ -39,7 +39,7 @@ class AttendanceController extends Controller {
 
                 $model = new Attendance();
                 $model->date = date('d-M-Y');
-                $employees = 0;
+                $employees = '';
 
 
                 if (isset($_POST['Attendance'])) {
@@ -65,12 +65,14 @@ class AttendanceController extends Controller {
                         $this->addAttendance($_POST);
                 }
 
-                if (isset($_POST['update_attendance'])) {
-                        $this->updateAttendance($_POST);
-                }
                 /*
                  * update attendance
                  */
+
+                if (isset($_POST['update_attendance'])) {
+                        $this->updateAttendance($_POST);
+                }
+
 
                 if (!isset($_POST['Attendance'])) {
                         return $this->render('create', [
@@ -163,11 +165,15 @@ class AttendanceController extends Controller {
                 }
         }
 
+        /*
+         * Attendance Report
+         */
+
         public function actionReport() {
 
                 $model = new Attendance();
                 $model->scenario = 'report';
-                $report = 0;
+                $report = '';
                 $branch = '';
 
                 if ($model->load(Yii::$app->request->post())) {

@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 <!-------------------------------------------------REPORT----------------------------------------------------------------------------->
 
-                                                <?php if (!empty($report) && $report != 0) { ?>
+                                                <?php if (!empty($report) && $report != '') { ?>
                                                         <div class="table-responsive">
                                                                 <table class="table table-striped">
                                                                         <thead>

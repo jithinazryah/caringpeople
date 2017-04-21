@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                         <?php ActiveForm::end(); ?>
 
                                                         <?php
-                                                        if (isset($employees)) {
+                                                        if (isset($employees) && $employees != '') {
                                                                 ?>
 
                                                                 <?php $form = ActiveForm::begin(); ?>

@@ -56,7 +56,7 @@ use common\models\MasterAttendanceType;
         <?php ActiveForm::end(); ?>
 
         <?php
-        if (isset($employees) && $employees != 0) {
+        if (isset($employees) && $employees != '') {
                 ?>
 
                 <?php $form = ActiveForm::begin(); ?>
