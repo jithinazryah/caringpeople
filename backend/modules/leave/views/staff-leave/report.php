@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <td><?= $value->staff_name; ?></td>
                                                                                         <?php $count = StaffLeave::find()->where(['employee_id' => $value->id, 'status' => 2])->andWhere(['>=', 'commencing_date', $from])->andWhere(['<=', 'commencing_date', $to])->count(); ?>
                                                                                         <td><?= $count; ?></td>
-                                                                                        <td><a data-toggle="collapse" data-parent="#accordion-test-2" href="#<?= $i ?>" class="collapsed" id="<?= $s ?>" title="View More Details"><i class="fa-info-circle"></i></a></td>
+                                                                                        <td><a data-toggle="collapse" data-parent="#accordion-test-2" href="#<?= $i ?>" class="collapsed" id="<?= $s ?>" title="View More Details"><i class="fa-plus-circle"></i></a></td>
                                                                                 </tr>
 
                                                                                 <tr id="collapse_<?= $s ?>" class="expand">
@@ -123,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                                         <th>Date</th>
                                                                                                                                                         <th>Leave Type</th>
                                                                                                                                                         <th>Purpose</th>
-                                                                                                                                                        <th>Admin Comments</th>
+                                                                                                                                                        <th>Comments</th>
                                                                                                                                                 </tr>
                                                                                                                                         </thead>
                                                                                                                                         <tbody>
