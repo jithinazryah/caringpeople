@@ -16,11 +16,11 @@ use kartik\date\DatePicker;
 	<?php $form = ActiveForm::begin(); ?>
 	<div class="row">
 
-		<div class='col-md-3 col-sm-6 col-xs-12 '>
-			<?= $form->field($model, 'no_of_days')->textInput() ?>
+		<!--		<div class='col-md-3 col-sm-6 col-xs-12 '>
+		<?php // $form->field($model, 'no_of_days')->textInput() ?>
 
-		</div>
-		<div class='col-md-3 col-sm-6 col-xs-12 '>
+				</div>-->
+		<div class='col-md-4 col-sm-6 col-xs-12 '>
 			<?php
 			$types = MasterLeaveType::find()->where(['status' => 1])->all();
 			?>
@@ -37,7 +37,7 @@ use kartik\date\DatePicker;
 		</div>
 
 		<?php // $form->field($model, 'commencing_date')->textInput() ?>
-		<div class='col-md-3 col-sm-6 col-xs-12 '>
+		<div class='col-md-4 col-sm-6 col-xs-12 '>
 			<div class="form-group field-commencing-date">
 				<label class="control-label" for="commencing-date">Commencing date</label>
 				<?php
@@ -63,7 +63,7 @@ use kartik\date\DatePicker;
 
 
 		</div>
-		<div class='col-md-3 col-sm-6 col-xs-12 '>
+		<div class='col-md-4 col-sm-6 col-xs-12 '>
 			<div class="form-group field-ending-date">
 				<label class="control-label" for="ending-date">Ending Date</label>
 				<?php

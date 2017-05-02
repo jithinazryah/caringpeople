@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						    }
 						],
 						'commencing_date',
+						'admin_comment:ntext',
 						    [
 						    'attribute' => 'status',
 						    'value' => function($model) {

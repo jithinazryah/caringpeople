@@ -40,20 +40,23 @@ use kartik\date\DatePicker;
 		</div>
 		<div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="day_staff">
 			<?php
-			$staffs = StaffInfo::find()->where(['status' => 1])->all();
+			$staffs = StaffInfo::find()->where(['status' => 1, 'post_id' => 5])->all();
 			?>
 			<?= $form->field($model, 'day_staff')->dropDownList(ArrayHelper::map($staffs, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--select staff--']) ?>
 
 		</div>
 		<div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="night_staff">
 			<?php
-			$staffs_ = StaffInfo::find()->where(['status' => 1])->all();
+			$staffs_ = StaffInfo::find()->where(['status' => 1, 'post_id' => 5])->all();
 			?>
 			<?= $form->field($model, 'night_staff')->dropDownList(ArrayHelper::map($staffs_, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--select staff--']) ?>
 
 		</div>
 		<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-			<?= $form->field($model, 'staff_manager')->textInput() ?>
+			<?php
+			$staff_managers_ = StaffInfo::find()->where(['status' => 1, 'post_id' => 3])->all();
+			?>
+			<?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($staffs_, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--select staff manager--']) ?>
 
 		</div>
 
@@ -141,9 +144,11 @@ use kartik\date\DatePicker;
 			if (this.value == 1) {
 				$("#day_staff").show();
 			} else if (this.value == 2) {
-				$("#night_staff").hide();
+				$("#night_staff").show();
+				$("#day_staff").hide();
 			} else if (this.value == 3) {
-				$("#night_staff").hide();
+				$("#night_staff").show();
+				$("#day_staff").show();
 			}
 
 		});

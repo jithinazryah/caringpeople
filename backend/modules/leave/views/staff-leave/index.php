@@ -10,6 +10,21 @@ use yii\grid\GridView;
 $this->title = 'Staff Leave';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+	.ta5 {
+		border: 2px solid rgba(64, 187, 234, 0.28);
+		border-radius: 10px;
+		height: 60px;
+		width: 230px;
+		margin-left: 154px;
+	}
+	textarea::placeholder {
+		padding: 5px 0px 0px 5px;
+	}
+	textarea{
+		padding: 5px 0px 0px 5px;
+	}
+</style>
 <div class="staff-leave-index">
 
         <div class="row">
@@ -42,10 +57,22 @@ $this->params['breadcrumbs'][] = $this->title;
 											<?php if ($value->status == 1) { ?>
 												<input type="checkbox" value="<?= $value->id ?>" class="iswitch iswitch-secondary leave_approved " title="Mrak it if this task is closed" style="float:right;"> <?php } ?>
 										</span>
-									</p>
 
-									<p style="text-align:left;font-size: 12px;margin-top: 3px;">
-										<span>Leave Type: <?= $value->leaveType->type; ?></span>
+
+
+
+									</p>
+									<br>
+
+
+									<p style="font-size: 12px;margin-top: 3px;">
+										<span style="float: left">Leave Type: <?= $value->leaveType->type; ?></span>
+
+										<?php if ($value->admin_comment != "") { ?>
+											<textarea style="float: right" class="ta5 commnt" placeholder="Comment.........." id="<?= $value->id ?>"><?= $value->admin_comment ?></textarea>
+										<?php } else { ?>
+											<textarea style="float: right" class="ta5 commnt" placeholder="Comment.........." id="<?= $value->id ?>"></textarea>
+										<?php } ?>
 									</p>
 									<br>
 									<p style="text-align:left;font-size: 12px;margin-top: 3px;">
@@ -60,6 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
 									<p style="text-align:left;font-size: 12px;margin-top: 3px;">
 										<span>Leave Purpose: <?= $value->purpose; ?></span>
 									</p>
+
 
 
 								</blockquote>
@@ -93,6 +121,20 @@ $this->params['breadcrumbs'][] = $this->title;
 				}
 			});
 
+		});
+		$(".commnt").focusout(function () {
+			var id = $(this).attr('id');
+			var comment = $(this).val();
+			$.ajax({
+				type: 'POST',
+				cache: false,
+				data: {leave_id: id, comment: comment},
+				url: homeUrl + 'leave/staff-leave/admin-comment',
+				success: function (data) {
+
+
+				}
+			});
 		});
 	});
 </script>
