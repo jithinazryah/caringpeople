@@ -93,10 +93,8 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
 			[['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'place', 'staff_id'], 'string', 'max' => 200],
 		    //[['profile_image_type',], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'jpg, gif, png,jpeg'],
 // [['biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'pdf, doc, docs,txt,jpg, gif, png,jpeg'],
-//		    [['branch_id'], 'required', 'on' => 'create', 'when' => function ($model) {
-//				return Yii::$app->user->identity->branch_id == 0;
-//			}],
-		    [['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
+		    [['branch_id'], 'required', 'on' => 'create'],
+			[['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
 			[['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'update'],
 			[['username', 'password'], 'required', 'on' => 'login'],
 			[['password'], 'validatePassword', 'on' => 'login'],
