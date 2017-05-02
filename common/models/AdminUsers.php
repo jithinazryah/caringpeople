@@ -44,12 +44,12 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	 */
 	public function rules() {
 		return [
-			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number','branch_id'], 'required', 'on' => 'create'],
+			[['post_id', 'user_name', 'password', 'name', 'email', 'phone_number', 'branch_id'], 'required', 'on' => 'create'],
 			[['post_id', 'employee_code', 'user_name', 'password', 'name', 'email', 'phone_number'], 'required', 'on' => 'update'],
 			[['user_name'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
 			[['user_name'], 'unique', 'message' => 'Username must be unique.', 'on' => 'update'],
 			[['email'], 'email'],
-			[['post_id', 'status', 'CB', 'UB','branch_id'], 'integer'],
+			[['post_id', 'status', 'CB', 'UB', 'branch_id'], 'integer'],
 			[['DOC', 'DOU'], 'safe'],
 			[['user_name'], 'string', 'max' => 30],
 			[['password'], 'string', 'max' => 300],
@@ -66,6 +66,7 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 		if (!$this->hasErrors()) {
 
 			$user = $this->getUser();
+
 			if (!$user || !Yii::$app->security->validatePassword($this->password, $user->password)) {
 				$this->addError($attribute, 'Incorrect username or password.');
 			}
@@ -85,7 +86,7 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 		    'name' => 'Name',
 		    'email' => 'Email',
 		    'phone_number' => 'Phone Number',
-                    'branch_id'=>'Branch',
+		    'branch_id' => 'Branch',
 		    'CB' => 'Cb',
 		    'UB' => 'Ub',
 		    'DOC' => 'Doc',
@@ -94,7 +95,10 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	}
 
 	public function login() {
+
 		if ($this->validate()) {
+
+
 			return Yii::$app->user->login($this->getUser(), /* $this->rememberMe ? 3600 * 24 * 30 : */ 0);
 		} else {
 			return false;
@@ -111,14 +115,18 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	}
 
 	protected function getUser() {
+
 		if ($this->_user === null) {
+
 			$this->_user = static::find()->where('user_name = :uname and status = :stat', ['uname' => $this->user_name, 'stat' => '1'])->one();
 		}
+
 
 		return $this->_user;
 	}
 
 	public function validatedata($data) {
+
 		if ($data == '') {
 			$this->addError('password', 'Incorrect username or password');
 			return true;
@@ -173,8 +181,8 @@ class AdminUsers extends ActiveRecord implements IdentityInterface {
 	public function getPost() {
 		return $this->hasOne(AdminPosts::className(), ['id' => 'post_id']);
 	}
-        
-        public function getBranch() {
+
+	public function getBranch() {
 		return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
 	}
 

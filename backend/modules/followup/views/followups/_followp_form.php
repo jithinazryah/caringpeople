@@ -30,7 +30,7 @@ if ($type == '1') {
         $link = 'update-staff/' . $type_id;
 } else {
         $heading = 'Follow ups';
-        $followup_for ='';
+        $followup_for = '';
         $link = '#';
 }
 ?>
@@ -82,9 +82,16 @@ if ($type == '1') {
         <script>
                 $(document).ready(function () {
                         $('.followup_form').hide();
-                        $('.add_follow').click(function () {
-                                $('.followup_form').slideToggle();
-                        });
+
                 });
         </script>
 <?php } ?>
+
+
+<script>
+        $(document).ready(function () {
+                $('.add_follow').click(function () {
+                        $('.followup_form').slideToggle();
+                });
+        });
+</script>

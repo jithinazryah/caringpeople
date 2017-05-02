@@ -14,6 +14,7 @@ use common\models\FollowupType;
 use common\models\Hospital;
 use common\models\FollowupSubType;
 use common\models\AdminUsers;
+use kartik\datetime\DateTimePicker;
 
 class FollowupajaxController extends \yii\web\Controller {
 
@@ -57,6 +58,7 @@ class FollowupajaxController extends \yii\web\Controller {
         public function actionFollowups() {
                 if (Yii::$app->request->isAjax) {
                         $rand = rand();
+                        $todays_date = date('d-M-Y h:i');
                         $followup_type = FollowupType::find()->all();
                         $type = Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--', 'id' => $rand, 'required' => "required"]);
 
@@ -78,6 +80,16 @@ class FollowupajaxController extends \yii\web\Controller {
                         $all_users = AdminUsers::find()->where(['post_id' => '5'])->andWhere(['<>', 'id', Yii::$app->user->identity->id])->all();
                         $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
 
+                        $date = DateTimePicker::widget([
+                                    'id' => $rand,
+                                    'name' => 'gffhg',
+                                    'type' => DateTimePicker::TYPE_INPUT,
+                                    'value' => $todays_date,
+                                    'pluginOptions' => [
+                                        'autoclose' => true,
+                                        'format' => 'dd-M-yyyy hh:ii'
+                                    ]
+                        ]);
                         $userid = Yii::$app->user->identity->id;
                         $user = AdminUsers::findOne($userid);
 
@@ -98,7 +110,7 @@ class FollowupajaxController extends \yii\web\Controller {
                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                             <div class='form-group field-followups-followup_date'>
                                                <label class='control-label followup_date' for='followups-followup_date'>Followup Date</label>
-                                                 <input type='datetime-local' class='form-control some_class' name='create[followup_date][]' data-mask='datetime'>
+                                                 $date
                                             </div>
                                         </div>
 
