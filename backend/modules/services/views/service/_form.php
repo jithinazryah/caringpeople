@@ -54,9 +54,9 @@ use kartik\date\DatePicker;
 		</div>
 		<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 			<?php
-			$staff_managers_ = StaffInfo::find()->where(['status' => 1, 'post_id' => 3])->all();
+			$staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 3])->all();
 			?>
-			<?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($staffs_, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--select staff manager--']) ?>
+			<?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($staff_managers, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--select staff manager--']) ?>
 
 		</div>
 

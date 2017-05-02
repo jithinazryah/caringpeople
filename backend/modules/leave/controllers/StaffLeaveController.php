@@ -18,6 +18,14 @@ use common\models\AdminUsers;
  */
 class StaffLeaveController extends Controller {
 
+	public function init() {
+		if (Yii::$app->user->isGuest)
+			$this->redirect(['/site/index']);
+
+		if (Yii::$app->session['post']['leave_application'] != 1)
+			$this->redirect(['/site/home']);
+	}
+
 	/**
 	 * @inheritdoc
 	 */
@@ -37,7 +45,7 @@ class StaffLeaveController extends Controller {
 	 * 	 */
 	public function actionIndex() {
 
-		if (Yii::$app->session['post']['admin'] != 1) {
+		if (Yii::$app->session['post']['leave_approval'] != 1) {
 			return $this->redirect(['../site/home']);
 		}
 

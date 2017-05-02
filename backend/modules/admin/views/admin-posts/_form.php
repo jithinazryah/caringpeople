@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="admin-posts-form form-inline">
 
-        <?php $form = ActiveForm::begin(); ?>
+	<?php $form = ActiveForm::begin(); ?>
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'post_name')->textInput(['maxlength' => true]) ?>
 
@@ -24,16 +24,22 @@ use yii\widgets\ActiveForm;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'attendance')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'users')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'leave_application')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'employees')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
-
-        </div>   <div class="form-group" style="float: right;">
-                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
         </div>
+</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'leave_approval')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
-        <?php ActiveForm::end(); ?>
+</div>
+<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'users')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+
+</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'employees')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+
+</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
+
+</div>   <div class="form-group" style="float: right;">
+	<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
+</div>
+
+<?php ActiveForm::end(); ?>
 
 </div>

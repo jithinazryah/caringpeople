@@ -71,6 +71,8 @@ class AdminPostsController extends Controller {
 		$model = new AdminPosts();
 
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+			$model->leave_application = Yii::$app->request->post()['AdminPosts']['leave_application'];
+			$model->leave_approval = Yii::$app->request->post()['AdminPosts']['leave_approval'];
 			if ($model->validate() && $model->save())
 				return $this->redirect(['view', 'id' => $model->id]);
 		}
@@ -89,6 +91,10 @@ class AdminPostsController extends Controller {
 		$model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+
+			$model->leave_application = Yii::$app->request->post()['AdminPosts']['leave_application'];
+			$model->leave_approval = Yii::$app->request->post()['AdminPosts']['leave_approval'];
+			$model->update();
 			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
 			return $this->render('update', [
