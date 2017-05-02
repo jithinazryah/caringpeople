@@ -16,7 +16,7 @@
 										<div class="wpb_text_column wpb_content_element ">
 											<div class="mkdf-section-title-holder">
 												<h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
-													Laboratory</h2>
+													Mobile Pharmacy</h2>
 											</div>
 											<div class="mkdf-separator-holder clearfix  mkdf-separator-center mkdf-separator-full-width">
 												<div class="mkdf-separator" style="border-color: #eaeaea;border-bottom-width: 1px;margin-top: 25px;margin-bottom: 25px"></div>
@@ -25,10 +25,28 @@
 
 										<div class="wpb_text_column wpb_content_element ">
 											<div class="wpb_wrapper">
-												<p>Caring People’s Lab offers a wide range of services to its clients. The speciality of this service is that the lab assistant comes to your home and collects the samples. You will receive the results via email or you can find it on our website. This enables to avoid the hassle of going out for routine lab tests.</p>
+												<p>We have highly trained and motivated prescription delivery staff who are well educated in satisfying patient expectations, exceeding the high industry standards set for customer service. We developed our prescription delivery service with the aim of providing a safe, efficient, confidential and professional free delivery service.</p>
 											</div>
 										</div>
 
+										<div class="wpb_text_column wpb_content_element ">
+											<div class="wpb_wrapper">
+												<h5>How it works</h5>
+
+											</div>
+										</div>
+										<ul class="selection-list">
+											<li>Step 1.  Register with us</li>
+											<li>Step 2. Email us the scanned copy of the prescription or upload it in your Caring People account.</li>
+											<li>Step 3. Our pharmacist will verify the prescription and process the order</li>
+											<li>Step 4. We will arrange delivery to your door.</li>
+											<li>Step 5. You can make the payment online or at the time of delivery.</li>
+										</ul>
+										<div class="wpb_text_column wpb_content_element ">
+											<div class="wpb_wrapper">
+												<p>If you need a repeat prescription we can phone, text or email to remind you when your prescription is due. Or you can order at any time by phone or online. </p>
+											</div>
+										</div>
 
 										<div data-original-height="25" class="vc_empty_space" style="height: 25px"><span class="vc_empty_space_inner"></span></div>
 									</div>

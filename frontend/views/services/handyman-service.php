@@ -1,4 +1,5 @@
 
+
 <div class="mkdf-content">
 	<div class="mkdf-content-inner">
 		<div class="mkdf-title mkdf-standard-type mkdf-preload-background mkdf-has-background mkdf-has-parallax-background mkdf-content-center-alignment mkdf-animation-no mkdf-title-image-not-responsive" style="color:#ffffff;;background-image:url(<?= Yii::$app->homeUrl; ?>images/banner/4.png);;height:385px;;border-bottom: none" data-height="385" data-background-width=&quot;1920&quot;>
@@ -16,7 +17,7 @@
 										<div class="wpb_text_column wpb_content_element ">
 											<div class="mkdf-section-title-holder">
 												<h2 class="mkdf-section-title mkdf-section-title-medium" style="text-align: left">
-													Laboratory</h2>
+													Handyman Service</h2>
 											</div>
 											<div class="mkdf-separator-holder clearfix  mkdf-separator-center mkdf-separator-full-width">
 												<div class="mkdf-separator" style="border-color: #eaeaea;border-bottom-width: 1px;margin-top: 25px;margin-bottom: 25px"></div>
@@ -25,7 +26,10 @@
 
 										<div class="wpb_text_column wpb_content_element ">
 											<div class="wpb_wrapper">
-												<p>Caring People’s Lab offers a wide range of services to its clients. The speciality of this service is that the lab assistant comes to your home and collects the samples. You will receive the results via email or you can find it on our website. This enables to avoid the hassle of going out for routine lab tests.</p>
+												<p>When you have some odd jobs, it can be very difficult to get reliable and experienced help.</p>
+												<p>We love odd jobs: the sorts of jobs that make you scratch your head and think “who do i call to get this done?” Our team are multi-traders so they can get all sorts of jobs done in one visit.</p>
+												<p>Whether it’s hanging a picture, mounting a soap dish on the wall, changing a light bulb, fitting curtains, fixing a door handle and little bit of gardening Caring People’s Handyman service is the perfect service you are looking for.</p>
+												<p>Sit back and relax we will do it for you. </p>
 											</div>
 										</div>
 

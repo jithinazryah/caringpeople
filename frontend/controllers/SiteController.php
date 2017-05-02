@@ -28,12 +28,12 @@ class SiteController extends Controller {
                 'class' => AccessControl::className(),
                 'only' => ['logout', 'signup'],
                 'rules' => [
-                        [
+                    [
                         'actions' => ['signup'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
-                        [
+                    [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -52,11 +52,11 @@ class SiteController extends Controller {
     /**
      * @inheritdoc
      */
-    public function actions() {
+     public function actions() {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
+//            'error' => [
+//                'class' => 'yii\web\ErrorAction',
+//            ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -173,13 +173,14 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function sendResponseMail($model) {
-        $to = $model->email;
-        $subject = 'Welcome to Caringpeople';
-        $msg = 'Thanks for your valuable comment .';
-        $headers = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
-                "From: 'info@caringpeople.in";
-        mail($to, $subject, $msg, $headers);
+        $path = 'http://' . Yii::$app->request->serverName . '/images/caring_peopl.jpg';
+        // echo $path;exit;
+        $message = Yii::$app->mailer->compose('response-mail') // a view rendering result becomes the message body here
+                ->setFrom('info@caringpeople.in')
+                ->setTo($model->email)
+                ->setSubject('Welcome to Caringpeople');
+        $message->attach($path);
+        $message->send();
         return TRUE;
     }
 
@@ -191,9 +192,8 @@ class SiteController extends Controller {
      */
     public function sendContactMail($model) {
 
-        $to = 'info@caringpeople.in';
-//        $to = 'manu@azryah.com';
-
+        $to = 'info@caringpeople.in,shintomaradikunnel@gmail.com';
+        // $to = 'surumiabin@gmail.com,manuko27@gmail.com';
 // subject
         $subject = 'Enquiry From Website';
 
@@ -233,6 +233,12 @@ class SiteController extends Controller {
 <th>:-</th>
 <td>" . $model->phone . "</td>
          </tr>
+         <tr>
+
+<th>Location</th>
+<th>:-</th>
+<td>" . $model->location . "</td>
+         </tr>
                  <tr>
 
 <th>Message</th>
@@ -251,8 +257,10 @@ class SiteController extends Controller {
 // To send HTML mail, the Content-type header must be set
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
-                "From: 'info@caringpeople.in/";
+                "From: 'no-reply@caringpeople.com";
         mail($to, $subject, $message, $headers);
+
+
         return true;
     }
 
@@ -357,6 +365,11 @@ class SiteController extends Controller {
         return $this->render('resetPassword', [
                     'model' => $model,
         ]);
+    }
+    
+    public function actionError() {
+
+        return $this->render('error');
     }
 
 }
