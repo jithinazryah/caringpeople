@@ -44,7 +44,7 @@ use common\models\AdminUsers;
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-followup_date">
                                                                         <label class="control-label" for="followups-followup_date">Followup Date</label>
-                                                                        <input type="datetime-local" data-mask="datetime" class="form-control" name="updatee[<?= $update_followup->id; ?>][followup_date][]" value="<?= $update_followup->followup_date; ?>">
+                                                                        <input type="datetime-local" data-mask="datetime" class="form-control" name="updatee[<?= $update_followup->id; ?>][followup_date][]" value="<?= strftime('%Y-%m-%dT%H:%M:%S', strtotime($update_followup->followup_date)) ?>">
                                                                 </div>
                                                         </div>
 
@@ -136,7 +136,7 @@ use common\models\AdminUsers;
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-sub_type">
                                                                         <label class="control-label" for="followups-sub_type">Type</label>
-                                                                        <?= Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type','id' => $rand, 'prompt' => '--Select--']); ?>
+                                                                        <?= Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'id' => $rand, 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
                                                 <?php }
@@ -154,7 +154,7 @@ use common\models\AdminUsers;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-followup_date">
                                                                 <label class="control-label" for="followups-followup_date">Followup Date</label>
-                                                                <input type="datetime-local" class="form-control some_class" name="create[followup_date][]" data-mask="datetime" required="required">
+                                                                <input type="datetime-local" class="form-control some_class" name="create[followup_date][]" data-mask="datetime" >
 
                                                         </div>
                                                 </div>
