@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = 'Update';
 											foreach ($employees as $staff) {
 												$i++;
 												$staffs = StaffInfo::findOne($staff->staff_id);
-												$staff_leave = StaffLeave::findOne(['info_table_id' => $staff->staff_id, 'commencing_date' => date('Y-m-d', strtotime($model->date)), 'status' => 2]);
+												$staff_leave = StaffLeave::findOne(['employee_id' => $staff->staff_id, 'commencing_date' => date('Y-m-d', strtotime($model->date)), 'status' => 2]);
 												?>
 												<tbody>
 													<tr>
@@ -161,7 +161,7 @@ $this->params['breadcrumbs'][] = 'Update';
 										</tbody>
 									</table>
 								</div>
-								<?php ActiveForm::end(); ?>
+	<?php ActiveForm::end(); ?>
 
 								<?php
 							}

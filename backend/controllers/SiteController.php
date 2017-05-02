@@ -12,6 +12,7 @@ use common\models\AdminUsers;
 use common\models\ForgotPasswordTokens;
 use common\models\Enquiry;
 use common\models\EnquiryOtherInfo;
+use common\models\StaffInfo;
 
 /**
  * Site controller
@@ -68,7 +69,8 @@ class SiteController extends Controller {
 			return $this->redirect(array('site/home'));
 		}
 		$this->layout = 'login';
-		$model = new AdminUsers();
+		//$model = new AdminUsers();
+		$model = new StaffInfo();
 		$model->scenario = 'login';
 		if ($model->load(Yii::$app->request->post()) && $model->login() && $this->setSession()) {
 
@@ -96,6 +98,8 @@ class SiteController extends Controller {
 	public function actionHome() {
 
 		if (isset(Yii::$app->user->identity->id)) {
+
+
 
 			if (Yii::$app->user->isGuest) {
 

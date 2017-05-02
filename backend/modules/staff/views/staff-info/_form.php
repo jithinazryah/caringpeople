@@ -13,6 +13,7 @@ use common\models\Branch;
 /* @var $model common\models\StaffInfo */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php $posts = \common\models\AdminPosts::find()->all(); ?>
 
 <div class="staff-info-form form-inline">
 
@@ -30,14 +31,22 @@ use common\models\Branch;
 		<?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
         </div>
-	<?php // if ($model->isNewRecord) { ?>
+	<?php //if ($model->isNewRecord) { ?>
 	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
 		<?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
 
 
+
 	</div>
+
 	<?php // } ?>
+	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+
+		<?= $form->field($model, 'post_id')->dropDownList(ArrayHelper::map($posts, 'id', 'post_name'), ['prompt' => '--Select--']) ?>
+
+
+	</div>
 	<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>

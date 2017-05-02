@@ -58,17 +58,11 @@ return [
 	    'csrfParam' => '_csrf-backend',
 	],
 	'user' => [
-	    'identityClass' => 'common\models\AdminUsers',
+	    // 'identityClass' => 'common\models\AdminUsers',
+	    'identityClass' => 'common\models\StaffInfo',
 	    'enableAutoLogin' => true,
 	    'loginUrl' => ['site/index'],
 	    'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-	],
-	'staff-info' => [
-	    'identityClass' => 'common\models\StaffInfo',
-	    'enableAutoLogin' => true,
-//	    'loginUrl' => ['site/index'],
-	    'class' => ['common\models\StaffInfo'],
-	//'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
 	],
 	'session' => [
 	    // this is the name of the session cookie used for login on the backend

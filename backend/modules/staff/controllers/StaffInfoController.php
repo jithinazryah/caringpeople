@@ -112,6 +112,7 @@ class StaffInfoController extends Controller {
 
 
 		$model = new StaffInfo();
+		$model->setScenario('create');
 		$staff_edu = new StaffInfoEducation();
 		$other_info = new StaffOtherInfo();
 		$staff_uploads = new StaffInfoUploads();
@@ -131,7 +132,12 @@ class StaffInfoController extends Controller {
 			$other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
 			$model->username = Yii::$app->request->post()['StaffInfo']['username'];
 			$model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
-			$this->AddToUsers($model);
+			$model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
+//$this->AddToUsers($model);
+
+			if (Yii::$app->user->identity->branch_id != '0') {
+				Yii::$app->SetValues->currentBranch($model);
+			}
 			if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $staff_edu->save() && $model->save() && $other_info->save() && $staff_uploads->save()) {
 				$other_info->staff_id = $model->id;
 				$staff_edu->staff_id = $model->id;
@@ -140,9 +146,6 @@ class StaffInfoController extends Controller {
 				$this->AddContactDirectory($model);
 
 
-				if (Yii::$app->user->identity->branch_id != '0') {
-					Yii::$app->SetValues->currentBranch($model);
-				}
 
 
 
@@ -227,21 +230,18 @@ class StaffInfoController extends Controller {
 			$other_info->load(Yii::$app->request->post());
 			$other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
 			$other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
-
-
 			if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_uploads->save()) {
-				if ($this->AddToUsers(Yii::$app->request->post()['StaffInfo']['username'], Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']), $model)) {
-					$model->username = Yii::$app->request->post()['StaffInfo']['username'];
-					$model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
-					$model->save();
 
-					$this->Imageupload($model, $staff_uploads, $before_update);
-					$this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
-					$admin_user = AdminUsers::find()->where(['staff_info_id' => $model->id])->one();
-					if (empty($admin_user))
-						Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
-					return $this->redirect(array('index'));
-				}
+				$model->username = Yii::$app->request->post()['StaffInfo']['username'];
+				$model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
+				$model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
+				$model->save();
+				$this->Imageupload($model, $staff_uploads, $before_update);
+				$this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
+				$admin_user = AdminUsers::find()->where(['staff_info_id' => $model->id])->one();
+				if (empty($admin_user))
+					Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
+				return $this->redirect(array('index'));
 			}
 		}
 

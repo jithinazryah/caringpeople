@@ -268,7 +268,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 								</a>
 								<ul>
 									<li>
-										<?= Html::a('Profile', ['/staff/staff-info/update?id=' . Yii::$app->user->identity->staff_info_id], ['class' => 'title']) ?>
+										<?= Html::a('Profile', ['/staff/staff-info/update?id=' . Yii::$app->user->identity->id], ['class' => 'title']) ?>
 									</li>
 
 								</ul>
@@ -606,7 +606,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="<?= Yii::$app->homeUrl; ?>images/themes/user-4.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
 								<span>
-									<?= Yii::$app->user->identity->user_name ?>
+									<?= Yii::$app->user->identity->username ?>
 									<i class="fa-angle-down"></i>
 								</span>
 							</a>

@@ -51,7 +51,7 @@ $this->title = 'Login';
 
 
                         <div class="form-group">
-				<?= $form->field($model, 'user_name')->textInput(['class' => 'form-control input-dark', 'autofocus' => 'true']) ?>
+				<?= $form->field($model, 'username')->textInput(['class' => 'form-control input-dark', 'autofocus' => 'true']) ?>
                         </div>
 
                         <div class="form-group">

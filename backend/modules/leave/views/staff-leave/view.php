@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffLeave */
 
-$this->title = Yii::$app->user->identity->user_name;
+$this->title = Yii::$app->user->identity->username;
 $this->params['breadcrumbs'][] = ['label' => 'Staff Leaves', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

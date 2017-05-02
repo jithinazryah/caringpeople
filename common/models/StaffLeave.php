@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $employee_id
+ * @property integer $info_table_id
  * @property integer $no_of_days
  * @property integer $leave_type
  * @property string $commencing_date
@@ -18,7 +19,7 @@ use Yii;
  * @property integer $CB
  * @property string $DOC
  *
- * @property AdminUsers $employee
+ * @property StaffInfo $employee
  * @property MasterLeaveType $leaveType
  */
 class StaffLeave extends \yii\db\ActiveRecord
@@ -37,10 +38,10 @@ class StaffLeave extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['employee_id', 'no_of_days', 'leave_type', 'status', 'CB'], 'integer'],
+            [['employee_id', 'info_table_id', 'no_of_days', 'leave_type', 'status', 'CB'], 'integer'],
             [['commencing_date', 'ending_date', 'DOC'], 'safe'],
             [['purpose'], 'string'],
-            [['employee_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdminUsers::className(), 'targetAttribute' => ['employee_id' => 'id']],
+            [['employee_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['employee_id' => 'id']],
             [['leave_type'], 'exist', 'skipOnError' => true, 'targetClass' => MasterLeaveType::className(), 'targetAttribute' => ['leave_type' => 'id']],
         ];
     }
@@ -53,6 +54,7 @@ class StaffLeave extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'employee_id' => 'Employee ID',
+            'info_table_id' => 'Info Table ID',
             'no_of_days' => 'No Of Days',
             'leave_type' => 'Leave Type',
             'commencing_date' => 'Commencing Date',
@@ -69,7 +71,7 @@ class StaffLeave extends \yii\db\ActiveRecord
      */
     public function getEmployee()
     {
-        return $this->hasOne(AdminUsers::className(), ['id' => 'employee_id']);
+        return $this->hasOne(StaffInfo::className(), ['id' => 'employee_id']);
     }
 
     /**

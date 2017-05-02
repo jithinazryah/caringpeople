@@ -7,10 +7,10 @@ use yii\db\Migration;
  */
 class m170322_074707_create_staffinfo_table extends Migration {
 
-        /**
-         * @inheritdoc
-         */
-        public function up() {
+	/**
+	 * @inheritdoc
+	 */
+	public function up() {
 //                $this->createTable('staff_info', [
 //                    'id' => $this->primaryKey(),
 //                    'staff_enquiry_id' => $this->integer(),
@@ -102,19 +102,20 @@ class m170322_074707_create_staffinfo_table extends Migration {
 //                    'service_to' => $this->date(),
 //                ]);
 //                $this->addForeignKey("staff_id", "staff_pervious_employer", "staff_id", "staff_info", "id", "RESTRICT", "RESTRICT");
+//                $this->addColumn('staff_enquiry', 'place', 'varchar(200) AFTER address');
+//                $this->renameColumn('staff_enquiry', 'staff_type', 'designation');
+//
+//                $this->addColumn('staff_info', 'place', 'varchar(200) AFTER present_email');
+//                $this->addColumn('staff_info', 'designation', 'varchar(200) AFTER place');
+		$this->addColumn('staff_info', 'post_id', 'integer() AFTER password');
+		$this->addForeignKey("post_id", "staff_info", "post_id", "admin_posts", "id", "RESTRICT", "RESTRICT");
+	}
 
-                $this->addColumn('staff_enquiry', 'place', 'varchar(200) AFTER address');
-                $this->renameColumn('staff_enquiry', 'staff_type', 'designation');
-
-                $this->addColumn('staff_info', 'place', 'varchar(200) AFTER present_email');
-                $this->addColumn('staff_info', 'designation', 'varchar(200) AFTER place');
-        }
-
-        /**
-         * @inheritdoc
-         */
-        public function down() {
-                $this->dropTable('staffinfo');
-        }
+	/**
+	 * @inheritdoc
+	 */
+	public function down() {
+		$this->dropTable('staffinfo');
+	}
 
 }

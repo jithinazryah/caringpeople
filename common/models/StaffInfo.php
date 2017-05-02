@@ -64,7 +64,12 @@ use yii\db\ActiveRecord;
  * @property StaffOtherInfo[] $staffOtherInfos
  * @property StaffPerviousEmployer[] $staffPerviousEmployers
  */
-class StaffInfo extends \yii\db\ActiveRecord {
+class StaffInfo extends ActiveRecord implements IdentityInterface {
+
+	private $_user;
+	public $rememberMe = true;
+	public $created_at;
+	public $updated_at;
 
 	/**
 	 * @inheritdoc
@@ -81,18 +86,35 @@ class StaffInfo extends \yii\db\ActiveRecord {
 			[['email', 'present_email'], 'email'],
 			[['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB', 'designation'], 'integer'],
 			[['dob', 'DOC', 'DOU'], 'safe'],
-			[['staff_name', 'gender', 'username', 'password', 'present_email', 'present_contact_no'], 'required'],
+			[['staff_name', 'gender', 'username', 'password', 'present_email', 'present_contact_no'], 'required', 'on' => 'create'],
 			[['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
 			[['caste'], 'exist', 'skipOnError' => true, 'targetClass' => Caste::className(), 'targetAttribute' => ['caste' => 'id']],
 			[['religion'], 'exist', 'skipOnError' => true, 'targetClass' => Religion::className(), 'targetAttribute' => ['religion' => 'id']],
 			[['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'place', 'staff_id'], 'string', 'max' => 200],
 		    //[['profile_image_type',], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'jpg, gif, png,jpeg'],
 // [['biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'pdf, doc, docs,txt,jpg, gif, png,jpeg'],
-		    [['branch_id'], 'required', 'when' => function ($model) {
-				return Yii::$app->user->identity->branch_id == 0;
-			},],
+//		    [['branch_id'], 'required', 'on' => 'create', 'when' => function ($model) {
+//				return Yii::$app->user->identity->branch_id == 0;
+//			}],
+		    [['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
+			[['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'update'],
 			[['username', 'password'], 'required', 'on' => 'login'],
+			[['password'], 'validatePassword', 'on' => 'login'],
 		];
+	}
+
+	public function validatePassword($attribute, $params) {
+
+
+		if (!$this->hasErrors()) {
+
+
+			$user = $this->getUser();
+
+			if (!$user || !Yii::$app->security->validatePassword($this->password, $user->password)) {
+				$this->addError($attribute, 'Incorrect username or password.');
+			}
+		}
 	}
 
 	/**
@@ -134,6 +156,45 @@ class StaffInfo extends \yii\db\ActiveRecord {
 		];
 	}
 
+	public function login() {
+
+		if ($this->validate()) {
+
+
+			return Yii::$app->user->login($this->getUser(), /* $this->rememberMe ? 3600 * 24 * 30 : */ 0);
+		} else {
+			return false;
+		}
+	}
+
+	public function loginn() {
+
+		$user = static::find()->where('post_id = :post and status = :stat', ['post' => 1, 'stat' => '1'])->one();
+
+		$this->_user = static::find()->where('username = :uname and status = :stat', ['uname' => $user->username, 'stat' => '1'])->one();
+
+		return Yii::$app->user->login($this->getUser(), /* $this->rememberMe ? 3600 * 24 * 30 : */ 0);
+	}
+
+	protected function getUser() {
+
+		if ($this->_user === null) {
+
+			$this->_user = static::find()->where('username = :uname and status = :stat', ['uname' => $this->username, 'stat' => '1'])->one();
+		}
+
+
+		return $this->_user;
+	}
+
+	public function validatedata($data) {
+
+		if ($data == '') {
+			$this->addError('password', 'Incorrect username or password');
+			return true;
+		}
+	}
+
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
@@ -146,6 +207,52 @@ class StaffInfo extends \yii\db\ActiveRecord {
 	 */
 	public function getStaffPerviousEmployers() {
 		return $this->hasMany(StaffPerviousEmployer::className(), ['staff_id' => 'id']);
+	}
+
+	public function getPost() {
+		return $this->hasOne(AdminPosts::className(), ['id' => 'post_id']);
+	}
+
+	/**
+	 * Finds user by username
+	 *
+	 * @param string $username
+	 * @return static|null
+	 */
+	public static function findByUsername($username) {
+		return static::findOne(['username' => $username, 'status' => 1]);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function findIdentity($id) {
+		return static::findOne(['id' => $id, 'status' => 1]);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function findIdentityByAccessToken($token, $type = null) {
+		throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+	}
+
+	public function getId() {
+		return $this->getPrimaryKey();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getAuthKey() {
+		return $this->auth_key;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function validateAuthKey($authKey) {
+		return $this->getAuthKey() === $authKey;
 	}
 
 }

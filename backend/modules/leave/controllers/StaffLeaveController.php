@@ -36,8 +36,6 @@ class StaffLeaveController extends Controller {
 	 * Lists all pending leave on admin side for approve or decline
 	 * 	 */
 	public function actionIndex() {
-//		$searchModel = new StaffLeaveSearch();
-//		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 		if (Yii::$app->session['post']['admin'] != 1) {
 			return $this->redirect(['../site/home']);
@@ -45,8 +43,6 @@ class StaffLeaveController extends Controller {
 
 		$pending_leave = StaffLeave::find()->where(['status' => 1])->all();
 		return $this->render('index', [
-			    /* 'searchModel' => $searchModel,
-			      'dataProvider' => $dataProvider, */
 			    'pending_leave' => $pending_leave
 		]);
 	}
@@ -75,11 +71,11 @@ class StaffLeaveController extends Controller {
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
 
 			$model->employee_id = Yii::$app->user->identity->id;
-			$model->info_table_id = Yii::$app->user->identity->staff_info_id;
+			//$model->info_table_id = Yii::$app->user->identity->staff_info_id;
 			$model->commencing_date = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffLeave']['commencing_date']));
 			$model->ending_date = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffLeave']['ending_date']));
 			$model->status = 1;
-			$check = StaffLeave::findOne(['info_table_id' => Yii::$app->user->identity->staff_info_id, 'commencing_date' => $model->commencing_date]);
+			$check = StaffLeave::findOne(['employee_id' => Yii::$app->user->identity->id, 'commencing_date' => $model->commencing_date]);
 			if (empty($check)) {
 				if ($model->validate() && $model->save()) {
 					if ($model->no_of_days > 1)
@@ -104,7 +100,7 @@ class StaffLeaveController extends Controller {
 			for ($i = 1; $i <= $days; $i++) {
 				$model_new = new StaffLeave();
 				$model_new->employee_id = $model->employee_id;
-				$model_new->info_table_id = $model->info_table_id;
+				//$model_new->info_table_id = $model->info_table_id;
 				$model_new->no_of_days = $model->no_of_days;
 				$model_new->leave_type = $model->leave_type;
 				$model_new->commencing_date = date("Y-m-d", strtotime("+" . $i . " day", strtotime($model->commencing_date)));
@@ -140,7 +136,7 @@ class StaffLeaveController extends Controller {
 			$model->commencing_date = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffLeave']['commencing_date']));
 			$model->ending_date = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffLeave']['ending_date']));
 			$model->status = 1;
-			$check = StaffLeave::findOne(['info_table_id' => Yii::$app->user->identity->staff_info_id, 'commencing_date' => $model->commencing_date]);
+			$check = StaffLeave::findOne(['employee_id' => Yii::$app->user->identity->id, 'commencing_date' => $model->commencing_date]);
 			if (empty($check)) {
 				if ($model->validate() && $model->save()) {
 					if ($model->no_of_days > 1)

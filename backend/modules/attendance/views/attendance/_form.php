@@ -78,7 +78,7 @@ use common\models\StaffLeave;
 
 
 					foreach ($employees as $staff) {
-						$staff_leave = StaffLeave::findOne(['info_table_id' => $staff->id, 'commencing_date' => date('Y-m-d', strtotime($model->date)), 'status' => 2]);
+						$staff_leave = StaffLeave::findOne(['employee_id' => $staff->id, 'commencing_date' => date('Y-m-d', strtotime($model->date)), 'status' => 2]);
 						//var_dump($staff_leave);
 						$i++;
 						?>

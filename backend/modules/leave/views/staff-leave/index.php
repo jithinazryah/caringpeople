@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 								<blockquote class="blockquote blockquote-info">
 									<p>
 										<span style="float: right;color: #7c38bc;font-size: 12px;">
-											Leave Applied By: <?= $value->employee->user_name; ?>
+											Leave Applied By: <?= $value->employee->username; ?>
 										</span>
 										<br>
 										<span style="float: right;color: #7c38bc;font-size: 12px;">
