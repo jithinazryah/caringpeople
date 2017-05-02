@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use common\models\Branch;
 use common\models\StaffLeave;
+use common\models\MasterLeaveType;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\StaffLeaveSearch */
@@ -78,42 +79,86 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <?php if (!empty($staffs) && $staffs != '') { ?>
 
-                                                <div class="table-responsive">
-                                                        <table class="table table-striped">
+
+                                                <table class="table table-striped">
 
 
-                                                                <?php
-                                                                $s = 0;
-                                                                foreach ($staffs as $value) {
-                                                                        $staff_exists = StaffLeave::find()->where(['employee_id' => $value->id])->andWhere(['>=', 'commencing_date', $from])->andWhere(['<=', 'commencing_date', $to])->exists();
-                                                                        if ($staff_exists == 1) {
-                                                                                $s++;
-                                                                                if ($s == 1) {
-                                                                                        ?>
-                                                                                        <thead>
-                                                                                        <th>NO</th>
-                                                                                        <th>EMPLOYEE NAME</th>
-                                                                                        <th>NO OF LEAVES </th>
-                                                                                        </thead>
+                                                        <?php
+                                                        $s = 0;
+                                                        foreach ($staffs as $value) {
+                                                                $staff_exists = StaffLeave::find()->where(['employee_id' => $value->id, 'status' => 2])->andWhere(['>=', 'commencing_date', $from])->andWhere(['<=', 'commencing_date', $to])->andWhere(['<=', 'commencing_date', $to])->exists();
+                                                                if ($staff_exists == 1) {
+                                                                        $s++;
+                                                                        if ($s == 1) {
+                                                                                ?>
+                                                                                <thead>
+                                                                                <th>NO</th>
+                                                                                <th>EMPLOYEE NAME</th>
+                                                                                <th>NO OF LEAVES </th>
+                                                                                <th></th>
+                                                                                </thead>
 
-                                                                                        <tbody>
-                                                                                                <?php
-                                                                                        }
-                                                                                        ?>
-                                                                                        <tr>
-                                                                                                <td><?= $s; ?></td>
-                                                                                                <td><?= $value->staff_name; ?></td>
-                                                                                                <?php $count = StaffLeave::find()->where(['employee_id' => $value->id])->andWhere(['>=', 'commencing_date', $from])->andWhere(['<=', 'commencing_date', $to])->count(); ?>
-                                                                                                <td><?= $count; ?></td>
-                                                                                        </tr>
+                                                                                <tbody>
                                                                                         <?php
                                                                                 }
-                                                                        }
-                                                                        ?>
+                                                                                ?>
+                                                                                <tr>
+                                                                                        <td><?= $s; ?></td>
+                                                                                        <td><?= $value->staff_name; ?></td>
+                                                                                        <?php $count = StaffLeave::find()->where(['employee_id' => $value->id, 'status' => 2])->andWhere(['>=', 'commencing_date', $from])->andWhere(['<=', 'commencing_date', $to])->count(); ?>
+                                                                                        <td><?= $count; ?></td>
+                                                                                        <td><a data-toggle="collapse" data-parent="#accordion-test-2" href="#<?= $i ?>" class="collapsed" id="<?= $s ?>" title="View More Details"><i class="fa-info-circle"></i></a></td>
+                                                                                </tr>
 
-                                                                </tbody>
-                                                        </table>
-                                                </div>
+                                                                                <tr id="collapse_<?= $s ?>" class="expand">
+                                                                                        <td colspan="4">
+                                                                                                <div class="row">
+                                                                                                        <div class="col-md-12">
+                                                                                                                <div class="panel-group" id="accordion-test-2">
+                                                                                                                        <div class="panel panel-default">
+                                                                                                                                <table class="table table-hover" style="    border: 1px solid #eee;">
+
+                                                                                                                                        <thead>
+                                                                                                                                                <tr>
+                                                                                                                                                        <th>Date</th>
+                                                                                                                                                        <th>Leave Type</th>
+                                                                                                                                                        <th>Purpose</th>
+                                                                                                                                                        <th>Admin Comments</th>
+                                                                                                                                                </tr>
+                                                                                                                                        </thead>
+                                                                                                                                        <tbody>
+                                                                                                                                                <?php
+                                                                                                                                                $leaves = StaffLeave::find()->where(['employee_id' => $value->id, 'status' => 2])->andWhere(['>=', 'commencing_date', $from])->andWhere(['<=', 'commencing_date', $to])->all();
+                                                                                                                                                foreach ($leaves as $leave) {
+                                                                                                                                                        ?>
+
+                                                                                                                                                        <tr>
+                                                                                                                                                                <td><?= date('d-m-Y', strtotime($leave->commencing_date)); ?></td>
+                                                                                                                                                                <?php $leave_type = MasterLeaveType::findOne($leave->leave_type); ?>
+                                                                                                                                                                <td><?= $leave_type->type; ?></td>
+                                                                                                                                                                <td><?= $leave->purpose; ?></td>
+                                                                                                                                                                <td><?= $leave->admin_comment; ?></td>
+                                                                                                                                                        </tr>
+
+                                                                                                                                                        <?php
+                                                                                                                                                }
+                                                                                                                                                ?>
+                                                                                                                                        </tbody>
+                                                                                                                                </table>
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </div>
+                                                                                        </td>
+                                                                                </tr>
+                                                                                <?php
+                                                                        }
+                                                                }
+                                                                ?>
+
+                                                        </tbody>
+                                                </table>
+
 
 
                                         <?php } ?>
@@ -126,6 +171,21 @@ $this->params['breadcrumbs'][] = $this->title;
         <style>
                 .table th{
                         text-align: center;
+
+                }
+                table.table.table-hover th{
+                        background-color: #fff !important;
+                        border-top:1px solid #eee !important;
                 }
         </style>
 </div>
+
+<script>
+        $(document).ready(function () {
+                $('.expand').hide();
+                $('.collapsed').click(function () {
+                        var id = $(this).attr('id');
+                        $('#collapse_' + id).toggle();
+                });
+        });
+</script>
