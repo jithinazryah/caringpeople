@@ -19,7 +19,7 @@ class FollowupsWidget extends Widget {
 
         public function run() {
                 $model = new Followups;
-                return $this->render('_followup_form', ['type_id' => $this->type_id, 'type' => $this->type, 'model' => $model, 'update_followup' => $this->update_followup]);
+                return $this->render('_followup_form', ['type_id' => $this->type_id, 'type' => $this->type, 'update_followup' => $this->update_followup]);
         }
 
 }

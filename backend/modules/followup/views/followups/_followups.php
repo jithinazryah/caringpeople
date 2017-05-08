@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
-use common\models\AdminUsers;
+use common\models\StaffInfo;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffEnquirySearch */
@@ -28,9 +28,9 @@ if ($model->status == '0') {
         $status = 'Pending';
 }
 
-$assigned_to = AdminUsers::findOne($model->assigned_to);
+$assigned_to = StaffInfo::findOne($model->assigned_to);
 $assigned_to = $assigned_to->name;
-$assigned_from = AdminUsers::findOne($model->assigned_from);
+$assigned_from = StaffInfo::findOne($model->assigned_from);
 $assigned_from = $assigned_from->name;
 $encrypt_followup_id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $model->id);
 $counts = ++$index;

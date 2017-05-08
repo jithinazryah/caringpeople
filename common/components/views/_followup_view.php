@@ -6,7 +6,7 @@ use yii\helpers\ArrayHelper;
 use kartik\datetime\DateTimePicker;
 use common\models\FollowupType;
 use common\models\FollowupSubType;
-use common\models\AdminUsers;
+use common\models\StaffInfo;
 
 if ($data->status == '0') {
         $color = 'blockquote-info'; //status-open
@@ -22,10 +22,10 @@ if ($data->status == '0') {
         $status = 'Pending';
 }
 
-$assigned_to = AdminUsers::findOne($data->assigned_to);
-$assigned_to = $assigned_to->name;
-$assigned_from = AdminUsers::findOne($data->assigned_from);
-$assigned_from = $assigned_from->name;
+$assigned_to = StaffInfo::findOne($data->assigned_to);
+$assigned_to = $assigned_to->staff_name;
+$assigned_from = StaffInfo::findOne($data->assigned_from);
+$assigned_from = $assigned_from->staff_name;
 $encrypt_followup_id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $data->id);
 ?>
 
@@ -57,6 +57,8 @@ $encrypt_followup_id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $data->id);
                                 <?php if ($data->status != 1) { ?>        <input type="checkbox" value="<?= $data->id ?>" class="iswitch iswitch-secondary followup_closed " title="Mrak it if this task is closed" style="float:right;"> <?php } ?>
                         </span>
                 </p>
+
+                <?php if ($data->attachments != '') { ?>   <p><a href="<?= Yii::$app->homeUrl . '../uploads/followups/' . $data->id . '/' . $data->attachments; ?>" target="_blank" style="font-size: 10px;color: #0d0da5;">View Attachament</a></p><?php } ?>
         </blockquote>
 </div>
 

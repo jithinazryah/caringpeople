@@ -7,7 +7,7 @@ use kartik\datetime\DateTimePicker;
 use common\models\Followups;
 use common\models\FollowupType;
 use common\models\FollowupSubType;
-use common\models\AdminUsers;
+use common\models\StaffInfo;
 ?>
 
 <div class="panel-body ">
@@ -25,21 +25,21 @@ use common\models\AdminUsers;
                                         if (!empty($update_followup)) {
                                                 $followup_type = FollowupType::find()->all();
                                                 $followup_subtype = FollowupSubType::find()->where(['type_id' => $update_followup->type, 'status' => '1'])->all();
-                                                $all_users = AdminUsers::find()->where(['post_id' => '5'])->andWhere(['<>', 'id', Yii::$app->user->identity->id])->all();
+                                                $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
                                                 $followup_type_Selected[] = $update_followup->type;
                                                 $followup_subtype_Selected[] = $update_followup->sub_type;
                                                 $assigned_to_selected[] = $update_followup->assigned_to;
                                                 ?>
                                                 <span>
 
-
+                                                        <?php //if ($update_followup->type != 5) { ?>
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-sub_type">
                                                                         <label class="control-label" for="followups-sub_type">Sub Type</label>
                                                                         <?= Html::dropDownList('updatee[' . $update_followup->id . '][sub_type][]', $followup_subtype_Selected, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
-
+                                                        <?php //} ?>
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-followup_date">
@@ -52,7 +52,7 @@ use common\models\AdminUsers;
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-assigned_to">
                                                                         <label class="control-label" for="followups-assigned_to">Assigned To</label>
-                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][assigned_to][]', $assigned_to_selected, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
+                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][assigned_to][]', $assigned_to_selected, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
 
@@ -66,16 +66,16 @@ use common\models\AdminUsers;
 
                                                         <?php
                                                         $userid = Yii::$app->user->identity->id;
-                                                        $user = AdminUsers::findOne($userid);
+                                                        $user = StaffInfo::findOne($update_followup->assigned_from);
                                                         ?>
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-assigned_from">
                                                                         <label class="control-label" for="followups-assigned_from">Assigned From</label>
-                                                                        <input type="text" class="form-control" name="updatee[<?= $update_followup->id; ?>][assigned_from][]" readonly="readonly" value="<?= $user->name; ?>">
+                                                                        <input type="text" class="form-control" name="updatee[<?= $update_followup->id; ?>][assigned_from][]" readonly="readonly" value="<?= $user->staff_name; ?>">
                                                                 </div>
                                                         </div>
 
-                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-followup_date">
                                                                         <label class="control-label" for="followups-status">Status</label>
                                                                         <select name="updatee[<?= $update_followup->id; ?>][status][]" class="form-control">
@@ -95,6 +95,14 @@ use common\models\AdminUsers;
                                                                                 }
                                                                                 ?>>Void</option>
                                                                         </select>
+                                                                </div>
+                                                        </div>
+
+                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-assigned_from">
+                                                                        <label class="control-label" for="followups-assigned_from">Attachments</label>
+                                                                        <input type = "file" name = "updatee[image][]" />
+
                                                                 </div>
                                                         </div>
 
@@ -142,29 +150,30 @@ use common\models\AdminUsers;
                                                 <?php }
                                                 ?>
 
-
+                                                <?php // if ($type != 5) { ?>
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-sub_type">
                                                                 <label class="control-label" for="followups-sub_type">Sub Type</label>
                                                                 <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--']); ?>
                                                         </div>
                                                 </div>
+                                                <?php // } ?>
 
 
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-followup_date">
                                                                 <label class="control-label" for="followups-followup_date">Followup Date</label>
-                                                                <input type="datetime-local" class="form-control some_class" name="create[followup_date][]" data-mask="datetime" >
+                                                                <input type="datetime-local" class="form-control some_class" name="create[followup_date][]" >
 
                                                         </div>
                                                 </div>
 
 
-                                                <?php $all_users = AdminUsers::find()->where(['post_id' => '5'])->andWhere(['<>', 'id', Yii::$app->user->identity->id])->all(); ?>
+                                                <?php $all_users = StaffInfo::find()->where(['post_id' => '5'])->all(); ?>
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-assigned_to">
                                                                 <label class="control-label" for="followups-assigned_to">Assigned To</label>
-                                                                <?= Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
+                                                                <?= Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
                                                         </div>
                                                 </div>
 
@@ -178,12 +187,21 @@ use common\models\AdminUsers;
 
                                                 <?php
                                                 $userid = Yii::$app->user->identity->id;
-                                                $user = AdminUsers::findOne($userid);
+                                                $user = StaffInfo::findOne($userid);
                                                 ?>
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-assigned_from">
                                                                 <label class="control-label" for="followups-assigned_from">Assigned From</label>
-                                                                <input type="text" class="form-control" name="create[assigned_from][]" readonly="readonly" value="<?= $user->name; ?>">
+                                                                <input type="text" class="form-control" name="create[assigned_from][]" readonly="readonly" value="<?= $user->staff_name; ?>">
+
+                                                        </div>
+                                                </div>
+
+                                                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class="form-group field-followups-assigned_from">
+                                                                <label class="control-label" for="followups-assigned_from">Attachments</label>
+<!--                                                                <input type="file" class="form-control" name="create[attachments][]" >-->
+                                                                <input type = "file" name = "create[image][]" />
 
                                                         </div>
                                                 </div>

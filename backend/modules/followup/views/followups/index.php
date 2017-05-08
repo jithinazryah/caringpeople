@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
                                         <?php
                                         if (!empty($followups))

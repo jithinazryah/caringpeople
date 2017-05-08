@@ -10,7 +10,7 @@ use common\components\FollowupsviewWidget;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$heading = 'Follow ups for';
+$heading = 'Follow ups -';
 
 if ($type == '1') {
         $enquiry_id = \common\models\PatientEnquiryGeneralFirst::findOne($type_id);
@@ -28,13 +28,19 @@ if ($type == '1') {
         $enquiry_id = common\models\StaffInfo::findOne($type_id);
         $followup_for = $enquiry_id->staff_id;
         $link = 'update-staff/' . $type_id;
+} elseif ($type == '5') {
+
+        $enquiry_id = common\models\Service::findOne($type_id);
+        $followup_for = $enquiry_id->id;
+        $link = 'update-service/' . $type_id;
 } else {
         $heading = 'Follow ups';
         $followup_for = '';
         $link = '#';
 }
 ?>
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+
 <div class="row ">
         <div class="col-md-12">
 
@@ -43,14 +49,25 @@ if ($type == '1') {
                                 <h3 class="panel-title"><?= $heading ?> <a href="<?= Yii::$app->homeUrl . $link ?>" style="color:#1b44ab"><?= $followup_for ?></a></h3>
 
                         </div>
-
+                        <?php
+                        if (isset($service) && $service != 'NULL') {
+                                echo $this->render('_menus', [
+                                    'model' => $model,
+                                ]);
+                        }
+                        ?>
                         <a class="add_follow btn btn-blue" style="margin-top:10px;">Add Followups</a>
                         <a href="<?= Yii::$app->homeUrl; ?>followup/followups/closed?type_id=<?= $type_id ?> &type=<?= $type ?>" class="btn btn-secondary" style="margin-top:10px;">Closed Followups</a>
 
 
+                        <!-------------------------------calling widget for the form----------------------->
 
                         <?= FollowupsWidget::widget(['type_id' => $type_id, 'type' => $type, 'update_followup' => $update_followup]); ?>
 
+                        <!-------------------------------calling widget for the form----------------------->
+
+
+                        <!-------------------------------calling widget for viewing previously added followups----------------------->
                         <div class="row">
                                 <?php
                                 if (!empty($followups)) {
@@ -64,6 +81,8 @@ if ($type == '1') {
                                 ?>
 
                         </div>
+
+                        <!-------------------------------calling widget for viewing previously added followups----------------------->
                 </div>
         </div>
 </div>
