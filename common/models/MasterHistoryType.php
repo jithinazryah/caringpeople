@@ -5,26 +5,27 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "master_service_types".
+ * This is the model class for table "master_history_type".
  *
  * @property integer $id
- * @property string $service_name
+ * @property string $type
+ * @property string $content
  * @property integer $status
  * @property integer $CB
  * @property integer $UB
  * @property string $DOC
  * @property string $DOU
  *
- * @property Service[] $services
+ * @property History[] $histories
  */
-class MasterServiceTypes extends \yii\db\ActiveRecord
+class MasterHistoryType extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'master_service_types';
+        return 'master_history_type';
     }
 
     /**
@@ -33,9 +34,10 @@ class MasterServiceTypes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['content'], 'string'],
             [['status', 'CB', 'UB'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
-            [['service_name'], 'string', 'max' => 255],
+            [['type'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,7 +48,8 @@ class MasterServiceTypes extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'service_name' => 'Service Name',
+            'type' => 'Type',
+            'content' => 'Content',
             'status' => 'Status',
             'CB' => 'Cb',
             'UB' => 'Ub',
@@ -58,8 +61,8 @@ class MasterServiceTypes extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getServices()
+    public function getHistories()
     {
-        return $this->hasMany(Service::className(), ['service' => 'id']);
+        return $this->hasMany(History::className(), ['history_type' => 'id']);
     }
 }

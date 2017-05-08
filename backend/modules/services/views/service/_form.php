@@ -64,7 +64,7 @@ use kartik\date\DatePicker;
 			<div class="form-group field-service-from_date">
 				<label class="control-label" for="service-from_date">From Date</label>
 				<?php
-				if (isset($model->from_date)) {
+				if (!$model->isNewRecord) {
 					$model->from_date = date('d-m-Y', strtotime($model->from_date));
 				} else {
 					$model->from_date = date('d-m-Y');
@@ -89,7 +89,7 @@ use kartik\date\DatePicker;
 			<div class="form-group field-service-to_date">
 				<label class="control-label" for="service-to_date">To Date</label>
 				<?php
-				if (isset($model->to_date)) {
+				if (!$model->isNewRecord) {
 					$model->to_date = date('d-m-Y', strtotime($model->to_date));
 				} else {
 					$model->to_date = date('d-m-Y');

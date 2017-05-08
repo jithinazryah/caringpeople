@@ -13,11 +13,13 @@ use common\models\Enquiry;
 use common\models\Followups;
 use common\models\AdminUsers;
 use yii\helpers\ArrayHelper;
+use common\models\NotificationViewStatus;
 
 AppAsset::register($this);
 
 //$notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'followup_date' => date('Y-m-d')])->all();
 $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['like', 'followup_date', date('Y-m-d')])->all();
+$new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::$app->user->identity->id, 'view_status' => 0])->all();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -69,7 +71,7 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                 <div class="mobile-menu-toggle visible-xs">
                                                         <a href="#" data-toggle="user-info-menu">
                                                                 <i class="fa-bell-o"></i>
-                                                                <span class="badge badge-success"><?= count($notifications) ?></span>
+                                                                <span class="badge badge-success"><?= count($new_notifications); ?></span>
                                                         </a>
 
                                                         <a href="#" data-toggle="mobile-menu">
@@ -368,6 +370,9 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
 									<li>
 										<?= Html::a('Masster Service Types', ['/masters/master-service-types/index'], ['class' => 'title']) ?>
 									</li>
+									<li>
+										<?= Html::a('Masster Service History Types', ['/masters/master-history-type/index'], ['class' => 'title']) ?>
+									</li>
 
 								</ul>
 							</li>
@@ -528,38 +533,38 @@ $notifications = Followups::find()->where(['assigned_to' => Yii::$app->user->ide
                                                 <li class="dropdown hover-line">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                                 <i class="fa-bell-o"></i>
-                                                                <span class="badge badge-purple"><?= count($notifications) ?></span>
+                                                                <span class="badge badge-purple"><?= count($new_notifications) ?></span>
                                                         </a>
 
                                                         <ul class="dropdown-menu notifications">
                                                                 <li class="top">
                                                                         <p class="small">
                                                                                 <a href="#" class="pull-right">Mark all Read</a>
-                                                                                You have <strong><?= count($notifications) ?></strong> new notifications.
+                                                                                You have <strong><?= count($new_notifications) ?></strong> new notifications.
                                                                         </p>
                                                                 </li>
 
                                                                 <li>
                                                                         <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
 										<?php
-										if (!empty($notifications)) {
-											foreach ($notifications as $notification) {
+										if (!empty($new_notifications)) {
+											foreach ($new_notifications as $new_notification) {
 												?>
 												<li class="active notification-success">
-													<a href="<?= Yii::$app->homeUrl; ?>followup/followups/view">
+													<a href="<?php //Yii::$app->homeUrl;   ?>followup/followups/view">
 														<i class="fa-envelope"></i>
 
 														<span class="line">
-															<strong>Followup Enquiry</strong>
+		<!--														<strong>Followup Enquiry</strong>-->
 														</span>
 
 														<span class="line small time limit-text">
 															<?php
-															$text = strlen($notification->followup_notes) > 100 ? substr($notification->followup_notes, 0, 100) . '&hellip;' : $notification->followup_notes;
-															echo $text;
+//															$text = strlen($notification->followup_notes) > 100 ? substr($notification->followup_notes, 0, 100) . '&hellip;' : $notification->followup_notes;
+															echo $new_notification->content;
 															?>
 														</span>
-														<span class="line small time "><strong>Date:</strong><?= $notification->followup_date ?></span>
+														<span class="line small time "><strong>Date:</strong><?= ' ' . $new_notification->date ?></span>
 													</a>
 												</li>
 												<?php

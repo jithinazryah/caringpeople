@@ -63,10 +63,25 @@ class ServiceController extends Controller {
 		$model->setScenario('create');
 
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+
 			$model->from_date = date('Y-m-d', strtotime($model->from_date));
 			$model->to_date = date('Y-m-d', strtotime($model->to_date));
-			if ($model->validate() && $model->save())
+			$model->duty_type = Yii::$app->request->post()['Service']['duty_type'];
+			$model->day_staff = Yii::$app->request->post()['Service']['day_staff'];
+			$model->night_staff = Yii::$app->request->post()['Service']['night_staff'];
+			if ($model->validate() && $model->save()) {
+				$history_id = Yii::$app->SetValues->ServiceHistory($model, 1); /* 1 implies masterservice history type id 1 for new service */
+				if (!empty($history_id)) {
+					$notifiactions = [
+						[$history_id, $model->id, 1, 1, $model->day_staff], /* history_id,service_id,1 => notification type is service ,1=>day staff */
+						[$history_id, $model->id, 1, 2, $model->night_staff], /* history_id,service_id,1 => notification type is service ,1=>night staff */
+						[$history_id, $model->id, 1, 3, $model->staff_manager], /* history_id,service_id,1 => notification type is service ,1=>manager */
+						[$history_id, $model->id, 1, 4, $model->CB], /* history_id,service_id,1 => notification type is service ,1=>superadmin */
+					];
+					Yii::$app->SetValues->Notifications($history_id, $model->id, $notifiactions);
+				}
 				return $this->redirect(['view', 'id' => $model->id]);
+			}
 		}
 		return $this->render('create', [
 			    'model' => $model,

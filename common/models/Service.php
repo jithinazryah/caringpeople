@@ -50,7 +50,7 @@ class Service extends \yii\db\ActiveRecord {
 			[['service'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service' => 'id']],
 			[['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
 			[['staff_manager'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_manager' => 'id']],
-			[['patient_id', 'service', 'staff_type', 'staff_id', 'from_date', 'to_date', 'status'], 'required', 'on' => 'create']
+			[['patient_id', 'service', 'staff_type', 'from_date', 'to_date', 'status'], 'required', 'on' => 'create']
 		];
 	}
 

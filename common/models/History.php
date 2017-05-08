@@ -8,12 +8,13 @@ use Yii;
  * This is the model class for table "history".
  *
  * @property integer $id
- * @property string $type
- * @property integer $type_id
- * @property integer $user_id
- * @property string $action
- * @property string $data
+ * @property integer $reference_id
+ * @property integer $history_type
+ * @property string $content
  * @property string $date
+ *
+ * @property MasterHistoryType $historyType
+ * @property NotificationViewStatus[] $notificationViewStatuses
  */
 class History extends \yii\db\ActiveRecord
 {
@@ -31,11 +32,10 @@ class History extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'user_id'], 'integer'],
-            [['user_id'], 'required'],
-            [['data'], 'string'],
+            [['reference_id', 'history_type'], 'integer'],
+            [['content'], 'string'],
             [['date'], 'safe'],
-            [['type', 'action'], 'string', 'max' => 100],
+            [['history_type'], 'exist', 'skipOnError' => true, 'targetClass' => MasterHistoryType::className(), 'targetAttribute' => ['history_type' => 'id']],
         ];
     }
 
@@ -46,12 +46,26 @@ class History extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'type' => 'Type',
-            'type_id' => 'Type ID',
-            'user_id' => 'User ID',
-            'action' => 'Action',
-            'data' => 'Data',
+            'reference_id' => 'Reference ID',
+            'history_type' => 'History Type',
+            'content' => 'Content',
             'date' => 'Date',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHistoryType()
+    {
+        return $this->hasOne(MasterHistoryType::className(), ['id' => 'history_type']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNotificationViewStatuses()
+    {
+        return $this->hasMany(NotificationViewStatus::className(), ['history_id' => 'id']);
     }
 }
