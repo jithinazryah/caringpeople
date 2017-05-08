@@ -21,9 +21,6 @@ class StaffLeaveController extends Controller {
 	public function init() {
 		if (Yii::$app->user->isGuest)
 			$this->redirect(['/site/index']);
-
-		if (Yii::$app->session['post']['leave_application'] != 1)
-			$this->redirect(['/site/home']);
 	}
 
 	/**
@@ -48,8 +45,8 @@ class StaffLeaveController extends Controller {
 		if (Yii::$app->session['post']['leave_approval'] != 1) {
 			return $this->redirect(['../site/home']);
 		}
+		$pending_leave = StaffLeave::find()->where('commencing_date >=:today', [':today' => date('Y-m-d')])->andWhere(['status' => 1])->all();
 
-		$pending_leave = StaffLeave::find()->where(['status' => 1])->all();
 		return $this->render('index', [
 			    'pending_leave' => $pending_leave
 		]);
@@ -72,8 +69,11 @@ class StaffLeaveController extends Controller {
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate() {
+	public function actionLeave() {
 		$model = new StaffLeave();
+		$searchModel = new StaffLeaveSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query->andWhere(['employee_id' => Yii::$app->user->identity->id]);
 
 
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
@@ -89,7 +89,7 @@ class StaffLeaveController extends Controller {
 				if ($model->validate() && $model->save()) {
 					if ($model->no_of_days > 1)
 						$this->MultipleDays($model);
-					return $this->redirect(['view', 'id' => $model->id]);
+					return $this->redirect(Yii::$app->request->referrer);
 				}
 			}else {
 				Yii::$app->getSession()->setFlash('error', "<strong>Error! </strong>data already entered");
@@ -97,6 +97,8 @@ class StaffLeaveController extends Controller {
 		}
 		return $this->render('create', [
 			    'model' => $model,
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
 		]);
 	}
 
@@ -139,6 +141,9 @@ class StaffLeaveController extends Controller {
 	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
+		$searchModel = new StaffLeaveSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query->andWhere(['employee_id' => Yii::$app->user->identity->id]);
 
 		if ($model->load(Yii::$app->request->post())) {
 
@@ -159,6 +164,8 @@ class StaffLeaveController extends Controller {
 		}
 		return $this->render('update', [
 			    'model' => $model,
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
 		]);
 	}
 

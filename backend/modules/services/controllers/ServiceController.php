@@ -8,6 +8,7 @@ use common\models\ServiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Branch;
 
 /**
  * ServiceController implements the CRUD actions for Service model.
@@ -70,6 +71,10 @@ class ServiceController extends Controller {
 			$model->day_staff = Yii::$app->request->post()['Service']['day_staff'];
 			$model->night_staff = Yii::$app->request->post()['Service']['night_staff'];
 			if ($model->validate() && $model->save()) {
+
+				$branch_details = Branch::find()->where(['id' => Yii::$app->user->identity->branch_id])->one();
+				echo $branch_details->branch_code;
+				exit;
 				$history_id = Yii::$app->SetValues->ServiceHistory($model, 1); /* 1 implies masterservice history type id 1 for new service */
 				if (!empty($history_id)) {
 					$notifiactions = [

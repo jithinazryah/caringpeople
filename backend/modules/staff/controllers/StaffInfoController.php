@@ -215,7 +215,10 @@ class StaffInfoController extends Controller {
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionUpdate($id) {
+	public function actionUpdate($id = null, $data = null) {
+		if (!empty($data)) {
+			$id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
+		}
 		$model = $this->findModel($id);
 		$before_update = StaffInfoUploads::findOne(['staff_id' => $model->id]);
 		$other_info = StaffOtherInfo::findOne(['staff_id' => $model->id]);

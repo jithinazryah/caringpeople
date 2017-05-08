@@ -17,7 +17,7 @@ class m170503_070933_create_notification_view_status_table extends Migration {
 		    'history_id' => $this->integer(),
 		    'notifiaction_type_id' => $this->integer(),
 		    'staff_type' => $this->integer(),
-		    'staff_id' => $this->integer(),
+		    'staff_id_' => $this->integer(),
 		    'content' => $this->text(),
 		    'date' => $this->date(),
 		]);

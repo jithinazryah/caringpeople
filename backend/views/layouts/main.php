@@ -101,7 +101,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 									</li>
 
 									<li>
-										<?= Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
+										<?php // Html::a('Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
 									</li>
 								</ul>
 							</li>
@@ -109,19 +109,46 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 						</ul>
 					<?php } ?>
 					<?php
-					if (Yii::$app->session['post']['admin'] == 1) {
+					if (Yii::$app->session['post']['enquiry'] == 1) {
 						?>
 						<ul id="main-menu" class="main-menu">
 							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
 							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
 							<li>
 								<a href="dashboard-1.html">
-									<i class="linecons-cog"></i>
-									<span class="title">Requested Leave</span>
+									<i class="	fa fa-medkit"></i>
+									<span class="title">Client</span>
 								</a>
 								<ul>
 									<li>
-										<?= Html::a('Staff Leave', ['/leave/staff-leave/index'], ['class' => 'title']) ?>
+										<?= Html::a('Patient Enquiry', ['/patient/patient-enquiry-general-first/index'], ['class' => 'title']) ?>
+									</li>
+
+									<li>
+										<?= Html::a('Patients', ['/patient/patient-information/index'], ['class' => 'title']) ?>
+									</li>
+
+
+								</ul>
+							</li>
+
+						</ul>
+
+						<ul id="main-menu" class="main-menu">
+							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
+							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+							<li>
+								<a href="dashboard-1.html">
+									<i class="fa-user"></i>
+									<span class="title">Staffs</span>
+								</a>
+								<ul>
+									<li>
+										<?= Html::a('Staff Enquiry ', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
+									</li>
+
+									<li>
+										<?= Html::a('Staffs', ['/staff/staff-info/index'], ['class' => 'title']) ?>
 									</li>
 
 
@@ -152,60 +179,6 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
 						</ul>
 					<?php } ?>
-
-
-					<?php
-					if (Yii::$app->session['post']['enquiry'] == 1) {
-						?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li>
-								<a href="dashboard-1.html">
-									<i class="	fa fa-medkit"></i>
-									<span class="title">Client</span>
-								</a>
-								<ul>
-									<li>
-										<?= Html::a('Patient Enquiry', ['/patient/patient-enquiry-general-first/index'], ['class' => 'title']) ?>
-									</li>
-
-									<li>
-										<?= Html::a('Patients', ['/patient/patient-information/index'], ['class' => 'title']) ?>
-									</li>
-
-
-								</ul>
-							</li>
-
-						</ul>
-					<?php } ?>
-					<?php if (Yii::$app->session['post']['enquiry'] == 1) { ?>
-
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li>
-								<a href="dashboard-1.html">
-									<i class="fa-user"></i>
-									<span class="title">Staffs</span>
-								</a>
-								<ul>
-									<li>
-										<?= Html::a('Staff Enquiry ', ['/staff/staff-enquiry/index'], ['class' => 'title']) ?>
-									</li>
-
-									<li>
-										<?= Html::a('Staffs', ['/staff/staff-info/index'], ['class' => 'title']) ?>
-									</li>
-
-
-								</ul>
-							</li>
-
-						</ul>
-					<?php } ?>
-
 					<?php
 					if (Yii::$app->session['post']['attendance'] == 1) {
 						?>
@@ -231,6 +204,9 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
 						</ul>
 					<?php } ?>
+
+
+
 					<?php
 					if (Yii::$app->session['post']['staff'] == 1) {
 						?>
@@ -256,53 +232,88 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
 						</ul>
 					<?php } ?>
+					<ul id="main-menu" class="main-menu">
+						<!-- add class "multiple-expanded" to allow multiple submenus to open -->
+						<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+						<li>
+							<a href="dashboard-1.html">
+								<i class="fa fa-external-link"></i>
+								<span class="title">Leave</span>
+							</a>
 
-					<?php
-					if (Yii::$app->session['post']['staffs'] == 1) {
-						?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li>
-								<a href="dashboard-1.html">
-									<i class="fa fa-pencil-square-o"></i>
-									<span class="title">Edit Profile</span>
-								</a>
-								<ul>
+							<ul>
+								<?php
+								if (Yii::$app->session['post']['leave_approval'] == 1) {
+									?>
 									<li>
-										<?= Html::a('Profile', ['/staff/staff-info/update?id=' . Yii::$app->user->identity->id], ['class' => 'title']) ?>
+										<?= Html::a('Staff Leave', ['/leave/staff-leave/index'], ['class' => 'title']) ?>
 									</li>
-
-								</ul>
-							</li>
-
-						</ul>
-					<?php } ?>
-					<?php if (Yii::$app->session['post']['leave_application'] == 1) { ?>
-						<ul id="main-menu" class="main-menu">
-							<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-							<li>
-								<a href="dashboard-1.html">
-									<i class="fa fa-external-link"></i>
-									<span class="title">Apply Leave</span>
-								</a>
-								<ul>
+								<?php } ?>
+								<?php if (Yii::$app->session['post']['leave_application'] == 1) { ?>
 									<li>
-										<?= Html::a('Leave Application', ['/leave/staff-leave/create'], ['class' => 'title']) ?>
+										<?= Html::a('Leave Application', ['/leave/staff-leave/leave'], ['class' => 'title']) ?>
 									</li>
-									<li>
-										<?= Html::a('Leave History', ['/leave/staff-leave/leave-history'], ['class' => 'title']) ?>
-									</li>
+								<?php } ?>
+								<?php
+								if (Yii::$app->session['post']['admin'] == 1) {
+									?>
 									<li>
 										<?= Html::a('Leave Report ', ['/leave/staff-leave/leave-report'], ['class' => 'title']) ?>
 									</li>
+								<?php } ?>
 
-								</ul>
-							</li>
 
-						</ul>
-					<?php } ?>
+							</ul>
+						</li>
+
+					</ul>
+
+					<?php
+					//if (Yii::$app->session['post']['staffs'] == 1) {
+					?>
+					<!--						<ul id="main-menu" class="main-menu">
+												 add class "multiple-expanded" to allow multiple submenus to open
+												 class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active"
+												<li>
+													<a href="dashboard-1.html">
+														<i class="fa fa-pencil-square-o"></i>
+														<span class="title">Edit Profile</span>
+													</a>
+													<ul>
+														<li>
+					<?php //Html::a('Profile', ['/staff/staff-info/update?id=' . Yii::$app->user->identity->id], ['class' => 'title']) ?>
+														</li>
+
+													</ul>
+												</li>
+
+											</ul>-->
+					<?php //} ?>
+					<?php //if (Yii::$app->session['post']['leave_application'] == 1) { ?>
+					<!--						<ul id="main-menu" class="main-menu">
+												 add class "multiple-expanded" to allow multiple submenus to open
+												 class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active"
+												<li>
+													<a href="dashboard-1.html">
+														<i class="fa fa-external-link"></i>
+														<span class="title">Apply Leave</span>
+													</a>
+													<ul>
+														<li>
+					<?= Html::a('Leave Application', ['/leave/staff-leave/leave'], ['class' => 'title']) ?>
+														</li>
+														<li>
+					<?= Html::a('Leave History', ['/leave/staff-leave/leave-history'], ['class' => 'title']) ?>
+														</li>
+														<li>
+					<?= Html::a('Leave Report ', ['/leave/staff-leave/leave-report'], ['class' => 'title']) ?>
+														</li>
+
+													</ul>
+												</li>
+
+											</ul>-->
+					<?php //} ?>
 
 					<?php
 					if (Yii::$app->session['post']['admin'] == 1) {
@@ -312,7 +323,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 							<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
 							<li>
 								<a href="dashboard-1.html">
-									<i class="linecons-cog"></i>
+									<i class="fa fa-folder-open"></i>
 									<span class="title">Contact Directory</span>
 								</a>
 								<ul>
@@ -551,7 +562,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 											foreach ($new_notifications as $new_notification) {
 												?>
 												<li class="active notification-success">
-													<a href="<?php //Yii::$app->homeUrl;   ?>followup/followups/view">
+													<a href="<?php //Yii::$app->homeUrl;                    ?>followup/followups/view">
 														<i class="fa-envelope"></i>
 
 														<span class="line">
@@ -627,7 +638,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 									<?= Html::a('<i class="fa-wrench"></i>Change Password', ['/admin/admin-users/change-password?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
                                                                         </									li>
                                                                 <li>
-									<?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/admin/admin-users/update?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
+									<?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/staff/staff-info/update?data=' . Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->id)], ['class' => 'title']) ?>
                                                                 </li>
 
 								<?php
