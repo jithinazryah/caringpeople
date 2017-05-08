@@ -163,10 +163,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <div class="label_sty"><label>Outgoing Call from:</label></div>
                                                                                                 <div class="data_sty" style="width:200px;"><span>
                                                                                                                 <?php
-                                                                                                                if(isset($model->outgoing_number_from) && $model->outgoing_number_from!=''){
+                                                                                                                if (isset($model->outgoing_number_from) && $model->outgoing_number_from != '') {
 
-                                                                                                                $outgoing_number = OutgoingNumbers::findOne($model->outgoing_number_from);
-                                                                                                                echo $outgoing_number->phone_number;
+                                                                                                                        $outgoing_number = OutgoingNumbers::findOne($model->outgoing_number_from);
+                                                                                                                        echo $outgoing_number->phone_number;
                                                                                                                 }
                                                                                                                 ?>
                                                                                                         </span>
@@ -250,7 +250,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         echo 'Female';
                                                                                                                 }
                                                                                                                 ?></span></div>
-                                                                                                <div class="label_sty"><label>Age:</label></div><div class="data_sty" ><span><?= $patient_hospital->patient_age; ?></span></div>
+                                                                                                <?php
+                                                                                                if (isset($patient_hospital->patient_age) && $patient_hospital->patient_age != '0000-00-00') {
+                                                                                                        $datee = date('d-m-Y', strtotime($patient_hospital->patient_age));
+                                                                                                        $age = date_diff(date_create($datee), date_create('today'))->y;
+                                                                                                }
+                                                                                                ?>
+                                                                                                <div class="label_sty"><label>DOB:</label></div><div class="data_sty" ><span><?= date('d-m-Y', strtotime($patient_hospital->patient_age)); ?> <?php
+                                                                                                                if (isset($age)) {
+                                                                                                                        echo '(' . $age . ')';
+                                                                                                                }
+                                                                                                                ?></span></div>
 
                                                                                         </div>
                                                                                         <div style="clear:both"></div>
@@ -315,9 +325,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <div class="content">
                                                                                                 <div class="label_sty"><label>Hospital:</label></div><div class="data_sty" style="width:200px;"><span>
                                                                                                                 <?php
-                                                                                                                if(isset($patient_hospital->hospital_name) && $patient_hospital->hospital_name!=''){
-                                                                                                                $hospital_name = Hospital::findOne($patient_hospital->hospital_name);
-                                                                                                                echo $hospital_name->hospital_name; }
+                                                                                                                if (isset($patient_hospital->hospital_name) && $patient_hospital->hospital_name != '') {
+                                                                                                                        $hospital_name = Hospital::findOne($patient_hospital->hospital_name);
+                                                                                                                        echo $hospital_name->hospital_name;
+                                                                                                                }
                                                                                                                 ?>
                                                                                                         </span> </div>
                                                                                                 <div class="label_sty"><label>Room No:</label></div><div class="data_sty" style="width: 65px;"><span><?= $patient_hospital->hospital_room_no; ?></span> </div>
@@ -407,12 +418,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </div>
 
 
-                                                                                        <?php if ($patient_hospital_second->diabetic == '1' && $patient_hospital_second->diabetic_note != '') { ?>
+<?php if ($patient_hospital_second->diabetic == '1' && $patient_hospital_second->diabetic_note != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Diabetic Notes:</label></div><div class="data_sty" ><span><?= $patient_hospital_second->diabetic_note; ?></span> </div>
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
                                                                                         <div style="clear:both"></div>
 
@@ -420,7 +431,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                                                         <div style="clear:both"></div>
-                                                                                        <?php if ($patient_hospital_second->family_support != '') { ?>
+<?php if ($patient_hospital_second->family_support != '') { ?>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Nearyby family support:</label></div><div class="data_sty" style="width:538px;"><span><?php
                                                                                                                         if ($patient_hospital_second->family_support == '1') {
@@ -433,19 +444,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         ?></span> </div>
 
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
                                                                                         <div style="clear:both"></div>
 
-                                                                                        <?php if ($patient_hospital_second->family_support_note != '') { ?>
+<?php if ($patient_hospital_second->family_support_note != '') { ?>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty" ><label>Nearyby family support Note: </label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $patient_hospital_second->family_support_note; ?></span></div>
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
                                                                                         <div style="clear:both"></div>
 
-                                                                                        <?php if ($patient_hospital_second->care_currently_provided != '4' && $patient_hospital_second->care_currently_provided != '') { ?>
+<?php if ($patient_hospital_second->care_currently_provided != '4' && $patient_hospital_second->care_currently_provided != '') { ?>
                                                                                                 <div class="content">
 
                                                                                                         <div class="label_sty"><label>Care currently being provided:</label></div><div class="data_sty"><span><?php
@@ -459,7 +470,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 echo 'Others';
                                                                                                                         }
                                                                                                                         ?></span> </div>
-                                                                                                        <?php if ($patient_hospital_second->care_currently_provided == '3') { ?>       <div class="label_sty"><label>Expected Date Of Discharge</label></div><div class="data_sty" style="width:230px"><span><?= $date = date('d-m-Y', strtotime($patient_hospital_second->date_of_discharge)); ?></span></div><?php } ?>
+        <?php if ($patient_hospital_second->care_currently_provided == '3') { ?>       <div class="label_sty"><label>Expected Date Of Discharge</label></div><div class="data_sty" style="width:230px"><span><?= $date = date('d-m-Y', strtotime($patient_hospital_second->date_of_discharge)); ?></span></div><?php } ?>
 
 
                                                                                                 </div>
@@ -474,15 +485,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 }
                                                                                         }
                                                                                         ?>
-                                                                                        <?php if ($patient_hospital_second->details_of_current_care != '') { ?>
+<?php if ($patient_hospital_second->details_of_current_care != '') { ?>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Details Of Current Care:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $patient_hospital_second->details_of_current_care; ?></span></div>
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
 
 
-                                                                                        <?php if ($patient_hospital_second->difficulty_in_movement != '5' && $patient_hospital_second->difficulty_in_movement != '') { ?>
+<?php if ($patient_hospital_second->difficulty_in_movement != '5' && $patient_hospital_second->difficulty_in_movement != '') { ?>
 
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Difficulty in movement:</label></div><div class="data_sty" style="width:540px;"><span>
@@ -516,7 +527,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                         <div style="clear:both"></div>
 
-                                                                                        <?php if ($patient_info_second->service_required != '5' && $patient_info_second->service_required != '') { ?>
+<?php if ($patient_info_second->service_required != '5' && $patient_info_second->service_required != '') { ?>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Service Required:</label></div><div class="data_sty" style="width:565px;"><span>
                                                                                                                         <?php
@@ -569,12 +580,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-                                                                                        <?php if ($patient_info_second->quotation_details != '') { ?>
+<?php if ($patient_info_second->quotation_details != '') { ?>
                                                                                                 <div style="clear:both"></div>
                                                                                                 <div class="content">
                                                                                                         <div class="label_sty"><label>Quotation Details:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $patient_info_second->quotation_details; ?></span></div>
                                                                                                 </div>
-                                                                                        <?php } ?>
+<?php } ?>
 
                                                                                         <div style="clear:both"></div>
                                                                                         <div class="content">
@@ -583,11 +594,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <?php
                                                                                                                 $data_entered = AdminUsers::findOne($model->CB);
                                                                                                                 ?>
-                                                                                                                <?= $data_entered->name; ?>
+<?= $data_entered->name; ?>
                                                                                                         </span></div>
                                                                                                 <div class="label_sty"><label>Data Entered On:</label></div><div class="data_sty" style="width:200px;">
                                                                                                         <span>
-                                                                                                                <?= date('d-m-Y', strtotime($model->DOC)); ?>
+<?= date('d-m-Y', strtotime($model->DOC)); ?>
                                                                                                         </span></div>
                                                                                         </div>
                                                                                         </div>

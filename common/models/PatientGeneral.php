@@ -43,7 +43,7 @@ class PatientGeneral extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['patient_id', 'first_name'], 'required'],
-                        [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'age', 'pin_code', 'contact_number', 'status', 'CB', 'UB'], 'integer'],
+                        [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'pin_code', 'contact_number', 'status', 'CB', 'UB'], 'integer'],
                         [['present_address'], 'string'],
                         [['DOC', 'DOU'], 'safe'],
                         [['patient_id', 'first_name', 'last_name', 'patient_image', 'landmark', 'email'], 'string', 'max' => 100],
@@ -66,7 +66,7 @@ class PatientGeneral extends \yii\db\ActiveRecord {
                     'first_name' => 'First Name',
                     'last_name' => 'Last Name',
                     'gender' => 'Gender',
-                    'age' => 'Age',
+                    'age' => 'DOB',
                     'blood_group' => 'Blood Group',
                     'patient_image' => 'Patient Image',
                     'present_address' => 'Present Address',

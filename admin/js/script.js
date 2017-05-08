@@ -136,6 +136,32 @@ $("document").ready(function () {
                 return event.charCode >= 48 && event.charCode <= 57;
         });
 
+        /*
+         * Purpose   :- On change of contact category dropdown
+         * parameter :- category
+         * return   :- The list of contactsubcategory depends on the category
+         */
+
+        $('.contact_category_change').change(function () {
+
+                var category = $(this).val();
+                showLoader();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {category: category},
+                        url: homeUrl + 'ajax/contactcategory',
+                        success: function (data) {
+
+                                if (data == 0) {
+                                        alert('Failed to Load data, please try again error:1001');
+                                } else {
+                                        $(".subcategory-change").html(data);
+                                }
+                                hideLoader();
+                        }
+                });
+        });
 
 
 });

@@ -37,7 +37,7 @@ class PatientEnquiryHospitalFirst extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['enquiry_id', 'patient_gender', 'patient_age', 'patient_weight'], 'integer'],
+                        [['enquiry_id', 'patient_gender', 'patient_weight'], 'integer'],
                         [['required_person_name', 'relationship', 'relationship_others', 'person_address', 'person_city', 'person_postal_code', 'hospital_name', 'consultant_doctor', 'department', 'hospital_room_no'], 'string', 'max' => 200],
                 ];
         }
@@ -51,7 +51,7 @@ class PatientEnquiryHospitalFirst extends \yii\db\ActiveRecord {
                     'enquiry_id' => 'Enquiry ID',
                     'required_person_name' => 'Required Person Name',
                     'patient_gender' => 'Gender',
-                    'patient_age' => 'Age',
+                    'patient_age' => 'DOB',
                     'patient_weight' => 'Weight',
                     'relationship' => 'Relationship',
                     'relationship_others' => 'Relationship Others',

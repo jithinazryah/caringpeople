@@ -204,4 +204,33 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * This function select Caste based on the religion
+         * return result to the view
+         */
+
+        public function actionContactcategory() {
+
+                if (Yii::$app->request->isAjax) {
+                        $category = $_POST['category'];
+                        if ($category == '') {
+                                echo '0';
+                                exit;
+                        } else {
+                                $sub_cat_datas = \common\models\ContactSubcategory::find()->where(['category_id' => $category])->all();
+                                if (empty($sub_cat_datas)) {
+                                        echo '0';
+                                        exit;
+                                } else {
+                                        $options = '<option value="">-Select-</option>';
+                                        foreach ($sub_cat_datas as $sub_cat_data) {
+                                                $options .= "<option value='" . $sub_cat_data->id . "'>" . $sub_cat_data->sub_category . "</option>";
+                                        }
+                                }
+                        }
+
+                        echo $options;
+                }
+        }
+
 }

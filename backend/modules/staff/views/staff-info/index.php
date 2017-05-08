@@ -38,7 +38,10 @@ $branch = Branch::branch();
                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                 </div>
                                         <?php endif; ?>
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>
+
+                                        <a class="advanced-search" style="font-size: 17px;color:#0e62c7;cursor: pointer;">Advanced Search</a>
+                                        <hr class="appoint_history" style="margin-top:5px;"/>
+                                        <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> New Staff</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?=
@@ -47,22 +50,22 @@ $branch = Branch::branch();
                                             'filterModel' => $searchModel,
                                             'columns' => [
                                                     ['class' => 'yii\grid\SerialColumn'],
-                                                    [
-                                                    'attribute' => 'profile_image_type',
-                                                    'format' => 'html',
-                                                    'value' => function($data) {
-                                                            $staff_uploads = StaffInfoUploads::findOne(['staff_id' => $data->id]);
-                                                            if (isset($staff_uploads->profile_image_type) && $staff_uploads->profile_image_type != '') {
-                                                                    return Html::img(Yii::$app->homeUrl . '../uploads/staff/' . $data->id . '/profile_image_type.' . $staff_uploads->profile_image_type, ['width' => '100']);
-                                                            } elseif ($data->gender == '0') {
-                                                                    return Html::img(Yii::$app->homeUrl . '/images/themes/photo.png', ['width' => '100']);
-                                                            } else if ($data->gender == '1') {
-                                                                    return Html::img(Yii::$app->homeUrl . '/images/themes/female.png', ['width' => '100']);
-                                                            } else {
-                                                                    return Html::img(Yii::$app->homeUrl . 'images/themes/no-image.gif', ['width' => '100']);
-                                                            }
-                                                    },
-                                                ],
+//                                                    [
+//                                                    'attribute' => 'profile_image_type',
+//                                                    'format' => 'html',
+//                                                    'value' => function($data) {
+//                                                            $staff_uploads = StaffInfoUploads::findOne(['staff_id' => $data->id]);
+//                                                            if (isset($staff_uploads->profile_image_type) && $staff_uploads->profile_image_type != '') {
+//                                                                    return Html::img(Yii::$app->homeUrl . '../uploads/staff/' . $data->id . '/profile_image_type.' . $staff_uploads->profile_image_type, ['width' => '100']);
+//                                                            } elseif ($data->gender == '0') {
+//                                                                    return Html::img(Yii::$app->homeUrl . '/images/themes/photo.png', ['width' => '100']);
+//                                                            } else if ($data->gender == '1') {
+//                                                                    return Html::img(Yii::$app->homeUrl . '/images/themes/female.png', ['width' => '100']);
+//                                                            } else {
+//                                                                    return Html::img(Yii::$app->homeUrl . 'images/themes/no-image.gif', ['width' => '100']);
+//                                                            }
+//                                                    },
+//                                                ],
                                                 'staff_id',
                                                 'staff_name',
                                                     [
@@ -163,3 +166,11 @@ $branch = Branch::branch();
 </div>
 
 
+<script>
+        $(document).ready(function () {
+                $('.staff-info-advance').hide();
+                $('.advanced-search').click(function () {
+                        $('.staff-info-advance').slideToggle();
+                });
+        });
+</script>

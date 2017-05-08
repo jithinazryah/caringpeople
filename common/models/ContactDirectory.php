@@ -29,59 +29,60 @@ use Yii;
  */
 class ContactDirectory extends \yii\db\ActiveRecord {
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName() {
-		return 'contact_directory';
-	}
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'contact_directory';
+        }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules() {
-		return [
-			[['category_type', 'field_1', 'field_2', 'CB', 'UB'], 'integer'],
-			[['remarks'], 'string'],
-			[['DOC', 'DOU'], 'safe'],
-			[['name', 'email_1', 'email_2', 'phone_1', 'phone_2'], 'string', 'max' => 100],
-			[['email_1', 'email_2'], 'email'],
-			[['designation', 'company_name', 'references'], 'string', 'max' => 200],
-			[['category_type'], 'exist', 'skipOnError' => true, 'targetClass' => ContactCategoryTypes::className(), 'targetAttribute' => ['category_type' => 'id']],
-			[['category_type', 'name'], 'required', 'on' => 'create']
-		];
-	}
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['category_type', 'subcategory_type', 'field_1', 'field_2', 'CB', 'UB'], 'integer'],
+                        [['remarks'], 'string'],
+                        [['DOC', 'DOU'], 'safe'],
+                        [['name', 'email_1', 'email_2', 'phone_1', 'phone_2'], 'string', 'max' => 100],
+                        [['email_1', 'email_2'], 'email'],
+                        [['designation', 'company_name', 'references'], 'string', 'max' => 200],
+                        [['category_type'], 'exist', 'skipOnError' => true, 'targetClass' => ContactCategoryTypes::className(), 'targetAttribute' => ['category_type' => 'id']],
+                        [['category_type', 'name'], 'required', 'on' => 'create']
+                ];
+        }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels() {
-		return [
-		    'id' => 'ID',
-		    'category_type' => 'Category Type',
-		    'name' => 'Name',
-		    'email_1' => 'Email 1',
-		    'email_2' => 'Email 2',
-		    'phone_1' => 'Phone 1',
-		    'phone_2' => 'Phone 2',
-		    'designation' => 'Designation',
-		    'company_name' => 'Company Name',
-		    'references' => 'References',
-		    'remarks' => 'Remarks',
-		    'field_1' => 'Field 1',
-		    'field_2' => 'Field 2',
-		    'CB' => 'Cb',
-		    'UB' => 'Ub',
-		    'DOC' => 'Doc',
-		    'DOU' => 'Dou',
-		];
-	}
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'category_type' => 'Category Type',
+                    'subcategory_type' => 'Sub Category',
+                    'name' => 'Name',
+                    'email_1' => 'Email 1',
+                    'email_2' => 'Email 2',
+                    'phone_1' => 'Phone 1',
+                    'phone_2' => 'Phone 2',
+                    'designation' => 'Designation',
+                    'company_name' => 'Company Name',
+                    'references' => 'References',
+                    'remarks' => 'Remarks',
+                    'field_1' => 'Field 1',
+                    'field_2' => 'Field 2',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
 
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getCategoryType() {
-		return $this->hasOne(ContactCategoryTypes::className(), ['id' => 'category_type']);
-	}
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getCategoryType() {
+                return $this->hasOne(ContactCategoryTypes::className(), ['id' => 'category_type']);
+        }
 
 }

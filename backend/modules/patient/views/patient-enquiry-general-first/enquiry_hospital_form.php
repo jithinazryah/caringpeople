@@ -20,7 +20,23 @@ use yii\helpers\ArrayHelper;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'patient_gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'patient_age')->textInput() ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>     <?php
+                if (!$patient_hospital->isNewRecord) {
+                        $patient_hospital->patient_age = date('d-m-Y', strtotime($patient_hospital->patient_age));
+                }
+                ?>
+                <?=
+                DatePicker::widget([
+                    'model' => $patient_hospital,
+                    'form' => $form,
+                    'type' => DatePicker::TYPE_INPUT,
+                    'attribute' => 'patient_age',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'dd-mm-yyyy',
+                    ]
+                ]);
+                ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'patient_weight')->textInput() ?>
 

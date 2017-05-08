@@ -181,17 +181,32 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 <td>
                                                                                         <table class="table1" style="border:0px sloid #000;">
 
-                                                                                                <?php if ($staff_uploads->profile_image_type != '') { ?>
 
-                                                                                                        <tr>
-                                                                                                                <td colspan="3">
-                                                                                                                        <div class="profile_image" style="float:right;">
+
+                                                                                                <tr>
+                                                                                                        <td colspan="3">
+                                                                                                                <div class="profile_image" style="float:right;">
+                                                                                                                        <?php if ($staff_uploads->profile_image_type != '') { ?>
                                                                                                                                 <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:115px;height:115px;"/>
-                                                                                                                        </div>
-                                                                                                                </td>
+                                                                                                                                <?php
+                                                                                                                        } else {
+                                                                                                                                if ($staff_info->gender == '0') {
+                                                                                                                                        ?>
+                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/themes/photo.png" style="width:115px;height:115px;"/>
+                                                                                                                                        <?php
+                                                                                                                                } elseif ($staff_info->gender == '1') {
+                                                                                                                                        ?>
+                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/themes/female.png" style="width:115px;height:115px;"/>
 
-                                                                                                        </tr>
-                                                                                                <?php } ?>
+                                                                                                                                        <?php
+                                                                                                                                }
+                                                                                                                        }
+                                                                                                                        ?>
+                                                                                                                </div>
+                                                                                                        </td>
+
+                                                                                                </tr>
+
 
                                                                                                 <tr>
                                                                                                         <td colspan="3">
@@ -225,6 +240,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
+                                                                                                        <?php
+                                                                                                        if (isset($staff_info->dob) && $staff_info->dob != '0000-00-00') {
+                                                                                                                $datee = date('d-m-Y', strtotime($staff_info->dob));
+                                                                                                                $age = date_diff(date_create($datee), date_create('today'))->y;
+                                                                                                        }
+                                                                                                        ?>
                                                                                                         <td>
                                                                                                                 <div class="content">
                                                                                                                         <div class="label_sty">
@@ -233,6 +254,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <div class="data_sty" style="width:170px">
                                                                                                                                 <?= $date = date('d-m-Y', strtotime($staff_info->dob)); ?>
+                                                                                                                                <?php
+                                                                                                                                if (isset($age)) {
+                                                                                                                                        echo '(' . $age . ')';
+                                                                                                                                }
+                                                                                                                                ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>

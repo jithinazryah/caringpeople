@@ -1,18 +1,18 @@
 <?php
 
-namespace backend\modules\masters\controllers;
+namespace backend\modules\directory\controllers;
 
 use Yii;
-use common\models\Caste;
-use common\models\CasteSearch;
+use common\models\ContactSubcategory;
+use common\models\ContactSubcategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CasteController implements the CRUD actions for Caste model.
+ * ContactSubcategoryController implements the CRUD actions for ContactSubcategory model.
  */
-class CasteController extends Controller {
+class ContactSubcategoryController extends Controller {
 
         /**
          * @inheritdoc
@@ -29,11 +29,11 @@ class CasteController extends Controller {
         }
 
         /**
-         * Lists all Caste models.
+         * Lists all ContactSubcategory models.
          * @return mixed
          */
         public function actionIndex() {
-                $searchModel = new CasteSearch();
+                $searchModel = new ContactSubcategorySearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
                 return $this->render('index', [
@@ -43,7 +43,7 @@ class CasteController extends Controller {
         }
 
         /**
-         * Displays a single Caste model.
+         * Displays a single ContactSubcategory model.
          * @param integer $id
          * @return mixed
          */
@@ -54,13 +54,12 @@ class CasteController extends Controller {
         }
 
         /**
-         * Creates a new Caste model.
+         * Creates a new ContactSubcategory model.
          * If creation is successful, the browser will be redirected to the 'view' page.
          * @return mixed
          */
         public function actionCreate() {
-
-                $model = new Caste();
+                $model = new ContactSubcategory();
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
                         return $this->redirect(['index']);
@@ -72,7 +71,7 @@ class CasteController extends Controller {
         }
 
         /**
-         * Updates an existing Caste model.
+         * Updates an existing ContactSubcategory model.
          * If update is successful, the browser will be redirected to the 'view' page.
          * @param integer $id
          * @return mixed
@@ -90,7 +89,7 @@ class CasteController extends Controller {
         }
 
         /**
-         * Deletes an existing Caste model.
+         * Deletes an existing ContactSubcategory model.
          * If deletion is successful, the browser will be redirected to the 'index' page.
          * @param integer $id
          * @return mixed
@@ -102,14 +101,14 @@ class CasteController extends Controller {
         }
 
         /**
-         * Finds the Caste model based on its primary key value.
+         * Finds the ContactSubcategory model based on its primary key value.
          * If the model is not found, a 404 HTTP exception will be thrown.
          * @param integer $id
-         * @return Caste the loaded model
+         * @return ContactSubcategory the loaded model
          * @throws NotFoundHttpException if the model cannot be found
          */
         protected function findModel($id) {
-                if (($model = Caste::findOne($id)) !== null) {
+                if (($model = ContactSubcategory::findOne($id)) !== null) {
                         return $model;
                 } else {
                         throw new NotFoundHttpException('The requested page does not exist.');

@@ -50,6 +50,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     }
                                                             }
                                                         ],
+                                                            [
+                                                            'attribute' => 'dob',
+                                                            'value' => function($model) {
+//                                                                    return Yii::$app->formatter->asDate($model->dob);
+                                                                    if (isset($model->dob) && $model->dob != '0000-00-00') {
+                                                                            $datee = date('d-m-Y', strtotime($model->dob));
+                                                                            $age = date_diff(date_create($datee), date_create('today'))->y;
+                                                                            if (isset($age))
+                                                                                    return \Yii::$app->formatter->asDatetime($model->dob, "php:d-m-Y") . ' (' . $age . ')';
+                                                                            else
+                                                                                    return \Yii::$app->formatter->asDatetime($model->dob, "php:d-m-Y");
+                                                                    }
+                                                            }
+                                                        ],
                                                         'phone_number',
                                                         'email:email',
                                                         'address',

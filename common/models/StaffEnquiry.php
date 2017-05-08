@@ -40,12 +40,12 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                 return [
                         [['name', 'gender', 'phone_number'], 'required'],
                         [['email'], 'email'],
-                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'designation','agreement_copy'], 'integer'],
+                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'designation', 'agreement_copy'], 'integer'],
                         [['follow_up_date', 'DOC', 'DOU'], 'safe'],
                         [['notes'], 'string'],
-                        [['name', 'phone_number', 'email', 'address', 'place','enquiry_id','agreement_copy_other'], 'string', 'max' => 200],
+                        [['name', 'phone_number', 'email', 'address', 'place', 'enquiry_id', 'agreement_copy_other'], 'string', 'max' => 200],
                         [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
-[['branch_id'], 'required', 'when' => function ($model) {
+                        [['branch_id'], 'required', 'when' => function ($model) {
                                 return Yii::$app->user->identity->branch_id == 0;
                         },],
                         [['attachments'], 'file', 'skipOnEmpty' => TRUE, 'maxFiles' => 0],
@@ -59,9 +59,10 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                 return [
                     'id' => 'ID',
                     'branch_id' => 'Branch',
-                    'enquiry_id'=>'Enquiry Number',
+                    'enquiry_id' => 'Enquiry Number',
                     'name' => 'Name',
                     'gender' => 'Gender',
+                    'dob' => 'DOB',
                     'designation' => 'Designation',
                     'agreement_copy' => 'Agreement Copy',
                     'agreement_copy_other' => 'Agreement Copy Other',
