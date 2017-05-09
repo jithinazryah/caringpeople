@@ -22,78 +22,78 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel-body">
                                 <div class="panel-body"><div class="staff-leave-view">
                                                 <p>
-							<?= Html::a('Leave History', ['leave-history'], ['class' => 'btn btn-primary']) ?>
-							<?php
-							Html::a('Delete', ['delete', 'id' => $model->id], [
-							    'class' => 'btn btn-danger',
-							    'data' => [
-								'confirm' => 'Are you sure you want to delete this item?',
-								'method' => 'post',
-							    ],
-							])
-							?>
+                                                        <?= Html::a('Leave History', ['leave-history'], ['class' => 'btn btn-primary']) ?>
+                                                        <?php
+                                                        Html::a('Delete', ['delete', 'id' => $model->id], [
+                                                            'class' => 'btn btn-danger',
+                                                            'data' => [
+                                                                'confirm' => 'Are you sure you want to delete this item?',
+                                                                'method' => 'post',
+                                                            ],
+                                                        ])
+                                                        ?>
                                                 </p>
-						<?php if (Yii::$app->session->hasFlash('error')): ?>
+                                                <?php if (Yii::$app->session->hasFlash('error')): ?>
 
-							<div class="alert alert-danger">
-								<button type="button" class="close" data-dismiss="alert">
-									<span aria-hidden="true">&times;</span>
-									<span class="sr-only">Close</span>
-								</button>
-								<?= Yii::$app->session->getFlash('error') ?>
-							</div>
-						<?php endif; ?>
-						<?php if (Yii::$app->session->hasFlash('success')): ?>
-							<div class="alert alert-success">
+                                                        <div class="alert alert-danger">
+                                                                <button type="button" class="close" data-dismiss="alert">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        <span class="sr-only">Close</span>
+                                                                </button>
+                                                                <?= Yii::$app->session->getFlash('error') ?>
+                                                        </div>
+                                                <?php endif; ?>
+                                                <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                        <div class="alert alert-success">
 
-								<button type="button" class="close" data-dismiss="alert">
-									<span aria-hidden="true">&times;</span>
-									<span class="sr-only">Close</span>
-								</button>
+                                                                <button type="button" class="close" data-dismiss="alert">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        <span class="sr-only">Close</span>
+                                                                </button>
 
-								<?= Yii::$app->session->getFlash('success') ?>
+                                                                <?= Yii::$app->session->getFlash('success') ?>
 
 
-							</div>
-						<?php endif; ?>
+                                                        </div>
+                                                <?php endif; ?>
 
-						<?=
-						DetailView::widget([
-						    'model' => $model,
-						    'attributes' => [
-							//'id',
-							//'employee_id',
-							'no_of_days',
-							    [
-							    'attribute' => 'leave_type',
-							    'value' => $model->leaveType->type,
-							],
-							'commencing_date',
-							'ending_date',
-							'purpose:ntext',
-							    [
-							    'attribute' => 'status',
-							    'value' => function($model) {
-								    if ($model->status == 1)
-									    return "Pending";
-								    elseif ($model->status == 2)
-									    return "Approved";
-								    elseif ($model->status == 3)
-									    return "Declined";
-								    else
-									    return "";
-							    },
-							],
-						    //'CB',
-						    //'DOC',
-						    ],
-						])
-						?>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                                <?=
+                                                DetailView::widget([
+                                                    'model' => $model,
+                                                    'attributes' => [
+                                                        //'id',
+                                                        //'employee_id',
+                                                        //	'no_of_days',
+                                                            [
+                                                            'attribute' => 'leave_type',
+                                                            'value' => $model->leaveType->type,
+                                                        ],
+                                                        'commencing_date',
+                                                        'ending_date',
+                                                        'purpose:ntext',
+                                                            [
+                                                            'attribute' => 'status',
+                                                            'value' => function($model) {
+                                                                    if ($model->status == 1)
+                                                                            return "Pending";
+                                                                    elseif ($model->status == 2)
+                                                                            return "Approved";
+                                                                    elseif ($model->status == 3)
+                                                                            return "Declined";
+                                                                    else
+                                                                            return "";
+                                                            },
+                                                        ],
+                                                    //'CB',
+                                                    //'DOC',
+                                                    ],
+                                                ])
+                                                ?>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
 </div>
 
 

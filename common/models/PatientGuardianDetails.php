@@ -30,51 +30,51 @@ use Yii;
  */
 class PatientGuardianDetails extends \yii\db\ActiveRecord {
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName() {
-		return 'patient_guardian_details';
-	}
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'patient_guardian_details';
+        }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules() {
-		return [
-		    //[['id'], 'required'],
-			[['id', 'patient_id', 'gender', 'pincode', 'contact_number'], 'integer'],
-			[['permanent_address'], 'string'],
-			[['first_name', 'last_name', 'id_card_or_passport_no', 'religion', 'nationality', 'occupatiion', 'landmark', 'email', 'adhar_card_no', 'passport', 'driving_license', 'pan_card', 'voters_id'], 'string', 'max' => 100],
-		];
-	}
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                    //[['id'], 'required'],
+                        [['id', 'patient_id', 'gender', 'pincode', 'contact_number'], 'integer'],
+                        [['permanent_address'], 'string'],
+                        [['first_name', 'last_name', 'id_card_or_passport_no', 'religion', 'nationality', 'occupatiion', 'landmark', 'email', 'adhar_card_no', 'passport', 'driving_license', 'pan_card', 'voters_id'], 'string', 'max' => 100],
+                ];
+        }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels() {
-		return [
-		    'id' => 'ID',
-		    'patient_id' => 'Patient ID',
-		    'first_name' => 'First Name',
-		    'last_name' => 'Last Name',
-		    'gender' => 'Gender',
-		    'id_card_or_passport_no' => 'Id Card/Passport No',
-		    'religion' => 'Religion',
-		    'nationality' => 'Nationality',
-		    'occupatiion' => 'Occupatiion',
-		    'permanent_address' => 'Permanent Address',
-		    'pincode' => 'Pincode',
-		    'landmark' => 'Landmark',
-		    'contact_number' => 'Contact Number',
-		    'email' => 'Email',
-		    'adhar_card_no' => 'Adhar Card No',
-		    'passport' => 'Passport',
-		    'driving_license' => 'Driving License',
-		    'pan_card' => 'Pan Card',
-		    'voters_id' => 'Voters ID',
-		    'guardian_profile_image' => 'Guardian Image',
-		];
-	}
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'patient_id' => 'Patient ID',
+                    'first_name' => 'First Name',
+                    'last_name' => 'Last Name',
+                    'gender' => 'Gender',
+                    'id_card_or_passport_no' => 'Id Card/Passport No',
+                    'religion' => 'Religion',
+                    'nationality' => 'Nationality',
+                    'occupatiion' => 'Occupatiion',
+                    'permanent_address' => 'Permanent Address',
+                    'pincode' => 'Pincode',
+                    'landmark' => 'Landmark',
+                    'contact_number' => 'Contact Number',
+                    'email' => 'Email',
+                    'adhar_card_no' => 'Adhar Card No',
+                    'passport' => 'Passport/Driving License/Pan Card/Voters ID',
+                    'driving_license' => 'Driving License',
+                    'pan_card' => 'Pan Card',
+                    'voters_id' => 'Voters ID',
+                    'guardian_profile_image' => 'Guardian Image',
+                ];
+        }
 
 }

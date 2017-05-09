@@ -13,7 +13,7 @@ use common\models\Followups;
 use common\models\FollowupType;
 use common\models\Hospital;
 use common\models\FollowupSubType;
-use common\models\AdminUsers;
+use common\models\StaffInfo;
 use kartik\datetime\DateTimePicker;
 
 class FollowupajaxController extends \yii\web\Controller {
@@ -31,6 +31,11 @@ class FollowupajaxController extends \yii\web\Controller {
 
                 if (Yii::$app->request->isAjax) {
                         $val = $_POST['valu'];
+                        $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $val;
+                        if (file_exists($paths)) {
+
+                                $files = Yii::$app->UploadFile->RemoveFiles($paths);
+                        }
                         Followups::findOne($val)->delete();
                 }
         }
@@ -77,8 +82,19 @@ class FollowupajaxController extends \yii\web\Controller {
 
                         $options = Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--', 'required' => "required"]);
 
-                        $all_users = AdminUsers::find()->where(['post_id' => '5'])->andWhere(['<>', 'id', Yii::$app->user->identity->id])->all();
-                        $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
+
+                        $followupsub_type = " <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class = 'form-group field-followups-sub_type'>
+                                                             <label class = 'control-label'>Sub Type</label>
+                                                                $options
+                                                        </div>
+                                                      </div>";
+
+
+
+
+                        $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
+                        $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
 
                         $date = DateTimePicker::widget([
                                     'id' => $rand,
@@ -91,7 +107,7 @@ class FollowupajaxController extends \yii\web\Controller {
                                     ]
                         ]);
                         $userid = Yii::$app->user->identity->id;
-                        $user = AdminUsers::findOne($userid);
+                        $user = StaffInfo::findOne($userid);
 
 
 
@@ -100,17 +116,13 @@ class FollowupajaxController extends \yii\web\Controller {
                                 <input type='hidden' name='create[type][]' value='" . $_POST['type'] . "'>
                                 <input type='hidden' name='create[type_id][]' value='" . $_POST['type_id'] . "'>
                                         $followtype
-                                          <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                                              <div class='form-group field-followups-sub_type'>
-                                                 <label class='control-label'>Sub Type</label>
-                                                 $options
-                                              </div>
-                                          </div>
+
+                                       $followupsub_type
 
                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                             <div class='form-group field-followups-followup_date'>
                                                <label class='control-label followup_date' for='followups-followup_date'>Followup Date</label>
-                                                 $date
+                                                <input type='datetime-local' class='form-control some_class' name='create[followup_date][]' data-mask='datetime'>
                                             </div>
                                         </div>
 
@@ -128,12 +140,21 @@ class FollowupajaxController extends \yii\web\Controller {
                                             </div>
                                         </div>
 
-                                          <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                          <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                             <div class='form-group field-followups-assigned_from'>
                                                <label class='control-label' for='followups-assigned_from'>Assigned From</label>
-                                                 <input type='text' class='form-control' name='create[assigned_from][]' value='.$user->name' readonly='readonly'>
+                                                 <input type='text' class='form-control' name='create[assigned_from][]' value='.$user->staff_name' readonly='readonly'>
                                             </div>
                                         </div>
+
+                                   <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                            <div class='form-group field-followups-followup_notes'>
+                                               <label class='control-label' for='followups-followup_notes'>Attachments</label>
+                                                 <input type = 'file' name = 'create[image][]' />
+                                            </div>
+                                        </div>
+
+
 
                                           <a id='remFollowup' class='btn btn-icon btn-red remFollowup' title='Delete' style='margin-top: 15px;'><i class='fa-remove'></i></a>
                                           <div style='clear:both'></div>
@@ -177,19 +198,24 @@ class FollowupajaxController extends \yii\web\Controller {
 
                         $type = $_POST['type'];
                         if ($type == '') {
-                                echo '0';
-                                exit;
+                                $options = '<option value="">--Select--</option>';
                         } else {
+
+                                //   if ($type != 5) {
+
                                 $state_datas = \common\models\FollowupSubType::find()->where(['type_id' => $type])->all();
-                                if (empty($state_datas)) {
-                                        echo '0';
-                                        exit;
-                                } else {
-                                        $options = '<option value="">--Select--</option>';
-                                        foreach ($state_datas as $state_data) {
-                                                $options .= "<option value='" . $state_data->id . "'>" . $state_data->sub_type . "</option>";
-                                        }
+                                $options = '<option value="">--Select--</option>';
+                                foreach ($state_datas as $state_data) {
+                                        $options .= "<option value='" . $state_data->id . "'>" . $state_data->sub_type . "</option>";
                                 }
+//                                } else {
+//                                        $state_datas = \common\models\Service::find()->where(['status' => 1])->all();
+//                                        $options = '<option value="">--Select--</option>';
+//                                        foreach ($state_datas as $state_data) {
+//                                                $options .= "<option value='" . $state_data->id . "'>" . $state_data->id . "</option>";
+//                                        }
+//                                        $options .= "<option value=common> Common </option>";
+//                                }
                         }
 
                         echo $options;

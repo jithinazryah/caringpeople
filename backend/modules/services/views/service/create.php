@@ -22,47 +22,44 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
 
-				<?= Html::a('<i class="fa-th-list"></i><span> Manage Service</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Service</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
 
-				<?=
-				$this->render('_menus', [
-				    'model' => $model,
-				])
-				?>
+                                <?=
+                                $this->render('_menus', [
+                                    'model' => $model,
+                                ])
+                                ?>
                                 <div class="panel-body panel_body_background" >
-					<?php //$form = ActiveForm::begin(); ?>
+                                        <?php //$form = ActiveForm::begin(); ?>
                                         <div class="tab-content tab_data_margin" >
 
                                                 <div class="tab-pane active" id="home-3">
-							<?php if (Yii::$app->session->hasFlash('error')): ?>
-								<div class="alert alert-danger" role="alert">
-									<?= Yii::$app->session->getFlash('error') ?>
-								</div>
-							<?php endif; ?>
-							<?php if (Yii::$app->session->hasFlash('success')): ?>
-								<div class="alert alert-success" role="alert">
-									<?= Yii::$app->session->getFlash('success') ?>
-								</div>
-							<?php endif; ?>
-							<?=
-							$this->render('_form', [
-							    'model' => $model,
-							    'staff_edu' => $staff_edu,
-							    'staff_uploads' => $staff_uploads,
-							    'form' => $form,
-							])
-							?>
+                                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                                                <div class="alert alert-danger" role="alert">
+                                                                        <?= Yii::$app->session->getFlash('error') ?>
+                                                                </div>
+                                                        <?php endif; ?>
+                                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                                <div class="alert alert-success" role="alert">
+                                                                        <?= Yii::$app->session->getFlash('success') ?>
+                                                                </div>
+                                                        <?php endif; ?>
+                                                        <?=
+                                                        $this->render('_form', [
+                                                            'model' => $model,
+                                                        ])
+                                                        ?>
 
                                                 </div>
                                                 <div class="tab-pane" id="profile-3">
 
-							<?php
+                                                        <?php
 //							$this->render('_other_info_form', [
 //							    'model' => $other_info,
 //							    'staff_previous_employer' => $staff_previous_employer,
 //							    'form' => $form,
 //							])
-							?>
+                                                        ?>
                                                 </div>
 
 
@@ -70,16 +67,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                         </div>
-					<!--                                        <div class='col-md-12 col-sm-6 col-xs-12' >
-											<div class="form-group" >
-					<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
+                                        <!--                                        <div class='col-md-12 col-sm-6 col-xs-12' >
+                                                                                        <div class="form-group" >
+                                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
 
-											</div>
-										</div>-->
+                                                                                        </div>
+                                                                                </div>-->
 
 
 
-					<?php //ActiveForm::end(); ?>
+                                        <?php //ActiveForm::end();  ?>
 
 
 
@@ -91,29 +88,29 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <!--<script>
-	$('#form_button').click(function (e) { // using click function
-		// on contact form submit button
-		e.preventDefault();  // stop form from submitting right away
+        $('#form_button').click(function (e) { // using click function
+                // on contact form submit button
+                e.preventDefault();  // stop form from submitting right away
 
-		var error = false;
+                var error = false;
 
-		$(this).find('.required').each(function () {
-			if ($(this).val().length < 1) {
-				error = true;
-			}
-		});
-		if (error == false) {
+                $(this).find('.required').each(function () {
+                        if ($(this).val().length < 1) {
+                                error = true;
+                        }
+                });
+                if (error == false) {
 
-			var Id = $('.tab-pane.active').attr('id');
-			$('#'.Id).removeClass('active');
-			$('#home-3').addClass('active');  // you submit form
-			$("#w0").submit();
-		}
-		if (!error) {
-			return true;
-		}
+                        var Id = $('.tab-pane.active').attr('id');
+                        $('#'.Id).removeClass('active');
+                        $('#home-3').addClass('active');  // you submit form
+                        $("#w0").submit();
+                }
+                if (!error) {
+                        return true;
+                }
 
-	});
+        });
 
 
 </script>-->
