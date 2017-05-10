@@ -169,11 +169,18 @@ use common\models\StaffInfo;
                                                 </div>
 
 
-                                                <?php $all_users = StaffInfo::find()->where(['post_id' => '5'])->all(); ?>
+                                                <?php
+                                                $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
+                                                if (isset($type) && $type != '') {
+                                                        $assigned_too[] = $type_id;
+                                                } else {
+                                                        $assigned_too[] = '';
+                                                }
+                                                ?>
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-assigned_to">
                                                                 <label class="control-label" for="followups-assigned_to">Assigned To</label>
-                                                                <?= Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
+                                                                <?= Html::dropDownList('create[assigned_to][]', $assigned_too, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
                                                         </div>
                                                 </div>
 

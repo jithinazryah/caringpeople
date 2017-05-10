@@ -458,9 +458,9 @@ class StaffInfoController extends Controller {
 
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
                 if ($image->saveAs($paths . '/' . $type . '.' . $extension)) {
-                        die('uploaded');
+                        return TRUE;
                 } else {
-                        die('not uploaded');
+                        return FALSE;
                 }
         }
 
