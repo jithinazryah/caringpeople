@@ -105,9 +105,11 @@ $branch = Branch::branch();
                                                                     return 'Office Staff';
                                                             } else if ($model->designation == '11') {
                                                                     return 'Accountant';
+                                                            } else if ($model->designation == '12') {
+                                                                    return 'Nurse Manager';
                                                             }
                                                     },
-                                                    'filter' => [2 => 'Care Assistant', 1 => 'Registered Nurse', 3 => 'Doctor visit at home', 4 => 'OP Clinic', 5 => 'DV + OP', 6 => 'Physio', 7 => 'Psychologist', 8 => 'Dietician', 9 => 'Receptionist', 10 => 'Office Staff', 11 => 'Accountant'],
+                                                    'filter' => [2 => 'Care Assistant', 1 => 'Registered Nurse', 3 => 'Doctor visit at home', 4 => 'OP Clinic', 5 => 'DV + OP', 6 => 'Physio', 7 => 'Psychologist', 8 => 'Dietician', 9 => 'Receptionist', 10 => 'Office Staff', 11 => 'Accountant', 12 => 'Nurse Manager'],
                                                 ],
                                                 // 'religion',
                                                 // 'caste',
