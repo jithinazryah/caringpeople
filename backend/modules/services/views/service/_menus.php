@@ -13,7 +13,7 @@ use yii\helpers\Html;
 
         <li>
                 <a href="<?= Yii::$app->homeUrl; ?>followup/followups/followups?type_id=<?= $model->id; ?>&type=5&service=setvice" <?php if (!$model->id && $model->id == '') { ?> data-toggle="tab" <?php } ?>><span class="visible-xs"><i class="fa-hospital-o"></i></span>
-                        <span class="hidden-xs span-font-size">TASKS</span></a>
+                        <span class="hidden-xs span-font-size">Followups</span></a>
         </li>
 
 

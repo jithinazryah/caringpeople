@@ -52,7 +52,7 @@ if ($type == '1') {
                         <?php
                         if (isset($service) && $service != 'NULL') {
                                 echo $this->render('_menus', [
-                                    'model' => $model,
+                                    'type_id' => $type_id,
                                 ]);
                         }
                         ?>

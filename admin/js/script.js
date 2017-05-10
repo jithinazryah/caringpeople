@@ -6,7 +6,7 @@
 
 $("document").ready(function () {
 
-        ini_set('upload_max_filesize', '128M');
+
         /*
          * Purpose   :- On change of country dropdown
          * parameter :- country_id

@@ -100,8 +100,12 @@ class ServiceController extends Controller {
                 $model = $this->findModel($id);
 
                 if ($model->load(Yii::$app->request->post())) {
+
                         $model->from_date = date('Y-m-d', strtotime($model->from_date));
                         $model->to_date = date('Y-m-d', strtotime($model->to_date));
+                        $model->duty_type = Yii::$app->request->post()['Service']['duty_type'];
+                        $model->day_staff = Yii::$app->request->post()['Service']['day_staff'];
+                        $model->night_staff = Yii::$app->request->post()['Service']['night_staff'];
                         if ($model->validate() && $model->save())
                                 return $this->redirect(['view', 'id' => $model->id]);
                 }
