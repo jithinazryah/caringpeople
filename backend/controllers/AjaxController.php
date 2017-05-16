@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use common\models\Enquiry;
 use common\models\Followups;
 use common\models\Hospital;
+use common\models\StaffInfoUploads;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -230,6 +231,29 @@ class AjaxController extends \yii\web\Controller {
                         }
 
                         echo $options;
+                }
+        }
+
+        /*
+         * to remove images of staff (uploaded images in staff)
+         */
+
+        public function actionRemove() {
+
+                $id = $_POST['id'];
+                $name = $_POST['name'];
+                $type = $_POST['type'];
+
+                $root_path = Yii::$app->basePath . '/../uploads/staff';
+                $path = $root_path . '/' . $id . '/' . $name;
+
+                $staff_uploads = StaffInfoUploads::find()->where(['staff_id' => $id])->one();
+                if (file_exists($path)) {
+
+                        if (unlink($path)) {
+                                $staff_uploads->$type = '';
+                                $staff_uploads->update();
+                        }
                 }
         }
 

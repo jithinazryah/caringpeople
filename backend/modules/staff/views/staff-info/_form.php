@@ -208,8 +208,10 @@ use common\models\Branch;
                                 //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
                                 ?>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2" id="profile_image_type">
+                                        <?php $image_nme = 'profile_image_type.' . $staff_uploads->profile_image_type; ?>
                                         <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:175px;height: 175px;"/>
+                                        <a title="Delete"><i class="fa fa-remove img-remove" style="position: absolute;left: 170px;top: 5px;cursor: pointer" id="<?= $model->id . "-" . $image_nme . "-profile_image_type" ?>"></i></a>
                                 </div>
 
                         <?php } ?>
@@ -232,8 +234,9 @@ use common\models\Branch;
                                                 echo '<div class="col-md-2">';
                                         }
                                         ?>
-                                        <div class="img_data">
+                                        <div class="img_data" id="<?= $value; ?>">
                                                 <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/' . $value . '.' . $staff_uploads->$value; ?>" target="_blank"><?= $staff_uploads->getAttributeLabel($value); ?></a>
+                                                <a title="Delete"><i class="fa fa-remove img-remove" style="position: absolute;left: 170px;cursor: pointer;" id="<?= $model->id . '-' . $value . '.' . $staff_uploads->$value . '-' . $value ?>"></i></a>
                                         </div>
                                         <?php
                                         if ($i == 5) {

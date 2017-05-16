@@ -51,7 +51,7 @@ USE kartik\date\DatePicker;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'notes')->textarea(['rows' => 6]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'agreement_copy')->dropDownList(['' => '--Select--', '1' => 'Send via mail', '2' => 'No', '3' => 'Given hard copy', '4' => 'Other ']) ?><?php // $form->field($staff_enquiry, 'designation')->dropDownList(['' => '--Select--', '0' => 'Registered Nurse', '1' => 'Care Assistant'])            ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'agreement_copy')->dropDownList(['' => '--Select--', '1' => 'Send via mail', '2' => 'No', '3' => 'Given hard copy', '4' => 'Other ']) ?><?php // $form->field($staff_enquiry, 'designation')->dropDownList(['' => '--Select--', '0' => 'Registered Nurse', '1' => 'Care Assistant'])                      ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="agreement_copy_other">    <?= $form->field($staff_enquiry, 'agreement_copy_other')->textInput(['maxlength' => true]) ?>
 
@@ -89,12 +89,25 @@ USE kartik\date\DatePicker;
                                 $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $staff_enquiry->id;
                                 foreach (glob("{$path}/*") as $file) {
                                         $arry = explode('/', $file);
+                                        $img_nmee = end($arry);
+                                        $img_nmees = explode('.', $img_nmee);
+
+                                        if ($img_nmees[1] != 'pdf') {
+                                                ?>
+
+                                                <div class = "col-md-2 img-box">
+                                                        <img src="<?= Yii::$app->homeUrl . '../uploads/staff-enquiry/' . $staff_enquiry->id . '/' . end($arry) ?>" style="position:relative;width:135px;height: 135px;" class="img-responsive" />
+                                                        <label><?= end($arry); ?></label>
+                                                        <a href="<?= Yii::$app->homeUrl ?>staff/staff-enquiry/remove?id=<?= $staff_enquiry->id ?>&name=<?= end($arry) ?>" title="Delete"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
+                                                </div>
+
+                                        <?php } else { ?>
+                                                <div class = "col-md-2 img-box">
+                                                        <a href="<?= Yii::$app->homeUrl . '../uploads/staff-enquiry/' . $staff_enquiry->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
+                                                        <a href="<?= Yii::$app->homeUrl ?>staff/staff-enquiry/remove?id=<?= $staff_enquiry->id ?>&name=<?= end($arry) ?>" title="Delete"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
+                                                </div
+                                        <?php }
                                         ?>
-                                        <div class = "col-md-2 img-box">
-                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff-enquiry/' . $staff_enquiry->id . '/' . end($arry) ?>" style="position:relative;width:135px;height: 135px;" class="img-responsive" />
-                                                <label><?= end($arry); ?></label>
-                                                <a href="<?= Yii::$app->homeUrl ?>staff/staff-enquiry/remove?id=<?= $staff_enquiry->id ?>&name=<?= end($arry) ?>" title="Delete"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
-                                        </div>
                                 <?php }
                                 ?>
                         </div>

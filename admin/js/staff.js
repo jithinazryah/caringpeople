@@ -22,7 +22,7 @@ $("document").ready(function () {
 
 
 
-$('#staffenquiry-agreement_copy').change(function () {
+        $('#staffenquiry-agreement_copy').change(function () {
                 if ($('#staffenquiry-agreement_copy').val() == '4')
                         $('#agreement_copy_other').show();
                 else
@@ -94,5 +94,22 @@ $('#staffenquiry-agreement_copy').change(function () {
                 return false;
         });
 
+
+        $('.img-remove').on('click', function (e) {
+
+                var data = $(this).attr('id');
+                var datas = data.split("-");
+
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {id: datas[0], name: datas[1], type: datas[2]},
+                        url: homeUrl + 'ajax/remove',
+                        success: function (data) {
+
+                                $('#' + datas[2]).remove();
+                        }
+                });
+        });
 
 });

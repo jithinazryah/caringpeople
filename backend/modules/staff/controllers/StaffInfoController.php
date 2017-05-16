@@ -483,11 +483,18 @@ class StaffInfoController extends Controller {
          * to remove image (proofs-multiple image
          *  */
 
-        public function actionRemove($id, $name) {
+        public function actionRemove($id, $name, $type) {
                 $root_path = Yii::$app->basePath . '/../uploads/staff';
-                $path = $root_path . '/' . $id . '/proofs/' . $name;
+                $path = $root_path . '/' . $id . '/' . $name;
+
+
+                $staff_uploads = StaffInfoUploads::find()->where(['staff_id' => $id])->one();
                 if (file_exists($path)) {
-                        unlink($path);
+
+                        if (unlink($path)) {
+                                $staff_uploads->$type = '';
+                                $staff_uploads->update();
+                        }
                 }
                 return $this->redirect(Yii::$app->request->referrer);
         }
