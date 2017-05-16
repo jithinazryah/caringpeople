@@ -10,79 +10,79 @@ $this->title = 'Forgot Password';
 ?>
 <div class="login-container">
 
-	<div class="row">
+        <div class="row">
 
-		<div class="col-sm-6">
+                <div class="col-sm-6">
 
-			<script type="text/javascript">
-				jQuery(document).ready(function ($)
-				{
-					setTimeout(function () {
-						$(".fade-in-effect").addClass('in');
-					}, 1);
+                        <script type="text/javascript">
+                                jQuery(document).ready(function ($)
+                                {
+                                        setTimeout(function () {
+                                                $(".fade-in-effect").addClass('in');
+                                        }, 1);
 
-				});
-			</script>
-			<!-- Errors container -->
-			<div class="errors-container">
-			</div>
+                                });
+                        </script>
+                        <!-- Errors container -->
+                        <div class="errors-container">
+                        </div>
 
-			<div class="forgot-header">
-				<h4>Forgot Your Password ?</h4>
-				<hr/>
-				<h5>Let us help you</h5>
-				<p>Type your username / email ID in the field below to receive your validation code by email:</p>
-			</div>
+                        <div class="forgot-header">
+                                <h4>Forgot Your Password ?</h4>
+                                <hr/>
+                                <h5>Let us help you</h5>
+                                <p>Type your username / email ID in the field below to receive your validation code by email:</p>
+                        </div>
 
-			<!-- Add class "fade-in-effect" for login form effect -->
-			<?php
-			$form = ActiveForm::begin(
-					[
-					    'id' => 'forgot-email',
-					    'method' => 'post',
-					    'options' => [
-						'class' => 'login-form fade-in-effect'
-					    ]
-					]
-			);
-			?>
+                        <!-- Add class "fade-in-effect" for login form effect -->
+                        <?php
+                        $form = ActiveForm::begin(
+                                        [
+                                            'id' => 'forgot-email',
+                                            'method' => 'post',
+                                            'options' => [
+                                                'class' => 'login-form fade-in-effect'
+                                            ]
+                                        ]
+                        );
+                        ?>
 
-			<?php if (Yii::$app->session->hasFlash('error')): ?>
-				<div class="alert alert-danger" role="alert">
-					<?= Yii::$app->session->getFlash('error') ?>
-				</div>
-			<?php endif; ?>
-			<?php if (Yii::$app->session->hasFlash('success')): ?>
-				<div class="alert alert-success" role="alert">
-					<?= Yii::$app->session->getFlash('success') ?>
-				</div>
-			<?php endif; ?>
-			<h2></h2>
-			<div class="form-group">
+                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                <div class="alert alert-danger" role="alert">
+                                        <?= Yii::$app->session->getFlash('error') ?>
+                                </div>
+                        <?php endif; ?>
+                        <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                <div class="alert alert-success" role="alert">
+                                        <?= Yii::$app->session->getFlash('success') ?>
+                                </div>
+                        <?php endif; ?>
+                        <h2></h2>
+                        <div class="form-group">
 
-				<?php // $form->field($model, 'user_name')->textInput(['class' => 'form-control']) ?>
-			</div>
-			<label class="control-label" for="employee-user_name" style="color: white;
-			       font-size: 14px;
-			       font-weight: bold;">Email/Username</label>
-			<div class="form-group">
-				<label class="control-label" for="employee-user_name">Email/Username</label>
-				<div class="form-group field-employee-user_name">
-					<label class="control-label" for="employee-user_name">Email/Username</label>
-					<input type="text" id="AdminUsers[user_name]" class="form-control" name="AdminUsers[user_name]" autofocus="true">
-					<p class="help-block help-block-error"></p>
-				</div>
+                                <?php // $form->field($model, 'user_name')->textInput(['class' => 'form-control']) ?>
+                        </div>
+                        <label class="control-label" for="employee-user_name" style="color: white;
+                               font-size: 14px;
+                               font-weight: bold;">Email/Username</label>
+                        <div class="form-group">
+                                <label class="control-label" for="employee-user_name">Email/Username</label>
+                                <div class="form-group field-employee-user_name">
+                                        <label class="control-label" for="employee-user_name">Email/Username</label>
+                                        <input type="text" id="AdminUsers[user_name]" class="form-control" name="AdminUsers[user_name]" autofocus="true">
+                                        <p class="help-block help-block-error"></p>
+                                </div>
 
-			</div>
-
-
-			<div class="form-group" style="float: right;">
-				<button type="submit" class="btn btn-primary" style="margin-top: 18px;border: 1px solid rgba(255, 255, 255, 0.43);">Submit</button>    </div>
-				<?php ActiveForm::end(); ?>
+                        </div>
 
 
-		</div>
+                        <div class="form-group" style="float: right;">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 18px;border: 1px solid rgba(255, 255, 255, 0.43);">Submit</button>    </div>
+                                <?php ActiveForm::end(); ?>
 
-	</div>
+
+                </div>
+
+        </div>
 
 </div>

@@ -70,10 +70,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             [
                                                             'attribute' => 'designation',
                                                             'value' => function($model) {
-                                                                    if ($model->designation == '0') {
+                                                                    if ($model->designation == '1') {
                                                                             return 'Registered Nurse';
-                                                                    } else if ($model->designation == '1') {
+                                                                    } else if ($model->designation == '2') {
                                                                             return 'Care Assistant';
+                                                                    } else if ($model->designation == '3') {
+                                                                            return 'Doctor visit at home';
+                                                                    } else if ($model->designation == '4') {
+                                                                            return 'OP Clinic';
+                                                                    } else if ($model->designation == '5') {
+                                                                            return 'DV + OP';
+                                                                    } else if ($model->designation == '6') {
+                                                                            return 'Physio';
+                                                                    } else if ($model->designation == '7') {
+                                                                            return 'Psychologist';
+                                                                    } else if ($model->designation == '8') {
+                                                                            return 'Dietician';
+                                                                    } else if ($model->designation == '9') {
+                                                                            return 'Receptionist';
+                                                                    } else if ($model->designation == '10') {
+                                                                            return 'Office Staff';
+                                                                    } else if ($model->designation == '11') {
+                                                                            return 'Accountant';
+                                                                    } else if ($model->designation == '12') {
+                                                                            return 'Nurse Manager';
                                                                     }
                                                             }
                                                         ],

@@ -56,9 +56,49 @@ $branch = Branch::branch();
                                                     ['class' => 'yii\grid\SerialColumn'],
                                                 'enquiry_id',
                                                 'name',
+                                                    [
+                                                    'attribute' => 'gender',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            if ($model->gender == '0') {
+                                                                    return 'Male';
+                                                            } else if ($model->gender == '1') {
+                                                                    return 'Female';
+                                                            }
+                                                    },
+                                                    'filter' => [1 => 'Female', 0 => 'Male'],
+                                                ],
                                                 'phone_number',
-                                                'email:email',
-                                                'address',
+                                                    [
+                                                    'attribute' => 'designation',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            if ($model->designation == '1') {
+                                                                    return 'Registered Nurse';
+                                                            } else if ($model->designation == '2') {
+                                                                    return 'Care Assistant';
+                                                            } else if ($model->designation == '3') {
+                                                                    return 'Doctor visit at home';
+                                                            } else if ($model->designation == '4') {
+                                                                    return 'OP Clinic';
+                                                            } else if ($model->designation == '5') {
+                                                                    return 'DV + OP';
+                                                            } else if ($model->designation == '6') {
+                                                                    return 'Physio';
+                                                            } else if ($model->designation == '7') {
+                                                                    return 'Psychologist';
+                                                            } else if ($model->designation == '8') {
+                                                                    return 'Dietician';
+                                                            } else if ($model->designation == '9') {
+                                                                    return 'Receptionist';
+                                                            } else if ($model->designation == '10') {
+                                                                    return 'Office Staff';
+                                                            } else if ($model->designation == '11') {
+                                                                    return 'Accountant';
+                                                            } else if ($model->designation == '12') {
+                                                                    return 'Nurse Manager';
+                                                            }
+                                                    },
+                                                    'filter' => [2 => 'Care Assistant', 1 => 'Registered Nurse', 3 => 'Doctor visit at home', 4 => 'OP Clinic', 5 => 'DV + OP', 6 => 'Physio', 7 => 'Psychologist', 8 => 'Dietician', 9 => 'Receptionist', 10 => 'Office Staff', 11 => 'Accountant', 12 => 'Nurse Manager'],
+                                                ],
                                                 // 'follow_up_date',
 //                                                [
 //                                                    'attribute' => 'follow_up_date',
@@ -66,7 +106,7 @@ $branch = Branch::branch();
 //                                                            return date('d-M-Y H:i:s', strtotime($model->follow_up_date));
 //                                                    },
 //                                                ],
-                                                 [
+                                                [
                                                     'attribute' => 'branch_id',
                                                     'value' => function($data) {
                                                             return Branch::findOne($data->branch_id)->branch_name;
@@ -79,7 +119,7 @@ $branch = Branch::branch();
                                                 // 'UB',
                                                 // 'DOC',
                                                 // 'DOU',
-                                                 ['class' => 'yii\grid\ActionColumn',
+                                                ['class' => 'yii\grid\ActionColumn',
                                                     'template' => '{view}{update}{followup}{delete}',
                                                     'visibleButtons' => [
                                                         'delete' => function ($model, $key, $index) {
