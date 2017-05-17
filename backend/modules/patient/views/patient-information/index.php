@@ -24,84 +24,84 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body">
                                         <a class="patient-advanced-search" style="font-size: 17px;color:#0e62c7;cursor: pointer;">Advanced Search</a>
                                         <hr class="appoint_history" style="margin-top:5px;"/>
-                                        <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+					<?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                        <?= Html::a('<i class="fa-th-list"></i><span> New Patient </span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                        <?=
-                                        GridView::widget([
-                                            'dataProvider' => $dataProvider,
-                                            'filterModel' => $searchModel,
-                                            'columns' => [
-                                                    ['class' => 'yii\grid\SerialColumn'],
-                                                'patient_id',
-                                                'first_name',
-                                                'last_name',
-                                                // 'contact_name',
-                                                // 'contact_gender',
-                                                // 'referral_source',
-                                                // 'contact_mobile_number_1',
-                                                // 'contact_mobile_number_2',
-                                                // 'contact_mobile_number_3',
-                                                // 'contact_city',
-                                                // 'contact_zip_or_pc',
-                                                // 'contact_email:email',
-                                                // 'contact_perosn_relationship',
-                                                // 'patient_name',
-                                                // 'patient_gender',
-                                                // 'patient_age',
-                                                // 'patient_weight',
-                                                // 'other_relationships',
-                                                // 'veteran_or_spouse',
-                                                // 'patient_address',
-                                                // 'patient_city',
-                                                // 'patient_postal_code',
-                                                // 'patient_current_status',
-                                                // 'follow_up_date',
-                                                // 'notes:ntext',
-                                                [
-                                                    'attribute' => 'status',
-                                                    'value' => function($model, $key, $index, $column) {
-                                                            if ($model->status == '1') {
-                                                                    return 'Active';
-                                                            } elseif ($model->status == '2') {
-                                                                    return 'Closed';
-                                                            } elseif ($model->status == '3') {
-                                                                    return 'Pending';
-                                                            } elseif ($model->status == '4') {
-                                                                    return 'Deseased';
-                                                            }
-                                                    },
-                                                    'filter' => [1 => 'Active', 2 => 'Closed', 3 => 'Pending', 4 => 'Deseased'],
-                                                ],
-                                                // 'CB',
-                                                // 'UB',
-                                                // 'DOC',
-                                                // 'DOU',
-                                                ['class' => 'yii\grid\ActionColumn',
-                                                    'template' => '{view}{update}{followup}{delete}',
-                                                    'visibleButtons' => [
-                                                        'delete' => function ($model, $key, $index) {
-                                                                return Yii::$app->user->identity->post_id != '1' ? false : true;
-                                                        }
-                                                    ],
-                                                    'buttons' => [
-                                                        'followup' => function ($url, $model) {
+					<?= Html::a('<i class="fa-th-list"></i><span> New Patient </span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+					<?=
+					GridView::widget([
+					    'dataProvider' => $dataProvider,
+					    'filterModel' => $searchModel,
+					    'columns' => [
+						    ['class' => 'yii\grid\SerialColumn'],
+						'patient_id',
+						'first_name',
+						'last_name',
+						// 'contact_name',
+						// 'contact_gender',
+						// 'referral_source',
+						// 'contact_mobile_number_1',
+						// 'contact_mobile_number_2',
+						// 'contact_mobile_number_3',
+						// 'contact_city',
+						// 'contact_zip_or_pc',
+						// 'contact_email:email',
+						// 'contact_perosn_relationship',
+						// 'patient_name',
+						// 'patient_gender',
+						// 'patient_age',
+						// 'patient_weight',
+						// 'other_relationships',
+						// 'veteran_or_spouse',
+						// 'patient_address',
+						// 'patient_city',
+						// 'patient_postal_code',
+						// 'patient_current_status',
+						// 'follow_up_date',
+						// 'notes:ntext',
+						[
+						    'attribute' => 'status',
+						    'value' => function($model, $key, $index, $column) {
+							    if ($model->status == '1') {
+								    return 'Active';
+							    } elseif ($model->status == '2') {
+								    return 'Closed';
+							    } elseif ($model->status == '3') {
+								    return 'Pending';
+							    } elseif ($model->status == '4') {
+								    return 'Deseased';
+							    }
+						    },
+						    'filter' => [1 => 'Active', 2 => 'Closed', 3 => 'Pending', 4 => 'Deseased'],
+						],
+						// 'CB',
+						// 'UB',
+						// 'DOC',
+						// 'DOU',
+						['class' => 'yii\grid\ActionColumn',
+						    'template' => '{view}{update}{followup}{delete}',
+						    'visibleButtons' => [
+							'delete' => function ($model, $key, $index) {
+								return Yii::$app->user->identity->post_id != '1' ? false : true;
+							}
+						    ],
+						    'buttons' => [
+							'followup' => function ($url, $model) {
 
-                                                                $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=2';
-                                                                return Html::a(
-                                                                                '<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
-                                                                            'data-pjax' => '0',
-                                                                            'id' => $model->id,
-                                                                            'title' => 'Add Followups',
-                                                                            'target' => '_blank',
-                                                                                ]
-                                                                );
-                                                        },
-                                                    ],
-                                                ],
-                                            ],
-                                        ]);
-                                        ?>
+								$url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=2';
+								return Html::a(
+										'<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
+									    'data-pjax' => '0',
+									    'id' => $model->id,
+									    'title' => 'Add Followups',
+									    'target' => '_blank',
+										]
+								);
+							},
+						    ],
+						],
+					    ],
+					]);
+					?>
                                 </div>
                         </div>
                 </div>
@@ -110,10 +110,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <script>
-        $(document).ready(function () {
-                $('.patient-advanced-search-form').hide();
-                $('.patient-advanced-search').click(function () {
-                        $('.patient-advanced-search-form').slideToggle();
-                });
-        });
+	$(document).ready(function () {
+		$('.patient-advanced-search-form').hide();
+		$('.patient-advanced-search').click(function () {
+			$('.patient-advanced-search-form').slideToggle();
+		});
+	});
 </script>

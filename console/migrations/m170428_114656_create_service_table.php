@@ -37,7 +37,10 @@ class m170428_114656_create_service_table extends Migration {
 //		$this->addColumn('service', 'day_staff', 'integer(11) AFTER staff_type');
 //		$this->addColumn('service', 'night_staff', 'integer(11) AFTER staff_type');
 		//$this->addColumn('service', 'duty_type', 'integer(11) AFTER staff_type');
-		$this->addColumn('service', 'service_id', 'integer(11) AFTER id');
+		$this->addColumn('service', 'service_id', 'string() AFTER id');
+		$this->addColumn('service', 'branch_id', 'integer(11) AFTER advance_payment');
+		$this->addColumn('service', 'staff_advance_payment', 'string(100) AFTER estimated_price');
+		$this->addColumn('service', 'patient_advance_payment', 'string(100) AFTER staff_advance_payment');
 	}
 
 	/**
@@ -45,6 +48,7 @@ class m170428_114656_create_service_table extends Migration {
 	 */
 	public function down() {
 //		$this->dropColumn('service', 'staff_id');
+		$this->dropColumn('service', 'advance_payment');
 	}
 
 }
