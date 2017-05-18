@@ -148,7 +148,7 @@ class SetValues extends Component {
                         $data3 = [];
                 }
                 $super_admins = StaffInfo::find()->where(['post_id' => 1])->all();
-                $data2 = ArrayHelper::map($super_admins, 'id', 'staff_name');
+                $data2 = ArrayHelper::map($super_admins, 'id', 'fullname');
 
 
                 if ($service->duty_type == '1') { /* day */
