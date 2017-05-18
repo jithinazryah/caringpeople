@@ -118,8 +118,6 @@ use common\models\Branch;
                                                 <span style="font-size: 12px;"><?= $model->getAttributeLabel($value); ?></span>
                                                 <a href="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?>" target="_blank"><img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?> " style="width:100px;height: 100px;"/></a>
                                                 <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;margin-left: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . $value . '.' . $model->$value . "-" . $value ?>"></i></a>
-
-
                                                 <?php
                                         }
                                 }
