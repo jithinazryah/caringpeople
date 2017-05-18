@@ -20,182 +20,188 @@ use common\models\ContactDirectory;
  */
 class StaffEnquiryController extends Controller {
 
-        /**
-         * @inheritdoc
-         */
-        public function behaviors() {
-                return [
-                    'verbs' => [
-                        'class' => VerbFilter::className(),
-                        'actions' => [
-                            'delete' => ['POST'],
-                        ],
-                    ],
-                ];
-        }
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors() {
+		return [
+		    'verbs' => [
+			'class' => VerbFilter::className(),
+			'actions' => [
+			    'delete' => ['POST'],
+			],
+		    ],
+		];
+	}
 
-        /**
-         * Lists all StaffEnquiry models.
-         * @return mixed
-         */
-        public function actionIndex() {
-                $searchModel = new StaffEnquirySearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                if (Yii::$app->user->identity->branch_id != '0') {
-                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
-                }
+	/**
+	 * Lists all StaffEnquiry models.
+	 * @return mixed
+	 */
+	public function actionIndex() {
+		$searchModel = new StaffEnquirySearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-                return $this->render('index', [
-                            'searchModel' => $searchModel,
-                            'dataProvider' => $dataProvider,
-                ]);
-        }
+		if (Yii::$app->user->identity->branch_id != '0') {
+			$dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+		}
+		if (!empty(Yii::$app->request->queryParams['StaffEnquirySearch']['status'])) {
+			$dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffEnquirySearch']['status']]);
+		} else {
+			$dataProvider->query->andWhere(['<>', 'status', 2]);
+		}
 
-        /**
-         * Displays a single StaffEnquiry model.
-         * @param integer $id
-         * @return mixed
-         */
-        public function actionView($id) {
-                return $this->render('view', [
-                            'model' => $this->findModel($id),
-                ]);
-        }
+		return $this->render('index', [
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+		]);
+	}
 
-        /**
-         * Creates a new StaffEnquiry model.
-         * If creation is successful, the browser will be redirected to the 'view' page.
-         * @return mixed
-         */
-        public function actionCreate() {
-                $staff_enquiry = new StaffEnquiry();
+	/**
+	 * Displays a single StaffEnquiry model.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionView($id) {
+		return $this->render('view', [
+			    'model' => $this->findModel($id),
+		]);
+	}
 
-
-                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry)) {
-                        $staff_enquiry->dob = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffEnquiry']['dob']));
-                        if (Yii::$app->user->identity->branch_id != '0') {
-                                Yii::$app->SetValues->currentBranch($staff_enquiry);
-                        }
-                        $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
-                        $staff_enquiry->attachments = 0;
-                        if ($staff_enquiry->save()) {
-                                $branch = Branch::findOne($staff_enquiry->branch_id);
-                                $code = $branch->branch_code . 'SE';
-
-                                if (!empty($attachments)) {
-                                        $root_path = ['staff-enquiry', $staff_enquiry->id];
-                                        Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
-                                }
-                                $staff_enquiry->enquiry_id = $code . '-' . date('d') . date('m') . date('y') . '-' . $staff_enquiry->id;
-                                $staff_enquiry->update();
-
-                                $this->AddContactDirectory($staff_enquiry);
-                                Yii::$app->getSession()->setFlash('success', 'Staff Enquiry Added Successfully');
-                                return $this->redirect(array('index'));
-                        }
-                }
-
-                return $this->render('_staff_enquiry_form', [
-                            'staff_enquiry' => $staff_enquiry,
-                ]);
-        }
-
-        /*
-         * to add patient genquiry details to contact directory for future use
-         * $info_first ->patient_enquiry_general_first table
-         * $info_first ->atient_enquiry_general_second table
-         */
-
-        public function AddContactDirectory($staff_info) {
-                $model = new ContactDirectory();
-                $model->category_type = 2; /* staff enquiry */
-                $model->name = $staff_info->name;
-                $model->email_1 = $staff_info->email;
-                $model->phone_1 = $staff_info->phone_number;
-                $model->designation = $staff_info->designation;
-
-                Yii::$app->SetValues->Attributes($model);
-                if ($model->validate() && $model->save())
-                        return TRUE;
-                else
-                        return FALSE;
-        }
-
-        /**
-         * Updates an existing StaffEnquiry model.
-         * If update is successful, the browser will be redirected to the 'view' page.
-         * @param integer $id
-         * @return mixed
-         */
-        public function actionUpdate($id) {
-
-                $staff_enquiry = $this->findModel($id);
+	/**
+	 * Creates a new StaffEnquiry model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate() {
+		$staff_enquiry = new StaffEnquiry();
 
 
-                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry)) {
-                        $staff_enquiry->dob = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffEnquiry']['dob']));
-                        $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
-                        $staff_enquiry->attachments = 0;
-                        if ($staff_enquiry->save())
-                                if (!empty($attachments)) {
-                                        $root_path = ['staff-enquiry', $staff_enquiry->id];
-                                        Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
-                                }
+		if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry)) {
+			$staff_enquiry->dob = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffEnquiry']['dob']));
+			if (Yii::$app->user->identity->branch_id != '0') {
+				Yii::$app->SetValues->currentBranch($staff_enquiry);
+			}
+			$attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
+			$staff_enquiry->attachments = 0;
+			if ($staff_enquiry->save()) {
+				$branch = Branch::findOne($staff_enquiry->branch_id);
+				$code = $branch->branch_code . 'SE';
+
+				if (!empty($attachments)) {
+					$root_path = ['staff-enquiry', $staff_enquiry->id];
+					Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
+				}
+				$staff_enquiry->enquiry_id = $code . '-' . date('d') . date('m') . date('y') . '-' . $staff_enquiry->id;
+				$staff_enquiry->update();
+
+				$this->AddContactDirectory($staff_enquiry);
+				Yii::$app->getSession()->setFlash('success', 'Staff Enquiry Added Successfully');
+				return $this->redirect(array('index'));
+			}
+		}
+
+		return $this->render('_staff_enquiry_form', [
+			    'staff_enquiry' => $staff_enquiry,
+		]);
+	}
+
+	/*
+	 * to add patient genquiry details to contact directory for future use
+	 * $info_first ->patient_enquiry_general_first table
+	 * $info_first ->atient_enquiry_general_second table
+	 */
+
+	public function AddContactDirectory($staff_info) {
+		$model = new ContactDirectory();
+		$model->category_type = 2; /* staff enquiry */
+		$model->name = $staff_info->name;
+		$model->email_1 = $staff_info->email;
+		$model->phone_1 = $staff_info->phone_number;
+		$model->designation = $staff_info->designation;
+
+		Yii::$app->SetValues->Attributes($model);
+		if ($model->validate() && $model->save())
+			return TRUE;
+		else
+			return FALSE;
+	}
+
+	/**
+	 * Updates an existing StaffEnquiry model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUpdate($id) {
+
+		$staff_enquiry = $this->findModel($id);
 
 
-                        if (isset($_POST['proceed'])) {
-                                $staff_enquiry->proceed = '1';
-                                $staff_enquiry->update();
-                                return $this->redirect(['staff-info/procced/', 'id' => $staff_enquiry->id]);
-                        } else {
-                                Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
-                                return $this->redirect(array('index'));
-                        }
-                }
+		if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry)) {
+			$staff_enquiry->dob = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffEnquiry']['dob']));
+			$attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
+			$staff_enquiry->attachments = 0;
+			if ($staff_enquiry->save())
+				if (!empty($attachments)) {
+					$root_path = ['staff-enquiry', $staff_enquiry->id];
+					Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
+				}
 
-                return $this->render('_staff_enquiry_form', [
-                            'staff_enquiry' => $staff_enquiry,
-                ]);
-        }
 
-        /**
-         * Deletes an existing StaffEnquiry model.
-         * If deletion is successful, the browser will be redirected to the 'index' page.
-         * @param integer $id
-         * @return mixed
-         */
-        public function actionDelete($id) {
-                $this->findModel($id)->delete();
-                $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $id;
-                if (file_exists($paths)) {
-                        $files = Yii::$app->UploadFile->RemoveFiles($paths);
-                }
-                return $this->redirect(['index']);
-        }
+			if (isset($_POST['proceed'])) {
+				$staff_enquiry->proceed = '1';
+				$staff_enquiry->update();
+				return $this->redirect(['staff-info/procced/', 'id' => $staff_enquiry->id]);
+			} else {
+				Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
+				return $this->redirect(array('index'));
+			}
+		}
 
-        /**
-         * Finds the StaffEnquiry model based on its primary key value.
-         * If the model is not found, a 404 HTTP exception will be thrown.
-         * @param integer $id
-         * @return StaffEnquiry the loaded model
-         * @throws NotFoundHttpException if the model cannot be found
-         */
-        protected function findModel($id) {
-                if (($model = StaffEnquiry::findOne($id)) !== null) {
-                        return $model;
-                } else {
-                        throw new NotFoundHttpException('The requested page does not exist.');
-                }
-        }
+		return $this->render('_staff_enquiry_form', [
+			    'staff_enquiry' => $staff_enquiry,
+		]);
+	}
 
-        public function actionRemove($id, $name) {
+	/**
+	 * Deletes an existing StaffEnquiry model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionDelete($id) {
+		$this->findModel($id)->delete();
+		$paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $id;
+		if (file_exists($paths)) {
+			$files = Yii::$app->UploadFile->RemoveFiles($paths);
+		}
+		return $this->redirect(['index']);
+	}
 
-                $root_path = Yii::$app->basePath . '/../uploads/staff-enquiry';
-                $path = $root_path . '/' . $id . '/' . $name;
-                if (file_exists($path)) {
-                        unlink($path);
-                }
-                return $this->redirect(Yii::$app->request->referrer);
-        }
+	/**
+	 * Finds the StaffEnquiry model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 * @param integer $id
+	 * @return StaffEnquiry the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findModel($id) {
+		if (($model = StaffEnquiry::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
+
+	public function actionRemove($id, $name) {
+
+		$root_path = Yii::$app->basePath . '/../uploads/staff-enquiry';
+		$path = $root_path . '/' . $id . '/' . $name;
+		if (file_exists($path)) {
+			unlink($path);
+		}
+		return $this->redirect(Yii::$app->request->referrer);
+	}
 
 }

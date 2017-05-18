@@ -37,7 +37,7 @@ use common\models\MasterDesignations;
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-			<?php $designation = MasterDesignations::find()->where(['status' => '1'])->all(); ?>   <?= $form->field($model, 'staff_type')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+			<?php $designation = MasterDesignations::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>   <?= $form->field($model, 'staff_type')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 			<?php $form->field($model, 'staff_type')->dropDownList(['1' => 'Registered Nurse', '2' => 'Care Assistant', '3' => 'Doctor'], ['prompt' => '--select staff type--']) ?>
 
                 </div>
@@ -66,7 +66,7 @@ use common\models\MasterDesignations;
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 			<?php
-			$staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 3])->all();
+			$staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 3])->orderBy(['staff_name' => SORT_ASC])->all();
 			?>
 			<?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($staff_managers, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--select staff manager--']) ?>
 
@@ -175,6 +175,7 @@ use common\models\MasterDesignations;
 			// Adding Custom Scrollbar
 			$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
 		});
+
 		$("#day_staff").hide();
 		$("#night_staff").hide();
 
@@ -230,7 +231,22 @@ use common\models\MasterDesignations;
 				url: homeUrl + 'ajax/staffs',
 				success: function (data) {
 					$(".staff-change").html(data);
-
+					$("#service-day_staff").select2({
+						placeholder: 'Choose Principals',
+						allowClear: true
+					}).on('select2-open', function ()
+					{
+						// Adding Custom Scrollbar
+						$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+					});
+					$("#service-night_staff").select2({
+						placeholder: 'Choose Principals',
+						allowClear: true
+					}).on('select2-open', function ()
+					{
+						// Adding Custom Scrollbar
+						$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+					});
 					hideLoader();
 				}
 			});

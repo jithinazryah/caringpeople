@@ -55,9 +55,14 @@ class PatientEnquiryGeneralFirstController extends Controller {
 		$searchModel = new PatientEnquiryGeneralFirstSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		if (Yii::$app->user->identity->branch_id != '0') {
-			//$dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
-			$dataProvider->query->andWhere(['status' => 3]);
+			$dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
 		}
+//		if (!empty(Yii::$app->request->queryParams['PatientEnquiryGeneralFirstSearch']['status'])) {
+//			$dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['PatientEnquiryGeneralFirstSearch']['status']]);
+//		} else {
+//			$dataProvider->query->andWhere(['<>', 'status', 3]);
+//		}
+
 		return $this->render('index', [
 			    'searchModel' => $searchModel,
 			    'dataProvider' => $dataProvider,
@@ -117,7 +122,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
 					$this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
 					$this->AddHospitalDetails($patient_info, Yii::$app->request->post());
 					$this->AddContactDirectory($patient_info, $patient_info_second);
-					Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'create');
+					//Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'create');
 					$this->sendMail($patient_info, $patient_info_second);
 					Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
 					return $this->redirect(array('index'));
@@ -168,7 +173,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
 						$this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
 						$this->AddHospitalDetails($patient_info, Yii::$app->request->post());
 
-						Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'update');
+						//Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'update');
 						Yii::$app->getSession()->setFlash('success', 'Enquiry Updated Successfully');
 						if (isset($_POST['patinet_info'])) {
 
@@ -341,6 +346,8 @@ class PatientEnquiryGeneralFirstController extends Controller {
 	public function AddPatientInformation($id) {
 
 		$model = PatientEnquiryGeneralFirst::find()->where(['id' => $id])->one();
+		$model->status = 3;
+		$model->update();
 		if (!empty($model)) {
 			return $this->redirect(['patient-information/create', 'id' => $model->id]);
 		} else {

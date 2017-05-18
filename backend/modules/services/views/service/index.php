@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 
 $this->title = 'Services';
 $this->params['breadcrumbs'][] = $this->title;
+$designations = \common\models\MasterDesignations::designationlist();
 ?>
 <div class="service-index">
 
@@ -37,12 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
 						    [
 						    'attribute' => 'patient_id',
 						    'value' => 'patient.first_name',
-						    'filter' => ArrayHelper::map(common\models\PatientGeneral::find()->where(['status' => '1'])->asArray()->all(), 'id', 'first_name'),
+						    'filter' => ArrayHelper::map(common\models\PatientGeneral::find()->where(['status' => '1'])->orderBy(['first_name' => SORT_ASC])->asArray()->all(), 'id', 'first_name'),
+						    'filterOptions' => array('id' => "patient_name_search"),
 						],
 						    [
 						    'attribute' => 'service',
 						    'value' => 'service0.service_name',
-						    'filter' => ArrayHelper::map(common\models\MasterServiceTypes::find()->where(['status' => '1'])->asArray()->all(), 'id', 'service_name'),
+						    'filter' => ArrayHelper::map(common\models\MasterServiceTypes::find()->where(['status' => '1'])->orderBy(['service_name' => SORT_ASC])->asArray()->all(), 'id', 'service_name'),
 						],
 						    [
 						    'attribute' => 'duty_type',
@@ -79,15 +81,11 @@ $this->params['breadcrumbs'][] = $this->title;
 						    [
 						    'attribute' => 'staff_type',
 						    'value' => function($model) {
-							    if ($model->staff_type == 1)
-								    return "Registered Nurse";
-							    elseif ($model->staff_type == 2)
-								    return "Care Assistant";
-							    elseif ($model->staff_type == 3)
-								    return "Doctor";
-							    else
-								    return "";
+							    $designation = \common\models\MasterDesignations::findOne(['id' => $model->staff_type]);
+//
+							    return $designation->title;
 						    },
+						    'filter' => ArrayHelper::map($designations, 'id', 'title'),
 						],
 						    [
 						    'attribute' => 'branch_id',
@@ -127,7 +125,16 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
 	$(document).ready(function () {
 		$('#staff_name_search select').attr('id', 'staff_name');
+		$('#patient_name_search select').attr('id', 'patient_name');
 		$("#staff_name").select2({
+			placeholder: '',
+			allowClear: true
+		}).on('select2-open', function ()
+		{
+			// Adding Custom Scrollbar
+			$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+		});
+		$("#patient_name").select2({
 			placeholder: '',
 			allowClear: true
 		}).on('select2-open', function ()
