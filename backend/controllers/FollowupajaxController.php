@@ -62,6 +62,7 @@ class FollowupajaxController extends \yii\web\Controller {
 
         public function actionFollowups() {
                 if (Yii::$app->request->isAjax) {
+
                         $rand = rand();
                         $todays_date = date('d-M-Y h:i');
                         $followup_type = FollowupType::find()->all();
@@ -80,7 +81,7 @@ class FollowupajaxController extends \yii\web\Controller {
                                 $followtype = '';
                         }
 
-                        $options = Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--', 'required' => "required"]);
+                        $options = Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--']);
 
 
                         $followupsub_type = " <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -92,20 +93,19 @@ class FollowupajaxController extends \yii\web\Controller {
 
 
 
+                        if ($_POST['type'] != 5) {
 
-                        $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
-                        $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
+                                $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
+                                $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
+                        } else {
 
-                        $date = DateTimePicker::widget([
-                                    'id' => $rand,
-                                    'name' => 'gffhg',
-                                    'type' => DateTimePicker::TYPE_INPUT,
-                                    'value' => $todays_date,
-                                    'pluginOptions' => [
-                                        'autoclose' => true,
-                                        'format' => 'dd-M-yyyy hh:ii'
-                                    ]
-                        ]);
+                                //      $service = common\models\Service::findOne($_POST['type_id']);
+                                $service = \common\models\Service::find()->where(['id' => $_POST['type_id']])->one();
+                                $data = Yii::$app->SetValues->Assigned($service);
+
+                                $assigned_to = Html::dropDownList('create[assigned_to][]', null, $data, ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
+                        }
+
                         $userid = Yii::$app->user->identity->id;
                         $user = StaffInfo::findOne($userid);
 

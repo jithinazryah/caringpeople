@@ -44,7 +44,7 @@ class Followups extends \yii\db\ActiveRecord {
                 return [
                     'id' => 'ID',
                     'type' => 'Type',
-                    'sub_type' => 'Type',
+                    'sub_type' => 'Category',
                     'type_id' => 'Type ID',
                     'followup_date' => 'Followup Date',
                     'followup_notes' => 'Followup Notes',

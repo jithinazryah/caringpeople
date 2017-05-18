@@ -36,6 +36,8 @@ use yii\widgets\ActiveForm;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'employees')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_directory')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
 
         </div>   <div class="form-group" style="float: right;">

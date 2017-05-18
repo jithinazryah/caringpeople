@@ -22,14 +22,14 @@ use common\models\Branch;
                 <hr class="enquiry-hr"/>
 
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+                        <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'id_card_or_passport_no')->textInput(['maxlength' => true]) ?>
@@ -38,12 +38,12 @@ use common\models\Branch;
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
                         <?php $religion = Religion::find()->where(['status' => '1'])->all(); ?>
-<?= $form->field($model, 'religion')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+                        <?= $form->field($model, 'religion')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                         <?php $nationality = Nationality::find()->where(['status' => '1'])->all(); ?>
-<?= $form->field($model, 'nationality')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+                        <?= $form->field($model, 'nationality')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'occupatiion')->textInput(['maxlength' => true]) ?>
@@ -68,55 +68,63 @@ use common\models\Branch;
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($model, 'passport')->fileInput() ?>
+                        <?= $form->field($model, 'passport')->fileInput() ?>
 
                 </div>
                 <!--		<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($model, 'driving_license')->fileInput() ?>
+                <?= $form->field($model, 'driving_license')->fileInput() ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($model, 'pan_card')->fileInput() ?>
+                <?= $form->field($model, 'pan_card')->fileInput() ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($model, 'voters_id')->fileInput() ?>
+                <?= $form->field($model, 'voters_id')->fileInput() ?>
 
                                 </div>-->
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($model, 'guardian_profile_image')->fileInput() ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <?= $form->field($model, 'guardian_profile_image')->fileInput() ?>
 
 
                 </div>
-                <?php
-                if ($model->guardian_profile_image != '') {
-                        $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
-                        //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
-                        ?>
-                        <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/guardian_profile_image.' . $model->guardian_profile_image; ?> " style="width:100px;height: 100px;"/>
-                        <span>Guardian Image</span>
+
+                <div class="col-md-3">
                         <?php
-                }
-                ?>
+                        if ($model->guardian_profile_image != '') {
+                                $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
+                                //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
+                                ?>
+                                <label>Guardian Image</label>
+                                <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/guardian_profile_image.' . $model->guardian_profile_image; ?> " style="width:100px;height: 100px;"/>
+                                <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;left: 220px;top: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . 'guardian_profile_image.' . $model->guardian_profile_image . "-guardian_profile_image" ?>"></i></a>
+                                <?php
+                        }
+                        ?>
+                </div>
 
-                <?php
-                if (!$model->isNewRecord) {
+                <div class="col-md-3">
+                        <?php
+                        if (!$model->isNewRecord) {
 
-                        $images = array('passport');
-                        $i = 0;
+                                $images = array('passport');
+                                $i = 0;
 
-                        foreach ($images as $value) {
-                                if ($model->$value != '') {
-                                        $i++;
-                                        ?>
-                                        <a href="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?>" target="_blank"><img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?> " style="width:100px;height: 100px;"/></a>
-                                        <span style="font-size: 12px;"><?= $model->getAttributeLabel($value); ?></span>
+                                foreach ($images as $value) {
+                                        if ($model->$value != '') {
+                                                $i++;
+                                                ?>
+                                                <span style="font-size: 12px;"><?= $model->getAttributeLabel($value); ?></span>
+                                                <a href="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?>" target="_blank"><img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?> " style="width:100px;height: 100px;"/></a>
+                                                <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;top: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . $value . '.' . $model->$value . "-" . $value ?>"></i></a>
 
-                                        <?php
+
+                                                <?php
+                                        }
                                 }
                         }
-                }
-                ?>
+                        ?>
+                </div>
 
         </div>
         <h2 style="color:#148eaf;">Patients Details</h2>
@@ -131,7 +139,7 @@ use common\models\Branch;
 
 
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($patient_general, 'patient_id')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($patient_general, 'patient_id')->textInput(['maxlength' => true]) ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'first_name')->textInput(['maxlength' => true]) ?>
@@ -186,7 +194,7 @@ use common\models\Branch;
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($patient_general, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Closed', '3' => 'Pending', '4' => 'Decreased']) ?>
+                        <?= $form->field($patient_general, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Closed', '3' => 'Pending', '4' => 'Decreased']) ?>
 
                 </div>
 
@@ -196,10 +204,10 @@ use common\models\Branch;
                         ?>
                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
                         </div>
-<?php } ?>
+                <?php } ?>
 
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-<?= $form->field($patient_general, 'patient_image')->fileInput() ?>
+                        <?= $form->field($patient_general, 'patient_image')->fileInput() ?>
 
                 </div>
                 <?php

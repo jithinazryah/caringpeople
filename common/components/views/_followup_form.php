@@ -35,7 +35,7 @@ use common\models\StaffInfo;
                                                         <?php //if ($update_followup->type != 5) { ?>
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-sub_type">
-                                                                        <label class="control-label" for="followups-sub_type">Sub Type</label>
+                                                                        <label class="control-label" for="followups-sub_type">Category</label>
                                                                         <?= Html::dropDownList('updatee[' . $update_followup->id . '][sub_type][]', $followup_subtype_Selected, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
@@ -48,11 +48,18 @@ use common\models\StaffInfo;
                                                                 </div>
                                                         </div>
 
+                                                        <?php
+                                                        $data = ArrayHelper::map($all_users, 'id', 'staff_name');
 
+                                                        if ($update_followup->type == '5') {
+                                                                $service = common\models\Service::findOne($type_id);
+                                                                $data = Yii::$app->SetValues->Assigned($service);
+                                                        }
+                                                        ?>
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-assigned_to">
                                                                         <label class="control-label" for="followups-assigned_to">Assigned To</label>
-                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][assigned_to][]', $assigned_to_selected, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
+                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][assigned_to][]', $assigned_to_selected, $data, ['class' => 'form-control', 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
 
@@ -150,14 +157,14 @@ use common\models\StaffInfo;
                                                 <?php }
                                                 ?>
 
-                                                <?php // if ($type != 5) { ?>
+                                                <?php // if ($type != 5) {   ?>
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-sub_type">
-                                                                <label class="control-label" for="followups-sub_type">Sub Type</label>
+                                                                <label class="control-label" for="followups-sub_type">Category</label>
                                                                 <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--']); ?>
                                                         </div>
                                                 </div>
-                                                <?php // } ?>
+                                                <?php // }   ?>
 
 
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -171,8 +178,13 @@ use common\models\StaffInfo;
 
                                                 <?php
                                                 $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
-                                                if (isset($type) && $type != '') {
+                                                $data = ArrayHelper::map($all_users, 'id', 'staff_name');
+
+                                                if (isset($type) && $type != '' && $type != '5') {
                                                         $assigned_too[] = $type_id;
+                                                } else if ($type == '5') {
+                                                        $service = common\models\Service::findOne($type_id);
+                                                        $data = Yii::$app->SetValues->Assigned($service);
                                                 } else {
                                                         $assigned_too[] = '';
                                                 }
@@ -180,7 +192,7 @@ use common\models\StaffInfo;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-assigned_to">
                                                                 <label class="control-label" for="followups-assigned_to">Assigned To</label>
-                                                                <?= Html::dropDownList('create[assigned_to][]', $assigned_too, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
+                                                                <?= Html::dropDownList('create[assigned_to][]', $assigned_too, $data, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'create-assignedto']); ?>
                                                         </div>
                                                 </div>
 
@@ -237,4 +249,6 @@ use common\models\StaffInfo;
                         </div>
                 </div>
         </div>
+
+
 </div>

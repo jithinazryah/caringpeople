@@ -183,7 +183,13 @@ class FollowupsController extends Controller {
                         $add_followp->type_id = $val['type_id'];
                         $add_followp->sub_type = $val['sub_type'];
                         $add_followp->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val['followup_date'])));
-                        $add_followp->assigned_to = $val['assigned_to'];
+                        $assg_to = explode('_', $val['assigned_to']);
+                        if (isset($assg_to))
+                                $assgnd_to = $assg_to[0];
+                        else
+                                $assgnd_to = $val['assigned_to'];
+
+                        $add_followp->assigned_to = $assgnd_to;
                         $add_followp->followup_notes = $val['followup_notes'];
                         $add_followp->assigned_from = Yii::$app->user->identity->id;
                         $add_followp->attachments = $val['name'];
@@ -193,6 +199,7 @@ class FollowupsController extends Controller {
                         if (!empty($add_followp->assigned_to))
                                 $add_followp->save(false);
                         $this->Imageupload($add_followp->id, $val['name'], $val['tmp_name']);
+                        $this->sendMail($add_followp, $val['assigned_to']);
                 }
         }
 
@@ -262,6 +269,27 @@ class FollowupsController extends Controller {
                 $target_dir = Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $id . "/";
                 $target_file = $target_dir . $filename;
                 move_uploaded_file($Tmpfilename, $target_file);
+        }
+
+        public function sendMail($add_followp, $assigned) {
+
+                $assg_to = explode('_', $assigned);
+                if (isset($assg_to[1]) && $assg_to[1] == 'p') {
+                        $email_to = \common\models\PatientGeneral::findOne($assg_to[0]);
+                } else {
+                        $email_to = \common\models\StaffInfo::findOne($assg_to[0]);
+                }
+                if (isset($email_to->email) && $email_to->email != '') {
+                        $to = $email_to->email;
+                        $subject = 'Followup Assigned';
+                        $message = $this->renderPartial('send-mail', ['assigned_to' => $assg_to[0]]);
+
+                        // To send HTML mail, the Content-type header must be set
+                        $headers = 'MIME-Version: 1.0' . "\r\n";
+                        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
+                                "From: info@caringpeople.in";
+                        mail($to, $subject, $message, $headers);
+                }
         }
 
         public function actionClosed($type_id = 'NULL', $type = 'NULL') {

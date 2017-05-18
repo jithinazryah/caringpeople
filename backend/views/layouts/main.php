@@ -294,7 +294,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                         <?php //} ?>
 
                                         <?php
-                                        if (Yii::$app->session['post']['admin'] == 1) {
+                                        if (Yii::$app->session['post']['contact_directory'] == 1) {
                                                 ?>
                                                 <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
@@ -546,7 +546,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                 ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                  ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">

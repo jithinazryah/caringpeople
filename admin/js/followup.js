@@ -63,6 +63,7 @@ $("document").ready(function () {
                         data: {type: type, type_id: type_id},
                         url: homeUrl + 'followupajax/followups',
                         success: function (data) {
+
                                 hideLoader();
                                 $(data).appendTo(scntDiv);
                                 i++;

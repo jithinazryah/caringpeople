@@ -14,7 +14,7 @@ $link = Yii::$app->request->referrer
         </li>
 
         <li>
-                <a href="<?= Yii::$app->homeUrl; ?>followup/followups/followups?type=" ><span class="visible-xs"><i class="fa-hospital-o"></i></span>
+                <a href="<?= Yii::$app->homeUrl; ?>followup/followups/followups?type_id=<?= $type_id; ?>&type=5&service=setvice" ><span class="visible-xs"><i class="fa-hospital-o"></i></span>
                         <span class="hidden-xs span-font-size">Followups</span></a>
         </li>
 

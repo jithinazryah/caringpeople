@@ -112,4 +112,21 @@ $("document").ready(function () {
                 });
         });
 
+        $('.img-removes').on('click', function (e) {
+
+                var data = $(this).attr('id');
+                var datas = data.split("-");
+
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {id: datas[0], name: datas[1], type: datas[2]},
+                        url: homeUrl + 'ajax/patientremove',
+                        success: function (data) {
+                                alert(data);
+                                $('#' + datas[2]).remove();
+                        }
+                });
+        });
+
 });
