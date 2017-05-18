@@ -99,10 +99,8 @@ class FollowupajaxController extends \yii\web\Controller {
                                 $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
                         } else {
 
-                                //      $service = common\models\Service::findOne($_POST['type_id']);
                                 $service = \common\models\Service::find()->where(['id' => $_POST['type_id']])->one();
                                 $data = Yii::$app->SetValues->Assigned($service);
-
                                 $assigned_to = Html::dropDownList('create[assigned_to][]', null, $data, ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
                         }
 

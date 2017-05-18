@@ -1217,7 +1217,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 }
                                                                                 ?>
                                                                                 <div class="img_data">
-                                                                                        <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/' . $value . '.' . $staff_uploads->$value; ?>" target="_blank"><?= $staff_uploads->getAttributeLabel($value); ?></a>
+                                                                                        <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/' . $value . '.' . $staff_uploads->$value; ?>" target="_blank"><?php
+                                                                                                if ($value == 'authorised_letter') {
+                                                                                                        echo 'Authorised Letter';
+                                                                                                } else {
+                                                                                                        echo $staff_uploads->getAttributeLabel($value);
+                                                                                                }
+                                                                                                ?></a>
 
                                                                                 </div>
                                                                                 <?php
@@ -1236,7 +1242,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                         </div>
-                                                <?php } ?>
+<?php } ?>
                                                 <div class="print">
                                                         <button onclick="printContent('pdf')" style="font-weight: bold !important;">Print</button>
                                                 </div>
