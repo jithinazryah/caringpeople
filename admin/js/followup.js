@@ -178,5 +178,21 @@ $("document").ready(function () {
                         }
                 });
         });
+
+
+        $('.followup-attach-remove').on('click', function (e) {
+                var data = $(this).attr('id');
+                var datas = data.split("-");
+
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {id: datas[0], name: datas[1]},
+                        url: homeUrl + 'followupajax/attachremove',
+                        success: function (data) {
+                                $('#attach_' + datas[0]).remove();
+                        }
+                });
+        });
 }
 );

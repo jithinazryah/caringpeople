@@ -177,7 +177,7 @@ use common\models\StaffInfo;
 
 
                                                 <?php
-                                                $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
+                                                $all_users = StaffInfo::find()->where(['post_id' => '5'])->orderBy(['staff_name' => SORT_ASC])->all();
                                                 $data = ArrayHelper::map($all_users, 'id', 'staff_name');
 
                                                 if (isset($type) && $type != '' && $type != '5') {

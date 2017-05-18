@@ -58,7 +58,14 @@ $encrypt_followup_id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $data->id);
                         </span>
                 </p>
 
-                <?php if ($data->attachments != '') { ?>   <p><a href="<?= Yii::$app->homeUrl . '../uploads/followups/' . $data->id . '/' . $data->attachments; ?>" target="_blank" style="font-size: 10px;color: #0d0da5;">View Attachament</a></p><?php } ?>
+                <?php if ($data->attachments != '') { ?>
+                        <div id="attach_<?= $data->id ?>">
+                                <p><a href="<?= Yii::$app->homeUrl . '../uploads/followups/' . $data->id . '/' . $data->attachments; ?>" target="_blank" style="font-size: 10px;color: #0d0da5;">View Attachament</a>
+                                        <a title="Delete"><i class="fa fa-remove followup-attach-remove" style="margin-left: 5px;left: 220px;top: 5px;cursor: pointer;font-size: 12px;" id="<?= $data->id . "-" . $data->attachments; ?>"></i></a></p>
+
+
+                        </div>
+                <?php } ?>
         </blockquote>
 </div>
 

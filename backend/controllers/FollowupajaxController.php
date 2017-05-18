@@ -220,4 +220,27 @@ class FollowupajaxController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * to remove images of followups (uploaded images in followups)
+         */
+
+        public function actionAttachremove() {
+
+                $id = $_POST['id'];
+                $name = $_POST['name'];
+
+                $root_path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups';
+                $path = $root_path . '/' . $id . '/' . $name;
+
+                if (file_exists($path)) {
+
+                        if (unlink($path)) {
+
+                                $data_update = Followups::find()->where(['id' => $id])->one();
+                                $data_update->attachments = '';
+                                $data_update->update();
+                        }
+                }
+        }
+
 }
