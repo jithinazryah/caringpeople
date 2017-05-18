@@ -281,7 +281,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:595px;">
-<?= $guardian_details->occupatiion; ?>
+                                                                                                                                <?= $guardian_details->occupatiion; ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -294,7 +294,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:595px;">
-<?= $guardian_details->permanent_address; ?>
+                                                                                                                                <?= $guardian_details->permanent_address; ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -307,7 +307,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:249px;">
-<?= $guardian_details->pincode; ?>
+                                                                                                                                <?= $guardian_details->pincode; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -319,7 +319,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:249px;">
-<?= $guardian_details->landmark; ?>
+                                                                                                                                <?= $guardian_details->landmark; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -333,7 +333,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width: 224px;">
-<?= $guardian_details->contact_number; ?>
+                                                                                                                                <?= $guardian_details->contact_number; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -345,7 +345,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:249px;">
-<?= $guardian_details->email; ?>
+                                                                                                                                <?= $guardian_details->email; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -359,7 +359,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:595px;">
-<?= $guardian_details->adhar_card_no; ?>
+                                                                                                                                <?= $guardian_details->adhar_card_no; ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -414,18 +414,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width: 415px;text-transform: uppercase;">
-<?= $patient_details->first_name . ' ' . $patient_details->last_name; ?>
+                                                                                                                                <?= $patient_details->first_name . ' ' . $patient_details->last_name; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
                                                                                                         </td>
-<?php if ($patient_details->patient_image != '') { ?>
+                                                                                                        <?php if ($patient_details->patient_image != '') { ?>
                                                                                                                 <td>
                                                                                                                         <div class="view-profile_image">
                                                                                                                                 <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_details->id . '/patient_image.' . $patient_details->patient_image; ?> "/>
                                                                                                                         </div>
                                                                                                                 </td>
-<?php } ?>
+                                                                                                        <?php } ?>
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                         <td colspan="2">
@@ -469,7 +469,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Weight :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 170px;">
-<?= $patient_details->weight; ?>
+                                                                                                                                <?= $patient_details->weight; ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -487,7 +487,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:595px;">
-<?= $patient_details->present_address; ?>
+                                                                                                                                <?= $patient_details->present_address; ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -500,7 +500,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:249px;">
-<?= $patient_details->pin_code; ?>
+                                                                                                                                <?= $patient_details->pin_code; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -512,7 +512,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:249px;">
-<?= $patient_details->landmark; ?>
+                                                                                                                                <?= $patient_details->landmark; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -526,7 +526,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width: 224px;">
-<?= $patient_details->contact_number; ?>
+                                                                                                                                <?= $patient_details->contact_number; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -538,7 +538,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:249px;">
-<?= $patient_details->email; ?>
+                                                                                                                                <?= $patient_details->email; ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -667,7 +667,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:580px;text-align: left">
-<?= $chronic_imformation->othersspecify; ?>
+                                                                                                                                <?= $chronic_imformation->othersspecify; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -690,7 +690,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Since :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:150px">
-<?= $chronic_imformation->diabetic_since ?>
+                                                                                                                                <?= $chronic_imformation->diabetic_since ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -700,7 +700,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Medication :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:150px">
-<?= $chronic_imformation->diabetic_medication ?>
+                                                                                                                                <?= $chronic_imformation->diabetic_medication ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -725,7 +725,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Since :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:150px">
-<?= $chronic_imformation->hypertension_since ?>
+                                                                                                                                <?= $chronic_imformation->hypertension_since ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -735,7 +735,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Medication :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:150px">
-<?= $chronic_imformation->hypertension_medication ?>
+                                                                                                                                <?= $chronic_imformation->hypertension_medication ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -762,7 +762,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Specify
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 458px;">
-<?= $chronic_imformation->allergy_specify ?>
+                                                                                                                                <?= $chronic_imformation->allergy_specify ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -792,7 +792,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Specify
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:250px">
-<?= $chronic_imformation->serology_specify ?>
+                                                                                                                                <?= $chronic_imformation->serology_specify ?>
                                                                                                                         </div>
 
 
@@ -835,7 +835,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Others(Specify)
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:580px">
-<?= $chronic_imformation->others_specify ?>
+                                                                                                                                <?= $chronic_imformation->others_specify ?>
                                                                                                                         </div>
 
 
@@ -877,7 +877,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:450px">
-<?= $chronic_imformation->specify_surgery_details ?>
+                                                                                                                                <?= $chronic_imformation->specify_surgery_details ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -892,7 +892,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:170px">
-<?= $chronic_imformation->name_of_doctor_1 ?>
+                                                                                                                                <?= $chronic_imformation->name_of_doctor_1 ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -903,7 +903,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:170px">
-<?= $chronic_imformation->doctor1_mob ?>
+                                                                                                                                <?= $chronic_imformation->doctor1_mob ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -917,7 +917,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:170px">
-<?= $chronic_imformation->name_of_hospital_1 ?>
+                                                                                                                                <?= $chronic_imformation->name_of_hospital_1 ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -928,7 +928,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:170px">
-<?= $chronic_imformation->hospital1_phone_no ?>
+                                                                                                                                <?= $chronic_imformation->hospital1_phone_no ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -942,7 +942,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:170px">
-<?= $chronic_imformation->name_of_doctor_2 ?>
+                                                                                                                                <?= $chronic_imformation->name_of_doctor_2 ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -953,7 +953,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:170px">
-<?= $chronic_imformation->doctor2_mob ?>
+                                                                                                                                <?= $chronic_imformation->doctor2_mob ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -967,7 +967,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:170px">
-<?= $chronic_imformation->name_of_hospital_2 ?>
+                                                                                                                                <?= $chronic_imformation->name_of_hospital_2 ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -978,7 +978,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:170px">
-<?= $chronic_imformation->hospital2_phone_no ?>
+                                                                                                                                <?= $chronic_imformation->hospital2_phone_no ?>
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </td>
@@ -1064,7 +1064,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width:580px;">
-<?= $present_condition->diagnosis; ?>
+                                                                                                                                <?= $present_condition->diagnosis; ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1088,7 +1088,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Specify
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 150px;">
-<?= $present_condition->paralised_specify ?>
+                                                                                                                                <?= $present_condition->paralised_specify ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1111,7 +1111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Tube Size :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:150px">
-<?= $present_condition->tube_size ?>
+                                                                                                                                <?= $present_condition->tube_size ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1121,7 +1121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Last Change Date :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:150px">
-<?= $present_condition->last_change_date ?>
+                                                                                                                                <?= $present_condition->last_change_date ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1147,7 +1147,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Specify
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 150px;">
-<?= $present_condition->specify ?>
+                                                                                                                                <?= $present_condition->specify ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1170,7 +1170,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Tube No :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:70px">
-<?= $present_condition->tube_no ?>
+                                                                                                                                <?= $present_condition->tube_no ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1181,7 +1181,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Type :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:100px">
-<?= $present_condition->foleys_tube_type ?>
+                                                                                                                                <?= $present_condition->foleys_tube_type ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1195,7 +1195,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Last Change Date :
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width:150px">
-<?= $present_condition->foleys_last_change_date ?>
+                                                                                                                                <?= $present_condition->foleys_last_change_date ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1218,7 +1218,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <div class="content">
 
                                                                                                                         <div class="data_sty" style="width: 150px;">
-<?= $present_condition->bladder_wash_data ?>
+                                                                                                                                <?= $present_condition->bladder_wash_data ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1230,7 +1230,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                         </div>
 
                                                                                                                         <div class="data_sty" style="width: 150px;">
-<?= $present_condition->cath_care ?>
+                                                                                                                                <?= $present_condition->cath_care ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1254,7 +1254,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Others(if Others Specify)
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 300px;">
-<?= $present_condition->specify ?>
+                                                                                                                                <?= $present_condition->specify ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1315,7 +1315,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Name of Hospital:
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 300px;">
-<?= $bystander_details->hospital_name ?>
+                                                                                                                                <?= $bystander_details->hospital_name ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1326,7 +1326,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Room No:
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 150px;">
-<?= $bystander_details->room_no ?>
+                                                                                                                                <?= $bystander_details->room_no ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1340,7 +1340,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Consulting Doctor:
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 300px;">
-<?= $bystander_details->consulting_doctor ?>
+                                                                                                                                <?= $bystander_details->consulting_doctor ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1353,7 +1353,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 No. of days:
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 300px;">
-<?= $bystander_details->no_of_days ?>
+                                                                                                                                <?= $bystander_details->no_of_days ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1364,7 +1364,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                                 Mode:
                                                                                                                         </div>
                                                                                                                         <div class="data_sty" style="width: 150px;">
-<?= $bystander_details->mode ?>
+                                                                                                                                <?= $bystander_details->mode ?>
                                                                                                                         </div>
 
                                                                                                                 </div>
@@ -1575,6 +1575,32 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <!--</html>-->
 
                                                 </div>
+
+                                                <?php if (isset($guardian_details->passport) && $guardian_details->passport != '') { ?>
+                                                        <div class="row">
+                                                                <label style="    color: #148eaf;font-size: 19px;margin-left: 14px;">Uploaded Files</label>
+                                                        </div>
+                                                        <div class="col-md-3" >
+                                                                <?php
+                                                                $images = array('passport');
+                                                                $i = 0;
+
+                                                                foreach ($images as $value) {
+                                                                        if ($guardian_details->$value != '') {
+                                                                                $i++;
+                                                                                ?>
+
+                                                                                <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_details->id . '/' . $value . '.' . $guardian_details->$value; ?> " style="width:100px;height: 100px;"/>
+                                                                                </br><span style="font-size: 12px;"><?= $guardian_details->getAttributeLabel($value); ?></span>
+
+                                                                                <?php
+                                                                        }
+                                                                }
+                                                                ?>
+                                                        </div>
+                                                <?php } ?>
+
+
                                                 <div class="print">
                                                         <button onclick="printContent('pdf')" style="font-weight: bold !important;">Print</button>
                                                 </div>

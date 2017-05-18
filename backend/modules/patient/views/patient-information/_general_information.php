@@ -88,22 +88,23 @@ use common\models\Branch;
 
 
                 </div>
+                <?php if ($model->guardian_profile_image != '') { ?>
+                        <div class = "col-md-3" id = "guardian_profile_image">
 
-                <div class="col-md-3">
-                        <?php
-                        if ($model->guardian_profile_image != '') {
+                                <?php
                                 $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
                                 //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
                                 ?>
                                 <label>Guardian Image</label>
                                 <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/guardian_profile_image.' . $model->guardian_profile_image; ?> " style="width:100px;height: 100px;"/>
                                 <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;left: 220px;top: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . 'guardian_profile_image.' . $model->guardian_profile_image . "-guardian_profile_image" ?>"></i></a>
-                                <?php
-                        }
-                        ?>
-                </div>
 
-                <div class="col-md-3">
+
+
+                        </div>
+                <?php } ?>
+
+                <div class="col-md-3" id="passport">
                         <?php
                         if (!$model->isNewRecord) {
 
@@ -116,7 +117,7 @@ use common\models\Branch;
                                                 ?>
                                                 <span style="font-size: 12px;"><?= $model->getAttributeLabel($value); ?></span>
                                                 <a href="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?>" target="_blank"><img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?> " style="width:100px;height: 100px;"/></a>
-                                                <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;top: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . $value . '.' . $model->$value . "-" . $value ?>"></i></a>
+                                                <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;margin-left: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . $value . '.' . $model->$value . "-" . $value ?>"></i></a>
 
 
                                                 <?php
@@ -216,9 +217,10 @@ use common\models\Branch;
                         //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
                         ?>
 
-                        <div class="col-md-2">
-                                <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/patient_image.' . $patient_general->patient_image; ?> " style="width:100px;height: 100px;"/>
+                        <div class="col-md-2" id="patient_image">
                                 <span>Patient Image</span>
+                                <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/patient_image.' . $patient_general->patient_image; ?> " style="width:100px;height: 100px;"/>
+                                <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;left: 220px;top: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . 'patient_image.' . $patient_general->patient_image . "-patient_image" ?>"></i></a>
                         </div>
 
                 <?php }
