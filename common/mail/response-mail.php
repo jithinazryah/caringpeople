@@ -5,6 +5,10 @@ use yii\helpers\Url;
 
 /* @var $this \yii\web\View view component instance */
 /* @var $message \yii\mail\BaseMessage instance of newly created mail message */
+if (isset($touser) && $touser != '')
+        $name = $touser;
+else
+        $name = '';
 ?>
 
 <html>
@@ -45,7 +49,7 @@ use yii\helpers\Url;
                                                         <div class="replay-content" style="text-align: justify;padding-right: 50px;padding-left: 50px;">
                                                                 <hr style="border: 2px solid #9E9E9E;">
                                                                 <div class="main-content">
-                                                                        <p>Dear ,</p>
+                                                                        <p>Dear <?= $name ?>,</p>
 
 
                                                                         <p>Thank you so much for your inquiry into our services. We pride ourselves in providing the very best care and we look forward to the opportunity of working with you.</p>
