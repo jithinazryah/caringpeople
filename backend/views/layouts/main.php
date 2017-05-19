@@ -360,6 +360,9 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                 <?= Html::a('Leave Types', ['/masters/master-leave-type/index'], ['class' => 'title']) ?>
                                                                         </li>
                                                                         <li>
+                                                                                <?= Html::a('Designations', ['/masters/master-designations/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                        <li>
                                                                                 <?= Html::a('Followups Category', ['/masters/followup-sub-type/index'], ['class' => 'title']) ?>
                                                                         </li>
                                                                         <li>
@@ -546,7 +549,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                          ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                           ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">

@@ -5,20 +5,20 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\ContactDirectory;
+use common\models\MasterDesignations;
 
 /**
- * ContactDirectorySearch represents the model behind the search form about `common\models\ContactDirectory`.
+ * MasterDesignationsSearch represents the model behind the search form about `common\models\MasterDesignations`.
  */
-class ContactDirectorySearch extends ContactDirectory {
+class MasterDesignationsSearch extends MasterDesignations {
 
         /**
          * @inheritdoc
          */
         public function rules() {
                 return [
-                        [['id', 'category_type', 'field_1', 'field_2', 'CB', 'UB'], 'integer'],
-                        [['name', 'email_1', 'email_2', 'phone_1', 'phone_2', 'designation', 'company_name', 'references', 'remarks', 'DOC', 'DOU', 'subcategory_type'], 'safe'],
+                        [['id', 'status', 'CB', 'UB'], 'integer'],
+                        [['title', 'DOC', 'DOU'], 'safe'],
                 ];
         }
 
@@ -38,7 +38,7 @@ class ContactDirectorySearch extends ContactDirectory {
          * @return ActiveDataProvider
          */
         public function search($params) {
-                $query = ContactDirectory::find();
+                $query = MasterDesignations::find();
 
                 // add conditions that should always apply here
 
@@ -59,25 +59,14 @@ class ContactDirectorySearch extends ContactDirectory {
                 // grid filtering conditions
                 $query->andFilterWhere([
                     'id' => $this->id,
-                    'category_type' => $this->category_type,
-                    'subcategory_type' => $this->subcategory_type,
-                    'field_1' => $this->field_1,
-                    'field_2' => $this->field_2,
+                    'status' => $this->status,
                     'CB' => $this->CB,
                     'UB' => $this->UB,
                     'DOC' => $this->DOC,
                     'DOU' => $this->DOU,
                 ]);
 
-                $query->andFilterWhere(['like', 'name', $this->name])
-                        ->andFilterWhere(['like', 'email_1', $this->email_1])
-                        ->andFilterWhere(['like', 'email_2', $this->email_2])
-                        ->andFilterWhere(['like', 'phone_1', $this->phone_1])
-                        ->andFilterWhere(['like', 'phone_2', $this->phone_2])
-                        ->andFilterWhere(['like', 'designation', $this->designation])
-                        ->andFilterWhere(['like', 'company_name', $this->company_name])
-                        ->andFilterWhere(['like', 'references', $this->references])
-                        ->andFilterWhere(['like', 'remarks', $this->remarks]);
+                $query->andFilterWhere(['like', 'title', $this->title]);
 
                 return $dataProvider;
         }
