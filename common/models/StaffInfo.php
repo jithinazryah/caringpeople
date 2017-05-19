@@ -253,6 +253,10 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 return $this->getAuthKey() === $authKey;
         }
 
+        public function getNamePost() {
+                return $this->staff_name . "(" . $this->post->post_name . ")";
+        }
+
         public function getFullName() {
                 return $this->staff_name . "( Super Admin) ";
         }

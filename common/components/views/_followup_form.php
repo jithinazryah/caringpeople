@@ -25,7 +25,7 @@ use common\models\StaffInfo;
                                         if (!empty($update_followup)) {
                                                 $followup_type = FollowupType::find()->all();
                                                 $followup_subtype = FollowupSubType::find()->where(['type_id' => $update_followup->type, 'status' => '1'])->all();
-                                                $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
+                                                $all_users = StaffInfo::find()->where(['<>', 'post_id', '5'])->orderBy(['staff_name' => SORT_ASC])->all();
                                                 $followup_type_Selected[] = $update_followup->type;
                                                 $followup_subtype_Selected[] = $update_followup->sub_type;
                                                 $assigned_to_selected[] = $update_followup->assigned_to;
@@ -49,7 +49,7 @@ use common\models\StaffInfo;
                                                         </div>
 
                                                         <?php
-                                                        $data = ArrayHelper::map($all_users, 'id', 'staff_name');
+                                                        $data = ArrayHelper::map($all_users, 'id', 'namepost');
 
                                                         if ($update_followup->type == '5') {
                                                                 $service = common\models\Service::findOne($type_id);
@@ -177,8 +177,11 @@ use common\models\StaffInfo;
 
 
                                                 <?php
-                                                $all_users = StaffInfo::find()->where(['post_id' => '5'])->orderBy(['staff_name' => SORT_ASC])->all();
-                                                $data = ArrayHelper::map($all_users, 'id', 'staff_name');
+                                                /*
+                                                 * expect staff
+                                                 */
+                                                $all_users = StaffInfo::find()->where(['<>', 'post_id', '5'])->orderBy(['staff_name' => SORT_ASC])->all();
+                                                $data = ArrayHelper::map($all_users, 'id', 'namepost');
 
                                                 if (isset($type) && $type != '' && $type != '5') {
                                                         $assigned_too[] = $type_id;
@@ -252,3 +255,7 @@ use common\models\StaffInfo;
 
 
 </div>
+
+
+
+

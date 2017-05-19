@@ -7,6 +7,10 @@ use kartik\datetime\DateTimePicker;
 use common\models\FollowupType;
 use common\models\FollowupSubType;
 use common\models\StaffInfo;
+use common\models\PatientEnquiryGeneralFirst;
+use common\models\PatientGeneral;
+use common\models\StaffEnquiry;
+use common\models\Service;
 
 if ($data->status == '0') {
         $color = 'blockquote-info'; //status-open
@@ -27,6 +31,25 @@ $assigned_to = $assigned_to->staff_name;
 $assigned_from = StaffInfo::findOne($data->assigned_from);
 $assigned_from = $assigned_from->staff_name;
 $encrypt_followup_id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $data->id);
+
+$type = FollowupType::findOne($data->type);
+if ($data->type == 1) {
+        $patient_enquiry = PatientEnquiryGeneralFirst::findOne($data->type_id);
+        $required_person = $patient_enquiry->caller_name;
+} else if ($data->type == 2) {
+        $patient = PatientGeneral::findOne($data->type_id);
+        $required_person = $patient->first_name;
+} else if ($data->type == 3) {
+        $staff_enquiry = StaffEnquiry::findOne($data->type_id);
+        $required_person = $staff_enquiry->name;
+} else if ($data->type == 4) {
+        $staffs = SraffInfo::findOne($data->type_id);
+        $required_person = $staffs->staff_name;
+} else if ($data->type == 5) {
+        $service = Service::findOne($data->type_id);
+        $patient = PatientGeneral::findOne($service->patient_id);
+        $required_person = $patient->first_name;
+}
 ?>
 
 
@@ -42,6 +65,10 @@ $encrypt_followup_id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $data->id);
 
                 <p style="text-align:right;font-size: 12px;margin-top: 3px;">
                         <span>Status: <?= $status; ?></span>
+                </p>
+
+                <p style="font-size: 12px;">
+                        <?= $type->type; ?> (<?= $required_person; ?>)
                 </p>
 
                 <p>
