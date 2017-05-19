@@ -120,7 +120,7 @@ class ServiceController extends Controller {
 			$model->night_staff = Yii::$app->request->post()['Service']['night_staff'];
 			$model->patient_advance_payment = Yii::$app->request->post()['Service']['patient_advance_payment'];
 			if ($model->validate() && $model->save())
-				return $this->redirect(['view', 'id' => $model->id]);
+				return $this->redirect(['/followup/followups/followups', 'type_id' => $model->id, 'type' => 5, 'service' => 'service']);
 		}
 		return $this->render('create', [
 			    'model' => $model,

@@ -546,7 +546,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                         ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                          ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -966,6 +966,50 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
                                                 </div>
                                         </div>
+
+
+                                </div>
+
+                                <div class="modal-footer">
+                                        <!--                                        <button type="button" class="btn btn-info" id="addFollowupsubmit">Submit</button>-->
+                                        <input  type="submit" class="btn btn-info" value="Submit">
+                                </div>
+                        </form>
+                </div>
+        </div>
+</div>
+
+<div class="modal" id="modal-reset">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                        <form id="reset_password_form">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Reset Password</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                        <div class="row">
+                                                <input type="hidden" id="user_id" value="">
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <input type="text" class="form-control some_class" id="new-password" name="new-password" required="required" placeholder="New Password">
+                                                        </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <input type="text" class="form-control some_class" id="confirm-password" name="confirm-password" required="required" placeholder="Confirm Password">
+                                                                <div class="mismatch_error" style="color: rgba(255, 0, 0, 0.78);"></div>
+                                                        </div>
+
+                                                </div>
+                                        </div>
+
+
+
+
+
+
 
 
                                 </div>

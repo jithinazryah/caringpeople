@@ -18,6 +18,7 @@ use common\models\MasterDesignations;
 <div class="service-form form-inline">
 
 	<?php $form = ActiveForm::begin(); ?>
+	<?= $form->errorSummary($model); ?>
         <div class="row">
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 			<?php
@@ -168,6 +169,22 @@ use common\models\MasterDesignations;
 	$(document).ready(function () {
 
 		$("#service-patient_id").select2({
+			placeholder: 'Choose Principals',
+			allowClear: true
+		}).on('select2-open', function ()
+		{
+			// Adding Custom Scrollbar
+			$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+		});
+		$("#service-day_staff").select2({
+			placeholder: 'Choose Principals',
+			allowClear: true
+		}).on('select2-open', function ()
+		{
+			// Adding Custom Scrollbar
+			$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+		});
+		$("#service-night_staff").select2({
 			placeholder: 'Choose Principals',
 			allowClear: true
 		}).on('select2-open', function ()
