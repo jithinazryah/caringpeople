@@ -22,14 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                 </div>
+                                <a href="<?= Yii::$app->homeUrl; ?>followup/followups/assignedclosed" class="btn btn-secondary" style="margin-top:10px;    float: right;">Closed Followups</a>
                                 <div class="panel-body">
 
                                         <?php
-                                        if (!empty($followups))
+                                        if (!empty($followups)) {
                                                 foreach ($followups as $value) {
 
                                                         echo FollowupsviewWidget::widget(['data' => $value]);
                                                 }
+                                        } else {
+                                                echo '<p style="text-align:center;"> No followups found !!</p>';
+                                        }
                                         ?>
                                 </div>
                         </div>

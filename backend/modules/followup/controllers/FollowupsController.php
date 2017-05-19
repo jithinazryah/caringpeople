@@ -51,8 +51,19 @@ class FollowupsController extends Controller {
          */
         public function actionView() {
 
-                $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->all();
+                $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
                 return $this->render('index', [
+                            'followups' => $followups,
+                ]);
+        }
+
+        /*
+         * to view closed followups to assif=gned persons (my tasks-closed
+         */
+
+        public function actionAssignedclosed() {
+                $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['status' => '1'])->all();
+                return $this->render('closed', [
                             'followups' => $followups,
                 ]);
         }
@@ -66,7 +77,6 @@ class FollowupsController extends Controller {
 
                         $this->AddFollowups();
                 }
-
                 /*
                  * call function Addfollowups to updtae followup
                  */
@@ -74,7 +84,6 @@ class FollowupsController extends Controller {
                         $this->UpdateFollowups();
                         $id = '';
                 }
-
                 /*
                  *  take already added followups to view
                  */
@@ -263,6 +272,10 @@ class FollowupsController extends Controller {
                 }
         }
 
+        /*
+         * upload attav=chements to each folllowup
+         */
+
         public function Imageupload($id, $filename, $Tmpfilename) {
                 $paths = ['followups', $id];
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
@@ -270,6 +283,10 @@ class FollowupsController extends Controller {
                 $target_file = $target_dir . $filename;
                 move_uploaded_file($Tmpfilename, $target_file);
         }
+
+        /*
+         * to send email
+         */
 
         public function sendMail($add_followp, $assigned) {
 
@@ -292,6 +309,10 @@ class FollowupsController extends Controller {
                 }
         }
 
+        /*
+         * to view closed followups of ecah patient/staff/closed
+         */
+
         public function actionClosed($type_id = 'NULL', $type = 'NULL') {
 
                 $followups = Followups::find()->where(['type_id' => $type_id, 'status' => '1'])->all();
@@ -304,48 +325,6 @@ class FollowupsController extends Controller {
                 ]);
         }
 
-        /**
-         * Creates a new Followups model.
-         * If creation is successful, the browser will be redirected to the 'view' page.
-         * @return mixed
-         */
-        public function actionCreate() {
-
-                $model = new Followups();
-
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
-                } else {
-                        return $this->render('create', [
-                                    'model' => $model,
-                        ]);
-                }
-        }
-
-        /**
-         * Updates an existing Followups model.
-         * If update is successful, the browser will be redirected to the 'view' page.
-         * @param integer $id
-         * @return mixed
-         */
-        public function actionUpdate($id) {
-                $model = $this->findModel($id);
-
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id]);
-                } else {
-                        return $this->render('update', [
-                                    'model' => $model,
-                        ]);
-                }
-        }
-
-        /**
-         * Deletes an existing Followups model.
-         * If deletion is successful, the browser will be redirected to the 'index' page.
-         * @param integer $id
-         * @return mixed
-         */
         public function actionDelete($id) {
                 $this->findModel($id)->delete();
 
