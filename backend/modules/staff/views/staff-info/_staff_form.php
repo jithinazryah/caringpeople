@@ -11,6 +11,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Staffs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="enquiry-index">
 
         <div class="row">
@@ -21,61 +22,84 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
                                 </div>
-
-                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
-                                <?php if (!$model->isNewRecord) { ?>
+                                <?php if (Yii::$app->controller->action->id != 'editprofile') { ?>
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
+                                <?php } ?>
+                                <?php if (!$model->isNewRecord && Yii::$app->controller->action->id != 'editprofile') { ?>
                                         <a href="javascript:;" id="4_<?= $model->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
-                                        <a href="javascript:;" id="<?= $model->id; ?>"  class="ResetPassword" style="padding: 14px;
-                                           font-size: 14px;
-                                           font-weight: bold;
-                                           text-decoration: none;
-                                           float: right;">Reset Password</a>
+                                        <div id="rEset"> <a href="javascript:;" id="<?= $model->id; ?>"  class="ResetPassword" style="padding: 14px;
+                                                            font-size: 14px;
+                                                            font-weight: bold;
+                                                            text-decoration: none;
+                                                            float: right;">Reset Password</a></div>
 
                                 <?php } ?>
-                                <?=
-                                $this->render('_menus', [
-                                    'model' => $model,
-                                ])
-                                ?>
+                                <?php if (Yii::$app->controller->action->id != 'editprofile') { ?>
+                                        <?=
+                                        $this->render('_menus', [
+                                            'model' => $model,
+                                        ])
+                                        ?>
+                                <?php } ?>
                                 <div class="panel-body panel_body_background" >
                                         <?php $form = ActiveForm::begin(); ?>
                                         <div class="tab-content tab_data_margin" >
+                                                <?php if (Yii::$app->controller->action->id != 'editprofile') { ?>
+                                                        <div class="tab-pane active" id="home-3">
+                                                                <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                                                        <div class="alert alert-danger" role="alert">
+                                                                                <?= Yii::$app->session->getFlash('error') ?>
+                                                                        </div>
+                                                                <?php endif; ?>
+                                                                <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                                        <div class="alert alert-success" role="alert">
+                                                                                <?= Yii::$app->session->getFlash('success') ?>
+                                                                        </div>
+                                                                <?php endif; ?>
+                                                                <?=
+                                                                $this->render('_form', [
+                                                                    'model' => $model,
+                                                                    'staff_edu' => $staff_edu,
+                                                                    'staff_uploads' => $staff_uploads,
+                                                                    'form' => $form,
+                                                                ])
+                                                                ?>
 
-                                                <div class="tab-pane active" id="home-3">
-                                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
-                                                                <div class="alert alert-danger" role="alert">
-                                                                        <?= Yii::$app->session->getFlash('error') ?>
-                                                                </div>
-                                                        <?php endif; ?>
-                                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
-                                                                <div class="alert alert-success" role="alert">
-                                                                        <?= Yii::$app->session->getFlash('success') ?>
-                                                                </div>
-                                                        <?php endif; ?>
-                                                        <?=
-                                                        $this->render('_form', [
-                                                            'model' => $model,
-                                                            'staff_edu' => $staff_edu,
-                                                            'staff_uploads' => $staff_uploads,
-                                                            'form' => $form,
-                                                        ])
-                                                        ?>
+                                                        </div>
+                                                        <div class="tab-pane" id="profile-3">
 
-                                                </div>
-                                                <div class="tab-pane" id="profile-3">
+                                                                <?=
+                                                                $this->render('_other_info_form', [
+                                                                    'model' => $other_info,
+                                                                    'staff_previous_employer' => $staff_previous_employer,
+                                                                    'form' => $form,
+                                                                ])
+                                                                ?>
+                                                        </div>
 
-                                                        <?=
-                                                        $this->render('_other_info_form', [
-                                                            'model' => $other_info,
-                                                            'staff_previous_employer' => $staff_previous_employer,
-                                                            'form' => $form,
-                                                        ])
-                                                        ?>
-                                                </div>
+                                                <?php } else { ?>
+                                                        <div class="tab-pane active" id="home-3">
+                                                                <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                                                        <div class="alert alert-danger" role="alert">
+                                                                                <?= Yii::$app->session->getFlash('error') ?>
+                                                                        </div>
+                                                                <?php endif; ?>
+                                                                <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                                        <div class="alert alert-success" role="alert">
+                                                                                <?= Yii::$app->session->getFlash('success') ?>
+                                                                        </div>
+                                                                <?php endif; ?>
+                                                                <?=
+                                                                $this->render('update', [
+                                                                    'model' => $model,
+                                                                    'staff_edu' => $staff_edu,
+                                                                    'staff_uploads' => $staff_uploads,
+                                                                    'form' => $form,
+                                                                ])
+                                                                ?>
 
-
-
-
+                                                        </div>
+                                                <?php } ?>
 
                                         </div>
                                         <div class='col-md-12 col-sm-6 col-xs-12' >
@@ -138,7 +162,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 url: homeUrl + 'staff/staff-info/reset-password',
                                 data: {password: newpassword, id: userid},
                                 success: function (data) {
-                                        $(".ResetPassword").append("<div>hello world</div>");
+                                        //  $(".ResetPassword").append("<div>hello world</div>");
+                                        $("#rEset").after("<b>Hello</b>");
                                 }
 
                         });

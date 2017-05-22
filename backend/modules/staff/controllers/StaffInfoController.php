@@ -38,6 +38,7 @@ class StaffInfoController extends Controller {
         }
 
         /**
+         * $2y$13$n6k/SkumJoaMkMcrq/eGFeJ23xjUXyTQKrkXjm9ZBOx6PbwpJVwpK
          * Lists all StaffInfo models.
          * @return mixed
          */
@@ -148,12 +149,9 @@ class StaffInfoController extends Controller {
                                 $other_info->update();
                                 $this->AddContactDirectory($model);
 
-
-
-
-
                                 $this->Imageupload($model, $staff_uploads, $before_update);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
+                                $this->sendMail($model);
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
                                 return $this->redirect(array('index'));
                         }
@@ -249,6 +247,42 @@ class StaffInfoController extends Controller {
                         }
                 }
 
+                return $this->render('_staff_form', [
+                            'model' => $model,
+                            'staff_edu' => $staff_edu,
+                            'other_info' => $other_info,
+                            'staff_uploads' => $staff_uploads,
+                            'staff_previous_employer' => $staff_previous_employer,
+                ]);
+        }
+
+        /*
+         * edit user profile limit fields
+         */
+
+        public function actionEditprofile($id = null, $data = null) {
+                if (!empty($data)) {
+                        $id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
+                }
+                $model = $this->findModel($id);
+                $before_update = StaffInfoUploads::findOne(['staff_id' => $model->id]);
+                $other_info = StaffOtherInfo::findOne(['staff_id' => $model->id]);
+                $staff_edu = StaffInfoEducation::findOne(['staff_id' => $model->id]);
+                $staff_uploads = StaffInfoUploads::findOne(['staff_id' => $model->id]);
+                $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $model->id]);
+                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post())) {
+                        $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
+                        if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_uploads->save()) {
+
+                                $model->username = Yii::$app->request->post()['StaffInfo']['username'];
+                                $model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
+                                $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
+                                $model->save();
+                                Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
+                                $datas = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $model->id);
+                                return $this->redirect(array('editprofile', 'data' => $datas));
+                        }
+                }
                 return $this->render('_staff_form', [
                             'model' => $model,
                             'staff_edu' => $staff_edu,
@@ -465,6 +499,21 @@ class StaffInfoController extends Controller {
                 } else {
                         return FALSE;
                 }
+        }
+
+        /*
+         * to send email
+         */
+
+        public function sendMail($model) {
+
+//                $path = 'http://' . Yii::$app->request->serverName . '/images/caring_peopl.jpg';
+//                $message = Yii::$app->mailer->compose('staff-mail', ['model' => $model]) // a view rendering result becomes the message body here
+//                        ->setFrom('info@caringpeople.in')
+//                        ->setTo($model->email)
+//                        ->setSubject('Welcome to Caringpeople');
+//                $message->send();
+//                return TRUE;
         }
 
         /**
