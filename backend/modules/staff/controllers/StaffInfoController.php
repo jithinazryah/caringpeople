@@ -275,7 +275,6 @@ class StaffInfoController extends Controller {
                         if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_uploads->save()) {
 
                                 $model->username = Yii::$app->request->post()['StaffInfo']['username'];
-                                $model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
                                 $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
                                 $model->save();
                                 Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
@@ -506,14 +505,15 @@ class StaffInfoController extends Controller {
          */
 
         public function sendMail($model) {
+                if (isset($model->email) && $model->email != '') {
 
-//                $path = 'http://' . Yii::$app->request->serverName . '/images/caring_peopl.jpg';
-//                $message = Yii::$app->mailer->compose('staff-mail', ['model' => $model]) // a view rendering result becomes the message body here
-//                        ->setFrom('info@caringpeople.in')
-//                        ->setTo($model->email)
-//                        ->setSubject('Welcome to Caringpeople');
-//                $message->send();
-//                return TRUE;
+                        $message = Yii::$app->mailer->compose('staff-mail', ['model' => $model]) // a view rendering result becomes the message body here
+                                ->setFrom('info@caringpeople.in')
+                                ->setTo($model->email)
+                                ->setSubject('Welcome to Caringpeople');
+                        $message->send();
+                        return TRUE;
+                }
         }
 
         /**

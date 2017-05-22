@@ -37,7 +37,9 @@ class ServiceController extends Controller {
         public function actionIndex() {
                 $searchModel = new ServiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+                if (Yii::$app->session['post']['id'] == '5') {
+                        $dataProvider->query->andWhere(['IN', 'day_staff', Yii::$app->user->identity->id])->orWhere(['IN', 'night_staff', Yii::$app->user->identity->id]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,

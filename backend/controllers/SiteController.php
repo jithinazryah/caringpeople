@@ -89,7 +89,6 @@ class SiteController extends Controller {
                         Yii::$app->session['encrypted_user_id'] = Yii::$app->EncryptDecrypt->Encrypt('encrypt', Yii::$app->user->identity->post_id);
                         return true;
                 } else {
-                        die('else');
                         return FALSE;
                 }
         }

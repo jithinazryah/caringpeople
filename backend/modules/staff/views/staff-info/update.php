@@ -32,6 +32,17 @@ use common\models\MasterDesignations;
                 <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
         </div>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display:none;">
+
+                <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
+
+        </div>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display:none;">
+
+                <?= $form->field($model, 'post_id')->dropDownList(ArrayHelper::map($posts, 'id', 'post_name'), ['prompt' => '--Select--']) ?>
+
+
+        </div>
 
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
