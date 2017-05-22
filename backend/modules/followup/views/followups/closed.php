@@ -23,8 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php if (isset($type_id)) { ?>
                                         <a href = "<?= Yii::$app->homeUrl; ?>followup/followups/followups?type_id=<?= $type_id ?> &type=<?= $type ?>" class = "btn btn-warning" style = "margin-top:10px;">View Followups</a>
                                         <?php
-                                }
-                                ?>
+                                } else {
+                                        ?>
+                                        <a href = "<?= Yii::$app->homeUrl; ?>followup/followups/view" class = "btn btn-warning" style = "margin-top:10px;float:right;">View Followups</a>
+
+                                <?php } ?>
                                 <div class="panel-body">
                                         <?php // echo $this->render('_search', ['model' => $searchModel]);         ?>
 
