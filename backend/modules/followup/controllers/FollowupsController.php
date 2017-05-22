@@ -49,9 +49,13 @@ class FollowupsController extends Controller {
          * @param integer $id
          * @return mixed
          */
-        public function actionView() {
+        public function actionView($id = null) {
 
                 $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
+                if (!empty($data)) {
+                        $data = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
+                        $followups = Followups::find()->where(['id' => $data])->one();
+                }
                 return $this->render('index', [
                             'followups' => $followups,
                 ]);
