@@ -19,8 +19,8 @@ use yii\helpers\Url;
                 </style>
         </head>
         <body>
-                <div style="/* margin: 20px 200px 0px 300px; */border: 1px solid #9E9E9E;">
-                        <table border ="0"  class="main-tabl" border="0">
+                <div style="/* margin: 20px 200px 0px 300px; */border: 1px solid #9E9E9E;width: 50%;margin: auto;">
+                        <table border ="0"  class="main-tabl" border="0" style="margin:auto;">
                                 <thead>
                                         <tr>
                                                 <th style="width:100%">

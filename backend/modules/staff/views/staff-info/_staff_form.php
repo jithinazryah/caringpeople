@@ -7,8 +7,11 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\EnquirySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Staffs';
+if (Yii::$app->controller->action->id != 'editprofile') {
+        $this->title = 'Staffs';
+} else {
+        $this->title = 'Update your Profile - ' . $model->staff_id;
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
