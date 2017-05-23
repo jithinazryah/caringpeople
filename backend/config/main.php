@@ -55,6 +55,9 @@ return [
         'contact' => [
             'class' => 'backend\modules\contact\Module',
         ],
+        'gridview' => [
+            'class' => '\kartik\grid\Module'
+        ],
     ],
     'components' => [
         'request' => [
@@ -96,6 +99,9 @@ return [
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js' => []
                 ],
             ],
         ],

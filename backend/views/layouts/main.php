@@ -8,8 +8,6 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
-use common\models\EnquiryOtherInfo;
-use common\models\Enquiry;
 use common\models\Followups;
 use common\models\AdminUsers;
 use yii\helpers\ArrayHelper;
@@ -570,7 +568,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                 ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                     ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
