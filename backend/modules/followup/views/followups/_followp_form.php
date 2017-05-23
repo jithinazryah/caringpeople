@@ -31,7 +31,7 @@ if ($type == '1') {
 } elseif ($type == '5') {
 
         $enquiry_id = common\models\Service::findOne($type_id);
-        $followup_for = $enquiry_id->id;
+        $followup_for = $enquiry_id->service_id;
         $link = 'update-service/' . $type_id;
 } else {
         $heading = 'Follow ups';

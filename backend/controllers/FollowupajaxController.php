@@ -67,9 +67,7 @@ class FollowupajaxController extends \yii\web\Controller {
                         $todays_date = date('d-M-Y h:i');
                         $followup_type = FollowupType::find()->all();
                         $type = Html::dropDownList('create[typed][]', null, ArrayHelper::map($followup_type, 'id', 'type'), ['class' => 'form-control followup_type', 'prompt' => '--Select--', 'id' => $rand, 'required' => "required"]);
-
                         $followup_subtype = FollowupSubType::find()->where(['type_id' => $_POST['type'], 'status' => '1'])->all();
-
                         if ($_POST['type'] == 'NULL') {
                                 $followtype = "<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                               <div class='form-group field-followups-sub_type'>
@@ -82,8 +80,6 @@ class FollowupajaxController extends \yii\web\Controller {
                         }
 
                         $options = Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--']);
-
-
                         $followupsub_type = " <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class = 'form-group field-followups-sub_type'>
                                                              <label class = 'control-label'>Sub Type</label>
@@ -106,7 +102,6 @@ class FollowupajaxController extends \yii\web\Controller {
 
                         $userid = Yii::$app->user->identity->id;
                         $user = StaffInfo::findOne($userid);
-
 
 
                         $datas = "<span>

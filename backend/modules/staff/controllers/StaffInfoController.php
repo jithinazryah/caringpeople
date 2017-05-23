@@ -237,7 +237,7 @@ class StaffInfoController extends Controller {
                         if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_uploads->save()) {
 
                                 $model->username = Yii::$app->request->post()['StaffInfo']['username'];
-                                $model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
+                                //   $model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
                                 $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
                                 $model->save();
                                 $this->Imageupload($model, $staff_uploads, $before_update);

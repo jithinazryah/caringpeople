@@ -32,16 +32,16 @@ use common\models\MasterDesignations;
                 <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <?php //if ($model->isNewRecord) { ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+        <?php if ($model->isNewRecord) { ?>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
-                <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
+                        <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
 
 
 
-        </div>
+                </div>
 
-        <?php // } ?>
+        <?php } ?>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 
                 <?= $form->field($model, 'post_id')->dropDownList(ArrayHelper::map($posts, 'id', 'post_name'), ['prompt' => '--Select--']) ?>
@@ -87,7 +87,10 @@ use common\models\MasterDesignations;
                 echo $form->field($model, 'caste')->dropDownList(ArrayHelper::map($caste, 'id', 'caste'), ['prompt' => '--Select--', 'class' => 'form-control caste-change']);
                 ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'permanent_address')->textarea(['rows' => 6]) ?>
+        </div>
+
+        <?php if (!$model->isNewRecord) { ?><div style="clear:both"></div><?php } ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'permanent_address')->textarea(['rows' => 6]) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'pincode')->textInput(['maxlength' => true]) ?>
 
@@ -98,7 +101,11 @@ use common\models\MasterDesignations;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                 <?php $nationality = Nationality::find()->where(['status' => '1'])->all(); ?>   <?= $form->field($model, 'nationality')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 
-        </div><div class="row"><input type="checkbox" id="checkbox_id" name="check" checkvalue="1" uncheckValue="0" style="margin-left: 20px;"><label style="color:black;font-weight:bold;margin-left: 5px;">Permanent contact details and Present contact details are same</label>
+        </div>
+
+        <?php if (!$model->isNewRecord) { ?><div style="clear:both"></div><?php } ?>
+
+        <div class="row"><input type="checkbox" id="checkbox_id" name="check" checkvalue="1" uncheckValue="0" style="margin-left: 20px;"><label style="color:black;font-weight:bold;margin-left: 5px;">Permanent contact details and Present contact details are same</label>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'present_address')->textarea(['rows' => 6]) ?>
 
