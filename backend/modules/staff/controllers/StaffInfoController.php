@@ -17,6 +17,9 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use common\models\ContactDirectory;
 use common\models\AdminUsers;
+use common\models\StaffEnquiryInterviewFirst;
+use common\models\StaffEnquiryInterviewSecond;
+use common\models\StaffEnquiryInterviewThird;
 
 /**
  * StaffInfoController implements the CRUD actions for StaffInfo model.
@@ -78,9 +81,13 @@ class StaffInfoController extends Controller {
         public function actionProcced($id) {
 
                 $staff_info = new StaffInfo();
-                $other_info = new StaffOtherInfo();
-                $staff_education = new StaffInfoEducation();
-                $staff_uploads = new StaffInfoUploads();
+                $other_info = StaffOtherInfo::findOne(['enquiry_id' => $id]);
+                $staff_education = StaffInfoEducation::findOne(['enquiry_id' => $id]);
+                $staff_uploads = StaffInfoUploads::findOne(['enquiry_id' => $id]);
+                $staff_previous_employer = StaffPerviousEmployer::findAll(['enquiry_id' => $id]);
+                $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['enquiry_id' => $id]);
+                $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['enquiry_id' => $id]);
+                $staff_interview_third = StaffEnquiryInterviewThird::findOne(['enquiry_id' => $id]);
                 $model = \common\models\StaffEnquiry::findOne($id);
 
                 $staff_info->staff_enquiry_id = $id;
@@ -92,6 +99,7 @@ class StaffInfoController extends Controller {
                 $staff_info->place = $model->place;
                 $staff_info->designation = $model->designation;
                 $staff_info->branch_id = $model->branch_id;
+                $staff_info->status = 1;
 
 
                 if ($staff_info->save()) {
@@ -99,10 +107,20 @@ class StaffInfoController extends Controller {
                         $model->update();
                         $other_info->staff_id = $staff_info->id;
                         $staff_education->staff_id = $staff_info->id;
+                        if (!empty($staff_previous_employer))
+                                $staff_previous_employer->staff_id = $staff_info->id;
                         $staff_uploads->staff_id = $staff_info->id;
+                        $staff_interview_first->staff_id = $staff_info->id;
+                        $staff_interview_second->staff_id = $staff_info->id;
+                        $staff_interview_third->staff_id = $staff_info->id;
                         $other_info->save();
                         $staff_education->save();
                         $staff_uploads->save();
+                        if (!empty($staff_previous_employer))
+                                $staff_previous_employer->save();
+                        $staff_interview_first->save();
+                        $staff_interview_second->save();
+                        $staff_interview_third->save();
                         return $this->redirect(['update', 'id' => $staff_info->id]);
                 }
         }

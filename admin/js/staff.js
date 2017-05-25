@@ -44,6 +44,7 @@ $("document").ready(function () {
 
         $('#addScnt').on('click', function () {
                 var ver = '<span>\n\
+                                <hr style="border-top: 1px solid #979898 !important;">\n\
                                 <div class="col-md-4 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-hospital_address">\n\
                                 <label class="control-label">Hospital Address</label>\n\
@@ -72,6 +73,12 @@ $("document").ready(function () {
                                 <div class="form-group field-staffperviousemployer-service_to">\n\
                                 <label class="control-label" >To</label>\n\
                                 <input type="date" id="" class="form-control" name="create[to][]" required>\n\
+                                </div>\n\
+                                </div> \n\
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="form-group field-staffperviousemployer-salary">\n\
+                                <label class="control-label" >Salary</label>\n\
+                                <input type="date" id="" class="form-control" name="create[salary][]" required>\n\
                                 </div>\n\
                                 </div> \n\
                                 <a id="remScnt" class="btn btn-icon btn-red remScnt" style="margin-top: 15px;"><i class="fa-remove"></i></a>\n\
@@ -112,6 +119,20 @@ $("document").ready(function () {
                 });
         });
 
+        $('.staff-enq-img-remove').on('click', function (e) {
+                var data = $(this).attr('id');
+                var datas = data.split("-");
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {id: datas[0], name: datas[1]},
+                        url: homeUrl + 'ajax/staffenqremove',
+                        success: function (data) {
+                                $('#' + datas[2]).remove();
+                        }
+                });
+        });
+
         $('.img-removes').on('click', function (e) {
                 var data = $(this).attr('id');
                 var datas = data.split("-");
@@ -127,4 +148,31 @@ $("document").ready(function () {
                 });
         });
 
+        $('.terms').on('click', function () {
+                var id = $(this).attr('id');
+                showAjaxModal(id);
+
+        });
+
+
+
+
+
 });
+function showAjaxModal(id)
+{
+        jQuery('#modal-7').modal('show', {backdrop: 'static'});
+
+        setTimeout(function ()
+        {
+                jQuery.ajax({
+                        type: 'POST',
+                        url: homeUrl + "ajax/content",
+                        data: {id: id},
+                        success: function (response)
+                        {
+                                jQuery('#modal-7 .modal-body').html(response);
+                        }
+                });
+        }, 800); // just an example
+}

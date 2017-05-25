@@ -38,9 +38,9 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['name', 'gender', 'phone_number'], 'required'],
+                        [['name', 'gender'], 'required'],
                         [['email'], 'email'],
-                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'designation', 'agreement_copy'], 'integer'],
+                        [['branch_id', 'status', 'CB', 'UB', 'proceed', 'gender', 'designation', 'agreement_copy', 'age'], 'integer'],
                         [['follow_up_date', 'DOC', 'DOU'], 'safe'],
                         [['notes'], 'string'],
                         [['name', 'phone_number', 'email', 'address', 'place', 'enquiry_id', 'agreement_copy_other'], 'string', 'max' => 200],
@@ -62,6 +62,7 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                     'enquiry_id' => 'Enquiry Number',
                     'name' => 'Name',
                     'gender' => 'Gender',
+                    'age' => 'Age',
                     'dob' => 'DOB',
                     'designation' => 'Designation',
                     'agreement_copy' => 'Agreement Copy',

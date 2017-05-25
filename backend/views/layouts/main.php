@@ -568,7 +568,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                     ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                              ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -1000,7 +1000,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                 </div>
         </div>
 </div>
-
+<!---------------------------------staff password reset-------------------------->
 <div class="modal" id="modal-reset">
         <div class="modal-dialog">
                 <div class="modal-content">
@@ -1041,6 +1041,29 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                         <input  type="submit" class="btn btn-info" value="Submit">
                                 </div>
                         </form>
+                </div>
+        </div>
+</div>
+
+
+<!---------------------------------------------Terms and conditions-------------------------------------------->
+
+<div class="modal fade" id="modal-7">
+        <div class="modal-dialog">
+                <div class="modal-content">
+
+                        <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Terms and Conditions</h4>
+                        </div>
+
+                        <div class="modal-body">
+                                Loading...
+                        </div>
+
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                        </div>
                 </div>
         </div>
 </div>
