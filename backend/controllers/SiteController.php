@@ -69,11 +69,10 @@ class SiteController extends Controller {
                         return $this->redirect(array('site/home'));
                 }
                 $this->layout = 'login';
-                //$model = new AdminUsers();
                 $model = new StaffInfo();
                 $model->scenario = 'login';
                 if ($model->load(Yii::$app->request->post()) && $model->login() && $this->setSession()) {
-
+                        // $this->followupMail();
                         return $this->redirect(array('site/home'));
                 } else {
                         return $this->render('login', [
@@ -150,7 +149,7 @@ class SiteController extends Controller {
                         if (!empty($check_exists)) {
                                 $token_value = $this->tokenGenerator();
                                 $token = $check_exists->id . '_' . $token_value;
-                                //$val = base64_encode($token);
+//$val = base64_encode($token);
                                 $val = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $token);
 
                                 $token_model = new ForgotPasswordTokens();
@@ -222,6 +221,29 @@ class SiteController extends Controller {
         }
 
         /*
-         * for login as staff
+         * Followup reminder
+         *
          */
+
+        public function followupMail() {
+                $followups = \common\models\Followups::find()->all();
+                foreach ($followups as $value) {
+                        $Date = date('Y-m-d', strtotime("+2 days"));
+                        if (date('Y-m-d', strtotime($value->followup_date)) == $Date) {
+                                $assigned_details = StaffInfo::findOne($value->assigned_to);
+                                if (isset($assigned_details->email) && $assigned_details->email != '') {
+
+                                        $data = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $value->id);
+                                        $message = Yii::$app->mailer->compose('followup-reminder-mail', ['assigned_person' => $assigned_details, 'data' => $data])
+                                                ->setFrom('info@caringpeople.in')
+                                                ->setTo($assigned_details->email)
+                                                ->setSubject('Followup Reminder');
+                                        $message->send();
+                                        echo $message;
+                                        exit;
+                                }
+                        }
+                }
+        }
+
 }
