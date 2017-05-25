@@ -106,7 +106,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($patient_info);
                         }
-                        $patient_hospital->patient_age = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryHospitalFirst']['patient_age']));
+                        $patient_hospital->patient_dob = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryHospitalFirst']['patient_dob']));
                         $patient_info_second->expected_date_of_service = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['expected_date_of_service']));
                         if (!empty(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']))
                                 $patient_info_second->required_service = implode(",", Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']);
@@ -160,7 +160,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
 
                                 $patient_info->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['contacted_date']));
                                 $patient_info->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['outgoing_call_date']));
-                                $patient_hospital->patient_age = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryHospitalFirst']['patient_age']));
+                                $patient_hospital->patient_dob = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryHospitalFirst']['patient_dob']));
 
                                 $patient_info_second->expected_date_of_service = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['expected_date_of_service']));
                                 if (!empty(Yii::$app->request->post()['PatientEnquiryGeneralSecond']['required_service']))

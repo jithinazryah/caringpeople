@@ -1,8 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use kartik\export\ExportMenu;
+use common\models\Branch;
+
+$branch = Branch::branch();
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\PatientInformationSearch */
@@ -32,8 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                         $gridColumns = [
                                                 ['class' => 'yii\grid\SerialColumn'],
                                             'patient_id',
-                                            'first_name',
-                                            'last_name',
+                                            // 'first_name',
+                                            // 'last_name',
+                                            [
+                                                'header' => 'Name',
+                                                'attribute' => 'first_name',
+                                                'value' => function($model, $key, $index, $column) {
+                                                        return $model->first_name . " " . $model->last_name;
+                                                },
+                                            ],
                                             // 'contact_name',
                                             // 'contact_gender',
                                             // 'referral_source',
@@ -71,12 +82,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 },
                                                 'filter' => [1 => 'Active', 2 => 'Closed', 3 => 'Pending', 4 => 'Deseased'],
                                             ],
+                                                [
+                                                'attribute' => 'branch_id',
+                                                'value' => function($data) {
+                                                        return Branch::findOne($data->branch_id)->branch_name;
+                                                },
+                                                'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
+                                            ],
                                             // 'CB',
                                             // 'UB',
                                             // 'DOC',
                                             // 'DOU',
                                             ['class' => 'yii\grid\ActionColumn',
-                                                'template' => '{view}{update}{followup}{delete}',
+                                                'template' => '{view}{update}{followup}',
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;

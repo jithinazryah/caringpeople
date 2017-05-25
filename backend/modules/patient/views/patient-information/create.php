@@ -21,14 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
 
-                        <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-<?php if (!$patient_general->isNewRecord) { ?>
-                                        <a href="javascript:;" id="2_<?= $patient_general->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
-                                <?php } ?>
+                        <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top: 10px;']) ?>
+                        <?php if (!$patient_general->isNewRecord) { ?>
+                                <a href="javascript:;" id="2_<?= $patient_general->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
+                        <?php } ?>
                         <?=
                         $this->render('_menus', [
                             'model' => $model,
-                            
                         ])
                         ?>
                         <div class="panel-body panel_body_background" >
@@ -63,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <?=
                                                 $this->render('_present_medication', [
                                                     'form' => $form,
-                                                   // 'model' => $present_medication,
+                                                    // 'model' => $present_medication,
                                                     'pationt_medication_details' => $pationt_medication_details,
                                                 ])
                                                 ?>
@@ -89,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 ?>
 
                                         </div>
-                                        
+
 
 
 

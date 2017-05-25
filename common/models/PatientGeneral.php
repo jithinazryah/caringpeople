@@ -43,10 +43,10 @@ class PatientGeneral extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['patient_id', 'first_name'], 'required'],
-                        [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'pin_code', 'contact_number', 'status', 'CB', 'UB'], 'integer'],
+                        [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'pin_code', 'contact_number', 'status', 'CB', 'UB', 'age'], 'integer'],
                         [['present_address'], 'string'],
                         [['DOC', 'DOU'], 'safe'],
-                        [['patient_id', 'first_name', 'last_name', 'patient_image', 'landmark', 'email'], 'string', 'max' => 100],
+                        [['patient_id', 'first_name', 'last_name', 'patient_image', 'landmark', 'email', 'patient_old_id'], 'string', 'max' => 100],
                         [['blood_group'], 'string', 'max' => 50],
                         [['branch_id'], 'required', 'when' => function ($model) {
                                 return Yii::$app->user->identity->branch_id == 0;
@@ -63,10 +63,12 @@ class PatientGeneral extends \yii\db\ActiveRecord {
                     'patient_enquiry_id' => 'Patient Enquiry ID',
                     'branch_id' => 'Branch',
                     'patient_id' => 'Patient ID',
+                    'patient_old_id' => 'Patient Old ID',
                     'first_name' => 'First Name',
                     'last_name' => 'Last Name',
                     'gender' => 'Gender',
-                    'age' => 'DOB',
+                    'age' => 'Age',
+                    'dob' => 'DOB',
                     'blood_group' => 'Blood Group',
                     'patient_image' => 'Patient Image',
                     'present_address' => 'Present Address',

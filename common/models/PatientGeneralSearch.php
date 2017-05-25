@@ -50,6 +50,8 @@ class PatientGeneralSearch extends PatientGeneral {
 
                 $dataProvider = new ActiveDataProvider([
                     'query' => $query,
+                    'sort' => ['defaultOrder' => ['id' => SORT_DESC,
+                        ]]
                 ]);
 
                 $this->load($params);
@@ -77,7 +79,7 @@ class PatientGeneralSearch extends PatientGeneral {
                 ]);
 
                 $query->andFilterWhere(['like', 'patient_id', $this->patient_id])
-                        ->andFilterWhere(['like', 'first_name', $this->first_name])
+                        ->andFilterWhere(['like', 'patient_general.first_name', $this->first_name])
                         ->andFilterWhere(['like', 'last_name', $this->last_name])
                         ->andFilterWhere(['like', 'blood_group', $this->blood_group])
                         ->andFilterWhere(['like', 'patient_image', $this->patient_image])

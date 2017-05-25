@@ -73,7 +73,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                                 return 'D-' . $staff->staff_name . ', N-' . $staff1->staff_name;
                                                         }
                                                 },
-                                                'filter' => ArrayHelper::map(common\models\StaffInfo::find()->where(['status' => '1'])->asArray()->all(), 'id', 'staff_name'),
+                                                'filter' => ArrayHelper::map(common\models\StaffInfo::find()->where(['status' => '1'])->orderBy(['staff_name' => SORT_ASC])->asArray()->all(), 'id', 'staff_name'),
                                                 'filterOptions' => array('id' => "staff_name_search"),
                                             ],
                                                 [
@@ -108,7 +108,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                                             // 'UB',
                                             // 'DOC',
                                             // 'DOU',
-                                            ['class' => 'yii\grid\ActionColumn'],
+                                            ['class' => 'yii\grid\ActionColumn',
+                                                'visibleButtons' => [
+                                                    'delete' => function ($model, $key, $index) {
+                                                            return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                    }
+                                                ],],
                                         ];
                                         echo ExportMenu::widget([
                                             'dataProvider' => $dataProvider,
