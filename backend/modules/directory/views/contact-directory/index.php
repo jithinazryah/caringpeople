@@ -65,7 +65,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 // 'UB',
                                                 // 'DOC',
                                                 // 'DOU',
-                                                ['class' => 'yii\grid\ActionColumn'],
+                                                ['class' => 'yii\grid\ActionColumn',
+                                                    'visibleButtons' => [
+                                                        'delete' => function ($model, $key, $index) {
+                                                                return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                        }
+                                                    ],],
                                             ],
                                         ]);
                                         ?>

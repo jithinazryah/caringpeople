@@ -36,7 +36,7 @@ class StaffInfoUploads extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['staff_id'], 'integer'],
-                        [['profile_image_type', 'biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter', 'file_name'], 'string', 'max' => 200],
+                        [['profile_image_type', 'biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter'], 'string', 'max' => 200],
                         [['profile_image_type',], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'jpg, gif, png,jpeg'],
                     // [['biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'pdf, doc, docs,txt,jpg, gif, png,jpeg', 'maxSize' => 1024 * 1024 * 4],
                     ['biodata', 'file', 'extensions' => 'pdf, jpg', 'maxSize' => 5120000, 'tooBig' => 'Limit is 500KB'],
@@ -61,8 +61,7 @@ class StaffInfoUploads extends \yii\db\ActiveRecord {
                     'experience' => 'Experience',
                     'id_proof' => 'Pan Card/Passport/Voter ID',
                     'PCC' => 'Police Clearnce Certificate',
-                    'authorised_letter' => 'Attach file',
-                    'file_name' => 'Attach File Name',
+                    'authorised_letter' => 'Authorised letter from Panchayth/Muncipality/Coorporation',
                 ];
         }
 

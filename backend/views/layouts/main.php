@@ -390,6 +390,13 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                         <li>
                                                                                 <?= Html::a('Masster Service History Types', ['/masters/master-history-type/index'], ['class' => 'title']) ?>
                                                                         </li>
+                                                                        <li>
+                                                                                <?= Html::a('Staff Experience List', ['/masters/staff-experience-list/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Terms and Conditions', ['/masters/terms-and-conditions/index'], ['class' => 'title']) ?>
+                                                                        </li>
 
                                                                 </ul>
                                                         </li>
@@ -568,7 +575,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                              ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                 ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">

@@ -45,8 +45,10 @@ class StaffEnquiryController extends Controller {
 
         public function actionAdd() {
 
-                $staff_enquiry = StaffEnquiry::find()->all();
+                $staff_enquiry = StaffEnquiry::find()->where(['<>', 'proceed', '1'])->all();
+
                 foreach ($staff_enquiry as $value) {
+
                         $staff_edu = new StaffInfoEducation();
                         $other_info = new StaffOtherInfo();
                         $staff_uploads = new StaffInfoUploads();
@@ -54,12 +56,12 @@ class StaffEnquiryController extends Controller {
                         $staff_interview_second = new StaffEnquiryInterviewSecond();
                         $staff_interview_third = new StaffEnquiryInterviewThird();
 
-                        $staff_edu->enquiry_id = $staff_enquiry->id;
-                        $other_info->enquiry_id = $staff_enquiry->id;
-                        $staff_edu->enquiry_id = $staff_enquiry->id;
-                        $staff_interview_first->enquiry_id = $staff_enquiry->id;
-                        $staff_interview_second->enquiry_id = $staff_enquiry->id;
-                        $staff_interview_third->enquiry_id = $staff_enquiry->id;
+                        $staff_edu->enquiry_id = $value->id;
+                        $other_info->enquiry_id = $value->id;
+                        $staff_uploads->enquiry_id = $value->id;
+                        $staff_interview_first->enquiry_id = $value->id;
+                        $staff_interview_second->enquiry_id = $value->id;
+                        $staff_interview_third->enquiry_id = $value->id;
 
                         $staff_edu->save(false);
                         $other_info->save(false);
@@ -77,20 +79,18 @@ class StaffEnquiryController extends Controller {
         public function actionIndex() {
                 $searchModel = new StaffEnquirySearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['<>', 'proceed', 1]);
 
-                if (Yii::$app->user->identity->branch_id != '0') {
-                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
-                }
-                if (!empty(Yii::$app->request->queryParams['StaffEnquirySearch']['status'])) {
-                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffEnquirySearch']['status']]);
-                } else {
-                        $dataProvider->query->andWhere(['<>', 'status', 2]);
-                }
+//                if (Yii::$app->user->identity->branch_id != '0') {
+//                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+//                }
+////                if (!empty(Yii::$app->request->queryParams['StaffEnquirySearch']['status'])) {
+////                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffEnquirySearch']['status']]);
+////                } else {
+////                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+////                }
 
-                return $this->render('index', [
-                            'searchModel' => $searchModel,
-                            'dataProvider' => $dataProvider,
-                ]);
+
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,
@@ -127,7 +127,7 @@ class StaffEnquiryController extends Controller {
                 $before_update = '';
                 $staff_previous_employer = '';
 
-                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_uploads->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
+                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
 
                         $other_info->current_from = date('Y-m-d', strtotime($other_info->current_from));
                         $other_info->current_to = date('Y-m-d', strtotime($other_info->current_to));
@@ -143,13 +143,18 @@ class StaffEnquiryController extends Controller {
                                 Yii::$app->SetValues->currentBranch($staff_enquiry);
                         }
 
-
+                        $staff_enquiry->validate();
+                        print_r($staff_enquiry->getErrors());
 
                         if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_uploads->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
                                 $this->AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third, $staff_uploads);
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
-                                $this->Imageupload($staff_enquiry, $staff_uploads, $before_update);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
+                                $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
+                                if (!empty($attachments)) {
+                                        $root_path = ['staff-enquiry', $staff_enquiry->id];
+                                        Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
+                                }
                                 Yii::$app->getSession()->setFlash('success', 'Data Added Successfully');
                                 return $this->redirect(array('index'));
                         }
@@ -179,14 +184,14 @@ class StaffEnquiryController extends Controller {
                 $before_update = StaffInfoUploads::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $other_info = StaffOtherInfo::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_edu = StaffInfoEducation::findOne(['enquiry_id' => $staff_enquiry->id]);
-                $staff_uploads = StaffInfoUploads::findOne(['enquiry_id' => $staff_enquiry->id]);
+
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['enquiry_id' => $staff_enquiry->id]);
                 $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_interview_third = StaffEnquiryInterviewThird::findOne(['enquiry_id' => $staff_enquiry->id]);
 
 
-                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_uploads->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
+                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
 
 
                         $other_info->current_from = date('Y-m-d', strtotime($other_info->current_from));
@@ -198,11 +203,16 @@ class StaffEnquiryController extends Controller {
                         $staff_interview_second->verified_date_3 = date('Y-m-d', strtotime($staff_interview_second->verified_date_3));
                         $staff_interview_third->expected_date_of_joining = date('Y-m-d', strtotime($staff_interview_third->expected_date_of_joining));
                         $staff_interview_third->interviewed_date = date('Y-m-d', strtotime($staff_interview_third->interviewed_date));
-                        if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_uploads->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
+                        if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
 
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
-                                $this->Imageupload($staff_enquiry, $staff_uploads, $before_update);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
+
+                                $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
+                                if (!empty($attachments)) {
+                                        $root_path = ['staff-enquiry', $staff_enquiry->id];
+                                        Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
+                                }
 
 
                                 if (isset($_POST['proceed'])) {

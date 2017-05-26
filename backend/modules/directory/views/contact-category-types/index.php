@@ -22,40 +22,45 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-					<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-					<?= Html::a('<i class="fa-th-list"></i><span> Create Contact Category Types</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-					<?=
-					GridView::widget([
-					    'dataProvider' => $dataProvider,
-					    'filterModel' => $searchModel,
-					    'columns' => [
-						    ['class' => 'yii\grid\SerialColumn'],
-						//'id',
-						'category_name',
-						//'description',
-						[
-						    'attribute' => 'status',
-						    'value' => function($model, $key, $index, $column) {
-							    if ($model->status == '0') {
-								    return 'Disabled';
-							    } elseif ($model->status == '1') {
-								    return 'Enabled';
-							    }
-						    },
-						    'filter' => [0 => 'Disabled', 1 => 'Enabled'],
-						],
-						//  'field_1',
-						// 'CB',
-						// 'UB',
-						// 'DOC',
-						// 'DOU',
-						['class' => 'yii\grid\ActionColumn',
-						    'template' => '{update}{delete}'],
-					    ],
-					]);
-					?>
-				</div>
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Contact Category Types</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?=
+                                        GridView::widget([
+                                            'dataProvider' => $dataProvider,
+                                            'filterModel' => $searchModel,
+                                            'columns' => [
+                                                    ['class' => 'yii\grid\SerialColumn'],
+                                                //'id',
+                                                'category_name',
+                                                //'description',
+                                                [
+                                                    'attribute' => 'status',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            if ($model->status == '0') {
+                                                                    return 'Disabled';
+                                                            } elseif ($model->status == '1') {
+                                                                    return 'Enabled';
+                                                            }
+                                                    },
+                                                    'filter' => [0 => 'Disabled', 1 => 'Enabled'],
+                                                ],
+                                                //  'field_1',
+                                                // 'CB',
+                                                // 'UB',
+                                                // 'DOC',
+                                                // 'DOU',
+                                                ['class' => 'yii\grid\ActionColumn',
+                                                    'template' => '{update}{delete}',
+                                                    'visibleButtons' => [
+                                                        'delete' => function ($model, $key, $index) {
+                                                                return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                        }
+                                                    ],],
+                                            ],
+                                        ]);
+                                        ?>
+                                </div>
                         </div>
                 </div>
         </div>

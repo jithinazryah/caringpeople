@@ -55,7 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         $this->render('_form', [
                                                             //   'model' => $model,
                                                             'staff_edu' => $staff_edu,
-                                                            'staff_uploads' => $staff_uploads,
                                                             'staff_enquiry' => $staff_enquiry,
                                                             'staff_interview_first' => $staff_interview_first,
                                                             'form' => $form,
