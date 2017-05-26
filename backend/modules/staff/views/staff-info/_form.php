@@ -171,108 +171,90 @@ use common\models\MasterDesignations;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Opened', '0' => 'Closed']) ?>
 
-        </div><?php
+        </div>
+        <?php
         if (Yii::$app->user->identity->branch_id == '0') {
                 $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
                 ?>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
                 </div>
-        <?php } ?><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'biodata')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'profile_image_type')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'sslc')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'hse')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'KNC')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'INC')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'marklist')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'experience')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'id_proof')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'PCC')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_uploads, 'authorised_letter')->fileInput() ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'terms_conditions', ['template' => "<label class='cbr-inline top'>{input}<a href='javascript:;' target='_blank' href='#' class='terms' id='4'>I agree to the terms and conditions</a></label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;', 'label' => '']) ?>
-
-        </div>
+        <?php } ?>
         <div style="clear:both"></div>
 
-        <?php if ($staff_uploads->biodata != '' || $staff_uploads->profile_image_type != '' || $staff_uploads->sslc != '' || $staff_uploads->hse != '' || $staff_uploads->KNC != '' || $staff_uploads->INC != '' || $staff_uploads->marklist != '' || $staff_uploads->experience != '' || $staff_uploads->id_proof != '' || $staff_uploads->PCC != '' || $staff_uploads->authorised_letter != '') { ?>
-                <div class="row">
-                        <label style="    color: #148eaf;font-size: 19px;margin-left: 14px;">Uploaded Files</label>
-                </div>
-        <?php } ?>
+
+
+
+        <div id="p_attach">
+                <input type="hidden" id="delete_port_vals"  name="delete_port_vals" value="">
+                <h3 style="color:#148eaf;">Attachments</h3>
+                <hr class="enquiry-hr"/>
+
+
+                <span>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-hospital_address">
+                                        <label class="control-label">Attachment</label>
+                                        <input type="file"  name="creates[file][]">
+
+                                </div>
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-designation">
+                                        <label class="control-label" for="">Attachment Name</label>
+                                        <input type="text" class="form-control" name="creates[file_name][]">
+                                </div>
+                        </div>
+
+
+                        <div style="clear:both"></div>
+                </span>
+                <br/>
+        </div>
 
         <div class="row">
-
-                <?php
-                if (!$model->isNewRecord) {
-                        if ($staff_uploads->profile_image_type != '') {
-                                $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
-                                //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
-                                ?>
-
-                                <div class="col-md-2" id="profile_image_type">
-                                        <?php $image_nme = 'profile_image_type.' . $staff_uploads->profile_image_type; ?>
-                                        <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:175px;height: 175px;"/>
-                                        <a title="Delete"><i class="fa fa-remove img-remove" style="position: absolute;left: 170px;top: 5px;cursor: pointer" id="<?= $model->id . "-" . $image_nme . "-profile_image_type" ?>"></i></a>
-                                </div>
-
-                        <?php } ?>
+                <div class="col-md-6">
+                        <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" ><i class="fa-plus"></i><span> Add More</span></a>
+                </div>
+        </div>
 
 
 
-                        <!-----------------View uploaded files--------->
+
+        <div style="clear:both"></div>
+
+
+        <?php if (!$model->isNewRecord) { ?>
+                <br/>
+
+                <div class="row">
+                        <?php
+                        $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $model->id;
+
+                        if (count(glob("{$path}/*")) > 0) {
+                                echo "<hr class='appoint_history'/> <h4 class='sub-heading'>Uploaded Files</h4>";
+
+                                $k = 0;
+                                foreach (glob("{$path}/*") as $file) {
+                                        $k++;
+                                        $arry = explode('/', $file);
+                                        $img_nmee = end($arry);
+                                        $img_nmees = explode('.', $img_nmee);
+                                        ?>
+
+                                        <div class = "col-md-2 img-box" id="<?= $k; ?>">
+                                                <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
+                                                <a  title="Delete" class="staff-enq-img-remove" id="<?= $model->id . "-" . $img_nmee . "-" . $k; ?>" style="cursor:pointer"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
+                                        </div>
+
 
                         <?php
-                        $images = array('biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter');
-                        $i = 0;
-
-                        foreach ($images as $value) {
-
-                                if ($staff_uploads->$value != '') {
-
-                                        $i++;
-                                        if ($i == 1) {
-
-                                                echo '<div class="col-md-2">';
-                                        }
-                                        ?>
-                                        <div class="img_data" id="<?= $value; ?>">
-                                                <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/' . $value . '.' . $staff_uploads->$value; ?>" target="_blank"><?php
-                                                        if ($value == 'authorised_letter') {
-                                                                echo 'Authorised Letter';
-                                                        } else {
-                                                                echo $staff_uploads->getAttributeLabel($value);
-                                                        }
-                                                        ?></a>
-
-                                                <a title="Delete"><i class="fa fa-remove img-remove" style="position: absolute;left: 170px;cursor: pointer;" id="<?= $model->id . '-' . $value . '.' . $staff_uploads->$value . '-' . $value ?>"></i></a>
-                                        </div>
-                                        <?php
-                                        if ($i == 5) {
-                                                echo '</div><div class="col-md-2">';
-                                        }
-                                }
-                        }
-                        if ($i > 0)
-                                echo '</div>';
-
-                        /*   View uploaded files    */
                 }
-                ?>
+        }
+        ?>
+                </div>
 
+<?php } ?>
 
-
-
-        </div>
 
 </div>
 

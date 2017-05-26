@@ -61,7 +61,7 @@ class StaffInfoUploads extends \yii\db\ActiveRecord {
                     'experience' => 'Experience',
                     'id_proof' => 'Pan Card/Passport/Voter ID',
                     'PCC' => 'Police Clearnce Certificate',
-                    'authorised_letter' => 'Authorised letter from Panchayth/Muncipality/Coorporation',
+                    'authorised_letter' => 'Attachment',
                 ];
         }
 

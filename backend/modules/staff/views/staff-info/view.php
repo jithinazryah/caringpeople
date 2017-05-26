@@ -1180,69 +1180,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 </div>
 
-                                                <?php if ($staff_uploads->biodata != '' || $staff_uploads->profile_image_type != '' || $staff_uploads->sslc != '' || $staff_uploads->hse != '' || $staff_uploads->KNC != '' || $staff_uploads->INC != '' || $staff_uploads->marklist != '' || $staff_uploads->experience != '' || $staff_uploads->id_proof != '' || $staff_uploads->PCC != '' || $staff_uploads->authorised_letter != '') { ?>
-                                                        <div class="row">
-                                                                <label style="    color: #148eaf;font-size: 19px;margin-left: 14px;">Uploaded Files</label>
-                                                        </div>
-                                                        <div class="row">
-
-                                                                <?php
-                                                                if ($staff_uploads->profile_image_type != '') {
-                                                                        $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
-                                                                        //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
-                                                                        ?>
-
-                                                                        <div class="col-md-2">
-                                                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:175px;height: 175px;"/>
-                                                                        </div>
-
-                                                                <?php } ?>
 
 
 
-                                                                <!-----------------View uploaded files--------->
 
-                                                                <?php
-                                                                $images = array('biodata', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter');
-                                                                $i = 0;
-
-                                                                foreach ($images as $value) {
-
-                                                                        if ($staff_uploads->$value != '') {
-
-                                                                                $i++;
-                                                                                if ($i == 1) {
-
-                                                                                        echo '<div class="col-md-2">';
-                                                                                }
-                                                                                ?>
-                                                                                <div class="img_data">
-                                                                                        <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/' . $value . '.' . $staff_uploads->$value; ?>" target="_blank"><?php
-                                                                                                if ($value == 'authorised_letter') {
-                                                                                                        echo 'Authorised Letter';
-                                                                                                } else {
-                                                                                                        echo $staff_uploads->getAttributeLabel($value);
-                                                                                                }
-                                                                                                ?></a>
-
-                                                                                </div>
-                                                                                <?php
-                                                                                if ($i == 5) {
-                                                                                        echo '</div><div class="col-md-2">';
-                                                                                }
-                                                                        }
-                                                                }
-                                                                if ($i > 0)
-                                                                        echo '</div>';
-
-                                                                /*   View uploaded files    */
+                                                <!-----------------View uploaded files--------->
+                                                <hr class="appoint_history" />
+                                                <h4 class="sub-heading">Uploaded Files</h4>
+                                                <div class="row">
+                                                        <?php
+                                                        $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $staff_info->id;
+                                                        $k = 0;
+                                                        foreach (glob("{$path}/*") as $file) {
+                                                                $k++;
+                                                                $arry = explode('/', $file);
+                                                                $img_nmee = end($arry);
+                                                                $img_nmees = explode('.', $img_nmee);
                                                                 ?>
 
+                                                                <div class = "col-md-2 img-box" id="<?= $k; ?>">
+                                                                        <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
+                                                                        <a  title="Delete" class="staff-enq-img-remove" id="<?= $staff_info->id . "-" . $img_nmee . "-" . $k; ?>" style="cursor:pointer"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
+                                                                </div>
+                                                        <?php }
+                                                        ?>
+                                                </div>
 
 
 
-                                                        </div>
-<?php } ?>
+
                                                 <div class="print">
                                                         <button onclick="printContent('pdf')" style="font-weight: bold !important;">Print</button>
                                                 </div>

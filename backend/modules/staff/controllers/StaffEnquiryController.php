@@ -51,14 +51,12 @@ class StaffEnquiryController extends Controller {
 
                         $staff_edu = new StaffInfoEducation();
                         $other_info = new StaffOtherInfo();
-                        $staff_uploads = new StaffInfoUploads();
                         $staff_interview_first = new StaffEnquiryInterviewFirst();
                         $staff_interview_second = new StaffEnquiryInterviewSecond();
                         $staff_interview_third = new StaffEnquiryInterviewThird();
 
                         $staff_edu->enquiry_id = $value->id;
                         $other_info->enquiry_id = $value->id;
-                        $staff_uploads->enquiry_id = $value->id;
                         $staff_interview_first->enquiry_id = $value->id;
                         $staff_interview_second->enquiry_id = $value->id;
                         $staff_interview_third->enquiry_id = $value->id;
@@ -68,7 +66,6 @@ class StaffEnquiryController extends Controller {
                         $staff_interview_first->save(false);
                         $staff_interview_second->save(false);
                         $staff_interview_third->save(false);
-                        $staff_uploads->save(false);
                 }
         }
 
@@ -120,7 +117,6 @@ class StaffEnquiryController extends Controller {
                 $staff_enquiry = new StaffEnquiry();
                 $staff_edu = new StaffInfoEducation();
                 $other_info = new StaffOtherInfo();
-                $staff_uploads = new StaffInfoUploads();
                 $staff_interview_first = new StaffEnquiryInterviewFirst();
                 $staff_interview_second = new StaffEnquiryInterviewSecond();
                 $staff_interview_third = new StaffEnquiryInterviewThird();
@@ -146,8 +142,8 @@ class StaffEnquiryController extends Controller {
                         $staff_enquiry->validate();
                         print_r($staff_enquiry->getErrors());
 
-                        if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_uploads->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
-                                $this->AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third, $staff_uploads);
+                        if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
+                                $this->AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third);
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
                                 $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
@@ -161,7 +157,6 @@ class StaffEnquiryController extends Controller {
                 }
                 return $this->render('_staff_form', [
                             'staff_edu' => $staff_edu,
-                            'staff_uploads' => $staff_uploads,
                             'staff_previous_employer' => $staff_previous_employer,
                             'other_info' => $other_info,
                             'staff_interview_first' => $staff_interview_first,
@@ -226,7 +221,6 @@ class StaffEnquiryController extends Controller {
 
                 return $this->render('_staff_form', [
                             'staff_edu' => $staff_edu,
-                            'staff_uploads' => $staff_uploads,
                             'staff_previous_employer' => $staff_previous_employer,
                             'other_info' => $other_info,
                             'staff_interview_first' => $staff_interview_first,
@@ -344,79 +338,15 @@ class StaffEnquiryController extends Controller {
         }
 
         /*
-         * to upload image
-         *  */
-
-        public function Imageupload($model, $staff_uploads, $data = null) {
-
-
-                //$images = array('biodata', 'profile_image_type', 'sslc', 'hse', 'KNC', 'INC', 'marklist', 'experience', 'id_proof', 'PCC', 'authorised_letter');
-                $images = array('authorised_letter');
-
-                foreach ($images as $value) {
-                        $image = UploadedFile::getInstance($staff_uploads, $value);
-
-                        $this->image($model, $staff_uploads, $data, $image, $value);
-                }
-        }
-
-        /* to save exy=tension in database */
-
-        public function image($model, $staff_uploads, $data = null, $image, $type) {
-
-
-                if (!empty($image)) {
-
-                        $staff_uploads->$type = $image->extension;
-                        if ($staff_uploads->file_name != '') {
-                                $img_nme = $staff_uploads->file_name;
-                        } else {
-                                $img_nme = 'attachement';
-                        }
-                        if (!empty($data)) {
-                                $this->upload($model, $image, $img_nme, $staff_uploads->$type, $data->$type);
-                        } else {
-                                $this->upload($model, $image, $img_nme, $staff_uploads->$type);
-                        }
-                } else {
-                        if (!empty($data))
-                                $staff_uploads->$type = $data->$type;
-                }
-
-                $staff_uploads->enquiry_id = $model->id;
-                $staff_uploads->update();
-        }
-
-        /*
-         * to save the image in folder
-         * if
-         */
-
-        public function Upload($model, $image, $type, $extension, $exists_type = null) {
-
-                $paths = ['staff-enquiry', $model->id];
-                $file = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $model->id . '/' . $type . '.' . $exists_type;
-                if (file_exists($file))
-                        unlink($file);
-
-                $paths = Yii::$app->UploadFile->CheckPath($paths);
-                if ($image->saveAs($paths . '/' . $type . '.' . $extension)) {
-                        return TRUE;
-                } else {
-                        return FALSE;
-                }
-        }
-
-        /*
          * Add staffid as foreign key to all related tables
          */
 
-        public function AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third, $staff_uploads) {
+        public function AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third) {
 
                 $other_info->enquiry_id = $staff_enquiry->id;
                 $staff_edu->enquiry_id = $staff_enquiry->id;
                 $staff_interview_first->enquiry_id = $staff_enquiry->id;
-                $staff_uploads->enquiry_id = $staff_enquiry->id;
+
                 $staff_interview_second->enquiry_id = $staff_enquiry->id;
                 $staff_interview_third->enquiry_id = $staff_enquiry->id;
                 $staff_edu->save(false);
@@ -424,7 +354,7 @@ class StaffEnquiryController extends Controller {
                 $staff_interview_first->update();
                 $staff_interview_second->update();
                 $staff_interview_third->update();
-                $staff_uploads->update();
+
 
                 $branch = Branch::findOne($staff_enquiry->branch_id);
                 $code = $branch->branch_code . 'SE';
@@ -488,12 +418,67 @@ class StaffEnquiryController extends Controller {
          * @param integer $id
          * @return mixed
          */
-        public function actionDelete($id) {
+        public function actionDelete1($id) {
                 $this->findModel($id)->delete();
                 $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $id;
                 if (file_exists($paths)) {
                         $files = Yii::$app->UploadFile->RemoveFiles($paths);
                 }
+                return $this->redirect(['index']);
+        }
+
+        public function actionDelete($id) {
+                $staff_enquiry = $this->findModel($id);
+                $other_info = StaffOtherInfo::findOne(['enquiry_id' => $id]);
+                $staff_edu = StaffInfoEducation::findOne(['enquiry_id' => $id]);
+
+                $staff_previous_employer = StaffPerviousEmployer::findAll(['enquiry_id' => $id]);
+                $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['enquiry_id' => $id]);
+                $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['enquiry_id' => $id]);
+                $staff_interview_third = StaffEnquiryInterviewThird::findOne(['enquiry_id' => $id]);
+
+                // ...other DB operations...
+
+                $transaction = StaffEnquiry::getDb()->beginTransaction();
+                try {
+                        if (!empty($staff_interview_third)) {
+                                $staff_interview_third->delete();
+                        }
+                        if (!empty($staff_interview_second)) {
+                                $staff_interview_second->delete();
+                        }
+                        if (!empty($staff_interview_first)) {
+                                $staff_interview_first->delete();
+                        }
+                        if (!empty($staff_edu)) {
+                                $staff_edu->delete();
+                        }
+                        if (!empty($staff_previous_employer)) {
+                                $staff_previous_employer->delete();
+                        }
+
+                        if (!empty($other_info)) {
+                                $other_info->delete();
+                        }
+
+
+                        if (!empty($staff_enquiry)) {
+                                $staff_enquiry->delete();
+                        }
+                        $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $id;
+                        if (file_exists($paths)) {
+                                $files = Yii::$app->UploadFile->RemoveFiles($paths);
+                        }
+                        // ...other DB operations...
+                        $transaction->commit();
+                } catch (\Exception $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                } catch (\Throwable $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                }
+                Yii::$app->getSession()->setFlash('success', 'succuessfully deleted');
                 return $this->redirect(['index']);
         }
 

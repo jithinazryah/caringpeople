@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ?>
                                 <?php } ?>
                                 <div class="panel-body panel_body_background" >
-                                        <?php $form = ActiveForm::begin(); ?>
+                                        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                                         <div class="tab-content tab_data_margin" >
                                                 <?php if (Yii::$app->controller->action->id != 'editprofile') { ?>
                                                         <div class="tab-pane active" id="home-3">
@@ -63,7 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 $this->render('_form', [
                                                                     'model' => $model,
                                                                     'staff_edu' => $staff_edu,
-                                                                    'staff_uploads' => $staff_uploads,
                                                                     'form' => $form,
                                                                 ])
                                                                 ?>
@@ -76,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     'model' => $other_info,
                                                                     'staff_previous_employer' => $staff_previous_employer,
                                                                     'form' => $form,
+                                                                    'staffinfo' => $model,
                                                                 ])
                                                                 ?>
                                                         </div>
@@ -96,7 +96,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 $this->render('update', [
                                                                     'model' => $model,
                                                                     'staff_edu' => $staff_edu,
-                                                                    'staff_uploads' => $staff_uploads,
                                                                     'form' => $form,
                                                                 ])
                                                                 ?>

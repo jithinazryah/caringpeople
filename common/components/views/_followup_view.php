@@ -43,7 +43,7 @@ if ($data->type == 1) {
         $staff_enquiry = StaffEnquiry::findOne($data->type_id);
         $required_person = $staff_enquiry->name;
 } else if ($data->type == 4) {
-        $staffs = SraffInfo::findOne($data->type_id);
+        $staffs = StaffInfo::findOne($data->type_id);
         $required_person = $staffs->staff_name;
 } else if ($data->type == 5) {
         $service = Service::findOne($data->type_id);

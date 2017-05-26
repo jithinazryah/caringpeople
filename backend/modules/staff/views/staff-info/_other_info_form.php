@@ -205,6 +205,10 @@ use kartik\date\DatePicker;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_mobile')->textInput(['maxlength' => true]) ?>
 
         </div>
+        <div style="clear: both"></div>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($staffinfo, 'terms_conditions', ['template' => "<label class='cbr-inline top'>{input}<a href='javascript:;' target='_blank' href='#' class='terms' id='4'>I agree to the terms and conditions</a></label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;', 'label' => '']) ?>
+
+        </div>
 
 
 
