@@ -216,8 +216,6 @@ class StaffEnquiryController extends Controller {
 
 
                                 if (isset($_POST['proceed'])) {
-                                        $staff_enquiry->proceed = '1';
-                                        $staff_enquiry->update();
                                         return $this->redirect(['staff-info/procced/', 'id' => $staff_enquiry->id]);
                                 } else {
                                         Yii::$app->getSession()->setFlash('success', 'Updated Successfully');

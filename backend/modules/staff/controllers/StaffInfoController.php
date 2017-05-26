@@ -101,28 +101,41 @@ class StaffInfoController extends Controller {
                 $staff_info->branch_id = $model->branch_id;
                 $staff_info->status = 1;
 
+                $transaction = StaffInfo::getDb()->beginTransaction();
+                try {
+                        if ($staff_info->save()) {
+                                $model->proceed = 1;
+                                $model->status = 2; /* 2=>status closed */
+                                $model->update();
+                                $other_info->staff_id = $staff_info->id;
+                                $staff_education->staff_id = $staff_info->id;
+                                if (!empty($staff_previous_employer))
+                                        $staff_previous_employer->staff_id = $staff_info->id;
+                                $staff_uploads->staff_id = $staff_info->id;
+                                $staff_interview_first->staff_id = $staff_info->id;
+                                $staff_interview_second->staff_id = $staff_info->id;
+                                $staff_interview_third->staff_id = $staff_info->id;
+                                $other_info->save();
+                                $staff_education->save();
+                                $staff_uploads->save();
+                                if (!empty($staff_previous_employer))
+                                        $staff_previous_employer->save();
+                                $staff_interview_first->save();
+                                $staff_interview_second->save();
+                                $staff_interview_third->save();
+                        }
 
-                if ($staff_info->save()) {
-                        $model->status = 2; /* 2=>status closed */
-                        $model->update();
-                        $other_info->staff_id = $staff_info->id;
-                        $staff_education->staff_id = $staff_info->id;
-                        if (!empty($staff_previous_employer))
-                                $staff_previous_employer->staff_id = $staff_info->id;
-                        $staff_uploads->staff_id = $staff_info->id;
-                        $staff_interview_first->staff_id = $staff_info->id;
-                        $staff_interview_second->staff_id = $staff_info->id;
-                        $staff_interview_third->staff_id = $staff_info->id;
-                        $other_info->save();
-                        $staff_education->save();
-                        $staff_uploads->save();
-                        if (!empty($staff_previous_employer))
-                                $staff_previous_employer->save();
-                        $staff_interview_first->save();
-                        $staff_interview_second->save();
-                        $staff_interview_third->save();
-                        return $this->redirect(['update', 'id' => $staff_info->id]);
+                        $transaction->commit();
+                } catch (\Exception $e) {
+                        throw new \yii\web\HttpException(400, 'Error code: 1001', 405);
+                        $transaction->rollBack();
+                        throw $e;
+                } catch (\Throwable $e) {
+                        die('ffy');
+                        $transaction->rollBack();
+                        throw $e;
                 }
+                return $this->redirect(['update', 'id' => $staff_info->id]);
         }
 
         /**

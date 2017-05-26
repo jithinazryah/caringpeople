@@ -101,8 +101,9 @@ class m170524_044946_create_staff_details_table extends Migration {
 //                $this->addColumn('staff_info', 'proceed', 'integer');
 //                $this->addColumn('staff_info', 'staff_enquiry_number', 'string(200)');
 //                $this->addColumn('staff_info', 'age', 'integer after dob');
-                $this->addColumn('patient_enquiry_hospital_first', 'patient_dob', 'date after patient_age');
+                //               $this->addColumn('patient_enquiry_hospital_first', 'patient_dob', 'date after patient_age');
                 //all tables enquiry_id
+                //$this->addColumn('staff_info', 'terms_conditions', 'integer');
         }
 
         /**
