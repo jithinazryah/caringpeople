@@ -78,7 +78,7 @@ $("document").ready(function () {
                                 <div class="col-md-3 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-salary">\n\
                                 <label class="control-label" >Salary</label>\n\
-                                <input type="date" id="" class="form-control" name="create[salary][]" required>\n\
+                                <input type="text" id="" class="form-control" name="create[salary][]" required>\n\
                                 </div>\n\
                                 </div> \n\
                                 <a id="remScnt" class="btn btn-icon btn-red remScnt" style="margin-top: 15px;"><i class="fa-remove"></i></a>\n\

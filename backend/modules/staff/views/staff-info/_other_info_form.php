@@ -116,8 +116,14 @@ use kartik\date\DatePicker;
                                                         <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][to][]" value="<?= $data->service_to; ?>" required>
                                                 </div>
                                         </div>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffperviousemployer-salary">
+                                                        <label class="control-label" >Salary</label>
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][salary][]" value="<?= $data->salary; ?>" required>
+                                                </div>
+                                        </div>
                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                                                <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" ><i class="fa-remove"></i></a>
+                                                <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" style="margin-top: 15px;"><i class="fa-remove"></i></a>
                                         </div>
                                         <div style="clear:both"></div>
                                 </span>
@@ -158,11 +164,26 @@ use kartik\date\DatePicker;
                                         <input type="date" class="form-control" name="create[to][]">
                                 </div>
                         </div>
-                        <a id="addScnt" class="btn btn-icon btn-blue addScnt" ><i class="fa-plus"></i>Add</a>
+
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-salary">
+                                        <label class="control-label" >Salary</label>
+                                        <input type="text" class="form-control" name="create[salary][]">
+                                </div>
+                        </div>
+
                         <div style="clear:both"></div>
                 </span>
                 <br/>
         </div>
+
+        <div class="row">
+                <div class="col-md-6">
+                        <a id="addScnt" class="btn btn-blue btn-icon btn-icon-standalone addScnt" ><i class="fa-plus"></i><span> Add More</span></a>
+                </div>
+        </div>
+
+        <hr style="border-top: 1px solid #979898 !important;">
 
         <h3 style="color:#148eaf;">Emergency Contact</h3>
         <hr class="enquiry-hr"/>

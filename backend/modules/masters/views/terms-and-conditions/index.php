@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     return 'Patient';
                                                             } else if ($model->type == '3') {
                                                                     return 'Staff Enquiry';
-                                                            } else if ($model->type == '1') {
+                                                            } else if ($model->type == '4') {
                                                                     return 'Staff';
                                                             }
                                                     },

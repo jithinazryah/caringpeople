@@ -46,7 +46,7 @@ class PatientEnquiryGeneralFirst extends \yii\db\ActiveRecord {
                 return [
                         [['contacted_source', 'status', 'referral_source'], 'required', 'on' => 'create'],
                         [['incoming_missed'], 'required', 'message' => "Contact Source Data cannot be blank"],
-                        [['contacted_source', 'caller_gender', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
+                        [['contacted_source', 'caller_gender', 'branch_id', 'status', 'CB', 'UB', 'terms_conditions'], 'integer'],
                         [['contacted_date', 'outgoing_call_date', 'DOC', 'DOU'], 'safe'],
                         [['enquiry_number', 'outgoing_number_from_other', 'referral_source_others'], 'string', 'max' => 200],
                         [['incoming_missed', 'outgoing_number_from', 'caller_name', 'referral_source', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'incoming_missed_other'], 'string', 'max' => 100],

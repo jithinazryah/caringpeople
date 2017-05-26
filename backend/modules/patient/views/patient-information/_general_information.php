@@ -212,10 +212,14 @@ use common\models\Branch;
                         </div>
                 <?php } ?>
 
+
+
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($patient_general, 'patient_image')->fileInput() ?>
 
                 </div>
+
+
                 <?php
                 if ($patient_general->patient_image != '') {
                         $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
@@ -231,6 +235,9 @@ use common\models\Branch;
                 <?php }
                 ?>
                 <div style="clear:both"></div>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'terms_conditions', ['template' => "<label class='cbr-inline top'>{input}<a href='javascript:;' target='_blank' href='#' class='terms' id='2'>I agree to the terms and conditions</a></label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;', 'label' => '']) ?>
+
+                </div>
         </div>
         <?php /* if ($model->passport != '' || $model->driving_license != '' || $model->pan_card != '' || $model->voters_id != '') { ?>
           <!--                <div class="row">

@@ -166,6 +166,8 @@ use kartik\date\DatePicker;
 
         </div><div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'notes')->textarea(['rows' => 6]) ?>
 
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'terms_conditions', ['template' => "<label class='cbr-inline top'>{input}<a href='javascript:;' target='_blank' href='#' class='terms' id='1'>I agree to the terms and conditions</a></label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;', 'label' => '']) ?>
+
         </div>
 </div>
 

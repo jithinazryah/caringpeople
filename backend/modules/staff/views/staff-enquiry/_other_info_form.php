@@ -261,7 +261,7 @@ use common\models\StaffExperienceList;
                                                 </div>
                                         </div>
                                         <div class='col-md-1 col-sm-6 col-xs-12 left_padd'>
-                                                <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt"style="margin-top: 15px;" ><i class="fa-remove"></i></a>
+                                                <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" style="margin-top: 15px;" ><i class="fa-remove"></i></a>
                                         </div>
                                         <div style="clear:both"></div>
                                 </span>
