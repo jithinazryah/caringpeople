@@ -97,7 +97,9 @@ if ($type == '1') {
         }
 </style>
 
-<?php if (!isset($update_followup)) { ?>
+<?php
+if ((!isset($update_followup)) && count($followups) > 0) {
+        ?>
         <script>
                 $(document).ready(function () {
                         $('.followup_form').hide();

@@ -234,7 +234,8 @@ class FollowupsController extends Controller {
 
                         if (!empty($add_followp->assigned_to))
                                 $add_followp->save(false);
-                        $this->Imageupload($add_followp->id, $val['name'], $val['tmp_name']);
+                        if (!empty($value['name']))
+                                $this->Imageupload($add_followp->id, $val['name'], $val['tmp_name']);
                         $this->sendMail($add_followp, $val['assigned_to']);
                 }
         }
