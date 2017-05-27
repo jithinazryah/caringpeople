@@ -29,17 +29,24 @@ use common\models\StaffInfo;
                                                 $followup_type_Selected[] = $update_followup->type;
                                                 $followup_subtype_Selected[] = $update_followup->sub_type;
                                                 $assigned_to_selected[] = $update_followup->assigned_to;
+                                                $related_staffs = explode(',', $update_followup->related_staffs);
+
+                                                $related_staff_assgnd = [];
+                                                foreach ($related_staffs as $value) {
+
+                                                        $related_staff_assgnd[] = $value;
+                                                }
                                                 ?>
                                                 <span>
 
-                                                        <?php //if ($update_followup->type != 5) { ?>
+                                                        <?php //if ($update_followup->type != 5) {        ?>
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-sub_type">
                                                                         <label class="control-label" for="followups-sub_type">Category</label>
                                                                         <?= Html::dropDownList('updatee[' . $update_followup->id . '][sub_type][]', $followup_subtype_Selected, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
-                                                        <?php //} ?>
+                                                        <?php //}        ?>
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-followup_date">
@@ -62,6 +69,17 @@ use common\models\StaffInfo;
                                                                         <?= Html::dropDownList('updatee[' . $update_followup->id . '][assigned_to][]', $assigned_to_selected, $data, ['class' => 'form-control', 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
+                                                        <?php
+                                                        $related_staff = Yii::$app->SetValues->Relatedstaffs($update_followup->type, $update_followup->type_id);
+                                                        ?>
+
+                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-followup_notes">
+                                                                        <label class="control-label" for="followups-followup_notes">Related Staffs</label>
+                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][related_staffs][]', $related_staff_assgnd, $related_staff, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'update-related_staffs', 'multiple' => 'multiple']); ?>
+                                                                </div>
+                                                        </div>
+
 
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -157,14 +175,14 @@ use common\models\StaffInfo;
                                                 <?php }
                                                 ?>
 
-                                                <?php // if ($type != 5) {   ?>
+                                                <?php // if ($type != 5) {            ?>
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-sub_type">
                                                                 <label class="control-label" for="followups-sub_type">Category</label>
                                                                 <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--']); ?>
                                                         </div>
                                                 </div>
-                                                <?php // }   ?>
+                                                <?php // }            ?>
 
 
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -196,6 +214,17 @@ use common\models\StaffInfo;
                                                         <div class="form-group field-followups-assigned_to">
                                                                 <label class="control-label" for="followups-assigned_to">Assigned To</label>
                                                                 <?= Html::dropDownList('create[assigned_to][]', $assigned_too, $data, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'create-assignedto']); ?>
+                                                        </div>
+                                                </div>
+
+                                                <?php
+                                                $related_staff = Yii::$app->SetValues->Relatedstaffs($type, $type_id);
+                                                ?>
+
+                                                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class="form-group field-followups-related_staffs">
+                                                                <label class="control-label" for="followups-related_staffs">Related Staffs</label>
+                                                                <?= Html::dropDownList('create[related_staffs][0][]', null, $related_staff, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'create-related_staffs', 'multiple' => 'multiple']); ?>
                                                         </div>
                                                 </div>
 
@@ -256,6 +285,10 @@ use common\models\StaffInfo;
 
 </div>
 
+<script>
+        $(document).ready(function () {
 
+        });
+</script>
 
 

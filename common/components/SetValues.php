@@ -167,4 +167,16 @@ class SetValues extends Component {
                 return $datas;
         }
 
+        public function Relatedstaffs($type, $type_id) {
+
+                $related_staff = StaffInfo::find()->where(['<>', 'post_id', '1'])->orderBy(['staff_name' => SORT_ASC])->all();
+                $related_staff_data = ArrayHelper::map($related_staff, 'id', 'namepost');
+                if ($type == '5') {
+                        $service = Service::findOne($type_id);
+                        $patient = PatientGeneral::findOne($service->patient_id);
+                        $related_staff_data[$patient->id] = $patient->first_name . " (Patient)";
+                }
+                return $related_staff_data;
+        }
+
 }

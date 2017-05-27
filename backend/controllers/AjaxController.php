@@ -343,10 +343,18 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * popup content in terms and conditions
+         */
+
         public function actionContent() {
                 $data = $this->renderPartial('terms', ['id' => $_POST['id']]);
                 echo $data;
         }
+
+        /*
+         * show patients based on branch in service form
+         */
 
         public function actionPatients() {
                 $branch = $_POST['branch'];
@@ -356,6 +364,20 @@ class AjaxController extends \yii\web\Controller {
                         $options .= "<option value='" . $patient->id . "'>" . $patient->first_name . "</option>";
                 }
                 echo $options;
+        }
+
+        /*
+         * This function is for adding multiple followup details
+         */
+
+        public function actionFollowups() {
+                if (Yii::$app->request->isAjax) {
+                        $type_id = $_POST['type_id'];
+                        $type = $_POST['type'];
+                        $count = $_POST['count'];
+                        $datas = $this->renderPartial('followup', ['type_id' => $type_id, 'type' => $type, 'count' => $count]);
+                        echo $datas;
+                }
         }
 
 }

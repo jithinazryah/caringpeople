@@ -50,7 +50,7 @@ if ($type == '1') {
 
                         </div>
                         <?php
-                        if (isset($service) && $service != 'NULL') {
+                        if (isset($service) && $service != 'NULL' || $type == '5') {
                                 echo $this->render('_menus', [
                                     'type_id' => $type_id,
                                 ]);

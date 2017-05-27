@@ -113,6 +113,7 @@ class FollowupsController extends Controller {
 
         public function AddFollowups() {
 
+
                 $arr = [];
                 $i = 0;
                 foreach ($_POST['create']['type_id'] as $val) {
@@ -183,6 +184,15 @@ class FollowupsController extends Controller {
                         }
                 }
 
+                $i = 0;
+                if ($_POST['create']['related_staffs'] != '') {
+
+                        foreach ($_POST['create']['related_staffs'] as $value) {
+                                $arr[$i]['related_staffs'] = implode(',', $value);
+                                $i++;
+                        }
+                }
+
 
 
                 foreach ($arr as $val) {
@@ -205,6 +215,7 @@ class FollowupsController extends Controller {
                         $add_followp->assigned_to = $assgnd_to;
                         $add_followp->followup_notes = $val['followup_notes'];
                         $add_followp->assigned_from = Yii::$app->user->identity->id;
+                        $add_followp->related_staffs = $val['related_staffs'];
                         $add_followp->attachments = $val['name'];
                         $add_followp->DOC = date('Y-m-d');
                         $add_followp->CB = Yii::$app->user->identity->id;
@@ -226,12 +237,19 @@ class FollowupsController extends Controller {
 
                 foreach ($_POST['updatee'] as $key => $val) {
 
+
+
                         $arr[$key]['sub_type'] = $val['sub_type'][0];
                         $arr[$key]['followup_date'] = date('Y-m-d H:i:s', strtotime($val['followup_date'][0]));
                         $arr[$key]['assigned_to'] = $val['assigned_to'][0];
                         $arr[$key]['followup_notes'] = $val['followup_notes'][0];
                         $arr[$key]['assigned_from'] = Yii::$app->user->identity->id;
                         $arr[$key]['status'] = $val['status'][0];
+                        if (isset($val['related_staffs']) && $val['related_staffs'] != '')
+                                $val['related_staffs'][0] = implode(",", $val['related_staffs']);
+                        else
+                                $val['related_staffs'][0] = '';
+                        $arr[$key]['related_staffs'] = $val['related_staffs'][0];
                         if (isset($_FILES['updatee'])) {
                                 foreach ($_FILES['updatee'] ['name'] as $row => $innerArray) {
                                         $i = 0;
@@ -250,6 +268,8 @@ class FollowupsController extends Controller {
                                         }
                                 }
                         }
+
+
                         $i++;
                 }
 
@@ -261,6 +281,7 @@ class FollowupsController extends Controller {
                         $update_followup->followup_date = $value['followup_date'];
                         $update_followup->assigned_to = $value['assigned_to'];
                         $update_followup->followup_notes = $value['followup_notes'];
+                        $update_followup->related_staffs = $value['related_staffs'];
                         $update_followup->assigned_from = Yii::$app->user->identity->id;
                         $update_followup->status = $value['status'];
                         $update_followup->UB = Yii::$app->user->identity->id;
@@ -285,6 +306,7 @@ class FollowupsController extends Controller {
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
                 $target_dir = Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $id . "/";
                 $target_file = $target_dir . $filename;
+
                 move_uploaded_file($Tmpfilename, $target_file);
         }
 
@@ -309,7 +331,7 @@ class FollowupsController extends Controller {
                         $headers = 'MIME-Version: 1.0' . "\r\n";
                         $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
                                 "From: info@caringpeople.in";
-                        mail($to, $subject, $message, $headers);
+                        // mail($to, $subject, $message, $headers);
                 }
         }
 

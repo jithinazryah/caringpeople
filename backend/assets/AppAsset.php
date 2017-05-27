@@ -21,6 +21,8 @@ class AppAsset extends AssetBundle {
             'css/xenon-components.css',
             'css/xenon-skins.css',
             'css/custom.css',
+            'js/select2/select2.css',
+            'js/select2/select2-bootstrap.css',
         ];
         public $js = [
             'js/bootstrap.min.js',
@@ -38,6 +40,7 @@ class AppAsset extends AssetBundle {
             'js/staff.js',
             'js/enquiry.js',
             'js/followup.js',
+            'js/select2/select2.min.js',
         ];
         public $depends = [
             'yii\web\YiiAsset',

@@ -60,7 +60,7 @@ class FollowupajaxController extends \yii\web\Controller {
          * This function is for adding multiple followup details
          */
 
-        public function actionFollowups() {
+        public function actionFollowups1() {
                 if (Yii::$app->request->isAjax) {
 
                         $rand = rand();
@@ -80,19 +80,12 @@ class FollowupajaxController extends \yii\web\Controller {
                         }
 
                         $options = Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--']);
-                        $followupsub_type = " <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
-                                                        <div class = 'form-group field-followups-sub_type'>
-                                                             <label class = 'control-label'>Sub Type</label>
-                                                                $options
-                                                        </div>
-                                                      </div>";
-
 
 
                         if ($_POST['type'] != 5) {
 
                                 $all_users = StaffInfo::find()->where(['post_id' => '5'])->all();
-                                $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
+                                $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'namepost'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
                         } else {
 
                                 $service = \common\models\Service::find()->where(['id' => $_POST['type_id']])->one();
@@ -103,6 +96,8 @@ class FollowupajaxController extends \yii\web\Controller {
                         $userid = Yii::$app->user->identity->id;
                         $user = StaffInfo::findOne($userid);
 
+                        $related_staffs = StaffInfo::find()->where(['<>', 'post_id', '1'])->orderBy(['staff_name' => SORT_ASC])->all();
+                        $related_staff_data = Html::dropDownList('create[related_staffs][]', null, ArrayHelper::map($related_staffs, 'id', 'namepost'), ['class' => 'form-control create-related_staffs', 'prompt' => '--Select--', 'id' => 'related_staffs_' . $rand, 'multiple' => 'multiple']);
 
                         $datas = "<span>
                                 <hr style='border-top: 1px solid #979898 !important;'>
@@ -110,7 +105,12 @@ class FollowupajaxController extends \yii\web\Controller {
                                 <input type='hidden' name='create[type_id][]' value='" . $_POST['type_id'] . "'>
                                         $followtype
 
-                                       $followupsub_type
+                                       <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                             <div class = 'form-group field-followups-sub_type'>
+                                                <label class = 'control-label'>Sub Type</label>
+                                                  $options
+                                            </div>
+                                        </div>
 
                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                             <div class='form-group field-followups-followup_date'>
@@ -123,6 +123,13 @@ class FollowupajaxController extends \yii\web\Controller {
                                               <div class='form-group field-followups-assigned_to'>
                                                  <label class='control-label'>Assigned To</label>
                                                  $assigned_to
+                                              </div>
+                                          </div>
+
+                                           <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                              <div class='form-group field-followups-related_staffs'>
+                                                 <label class='control-label'>Related Staffs</label>
+                                                 $related_staff_data
                                               </div>
                                           </div>
 
@@ -140,14 +147,12 @@ class FollowupajaxController extends \yii\web\Controller {
                                             </div>
                                         </div>
 
-                                   <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                       <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                             <div class='form-group field-followups-followup_notes'>
                                                <label class='control-label' for='followups-followup_notes'>Attachments</label>
                                                  <input type = 'file' name = 'create[image][]' />
                                             </div>
                                         </div>
-
-
 
                                           <a id='remFollowup' class='btn btn-icon btn-red remFollowup' title='Delete' style='margin-top: 15px;'><i class='fa-remove'></i></a>
                                           <div style='clear:both'></div>
@@ -158,6 +163,10 @@ class FollowupajaxController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * Add followup subtype in popup for adding followups
+         */
+
         public function actionAddfollowups() {
                 if (Yii::$app->request->isAjax) {
                         $followup_subtype = FollowupSubType::find()->where(['type_id' => $_POST['type'], 'status' => '1'])->all();
@@ -167,6 +176,10 @@ class FollowupajaxController extends \yii\web\Controller {
                         echo $datas;
                 }
         }
+
+        /*
+         * Add followup to db on popup submit
+         */
 
         public function actionAdd() {
                 if (Yii::$app->request->isAjax) {
@@ -184,6 +197,10 @@ class FollowupajaxController extends \yii\web\Controller {
                         $followup->save(false);
                 }
         }
+
+        /*
+         * show followup subtype on followup type change in add followup form
+         */
 
         public function actionSubtype() {
 

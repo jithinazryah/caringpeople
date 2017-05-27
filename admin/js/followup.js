@@ -6,18 +6,58 @@
 $("document").ready(function () {
 
 
+        /*
+         * select 2 for related staffs
+         */
+        $("#create-related_staffs").select2({
+                placeholder: 'Select Staffs',
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+        /*
+         * select 2 for update staffs
+         */
+        $("#update-related_staffs").select2({
+                placeholder: 'Select Staffs',
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
 
 
-        $('.follow_notes').blur(function () {
 
-                var followup_id = $(this).attr('id');
-                var notes = $(this).val();
+        /*
+         * To add more followup (multiple)
+         */
+
+
+        var scntDiv = $('#followups');
+        var i = $('#followups span').size() + 1;
+        $('#addFollowups').on('click', function () {
+                var type = $('#type').val();
+                var type_id = $('#type_id').val();
+                showLoader();
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {followup_id: followup_id, notes: notes},
-                        url: homeUrl + 'ajax/followup',
+                        data: {type: type, type_id: type_id, count: i},
+                        url: homeUrl + 'ajax/followups',
                         success: function (data) {
+                                hideLoader();
+                                if ($(data).appendTo(scntDiv)) {
+                                        $('#create-related_staffs_' + i).select2({
+                                                placeholder: 'Choose Staffs',
+                                                allowClear: true
+                                        }).on('select2-open', function ()
+                                        {
+                                                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                        });
+                                        i++;
+                                }
 
 
                         }
@@ -45,32 +85,7 @@ $("document").ready(function () {
 
         });
 
-        /*
-         * To add more followup (multiple)
-         */
 
-
-        var scntDiv = $('#followups');
-        var i = $('#followups span').size() + 1;
-
-        $('#addFollowups').on('click', function () {
-                var type = $('#type').val();
-                var type_id = $('#type_id').val();
-                showLoader();
-                $.ajax({
-                        type: 'POST',
-                        cache: false,
-                        data: {type: type, type_id: type_id},
-                        url: homeUrl + 'followupajax/followups',
-                        success: function (data) {
-
-                                hideLoader();
-                                $(data).appendTo(scntDiv);
-                                i++;
-                                return false;
-                        }
-                });
-        });
 
         /*
          * to remove followups
