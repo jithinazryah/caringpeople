@@ -147,7 +147,7 @@ class SetValues extends Component {
                 } else {
                         $data3 = [];
                 }
-                $super_admins = StaffInfo::find()->where(['post_id' => 1])->all();
+                $super_admins = StaffInfo::find()->where(['post_id' => 1, 'status' => 1])->all();
                 $data2 = ArrayHelper::map($super_admins, 'id', 'fullname');
 
 
@@ -169,7 +169,7 @@ class SetValues extends Component {
 
         public function Relatedstaffs($type, $type_id) {
 
-                $related_staff = StaffInfo::find()->where(['<>', 'post_id', '1'])->orderBy(['staff_name' => SORT_ASC])->all();
+                $related_staff = StaffInfo::find()->where(['<>', 'post_id', '1'])->andWhere(['status' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
                 $related_staff_data = ArrayHelper::map($related_staff, 'id', 'namepost');
                 if ($type == '5') {
                         $service = Service::findOne($type_id);
