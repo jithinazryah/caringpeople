@@ -8,6 +8,7 @@ use common\models\FollowupsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Expression;
 
 /**
  * FollowupsController implements the CRUD actions for Followups model.
@@ -68,6 +69,17 @@ class FollowupsController extends Controller {
         public function actionAssignedclosed() {
                 $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['status' => '1'])->all();
                 return $this->render('closed', [
+                            'followups' => $followups,
+                ]);
+        }
+
+        /*
+         * to view followups that you are in related staffa
+         */
+
+        public function actionViewrelated() {
+                $followups = Followups::find()->where(new Expression('FIND_IN_SET(:related_staffs, related_staffs)'))->addParams([':related_staffs' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
+                return $this->render('view', [
                             'followups' => $followups,
                 ]);
         }

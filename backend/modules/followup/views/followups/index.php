@@ -22,7 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                 </div>
-                                <a href="<?= Yii::$app->homeUrl; ?>followup/followups/assignedclosed" class="btn btn-secondary" style="margin-top:10px;    float: right;">Closed Followups</a>
+                                <div class="col-md-12">
+                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/assignedclosed" class="btn btn-secondary" style="margin-top:10px;    float: right;">Closed Followups</a>
+                                </div>
                                 <div class="panel-body">
 
                                         <?php
