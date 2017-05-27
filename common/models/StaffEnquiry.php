@@ -90,4 +90,68 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                 return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
         }
 
+        public function getEducation() {
+                return $this->hasOne(StaffInfoEducation::className(), ['enquiry_id' => 'id']);
+        }
+
+        public function getOtherinfo() {
+                return $this->hasOne(StaffOtherInfo::className(), ['enquiry_id' => 'id']);
+        }
+
+        public function getInterviewfirst() {
+                return $this->hasOne(StaffEnquiryInterviewFirst::className(), ['enquiry_id' => 'id']);
+        }
+
+        public function getInterviewsecond() {
+                return $this->hasOne(StaffEnquiryInterviewSecond::className(), ['enquiry_id' => 'id']);
+        }
+
+        public function getInterviewthird() {
+                return $this->hasOne(StaffEnquiryInterviewThird::className(), ['enquiry_id' => 'id']);
+        }
+
+        public function Staffexperience($exp) {
+                $expp = explode(',', $exp);
+
+                $name = '';
+                $i = 0;
+                foreach ($expp as $value) {
+
+                        $i++;
+                        if ($i != 1) {
+                                $name .= ",";
+                        }
+                        $staff_Exp = StaffExperienceList::findOne($value);
+                        $name .= $staff_Exp->title;
+                }
+                return $name;
+        }
+
+        public function Language($lang1) {
+                if (isset($lang1) && $lang1 != '') {
+                        $lang = explode(',', $lang1);
+                        if ($lang[1] == '1') {
+                                $read = 'Read';
+                        } else {
+                                $read = '';
+                        }
+
+                        if ($lang[2] == '1') {
+                                $write = 'Write';
+                        } else {
+                                $write = '';
+                        }
+
+                        if ($lang[3] == '1') {
+                                $speak = 'Speak';
+                        } else {
+                                $speak = '';
+                        }
+                        $language = $lang[0] . "(" . $read . "," . $write . "," . $speak . ")";
+                } else {
+                        $language = '';
+                }
+                return $language;
+        }
+
 }

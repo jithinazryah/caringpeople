@@ -101,6 +101,7 @@ class StaffEnquiryController extends Controller {
          * @return mixed
          */
         public function actionView($id) {
+
                 return $this->render('view', [
                             'model' => $this->findModel($id),
                 ]);
@@ -176,7 +177,7 @@ class StaffEnquiryController extends Controller {
 
                 // die('ff');
                 $staff_enquiry = $this->findModel($id);
-                $before_update = StaffInfoUploads::findOne(['enquiry_id' => $staff_enquiry->id]);
+
                 $other_info = StaffOtherInfo::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_edu = StaffInfoEducation::findOne(['enquiry_id' => $staff_enquiry->id]);
 

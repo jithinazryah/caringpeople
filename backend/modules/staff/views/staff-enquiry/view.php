@@ -24,15 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body"><div class="staff-enquiry-view">
                                                 <p>
                                                         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                                                        <?=
-                                                        Html::a('Delete', ['delete', 'id' => $model->id], [
-                                                            'class' => 'btn btn-danger',
-                                                            'data' => [
-                                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                                'method' => 'post',
-                                                            ],
-                                                        ])
-                                                        ?>
+
                                                 </p>
 
                                                 <?=
@@ -99,6 +91,108 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ],
                                                         // 'follow_up_date',
                                                         'notes:ntext',
+                                                        'education.sslc_institution',
+                                                        'education.sslc_year_of_passing',
+                                                        'education.sslc_place',
+                                                        'education.hse_institution',
+                                                        'education.hse_year_of_passing',
+                                                        'education.hse_place',
+                                                        'education.nursing_institution',
+                                                        'education.nursing_year_of_passing',
+                                                        'education.nursing_place',
+                                                        'interviewfirst.police_station_name',
+                                                        'interviewfirst.panchayat',
+                                                        'interviewfirst.muncipality_corporation',
+                                                        'interviewfirst.mentioned_per_day_salary',
+                                                            [
+                                                            'label' => 'Languages known',
+                                                            'attribute' => 'interviewfirst.language_1',
+                                                            'value' => function($model) {
+                                                                    $lang = $model->language($model->interviewfirst->language_1);
+                                                                    $lang2 = $model->language($model->interviewfirst->language_2);
+                                                                    $lang3 = $model->language($model->interviewfirst->language_3);
+                                                                    $lang4 = $model->language($model->interviewfirst->language_4);
+                                                                    return $lang . "," . $lang2 . "," . $lang3 . "," . $lang4;
+                                                            }
+                                                        ],
+                                                        'interviewfirst.family_name',
+                                                            [
+                                                            'attribute' => 'interviewfirst.relation',
+                                                            'value' => function($model) {
+                                                                    if ($model->interviewfirst->relation == '1') {
+                                                                            return 'Father';
+                                                                    } else if ($model->interviewfirst->relation == '2') {
+                                                                            return 'Mother';
+                                                                    } else if ($model->interviewfirst->relation == '3') {
+                                                                            return 'Spouse';
+                                                                    } else if ($model->interviewfirst->relation == '4') {
+                                                                            return 'Brother';
+                                                                    } else if ($model->interviewfirst->relation == '5') {
+                                                                            return 'Sister';
+                                                                    } else if ($model->interviewfirst->relation == '6') {
+                                                                            return 'Neighbour';
+                                                                    }
+                                                            }
+                                                        ],
+                                                        'interviewfirst.job',
+                                                        'interviewfirst.mobile_no',
+                                                        'otherinfo.emergency_contact_name',
+                                                        'otherinfo.relationship',
+                                                        'otherinfo.phone',
+                                                        'otherinfo.mobile',
+                                                        'otherinfo.alt_emergency_contact_name',
+                                                        'otherinfo.alt_relationship',
+                                                        'otherinfo.alt_phone',
+                                                        'otherinfo.alt_mobile',
+                                                        'interviewsecond.contact_verified_by',
+                                                        'interviewsecond.contact_verified_date',
+                                                        'interviewsecond.contact_verified_note',
+                                                        'interviewsecond.alt_contact_verified_by',
+                                                        'interviewsecond.alt_contact_verified_date',
+                                                        'interviewsecond.alt_contact_verified_note',
+                                                        'interviewsecond.verified_name_1',
+                                                        'interviewsecond.verified_designation_1',
+                                                        'interviewsecond.verified_date_1',
+                                                        'interviewsecond.verified_mobile_no_1',
+                                                        'interviewthird.bank_ac_no',
+                                                        'interviewthird.bank_ac_hodername',
+                                                        'interviewthird.bank_name',
+                                                        'interviewthird.bank_branch',
+                                                        'interviewthird.bank_ifsc',
+                                                            [
+                                                            'attribute' => 'interviewthird.staff_experience',
+                                                            'value' => function($model) {
+                                                                    return $model->staffexperience($model->interviewthird->staff_experience);
+                                                            }
+                                                        ],
+                                                        'interviewthird.document_required',
+                                                        'interviewthird.document_received',
+                                                            [
+                                                            'attribute' => 'interviewthird.form_filled',
+                                                            'value' => function($model) {
+                                                                    if ($model->interviewthird->form_filled == '0') {
+                                                                            return 'No';
+                                                                    } else if ($model->interviewthird->form_filled == '1') {
+                                                                            return 'Yes';
+                                                                    }
+                                                            }
+                                                        ],
+                                                            [
+                                                            'attribute' => 'interviewthird.interest_level',
+                                                            'value' => function($model) {
+                                                                    if ($model->interviewthird->interest_level == '1') {
+                                                                            return 'High';
+                                                                    } else if ($model->interviewthird->interest_level == '2') {
+                                                                            return 'No Interest';
+                                                                    } else if ($model->interviewthird->interest_level == '3') {
+                                                                            return 'Medium';
+                                                                    }
+                                                            }
+                                                        ],
+                                                        'interviewthird.expected_date_of_joining',
+                                                        'interviewthird.interview_notes',
+                                                        'interviewthird.interviewed_by',
+                                                        'interviewthird.interviewed_date',
                                                             [
                                                             'attribute' => 'status',
                                                             'value' => $model->status == 1 ? 'Enabled' : 'Disabled',
