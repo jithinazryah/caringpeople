@@ -575,7 +575,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                      ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                         ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -937,68 +937,9 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                         <h4 class="modal-title">Add Followups</h4>
                                 </div>
 
-                                <div class="modal-body">
-
-                                        <input type="hidden" name="type" id="add_type">
-                                        <input type="hidden" name="type_id" id="add_type_id">
-                                        <div class="row">
-                                                <div class="col-md-6">
-
-                                                        <div class="form-group subtype">
-
-                                                        </div>
-
-                                                </div>
-
-                                                <div class="col-md-6">
-
-                                                        <div class="form-group">
-                                                                <label for="field-2" class="control-label ">Followup Date</label>
-
-                                                                <input type="datetime-local" class="form-control some_class" id="field-2" data-mask="datetime" required="required">
-                                                        </div>
-
-                                                </div>
-                                        </div>
+                                <div class="modal-body" id="modal-followup">
 
 
-                                        <div class="row">
-                                                <div class="col-md-6">
-                                                        <?php $all_users = common\models\StaffInfo::find()->where(['<>', 'post_id', '5'])->orderBy(['staff_name' => SORT_ASC])->all(); ?>
-                                                        <div class="form-group">
-                                                                <label for="field-1" class="control-label">Assigned To</label>
-
-                                                                <?= Html::dropDownList('assigned_to', null, ArrayHelper::map($all_users, 'id', 'staff_name'), ['class' => 'form-control', 'id' => 'field-3', 'prompt' => '--Select--', 'required' => 'required']); ?>
-                                                        </div>
-
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                        <?php
-                                                        $userid = Yii::$app->user->identity->id;
-                                                        $user = common\models\StaffInfo::findOne($userid);
-                                                        ?>
-                                                        <div class="form-group">
-                                                                <label for="field-2" class="control-label">Assigned From</label>
-
-                                                                <input type="text" class="form-control" id="field-4" value="<?= $user->staff_name; ?>" readonly="readonly">
-                                                        </div>
-
-                                                </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                                <div class="col-md-12">
-
-                                                        <div class="form-group no-margin">
-                                                                <label for="field-7" class="control-label">Followup Notes</label>
-
-                                                                <textarea class="form-control autogrow" id="field-5"></textarea>
-                                                        </div>
-
-                                                </div>
-                                        </div>
 
 
                                 </div>

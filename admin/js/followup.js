@@ -30,6 +30,9 @@ $("document").ready(function () {
 
 
 
+
+
+
         /*
          * To add more followup (multiple)
          */
@@ -134,11 +137,20 @@ $("document").ready(function () {
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {type: type_id[0]},
+                        data: {type: type_id[0], type_id: type_id[1]},
                         url: homeUrl + 'followupajax/addfollowups',
                         success: function (data) {
+
                                 hideLoader();
-                                $(".subtype").append(data);
+
+                                $("#modal-followup").html(data);
+                                $("#related_staffs_field").select2({
+                                        placeholder: 'Select Staffs',
+                                        allowClear: true
+                                }).on('select2-open', function ()
+                                {
+                                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                });
                                 $('#modal-6').modal('show', {backdrop: 'static'});
                         }
                 });
@@ -157,13 +169,14 @@ $("document").ready(function () {
                 var followupdate = $('#field-2').val();
                 var assignedto = $('#field-3').val();
                 var assignedfrom = $('#field-4').val();
+                var related_staffs = $('#related_staffs_field').val();
                 var notes = $('#field-5').val();
 
                 showLoader();
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {type: type, type_id: type_id, subtype: subtype, followupdate: followupdate, assignedto: assignedto, assignedfrom: assignedfrom, notes: notes},
+                        data: {type: type, type_id: type_id, subtype: subtype, followupdate: followupdate, assignedto: assignedto, assignedfrom: assignedfrom, related_staffs: related_staffs, notes: notes},
                         url: homeUrl + 'followupajax/add',
                         success: function (data) {
                                 hideLoader();

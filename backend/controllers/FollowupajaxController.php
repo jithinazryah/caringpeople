@@ -62,10 +62,7 @@ class FollowupajaxController extends \yii\web\Controller {
 
         public function actionAddfollowups() {
                 if (Yii::$app->request->isAjax) {
-                        $followup_subtype = FollowupSubType::find()->where(['type_id' => $_POST['type'], 'status' => '1'])->all();
-                        $options = Html::dropDownList('sub_type', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control subtypediv', 'id' => 'field-1', 'prompt' => '--Select--', 'required' => 'required']);
-                        $datas = "<div class='subtypediv'><label for='field-1' class='control-label subtypediv'>Sub Type</label>
-                                 $options</div>";
+                        $datas = $this->renderPartial('form_for_popup', ['type' => $_POST['type'], 'type_id' => $_POST['type_id']]);
                         echo $datas;
                 }
         }
@@ -85,6 +82,8 @@ class FollowupajaxController extends \yii\web\Controller {
                         $followup->assigned_from = Yii::$app->user->identity->id;
                         $followup->assigned_to = $_POST['assignedto'];
                         $followup->followup_notes = $_POST['notes'];
+                        if (isset($_POST['related_staffs']) && $_POST['related_staffs'] != '')
+                                $followup->related_staffs = implode(",", $_POST['related_staffs']);
                         $followup->CB = Yii::$app->user->identity->id;
                         $followup->DOC = date('Y-m-d');
                         $followup->save(false);
