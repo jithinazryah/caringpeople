@@ -575,7 +575,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                         ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                          ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -624,7 +624,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                 </li>
 
                                                                 <li style="in-height: 50px;padding: 11px;">
-                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/viewrelated"> Related Followups</a>
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/viewrelated">My Related Followups</a>
                                                                 </li>
 
                                                         </ul>

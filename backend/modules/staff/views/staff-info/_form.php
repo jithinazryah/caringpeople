@@ -169,7 +169,7 @@ use common\models\MasterDesignations;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'panchayath_cleraance_verification')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Opened', '0' => 'Closed']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Opened', '2' => 'Closed']) ?>
 
         </div>
         <?php
@@ -247,13 +247,13 @@ use common\models\MasterDesignations;
                                         </div>
 
 
-                        <?php
-                }
-        }
-        ?>
+                                        <?php
+                                }
+                        }
+                        ?>
                 </div>
 
-<?php } ?>
+        <?php } ?>
 
 
 </div>

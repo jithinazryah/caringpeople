@@ -93,9 +93,9 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 [
                                                 'attribute' => 'status',
                                                 'value' => function($model, $key, $index, $column) {
-                                                        return $model->status == 0 ? 'Closed' : 'Opened';
+                                                        return $model->status == 2 ? 'Closed' : 'Opened';
                                                 },
-                                                'filter' => [1 => 'Opened', 0 => 'Closed'],
+                                                'filter' => [1 => 'Opened', 2 => 'Closed'],
                                             ],
                                             //'staff_id',
                                             // 'staff_manager',
@@ -109,11 +109,27 @@ $designations = \common\models\MasterDesignations::designationlist();
                                             // 'DOC',
                                             // 'DOU',
                                             ['class' => 'yii\grid\ActionColumn',
+                                                'template' => '{view}{update}{followup}{delete}',
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;
                                                     }
-                                                ],],
+                                                ],
+                                                'buttons' => [
+                                                    'followup' => function ($url, $model) {
+
+                                                            $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=5';
+                                                            return Html::a(
+                                                                            '<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
+                                                                        'data-pjax' => '0',
+                                                                        'id' => $model->id,
+                                                                        'title' => 'Add Followups',
+                                                                        'target' => '_blank',
+                                                                            ]
+                                                            );
+                                                    },
+                                                ],
+                                            ],
                                         ];
                                         echo ExportMenu::widget([
                                             'dataProvider' => $dataProvider,

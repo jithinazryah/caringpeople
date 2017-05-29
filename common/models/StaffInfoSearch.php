@@ -41,7 +41,6 @@ class StaffInfoSearch extends StaffInfo {
          */
         public function search($params) {
                 $query = StaffInfo::find();
-
                 // add conditions that should always apply here
 
                 $dataProvider = new ActiveDataProvider([
@@ -145,6 +144,17 @@ class StaffInfoSearch extends StaffInfo {
                                 return Branch::findOne($data->branch_id)->branch_name;
                         },
                         'filter' => ArrayHelper::map(\common\models\Branch::branch(), 'id', 'branch_name'),
+                    ],
+                        [
+                        'attribute' => 'status',
+                        'value' => function($model, $key, $index, $column) {
+                                if ($model->status == '1') {
+                                        return 'Opened';
+                                } else if ($model->status == '2') {
+                                        return 'Closed';
+                                }
+                        },
+                        'filter' => [1 => 'Opened', 2 => 'Closed'],
                     ],
                         ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view}{update}{followup}{delete}',

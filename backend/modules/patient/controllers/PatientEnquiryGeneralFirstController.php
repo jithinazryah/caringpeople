@@ -57,11 +57,11 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
-//		if (!empty(Yii::$app->request->queryParams['PatientEnquiryGeneralFirstSearch']['status'])) {
-//			$dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['PatientEnquiryGeneralFirstSearch']['status']]);
-//		} else {
-//			$dataProvider->query->andWhere(['<>', 'status', 3]);
-//		}
+                if (!empty(Yii::$app->request->queryParams['PatientEnquiryGeneralFirstSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['PatientEnquiryGeneralFirstSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 3]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,

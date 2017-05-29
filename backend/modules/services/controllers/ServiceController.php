@@ -40,6 +40,11 @@ class ServiceController extends Controller {
                 if (Yii::$app->session['post']['id'] == '5') {
                         $dataProvider->query->andWhere(['IN', 'day_staff', Yii::$app->user->identity->id])->orWhere(['IN', 'night_staff', Yii::$app->user->identity->id]);
                 }
+                if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,

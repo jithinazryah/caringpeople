@@ -76,16 +76,16 @@ class StaffEnquiryController extends Controller {
         public function actionIndex() {
                 $searchModel = new StaffEnquirySearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['<>', 'proceed', 1]);
+                // $dataProvider->query->andWhere(['<>', 'proceed', 1]);
 
-//                if (Yii::$app->user->identity->branch_id != '0') {
-//                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
-//                }
-////                if (!empty(Yii::$app->request->queryParams['StaffEnquirySearch']['status'])) {
-////                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffEnquirySearch']['status']]);
-////                } else {
-////                        $dataProvider->query->andWhere(['<>', 'status', 2]);
-////                }
+                if (Yii::$app->user->identity->branch_id != '0') {
+                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
+                if (!empty(Yii::$app->request->queryParams['StaffEnquirySearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffEnquirySearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+                }
 
 
 

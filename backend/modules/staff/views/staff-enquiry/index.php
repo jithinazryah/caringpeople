@@ -93,18 +93,19 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 [
                                                 'attribute' => 'status',
                                                 'value' => function($model, $key, $index, $column) {
-                                                        if ($model->status == '2') {
+                                                        if ($model->status == '1') {
+                                                                return 'Active';
+                                                        } else if ($model->status == '2') {
                                                                 return 'Closed';
-                                                        } else if ($model->status == '1') {
-                                                                return 'Opened';
                                                         }
                                                 },
-                                                'filter' => [1 => 'Opened', 2 => 'Closed'],
+                                                'filter' => [1 => 'Active', 2 => 'Closed'],
                                             ],
                                             // 'notes:ntext',
                                             // 'status',
                                             // 'CB',
                                             // 'UB',
+                                            //
                                             // 'DOC',
                                             // 'DOU',
                                             ['class' => 'yii\grid\ActionColumn',

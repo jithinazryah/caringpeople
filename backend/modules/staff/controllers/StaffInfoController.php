@@ -51,6 +51,11 @@ class StaffInfoController extends Controller {
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
+                if (!empty(Yii::$app->request->queryParams['StaffInfoSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffInfoSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,
@@ -65,7 +70,6 @@ class StaffInfoController extends Controller {
          */
         public function actionView($id) {
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $id]);
-
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $id]);
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $id]);
                 return $this->render('view', [
@@ -81,7 +85,6 @@ class StaffInfoController extends Controller {
                 $staff_info = new StaffInfo();
                 $other_info = StaffOtherInfo::findOne(['enquiry_id' => $id]);
                 $staff_education = StaffInfoEducation::findOne(['enquiry_id' => $id]);
-
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['enquiry_id' => $id]);
                 $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['enquiry_id' => $id]);
                 $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['enquiry_id' => $id]);

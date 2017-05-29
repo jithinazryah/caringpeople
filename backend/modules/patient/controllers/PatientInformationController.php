@@ -50,7 +50,11 @@ class PatientInformationController extends Controller {
         public function actionIndex() {
                 $searchModel = new PatientGeneralSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+                if (!empty(Yii::$app->request->queryParams['PatientGeneralSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['PatientGeneralSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+                }
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,

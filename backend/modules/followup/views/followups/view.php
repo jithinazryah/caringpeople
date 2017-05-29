@@ -8,7 +8,7 @@ use common\components\FollowupsviewWidget;
 /* @var $searchModel common\models\FollowupsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Followups (Related)';
+$this->title = 'My Related Followups';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="followups-index">

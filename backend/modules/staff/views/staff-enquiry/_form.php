@@ -63,7 +63,7 @@ use common\models\MasterDesignations;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'notes')->textarea(['rows' => 6]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'agreement_copy')->dropDownList(['' => '--Select--', '1' => 'Send via mail', '2' => 'No', '3' => 'Given hard copy', '4' => 'Other ']) ?><?php // $form->field($staff_enquiry, 'designation')->dropDownList(['' => '--Select--', '0' => 'Registered Nurse', '1' => 'Care Assistant'])                                        ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'agreement_copy')->dropDownList(['' => '--Select--', '1' => 'Send via mail', '2' => 'No', '3' => 'Given hard copy', '4' => 'Other ']) ?><?php // $form->field($staff_enquiry, 'designation')->dropDownList(['' => '--Select--', '0' => 'Registered Nurse', '1' => 'Care Assistant'])                                          ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="agreement_copy_other">    <?= $form->field($staff_enquiry, 'agreement_copy_other')->textInput(['maxlength' => true]) ?>
 
@@ -98,12 +98,12 @@ use common\models\MasterDesignations;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'nursing_place')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'status')->dropDownList(['1' => 'Active', '2' => 'Closed']) ?>
 
         </div><?php
-                if (Yii::$app->user->identity->branch_id == '0') {
-                        $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
-                        ?>
+        if (Yii::$app->user->identity->branch_id == '0') {
+                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
+                ?>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($staff_enquiry, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
                 </div>
         <?php } ?>
