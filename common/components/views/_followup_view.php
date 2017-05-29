@@ -72,7 +72,7 @@ if ($data->type == 1) {
                 </p>
 
                 <p>
-                        <textarea rows="5" cols="100" class="follow_notes" id="<?= $encrypt_followup_id ?>">- <?= $data->followup_notes; ?></textarea>
+                        <textarea rows="5" cols="100" class="follow_notes" id="<?= $encrypt_followup_id ?>"> <?= $data->followup_notes; ?></textarea>
                 </p>
 
                 <p>
@@ -88,9 +88,8 @@ if ($data->type == 1) {
                 <?php if ($data->attachments != '') { ?>
                         <div id="attach_<?= $data->id ?>">
                                 <p><a href="<?= Yii::$app->homeUrl . '../uploads/followups/' . $data->id . '/' . $data->attachments; ?>" target="_blank" style="font-size: 10px;color: #0d0da5;">View Attachament</a>
-                                        <a title="Delete"><i class="fa fa-remove followup-attach-remove" style="margin-left: 5px;left: 220px;top: 5px;cursor: pointer;font-size: 12px;" id="<?= $data->id . "-" . $data->attachments; ?>"></i></a></p>
-
-
+                                        <a title="Delete"><i class="fa fa-remove followup-attach-remove" style="margin-left: 5px;left: 220px;top: 5px;cursor: pointer;font-size: 12px;" id="<?= $data->id . "-" . $data->attachments; ?>"></i></a>
+                                </p>
                         </div>
                 <?php } ?>
         </blockquote>
