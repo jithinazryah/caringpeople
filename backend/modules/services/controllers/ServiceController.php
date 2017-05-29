@@ -165,9 +165,41 @@ class ServiceController extends Controller {
          * @param integer $id
          * @return mixed
          */
-        public function actionDelete($id) {
-                $this->findModel($id)->delete();
+        public function actionDelete1($id) {
+                $model = $this->findModel($id);
+                $history = \common\models\Followups::find()->where(['type_id' => $id])->exists();
+                if ($history != '1')
+                        $this->findModel($id)->delete();
 
+                return $this->redirect(['index']);
+        }
+
+        public function actionDelete($id) {
+                $model = $this->findModel($id);
+                $history = \common\models\Followups::find()->where(['type_id' => $id])->exists();
+
+
+                // ...other DB operations...
+
+                $transaction = Service::getDb()->beginTransaction();
+                try {
+                        if ($history != '1')
+                                $delete = $this->findModel($id)->delete();
+                        // ...other DB operations...
+                        $transaction->commit();
+                } catch (\Exception $e) {
+
+                        $transaction->rollBack();
+                        throw $e;
+                } catch (\Throwable $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                }
+
+                if ($delete == '1')
+                        Yii::$app->getSession()->setFlash('success', 'succuessfully deleted');
+                else
+                        Yii::$app->getSession()->setFlash('error', 'Oops! This  service cannot delete');
                 return $this->redirect(['index']);
         }
 

@@ -26,6 +26,17 @@ $designations = \common\models\MasterDesignations::designationlist();
 
                                 </div>
                                 <div class="panel-body">
+
+                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                        <?= Yii::$app->session->getFlash('error') ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                <div class="alert alert-success" role="alert">
+                                                        <?= Yii::$app->session->getFlash('success') ?>
+                                                </div>
+                                        <?php endif; ?>
                                         <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> Create Service</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>

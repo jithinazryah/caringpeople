@@ -31,6 +31,22 @@ $("document").ready(function () {
 
 
 
+        $('.follow_notes').blur(function () {
+
+                var followup_id = $(this).attr('id');
+                var notes = $(this).val();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {followup_id: followup_id, notes: notes},
+                        url: homeUrl + 'ajax/followup',
+                        success: function (data) {
+
+
+                        }
+                });
+        });
+
 
 
         /*

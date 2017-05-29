@@ -72,7 +72,7 @@ if ($data->type == 1) {
                 </p>
 
                 <p>
-                        <small><?= $data->followup_notes; ?></small>
+                        <textarea rows="5" cols="100" class="follow_notes" id="<?= $encrypt_followup_id ?>">- <?= $data->followup_notes; ?></textarea>
                 </p>
 
                 <p>
@@ -97,3 +97,12 @@ if ($data->type == 1) {
 </div>
 
 
+<style>
+        textarea{
+                display: block;
+                font-size: 80%;
+                line-height: 1.42857143;
+                color: #777;
+                border: none;
+        }
+</style>
