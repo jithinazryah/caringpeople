@@ -157,7 +157,10 @@ class StaffInfoController extends Controller {
                         $model->username = Yii::$app->request->post()['StaffInfo']['username'];
                         $model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
                         $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
-//$this->AddToUsers($model);
+
+
+                        if (!empty(Yii::$app->request->post()['StaffInfo']['designation']))
+                                $model->designation = implode(",", Yii::$app->request->post()['StaffInfo']['designation']);
 
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($model);
@@ -253,6 +256,10 @@ class StaffInfoController extends Controller {
                         $other_info->load(Yii::$app->request->post());
                         $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
                         $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
+                        if (!empty(Yii::$app->request->post()['StaffInfo']['designation']))
+                                $model->designation = implode(",", Yii::$app->request->post()['StaffInfo']['designation']);
+
+
                         if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save()) {
 
                                 $model->username = Yii::$app->request->post()['StaffInfo']['username'];

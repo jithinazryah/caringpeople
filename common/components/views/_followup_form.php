@@ -156,6 +156,7 @@ use common\models\StaffInfo;
 
                                         <!-------------------------------------------------------------------For create---------------------------------------------------------------->
 
+
                                         <?php
                                         $followup_type = FollowupType::find()->all();
                                         $followup_subtype = FollowupSubType::find()->where(['type_id' => $type, 'status' => '1'])->all();
@@ -175,14 +176,14 @@ use common\models\StaffInfo;
                                                 <?php }
                                                 ?>
 
-                                                <?php // if ($type != 5) {            ?>
+
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-sub_type">
                                                                 <label class="control-label" for="followups-sub_type">Category</label>
                                                                 <?= Html::dropDownList('create[sub_type][]', null, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'id' => 'sub_' . $rand, 'prompt' => '--Select--']); ?>
                                                         </div>
                                                 </div>
-                                                <?php // }            ?>
+
 
 
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -251,11 +252,85 @@ use common\models\StaffInfo;
                                                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                         <div class="form-group field-followups-assigned_from">
                                                                 <label class="control-label" for="followups-assigned_from">Attachments</label>
-<!--                                                                <input type="file" class="form-control" name="create[attachments][]" >-->
                                                                 <input type = "file" name = "create[image][]" />
 
                                                         </div>
                                                 </div>
+
+                                                <div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="repeated">
+                                                        <div class="form-group field-followups-repeated_followups">
+                                                                <label class="control-label" for="followups-assigned_from"></label>
+                                                                <input type="checkbox" name="create[repeated_followups]" id="repeated_followups"> <span style="color: #000;font-weight: bold;">Repeated Followups</span>
+                                                        </div>
+                                                </div>
+
+
+                                                <div class="col-md-4" id="repeated-types">
+                                                        <div class="form-group field-followups-assigned_from">
+                                                                <label class="control-label" for="followups-repeated-options">Followup to be set for</label>
+                                                                <select name="create[repeated_option][]" id="repeated-option" class="form-control">
+                                                                        <option value="">--Select--</option>
+                                                                        <option value="1">Specific Dates</option>
+                                                                        <option value="2">Specific Days of week</option>
+                                                                        <option value="3">Specific Days of month</option>
+                                                                </select>
+                                                        </div>
+                                                </div>
+
+                                                <!----------------------------Specific date------------------------------------->
+                                                <div class="col-md-12 option1" style="display: none;margin-left: -15px;">
+
+                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd text-items'>
+                                                                <div class="form-group field-followups-date">
+                                                                        <label class="control-label" for="reminder-remind_days">Select Date</label>
+                                                                        <input type="datetime-local" id="reminder-remind_days1" class="form-control remind_days1" name="create[remind_days1][0][]">
+                                                                </div>
+                                                        </div>
+
+                                                        <div class="col-md-3" style="margin-top: 15px;">
+                                                                <a class="btn btn-blue btn-icon btn-icon-standalone add-items" ><i class="fa-plus"></i><span>Add More Dates</span></a>
+
+                                                        </div>
+                                                </div>
+
+                                                <!----------------------------Specific days of week------------------------------------->
+
+                                                <div class="col-md-12 option2" style="display: none;margin-left: -15px;">
+
+                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-date">
+                                                                        <label class="control-label" for="reminder-remind_days">Select Day</label>
+                                                                        <select name="create[specific-days][0][]" id="specific-days" class="form-control" multiple="multiple">
+                                                                                <option value="">--Select Day--</option>
+                                                                                <option value="sunday">Sunday</option>
+                                                                                <option value="monday">Monday</option>
+                                                                                <option value="tuesday">Tuesday</option>
+                                                                                <option value="wednesday">Wednesday</option>
+                                                                                <option value="thursday">Thursday</option>
+                                                                                <option value="friday">Friday</option>
+                                                                                <option value="saturday">Saturday</option>
+                                                                        </select>
+                                                                </div>
+                                                        </div>
+                                                </div>
+
+                                                <!----------------------------Specific days of week------------------------------------->
+                                                <div class="col-md-12 option3" style="display: none;margin-left: -15px;">
+
+                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-date">
+                                                                        <label class="control-label" for="reminder-remind_days">Select Date</label>
+                                                                        <select name="create[specific-dates-month][0][]" id="specific-dates-month" class="form-control" multiple="multiple">
+                                                                                <option value="">--Select Day--</option>
+                                                                                <?php for ($i = 1; $i <= 31; $i++) { ?>
+                                                                                        <option value="<?= $i ?>"><?= $i ?></option>
+                                                                                <?php } ?>
+
+                                                                        </select>
+                                                                </div>
+                                                        </div>
+                                                </div>
+
                                                 <div style="clear:both"></div>
                                         </span>
                                 </div>
@@ -267,28 +342,16 @@ use common\models\StaffInfo;
                                 </div>
 
                                 <hr style="border-top: 1px solid #979898 !important;">
-
-
-
                                 <div class='row' style="float:right;">
                                         <div class="form-group" style="float: right;">
                                                 <?= Html::submitButton(!isset($update_followup) ? 'Create' : 'Update', ['class' => !isset($update_followup) ? 'btn btn-success' : 'btn btn-primary', 'style' => 'height: 36px; width:100px;', 'name' => !isset($update_followup) ? 'creates' : 'update',]) ?>
                                         </div>
                                 </div>
-
-
-
                         </div>
                 </div>
         </div>
 
 
 </div>
-
-<script>
-        $(document).ready(function () {
-
-        });
-</script>
 
 

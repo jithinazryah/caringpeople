@@ -129,7 +129,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 'buttons' => [
                                                     'followup' => function ($url, $model) {
 
-                                                            $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=5';
+                                                            $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=5&service=service';
                                                             return Html::a(
                                                                             '<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
                                                                         'data-pjax' => '0',

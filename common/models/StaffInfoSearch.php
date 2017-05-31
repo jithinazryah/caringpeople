@@ -132,9 +132,9 @@ class StaffInfoSearch extends StaffInfo {
                         [
                         'attribute' => 'designation',
                         'value' => function($model, $key, $index, $column) {
-                                $designation = \common\models\MasterDesignations::findOne(['id' => $model->designation]);
+                                //  $designation = \common\models\MasterDesignations::findOne(['id' => $model->designation]);
 //
-                                return $designation->title;
+                                return $model->designation($model->designation);
                         },
                         'filter' => ArrayHelper::map(\common\models\MasterDesignations::designationlist(), 'id', 'title'),
                     ],
@@ -204,9 +204,7 @@ class StaffInfoSearch extends StaffInfo {
                         [
                         'attribute' => 'designation',
                         'value' => function($model, $key, $index, $column) {
-                                $designation = \common\models\MasterDesignations::findOne(['id' => $model->designation]);
-//
-                                return $designation->title;
+                                return $model->designation($model->designation);
                         },
                     ],
                         [

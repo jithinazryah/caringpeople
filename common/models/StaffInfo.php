@@ -84,7 +84,7 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
         public function rules() {
                 return [
                         [['email', 'present_email'], 'email'],
-                        [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB', 'designation', 'age', 'terms_conditions'], 'integer'],
+                        [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB', 'age', 'terms_conditions'], 'integer'],
                         [['dob', 'DOC', 'DOU'], 'safe'],
                         [['staff_name', 'gender', 'username', 'password', 'present_contact_no'], 'required', 'on' => 'create'],
                         [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
@@ -259,6 +259,26 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
 
         public function getFullName() {
                 return $this->staff_name . "( Super Admin) ";
+        }
+
+        public static function Designation($id) {
+
+                $designation = explode(',', $id);
+                $designations = '';
+                $i = 0;
+                if (!empty($designation)) {
+                        foreach ($designation as $des) {
+
+                                if ($i != 0) {
+                                        $designations .= ',';
+                                }
+                                $designation_name = MasterDesignations::findOne($des);
+                                $designations .= $designation_name->title;
+                                $i++;
+                        }
+                }
+
+                return $designations;
         }
 
 }

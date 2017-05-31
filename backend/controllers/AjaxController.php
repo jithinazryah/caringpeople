@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use common\models\PatientGuardianDetails;
 use common\models\PatientGeneral;
+use yii\db\Expression;
 
 class AjaxController extends \yii\web\Controller {
 
@@ -326,7 +327,9 @@ class AjaxController extends \yii\web\Controller {
                                 echo '0';
                                 exit;
                         } else {
-                                $staff_type_datas = \common\models\StaffInfo::find()->where(['designation' => $staff_type, 'branch_id' => $branch, 'status' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
+                                //  $staff_type_datas = \common\models\StaffInfo::find()->where(['designation' => $staff_type, 'branch_id' => $branch, 'status' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
+                                $staff_type_datas = \common\models\StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $staff_type])->andWhere(['branch_id' => $branch])->andWhere(['status' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
+
 
                                 if (empty($staff_type_datas)) {
                                         echo '0';
