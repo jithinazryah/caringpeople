@@ -50,16 +50,24 @@ if ($data->type == 1) {
         $patient = PatientGeneral::findOne($service->patient_id);
         $required_person = $patient->first_name;
 }
+
+
+if (isset($data->repeated_type)) {
+        $repeated = 'repeated';
+} else {
+        $repeated = '';
+}
 ?>
 
 
 <div class="col-sm-6 col-md-6 <?= $data->id ?>">
         <blockquote class="blockquote <?= $color; ?>">
+
                 <p>
                         <i class="linecons-note"></i> <strong><?= $data->followup_date ?></strong>
                         <span style="float: right;color: #7c38bc;font-size: 12px;">
                                 Assigned To: <?= $assigned_to; ?>
-                                <?php if ($data->status != 1) { ?>      <a href="<?= Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $data->type_id . '&type=' . $data->type . '&id=' . $data->id; ?>" title="Edit"> <i class="fa-edit" style="color:#000;margin-left: 10px;font-size: 20px;"></i></a><?php } ?>
+                                <?php if ($data->status != 1) { ?>      <a href="<?= Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $data->type_id . '&type=' . $data->type . '&id=' . $data->id . '&repeated=' . $repeated; ?>" title="Edit"> <i class="fa-edit" style="color:#000;margin-left: 10px;font-size: 20px;"></i></a><?php } ?>
                         </span>
                 </p>
 

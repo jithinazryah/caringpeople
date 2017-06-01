@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Expression;
+use common\models\RepeatedFollowups;
 
 /**
  * FollowupsController implements the CRUD actions for Followups model.
@@ -37,20 +38,13 @@ class FollowupsController extends Controller {
                 $searchModel = new FollowupsSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['assigned_to' => Yii::$app->user->identity->id]);
-
-
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
                 ]);
         }
 
-        /**
-         * Displays a single Followups model.
-         * @param integer $id
-         * @return mixed
-         */
-        public function actionView($id = null) {
+        public function actionView($data = null) {
 
                 $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
                 if (!empty($data)) {
@@ -78,45 +72,103 @@ class FollowupsController extends Controller {
          */
 
         public function actionViewrelated() {
+
                 $followups = Followups::find()->where(new Expression('FIND_IN_SET(:related_staffs, related_staffs)'))->addParams([':related_staffs' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
                 return $this->render('view', [
                             'followups' => $followups,
                 ]);
         }
 
-        public function actionFollowups($type_id = 'NULL', $type = 'NULL', $id = 'NULL', $service = 'NULL') {
+        /*
+         * to view closed followups of ecah patient/staff/closed
+         */
+
+        public function actionClosed($type_id = 'NULL', $type = 'NULL') {
+
+                $followups = Followups::find()->where(['type_id' => $type_id, 'status' => '1'])->all();
+
+                if ($type_id == 'NULL' && $type == 'NULL')
+                        $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'status' => '1'])->all();
+
+                return $this->render('closed', [
+                            'followups' => $followups, 'type_id' => $type_id, 'type' => $type
+                ]);
+        }
+
+        /*
+         *
+         */
+
+        public function actionFollowups($type_id = 'NULL', $type = 'NULL', $id = 'NULL', $service = 'NULL', $repeated = 'NULL') {
 
                 /*
                  * call function Addfollowups to add followups
                  */
                 if (isset($_POST['create']) && $_POST['create'] != '') {
 
-                        $this->AddFollowups();
+                        if (isset($_POST['create']['repeated_followups']) && $_POST['create']['repeated_followups'] == 'on')
+                                $this->RepeatedFollowups();
+                        else
+                                $this->AddFollowups();
                 }
                 /*
-                 * call function Addfollowups to updtae followup
+                 * call function Updatefollowups to updtae followup
                  */
                 if (isset($_POST['updatee']) && $_POST['updatee'] != '') {
                         $this->UpdateFollowups();
                         $id = '';
                 }
-                /*
-                 *  take already added followups to view
-                 */
+
                 $followups = Followups::find()->where(['type' => $type, 'type_id' => $type_id])->andWhere(['<>', 'status', '1'])->all();
+                $repeated_followups = RepeatedFollowups::find()->where(['type' => $type, 'type_id' => $type_id])->all();
+                $followups = array_merge($followups, $repeated_followups);
 
-                /*
-                 * To update a followup
-                 */
 
-                if ($id != '')
+                if ($id != '' && $repeated == '') {
                         $update_followup = Followups::findOne($id);
-                else
-                        $update_followup = '';
+                } else if ($id != '' && $repeated != '') {
+                        $update_followup = RepeatedFollowups::findOne($id);
+                } else {
+                        $update_followup = null;
+                }
 
                 return $this->render('_followp_form', [
-                            'type_id' => $type_id, 'type' => $type, 'followups' => $followups, 'update_followup' => $update_followup, 'service' => $service
+                            'type_id' => $type_id, 'type' => $type, 'followups' => $followups, 'update_followup' => $update_followup, 'service' => $service, 'repeated' => $repeated
                 ]);
+        }
+
+        /*
+         * To add re;peated followups
+         */
+
+        public function RepeatedFollowups() {
+
+                $arr = $this->AssignData();
+                $k = 0;
+                foreach ($_POST['create']['repeated_option'] as $val) {
+
+                        $arr[$k]['repeated_option'] = $val;
+                        $i++;
+                }
+                foreach ($_POST['create']['remind_days1'] as $val) {
+                        $arr[$k]['remind_days1'] = implode(',', $val);
+                        $i++;
+                }
+                if ($_POST['create']['specific-days'] != '') {
+                        foreach ($_POST['create']['specific-days'] as $val) {
+
+                                $arr[$k]['specific-days'] = implode(',', $val);
+                                $i++;
+                        }
+                }
+                if ($_POST['create']['specific-dates-month'] != '') {
+                        foreach ($_POST['create']['specific-dates-month'] as $val) {
+
+                                $arr[$k]['specific-dates-month'] = implode(',', $val);
+                                $i++;
+                        }
+                }
+                $this->AddRepeatedData($arr);
         }
 
         /*
@@ -125,15 +177,30 @@ class FollowupsController extends Controller {
 
         public function AddFollowups() {
 
+                $arr = $this->AssignData();
+                foreach ($arr as $val) {
 
+                        $add_followp = new Followups;
+                        $this->StoreData($add_followp, $val);
+                        if (!empty($add_followp->assigned_to))
+                                $add_followp->save(false);
+                        if (!empty($val['name']))
+                                $this->Imageupload($add_followp->id, $val['name'], $val['tmp_name']);
+                        $this->sendMail($add_followp, $val['assigned_to']);
+                }
+        }
+
+        /*
+         * store data in array
+         */
+
+        public function AssignData() {
                 $arr = [];
                 $i = 0;
                 foreach ($_POST['create']['type_id'] as $val) {
-
                         $arr[$i]['type_id'] = $val;
                         $i++;
                 }
-
                 $i = 0;
                 foreach ($_POST['create']['type'] as $val) {
                         $arr[$i]['type'] = $val;
@@ -146,7 +213,6 @@ class FollowupsController extends Controller {
                                 $i++;
                         }
                 }
-
                 $i = 0;
                 if (isset($_POST['create']['sub_type'])) {
                         foreach ($_POST['create']['sub_type'] as $val) {
@@ -177,7 +243,6 @@ class FollowupsController extends Controller {
                         $arr[$i]['assigned_from'] = $val;
                         $i++;
                 }
-
                 $i = 0;
                 foreach ($_FILES['create'] ['name'] as $row => $innerArray) {
                         $i = 0;
@@ -186,7 +251,6 @@ class FollowupsController extends Controller {
                                 $i++;
                         }
                 }
-
                 $i = 0;
                 foreach ($_FILES['create'] ['tmp_name'] as $row => $innerArray) {
                         $i = 0;
@@ -195,48 +259,81 @@ class FollowupsController extends Controller {
                                 $i++;
                         }
                 }
-
                 $i = 0;
                 if ($_POST['create']['related_staffs'] != '') {
-
                         foreach ($_POST['create']['related_staffs'] as $value) {
                                 $arr[$i]['related_staffs'] = implode(',', $value);
                                 $i++;
                         }
                 }
+                return $arr;
+        }
 
+        public function StoreData($repeated_followup, $val) {
 
+                if ($val['type'] != 'NULL') {
+                        $repeated_followup->type = $val['type'];
+                } else {
+                        $repeated_followup->type = $val['typed'];
+                }
+                $repeated_followup->type_id = $val['type_id'];
+                $repeated_followup->sub_type = $val['sub_type'];
+                $repeated_followup->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val['followup_date'])));
+                $assg_to = explode('_', $val['assigned_to']);
+                if (isset($assg_to))
+                        $assgnd_to = $assg_to[0];
+                else
+                        $assgnd_to = $val['assigned_to'];
 
+                $repeated_followup->assigned_to = $assgnd_to;
+                $repeated_followup->followup_notes = $val['followup_notes'];
+                $repeated_followup->assigned_from = Yii::$app->user->identity->id;
+                $repeated_followup->related_staffs = $val['related_staffs'];
+                $repeated_followup->attachments = $val['name'];
+                $repeated_followup->DOC = date('Y-m-d');
+                $repeated_followup->CB = Yii::$app->user->identity->id;
+
+                return $repeated_followup;
+        }
+
+        /*
+         * add repated followups to table
+         */
+
+        public function AddRepeatedData($arr) {
                 foreach ($arr as $val) {
 
-                        $add_followp = new Followups;
-                        if ($val['type'] != 'NULL') {
-                                $add_followp->type = $val['type'];
+                        if ($val['repeated_option'] != '1') {
+
+                                $repeated_followup = new \common\models\RepeatedFollowups;
+                                $this->StoreData($repeated_followup, $val);
+                                $repeated_followup->repeated_type = $val['repeated_option'];
+                                if ($repeated_followup->repeated_type == '2') {
+                                        $repeated_date = $val['specific-days'];
+                                } else if ($repeated_followup->repeated_type == '3') {
+                                        $repeated_date = $val['specific-dates-month'];
+                                }
+                                $repeated_followup->repeated_days = $repeated_date;
+                                if (!empty($repeated_followup->assigned_to))
+                                        $repeated_followup->save(false);
+                                if (!empty($val['name']))
+                                        $this->Imageupload($repeated_followup->id, $val['name'], $val['tmp_name']);
+                                $this->sendMail($repeated_followup, $val['assigned_to']);
                         } else {
-                                $add_followp->type = $val['typed'];
+                                $repeated_dates = explode(',', $val['remind_days1']);
+                                foreach ($repeated_dates as $date) {
+                                        $repeated_followup = new Followups();
+                                        $this->StoreData($repeated_followup, $val);
+                                        $repeated_followup->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $date)));
+
+                                        if (!empty($repeated_followup->assigned_to))
+                                                $repeated_followup->save(false);
+
+                                        if (!empty($val['name']))
+                                                $this->Imageupload($repeated_followup->id, $val['name'], $val['tmp_name']);
+                                        $this->sendMail($repeated_followup, $val['assigned_to']);
+                                }
                         }
-                        $add_followp->type_id = $val['type_id'];
-                        $add_followp->sub_type = $val['sub_type'];
-                        $add_followp->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val['followup_date'])));
-                        $assg_to = explode('_', $val['assigned_to']);
-                        if (isset($assg_to))
-                                $assgnd_to = $assg_to[0];
-                        else
-                                $assgnd_to = $val['assigned_to'];
-
-                        $add_followp->assigned_to = $assgnd_to;
-                        $add_followp->followup_notes = $val['followup_notes'];
-                        $add_followp->assigned_from = Yii::$app->user->identity->id;
-                        $add_followp->related_staffs = $val['related_staffs'];
-                        $add_followp->attachments = $val['name'];
-                        $add_followp->DOC = date('Y-m-d');
-                        $add_followp->CB = Yii::$app->user->identity->id;
-
-                        if (!empty($add_followp->assigned_to))
-                                $add_followp->save(false);
-                        if (!empty($value['name']))
-                                $this->Imageupload($add_followp->id, $val['name'], $val['tmp_name']);
-                        $this->sendMail($add_followp, $val['assigned_to']);
                 }
         }
 
@@ -249,8 +346,6 @@ class FollowupsController extends Controller {
                 $i = 0;
 
                 foreach ($_POST['updatee'] as $key => $val) {
-
-
 
                         $arr[$key]['sub_type'] = $val['sub_type'][0];
                         $arr[$key]['followup_date'] = date('Y-m-d H:i:s', strtotime($val['followup_date'][0]));
@@ -271,7 +366,6 @@ class FollowupsController extends Controller {
                                                 $i++;
                                         }
                                 }
-
                                 $i = 0;
                                 foreach ($_FILES['updatee'] ['tmp_name'] as $row => $innerArray) {
                                         $i = 0;
@@ -281,27 +375,38 @@ class FollowupsController extends Controller {
                                         }
                                 }
                         }
+                        if (isset($val['repeated_followups'][0]) && $val['repeated_followups'][0] == 'on') {
+                                $arr[$key]['repeated'] = 1;
+                                $arr[$key]['repeated_option'] = $val['repeated_option'][0];
+                                if (isset($val['specific-days']) && $val['specific-days'] != '')
+                                        $arr[$key]['specific-days'] = implode(",", $val['specific-days']);
+                                else
+                                        $arr[$key]['specific-days'] = '';
 
-
+                                if (isset($val['specific-dates-month']) && $val['specific-dates-month'] != '')
+                                        $arr[$key]['specific-dates-month'] = implode(",", $val['specific-dates-month']);
+                                else
+                                        $arr[$key]['specific-dates-month'] = '';
+                        }
                         $i++;
                 }
 
                 foreach ($arr as $key => $value) {
-
-                        $update_followup = Followups::findOne($key);
+                        if (!isset($value['repeated'])) {
+                                $update_followup = Followups::findOne($key);
+                                $this->UpdaateData($update_followup, $value);
+                        } else {
+                                $update_followup = RepeatedFollowups::findOne($key);
+                                $this->UpdaateData($update_followup, $value);
+                                $update_followup->repeated_type = $value['repeated_option'];
+                                if ($update_followup->repeated_type == '2') {
+                                        $repeated_date = $value['specific-days'];
+                                } else if ($update_followup->repeated_type == '3') {
+                                        $repeated_date = $value['specific-dates-month'];
+                                }
+                                $update_followup->repeated_days = $repeated_date;
+                        }
                         $previous_image = $update_followup->attachments;
-                        $update_followup->sub_type = $value['sub_type'];
-                        $update_followup->followup_date = $value['followup_date'];
-                        $update_followup->assigned_to = $value['assigned_to'];
-                        $update_followup->followup_notes = $value['followup_notes'];
-                        $update_followup->related_staffs = $value['related_staffs'];
-                        $update_followup->assigned_from = Yii::$app->user->identity->id;
-                        $update_followup->status = $value['status'];
-                        $update_followup->UB = Yii::$app->user->identity->id;
-                        $update_followup->DOU = date('Y-m-d H:i');
-                        if (!empty($value['name']))
-                                $update_followup->attachments = $value['name'];
-                        $update_followup->UB = Yii::$app->user->identity->id;
                         $update_followup->update(false);
                         if (!empty($value['name'])) {
                                 unlink(Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $update_followup->id . "/" . $previous_image);
@@ -310,16 +415,32 @@ class FollowupsController extends Controller {
                 }
         }
 
+        public function UpdaateData($update_followup, $value) {
+
+                $update_followup->sub_type = $value['sub_type'];
+                $update_followup->followup_date = $value['followup_date'];
+                $update_followup->assigned_to = $value['assigned_to'];
+                $update_followup->followup_notes = $value['followup_notes'];
+                $update_followup->related_staffs = $value['related_staffs'];
+                $update_followup->assigned_from = Yii::$app->user->identity->id;
+                $update_followup->status = $value['status'];
+                $update_followup->UB = Yii::$app->user->identity->id;
+                $update_followup->DOU = date('Y-m-d H:i');
+                if (!empty($value['name']))
+                        $update_followup->attachments = $value['name'];
+                $update_followup->UB = Yii::$app->user->identity->id;
+        }
+
         /*
-         * upload attav=chements to each folllowup
+         * upload attachements to each folllowup
          */
 
-        public function Imageupload($id, $filename, $Tmpfilename) {
+        public function Imageupload($id, $filename, $Tmpfilenamel) {
+
                 $paths = ['followups', $id];
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
                 $target_dir = Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $id . "/";
                 $target_file = $target_dir . $filename;
-
                 move_uploaded_file($Tmpfilename, $target_file);
         }
 
@@ -339,8 +460,6 @@ class FollowupsController extends Controller {
                         $to = $email_to->email;
                         $subject = 'Followup Assigned';
                         $message = $this->renderPartial('send-mail', ['assigned_to' => $assg_to[0]]);
-
-                        // To send HTML mail, the Content-type header must be set
                         $headers = 'MIME-Version: 1.0' . "\r\n";
                         $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
                                 "From: info@caringpeople.in";
@@ -348,35 +467,6 @@ class FollowupsController extends Controller {
                 }
         }
 
-        /*
-         * to view closed followups of ecah patient/staff/closed
-         */
-
-        public function actionClosed($type_id = 'NULL', $type = 'NULL') {
-
-                $followups = Followups::find()->where(['type_id' => $type_id, 'status' => '1'])->all();
-
-                if ($type_id == 'NULL' && $type == 'NULL')
-                        $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'status' => '1'])->all();
-
-                return $this->render('closed', [
-                            'followups' => $followups, 'type_id' => $type_id, 'type' => $type
-                ]);
-        }
-
-        public function actionDelete($id) {
-                $this->findModel($id)->delete();
-
-                return $this->redirect(['index']);
-        }
-
-        /**
-         * Finds the Followups model based on its primary key value.
-         * If the model is not found, a 404 HTTP exception will be thrown.
-         * @param integer $id
-         * @return Followups the loaded model
-         * @throws NotFoundHttpException if the model cannot be found
-         */
         protected function findModel($id) {
                 if (($model = Followups::findOne($id)) !== null) {
                         return $model;

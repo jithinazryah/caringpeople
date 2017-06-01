@@ -57,6 +57,8 @@ $("document").ready(function () {
         var scntDiv = $('#followups');
         var i = $('#followups span').size() + 1;
         $('#addFollowups').on('click', function () {
+
+                $('#repeated').hide();
                 var type = $('#type').val();
                 var type_id = $('#type_id').val();
                 showLoader();
@@ -223,6 +225,9 @@ $("document").ready(function () {
                 });
         });
 
+        /*
+         * delete attachment
+         */
 
         $('.followup-attach-remove').on('click', function (e) {
                 var data = $(this).attr('id');
@@ -240,4 +245,87 @@ $("document").ready(function () {
         });
 
 
+        /*
+         * if repetaed followup is checked hide Add more followups
+         */
+
+        $(document).on('click', '#repeated_followups', function () {
+                if ($(this).prop("checked") == true) {
+                        $('#addFollowups').hide();
+                        $('#repeated-types').show();
+                } else if ($(this).prop("checked") == false) {
+                        $('#addFollowups').show();
+                        $('#repeated-types').hide();
+                }
+        });
+
+
+
+        $('#repeated-option').change(function () {
+                if ($(this).val() == '1') {
+                        $('.option1').show();
+                        $('.option2').hide();
+                        $('.option3').hide();
+                } else if ($(this).val() == '2') {
+                        $('.option2').show();
+                        $('.option1').hide();
+                        $('.option3').hide();
+                } else if ($(this).val() == '3') {
+                        $('.option3').show();
+                        $('.option1').hide();
+                        $('.option2').hide();
+                }
+        });
+
+        var repaeted_option_update = $('#repeated-option-update').val();
+        if (repaeted_option_update == '1') {
+                $('.option2_update').hide();
+                $('.option3_update').hide();
+        } else if (repaeted_option_update == '2') {
+                $('.option2_update').show();
+                $('.option3_update').hide();
+        } else if (repaeted_option_update == '3') {
+                $('.option3_update').show();
+                $('.option2_update').hide();
+        }
+
+        $('#repeated-option-update').change(function () {
+                if ($(this).val() == '1') {
+                        $('.option2_update').hide();
+                        $('.option3_update').hide();
+                } else if ($(this).val() == '2') {
+                        $('.option2_update').show();
+                        $('.option3_update').hide();
+                } else if ($(this).val() == '3') {
+                        $('.option3_update').show();
+                        $('.option2_update').hide();
+                }
+        });
+
+
+        $('.add-items').click(function () {
+                var n = $('.text-items').length + 1;
+                var box_html = $('<div class="col-md-3 col-sm-6 col-xs-12 left_padd text-items"><div class="form-group field-followups-date"><label class="control-label " for="reminder-remind_days">Select Date</label><input type="datetime-local" id="reminder-remind_days' + n + '" class="form-control remind_days1" name="create[remind_days1][0][]"></div></div>');
+                box_html.hide();
+                $('.text-items:last').after(box_html);
+                box_html.fadeIn('slow');
+                return false;
+        });
+
+
+        $("#specific-days").select2({
+                placeholder: '--Select Days--',
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+        $("#specific-dates-month").select2({
+                placeholder: '--Select Days--',
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
 });

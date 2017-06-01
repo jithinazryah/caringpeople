@@ -50,7 +50,7 @@ if ($type == '1') {
 
                         </div>
                         <?php
-                        if (isset($service) && $service != 'NULL' || $type == '5') {
+                        if (isset($service) && $service != 'NULL') {
                                 echo $this->render('_menus', [
                                     'type_id' => $type_id,
                                 ]);
@@ -62,10 +62,9 @@ if ($type == '1') {
 
                         <!-------------------------------calling widget for the form----------------------->
 
-                        <?= FollowupsWidget::widget(['type_id' => $type_id, 'type' => $type, 'update_followup' => $update_followup]); ?>
+                        <?= FollowupsWidget::widget(['type_id' => $type_id, 'type' => $type, 'update_followup' => $update_followup, 'repeated' => $repeated]); ?>
 
                         <!-------------------------------calling widget for the form----------------------->
-
 
                         <!-------------------------------calling widget for viewing previously added followups----------------------->
                         <div class="row">
@@ -98,6 +97,8 @@ if ($type == '1') {
 </style>
 
 <?php
+//var_dump($update_followup);
+//exit;
 if ((!isset($update_followup)) && count($followups) > 0) {
         ?>
         <script>
