@@ -39,11 +39,11 @@ $("document").ready(function () {
 
 
 
-        var scntDiv = $('#p_scents');
-        var i = $('#p_scents span').size() + 1;
+        var scntDivs = $('#p_scents');
+        var j = $('#p_scents span').size() + 1;
 
         $('#addScnt').on('click', function () {
-                var ver = '<span>\n\
+                var vers = '<span>\n\
                                 <hr style="border-top: 1px solid #979898 !important;">\n\
                                 <div class="col-md-4 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-hospital_address">\n\
@@ -84,14 +84,14 @@ $("document").ready(function () {
                                 <a id="remScnt" class="btn btn-icon btn-red remScnt" style="margin-top: 15px;"><i class="fa-remove"></i></a>\n\
 <div style="claer:both"></div><br/>\n\
                                 </span><br/>';
-                $(ver).appendTo(scntDiv);
-                i++;
+                $(vers).appendTo(scntDivs);
+                j++;
                 return false;
         });
         $('#p_scents').on('click', '.remScnt', function () {
-                if (i > 2) {
+                if (j > 2) {
                         $(this).parents('span').remove();
-                        i--;
+                        j--;
                 }
                 if (this.hasAttribute("val")) {
                         var valu = $(this).attr('val');
@@ -199,6 +199,68 @@ $("document").ready(function () {
 
 
 
+
+        var staff_family = $('#staff_family');
+        var k = $('#staff_family span').size() + 1;
+
+        $('#add_Staff_family').on('click', function () {
+                var ver_family = '<span>\n\
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">\n\
+                                     <div class="form-group field-staffenquiryinterviewfirst-family_name">\n\
+                                        <label class="control-label">Name</label>\n\
+                                        <input type="text" class="form-control" name="createfamily[name][]">\n\
+                                     </div> \n\
+                                </div> \n\
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">\n\
+                                     <div class="form-group field-staffenquiryinterviewfirst-relation">\n\
+                                        <label class="control-label">Relationship</label>\n\
+                                        <select name="createfamily[relationship][]" id="family_relationships" class="form-control">\n\
+                                             <option value="Father">--Select--</option>\n\
+                                             <option value="Father">Father</option>\n\
+                                             <option value="Mother">Mother</option>\n\
+                                             <option value="Spouse">Spouse</option>\n\
+                                             <option value="Brother">Brother</option>\n\
+                                             <option value="Sister">Sister</option>\n\
+                                        </select>\n\
+                                     </div> \n\
+                                </div> \n\
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">\n\
+                                     <div class="form-group field-staffenquiryinterviewfirst-job">\n\
+                                        <label class="control-label">Job</label>\n\
+                                        <input type="text" class="form-control" name="createfamily[job][]">\n\
+                                     </div> \n\
+                                </div> \n\
+                                <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
+                                     <div class="form-group field-staffenquiryinterviewfirst-mobile_no">\n\
+                                        <label class="control-label">Mobile No</label>\n\
+                                        <input type="text" class="form-control" name="createfamily[mobile_no][]">\n\
+                                     </div> \n\
+                                </div> \n\
+                                <div class="col-md-1 col-sm-6 col-xs-12 left_padd">\n\
+                                       <a id="remFamily" class="btn btn-icon btn-red remFamily" style="margin-top: 15px;"><i class="fa-remove"></i></a>\n\
+                                </div>\
+                                <div style="claer:both"></div><br/>\n\
+                                </span><br/>';
+                ;
+                $(ver_family).appendTo(staff_family);
+                k++;
+                return false;
+        });
+
+        $('#staff_family').on('click', '.remFamily', function () {
+
+                if (k > 2) {
+                        $(this).parents('span').remove();
+                        k--;
+                }
+                if (this.hasAttribute("val")) {
+                        var valu = $(this).attr('val');
+                        $('#delete_port_vals_family').val($('#delete_port_vals_family').val() + valu + ',');
+                        var value = $('#delete_port_vals_family').val();
+                }
+                return false;
+        });
+
 });
 function showAjaxModal(id)
 {
@@ -217,3 +279,4 @@ function showAjaxModal(id)
                 });
         }, 800); // just an example
 }
+

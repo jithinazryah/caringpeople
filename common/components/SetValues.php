@@ -179,4 +179,24 @@ class SetValues extends Component {
                 return $related_staff_data;
         }
 
+        public function Days() {
+                $days = [];
+                $days['sunday'] = 'Sunday';
+                $days['monday'] = 'Monday';
+                $days['tuesday'] = 'Tuesday';
+                $days['wednesday'] = 'Wednesday';
+                $days['thursday'] = 'Thursday';
+                $days['friday'] = 'Friday';
+                $days['saturday'] = 'Saturday';
+                return $days;
+        }
+
+        public function Dates() {
+                $dates = [];
+                for ($i = 1; $i <= 31; $i++) {
+                        $dates[$i] = $i;
+                }
+                return $dates;
+        }
+
 }

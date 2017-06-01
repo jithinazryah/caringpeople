@@ -42,7 +42,7 @@ class PatientEnquiryGeneralSecond extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['required_service', 'email', 'priority'], 'required'],
+                        [['required_service', 'priority'], 'required'],
                         [['email', 'email1'], 'email'],
                         [['enquiry_id', 'whatsapp_reply', 'visit_type', 'priority',], 'integer'],
                         [['whatsapp_note', 'quotation_details', 'notes'], 'string'],

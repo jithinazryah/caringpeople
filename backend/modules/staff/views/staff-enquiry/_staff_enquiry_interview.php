@@ -14,25 +14,126 @@ use kartik\date\DatePicker;
 
 
 
-
-
-
-
-
         <h3 style="color:#148eaf;">Family Details</h3>
         <hr class="enquiry-hr"/>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'family_name')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'relation')->dropDownList(['' => '--Select--', '1' => 'Father', '2' => 'Mother', '3' => 'Spouse', '4' => 'Brother', '5' => 'Sister', '6' => 'Neighbour']) ?>
+        <div id="staff_family">
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'job')->textInput(['maxlength' => true]) ?>
+                <input type="hidden" id="delete_port_vals_family"  name="delete_port_vals_family" value="">
+                <?php
+                if (!empty($staff_family)) {
+                        foreach ($staff_family as $family) {
+                                ?>
+                                <span>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffenquiryinterviewfirst-family_name">
+                                                        <label class="control-label" for="">Name</label>
+                                                        <input type="text" class="form-control" name="updatefamily[<?= $family->id; ?>][name][]" value="<?= $family->name; ?>">
+                                                </div>
+                                        </div>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mobile_no')->textInput(['maxlength' => true]) ?>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffenquiryinterviewfirst-relation">
+                                                        <label class="control-label" for="">Relationship</label>
+                                                        <select name="updatefamily[<?= $family->id; ?>][relationship][]" id="family_relationships" class="form-control">
+                                                                <option value="">--Select--</option>
+                                                                <option value="Father" <?php
+                                                                if ($family->relationship == 'Father') {
+                                                                        echo 'selected=selected';
+                                                                }
+                                                                ?>>Father</option>
+                                                                <option value="Mother" <?php
+                                                                if ($family->relationship == 'Mother') {
+                                                                        echo 'selected=selected';
+                                                                }
+                                                                ?>>Mother</option>
+                                                                <option value="Spouse" <?php
+                                                                if ($family->relationship == 'Spouse') {
+                                                                        echo 'selected=selected';
+                                                                }
+                                                                ?>>Spouse</option>
+                                                                <option value="Brother" <?php
+                                                                if ($family->relationship == 'Brother') {
+                                                                        echo 'selected=selected';
+                                                                }
+                                                                ?>>Brother</option>
+                                                                <option value="Sister" <?php
+                                                                if ($family->relationship == 'Sister') {
+                                                                        echo 'selected=selected';
+                                                                }
+                                                                ?>>Sister</option>
+                                                        </select>
+                                                </div>
+                                        </div>
 
-        </div><div style="clear: both">
+                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffenquiryinterviewfirst-job">
+                                                        <label class="control-label" for="">Job</label>
+                                                        <input type="text" class="form-control" name="updatefamily[<?= $family->id; ?>][job][]"  value="<?= $family->job; ?>">
+                                                </div>
+                                        </div>
 
+                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                <div class="form-group field-staffenquiryinterviewfirst-mobile_no">
+                                                        <label class="control-label" for="">Mobile No</label>
+                                                        <input type="text" class="form-control" name="updatefamily[<?= $family->id; ?>][mobile_no][]" value="<?= $family->mobile_no; ?>">
+                                                </div>
+                                        </div>
+
+                                        <div class="col-md-1 col-sm-6 col-xs-12 left_padd">
+                                                <a id="remFamily" val="<?= $family->id; ?>" class="btn btn-icon btn-red remFamily" style="margin-top: 15px;"><i class="fa-remove"></i></a>
+                                        </div>
+                                </span>
+                                <?php
+                        }
+                }
+                ?>
+
+
+
+                <span>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffenquiryinterviewfirst-family_name">
+                                        <label class="control-label" for="">Name</label>
+                                        <input type="text" class="form-control" name="createfamily[name][]">
+                                </div>
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffenquiryinterviewfirst-relation">
+                                        <label class="control-label" for="">Relationship</label>
+                                        <select name="createfamily[relationship][]" id="family_relationships" class="form-control">
+                                                <option value="">--Select--</option>
+                                                <option value="Father">Father</option>
+                                                <option value="Mother">Mother</option>
+                                                <option value="Spouse">Spouse</option>
+                                                <option value="Brother">Brother</option>
+                                                <option value="Sister">Sister</option>
+                                        </select>
+                                </div>
+                        </div>
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffenquiryinterviewfirst-job">
+                                        <label class="control-label" for="">Job</label>
+                                        <input type="text" class="form-control" name="createfamily[job][]">
+                                </div>
+                        </div>
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffenquiryinterviewfirst-mobile_no">
+                                        <label class="control-label" for="">Mobile No</label>
+                                        <input type="text" class="form-control" name="createfamily[mobile_no][]">
+                                </div>
+                        </div>
+
+                </span>
         </div>
 
+        <div class="row">
+                <div class="col-md-6"> <a id="add_Staff_family" class="btn btn-blue btn-icon btn-icon-standalone Staff_family" ><i class="fa-plus"></i><span> Add Family Details</span></a>
+                </div>
+        </div>
 
         <h3 style="color:#148eaf;">Bank Details</h3>
         <hr class="enquiry-hr"/>

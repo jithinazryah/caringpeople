@@ -123,6 +123,7 @@ class StaffEnquiryController extends Controller {
                 $staff_interview_third = new StaffEnquiryInterviewThird();
                 $before_update = '';
                 $staff_previous_employer = '';
+                $staff_family = '';
 
                 if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
 
@@ -146,6 +147,7 @@ class StaffEnquiryController extends Controller {
                         if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
                                 $this->AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third);
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
+                                $this->AddFamily($staff_enquiry);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
                                 $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
                                 if (!empty($attachments)) {
@@ -163,7 +165,8 @@ class StaffEnquiryController extends Controller {
                             'staff_interview_first' => $staff_interview_first,
                             'staff_interview_second' => $staff_interview_second,
                             'staff_interview_third' => $staff_interview_third,
-                            'staff_enquiry' => $staff_enquiry
+                            'staff_enquiry' => $staff_enquiry,
+                            'staff_family' => $staff_family
                 ]);
         }
 
@@ -185,7 +188,7 @@ class StaffEnquiryController extends Controller {
                 $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_interview_third = StaffEnquiryInterviewThird::findOne(['enquiry_id' => $staff_enquiry->id]);
-
+                $staff_family = \common\models\StaffEnquiryFamilyDetails::findAll(['enquiry_id' => $staff_enquiry->id]);
 
                 if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
 
@@ -203,6 +206,7 @@ class StaffEnquiryController extends Controller {
 
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
+                                $this->AddFamily($staff_enquiry);
 
                                 $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
                                 if (!empty($attachments)) {
@@ -227,7 +231,8 @@ class StaffEnquiryController extends Controller {
                             'staff_interview_first' => $staff_interview_first,
                             'staff_interview_second' => $staff_interview_second,
                             'staff_interview_third' => $staff_interview_third,
-                            'staff_enquiry' => $staff_enquiry
+                            'staff_enquiry' => $staff_enquiry,
+                            'staff_family' => $staff_family
                 ]);
         }
 
@@ -388,6 +393,97 @@ class StaffEnquiryController extends Controller {
                                 }
                                 $staff_interview_first->$field = $language;
                                 $staff_interview_first->update();
+                        }
+                }
+        }
+
+        /*
+         * Add family details
+         */
+
+        public function Addfamily($staff_enquiry) {
+
+                /*
+                 * to add multiple family details
+                 */
+
+                if (isset($_POST['createfamily']) && $_POST['createfamily'] != '') {
+
+
+                        $arrf = [];
+                        $k = 0;
+
+                        foreach ($_POST['createfamily']['name'] as $val) {
+                                $arrf[$k]['name'] = $val;
+                                $k++;
+                        }
+                        $k = 0;
+                        foreach ($_POST['createfamily']['relationship'] as $val) {
+                                $arrf[$k]['relationship'] = $val;
+                                $k++;
+                        }
+                        $k = 0;
+                        foreach ($_POST['createfamily']['job'] as $val) {
+                                $arrf[$k]['job'] = $val;
+                                $k++;
+                        }
+                        $k = 0;
+                        foreach ($_POST['createfamily']['mobile_no'] as $val) {
+                                $arrf[$k]['mobile_no'] = $val;
+                                $k++;
+                        }
+
+
+                        foreach ($arrf as $val) {
+                                $add_Family = new \common\models\StaffEnquiryFamilyDetails;
+                                $add_Family->enquiry_id = $staff_enquiry->id;
+                                $add_Family->name = $val['name'];
+                                $add_Family->relationship = $val['relationship'];
+                                $add_Family->job = $val['job'];
+                                $add_Family->mobile_no = $val['mobile_no'];
+
+                                if (!empty($add_Family->name))
+                                        $add_Family->save();
+                        }
+                }
+
+                /*
+                 * to update family details
+                 */
+
+                if (isset($_POST['updatefamily']) && $_POST['updatefamily'] != '') {
+
+                        $arrfu = [];
+                        $l = 0;
+                        foreach ($_POST['updatefamily'] as $key => $val) {
+
+                                $arrfu[$key]['name'] = $val['name'][0];
+                                $arrfu[$key]['relationship'] = $val['relationship'][0];
+                                $arrfu[$key]['job'] = $val['job'][0];
+                                $arrfu[$key]['mobile_no'] = $val['mobile_no'][0];
+                                $l++;
+                        }
+
+                        foreach ($arrfu as $key => $value) {
+                                $add_family = \common\models\StaffEnquiryFamilyDetails::findOne($key);
+                                $add_family->name = $value['name'];
+                                $add_family->relationship = $value['relationship'];
+                                $add_family->job = $value['job'];
+                                $add_family->mobile_no = $value['mobile_no'];
+                                $add_family->update();
+                        }
+                }
+
+                /*
+                 * to delete additional previous employer
+                 */
+
+                if (isset($_POST['delete_port_vals_family']) && $_POST['delete_port_vals_family'] != '') {
+
+                        $vals = rtrim($_POST['delete_port_vals_family'], ',');
+                        $vals = explode(',', $vals);
+                        foreach ($vals as $val) {
+                                \common\models\StaffEnquiryFamilyDetails::findOne($val)->delete();
                         }
                 }
         }

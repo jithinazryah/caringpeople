@@ -328,15 +328,16 @@ class PatientEnquiryGeneralFirstController extends Controller {
 
         public function sendMail($patient_info, $model) {
 
-
-                $path = 'http://' . Yii::$app->request->serverName . '/images/caring_peopl.jpg';
-                $message = Yii::$app->mailer->compose('response-mail', ['touser' => $patient_info->caller_name]) // a view rendering result becomes the message body here
-                        ->setFrom('info@caringpeople.in')
-                        ->setTo($model->email)
-                        ->setSubject('Welcome to Caringpeople');
-                $message->attach($path);
-                $message->send();
-                return TRUE;
+                if (isset($model->email) && $model->email != '') {
+                        $path = 'http://' . Yii::$app->request->serverName . '/images/caring_peopl.jpg';
+                        $message = Yii::$app->mailer->compose('response-mail', ['touser' => $patient_info->caller_name]) // a view rendering result becomes the message body here
+                                ->setFrom('info@caringpeople.in')
+                                ->setTo($model->email)
+                                ->setSubject('Welcome to Caringpeople');
+                        $message->attach($path);
+                        $message->send();
+                        return TRUE;
+                }
         }
 
         /*

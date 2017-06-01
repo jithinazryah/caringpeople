@@ -85,6 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'staff_interview_first' => $staff_interview_first,
                                                             'staff_interview_second' => $staff_interview_second,
                                                             'staff_interview_third' => $staff_interview_third,
+                                                            'staff_family' => $staff_family,
                                                             'form' => $form,
                                                         ])
                                                         ?>
