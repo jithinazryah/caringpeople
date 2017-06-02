@@ -4,7 +4,6 @@ namespace common\components;
 
 use yii\base\Widget;
 use yii\helpers\Html;
-use common\models\Followups;
 
 class FollowupsWidget extends Widget {
 

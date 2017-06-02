@@ -16,77 +16,44 @@ class Followups extends Component {
          * Add followups to table Followups
          */
 
-        public function Addfollowups($type, $type_id, $followup_info) {
+        public function StoreData($followup, $val) {
 
-                if ($followup_info->assigned_to != '') {
-                        $followp = new \common\models\Followups;
-                        $followp->type = $type;
-                       $followp->sub_type = $followup_info->sub_type;
-                        $followp->type_id = $type_id;
-                        $followp->followup_date = date('Y-m-d H:i:s', strtotime($followup_info->followup_date));
-                        $followp->followup_notes = $followup_info->followup_notes;
-                        $followp->assigned_to = $followup_info->assigned_to;
-                        $followp->assigned_from = Yii::$app->user->identity->id;
-                        if ($followup_info->status != 1)
-                                $status = $this->Checkstatus($followup_info->followup_date, $followup_info->status);
-                        else
-                                $status = $followup_info->status;
-
-                        $followp->status = $status;
-                        $followp->DOC = date('Y-m-d');
-                        $followp->save();
-                }
-        }
-
-        /*
-         * Update followups to table Followups
-         */
-
-        public function Updatefollowups($id, $followup_info) {
-
-                $followp = \common\models\Followups::findOne($id);
-                $followp->sub_type = $followup_info->sub_type;
-                $followp->followup_date = date('Y-m-d H:i:s', strtotime($followup_info->followup_date));
-                $followp->followup_notes = $followup_info->followup_notes;
-                $followp->assigned_to = $followup_info->assigned_to;
-                $followp->assigned_from = Yii::$app->user->identity->id;
-                if ($followup_info->status != 1)
-                        $status = $this->Checkstatus($followup_info->followup_date, $followup_info->status);
-                else
-                        $status = $followup_info->status;
-                $followp->status = $status;
-                $followp->update();
-        }
-
-        /*
-         * check and change status of all Followups
-         */
-
-        public function Allfollowups() {
-                $model = common\models\Followups::find()->where(['<>', 'status', '2'])->andWhere(['<>', 'status', '1'])->all();
-                foreach ($model as $value) {
-                        $status = $this->Checkstatus($value->followup_date, $value->status);
-                        $value->status = $status;
-                        $value->update();
-                }
-        }
-
-        public function Checkstatus($followupdate, $status) {
-
-                $followupdate = date('Y-m-d', strtotime($followupdate));
-                $current_date = date('Y-m-d');
-                $followupdate = date_create($followupdate);
-                $current_date = date_create($current_date);
-
-                $diff = date_diff($current_date, $followupdate);
-                $date_difference = $diff->format("%R%a");
-
-                if ($date_difference < 0) {
-                        $status = '3';
+                if ($val['type'] != 'NULL') {
+                        $followup->type = $val['type'];
                 } else {
-                        $status = $status;
+                        $followup->type = $val['typed'];
                 }
-                return $status;
+                $followup->type_id = $val['type_id'];
+                $followup->sub_type = $val['sub_type'];
+                $followup->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val['followup_date'])));
+                $followup->assigned_to = $val['assigned_to'];
+                $followup->assigned_to_type = $val['assigned_to_type'];
+                $followup->followup_notes = $val['followup_notes'];
+                $followup->assigned_from = Yii::$app->user->identity->id;
+                $followup->related_staffs = $val['related_staffs'];
+                $followup->attachments = $val['name'];
+                $followup->DOC = date('Y-m-d');
+                $followup->CB = Yii::$app->user->identity->id;
+                if (!empty($followup->assigned_to))
+                        $followup->save(false);
+                return $followup;
+        }
+
+        public function sendMail($add_followp, $assigned) {
+
+                if ($assigned == '1') {
+                        $email_to = \common\models\PatientGeneral::findOne($add_followp->assigned_to);
+                } else {
+                        $email_to = \common\models\StaffInfo::findOne($add_followp->assigned_to);
+                }
+                if (isset($email_to->email) && $email_to->email != '') {
+                        $message = Yii::$app->mailer->compose('followup-assigned-mail', ['assigned_to' => $add_followp->assigned_to, 'type' => $add_followp->assigned_to_type]) // a view rendering result becomes the message body here
+                                ->setFrom('info@caringpeople.in')
+                                ->setTo($email_to->email)
+                                ->setSubject('New Followup');
+                        $message->send();
+                        return TRUE;
+                }
         }
 
 }

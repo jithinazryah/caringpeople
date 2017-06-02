@@ -187,14 +187,11 @@ class FollowupsController extends Controller {
 
                 $arr = $this->AssignData();
                 foreach ($arr as $val) {
-
                         $add_followp = new Followups;
-                        $this->StoreData($add_followp, $val);
-                        if (!empty($add_followp->assigned_to))
-                                $add_followp->save(false);
-                        if (!empty($val['name']))
-                                $this->Imageupload($add_followp->id, $val['name'], $val['tmp_name'], '1');
-                        $this->sendMail($add_followp, $add_followp->assigned_to_type);
+                        Yii::$app->Followups->StoreData($add_followp, $val);
+                        if (!empty($add_followp->attachments))
+                                $this->Imageupload($add_followp->id, $add_followp->attachments, $val['tmp_name'], '1');
+                        Yii::$app->Followups->sendMail($add_followp, $add_followp->assigned_to_type);
                 }
         }
 
@@ -283,27 +280,6 @@ class FollowupsController extends Controller {
                 return $arr;
         }
 
-        public function StoreData($repeated_followup, $val) {
-
-                if ($val['type'] != 'NULL') {
-                        $repeated_followup->type = $val['type'];
-                } else {
-                        $repeated_followup->type = $val['typed'];
-                }
-                $repeated_followup->type_id = $val['type_id'];
-                $repeated_followup->sub_type = $val['sub_type'];
-                $repeated_followup->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val['followup_date'])));
-                $repeated_followup->assigned_to = $val['assigned_to'];
-                $repeated_followup->assigned_to_type = $val['assigned_to_type'];
-                $repeated_followup->followup_notes = $val['followup_notes'];
-                $repeated_followup->assigned_from = Yii::$app->user->identity->id;
-                $repeated_followup->related_staffs = $val['related_staffs'];
-                $repeated_followup->attachments = $val['name'];
-                $repeated_followup->DOC = date('Y-m-d');
-                $repeated_followup->CB = Yii::$app->user->identity->id;
-                return $repeated_followup;
-        }
-
         /*
          * add repated followups to table
          */
@@ -312,9 +288,8 @@ class FollowupsController extends Controller {
                 foreach ($arr as $val) {
 
                         if ($val['repeated_option'] != '1') {
-
                                 $repeated_followup = new \common\models\RepeatedFollowups;
-                                $this->StoreData($repeated_followup, $val);
+                                Yii::$app->Followups->StoreData($repeated_followup, $val);
                                 $repeated_followup->repeated_type = $val['repeated_option'];
                                 if ($repeated_followup->repeated_type == '2') {
                                         $repeated_date = $val['specific-days'];
@@ -322,28 +297,24 @@ class FollowupsController extends Controller {
                                         $repeated_date = $val['specific-dates-month'];
                                 }
                                 $repeated_followup->repeated_days = $repeated_date;
-                                if (!empty($repeated_followup->assigned_to))
-                                        $repeated_followup->save(false);
-                                if (!empty($val['name']))
-                                        $this->Imageupload($repeated_followup->id, $val['name'], $val['tmp_name'], '2');
-                                $this->sendMail($repeated_followup, $val['assigned_to']);
+                                $repeated_followup->save(false);
+                                if (!empty($repeated_followup->attachments))
+                                        $this->Imageupload($repeated_followup->id, $repeated_followup->attachments, $val['tmp_name'], '2');
                         } else {
                                 $repeated_dates = explode(',', $val['remind_days1']);
                                 foreach ($repeated_dates as $date) {
                                         $repeated_followup = new Followups();
-                                        $this->StoreData($repeated_followup, $val);
+                                        Yii::$app->Followups->StoreData($repeated_followup, $val);
                                         $repeated_followup->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $date)));
-
-                                        if (!empty($repeated_followup->assigned_to))
-                                                $repeated_followup->save(false);
-
-                                        if (!empty($val['name']))
-                                                $this->Imageupload($repeated_followup->id, $val['name'], $val['tmp_name'], '1');
-                                        $this->sendMail($repeated_followup, $val['assigned_to']);
+                                        $repeated_followup->save(false);
+                                        if (!empty($repeated_followup->attachments))
+                                                $this->Imageupload($repeated_followup->id, $repeated_followup->attachments, $val['tmp_name'], '1');
                                 }
                         }
                 }
         }
+
+//--------------------------------------------------------------Update Followup Functions-------------------------------------------------------------//
 
         /*
          * To update Followups
@@ -354,7 +325,6 @@ class FollowupsController extends Controller {
                 $i = 0;
 
                 foreach ($_POST['updatee'] as $key => $val) {
-
                         $arr[$key]['sub_type'] = $val['sub_type'][0];
                         $arr[$key]['followup_date'] = date('Y-m-d H:i:s', strtotime($val['followup_date'][0]));
                         $arr[$key]['assigned_to'] = $val['assigned_to'][0];
@@ -368,18 +338,13 @@ class FollowupsController extends Controller {
                         $arr[$key]['related_staffs'] = $val['related_staffs'][0];
                         if (isset($_FILES['updatee'])) {
                                 foreach ($_FILES['updatee'] ['name'] as $row => $innerArray) {
-                                        $i = 0;
                                         foreach ($innerArray as $innerRow => $value) {
                                                 $arr[$key]['name'] = $value;
-                                                $i++;
                                         }
                                 }
-                                $i = 0;
                                 foreach ($_FILES['updatee'] ['tmp_name'] as $row => $innerArray) {
-                                        $i = 0;
                                         foreach ($innerArray as $innerRow => $value) {
                                                 $arr[$key]['tmp_name'] = $value;
-                                                $i++;
                                         }
                                 }
                         }
@@ -398,6 +363,10 @@ class FollowupsController extends Controller {
                         }
                         $i++;
                 }
+                $this->Update($arr);
+        }
+
+        public function Update($arr) {
 
                 foreach ($arr as $key => $value) {
                         if (!isset($value['repeated'])) {
@@ -439,6 +408,11 @@ class FollowupsController extends Controller {
                 $update_followup->UB = Yii::$app->user->identity->id;
         }
 
+        //--------------------------------------------------------------Update Followup Functions ends-------------------------------------------------------------//
+
+
+
+
         /*
          * upload attachements to each folllowup
          */
@@ -454,33 +428,22 @@ class FollowupsController extends Controller {
                 move_uploaded_file($Tmpfilename, $target_file);
         }
 
-        /*
-         * to send email
-         */
-
-        public function sendMail($add_followp, $assigned) {
-
-                if ($assigned == '1') {
-                        $email_to = \common\models\PatientGeneral::findOne($add_followp->assigned_to);
-                } else {
-                        $email_to = \common\models\StaffInfo::findOne($add_followp->assigned_to);
-                }
-                if (isset($email_to->email) && $email_to->email != '') {
-                        $message = Yii::$app->mailer->compose('followup-assigned-mail', ['assigned_to' => $add_followp->assigned_to, 'type' => $add_followp->assigned_to_type]) // a view rendering result becomes the message body here
-                                ->setFrom('info@caringpeople.in')
-                                ->setTo($email_to->email)
-                                ->setSubject('New Followup');
-                        $message->send();
-                        return TRUE;
-                }
-        }
-
         protected function findModel($id) {
                 if (($model = Followups::findOne($id)) !== null) {
                         return $model;
                 } else {
                         throw new NotFoundHttpException('The requested page does not exist.');
                 }
+        }
+
+        public function actionFollowupscron() {
+
+                $today_date_time = date('Y-m-d H:i:s');
+                $today = date("d-m-Y");
+                $today_day = date("l");
+                $today_date = date("j");
+
+                //  $today_followup= RepeatedFollowups::
         }
 
 }
