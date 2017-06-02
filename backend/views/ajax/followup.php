@@ -11,6 +11,7 @@ use common\models\FollowupSubType;
 use common\models\StaffInfo;
 use kartik\datetime\DateTimePicker;
 
+$cnt = $count + 1;
 $rand = rand();
 $todays_date = date('d-M-Y h:i');
 //---------Followup types from db
@@ -37,12 +38,12 @@ if ($type == 'NULL') {
 if ($type != 5) {
 
         $all_users = StaffInfo::find()->where(['<>', 'post_id', '5'])->orderBy(['staff_name' => SORT_ASC])->all();
-        $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'namepost'), ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
+        $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'namepost'), ['class' => 'form-control create-assignedto', 'prompt' => '--Select--', 'id' => 'create-assignedto_' . $cnt]);
 } else {
 
         $service = \common\models\Service::find()->where(['id' => $type_id])->one();
         $data = Yii::$app->SetValues->Assigned($service);
-        $assigned_to = Html::dropDownList('create[assigned_to][]', null, $data, ['class' => 'form-control', 'prompt' => '--Select--', 'required' => "required"]);
+        $assigned_to = Html::dropDownList('create[assigned_to][]', null, $data, ['class' => 'form-control create-assignedto', 'prompt' => '--Select--', 'required' => "required", 'id' => 'create-assignedto_' . $cnt]);
 }
 //---------------Followup assigned from->current user;
 $userid = Yii::$app->user->identity->id;
@@ -81,6 +82,8 @@ $datas = "<span>
                                                  $assigned_to
                                               </div>
                                           </div>
+
+                                         <input type='hidden' name='create[assigned_to_type][]' id='assigned_to_type_$cnt' value=''>
 
                                            <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                               <div class='form-group field-followups-related_staffs'>

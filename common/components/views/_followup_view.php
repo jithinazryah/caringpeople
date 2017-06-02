@@ -89,7 +89,7 @@ if (isset($data->repeated_type)) {
                                 <?= date('d-m-Y', strtotime($data->DOC)); ?>
                         </span>
                         <span>
-                                <?php if ($data->status != 1) { ?>        <input type="checkbox" value="<?= $data->id ?>" class="iswitch iswitch-secondary followup_closed " title="Mrak it if this task is closed" style="float:right;"> <?php } ?>
+                                <?php if ($data->status != 1) { ?>        <input type="checkbox" value="<?= $data->id ?>" id='<?= $repeated; ?>' class="iswitch iswitch-secondary followup_closed " title="Mrak it if this task is closed" style="float:right;"> <?php } ?>
                         </span>
                 </p>
 

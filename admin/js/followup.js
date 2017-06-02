@@ -90,20 +90,21 @@ $("document").ready(function () {
          */
 
         $('.followup_closed').change(function () {
+                if ($(this).attr('id') == '') {
+                        var type = '1';
+                } else {
+                        var type = '2';
+                }
                 var followup_id = $(this).val();
-
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {followup_id: followup_id},
+                        data: {followup_id: followup_id, type: type},
                         url: homeUrl + 'followupajax/followupstatus',
                         success: function (data) {
-
                                 $('.' + followup_id).hide(1000);
-
                         }
                 });
-
         });
 
 
@@ -346,5 +347,19 @@ $("document").ready(function () {
         }).on('select2-open', function ()
         {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+
+
+
+
+        $(document).on('change', '.create-assignedto', function () {
+                var str = $("#" + $(this).attr('id') + " option:selected").text();
+                if (str.indexOf('Patient') > -1)
+                {
+                        $('#assigned_to_type_' + i).val('1');
+                } else {
+                        $('#assigned_to_type_' + i).val('2');
+                }
         });
 });

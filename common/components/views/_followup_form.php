@@ -166,6 +166,11 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                                                 <label class="control-label" for="followups-repeated-options">Followup to be set for</label>
                                                                                 <select name="updatee[<?= $update_followup->id ?>][repeated_option][]" id="repeated-option-update" class="form-control">
                                                                                         <option value="">--Select--</option>
+                                                                                        <option value="4" <?php
+                                                                                        if ($update_followup->repeated_type == '4') {
+                                                                                                echo 'selected';
+                                                                                        }
+                                                                                        ?>>Every Day</option>
                                                                                         <option value="1" <?php
                                                                                         if ($update_followup->repeated_type == '1') {
                                                                                                 echo 'selected';
@@ -279,9 +284,6 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
 
 
                                                         <?php
-                                                        /*
-                                                         * expect staff
-                                                         */
                                                         $all_users = StaffInfo::find()->where(['<>', 'post_id', '5'])->orderBy(['staff_name' => SORT_ASC])->all();
                                                         $data = ArrayHelper::map($all_users, 'id', 'namepost');
 
@@ -297,9 +299,11 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-assigned_to">
                                                                         <label class="control-label" for="followups-assigned_to">Assigned To</label>
-                                                                        <?= Html::dropDownList('create[assigned_to][]', $assigned_too, $data, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'create-assignedto']); ?>
+                                                                        <?= Html::dropDownList('create[assigned_to][]', $assigned_too, $data, ['class' => 'form-control create-assignedto', 'prompt' => '--Select--', 'id' => 'create-assignedto_4']); ?>
                                                                 </div>
                                                         </div>
+
+                                                        <input type="hidden" name="create[assigned_to_type][]" id="assigned_to_type_4" value="">
 
                                                         <?php
                                                         $related_staff = Yii::$app->SetValues->Relatedstaffs($type, $type_id);
@@ -353,6 +357,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                                         <label class="control-label" for="followups-repeated-options">Followup to be set for</label>
                                                                         <select name="create[repeated_option][]" id="repeated-option" class="form-control">
                                                                                 <option value="">--Select--</option>
+                                                                                <option value="4">Every Day</option>
                                                                                 <option value="1">Specific Dates</option>
                                                                                 <option value="2">Specific Days of week</option>
                                                                                 <option value="3">Specific Days of month</option>
@@ -379,37 +384,26 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                         <!----------------------------Specific days of week------------------------------------->
 
                                                         <div class="col-md-12 option2 col-sm-6 col-xs-12 left_padd" style="display: none;">
-
+                                                                <?php
+                                                                $days = Yii::$app->SetValues->Days();
+                                                                ?>
                                                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                                         <div class="form-group field-followups-date">
                                                                                 <label class="control-label" for="reminder-remind_days">Select Day</label>
-                                                                                <select name="create[specific-days][0][]" id="specific-days" class="form-control" multiple="multiple">
-                                                                                        <option value="">--Select Day--</option>
-                                                                                        <option value="sunday">Sunday</option>
-                                                                                        <option value="monday">Monday</option>
-                                                                                        <option value="tuesday">Tuesday</option>
-                                                                                        <option value="wednesday">Wednesday</option>
-                                                                                        <option value="thursday">Thursday</option>
-                                                                                        <option value="friday">Friday</option>
-                                                                                        <option value="saturday">Saturday</option>
-                                                                                </select>
+                                                                                <?= Html::dropDownList('create[specific-days][0][]', null, $days, ['class' => 'form-control', 'id' => 'specific-days', 'multiple' => 'multiple']); ?>
                                                                         </div>
                                                                 </div>
                                                         </div>
 
                                                         <!----------------------------Specific days of week------------------------------------->
                                                         <div class="col-md-12 option3" style="display: none;margin-left: -15px;">
-
+                                                                <?php
+                                                                $dates = Yii::$app->SetValues->Dates();
+                                                                ?>
                                                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                                         <div class="form-group field-followups-date">
                                                                                 <label class="control-label" for="reminder-remind_days">Select Date</label>
-                                                                                <select name="create[specific-dates-month][0][]" id="specific-dates-month" class="form-control" multiple="multiple">
-                                                                                        <option value="">--Select Day--</option>
-                                                                                        <?php for ($i = 1; $i <= 31; $i++) { ?>
-                                                                                                <option value="<?= $i ?>"><?= $i ?></option>
-                                                                                        <?php } ?>
-
-                                                                                </select>
+                                                                                <?= Html::dropDownList('create[specific-dates-month][0][]', null, $dates, ['class' => 'form-control', 'id' => 'specific-dates-month', 'multiple' => 'multiple']); ?>
                                                                         </div>
                                                                 </div>
                                                         </div>

@@ -137,6 +137,10 @@ class SetValues extends Component {
                 }
         }
 
+        /*
+         * Followups-> assigned to dropdown
+         */
+
         public function Assigned($service) {
 
                 $data = [];
@@ -152,20 +156,27 @@ class SetValues extends Component {
 
 
                 if ($service->duty_type == '1') { /* day */
+
                         $daystaff = StaffInfo::findOne($service->day_staff);
-                        $data = [$patient->id . '_p' => $patient->first_name . ' ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )',];
+                        $data = [$patient->id => $patient->first_name . ' ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )',];
                 } else if ($service->duty_type == '2') { /* night */
+
                         $nightstaff = StaffInfo::findOne($service->night_staff);
-                        $data = [$patient->id . '_p' => $patient->first_name . ' ( Patient )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
+                        $data = [$patient->id => $patient->first_name . ' ( Patient )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
                 } else if ($service->duty_type == '3') { /* day & night */
+
                         $daystaff = StaffInfo::findOne($service->day_staff);
                         $nightstaff = StaffInfo::findOne($service->night_staff);
-                        $data = [$patient->id . '_p' => $patient->first_name . '    ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
+                        $data = [$patient->id => $patient->first_name . '    ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
                 }
 
                 $datas = $data + $data3 + $data2;
                 return $datas;
         }
+
+        /*
+         * related staff options
+         */
 
         public function Relatedstaffs($type, $type_id) {
 
@@ -179,6 +190,10 @@ class SetValues extends Component {
                 return $related_staff_data;
         }
 
+        /*
+         * repeated followups Days listing
+         */
+
         public function Days() {
                 $days = [];
                 $days['sunday'] = 'Sunday';
@@ -190,6 +205,10 @@ class SetValues extends Component {
                 $days['saturday'] = 'Saturday';
                 return $days;
         }
+
+        /*
+         * Repeated followups Dates listing
+         */
 
         public function Dates() {
                 $dates = [];

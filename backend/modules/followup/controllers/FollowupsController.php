@@ -47,6 +47,7 @@ class FollowupsController extends Controller {
         public function actionView($data = null) {
 
                 $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
+                $repeated = RepeatedFollowups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
                 if (!empty($data)) {
                         $data = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
                         $followups = Followups::find()->where(['id' => $data])->one();
@@ -62,6 +63,8 @@ class FollowupsController extends Controller {
 
         public function actionAssignedclosed() {
                 $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['status' => '1'])->all();
+                $followups = RepeatedFollowups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['status' => '1'])->all();
+                $followups = array_merge($followups, $repeated_followups);
                 return $this->render('closed', [
                             'followups' => $followups,
                 ]);
@@ -74,6 +77,8 @@ class FollowupsController extends Controller {
         public function actionViewrelated() {
 
                 $followups = Followups::find()->where(new Expression('FIND_IN_SET(:related_staffs, related_staffs)'))->addParams([':related_staffs' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
+                $repeated_followups = RepeatedFollowups::find()->where(new Expression('FIND_IN_SET(:related_staffs, related_staffs)'))->addParams([':related_staffs' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
+                $followups = array_merge($followups, $repeated_followups);
                 return $this->render('view', [
                             'followups' => $followups,
                 ]);
@@ -86,9 +91,12 @@ class FollowupsController extends Controller {
         public function actionClosed($type_id = 'NULL', $type = 'NULL') {
 
                 $followups = Followups::find()->where(['type_id' => $type_id, 'status' => '1'])->all();
-
-                if ($type_id == 'NULL' && $type == 'NULL')
+                $repeated_followups = RepeatedFollowups::find()->where(['type_id' => $type_id, 'status' => '1'])->all();
+                if ($type_id == 'NULL' && $type == 'NULL') {
                         $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'status' => '1'])->all();
+                        $repeated_followups = RepeatedFollowups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'status' => '1'])->all();
+                }
+                $followups = array_merge($followups, $repeated_followups);
 
                 return $this->render('closed', [
                             'followups' => $followups, 'type_id' => $type_id, 'type' => $type
@@ -185,8 +193,8 @@ class FollowupsController extends Controller {
                         if (!empty($add_followp->assigned_to))
                                 $add_followp->save(false);
                         if (!empty($val['name']))
-                                $this->Imageupload($add_followp->id, $val['name'], $val['tmp_name']);
-                        $this->sendMail($add_followp, $val['assigned_to']);
+                                $this->Imageupload($add_followp->id, $val['name'], $val['tmp_name'], '1');
+                        $this->sendMail($add_followp, $add_followp->assigned_to_type);
                 }
         }
 
@@ -234,6 +242,11 @@ class FollowupsController extends Controller {
                         $i++;
                 }
                 $i = 0;
+                foreach ($_POST['create']['assigned_to_type'] as $val) {
+                        $arr[$i]['assigned_to_type'] = $val;
+                        $i++;
+                }
+                $i = 0;
                 foreach ($_POST['create']['followup_notes'] as $val) {
                         $arr[$i]['followup_notes'] = $val;
                         $i++;
@@ -266,6 +279,7 @@ class FollowupsController extends Controller {
                                 $i++;
                         }
                 }
+
                 return $arr;
         }
 
@@ -279,20 +293,14 @@ class FollowupsController extends Controller {
                 $repeated_followup->type_id = $val['type_id'];
                 $repeated_followup->sub_type = $val['sub_type'];
                 $repeated_followup->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val['followup_date'])));
-                $assg_to = explode('_', $val['assigned_to']);
-                if (isset($assg_to))
-                        $assgnd_to = $assg_to[0];
-                else
-                        $assgnd_to = $val['assigned_to'];
-
-                $repeated_followup->assigned_to = $assgnd_to;
+                $repeated_followup->assigned_to = $val['assigned_to'];
+                $repeated_followup->assigned_to_type = $val['assigned_to_type'];
                 $repeated_followup->followup_notes = $val['followup_notes'];
                 $repeated_followup->assigned_from = Yii::$app->user->identity->id;
                 $repeated_followup->related_staffs = $val['related_staffs'];
                 $repeated_followup->attachments = $val['name'];
                 $repeated_followup->DOC = date('Y-m-d');
                 $repeated_followup->CB = Yii::$app->user->identity->id;
-
                 return $repeated_followup;
         }
 
@@ -317,7 +325,7 @@ class FollowupsController extends Controller {
                                 if (!empty($repeated_followup->assigned_to))
                                         $repeated_followup->save(false);
                                 if (!empty($val['name']))
-                                        $this->Imageupload($repeated_followup->id, $val['name'], $val['tmp_name']);
+                                        $this->Imageupload($repeated_followup->id, $val['name'], $val['tmp_name'], '2');
                                 $this->sendMail($repeated_followup, $val['assigned_to']);
                         } else {
                                 $repeated_dates = explode(',', $val['remind_days1']);
@@ -330,7 +338,7 @@ class FollowupsController extends Controller {
                                                 $repeated_followup->save(false);
 
                                         if (!empty($val['name']))
-                                                $this->Imageupload($repeated_followup->id, $val['name'], $val['tmp_name']);
+                                                $this->Imageupload($repeated_followup->id, $val['name'], $val['tmp_name'], '1');
                                         $this->sendMail($repeated_followup, $val['assigned_to']);
                                 }
                         }
@@ -410,7 +418,7 @@ class FollowupsController extends Controller {
                         $update_followup->update(false);
                         if (!empty($value['name'])) {
                                 unlink(Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $update_followup->id . "/" . $previous_image);
-                                $this->Imageupload($update_followup->id, $value['name'], $value['tmp_name']);
+                                $this->Imageupload($update_followup->id, $value['name'], $value['tmp_name'], '1');
                         }
                 }
         }
@@ -435,11 +443,13 @@ class FollowupsController extends Controller {
          * upload attachements to each folllowup
          */
 
-        public function Imageupload($id, $filename, $Tmpfilenamel) {
-
-                $paths = ['followups', $id];
+        public function Imageupload($id, $filename, $Tmpfilename, $type) {
+                if ($type == '1')
+                        $paths = ['followups', $id];
+                else
+                        $paths = ['followups', 'repeated', $id];
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
-                $target_dir = Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $id . "/";
+                $target_dir = $paths . "/";
                 $target_file = $target_dir . $filename;
                 move_uploaded_file($Tmpfilename, $target_file);
         }
@@ -450,20 +460,18 @@ class FollowupsController extends Controller {
 
         public function sendMail($add_followp, $assigned) {
 
-                $assg_to = explode('_', $assigned);
-                if (isset($assg_to[1]) && $assg_to[1] == 'p') {
-                        $email_to = \common\models\PatientGeneral::findOne($assg_to[0]);
+                if ($assigned == '1') {
+                        $email_to = \common\models\PatientGeneral::findOne($add_followp->assigned_to);
                 } else {
-                        $email_to = \common\models\StaffInfo::findOne($assg_to[0]);
+                        $email_to = \common\models\StaffInfo::findOne($add_followp->assigned_to);
                 }
                 if (isset($email_to->email) && $email_to->email != '') {
-                        $to = $email_to->email;
-                        $subject = 'Followup Assigned';
-                        $message = $this->renderPartial('send-mail', ['assigned_to' => $assg_to[0]]);
-                        $headers = 'MIME-Version: 1.0' . "\r\n";
-                        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
-                                "From: info@caringpeople.in";
-                        //mail($to, $subject, $message, $headers);
+                        $message = Yii::$app->mailer->compose('followup-assigned-mail', ['assigned_to' => $add_followp->assigned_to, 'type' => $add_followp->assigned_to_type]) // a view rendering result becomes the message body here
+                                ->setFrom('info@caringpeople.in')
+                                ->setTo($email_to->email)
+                                ->setSubject('New Followup');
+                        $message->send();
+                        return TRUE;
                 }
         }
 

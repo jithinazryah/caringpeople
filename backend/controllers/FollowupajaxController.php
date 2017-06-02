@@ -53,8 +53,12 @@ class FollowupajaxController extends \yii\web\Controller {
 
                 if (Yii::$app->request->isAjax) {
                         // $followup_id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $_POST['followup_id']);
+                        $type = $_POST['type'];
                         $followup_id = $_POST['followup_id'];
-                        $followup = Followups::find()->where(['id' => $followup_id])->one();
+                        if ($type == '1')
+                                $followup = Followups::find()->where(['id' => $followup_id])->one();
+                        else
+                                $followup = \common\models\RepeatedFollowups::find()->where(['id' => $followup_id])->one();
                         $followup->status = 1;
                         $followup->update();
                 }
