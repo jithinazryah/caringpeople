@@ -31,12 +31,16 @@ class FollowupajaxController extends \yii\web\Controller {
 
                 if (Yii::$app->request->isAjax) {
                         $val = $_POST['valu'];
+                        $type = $_POST['type'];
                         $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $val;
                         if (file_exists($paths)) {
-
                                 $files = Yii::$app->UploadFile->RemoveFiles($paths);
                         }
-                        Followups::findOne($val)->delete();
+                        if ($type == 'unset') {
+                                Followups::findOne($val)->delete();
+                        } else {
+                                \common\models\RepeatedFollowups::findOne($val)->delete();
+                        }
                 }
         }
 

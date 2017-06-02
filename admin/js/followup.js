@@ -122,12 +122,15 @@ $("document").ready(function () {
                 if (this.hasAttribute("val")) {
 
                         var valu = $(this).attr('val');
+                        var idd = $(this).attr('id');
+                        var ids = idd.split('_');
+
                         $('#delete_port_vals').val($('#delete_port_vals').val() + valu + ',');
                         var value = $('#delete_port_vals').val();
                         $.ajax({
                                 type: 'POST',
                                 cache: false,
-                                data: {valu: valu},
+                                data: {valu: valu, type: ids[1]},
                                 url: homeUrl + 'followupajax/delete',
                                 success: function (data) {
 
@@ -322,6 +325,22 @@ $("document").ready(function () {
         });
 
         $("#specific-dates-month").select2({
+                placeholder: '--Select Days--',
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+        $("#specific-days-update").select2({
+                placeholder: '--Select Days--',
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+        $("#specific-dates-month-update").select2({
                 placeholder: '--Select Days--',
                 allowClear: true
         }).on('select2-open', function ()

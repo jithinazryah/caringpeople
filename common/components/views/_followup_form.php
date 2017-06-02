@@ -192,7 +192,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                         <div class="col-md-4 col-sm-6 col-xs-12 left_padd option2_update" style="display: none">
                                                                 <div class="form-group field-followups-assigned_from">
                                                                         <label class="control-label" for="reminder-remind_days">Select Day</label>
-                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][specific-days][]', $repeated_days, $days, ['class' => 'form-control', 'id' => 'specific-days', 'multiple' => 'multiple']); ?>
+                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][specific-days][]', $repeated_days, $days, ['class' => 'form-control', 'id' => 'specific-days-update', 'multiple' => 'multiple']); ?>
                                                                 </div>
                                                         </div>
 
@@ -207,7 +207,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                         <div class="col-md-4 option3_update" style="display: none;">
                                                                 <div class="form-group field-followups-assigned_from">
                                                                         <label class="control-label" for="reminder-remind_days">Select Date</label>
-                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][specific-dates-month][]', $repeated_Dates, $dates, ['class' => 'form-control', 'id' => 'specific-dates-month', 'multiple' => 'multiple']); ?>
+                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][specific-dates-month][]', $repeated_Dates, $dates, ['class' => 'form-control', 'id' => 'specific-dates-month-update', 'multiple' => 'multiple']); ?>
                                                                 </div>
                                                         </div>
 
@@ -215,7 +215,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
 
 
                                                         <div class='col-md-1 col-sm-6 col-xs-12 left_padd'>
-                                                                <a id="remFollowup" val="<?= $update_followup->id; ?>" title='Delete Followup'  class="btn btn-icon btn-red remFollowup" style="margin-top:15px;"><i class="fa-remove"></i></a>
+                                                                <a id="remFollowup_<?= $repeated ?>" val="<?= $update_followup->id; ?>" title='Delete Followup'  class="btn btn-icon btn-red remFollowup" style="margin-top:15px;"><i class="fa-remove"></i></a>
                                                         </div>
                                                 </span>
 
