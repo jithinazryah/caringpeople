@@ -31,9 +31,10 @@ class Followups extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['type', 'sub_type', 'type_id', 'assigned_to', 'status'], 'integer'],
+                        [['type', 'sub_type', 'type_id', 'assigned_to', 'assigned_from', 'status', 'CB', 'UB', 'assigned_to_type'], 'integer'],
                         [['followup_date', 'DOC'], 'safe'],
                         [['followup_notes'], 'string'],
+                        [['attachments', 'related_staffs'], 'string', 'max' => 200],
                 ];
         }
 
@@ -49,7 +50,9 @@ class Followups extends \yii\db\ActiveRecord {
                     'followup_date' => 'Followup Date',
                     'followup_notes' => 'Followup Notes',
                     'assigned_to' => 'Assigned To',
+                    'assigned_to_type' => 'assigned_to_type',
                     'assigned_from' => 'Assigned From',
+                    'attachments' => 'Attachments',
                     'status' => 'Status',
                     'DOC' => 'Doc',
                 ];

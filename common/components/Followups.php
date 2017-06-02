@@ -39,6 +39,13 @@ class Followups extends Component {
                 return $followup;
         }
 
+        public function Addcronfollowup($followup, $val) {
+
+                $followup->attributes = $val->attributes;
+                $followup->save(false);
+                return $followup;
+        }
+
         public function sendMail($add_followp, $assigned) {
 
                 if ($assigned == '1') {

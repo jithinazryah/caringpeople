@@ -439,11 +439,36 @@ class FollowupsController extends Controller {
         public function actionFollowupscron() {
 
                 $today_date_time = date('Y-m-d H:i:s');
-                $today = date("d-m-Y");
+                $today = date("Y-m-d");
                 $today_day = date("l");
                 $today_date = date("j");
 
-                //  $today_followup= RepeatedFollowups::
+                /*
+                 * Ever Day
+                 */
+                $today_followup = RepeatedFollowups::find()->where(['like', 'followup_date', $today])->all();
+                foreach ($today_followup as $value) {
+                        $followup = new Followups();
+                        Yii::$app->Followups->Addcronfollowup($followup, $value);
+                }
+
+                /*
+                 * Specific days in a week
+                 */
+                $followup_days = RepeatedFollowups::find()->where(new Expression('FIND_IN_SET(:repeated_days, repeated_days)'))->addParams([':repeated_days' => $today_day])->all();
+                foreach ($today_followup as $value) {
+                        $followup = new Followups();
+                        Yii::$app->Followups->Addcronfollowup($followup, $value);
+                }
+
+                /*
+                 * specific dates in amonth
+                 */
+                $followup_dates = RepeatedFollowups::find()->where(new Expression('FIND_IN_SET(:repeated_days, repeated_days)'))->addParams([':repeated_days' => $today_date])->all();
+                foreach ($today_followup as $value) {
+                        $followup = new Followups();
+                        Yii::$app->Followups->Addcronfollowup($followup, $value);
+                }
         }
 
 }
