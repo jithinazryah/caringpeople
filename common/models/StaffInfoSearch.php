@@ -157,7 +157,7 @@ class StaffInfoSearch extends StaffInfo {
                         'filter' => [1 => 'Opened', 2 => 'Closed'],
                     ],
                         ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view}{update}{followup}{delete}',
+                        'template' => '{view}{update}{followup}{remarks}{delete}',
                         'visibleButtons' => [
                             'delete' => function ($model, $key, $index) {
                                     return Yii::$app->user->identity->post_id != '1' ? false : true;
@@ -172,6 +172,18 @@ class StaffInfoSearch extends StaffInfo {
                                                 'data-pjax' => '0',
                                                 'id' => $model->id,
                                                 'title' => 'Add Followups',
+                                                'target' => '_blank',
+                                                    ]
+                                    );
+                            },
+                            'remarks' => function ($url, $model) {
+
+                                    $url = Yii::$app->homeUrl . 'remarks/remarks/create?id=' . $model->id . '&type=2';
+                                    return Html::a(
+                                                    '<span><i class="linecons-note"></i>', $url, [
+                                                'data-pjax' => '0',
+                                                'id' => $model->id,
+                                                'title' => 'Add Remarks',
                                                 'target' => '_blank',
                                                     ]
                                     );

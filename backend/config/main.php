@@ -55,6 +55,9 @@ return [
         'contact' => [
             'class' => 'backend\modules\contact\Module',
         ],
+        'remarks' => [
+            'class' => 'backend\modules\remarks\Module',
+        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],
