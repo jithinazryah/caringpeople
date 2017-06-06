@@ -138,7 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <div class="main-left" style="width:225px;margin-left: 25px;text-align: justify;">
                                                                                                                 Door No.5 DD Vyapar Bhavan <br>
                                                                                                                 K.P Vallon Road, Kavandthra Jn<br>
-                                                                                                                <b>Koohi-20 | </b>Tel:0484 4033505<br>
+                                                                                                                <b>Kochi-20 | </b>Tel:0484 4033505<br>
 
                                                                                                         </div>
                                                                                                 </td>
