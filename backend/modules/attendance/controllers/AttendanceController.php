@@ -61,7 +61,7 @@ class AttendanceController extends Controller {
                          */
                         $attendance = $this->selectUsers($model);
                         if (empty($attendance)) {
-                                $employees = StaffInfo::find()->where(['branch_id' => $model->branch_id, 'post_id' => 5])->all();
+                                $employees = StaffInfo::find()->where(['branch_id' => $model->branch_id])->orWhere(['branch_id' => '0'])->andWhere(['<>', 'post_id', 5])->andWhere(['<>', 'post_id', 1])->all();
                                 return $this->render('create', ['model' => $model, 'employees' => $employees]);
                         } else {
                                 Yii::$app->session['attendance'] = $attendance;

@@ -261,6 +261,21 @@ $("document").ready(function () {
                 return false;
         });
 
+        $('#designation').hide();
+        $('#staffinfo-post_id').change(function () {
+                if ($(this).val() == '5')
+                        $('#designation').show();
+                else
+                        $('#designation').hide();
+        });
+
+        var post = $('#staffinfo-post_id').val();
+        if (post == '5')
+                $('#designation').show();
+        else
+                $('#designation').hide();
+
+
 });
 function showAjaxModal(id)
 {

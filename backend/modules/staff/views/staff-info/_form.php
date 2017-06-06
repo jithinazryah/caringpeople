@@ -38,7 +38,7 @@ use common\models\MasterDesignations;
                 </div>
 
         <?php } ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd' >
 
                 <?= $form->field($model, 'post_id')->dropDownList(ArrayHelper::map($posts, 'id', 'post_name'), ['prompt' => '--Select--']) ?>
 
@@ -122,7 +122,7 @@ use common\models\MasterDesignations;
                 $model->designation = explode(',', $model->designation);
         }
         ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="designation">
                 <?php $designation = MasterDesignations::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>   <?= $form->field($model, 'designation')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'style' => 'height:120px']) ?>
                 <?php $form->field($model, 'designation')->dropDownList(['' => '--Select--', '1' => 'Registered Nurse', '2' => 'Care Assistant', '3' => 'Doctor visit at home', '4' => 'OP Clinic', '5' => 'DV + OP', '6' => 'Physio', '7' => 'Psychologist', '8' => 'Dietician', '9' => 'Receptionist', '10' => 'Office Staff', '11' => 'Accountant', '12' => 'Nurse Manager']) ?>
 
@@ -137,6 +137,13 @@ use common\models\MasterDesignations;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'licence_no')->textInput(['maxlength' => true]) ?>
 
         </div>
+        <?php
+        if (Yii::$app->user->identity->branch_id == '0') {
+                $branches = Branch::find()->where(['status' => '1'])->all();
+                ?>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                </div>
+        <?php } ?>
         <div style="clear: both"></div>
         <h2 style="color:#148eaf;">Educational Qualification</h2>
         <hr class="enquiry-hr"/>
@@ -179,13 +186,7 @@ use common\models\MasterDesignations;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'status')->dropDownList(['1' => 'Opened', '2' => 'Closed']) ?>
 
         </div>
-        <?php
-        if (Yii::$app->user->identity->branch_id == '0') {
-                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
-                ?>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
-                </div>
-        <?php } ?>
+
         <div style="clear:both"></div>
 
 
