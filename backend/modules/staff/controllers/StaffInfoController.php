@@ -89,6 +89,7 @@ class StaffInfoController extends Controller {
                 $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['enquiry_id' => $id]);
                 $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['enquiry_id' => $id]);
                 $staff_interview_third = StaffEnquiryInterviewThird::findOne(['enquiry_id' => $id]);
+                $staff_family = \common\models\StaffEnquiryFamilyDetails::findAll(['enquiry_id' => $id]);
                 $model = \common\models\StaffEnquiry::findOne($id);
 
                 $staff_info->staff_enquiry_id = $id;
@@ -109,17 +110,24 @@ class StaffInfoController extends Controller {
                         $model->update();
                         $other_info->staff_id = $staff_info->id;
                         $staff_education->staff_id = $staff_info->id;
-                        if (!empty($staff_previous_employer))
-                                $staff_previous_employer->staff_id = $staff_info->id;
+                        if (!empty($staff_previous_employer)) {
+                                foreach ($staff_previous_employer as $value) {
+                                        $value->staff_id = $staff_info->id;
+                                        $value->save();
+                                }
+                        }
+                        if (!empty($staff_family)) {
+                                foreach ($staff_family as $val) {
+                                        $val->staff_id = $staff_info->id;
+                                        $val->save();
+                                }
+                        }
 
                         $staff_interview_first->staff_id = $staff_info->id;
                         $staff_interview_second->staff_id = $staff_info->id;
                         $staff_interview_third->staff_id = $staff_info->id;
                         $other_info->save();
                         $staff_education->save();
-
-                        if (!empty($staff_previous_employer))
-                                $staff_previous_employer->save();
                         $staff_interview_first->save();
                         $staff_interview_second->save();
                         $staff_interview_third->save();
@@ -139,24 +147,30 @@ class StaffInfoController extends Controller {
                 $model->setScenario('create');
                 $staff_edu = new StaffInfoEducation();
                 $other_info = new StaffOtherInfo();
-
-
-
-
+                $staff_interview_first = new StaffEnquiryInterviewFirst();
+                $staff_interview_second = new StaffEnquiryInterviewSecond();
+                $staff_interview_third = new StaffEnquiryInterviewThird();
+                $staff_family = '';
                 $staff_previous_employer = '';
 
 
 
-                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
 
                         $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
-                        $other_info->load(Yii::$app->request->post());
-                        $staff_edu->load(Yii::$app->request->post());
+
                         $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
                         $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
                         $model->username = Yii::$app->request->post()['StaffInfo']['username'];
                         $model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
                         $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
+                        $staff_interview_second->contact_verified_date = date('Y-m-d', strtotime($staff_interview_second->contact_verified_date));
+                        $staff_interview_second->alt_contact_verified_date = date('Y-m-d', strtotime($staff_interview_second->alt_contact_verified_date));
+                        $staff_interview_second->verified_date_1 = date('Y-m-d', strtotime($staff_interview_second->verified_date_1));
+                        $staff_interview_second->verified_date_2 = date('Y-m-d', strtotime($staff_interview_second->verified_date_2));
+                        $staff_interview_second->verified_date_3 = date('Y-m-d', strtotime($staff_interview_second->verified_date_3));
+                        $staff_interview_third->expected_date_of_joining = date('Y-m-d', strtotime($staff_interview_third->expected_date_of_joining));
+                        $staff_interview_third->interviewed_date = date('Y-m-d', strtotime($staff_interview_third->interviewed_date));
 
 
                         if (!empty(Yii::$app->request->post()['StaffInfo']['designation']))
@@ -165,12 +179,15 @@ class StaffInfoController extends Controller {
                         if (Yii::$app->user->identity->branch_id != '0') {
                                 Yii::$app->SetValues->currentBranch($model);
                         }
-                        if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $staff_edu->save() && $model->save() && $other_info->save()) {
+                        if ($model->validate() && $other_info->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_edu->validate() && $staff_edu->save() && $model->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
                                 $other_info->staff_id = $model->id;
                                 $staff_edu->staff_id = $model->id;
                                 $staff_edu->save(false);
                                 $other_info->update();
                                 $this->AddContactDirectory($model);
+                                $this->AddData($model, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third);
+                                $this->AddLanguage($staff_interview_first, $staff_interview_third);
+                                $this->AddFamily($model);
                                 $this->Imageupload($model);
 
 
@@ -185,6 +202,10 @@ class StaffInfoController extends Controller {
                             'staff_edu' => $staff_edu,
                             'staff_previous_employer' => $staff_previous_employer,
                             'other_info' => $other_info,
+                            'staff_interview_first' => $staff_interview_first,
+                            'staff_interview_second' => $staff_interview_second,
+                            'staff_interview_third' => $staff_interview_third,
+                            'staff_family' => $staff_family
                 ]);
         }
 
@@ -233,6 +254,144 @@ class StaffInfoController extends Controller {
                 }
         }
 
+        /*
+         * Add staffid as foreign key to all related tables
+         */
+
+        public function AddData($model, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third) {
+
+                $other_info->staff_id = $model->id;
+                $staff_edu->staff_id = $model->id;
+                $staff_interview_first->staff_id = $model->id;
+
+                $staff_interview_second->staff_id = $model->id;
+                $staff_interview_third->staff_id = $model->id;
+                $staff_edu->save(false);
+                $other_info->update();
+                $staff_interview_first->update();
+                $staff_interview_second->update();
+                $staff_interview_third->update();
+        }
+
+        /*
+         * Add staff languages known
+         */
+
+        public function AddLanguage($staff_interview_first, $staff_interview_third) {
+
+                if (isset($_POST['StaffEnquiryInterviewThird']['staff_experience']) && $_POST['StaffEnquiryInterviewThird']['staff_experience'] != '')
+                        $staff_interview_third->staff_experience = implode(",", $_POST['StaffEnquiryInterviewThird']['staff_experience']);
+                $staff_interview_third->update();
+
+                for ($i = 1; $i <= 4; $i++) {
+                        $language = '';
+                        $field = 'language_' . $i;
+                        if (isset($staff_interview_first->$field) && $staff_interview_first->$field != '') {
+                                $language .= $staff_interview_first->$field . ",";
+                                for ($j = 1; $j <= 3; $j++) {
+                                        $fields = 'language_' . $i . '_' . $j;
+                                        if ($_POST[$fields] == 'on')
+                                                $language .= '1,';
+                                        else
+                                                $language .= '0,';
+                                }
+                                $staff_interview_first->$field = $language;
+                                $staff_interview_first->update();
+                        }
+                }
+        }
+
+        /*
+         * Add family details
+         */
+
+        public function Addfamily($staff_enquiry) {
+
+                /*
+                 * to add multiple family details
+                 */
+
+                if (isset($_POST['createfamily']) && $_POST['createfamily'] != '') {
+
+
+                        $arrf = [];
+                        $k = 0;
+
+                        foreach ($_POST['createfamily']['name'] as $val) {
+                                $arrf[$k]['name'] = $val;
+                                $k++;
+                        }
+                        $k = 0;
+                        foreach ($_POST['createfamily']['relationship'] as $val) {
+                                $arrf[$k]['relationship'] = $val;
+                                $k++;
+                        }
+                        $k = 0;
+                        foreach ($_POST['createfamily']['job'] as $val) {
+                                $arrf[$k]['job'] = $val;
+                                $k++;
+                        }
+                        $k = 0;
+                        foreach ($_POST['createfamily']['mobile_no'] as $val) {
+                                $arrf[$k]['mobile_no'] = $val;
+                                $k++;
+                        }
+
+
+                        foreach ($arrf as $val) {
+                                $add_Family = new \common\models\StaffEnquiryFamilyDetails;
+                                $add_Family->staff_id = $staff_enquiry->id;
+                                $add_Family->name = $val['name'];
+                                $add_Family->relationship = $val['relationship'];
+                                $add_Family->job = $val['job'];
+                                $add_Family->mobile_no = $val['mobile_no'];
+
+                                if (!empty($add_Family->name))
+                                        $add_Family->save();
+                        }
+                }
+
+                /*
+                 * to update family details
+                 */
+
+                if (isset($_POST['updatefamily']) && $_POST['updatefamily'] != '') {
+
+                        $arrfu = [];
+                        $l = 0;
+                        foreach ($_POST['updatefamily'] as $key => $val) {
+
+                                $arrfu[$key]['name'] = $val['name'][0];
+                                $arrfu[$key]['relationship'] = $val['relationship'][0];
+                                $arrfu[$key]['job'] = $val['job'][0];
+                                $arrfu[$key]['mobile_no'] = $val['mobile_no'][0];
+                                $l++;
+                        }
+
+                        foreach ($arrfu as $key => $value) {
+                                $add_family = \common\models\StaffEnquiryFamilyDetails::findOne($key);
+                                $add_family->name = $value['name'];
+                                $add_family->relationship = $value['relationship'];
+                                $add_family->job = $value['job'];
+                                $add_family->mobile_no = $value['mobile_no'];
+                                $add_family->update();
+                        }
+                }
+
+                /*
+                 * to delete additional previous employer
+                 */
+
+                if (isset($_POST['delete_port_vals_family']) && $_POST['delete_port_vals_family'] != '') {
+
+                        $vals = rtrim($_POST['delete_port_vals_family'], ',');
+                        $vals = explode(',', $vals);
+                        foreach ($vals as $val) {
+                                \common\models\StaffEnquiryFamilyDetails::findOne($val)->delete();
+                        }
+                }
+        }
+
         /**
          * Updates an existing StaffInfo model.
          * If update is successful, the browser will be redirected to the 'view' page.
@@ -244,29 +403,39 @@ class StaffInfoController extends Controller {
                         $id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
                 }
                 $model = $this->findModel($id);
-
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $model->id]);
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $model->id]);
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $model->id]);
+                $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['staff_id' => $model->id]);
+                $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['staff_id' => $model->id]);
+                $staff_interview_third = StaffEnquiryInterviewThird::findOne(['staff_id' => $model->id]);
+                $staff_family = \common\models\StaffEnquiryFamilyDetails::findAll(['staff_id' => $model->id]);
 
-
-                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post())) {
+                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
                         $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
                         $other_info->staff_id = $model->id;
                         $other_info->load(Yii::$app->request->post());
                         $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
                         $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
+                        $staff_interview_second->contact_verified_date = date('Y-m-d', strtotime($staff_interview_second->contact_verified_date));
+                        $staff_interview_second->alt_contact_verified_date = date('Y-m-d', strtotime($staff_interview_second->alt_contact_verified_date));
+                        $staff_interview_second->verified_date_1 = date('Y-m-d', strtotime($staff_interview_second->verified_date_1));
+                        $staff_interview_second->verified_date_2 = date('Y-m-d', strtotime($staff_interview_second->verified_date_2));
+                        $staff_interview_second->verified_date_3 = date('Y-m-d', strtotime($staff_interview_second->verified_date_3));
+                        $staff_interview_third->expected_date_of_joining = date('Y-m-d', strtotime($staff_interview_third->expected_date_of_joining));
+                        $staff_interview_third->interviewed_date = date('Y-m-d', strtotime($staff_interview_third->interviewed_date));
                         if (!empty(Yii::$app->request->post()['StaffInfo']['designation']))
                                 $model->designation = implode(",", Yii::$app->request->post()['StaffInfo']['designation']);
 
 
-                        if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $model->save() && $other_info->save() && $staff_edu->save()) {
+                        if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
 
                                 $model->username = Yii::$app->request->post()['StaffInfo']['username'];
-                                //   $model->password = Yii::$app->security->generatePasswordHash(Yii::$app->request->post()['StaffInfo']['password']);
                                 $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
                                 $model->save();
+                                $this->AddLanguage($staff_interview_first, $staff_interview_third);
                                 $this->Imageupload($model);
+                                $this->AddFamily($model);
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
                                 return $this->redirect(array('index'));
@@ -278,6 +447,10 @@ class StaffInfoController extends Controller {
                             'staff_edu' => $staff_edu,
                             'other_info' => $other_info,
                             'staff_previous_employer' => $staff_previous_employer,
+                            'staff_interview_first' => $staff_interview_first,
+                            'staff_interview_second' => $staff_interview_second,
+                            'staff_interview_third' => $staff_interview_third,
+                            'staff_family' => $staff_family
                 ]);
         }
 
@@ -326,7 +499,9 @@ class StaffInfoController extends Controller {
                 $other_info = StaffOtherInfo::find()->where(['staff_id' => $id])->one();
                 $staff_previous_employer = StaffPerviousEmployer::find()->where(['staff_id' => $id])->one();
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $id]);
-
+                $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['staff_id' => $id]);
+                $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['staff_id' => $id]);
+                $staff_interview_third = StaffEnquiryInterviewThird::findOne(['staff_id' => $id]);
 
                 // ...other DB operations...
 
@@ -338,7 +513,15 @@ class StaffInfoController extends Controller {
                         if (!empty($staff_edu)) {
                                 $staff_edu->delete();
                         }
-
+                        if (!empty($staff_interview_third)) {
+                                $staff_interview_third->delete();
+                        }
+                        if (!empty($staff_interview_second)) {
+                                $staff_interview_second->delete();
+                        }
+                        if (!empty($staff_interview_first)) {
+                                $staff_interview_first->delete();
+                        }
 
                         if (!empty($other_info)) {
                                 $other_info->delete();
@@ -567,6 +750,30 @@ class StaffInfoController extends Controller {
                                 return true;
                         } else {
                                 return false;
+                        }
+                }
+        }
+
+        public function actionAdds() {
+                $staffs = StaffInfo::find()->all();
+                foreach ($staffs as $value) {
+                        $exists = StaffEnquiryInterviewFirst::find()->where(['staff_id' => $value->id])->exists();
+                        if ($exists != 1) {
+                                $staff_first = new StaffEnquiryInterviewFirst();
+                                $staff_first->staff_id = $value->id;
+                                $staff_first->save();
+                        }
+                        $exists_2 = StaffEnquiryInterviewSecond::find()->where(['staff_id' => $value->id])->exists();
+                        if ($exists_2 != 1) {
+                                $staff_second = new StaffEnquiryInterviewSecond();
+                                $staff_second->staff_id = $value->id;
+                                $staff_second->save();
+                        }
+                        $exists_3 = StaffEnquiryInterviewThird::find()->where(['staff_id' => $value->id])->exists();
+                        if ($exists_3 != 1) {
+                                $staff_third = new StaffEnquiryInterviewThird();
+                                $staff_third->staff_id = $value->id;
+                                $staff_third->save();
                         }
                 }
         }

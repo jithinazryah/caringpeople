@@ -81,6 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         }
                                                 },
                                                 'filter' => [1 => 'Active', 2 => 'Closed', 3 => 'Pending', 4 => 'Deseased'],
+                                                'filterInputOptions' => ['class' => 'form-control', 'id' => null, 'prompt' => 'All'],
                                             ],
                                                 [
                                                 'attribute' => 'branch_id',

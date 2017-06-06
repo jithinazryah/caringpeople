@@ -122,7 +122,7 @@ use kartik\date\DatePicker;
                                                         <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][salary][]" value="<?= $data->salary; ?>" required>
                                                 </div>
                                         </div>
-                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-1 col-sm-6 col-xs-12 left_padd'>
                                                 <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" style="margin-top: 15px;"><i class="fa-remove"></i></a>
                                         </div>
                                         <div style="clear:both"></div>

@@ -141,8 +141,7 @@ class StaffEnquiryController extends Controller {
                                 Yii::$app->SetValues->currentBranch($staff_enquiry);
                         }
 
-                        $staff_enquiry->validate();
-                        print_r($staff_enquiry->getErrors());
+
 
                         if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
                                 $this->AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third);
@@ -180,10 +179,8 @@ class StaffEnquiryController extends Controller {
 
                 // die('ff');
                 $staff_enquiry = $this->findModel($id);
-
                 $other_info = StaffOtherInfo::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_edu = StaffInfoEducation::findOne(['enquiry_id' => $staff_enquiry->id]);
-
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['enquiry_id' => $staff_enquiry->id]);
                 $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['enquiry_id' => $staff_enquiry->id]);
@@ -515,15 +512,6 @@ class StaffEnquiryController extends Controller {
          * @param integer $id
          * @return mixed
          */
-        public function actionDelete1($id) {
-                $this->findModel($id)->delete();
-                $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $id;
-                if (file_exists($paths)) {
-                        $files = Yii::$app->UploadFile->RemoveFiles($paths);
-                }
-                return $this->redirect(['index']);
-        }
-
         public function actionDelete($id) {
                 $staff_enquiry = $this->findModel($id);
                 $other_info = StaffOtherInfo::findOne(['enquiry_id' => $id]);

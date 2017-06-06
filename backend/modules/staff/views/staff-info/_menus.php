@@ -16,7 +16,12 @@ use yii\helpers\Html;
                         <span class="hidden-xs span-font-size">Other Information</span></a>
         </li>
 
-        
+        <li>
+                <a href="#profile-4" data-toggle="tab"><span class="visible-xs"><i class="fa-hospital-o"></i></span>
+                        <span class="hidden-xs span-font-size">Interview Information</span></a>
+        </li>
+
+
 </ul>
 
 

@@ -185,33 +185,5 @@ $designations = \common\models\MasterDesignations::designationlist();
         });
 </script>
 
-<style>
-        .modal .modal-dialog .modal-content .modal-body {
-                padding: 15px;
-        }
-        .modal .modal-dialog .modal-content .modal-footer {
-                padding: 15px;
-        }
-        .modal .modal-dialog .modal-content .modal-header {
-                padding: 15px;
-        }
-        .modal .modal-dialog .modal-content {
-                padding: 0px;
-                webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
-                box-shadow: 0 5px 15px rgba(0,0,0,.5)
-        }
-        .btn {
-                border-radius: 4px;
-                border: 1px solid #ccc;
-        }
-        .modal-backdrop {
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                z-index: 1040;
-                background-color: #000;
-        }
-</style>
+
 
