@@ -20,10 +20,32 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
+                                <div class="col-md-3" style="float:right">
+                                        <ul class="nav navbar-nav views">
+                                                <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 4px 19px 23px 20px;height: 10px;">View <b class="caret"></b></a>
+                                                        <ul class="dropdown-menu menu-views">
+                                                                <li>
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/view?id=<?= $staff_info->id; ?>">View Profile</a>
+                                                                </li>
+                                                                <li>
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/followups?id=<?= $staff_info->id; ?>">View All Followups</a>
+                                                                </li>
+                                                                <li>
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/relatedfollowups?id=<?= $staff_info->id; ?>">View Related Followups</a>
+                                                                </li>
+                                                                <li>
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/remarks?id=<?= $staff_info->id; ?>">View All Remarks</a>
+                                                                </li>
 
+                                                        </ul>
+                                                </li>
+                                        </ul>
+                                </div>
                         </div>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+
                                 <div class="panel-body"><div class="staff-info-view">
                                                 <div id="pdf" class="table-responsive">
 

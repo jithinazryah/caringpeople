@@ -19,6 +19,8 @@ use common\models\AdminUsers;
 use common\models\StaffEnquiryInterviewFirst;
 use common\models\StaffEnquiryInterviewSecond;
 use common\models\StaffEnquiryInterviewThird;
+use common\models\RemarksSearch;
+use yii\db\Expression;
 
 /**
  * StaffInfoController implements the CRUD actions for StaffInfo model.
@@ -69,6 +71,8 @@ class StaffInfoController extends Controller {
          * @return mixed
          */
         public function actionView($id) {
+
+
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $id]);
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $id]);
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $id]);
@@ -79,6 +83,45 @@ class StaffInfoController extends Controller {
                             'staff_previous_employer' => $staff_previous_employer
                 ]);
         }
+
+        /*
+         * View followups of each staff
+         */
+
+        public function actionFollowups($id) {
+                $searchModel = new FollowupsSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['assigned_to' => $id]);
+                $dataProvider->query->andWhere(['assigned_to_type' => 2]);
+                return $this->render('followup', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
+        }
+
+        /*
+         * View Related followups
+         */
+
+        public function actionRelatedfollowups($id) {
+
+                $searchModel = new FollowupsSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(new Expression('FIND_IN_SET(:related_staffs, related_staffs)'))->addParams([':related_staffs' => $id]);
+                return $this->render('followup', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
+        }
+
+        /*
+         * View remarks of each staff
+         */
+
+        public function actionRemarks($id) {
+                $searchModel = new RemarksSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['type_id' => $id]);
+                return $this->render('remarks', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
+        }
+
+        /*
+         * proceed to staff from staff enquiry
+         */
 
         public function actionProcced($id) {
 
@@ -410,48 +453,50 @@ class StaffInfoController extends Controller {
                 $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['staff_id' => $model->id]);
                 $staff_interview_third = StaffEnquiryInterviewThird::findOne(['staff_id' => $model->id]);
                 $staff_family = \common\models\StaffEnquiryFamilyDetails::findAll(['staff_id' => $model->id]);
+                if (!empty($model) && !empty($other_info) && !empty($staff_edu) && !empty($staff_interview_first) && !empty($staff_interview_second) && !empty($staff_interview_third)) {
+                        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
+                                $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
+                                $other_info->load(Yii::$app->request->post());
+                                $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
+                                $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
+                                $staff_interview_second->contact_verified_date = date('Y-m-d', strtotime($staff_interview_second->contact_verified_date));
+                                $staff_interview_second->alt_contact_verified_date = date('Y-m-d', strtotime($staff_interview_second->alt_contact_verified_date));
+                                $staff_interview_second->verified_date_1 = date('Y-m-d', strtotime($staff_interview_second->verified_date_1));
+                                $staff_interview_second->verified_date_2 = date('Y-m-d', strtotime($staff_interview_second->verified_date_2));
+                                $staff_interview_second->verified_date_3 = date('Y-m-d', strtotime($staff_interview_second->verified_date_3));
+                                $staff_interview_third->expected_date_of_joining = date('Y-m-d', strtotime($staff_interview_third->expected_date_of_joining));
+                                $staff_interview_third->interviewed_date = date('Y-m-d', strtotime($staff_interview_third->interviewed_date));
+                                if (!empty(Yii::$app->request->post()['StaffInfo']['designation']))
+                                        $model->designation = implode(",", Yii::$app->request->post()['StaffInfo']['designation']);
 
-                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
-                        $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
-                        $other_info->staff_id = $model->id;
-                        $other_info->load(Yii::$app->request->post());
-                        $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
-                        $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
-                        $staff_interview_second->contact_verified_date = date('Y-m-d', strtotime($staff_interview_second->contact_verified_date));
-                        $staff_interview_second->alt_contact_verified_date = date('Y-m-d', strtotime($staff_interview_second->alt_contact_verified_date));
-                        $staff_interview_second->verified_date_1 = date('Y-m-d', strtotime($staff_interview_second->verified_date_1));
-                        $staff_interview_second->verified_date_2 = date('Y-m-d', strtotime($staff_interview_second->verified_date_2));
-                        $staff_interview_second->verified_date_3 = date('Y-m-d', strtotime($staff_interview_second->verified_date_3));
-                        $staff_interview_third->expected_date_of_joining = date('Y-m-d', strtotime($staff_interview_third->expected_date_of_joining));
-                        $staff_interview_third->interviewed_date = date('Y-m-d', strtotime($staff_interview_third->interviewed_date));
-                        if (!empty(Yii::$app->request->post()['StaffInfo']['designation']))
-                                $model->designation = implode(",", Yii::$app->request->post()['StaffInfo']['designation']);
 
+                                if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
 
-                        if ($model->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $model->save() && $other_info->save() && $staff_edu->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
-
-                                $model->username = Yii::$app->request->post()['StaffInfo']['username'];
-                                $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
-                                $model->save();
-                                $this->AddLanguage($staff_interview_first, $staff_interview_third);
-                                $this->Imageupload($model);
-                                $this->AddFamily($model);
-                                $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
-                                Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
-                                return $this->redirect(array('index'));
+                                        $model->username = Yii::$app->request->post()['StaffInfo']['username'];
+                                        $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
+                                        $model->save();
+                                        $this->AddLanguage($staff_interview_first, $staff_interview_third);
+                                        $this->Imageupload($model);
+                                        $this->AddFamily($model);
+                                        $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
+                                        Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
+                                        return $this->redirect(array('index'));
+                                }
                         }
-                }
 
-                return $this->render('_staff_form', [
-                            'model' => $model,
-                            'staff_edu' => $staff_edu,
-                            'other_info' => $other_info,
-                            'staff_previous_employer' => $staff_previous_employer,
-                            'staff_interview_first' => $staff_interview_first,
-                            'staff_interview_second' => $staff_interview_second,
-                            'staff_interview_third' => $staff_interview_third,
-                            'staff_family' => $staff_family
-                ]);
+                        return $this->render('_staff_form', [
+                                    'model' => $model,
+                                    'staff_edu' => $staff_edu,
+                                    'other_info' => $other_info,
+                                    'staff_previous_employer' => $staff_previous_employer,
+                                    'staff_interview_first' => $staff_interview_first,
+                                    'staff_interview_second' => $staff_interview_second,
+                                    'staff_interview_third' => $staff_interview_third,
+                                    'staff_family' => $staff_family
+                        ]);
+                } else {
+                        throw new \yii\web\HttpException(400, 'Error code:1002', 405);
+                }
         }
 
         /*

@@ -54,8 +54,29 @@ class Followups extends \yii\db\ActiveRecord {
                     'assigned_from' => 'Assigned From',
                     'attachments' => 'Attachments',
                     'status' => 'Status',
+                    'related_staffs' => 'Related Staffs',
                     'DOC' => 'Doc',
                 ];
+        }
+
+        public static function Relatedstaffs($related_staffs) {
+
+                if (isset($related_staffs) && $related_staffs != '') {
+                        $related_staffs = explode(',', $related_staffs);
+                        $relatedstaffs = '';
+                        $i = 0;
+                        if (!empty($related_staffs)) {
+                                foreach ($related_staffs as $related) {
+                                        if ($i != 0) {
+                                                $relatedstaffs .= ',';
+                                        }
+                                        $staff_name = StaffInfo::findOne($related);
+                                        $relatedstaffs .= $staff_name->staff_name;
+                                        $i++;
+                                }
+                        }
+                        return $relatedstaffs;
+                }
         }
 
 }

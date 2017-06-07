@@ -264,3 +264,17 @@ table.table tr td:last-child a {
         padding-left: 12px;
 }
 
+.views .open>a:focus{
+        background-color: #000;
+}
+.views .open>a, .views .open>a:hover, .views .open>a:focus{
+        background-color: #000;
+}
+.views>li>a:hover, .views>li>a:focus{
+        background-color: #000;
+        color: #fff;
+}
+.menu-views>li>a:hover, .menu-views>li>a:focus{
+        background-color: #138eb0;
+        color: #fff;
+}

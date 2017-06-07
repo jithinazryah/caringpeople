@@ -19,7 +19,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
+                                <div class="col-md-3" style="float:right">
+                                        <ul class="nav navbar-nav views">
+                                                <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 4px 19px 23px 20px;height: 10px;">View <b class="caret"></b></a>
+                                                        <ul class="dropdown-menu menu-views">
+                                                                <li>
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>patient/patient-information/view?id=<?= $patient_details->id; ?>">View Profile</a>
+                                                                </li>
+                                                                <li>
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>patient/patient-information/followups?id=<?= $patient_details->id; ?>">View All Followups</a>
+                                                                </li>
 
+                                                                <li>
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>patient/patient-information/remarks?id=<?= $patient_details->id; ?>">View All Remarks</a>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
+                                        </ul>
+                                </div>
                         </div>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Patients</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>

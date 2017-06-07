@@ -23,6 +23,7 @@ use common\models\Followups;
 use common\models\FollowupsSearch;
 use yii\web\UploadedFile;
 use common\models\ContactDirectory;
+use common\models\RemarksSearch;
 
 /**
  * PatientInformationController implements the CRUD actions for PatientInformation model.
@@ -79,6 +80,30 @@ class PatientInformationController extends Controller {
                             'present_condition' => $present_condition,
                             'bystander_details' => $bystander_details,
                 ]);
+        }
+
+        /*
+         * View followups of each staff
+         */
+
+        public function actionFollowups($id) {
+                $searchModel = new FollowupsSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['assigned_to' => $id]);
+                $dataProvider->query->andWhere(['assigned_to_type' => 1]);
+
+                return $this->render('followup', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
+        }
+
+        /*
+         * View remarks of each staff
+         */
+
+        public function actionRemarks($id) {
+                $searchModel = new RemarksSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['type_id' => $id]);
+                return $this->render('remarks', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
         }
 
         /**
