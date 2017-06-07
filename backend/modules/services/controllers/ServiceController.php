@@ -104,7 +104,7 @@ class ServiceController extends Controller {
                                         Yii::$app->SetValues->Notifications($history_id, $model->id, $notifiactions);
                                 }
 
-                                return $this->redirect(['../followup/followups/followups', 'type_id' => $model->id, 'type' => 5, 'service' => 'service']);
+                                return $this->redirect(['/followup/followups/followups', 'type_id' => $model->id, 'type' => 5, 'service' => 'service']);
                         }
                 }
                 return $this->render('create', [
