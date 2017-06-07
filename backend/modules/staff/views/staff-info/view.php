@@ -23,7 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="col-md-3" style="float:right">
                                         <ul class="nav navbar-nav views">
                                                 <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 4px 19px 23px 20px;height: 10px;">View <b class="caret"></b></a>
+                                                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 4px 19px 23px 20px;height: 10px;">View <b class="caret"></b></a>-->
+                                                        <a href="#" class="btn btn-blue btn-icon btn-icon-standalone dropdown-toggle" data-toggle="dropdown"><i class="fa-eye"></i><span> View</span> </a>
+
                                                         <ul class="dropdown-menu menu-views">
                                                                 <li>
                                                                         <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/view?id=<?= $staff_info->id; ?>">View Profile</a>

@@ -281,4 +281,8 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 return $designations;
         }
 
+        public function getIdPost() {
+                return $this->id . "-" . $this->post->post_name;
+        }
+
 }

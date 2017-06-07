@@ -200,6 +200,7 @@ class FollowupsController extends Controller {
          */
 
         public function AssignData() {
+
                 $arr = [];
                 $i = 0;
                 foreach ($_POST['create']['type_id'] as $val) {

@@ -180,14 +180,30 @@ class SetValues extends Component {
 
         public function Relatedstaffs($type, $type_id) {
 
-                $related_staff = StaffInfo::find()->where(['<>', 'post_id', '1'])->andWhere(['status' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
-                $related_staff_data = ArrayHelper::map($related_staff, 'id', 'namepost');
+                $related_staff = StaffInfo::find()->where(['status' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
+                $related_staff_data = ArrayHelper::map($related_staff, 'idpost', 'namepost');
                 if ($type == '5') {
                         $service = Service::findOne($type_id);
                         $patient = PatientGeneral::findOne($service->patient_id);
-                        $related_staff_data[$patient->id] = $patient->first_name . " (Patient)";
+                        $related_staff_data[$patient->id . '- Patient'] = $patient->first_name . " (Patient)";
                 }
                 return $related_staff_data;
+        }
+
+        public function Selectedstaffs($type, $type_id) {
+                /* Super admins */
+                $admins = StaffInfo::find()->where(['post_id' => 1])->all();
+                $selected_staff = ArrayHelper::map($admins, 'id', 'id');
+                /* service related staff and patient */
+                $service = Service::findOne($type_id);
+                $patient = PatientGeneral::findOne($service->patient_id);
+                $day_staff = StaffInfo::findOne($service->day_staff);
+                $night_staff = StaffInfo::findOne($service->night_staff);
+                $selected_staff[$service->patient_id] = $service->patient_id;
+                $selected_staff[$service->day_staff] = $service->day_staff;
+                $selected_staff[$service->night_staff] = $service->night_staff;
+
+                return $selected_staff;
         }
 
         /*

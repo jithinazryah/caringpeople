@@ -6,10 +6,6 @@ use common\components\RemarksWidget;
 use yii\grid\GridView;
 use common\models\RemarksCategory;
 use yii\helpers\ArrayHelper;
-
-/* @var $this yii\web\View */
-/* @var $model common\models\Remarks */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 <?php if ($model->isNewRecord) { ?> <a class="btn btn-blue btn-icon btn-icon-standalone add_remarks" style="margin-bottom:25px;"><i class="fa-plus"></i><span> Add Remarks</span></a><?php } ?>
 

@@ -5,11 +5,28 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Remarks */
 if ($model->isNewRecord)
-        $this->title = 'Add Remarks';
+        $this->title = 'Add Remarks -';
 else
-        $this->title = 'Update Remarks';
+        $this->title = 'Update Remarks -';
 $this->params['breadcrumbs'][] = ['label' => 'Remarks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+
+
+
+if ($type == '1') {
+        $enquiry_id = common\models\PatientGeneral::findOne($type_id);
+        $followup_for = $enquiry_id->patient_id;
+        $link = 'update-patient/' . $type_id;
+} elseif ($type == '2') {
+        $enquiry_id = common\models\StaffInfo::findOne($type_id);
+        $followup_for = $enquiry_id->staff_id;
+        $link = 'update-staff/' . $type_id;
+} else {
+        $heading = 'Follow ups';
+        $followup_for = '';
+        $link = '#';
+}
 ?>
 
 <div class="row">
@@ -17,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="panel panel-default">
                         <div class="panel-heading">
-                                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+                                <h3 class="panel-title"><?= Html::encode($this->title) ?> <a href="<?= Yii::$app->homeUrl . $link ?>" style="color:#1b44ab"><?= $followup_for ?></h3>
 
                         </div>
                         <div class="panel-body">

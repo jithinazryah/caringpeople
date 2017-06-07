@@ -265,10 +265,10 @@ table.table tr td:last-child a {
 }
 
 .views .open>a:focus{
-        background-color: #000;
+        background-color: #0c54aa;
 }
 .views .open>a, .views .open>a:hover, .views .open>a:focus{
-        background-color: #000;
+        background-color: #0c54aa;
 }
 .views>li>a:hover, .views>li>a:focus{
         background-color: #000;

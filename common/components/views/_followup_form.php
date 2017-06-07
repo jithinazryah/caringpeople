@@ -29,14 +29,16 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                         <!----------------------------------------------------For update a followup----------------------------------------------------------------->
                                         <?php
                                         if (!empty($update_followup)) {
+
                                                 $followup_type = FollowupType::find()->all();
                                                 $followup_subtype = FollowupSubType::find()->where(['type_id' => $update_followup->type, 'status' => '1'])->all();
                                                 $all_users = StaffInfo::find()->where(['<>', 'post_id', '5'])->orderBy(['staff_name' => SORT_ASC])->all();
                                                 $followup_type_Selected[] = $update_followup->type;
                                                 $followup_subtype_Selected[] = $update_followup->sub_type;
                                                 $assigned_to_selected[] = $update_followup->assigned_to;
-                                                $related_staffs = explode(',', $update_followup->related_staffs);
 
+
+                                                $related_staffs = explode(',', $update_followup->related_staffs);
                                                 $related_staff_assgnd = [];
                                                 foreach ($related_staffs as $value) {
                                                         $related_staff_assgnd[] = $value;
@@ -58,14 +60,14 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                 ?>
                                                 <span>
 
-                                                        <?php //if ($update_followup->type != 5) {         ?>
+                                                        <?php //if ($update_followup->type != 5) {             ?>
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-sub_type">
                                                                         <label class="control-label" for="followups-sub_type">Category</label>
                                                                         <?= Html::dropDownList('updatee[' . $update_followup->id . '][sub_type][]', $followup_subtype_Selected, ArrayHelper::map($followup_subtype, 'id', 'sub_type'), ['class' => 'form-control followup_subtype', 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
-                                                        <?php //}         ?>
+                                                        <?php //}             ?>
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-followup_date">
@@ -307,12 +309,17 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
 
                                                         <?php
                                                         $related_staff = Yii::$app->SetValues->Relatedstaffs($type, $type_id);
+                                                        if ($type == 5) {
+                                                                $selected_staff = Yii::$app->SetValues->Selectedstaffs($type, $type_id);
+                                                        } else {
+                                                                $selected_staff = '';
+                                                        }
                                                         ?>
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-related_staffs">
                                                                         <label class="control-label" for="followups-related_staffs">Related Staffs</label>
-                                                                        <?= Html::dropDownList('create[related_staffs][0][]', null, $related_staff, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'create-related_staffs', 'multiple' => 'multiple']); ?>
+                                                                        <?= Html::dropDownList('create[related_staffs][0][]', $selected_staff, $related_staff, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'create-related_staffs', 'multiple' => 'multiple']); ?>
                                                                 </div>
                                                         </div>
 
