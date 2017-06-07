@@ -106,32 +106,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
                                                 </ul>
                                         <?php } ?>
-                                        <?php
-                                        if (Yii::$app->session['post']['enquiry'] == 1) {
-                                                ?>
-                                                <ul id="main-menu" class="main-menu">
-                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                                                        <li>
-                                                                <a href="dashboard-1.html">
-                                                                        <i class="	fa fa-medkit"></i>
-                                                                        <span class="title">Client</span>
-                                                                </a>
-                                                                <ul>
-                                                                        <li>
-                                                                                <?= Html::a('Patient Enquiry', ['/patient/patient-enquiry-general-first/index'], ['class' => 'title']) ?>
-                                                                        </li>
 
-                                                                        <li>
-                                                                                <?= Html::a('Patients', ['/patient/patient-information/index'], ['class' => 'title']) ?>
-                                                                        </li>
-
-
-                                                                </ul>
-                                                        </li>
-
-                                                </ul>
-                                        <?php } ?>
                                         <?php
                                         if (Yii::$app->session['post']['staffs'] == 1) {
                                                 ?>
@@ -158,6 +133,34 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
                                                 </ul>
                                         <?php } ?>
+
+                                        <?php
+                                        if (Yii::$app->session['post']['enquiry'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li>
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="	fa fa-medkit"></i>
+                                                                        <span class="title">Client</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Patient Enquiry', ['/patient/patient-enquiry-general-first/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Patients', ['/patient/patient-information/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
+
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                        <?php } ?>
+
                                         <?php
                                         if (Yii::$app->session['post']['service'] == 1) {
                                                 ?>
@@ -578,7 +581,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                               ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                 ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">

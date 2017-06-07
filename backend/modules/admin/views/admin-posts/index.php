@@ -54,16 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'filter' => [1 => 'Yes', 0 => 'No'],
                                                 ],
                                                     [
-                                                    'attribute' => 'users',
+                                                    'attribute' => 'service',
                                                     'value' => function($model, $key, $index, $column) {
-                                                            return $model->users == 0 ? 'No' : 'Yes';
-                                                    },
-                                                    'filter' => [1 => 'Yes', 0 => 'No'],
-                                                ],
-                                                    [
-                                                    'attribute' => 'employees',
-                                                    'value' => function($model, $key, $index, $column) {
-                                                            return $model->employees == 0 ? 'No' : 'Yes';
+                                                            return $model->service == 0 ? 'No' : 'Yes';
                                                     },
                                                     'filter' => [1 => 'Yes', 0 => 'No'],
                                                 ],

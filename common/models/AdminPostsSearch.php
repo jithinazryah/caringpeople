@@ -17,7 +17,7 @@ class AdminPostsSearch extends AdminPosts {
          */
         public function rules() {
                 return [
-                        [['id', 'admin', 'masters', 'enquiry', 'users', 'employees', 'status', 'CB', 'UB'], 'integer'],
+                        [['id', 'admin', 'masters', 'enquiry', 'users', 'employees', 'status', 'CB', 'UB', 'service'], 'integer'],
                         [['post_name', 'DOC', 'DOU'], 'safe'],
                 ];
         }
@@ -61,6 +61,7 @@ class AdminPostsSearch extends AdminPosts {
                     'enquiry' => $this->enquiry,
                     'users' => $this->users,
                     'employees' => $this->employees,
+                    'service' => $this->service,
                     'status' => $this->status,
                     'CB' => $this->CB,
                     'UB' => $this->UB,
