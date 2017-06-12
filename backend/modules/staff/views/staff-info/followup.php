@@ -6,6 +6,7 @@ use common\models\ContactCategoryTypes;
 use common\models\ContactSubcategory;
 use yii\helpers\ArrayHelper;
 use common\models\StaffInfo;
+use common\components\ViewlinkssWidget;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ContactDirectorySearch */
@@ -22,28 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel panel-default">
                                 <div class="panel-heading">
                                         <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
-                                        <div class="col-md-3" style="float:right">
-                                                <ul class="nav navbar-nav views">
-                                                        <li class="dropdown">
-                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 4px 19px 23px 20px;height: 10px;">View <b class="caret"></b></a>
-                                                                <ul class="dropdown-menu menu-views">
-                                                                        <li>
-                                                                                <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/view?id=<?= $id; ?>">View Profile</a>
-                                                                        </li>
-                                                                        <li>
-                                                                                <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/followups?id=<?= $id; ?>">View All Followups</a>
-                                                                        </li>
-                                                                        <li>
-                                                                                <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/relatedfollowups?id=<?= $id; ?>">View Related Followups</a>
-                                                                        </li>
-                                                                        <li>
-                                                                                <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/remarks?id=<?= $id; ?>">View All Remarks</a>
-                                                                        </li>
-
-                                                                </ul>
-                                                        </li>
-                                                </ul>
-                                        </div>
+                                        <?= ViewlinkssWidget::widget(['type_id' => $id, 'type' => 4]); ?>
 
                                 </div>
                                 <div class="panel-body">

@@ -265,16 +265,23 @@ table.table tr td:last-child a {
 }
 
 .views .open>a:focus{
-        background-color: #0c54aa;
+        background-color: #9c9c9c;
 }
 .views .open>a, .views .open>a:hover, .views .open>a:focus{
-        background-color: #0c54aa;
+        background-color: #9c9c9c;
 }
 .views>li>a:hover, .views>li>a:focus{
-        background-color: #000;
+        background-color: #9c9c9c;
         color: #fff;
 }
 .menu-views>li>a:hover, .menu-views>li>a:focus{
-        background-color: #138eb0;
+        background-color: #9c9c9c;
         color: #fff;
+}
+.views .dropdown{
+        width: 100px;
+}
+.views .dropdown .caret{
+        float: right;
+        margin-top: 7px;
 }

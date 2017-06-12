@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use common\models\Religion;
 use common\models\Caste;
 use common\models\Nationality;
+use common\components\ViewlinkssWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffInfo */
@@ -19,31 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel panel-default">
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
-
-                                <div class="col-md-3" style="float:right">
-                                        <ul class="nav navbar-nav views">
-                                                <li class="dropdown">
-                                                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 4px 19px 23px 20px;height: 10px;">View <b class="caret"></b></a>-->
-                                                        <a href="#" class="btn btn-blue btn-icon btn-icon-standalone dropdown-toggle" data-toggle="dropdown"><i class="fa-eye"></i><span> View</span> </a>
-
-                                                        <ul class="dropdown-menu menu-views">
-                                                                <li>
-                                                                        <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/view?id=<?= $staff_info->id; ?>">View Profile</a>
-                                                                </li>
-                                                                <li>
-                                                                        <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/followups?id=<?= $staff_info->id; ?>">View All Followups</a>
-                                                                </li>
-                                                                <li>
-                                                                        <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/relatedfollowups?id=<?= $staff_info->id; ?>">View Related Followups</a>
-                                                                </li>
-                                                                <li>
-                                                                        <a href="<?= Yii::$app->homeUrl; ?>staff/staff-info/remarks?id=<?= $staff_info->id; ?>">View All Remarks</a>
-                                                                </li>
-
-                                                        </ul>
-                                                </li>
-                                        </ul>
-                                </div>
+                                <?= ViewlinkssWidget::widget(['type_id' => $staff_info->id, 'type' => 4]); ?>
                         </div>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>

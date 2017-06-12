@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\components\FollowupsWidget;
 use common\components\FollowupsviewWidget;
+use common\components\ViewlinkssWidget;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -47,7 +48,7 @@ if ($type == '1') {
                 <div class="panel panel-default">
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= $heading ?> <a href="<?= Yii::$app->homeUrl . $link ?>" style="color:#1b44ab"><?= $followup_for ?></a></h3>
-
+                        <?= ViewlinkssWidget::widget(['type_id' => $type_id, 'type' => $type]); ?>
                         </div>
                         <?php
                         if (isset($service) && $service != 'NULL') {
@@ -62,7 +63,7 @@ if ($type == '1') {
 
                         <!-------------------------------calling widget for the form----------------------->
 
-                        <?= FollowupsWidget::widget(['type_id' => $type_id, 'type' => $type, 'update_followup' => $update_followup, 'repeated' => $repeated]); ?>
+<?= FollowupsWidget::widget(['type_id' => $type_id, 'type' => $type, 'update_followup' => $update_followup, 'repeated' => $repeated]); ?>
 
                         <!-------------------------------calling widget for the form----------------------->
 
