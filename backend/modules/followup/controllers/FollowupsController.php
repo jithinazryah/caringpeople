@@ -188,7 +188,8 @@ class FollowupsController extends Controller {
                 $arr = $this->AssignData();
                 foreach ($arr as $val) {
                         $add_followp = new Followups;
-                        Yii::$app->Followups->StoreData($add_followp, $val);
+                        $added_followup = Yii::$app->Followups->StoreData($add_followp, $val);
+
                         if (!empty($add_followp->attachments))
                                 $this->Imageupload($add_followp->id, $add_followp->attachments, $val['tmp_name'], '1');
                         Yii::$app->Followups->sendMail($add_followp, $add_followp->assigned_to_type);
@@ -200,6 +201,8 @@ class FollowupsController extends Controller {
          */
 
         public function AssignData() {
+
+
 
                 $arr = [];
                 $i = 0;
@@ -252,6 +255,11 @@ class FollowupsController extends Controller {
                 $i = 0;
                 foreach ($_POST['create']['assigned_from'] as $val) {
                         $arr[$i]['assigned_from'] = $val;
+                        $i++;
+                }
+                $i = 0;
+                foreach ($_POST['create']['related-patient'] as $val) {
+                        $arr[$i]['related-patient'] = $val;
                         $i++;
                 }
                 $i = 0;
@@ -331,6 +339,7 @@ class FollowupsController extends Controller {
                         $arr[$key]['assigned_to'] = $val['assigned_to'][0];
                         $arr[$key]['followup_notes'] = $val['followup_notes'][0];
                         $arr[$key]['assigned_from'] = Yii::$app->user->identity->id;
+                        $arr[$key]['related-patient'] = $val['related-patient'][0];
                         $arr[$key]['status'] = $val['status'][0];
                         if (isset($val['related_staffs']) && $val['related_staffs'] != '')
                                 $val['related_staffs'][0] = implode(",", $val['related_staffs']);
@@ -404,6 +413,13 @@ class FollowupsController extends Controller {
                 $update_followup->status = $value['status'];
                 $update_followup->UB = Yii::$app->user->identity->id;
                 $update_followup->DOU = date('Y-m-d H:i');
+                if ($value['related-patient'] == '1') {
+                        $service_patient = \common\models\Service::findOne($update_followup->type_id);
+                        $patient_id = $service_patient->patient_id;
+                } else {
+                        $patient_id = '';
+                }
+                $update_followup->releated_notification_patient = $patient_id;
                 if (!empty($value['name']))
                         $update_followup->attachments = $value['name'];
                 $update_followup->UB = Yii::$app->user->identity->id;

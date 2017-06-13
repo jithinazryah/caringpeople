@@ -90,25 +90,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                                         <?= Html::dropDownList('updatee[' . $update_followup->id . '][assigned_to][]', $assigned_to_selected, $data, ['class' => 'form-control', 'prompt' => '--Select--']); ?>
                                                                 </div>
                                                         </div>
-                                                        <?php
-                                                        $related_staff = Yii::$app->SetValues->Relatedstaffs($update_followup->type, $update_followup->type_id);
-                                                        ?>
 
-                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                                                                <div class="form-group field-followups-followup_notes">
-                                                                        <label class="control-label" for="followups-followup_notes">Related Staffs</label>
-                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][related_staffs][]', $related_staff_assgnd, $related_staff, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'update-related_staffs', 'multiple' => 'multiple']); ?>
-                                                                </div>
-                                                        </div>
-
-
-
-                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                                                                <div class="form-group field-followups-followup_notes">
-                                                                        <label class="control-label" for="followups-followup_notes">Followup Notes</label>
-                                                                        <textarea id="followups-followup_notes" class="form-control" name="updatee[<?= $update_followup->id; ?>][followup_notes][]" ><?= $update_followup->followup_notes; ?></textarea>
-                                                                </div>
-                                                        </div>
 
                                                         <?php
                                                         $userid = Yii::$app->user->identity->id;
@@ -120,6 +102,53 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                                         <input type="text" class="form-control" name="updatee[<?= $update_followup->id; ?>][assigned_from][]" readonly="readonly" value="<?= $user->staff_name; ?>">
                                                                 </div>
                                                         </div>
+
+                                                        <?php
+                                                        $related_staff = Yii::$app->SetValues->Relatedstaffs($update_followup->type, $update_followup->type_id);
+                                                        ?>
+
+                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-followup_notes">
+                                                                        <label class="control-label" for="followups-followup_notes">Related Staffs</label>
+                                                                        <?= Html::dropDownList('updatee[' . $update_followup->id . '][related_staffs][]', $related_staff_assgnd, $related_staff, ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'update-related_staffs', 'multiple' => 'multiple']); ?>
+                                                                </div>
+                                                        </div>
+
+                                                        <?php
+                                                        if ($update_followup->type == '5') {
+                                                                if (isset($update_followup->releated_notification_patient) && $update_followup->releated_notification_patient != '') {
+                                                                        $notific_patient = '1';
+                                                                } else {
+                                                                        $notific_patient = 0;
+                                                                }
+                                                                ?>
+
+                                                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                                        <div class="form-group field-followups-related-patient">
+                                                                                <label class="control-label" for="followups-related-patient">Send notification to patient</label>
+                                                                                <?= Html::dropDownList('updatee[' . $update_followup->id . '][related-patient][]', $notific_patient, ['1' => 'Yes', '0' => 'No'], ['class' => 'form-control']); ?>
+                                                                        </div>
+                                                                </div>
+                                                        <?php } ?>
+
+
+                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-assigned_from">
+                                                                        <label class="control-label" for="followups-assigned_from">Attachments</label>
+                                                                        <input type = "file" name = "updatee[image][]" />
+
+                                                                </div>
+                                                        </div>
+
+
+                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-followup_notes">
+                                                                        <label class="control-label" for="followups-followup_notes">Followup Notes</label>
+                                                                        <textarea id="followups-followup_notes" class="form-control" name="updatee[<?= $update_followup->id; ?>][followup_notes][]" ><?= $update_followup->followup_notes; ?></textarea>
+                                                                </div>
+                                                        </div>
+
+
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-followup_date">
@@ -144,13 +173,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                                 </div>
                                                         </div>
 
-                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                                                <div class="form-group field-followups-assigned_from">
-                                                                        <label class="control-label" for="followups-assigned_from">Attachments</label>
-                                                                        <input type = "file" name = "updatee[image][]" />
 
-                                                                </div>
-                                                        </div>
 
 
 
@@ -307,6 +330,19 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
 
                                                         <input type="hidden" name="create[assigned_to_type][]" id="assigned_to_type_4" value="">
 
+
+                                                        <?php
+                                                        $userid = Yii::$app->user->identity->id;
+                                                        $user = StaffInfo::findOne($userid);
+                                                        ?>
+                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-assigned_from">
+                                                                        <label class="control-label" for="followups-assigned_from">Assigned From</label>
+                                                                        <input type="text" class="form-control" name="create[assigned_from][]" readonly="readonly" value="<?= $user->staff_name; ?>">
+
+                                                                </div>
+                                                        </div>
+
                                                         <?php
                                                         $related_staff = Yii::$app->SetValues->Relatedstaffs($type, $type_id);
                                                         if ($type == 5) {
@@ -323,6 +359,29 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                                 </div>
                                                         </div>
 
+                                                        <?php
+                                                        if ($type == 5) {
+                                                                ?>
+
+                                                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                                        <div class="form-group field-followups-related-patient">
+                                                                                <label class="control-label" for="followups-related-patient">Send notification to patient</label>
+                                                                                <?= Html::dropDownList('create[related-patient][]', null, ['1' => 'Yes', '0' => 'No'], ['class' => 'form-control']); ?>
+                                                                        </div>
+                                                                </div>
+                                                        <?php } ?>
+
+                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                                <div class="form-group field-followups-assigned_from">
+                                                                        <label class="control-label" for="followups-assigned_from">Attachments</label>
+                                                                        <input type = "file" name = "create[image][]" />
+
+                                                                </div>
+                                                        </div>
+
+
+
+
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                                 <div class="form-group field-followups-followup_notes">
@@ -331,25 +390,9 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                                 </div>
                                                         </div>
 
-                                                        <?php
-                                                        $userid = Yii::$app->user->identity->id;
-                                                        $user = StaffInfo::findOne($userid);
-                                                        ?>
-                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                                                                <div class="form-group field-followups-assigned_from">
-                                                                        <label class="control-label" for="followups-assigned_from">Assigned From</label>
-                                                                        <input type="text" class="form-control" name="create[assigned_from][]" readonly="readonly" value="<?= $user->staff_name; ?>">
 
-                                                                </div>
-                                                        </div>
 
-                                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                                                                <div class="form-group field-followups-assigned_from">
-                                                                        <label class="control-label" for="followups-assigned_from">Attachments</label>
-                                                                        <input type = "file" name = "create[image][]" />
 
-                                                                </div>
-                                                        </div>
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="repeated">
                                                                 <div class="form-group field-followups-repeated_followups">
@@ -439,4 +482,8 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
 
 </div>
 
-
+<style>
+        input[type=checkbox]{
+                margin-top: 30px;
+        }
+</style>

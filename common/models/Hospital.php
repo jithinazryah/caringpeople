@@ -34,7 +34,7 @@ class Hospital extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['hospital_name', 'contact_person', 'contact_email', 'contact_number', 'address', 'status'], 'required'],
+                        [['hospital_name', 'status'], 'required'],
                         [['contact_email'], 'email'],
                         [['status', 'CB', 'UB'], 'integer'],
                         [['DOC', 'DOU'], 'safe'],

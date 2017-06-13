@@ -31,39 +31,20 @@ class Followups extends Component {
                 $followup->assigned_to_type = $val['assigned_to_type'];
                 $followup->followup_notes = $val['followup_notes'];
                 $followup->assigned_from = Yii::$app->user->identity->id;
-                if (isset($val['related_staffs'])) {
-                        $data = '';
-                        $staffs_with_post = explode(',', $val['related_staffs']);
-                        foreach ($staffs_with_post as $value) {
-                                $staff_id_post = explode('-', $value);
-                                $data .= $staff_id_post[0] . '-' . $staff_id_post[1] . ',';
-                        }
-                        // \Yii::$app->response->format = 'json';
-                        //   $followup->related_staffs = Json::encode($data);
-                        $followup->related_staffs = $data;
+                $followup->related_staffs = $val['related_staffs'];
+                if ($val['related-patient'] == '1') {
+                        $service_patient = \common\models\Service::findOne($followup->type_id);
+                        $patient_id = $service_patient->patient_id;
+                } else {
+                        $patient_id = '';
                 }
-
+                $followup->releated_notification_patient = $patient_id;
                 $followup->attachments = $val['name'];
                 $followup->DOC = date('Y-m-d');
                 $followup->CB = Yii::$app->user->identity->id;
                 if (!empty($followup->assigned_to))
                         $followup->save(false);
-
-                \Yii::$app->response->format = 'html';
                 return $followup;
-        }
-
-        public function Decoderelatedstaffs($related_staffs) {
-                $data = Json::decode($related_staffs);
-                $staffs = explode(',', $data);
-                var_dump($staffs);
-                exit;
-
-                $relatedstaffs = [];
-                foreach ($staffs as $key => $val) {
-                        echo $val;
-                        exit;
-                }
         }
 
         public function Addcronfollowup($followup, $val) {
