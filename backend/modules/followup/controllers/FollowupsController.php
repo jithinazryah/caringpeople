@@ -109,6 +109,7 @@ class FollowupsController extends Controller {
 
         public function actionFollowups($type_id = 'NULL', $type = 'NULL', $id = 'NULL', $service = 'NULL', $repeated = 'NULL') {
 
+
                 /*
                  * call function Addfollowups to add followups
                  */
