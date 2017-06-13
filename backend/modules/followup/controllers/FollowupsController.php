@@ -257,10 +257,13 @@ class FollowupsController extends Controller {
                         $arr[$i]['assigned_from'] = $val;
                         $i++;
                 }
-                $i = 0;
-                foreach ($_POST['create']['related-patient'] as $val) {
-                        $arr[$i]['related-patient'] = $val;
-                        $i++;
+
+                if (isset($_POST['create']['related-patient'])) {
+                        $i = 0;
+                        foreach ($_POST['create']['related-patient'] as $val) {
+                                $arr[$i]['related-patient'] = $val;
+                                $i++;
+                        }
                 }
                 $i = 0;
                 foreach ($_FILES['create'] ['name'] as $row => $innerArray) {
