@@ -68,6 +68,7 @@ class RemarksController extends Controller {
                 $dataProvider->query->andWhere(['type' => $type]);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+                        Yii::$app->SetValues->Rating($model->type_id, $model->type);
                         return $this->redirect(['create', 'id' => $model->type_id, 'type' => $model->type]);
                 }
                 return $this->render('create', [

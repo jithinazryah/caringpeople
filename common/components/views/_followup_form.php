@@ -81,7 +81,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
 
                                                         if ($update_followup->type == '5') {
                                                                 $service = common\models\Service::findOne($type_id);
-                                                                $data = Yii::$app->SetValues->Assigned($service);
+                                                                $data = Yii::$app->Followups->Assigned($service);
                                                         }
                                                         ?>
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -104,7 +104,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                         </div>
 
                                                         <?php
-                                                        $related_staff = Yii::$app->SetValues->Relatedstaffs($update_followup->type, $update_followup->type_id);
+                                                        $related_staff = Yii::$app->Followups->Relatedstaffs($update_followup->type, $update_followup->type_id);
                                                         ?>
 
                                                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -217,7 +217,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                         <?php } ?>
 
                                                         <?php
-                                                        $days = Yii::$app->SetValues->Days();
+                                                        $days = Yii::$app->Followups->Days();
                                                         ?>
                                                         <div class="col-md-4 col-sm-6 col-xs-12 left_padd option2_update" style="display: none">
                                                                 <div class="form-group field-followups-assigned_from">
@@ -232,7 +232,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
 
                                                         <!----------------------------Specific days of week------------------------------------->
                                                         <?php
-                                                        $dates = Yii::$app->SetValues->Dates();
+                                                        $dates = Yii::$app->Followups->Dates();
                                                         ?>
                                                         <div class="col-md-4 option3_update" style="display: none;">
                                                                 <div class="form-group field-followups-assigned_from">
@@ -316,7 +316,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                                 $assigned_too[] = $type_id;
                                                         } else if ($type == '5') {
                                                                 $service = common\models\Service::findOne($type_id);
-                                                                $data = Yii::$app->SetValues->Assigned($service);
+                                                                $data = Yii::$app->Followups->Assigned($service);
                                                         } else {
                                                                 $assigned_too[] = '';
                                                         }
@@ -344,9 +344,9 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                         </div>
 
                                                         <?php
-                                                        $related_staff = Yii::$app->SetValues->Relatedstaffs($type, $type_id);
+                                                        $related_staff = Yii::$app->Followups->Relatedstaffs($type, $type_id);
                                                         if ($type == 5) {
-                                                                $selected_staff = Yii::$app->SetValues->Selectedstaffs($type, $type_id);
+                                                                $selected_staff = Yii::$app->Followups->Selectedstaffs($type, $type_id);
                                                         } else {
                                                                 $selected_staff = '';
                                                         }
@@ -435,7 +435,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
 
                                                         <div class="col-md-12 option2 col-sm-6 col-xs-12 left_padd" style="display: none;">
                                                                 <?php
-                                                                $days = Yii::$app->SetValues->Days();
+                                                                $days = Yii::$app->Followups->Days();
                                                                 ?>
                                                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                                         <div class="form-group field-followups-date">
@@ -448,7 +448,7 @@ if (isset($update_followup->repeated_type) && $update_followup->repeated_type !=
                                                         <!----------------------------Specific days of week------------------------------------->
                                                         <div class="col-md-12 option3" style="display: none;margin-left: -15px;">
                                                                 <?php
-                                                                $dates = Yii::$app->SetValues->Dates();
+                                                                $dates = Yii::$app->Followups->Dates();
                                                                 ?>
                                                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                                         <div class="form-group field-followups-date">

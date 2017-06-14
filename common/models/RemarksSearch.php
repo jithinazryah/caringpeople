@@ -18,7 +18,7 @@ class RemarksSearch extends Remarks {
         public function rules() {
                 return [
                         [['id', 'category', 'status', 'CB', 'UB'], 'integer'],
-                        [['sub_category', 'notes', 'DOC', 'DOU'], 'safe'],
+                        [['sub_category', 'notes', 'DOC', 'DOU', 'remark_type', 'point'], 'safe'],
                 ];
         }
 
@@ -68,6 +68,8 @@ class RemarksSearch extends Remarks {
                 ]);
 
                 $query->andFilterWhere(['like', 'sub_category', $this->sub_category])
+                        ->andFilterWhere(['like', 'remark_type', $this->remark_type])
+                        ->andFilterWhere(['like', 'point', $this->point])
                         ->andFilterWhere(['like', 'notes', $this->notes]);
 
                 return $dataProvider;

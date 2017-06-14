@@ -34,7 +34,7 @@ class Remarks extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['category'], 'required'],
-                        [['category', 'status', 'CB', 'UB', 'type', 'type_id'], 'integer'],
+                        [['category', 'status', 'CB', 'UB', 'type', 'type_id', 'remark_type', 'point'], 'integer'],
                         [['notes'], 'string'],
                         [['DOC', 'DOU'], 'safe'],
                         [['sub_category'], 'string', 'max' => 200],
@@ -53,6 +53,8 @@ class Remarks extends \yii\db\ActiveRecord {
                     'category' => 'Category',
                     'sub_category' => 'Sub Category',
                     'notes' => 'Notes',
+                    'remark_type' => 'Remark Type',
+                    'point' => 'Point',
                     'status' => 'Status',
                     'CB' => 'Cb',
                     'UB' => 'Ub',

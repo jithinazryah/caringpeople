@@ -43,6 +43,18 @@ use yii\helpers\ArrayHelper;
                             'filter' => ArrayHelper::map(RemarksCategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category'),
                         ],
                         'sub_category',
+                            [
+                            'attribute' => 'remark_type',
+                            'value' => function($model, $key, $index, $column) {
+                                    if ($model->remark_type == '1') {
+                                            return 'Good';
+                                    } elseif ($model->remark_type == '0') {
+                                            return 'Bad';
+                                    }
+                            },
+                            'filter' => [1 => 'Good', 0 => 'Bad'],
+                        ],
+                        'point',
                         'notes:ntext',
                             ['class' => 'yii\grid\ActionColumn',
                             'template' => '{update}'],

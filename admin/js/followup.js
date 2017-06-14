@@ -260,12 +260,16 @@ $("document").ready(function () {
                 } else if ($(this).prop("checked") == false) {
                         $('#addFollowups').show();
                         $('#repeated-types').hide();
+                        $('.option3').hide();
+                        $('.option1').hide();
+                        $('.option2').hide();
                 }
         });
 
 
 
         $('#repeated-option').change(function () {
+
                 if ($(this).val() == '1') {
                         $('.option1').show();
                         $('.option2').hide();
@@ -276,6 +280,10 @@ $("document").ready(function () {
                         $('.option3').hide();
                 } else if ($(this).val() == '3') {
                         $('.option3').show();
+                        $('.option1').hide();
+                        $('.option2').hide();
+                } else if ($(this).val() == '4') {
+                        $('.option3').hide();
                         $('.option1').hide();
                         $('.option2').hide();
                 }

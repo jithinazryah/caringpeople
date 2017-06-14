@@ -57,7 +57,7 @@ $user = StaffInfo::findOne($userid);
                 $assigned_to = Html::dropDownList('create[assigned_to][]', null, ArrayHelper::map($all_users, 'id', 'namepost'), ['class' => 'form-control create-assignedto', 'prompt' => '--Select--', 'id' => 'create-assignedto_' . $cnt]);
         } else {
                 $service = \common\models\Service::find()->where(['id' => $type_id])->one();
-                $data = Yii::$app->SetValues->Assigned($service);
+                $data = Yii::$app->Followups->Assigned($service);
                 $assigned_to = Html::dropDownList('create[assigned_to][]', null, $data, ['class' => 'form-control create-assignedto', 'prompt' => '--Select--', 'id' => 'create-assignedto_' . $cnt]);
         }
         ?>
@@ -78,9 +78,9 @@ $user = StaffInfo::findOne($userid);
         </div>
 
         <?php
-        $related_staff = Yii::$app->SetValues->Relatedstaffs($type, $type_id);
+        $related_staff = Yii::$app->Followups->Relatedstaffs($type, $type_id);
         if ($type == 5) {
-                $selected_staff = Yii::$app->SetValues->Selectedstaffs($type, $type_id);
+                $selected_staff = Yii::$app->Followups->Selectedstaffs($type, $type_id);
         } else {
                 $selected_staff = '';
         }
