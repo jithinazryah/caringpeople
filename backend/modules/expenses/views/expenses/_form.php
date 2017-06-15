@@ -20,8 +20,14 @@ use kartik\date\DatePicker;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>     <?=
-                DatePicker::widget([
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <?php
+                if (!$model->isNewRecord) {
+                        $model->date = date('d-m-Y', strtotime($model->date));
+                } else {
+                        $model->date = date('d-m-Y');
+                }
+                echo DatePicker::widget([
                     'model' => $model,
                     'form' => $form,
                     'type' => DatePicker::TYPE_INPUT,
