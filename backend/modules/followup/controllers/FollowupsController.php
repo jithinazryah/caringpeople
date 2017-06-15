@@ -478,7 +478,7 @@ class FollowupsController extends Controller {
                  * Specific days in a week
                  */
                 $followup_days = RepeatedFollowups::find()->where(new Expression('FIND_IN_SET(:repeated_days, repeated_days)'))->addParams([':repeated_days' => $today_day])->all();
-                foreach ($today_followup as $value) {
+                foreach ($followup_days as $value) {
                         $followup = new Followups();
                         Yii::$app->Followups->Addcronfollowup($followup, $value);
                 }
@@ -487,7 +487,7 @@ class FollowupsController extends Controller {
                  * specific dates in amonth
                  */
                 $followup_dates = RepeatedFollowups::find()->where(new Expression('FIND_IN_SET(:repeated_days, repeated_days)'))->addParams([':repeated_days' => $today_date])->all();
-                foreach ($today_followup as $value) {
+                foreach ($followup_dates as $value) {
                         $followup = new Followups();
                         Yii::$app->Followups->Addcronfollowup($followup, $value);
                 }

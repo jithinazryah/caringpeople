@@ -54,6 +54,7 @@ class Followups extends Component {
         public function Addcronfollowup($followup, $val) {
 
                 $followup->attributes = $val->attributes;
+                $followup->followup_date = date('Y-m-d H:i:s');
                 $followup->save(false);
                 return $followup;
         }
