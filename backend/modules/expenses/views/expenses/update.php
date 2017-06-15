@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Expenses */
 
-$this->title = 'Update Expenses: ' . $model->id;
+$this->title = 'Update Expense : ';
 $this->params['breadcrumbs'][] = ['label' => 'Expenses', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -20,11 +20,13 @@ $this->params['breadcrumbs'][] = 'Update';
 
                         </div>
                         <div class="panel-body">
-				<?=  Html::a('<i class="fa-th-list"></i><span> Manage Expenses</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Expenses</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <div class="panel-body"><div class="expenses-create">
-						<?= $this->render('_form', [
-                                                'model' => $model,
-                                                ]) ?>
+                                                <?=
+                                                $this->render('_form', [
+                                                    'model' => $model,
+                                                ])
+                                                ?>
                                         </div>
                                 </div>
                         </div>
