@@ -43,7 +43,7 @@ class PatientGeneral extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['patient_id', 'first_name'], 'required'],
-                        [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'pin_code', 'contact_number', 'status', 'CB', 'UB', 'age', 'terms_conditions'], 'integer'],
+                        [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'pin_code', 'contact_number', 'status', 'CB', 'UB', 'age', 'terms_conditions', 'average_point', 'count_of_remarks'], 'integer'],
                         [['present_address'], 'string'],
                         [['DOC', 'DOU'], 'safe'],
                         [['patient_id', 'first_name', 'last_name', 'patient_image', 'landmark', 'email', 'patient_old_id'], 'string', 'max' => 100],
@@ -81,6 +81,8 @@ class PatientGeneral extends \yii\db\ActiveRecord {
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
+                    'average_point' => 'Rating',
+                    'count_of_remarks' => 'Count Of Remarks',
                 ];
         }
 

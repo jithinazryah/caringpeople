@@ -90,6 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 },
                                                 'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
                                             ],
+                                            'average_point',
                                             // 'CB',
                                             // 'UB',
                                             // 'DOC',

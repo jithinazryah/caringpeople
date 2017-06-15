@@ -24,7 +24,7 @@ class PatientGeneralSearch extends PatientGeneral {
         public function rules() {
                 return [
                         [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'age', 'pin_code', 'contact_number', 'status', 'CB', 'UB'], 'integer'],
-                        [['patient_id', 'guardian_name', 'guardian_id_or_passport_no', 'guardian_landmark', 'guardian_contact_no', 'guardian_email', 'first_name', 'last_name', 'blood_group', 'patient_image', 'present_address', 'landmark', 'email', 'DOC', 'DOU'], 'safe'],
+                        [['patient_id', 'guardian_name', 'guardian_id_or_passport_no', 'guardian_landmark', 'guardian_contact_no', 'guardian_email', 'first_name', 'last_name', 'blood_group', 'patient_image', 'present_address', 'landmark', 'email', 'DOC', 'DOU', 'count_of_remarks', 'average_point'], 'safe'],
                 ];
         }
 

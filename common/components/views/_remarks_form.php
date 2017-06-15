@@ -26,8 +26,8 @@ $remarks_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $
         for ($i = 1; $i <= 10; $i++) {
                 $points[$i] = $i;
         }
-        echo $form->field($model, 'point')->dropDownList($points, ['prompt' => '--Select--', 'class' => 'form-control'])
-        ?>   
+        $form->field($model, 'point')->dropDownList($points, ['prompt' => '--Select--', 'class' => 'form-control'])
+        ?>
 
 </div><div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
 
