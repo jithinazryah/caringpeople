@@ -47,7 +47,7 @@ class FollowupsController extends Controller {
         public function actionView($data = null) {
 
                 $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
-                $repeated = RepeatedFollowups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
+
                 if (!empty($data)) {
                         $data = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
                         $followups = Followups::find()->where(['id' => $data])->one();
@@ -63,8 +63,7 @@ class FollowupsController extends Controller {
 
         public function actionAssignedclosed() {
                 $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['status' => '1'])->all();
-                $followups = RepeatedFollowups::find()->where(['assigned_to' => Yii::$app->user->identity->id])->andWhere(['status' => '1'])->all();
-                $followups = array_merge($followups, $repeated_followups);
+
                 return $this->render('closed', [
                             'followups' => $followups,
                 ]);
@@ -77,8 +76,7 @@ class FollowupsController extends Controller {
         public function actionViewrelated() {
 
                 $followups = Followups::find()->where(new Expression('FIND_IN_SET(:related_staffs, related_staffs)'))->addParams([':related_staffs' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
-                $repeated_followups = RepeatedFollowups::find()->where(new Expression('FIND_IN_SET(:related_staffs, related_staffs)'))->addParams([':related_staffs' => Yii::$app->user->identity->id])->andWhere(['<>', 'status', '1'])->all();
-                $followups = array_merge($followups, $repeated_followups);
+
                 return $this->render('view', [
                             'followups' => $followups,
                 ]);
@@ -91,12 +89,10 @@ class FollowupsController extends Controller {
         public function actionClosed($type_id = 'NULL', $type = 'NULL') {
 
                 $followups = Followups::find()->where(['type_id' => $type_id, 'status' => '1'])->all();
-                $repeated_followups = RepeatedFollowups::find()->where(['type_id' => $type_id, 'status' => '1'])->all();
                 if ($type_id == 'NULL' && $type == 'NULL') {
                         $followups = Followups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'status' => '1'])->all();
-                        $repeated_followups = RepeatedFollowups::find()->where(['assigned_to' => Yii::$app->user->identity->id, 'status' => '1'])->all();
                 }
-                $followups = array_merge($followups, $repeated_followups);
+
 
                 return $this->render('closed', [
                             'followups' => $followups, 'type_id' => $type_id, 'type' => $type
@@ -129,8 +125,8 @@ class FollowupsController extends Controller {
                 }
 
                 $followups = Followups::find()->where(['type' => $type, 'type_id' => $type_id])->andWhere(['<>', 'status', '1'])->all();
-                $repeated_followups = RepeatedFollowups::find()->where(['type' => $type, 'type_id' => $type_id])->all();
-                $followups = array_merge($followups, $repeated_followups);
+
+
 
 
                 if ($id != '' && $repeated == '') {
