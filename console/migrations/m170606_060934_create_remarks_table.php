@@ -40,10 +40,38 @@ class m170606_060934_create_remarks_table extends Migration {
 //                $this->addColumn('followups', 'releated_notification_patient', 'integer');
                 //  $this->addColumn('remarks', 'remark_type', 'integer');
                 // $this->addColumn('remarks', 'point', 'integer');
-                $this->addColumn('staff_info', 'count_of_remarks', 'string(200)');
-                $this->addColumn('staff_info', 'average_point', 'integer');
-                $this->addColumn('patient_general', 'count_of_remarks', 'string(200)');
-                $this->addColumn('patient_general', 'average_point', 'integer');
+//                $this->addColumn('staff_info', 'count_of_remarks', 'string(200)');
+//                $this->addColumn('staff_info', 'average_point', 'integer');
+//                $this->addColumn('patient_general', 'count_of_remarks', 'string(200)');
+//                $this->addColumn('patient_general', 'average_point', 'integer');
+
+
+                $this->createTable('expense_type', [
+                    'id' => $this->primaryKey(),
+                    'type' => $this->string(200),
+                    'status' => $this->integer(),
+                    'date' => $this->date(),
+                    'CB' => $this->integer(),
+                    'UB' => $this->integer(),
+                    'DOC' => $this->dateTime(),
+                    'DOU' => $this->timestamp(),
+                ]);
+
+                $this->createTable('expenses', [
+                    'id' => $this->primaryKey(),
+                    'expense_type' => $this->integer(),
+                    'expense_subtype' => $this->string(200),
+                    'amount' => $this->string(200),
+                    'notes' => $this->text(),
+                    'date' => $this->date(),
+                    'status' => $this->integer(),
+                    'CB' => $this->integer(),
+                    'UB' => $this->integer(),
+                    'DOC' => $this->dateTime(),
+                    'DOU' => $this->timestamp(),
+                ]);
+
+                $this->addForeignKey("fk_expense_type", "expenses", "expense_type", "expense_type", "id", "RESTRICT", "RESTRICT");
         }
 
         /**

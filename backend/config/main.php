@@ -58,6 +58,9 @@ return [
         'remarks' => [
             'class' => 'backend\modules\remarks\Module',
         ],
+        'expenses' => [
+            'class' => 'backend\modules\expenses\Module',
+        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],

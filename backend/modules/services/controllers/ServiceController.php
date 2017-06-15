@@ -92,7 +92,7 @@ class ServiceController extends Controller {
                         $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y');
                         $model->service_id = $code;
                         if ($model->validate() && $model->save()) {
-
+                                $staff_availabilty = Yii::$app->SetValues->StaffAvailabilty($model);
                                 $history_id = Yii::$app->SetValues->ServiceHistory($model, 1); /* 1 implies masterservice history type id 1 for new service */
                                 if (!empty($history_id)) {
                                         $notifiactions = [
@@ -120,6 +120,7 @@ class ServiceController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
+                $before_update = $this->findModel($id);
 
                 if ($model->load(Yii::$app->request->post())) {
 
@@ -129,8 +130,10 @@ class ServiceController extends Controller {
                         $model->day_staff = Yii::$app->request->post()['Service']['day_staff'];
                         $model->night_staff = Yii::$app->request->post()['Service']['night_staff'];
                         $model->patient_advance_payment = Yii::$app->request->post()['Service']['patient_advance_payment'];
-                        if ($model->validate() && $model->save())
+                        if ($model->validate() && $model->save()) {
+                                $staff_availabilty = Yii::$app->SetValues->StaffAvailabilty($model, $before_update);
                                 return $this->redirect(['/followup/followups/followups', 'type_id' => $model->id, 'type' => 5, 'service' => 'service']);
+                        }
                 }
                 return $this->render('create', [
                             'model' => $model,

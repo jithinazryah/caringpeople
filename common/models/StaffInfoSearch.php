@@ -20,7 +20,7 @@ class StaffInfoSearch extends StaffInfo {
         public function rules() {
                 return [
                         [['id', 'designation', 'gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-                        [['staff_name', 'dob', 'place', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'DOC', 'DOU', 'staff_id'], 'safe'],
+                        [['staff_name', 'dob', 'place', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'DOC', 'DOU', 'staff_id', 'count_of_remarks', 'average_point'], 'safe'],
                 ];
         }
 
@@ -89,6 +89,7 @@ class StaffInfoSearch extends StaffInfo {
                         ->andFilterWhere(['like', 'place', $this->place])
                         ->andFilterWhere(['like', 'designation', $this->designation])
                         ->andFilterWhere(['like', 'present_email', $this->present_email])
+                        ->andFilterWhere(['like', 'average_point', $this->average_point])
                         ->andFilterWhere(['like', 'licence_no', $this->licence_no]);
 
 
@@ -152,10 +153,13 @@ class StaffInfoSearch extends StaffInfo {
                                         return 'Opened';
                                 } else if ($model->status == '2') {
                                         return 'Closed';
+                                } else if ($model->status == '3') {
+                                        return 'Occupied';
                                 }
                         },
-                        'filter' => [1 => 'Opened', 2 => 'Closed'],
+                        'filter' => [1 => 'Opened', 2 => 'Closed', 3 => 'Occupied'],
                     ],
+                    'average_point',
                         ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view}{update}{followup}{remarks}{delete}',
                         'visibleButtons' => [

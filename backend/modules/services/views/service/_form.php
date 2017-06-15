@@ -9,6 +9,7 @@ use common\models\StaffInfo;
 use kartik\date\DatePicker;
 use common\models\Branch;
 use common\models\MasterDesignations;
+use yii\db\Expression;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Service */
@@ -60,7 +61,8 @@ use common\models\MasterDesignations;
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="day_staff">
                         <?php
                         if (!$model->isNewRecord) {
-                                $staffs = StaffInfo::find()->where(['status' => 1, 'designation' => $model->staff_type, 'branch_id' => $model->branch_id])->all();
+
+                                $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $model->staff_type])->andWhere(['branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
                         } else {
                                 $staffs = [];
                         }
@@ -71,7 +73,7 @@ use common\models\MasterDesignations;
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="night_staff">
                         <?php
                         if (!$model->isNewRecord) {
-                                $staffs = StaffInfo::find()->where(['status' => 1, 'designation' => $model->staff_type, 'branch_id' => $model->branch_id])->all();
+                                $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $model->staff_type])->andWhere(['branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
                         } else {
                                 $staffs = [];
                         }

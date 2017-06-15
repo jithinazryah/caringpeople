@@ -141,16 +141,76 @@ class SetValues extends Component {
          * Rating calculation based on remarks
          */
 
-        public function Rating($id) {
-                $remarks = \common\models\Remarks::find()->where(['type_id' => $id])->andWhere(['<>', 'remark_type', ''])->all();
+        public function Rating($id, $type) {
+
+                $remarks = \common\models\Remarks::find()->where(['type_id' => $id])->andWhere(['not', ['remark_type' => null]])->all();
                 $count = count($remarks);
-                $good = '';
-                $bad = '';
+                $good_count = 0;
+                $bad_count = 0;
                 foreach ($remarks as $value) {
+
                         if ($value->remark_type == '1') {
-                                $good += $value->point;
+                                $good_count = $good_count + 1;
                         } else if ($value->remark_type == '0') {
-                                $bad += $value->point;
+                                $bad_count = $bad_count + 1;
+                        }
+                }
+                $remark_notes = 'Remarks :' . count($remarks) . ' Good Remarks: ' . $good_count . ' Bad Remarks: ' . $bad_count;
+                $rating = $good_count * 100 / $count;
+                $ratings = round($rating);
+                if ($type == '1') {
+                        $patient = PatientGeneral::findOne($id);
+                        $patient->count_of_remarks = $remark_notes;
+                        $patient->average_point = $ratings;
+                        $patient->update(false);
+                } else if ($type == '2') {
+                        $staff = StaffInfo::findOne($id);
+                        $staff->count_of_remarks = $remark_notes;
+                        $staff->average_point = $ratings;
+                        $staff->update(false);
+                }
+        }
+
+        /*
+         * staff availabiltity
+         */
+
+        public function StaffAvailabilty($model, $before_updtate = null) {
+
+                if ($model->day_staff != '' && $model->status == 1) { /* when add daystaff and the service status is opened */
+                        $staff = StaffInfo::findOne($model->day_staff);
+                        $staff->status = 3;
+                        $staff->update();
+                }
+                if ($model->night_staff != '' && $model->status == 1) { /* when add nightstaff and the service status is opened */
+                        $staff = StaffInfo::findOne($model->night_staff);
+                        $staff->status = 3;
+                        $staff->update();
+                }
+
+                /*
+                 * for update case
+                 */
+                if (isset($before_updtate)) {
+                        if ($model->status == 2) { /** when that service is closed * */
+                                $day_staff = StaffInfo::findOne($before_updtate->day_staff);
+                                $day_staff->status = 1;
+                                $day_staff->update();
+
+                                $night_staff = StaffInfo::findOne($model->night_staff);
+                                $night_staff->status = 1;
+                                $night_staff->update();
+                        }
+                        if ($model->day_staff != $before_updtate->day_staff) { /** when changing the day staff * */
+                                $day_staff = StaffInfo::findOne($before_updtate->day_staff);
+                                $day_staff->status = 1;
+                                $day_staff->update();
+                        }
+
+                        if ($model->night_staff != $before_updtate->night_staff) { /** when changing the night staff * */
+                                $night_staff = StaffInfo::findOne($before_updtate->night_staff);
+                                $night_staff->status = 1;
+                                $night_staff->update();
                         }
                 }
         }

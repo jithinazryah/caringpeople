@@ -467,7 +467,8 @@ class FollowupsController extends Controller {
                 /*
                  * Ever Day
                  */
-                $today_followup = RepeatedFollowups::find()->where(['like', 'followup_date', $today])->all();
+
+                $today_followup = RepeatedFollowups::find()->where(['repeated_type' => 4])->all();
                 foreach ($today_followup as $value) {
                         $followup = new Followups();
                         Yii::$app->Followups->Addcronfollowup($followup, $value);
