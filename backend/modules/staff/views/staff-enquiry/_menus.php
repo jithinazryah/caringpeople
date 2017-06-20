@@ -5,11 +5,16 @@ use yii\helpers\Html;
 
 
 
-<ul class="nav nav-tabs nav-tabs-justified">
+<!--<ul class="nav nav-tabs nav-tabs-justified">
         <li class="active">
                 <a href="#home-3" data-toggle="tab"><span class="visible-xs"><i class="fa-envelope-o"></i></span>
                         <span class="hidden-xs span-font-size">Enquiry</span></a>
         </li>
+
+                <li>
+                        <a href="#home-2" data-toggle="tab"><span class="visible-xs"><i class="fa-info"></i></span>
+                                <span class="hidden-xs span-font-size">Interview</span></a>
+                </li>
 
         <li>
                 <a href="#profile-3" data-toggle="tab"><span class="visible-xs"><i class="fa-hospital-o"></i></span>
@@ -22,6 +27,28 @@ use yii\helpers\Html;
         </li>
 
 
+</ul>-->
+
+<ul class="nav nav-tabs">
+        <li class="active">
+                <a href="#home-3" data-toggle="tab"><span class="visible-xs"><i class="fa-envelope-o hidden-xs"></i></span>
+                        <i class="fa-envelope-o"></i><span class="hidden-xs span-font-size">  ENQUIRY</span></a>
+        </li>
+
+        <!--        <li>
+                        <a href="#home-2" data-toggle="tab"><span class="visible-xs"><i class="fa-info"></i></span>
+                                <span class="hidden-xs span-font-size">Interview</span></a>
+                </li>-->
+
+        <li>
+                <a href="#profile-3" data-toggle="tab"><span class="visible-xs"><i class="fa-info hidden-xs"></i></span>
+                        <i class="fa-info"></i> <span class="hidden-xs span-font-size"> OTHER INFORMATION</span></a>
+        </li>
+
+        <li>
+                <a href="#profile-4" data-toggle="tab"><span class="visible-xs"><i class="linecons-pencil hidden-xs"></i></span>
+                        <i class="linecons-pencil"></i><span class="hidden-xs span-font-size"> INTERVIEW INFORMATION</span></a>
+        </li>
 </ul>
 
 

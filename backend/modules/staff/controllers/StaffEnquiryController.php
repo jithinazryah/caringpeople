@@ -125,7 +125,7 @@ class StaffEnquiryController extends Controller {
                 $staff_previous_employer = '';
                 $staff_family = '';
 
-                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
+                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
 
                         $other_info->current_from = date('Y-m-d', strtotime($other_info->current_from));
                         $other_info->current_to = date('Y-m-d', strtotime($other_info->current_to));
@@ -143,7 +143,7 @@ class StaffEnquiryController extends Controller {
 
 
 
-                        if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
+                        if ($staff_enquiry->validate() && $other_info->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
                                 $this->AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third);
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
                                 $this->AddFamily($staff_enquiry);
@@ -187,7 +187,7 @@ class StaffEnquiryController extends Controller {
                 $staff_interview_third = StaffEnquiryInterviewThird::findOne(['enquiry_id' => $staff_enquiry->id]);
                 $staff_family = \common\models\StaffEnquiryFamilyDetails::findAll(['enquiry_id' => $staff_enquiry->id]);
 
-                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
+                if ($staff_enquiry->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($staff_enquiry) && $other_info->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post())) {
 
 
                         $other_info->current_from = date('Y-m-d', strtotime($other_info->current_from));
@@ -199,7 +199,7 @@ class StaffEnquiryController extends Controller {
                         $staff_interview_second->verified_date_3 = date('Y-m-d', strtotime($staff_interview_second->verified_date_3));
                         $staff_interview_third->expected_date_of_joining = date('Y-m-d', strtotime($staff_interview_third->expected_date_of_joining));
                         $staff_interview_third->interviewed_date = date('Y-m-d', strtotime($staff_interview_third->interviewed_date));
-                        if ($staff_enquiry->validate() && $other_info->validate() && $staff_edu->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
+                        if ($staff_enquiry->validate() && $other_info->validate() && $staff_interview_first->validate() && $staff_interview_second->validate() && $staff_interview_third->validate() && $staff_enquiry->save() && $staff_edu->save() && $other_info->save() && $staff_interview_first->save() && $staff_interview_second->save() && $staff_interview_third->save()) {
 
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
