@@ -51,11 +51,13 @@ $designations = \common\models\MasterDesignations::designationlist();
 
 
                                         <?php
-                                        echo ExportMenu::widget([
-                                            'dataProvider' => $dataProvider,
-                                            'columns' => $searchModel->getExportColumns(),
-                                            'filename' => 'Staff-Details-' . date('Y-m-d'),
-                                        ]);
+                                        if (Yii::$app->user->identity->post_id == '1') {
+                                                echo ExportMenu::widget([
+                                                    'dataProvider' => $dataProvider,
+                                                    'columns' => $searchModel->getExportColumns(),
+                                                    'filename' => 'Staff-Details-' . date('Y-m-d'),
+                                                ]);
+                                        }
                                         echo \kartik\grid\GridView::widget([
                                             'dataProvider' => $dataProvider,
                                             'filterModel' => $searchModel,

@@ -130,10 +130,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 ],
                                             ],
                                         ];
-                                        echo ExportMenu::widget([
-                                            'dataProvider' => $dataProvider,
-                                            'columns' => $gridColumns,
-                                        ]);
+
+                                        if (Yii::$app->user->identity->post_id == '1') {
+                                                echo ExportMenu::widget([
+                                                    'dataProvider' => $dataProvider,
+                                                    'columns' => $gridColumns,
+                                                ]);
+                                        }
                                         echo \kartik\grid\GridView::widget([
                                             'dataProvider' => $dataProvider,
                                             'filterModel' => $searchModel,
