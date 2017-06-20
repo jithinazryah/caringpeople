@@ -124,6 +124,13 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                    },
+                                                    'update' => function ($model, $key, $index) {
+                                                            if (Yii::$app->user->identity->post_id == '1' || $model->staff_manager == Yii::$app->user->identity->id) {
+                                                                    return true;
+                                                            } else {
+                                                                    return false;
+                                                            }
                                                     }
                                                 ],
                                                 'buttons' => [
@@ -142,10 +149,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 ],
                                             ],
                                         ];
-                                        echo ExportMenu::widget([
-                                            'dataProvider' => $dataProvider,
-                                            'columns' => $gridColumns,
-                                        ]);
+                                        if (Yii::$app->user->identity->post_id == '1') {
+                                                echo ExportMenu::widget([
+                                                    'dataProvider' => $dataProvider,
+                                                    'columns' => $gridColumns,
+                                                ]);
+                                        }
                                         echo \kartik\grid\GridView::widget([
                                             'dataProvider' => $dataProvider,
                                             'filterModel' => $searchModel,

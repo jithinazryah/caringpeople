@@ -83,7 +83,7 @@ use yii\db\Expression;
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                         <?php
-                        $staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 6])->orderBy(['staff_name' => SORT_ASC])->all();
+                        $staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 6, 'branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
                         ?>
                         <?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($staff_managers, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']) ?>
 
@@ -270,23 +270,33 @@ use yii\db\Expression;
                                 data: {staff_type: staff_type, branch: branch},
                                 url: homeUrl + 'ajax/staffs',
                                 success: function (data) {
-                                        $(".staff-change").html(data);
-                                        $("#service-day_staff").select2({
-                                                placeholder: 'Choose Principals',
-                                                allowClear: true
-                                        }).on('select2-open', function ()
-                                        {
-                                                // Adding Custom Scrollbar
-                                                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-                                        });
-                                        $("#service-night_staff").select2({
-                                                placeholder: 'Choose Principals',
-                                                allowClear: true
-                                        }).on('select2-open', function ()
-                                        {
-                                                // Adding Custom Scrollbar
-                                                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-                                        });
+
+                                        if (data == 1) {
+                                                alert('Please Select Branch!!');
+                                                $("#service-staff_type").select2("val", "");
+                                        } else if (data == 2) {
+                                                alert('Please select staff type');
+                                                $("#service-staff_type").select2("val", "");
+
+                                        } else {
+                                                $(".staff-change").html(data);
+                                                $("#service-day_staff").select2({
+                                                        placeholder: 'Choose Principals',
+                                                        allowClear: true
+                                                }).on('select2-open', function ()
+                                                {
+                                                        // Adding Custom Scrollbar
+                                                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                                });
+                                                $("#service-night_staff").select2({
+                                                        placeholder: 'Choose Principals',
+                                                        allowClear: true
+                                                }).on('select2-open', function ()
+                                                {
+                                                        // Adding Custom Scrollbar
+                                                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                                });
+                                        }
                                         hideLoader();
                                 }
                         });
@@ -302,6 +312,19 @@ use yii\db\Expression;
                                 url: homeUrl + 'ajax/patients',
                                 success: function (data) {
                                         $("#service-patient_id").html(data);
+                                        hideLoader();
+                                }
+                        });
+                });
+                $('#service-branch_id').change(function () {
+                        showLoader();
+                        $.ajax({
+                                type: 'POST',
+                                cache: false,
+                                data: {branch: $(this).val()},
+                                url: homeUrl + 'ajax/staffmanager',
+                                success: function (data) {
+                                        $("#service-staff_manager").html(data);
                                         hideLoader();
                                 }
                         });

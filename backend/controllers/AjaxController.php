@@ -323,11 +323,12 @@ class AjaxController extends \yii\web\Controller {
                         $staff_type = $_POST['staff_type'];
                         $branch = $_POST['branch'];
 
-                        if ($staff_type == '') {
-                                echo '0';
+                        if ($branch == '') {
+                                echo '1';
                                 exit;
+                        } elseif ($staff_type == '') {
+                                echo '2';
                         } else {
-                                //  $staff_type_datas = \common\models\StaffInfo::find()->where(['designation' => $staff_type, 'branch_id' => $branch, 'status' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
                                 $staff_type_datas = \common\models\StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $staff_type])->andWhere(['branch_id' => $branch])->andWhere(['status' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
 
 
@@ -365,6 +366,20 @@ class AjaxController extends \yii\web\Controller {
                 $options = '<option value="">-Select-</option>';
                 foreach ($patients as $patient) {
                         $options .= "<option value='" . $patient->id . "'>" . $patient->first_name . "</option>";
+                }
+                echo $options;
+        }
+
+        /*
+         * show nurse manager based on branch in service form
+         */
+
+        public function actionStaffmanager() {
+                $branch = $_POST['branch'];
+                $mangers = \common\models\StaffInfo::find()->where(['branch_id' => $branch, 'status' => 1, 'post_id' => 6])->orderBy(['staff_name' => SORT_ASC])->all();
+                $options = '<option value="">-Select-</option>';
+                foreach ($mangers as $mangers) {
+                        $options .= "<option value='" . $mangers->id . "'>" . $mangers->staff_name . "</option>";
                 }
                 echo $options;
         }
