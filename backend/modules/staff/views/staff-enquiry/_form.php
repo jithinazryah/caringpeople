@@ -109,7 +109,7 @@ use common\models\MasterDesignations;
                                                 <div class = "col-md-2 img-box">
                                                         <a href="<?= Yii::$app->homeUrl . '../uploads/staff-enquiry/' . $staff_enquiry->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
                                                         <a href="<?= Yii::$app->homeUrl ?>staff/staff-enquiry/remove?id=<?= $staff_enquiry->id ?>&name=<?= end($arry) ?>" title="Delete"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
-                                                </div
+                                                </div>
                                         <?php }
                                         ?>
                                 <?php }
@@ -118,6 +118,7 @@ use common\models\MasterDesignations;
                 </div>
         <?php } ?>
 </div>
+
 
 
 <style>

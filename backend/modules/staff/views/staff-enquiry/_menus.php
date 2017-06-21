@@ -35,20 +35,20 @@ use yii\helpers\Html;
                         <i class="fa-envelope-o"></i><span class="hidden-xs span-font-size">  ENQUIRY</span></a>
         </li>
 
+        <li>
+                <a href="#home-2" data-toggle="tab"><span class="visible-xs"><i class="linecons-pencil hidden-xs"></i></span>
+                        <i class="linecons-pencil"></i><span class="hidden-xs span-font-size"> INTERVIEW</span></a>
+        </li>
+
         <!--        <li>
-                        <a href="#home-2" data-toggle="tab"><span class="visible-xs"><i class="fa-info"></i></span>
-                                <span class="hidden-xs span-font-size">Interview</span></a>
+                        <a href="#profile-3" data-toggle="tab"><span class="visible-xs"><i class="fa-info hidden-xs"></i></span>
+                                <i class="fa-info"></i> <span class="hidden-xs span-font-size"> OTHER INFORMATION</span></a>
+                </li>
+
+                <li>
+                        <a href="#profile-4" data-toggle="tab"><span class="visible-xs"><i class="linecons-pencil hidden-xs"></i></span>
+                                <i class="linecons-pencil"></i><span class="hidden-xs span-font-size"> INTERVIEW INFORMATION</span></a>
                 </li>-->
-
-        <li>
-                <a href="#profile-3" data-toggle="tab"><span class="visible-xs"><i class="fa-info hidden-xs"></i></span>
-                        <i class="fa-info"></i> <span class="hidden-xs span-font-size"> OTHER INFORMATION</span></a>
-        </li>
-
-        <li>
-                <a href="#profile-4" data-toggle="tab"><span class="visible-xs"><i class="linecons-pencil hidden-xs"></i></span>
-                        <i class="linecons-pencil"></i><span class="hidden-xs span-font-size"> INTERVIEW INFORMATION</span></a>
-        </li>
 </ul>
 
 

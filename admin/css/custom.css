@@ -73,6 +73,7 @@ table.table tr td:last-child {
 }
 table.table tr td:last-child a {
         padding: 4px;
+        color: #636b6b;
 }
 
 .table>thead:first-child>tr:first-child>th{

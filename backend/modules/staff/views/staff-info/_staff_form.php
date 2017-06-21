@@ -140,28 +140,28 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <script>
-        $('#form_button').click(function (e) { // using click function
-                // on contact form submit button
-                e.preventDefault(); // stop form from submitting right away
-
-                var error = false;
-                $(this).find('.required').each(function () {
-                        if ($(this).val().length < 1) {
-                                error = true;
-                        }
-                });
-                if (error == false) {
-
-                        var Id = $('.tab-pane.active').attr('id');
-                        $('#'.Id).removeClass('active');
-                        $('#home-3').addClass('active'); // you submit form
-                        $("#w0").submit();
-                }
-                if (!error) {
-                        return true;
-                }
-
-        });
+//        $('#form_button').click(function (e) { // using click function
+//                // on contact form submit button
+//                e.preventDefault(); // stop form from submitting right away
+//
+//                var error = false;
+//                $(this).find('.required').each(function () {
+//                        if ($(this).val().length < 1) {
+//                                error = true;
+//                        }
+//                });
+//                if (error == false) {
+//
+//                        var Id = $('.tab-pane.active').attr('id');
+//                        $('#'.Id).removeClass('active');
+//                        $('#home-3').addClass('active'); // you submit form
+//                        $("#w0").submit();
+//                }
+//                if (!error) {
+//                        return true;
+//                }
+//
+//        });
         $('.ResetPassword').on('click', function () {
                 $('#user_id').val(this.id);
                 $('#modal-reset').modal('show', {backdrop: 'static'});

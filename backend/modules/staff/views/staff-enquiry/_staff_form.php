@@ -62,6 +62,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ?>
 
                                                 </div>
+
+                                                <div class="tab-pane" id="home-2">
+                                                        <?=
+                                                        $this->render('_staff_enquiry_interview_1', [
+                                                            'model' => $other_info,
+                                                            'staff_previous_employer' => $staff_previous_employer,
+                                                            'staff_interview_first' => $staff_interview_first,
+                                                            'staff_interview_second' => $staff_interview_second,
+                                                            'staff_interview_third' => $staff_interview_third,
+                                                            'staff_family' => $staff_family,
+                                                            'form' => $form,
+                                                        ])
+                                                        ?>
+                                                </div>
+
+
                                                 <div class="tab-pane" id="profile-3">
 
                                                         <?=
@@ -118,62 +134,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 </div>
 
-<script>
-        $('#form_button').click(function (e) { // using click function
-                // on contact form submit button
-                e.preventDefault(); // stop form from submitting right away
-
-                var error = false;
-                $(this).find('.required').each(function () {
-                        if ($(this).val().length < 1) {
-                                error = true;
-                        }
-                });
-                if (error == false) {
-
-                        var Id = $('.tab-pane.active').attr('id');
-                        $('#'.Id).removeClass('active');
-                        $('#home-3').addClass('active'); // you submit form
-                        $("#w0").submit();
-                }
-                if (!error) {
-                        return true;
-                }
-
-        });
-        $('.ResetPassword').on('click', function () {
-                $('#user_id').val(this.id);
-                $('#modal-reset').modal('show', {backdrop: 'static'});
-        });
-        $(document).on('submit', '#reset_password_form', function (e) {
-
-                //$('#modal-reset').modal('hide');
-                var newpassword = $('#new-password').val();
-                var confirmpassword = $('#confirm-password').val();
-                var userid = $('#user_id').val();
-                if (newpassword === confirmpassword) {
-                        showLoader();
-                        $.ajax({
-                                type: 'POST',
-                                url: homeUrl + 'staff/staff-info/reset-password',
-                                data: {password: newpassword, id: userid},
-                                success: function (data) {
-                                        //  $(".ResetPassword").append("<div>hello world</div>");
-                                        $("#rEset").after("<b>Hello</b>");
-                                }
-
-                        });
-                } else {
-                        $('#modal-reset').modal('show', {backdrop: 'static'});
-                        $('div.mismatch_error').text("Password Mismatch");
-                        e.preventDefault();
-                }
-
-
-        }
-        );
-
-
-</script>
 
 
