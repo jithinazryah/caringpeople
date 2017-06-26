@@ -55,6 +55,12 @@ class RemarksSearch extends Remarks {
                         // $query->where('0=1');
                         return $dataProvider;
                 }
+                if (!empty(Yii::$app->request->queryParams['RemarksSearch']['status'])) {
+
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['RemarksSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 0]);
+                }
 
                 // grid filtering conditions
                 $query->andFilterWhere([

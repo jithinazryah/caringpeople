@@ -18,6 +18,8 @@ use common\models\EnquiryHospital;
 use common\models\EnquiryOtherInfo;
 use common\models\Branch;
 use common\models\ContactDirectory;
+use common\models\Remarks;
+use common\models\RemarksSearch;
 
 /**
  * PatientEnquiryGeneralFirstController implements the CRUD actions for PatientEnquiryGeneralFirst model.
@@ -94,10 +96,9 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_info_second = new PatientEnquiryGeneralSecond();
                 $patient_hospital = new PatientEnquiryHospitalFirst();
                 $patient_hospital_second = new PatientEnquiryHospitalSecond();
-                $followups=new Followups();
-              //  $remarks=new Remarks();
                 $patient_info->scenario = 'create';
                 $hospital_details = '';
+
 
 
                 if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post())) {
@@ -124,7 +125,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                         $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
                                         $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
                                         $this->AddContactDirectory($patient_info, $patient_info_second);
-                                        //Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'create');
                                         $this->sendMail($patient_info, $patient_info_second);
                                         Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
                                         return $this->redirect(array('index'));
@@ -138,6 +138,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                             'patient_hospital' => $patient_hospital,
                             'patient_hospital_second' => $patient_hospital_second,
                             'hospital_details' => $hospital_details,
+                            'remarks' => $remarks,
                 ]);
         }
 
@@ -154,6 +155,11 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_hospital = PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $patient_info->id]);
+
+                $remarks = new Remarks();
+                $searchModel = new RemarksSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['type_id' => $id, 'type' => 1]);
 
 
 
@@ -192,6 +198,9 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                     'patient_hospital' => $patient_hospital,
                                     'patient_hospital_second' => $patient_hospital_second,
                                     'hospital_details' => $hospital_details,
+                                    'remarks' => $remarks,
+                                    'searchModel' => $searchModel,
+                                    'dataProvider' => $dataProvider,
                         ]);
                 } else {
                         throw new \yii\base\UserException("Error Code : 2000");

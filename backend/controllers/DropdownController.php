@@ -6,29 +6,28 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yii\web\Response;
 use yii\db\Expression;
 use common\models\Hospital;
+use common\models\Remarks;
 
 class DropdownController extends \yii\web\Controller {
 
-    public function actionIndex() {
-        return $this->render('index');
-    }
+        public function actionIndex() {
+                return $this->render('index');
+        }
 
-    public function actionAddhospital() {
-        $hospital = $this->renderPartial('_hospital');
-        echo $hospital;
-    }
+        public function actionAddhospital() {
+                $hospital = $this->renderPartial('_hospital');
+                echo $hospital;
+        }
 
-    public function actionAdd() {
-       
-        if (Yii::$app->request->isAjax) {
-            $hospital = new Hospital();
-           
-            //$hospital->hospital_name=$_POST['hospital_name'];
-            
+        public function actionAdd() {
+
+                if (Yii::$app->request->isAjax) {
+                        $hospital = new Hospital();
+
+                        //$hospital->hospital_name=$_POST['hospital_name'];
 //            $hospital->contact_person=$_POST['contact_person'];
 //            $hospital->contact_email=$_POST['contact_email'];
 //            $hospital->contact_number=$_POST['contact_number'];
@@ -41,8 +40,38 @@ class DropdownController extends \yii\web\Controller {
 //                $data['result'] = $arrr_variable;
 //                echo json_encode($data);
 //            }
-            
+                }
         }
-    }
+
+        public function actionAddremarks() {
+                if (Yii::$app->request->isAjax) {
+                        $remarks = new Remarks();
+                        $remarks->type = $_POST['Remarks']['type'];
+                        $remarks->type_id = $_POST['Remarks']['type_id'];
+                        $remarks->category = $_POST['Remarks']['category'];
+                        $remarks->sub_category = $_POST['Remarks']['sub_category'];
+                        $remarks->point = $_POST['Remarks']['point'];
+                        $remarks->notes = $_POST['Remarks']['notes'];
+                        $remarks->status = 1;
+                        Yii::$app->SetValues->Attributes($remarks);
+                        if ($remarks->save()) {
+                                $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
+                                $category = \common\models\RemarksCategory::findOne($remarks->category);
+                                $arr_variable = array($count + 1, $category->category, $remarks->sub_category, $remarks->point, $remarks->notes, $remarks->id);
+                                $data['result'] = $arr_variable;
+                                echo json_encode($data);
+                        }
+                }
+        }
+
+        public function actionChangeremarkstatus() {
+                $remark = Remarks::findOne($_POST['remark_id']);
+                $remark->status = 0;
+                if ($remark->update()) {
+                        echo '1';
+                } else {
+                        echo '0';
+                }
+        }
 
 }

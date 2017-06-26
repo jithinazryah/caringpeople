@@ -23,18 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px']) ?>
-                                
+
                                 <?=
                                 $this->render('_menus', [
                                     'model' => $patient_info,
                                 ])
                                 ?>
                                 <div class="panel-body panel_body_background">
-                                        <?php $form = ActiveForm::begin(); ?>
+
                                         <div class="tab-content tab_data_margin" id="tabs_1">
 
                                                 <div class="tab-pane active" id="home-3">
-
+                                                        <?php $form = ActiveForm::begin(); ?>
                                                         <?=
                                                         $this->render('enquiry_general_form', [
                                                             'patient_info' => $patient_info,
@@ -54,49 +54,44 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'form' => $form,
                                                         ])
                                                         ?>
+                                                        <?php ActiveForm::end(); ?>
                                                 </div>
 
-                                                
+
                                                 <div class="tab-pane" id="profile-4">
+                                                        <?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
                                                         <?=
                                                         $this->render('remarks', [
                                                             'patient_info' => $patient_info,
-                                                            'form' => $form,
+                                                            'form_remark' => $form_remark,
+                                                            'remarks' => $remarks,
+                                                            'searchModel' => $searchModel,
+                                                            'dataProvider' => $dataProvider,
                                                         ])
                                                         ?>
+                                                        <?php ActiveForm::end(); ?>
                                                 </div>
 
                                                 <div class="tab-pane" id="profile-5">
                                                         <?php
-                                                        $this->render('remarks', [
-                                                            'patient_info' => $patient_info,
-                                                            'form' => $form,
-                                                        ])
+                                                        /*
+                                                          $this->render('remarks', [
+                                                          'patient_info' => $patient_info,
+                                                          'form' => $form1,
+                                                          ]) */
                                                         ?>
+
+
                                                 </div>
-                                            
-                                            <div class='col-md-12 col-sm-6 col-xs-12' >
-                                                <div class="form-group" >
-                                                        <?php if ($patient_info->isNewRecord) { ?>
-                                                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
-                                                                <?php
-                                                        } else {
-                                                                ?>
-                                                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
-                                                                <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
-                                                        <?php } ?>
-                                                </div>
+
+
+
                                         </div>
 
-                                            </div>
-                                    
-                                    
-                                        
-                                        
-                                    
-                                        <?php ActiveForm::end(); ?>
 
-                                   
+
+
+
 
                                 </div>
                         </div>

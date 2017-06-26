@@ -166,6 +166,20 @@ use kartik\date\DatePicker;
 
         </div>
 
+
+        <div class='col-md-12 col-sm-6 col-xs-12' >
+                <div class="form-group" >
+                        <?php if ($patient_info->isNewRecord) { ?>
+                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
+                                <?php
+                        } else {
+                                ?>
+                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
+                                <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
+                        <?php } ?>
+                </div>
+        </div>
+
 </div>
 
 

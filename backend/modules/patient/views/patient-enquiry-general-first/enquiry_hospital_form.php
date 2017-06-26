@@ -126,10 +126,10 @@ use kartik\select2\Select2;
                                 <div class="form-group field-patientenquiryhospitaldetails-hospital_name">
                                         <label class="control-label">Hospital Name</label>
 
-                                        <?= Html::dropDownList('create[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--','id'=>'add-hospital']);
+                                        <?= Html::dropDownList('create[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'add-hospital']);
                                         ?>
                                 </div>
-                            <span><a class="add-hospital-link" id="add-hospital">+Add new</a></span>
+                                <span><a class="add-hospital-link" id="add-hospital">+Add new</a></span>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
@@ -214,5 +214,18 @@ use kartik\select2\Select2;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="difficulty_in_movement_other">    <?= $form->field($patient_hospital_second, 'difficulty_in_movement_other')->textarea(['rows' => 1]) ?>
 
+        </div>
+
+        <div class='col-md-12 col-sm-6 col-xs-12' >
+                <div class="form-group" >
+                        <?php if ($patient_info->isNewRecord) { ?>
+                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
+                                <?php
+                        } else {
+                                ?>
+                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
+                                <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
+                        <?php } ?>
+                </div>
         </div>
 </div>
