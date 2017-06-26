@@ -5,21 +5,19 @@ namespace common\components;
 use yii\base\Widget;
 use yii\helpers\Html;
 
-
 class FollowupsWidget extends Widget {
 
         public $model;
         public $type_id;
         public $type;
-        public $form;
-        
+        public $form_followup;
 
         public function init() {
                 parent::init();
         }
 
         public function run() {
-                return $this->render('_followup_form', ['type_id' => $this->type_id, 'type' => $this->type,'form'=>$his->form]);
+                return $this->render('_followup_form', ['type_id' => $this->type_id, 'type' => $this->type, 'model' => $this->model, 'form_followup' => $this->form_followup]);
         }
 
 }

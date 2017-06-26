@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <?=
                                 $this->render('_menus', [
-                                    'model' => $patient_info,
+                                    'patient_info' => $patient_info,
                                 ])
                                 ?>
                                 <div class="panel-body panel_body_background">
@@ -57,34 +57,35 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?php ActiveForm::end(); ?>
                                                 </div>
 
+                                                <?php if (!$patient_info->isNewRecord) { ?>
+                                                        <div class="tab-pane" id="profile-4">
+                                                                <?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
+                                                                <?=
+                                                                $this->render('remarks', [
+                                                                    'patient_info' => $patient_info,
+                                                                    'form_remark' => $form_remark,
+                                                                    'remarks' => $remarks,
+                                                                    'searchModel' => $searchModel,
+                                                                    'dataProvider' => $dataProvider,
+                                                                ])
+                                                                ?>
+                                                                <?php ActiveForm::end(); ?>
+                                                        </div>
 
-                                                <div class="tab-pane" id="profile-4">
-                                                        <?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
-                                                        <?=
-                                                        $this->render('remarks', [
-                                                            'patient_info' => $patient_info,
-                                                            'form_remark' => $form_remark,
-                                                            'remarks' => $remarks,
-                                                            'searchModel' => $searchModel,
-                                                            'dataProvider' => $dataProvider,
-                                                        ])
-                                                        ?>
-                                                        <?php ActiveForm::end(); ?>
-                                                </div>
+                                                        <div class="tab-pane" id="profile-5">
+                                                                <?php $form_followup = ActiveForm::begin(['id' => 'add-followup']); ?>
+                                                                <?=
+                                                                $this->render('followups', [
+                                                                    'patient_info' => $patient_info,
+                                                                    'form_followup' => $form_followup,
+                                                                    'followups' => $followups
+                                                                ])
+                                                                ?>
+                                                                <?php ActiveForm::end(); ?>
 
-                                                <div class="tab-pane" id="profile-5">
-                                                        <?php
-                                                        /*
-                                                          $this->render('remarks', [
-                                                          'patient_info' => $patient_info,
-                                                          'form' => $form1,
-                                                          ]) */
-                                                        ?>
+                                                        </div>
 
-
-                                                </div>
-
-
+                                                <?php } ?>
 
                                         </div>
 

@@ -15,6 +15,7 @@ use common\models\Hospital;
 use common\models\FollowupSubType;
 use common\models\StaffInfo;
 use kartik\datetime\DateTimePicker;
+use yii\web\UploadedFile;
 
 class FollowupajaxController extends \yii\web\Controller {
 
@@ -22,26 +23,53 @@ class FollowupajaxController extends \yii\web\Controller {
                 return $this->render('index');
         }
 
-        /*
-         * This function is for delete followup
-         *
-         */
-
-        public function actionDelete() {
-
+        public function actionAddfollowup() {
                 if (Yii::$app->request->isAjax) {
-                        $val = $_POST['valu'];
-                        $type = $_POST['type'];
-                        $paths = Yii::getAlias(Yii::$app->params['uploadPath']) . '/followups/' . $val;
-                        if (file_exists($paths)) {
-                                $files = Yii::$app->UploadFile->RemoveFiles($paths);
-                        }
-                        if ($type == 'unset') {
-                                Followups::findOne($val)->delete();
+
+
+
+                        $repeated = $_POST['RepeatedFollowups']['repeated'];
+                        if ($repeated == 0) {
+                                $followups = new Followups();
+                                $this->Adddata($followups);
+                                $followups->save(false);
                         } else {
-                                \common\models\RepeatedFollowups::findOne($val)->delete();
+                                if ($_POST['RepeatedFollowups']['repeated_type'] != 1) {
+                                        $followups = new \common\models\RepeatedFollowups();
+                                        $this->Adddata($followups);
+                                        $followups->repeated_type = $_POST['RepeatedFollowups']['repeated_type'];
+                                        if ($_POST['create']['specific-days'] != '' || $_POST['create']['specific-dates-month'] != '') {
+                                                if ($followups->repeated_type == 2) {
+                                                        $followups->repeated_days = implode(',', $_POST['create']['specific-days']);
+                                                } else if ($followups->repeated_type == 3) {
+                                                        $followups->repeated_days = implode(',', $_POST['create']['specific-dates-month']);
+                                                }
+                                                $followups->save(false);
+                                        }
+                                } else {
+                                        foreach ($_POST['date']['remind_days1'] as $val) {
+                                                if ($val != '') {
+                                                        $followups_add = new Followups();
+                                                        $this->Adddata($followups_add);
+                                                        $followups_add->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val)));
+                                                        $followups_add->save(false);
+                                                }
+                                        }
+                                }
                         }
                 }
+        }
+
+        public function Adddata($followups) {
+
+                $followups->type = $_POST['RepeatedFollowups']['type'];
+                $followups->type_id = $_POST['RepeatedFollowups']['type_id'];
+                $followups->followup_date = date('Y-m-d H:i:s', strtotime($_POST['Followups']['followup_date']));
+                $followups->followup_notes = $_POST['RepeatedFollowups']['followup_notes'];
+                $followups->assigned_to = $_POST['RepeatedFollowups']['assigned_to'];
+                $followups->assigned_from = Yii::$app->user->identity->id;
+                if (isset($_POST['RepeatedFollowups']['related_staffs']) && $_POST['RepeatedFollowups']['related_staffs'] != '')
+                        $followups->related_staffs = $_POST['RepeatedFollowups']['related_staffs'];
         }
 
         /*
@@ -61,40 +89,6 @@ class FollowupajaxController extends \yii\web\Controller {
                                 $followup = \common\models\RepeatedFollowups::find()->where(['id' => $followup_id])->one();
                         $followup->status = 1;
                         $followup->update();
-                }
-        }
-
-        /*
-         * Add followup subtype in popup for adding followups
-         */
-
-        public function actionAddfollowups() {
-                if (Yii::$app->request->isAjax) {
-                        $datas = $this->renderPartial('form_for_popup', ['type' => $_POST['type'], 'type_id' => $_POST['type_id']]);
-                        echo $datas;
-                }
-        }
-
-        /*
-         * Add followup to db on popup submit
-         */
-
-        public function actionAdd() {
-                if (Yii::$app->request->isAjax) {
-
-                        $followup = new Followups;
-                        $followup->type = $_POST['type'];
-                        $followup->type_id = $_POST['type_id'];
-                        $followup->sub_type = $_POST['subtype'];
-                        $followup->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $_POST['followupdate'])));
-                        $followup->assigned_from = Yii::$app->user->identity->id;
-                        $followup->assigned_to = $_POST['assignedto'];
-                        $followup->followup_notes = $_POST['notes'];
-                        if (isset($_POST['related_staffs']) && $_POST['related_staffs'] != '')
-                                $followup->related_staffs = implode(",", $_POST['related_staffs']);
-                        $followup->CB = Yii::$app->user->identity->id;
-                        $followup->DOC = date('Y-m-d');
-                        $followup->save(false);
                 }
         }
 

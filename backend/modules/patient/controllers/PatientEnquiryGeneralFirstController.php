@@ -156,10 +156,14 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $patient_info->id]);
 
+                /* for adding remarks */
                 $remarks = new Remarks();
                 $searchModel = new RemarksSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['type_id' => $id, 'type' => 1]);
+
+                /* for adding followups */
+                $followups = new \common\models\RepeatedFollowups();
 
 
 
@@ -201,6 +205,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                     'remarks' => $remarks,
                                     'searchModel' => $searchModel,
                                     'dataProvider' => $dataProvider,
+                                    'followups' => $followups
                         ]);
                 } else {
                         throw new \yii\base\UserException("Error Code : 2000");

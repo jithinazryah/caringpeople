@@ -384,18 +384,4 @@ class AjaxController extends \yii\web\Controller {
                 echo $options;
         }
 
-        /*
-         * This function is for adding multiple followup details
-         */
-
-        public function actionFollowups() {
-                if (Yii::$app->request->isAjax) {
-                        $type_id = $_POST['type_id'];
-                        $type = $_POST['type'];
-                        $count = $_POST['count'];
-                        $datas = $this->renderPartial('followup', ['type_id' => $type_id, 'type' => $type, 'count' => $count]);
-                        echo $datas;
-                }
-        }
-
 }

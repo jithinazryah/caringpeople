@@ -31,16 +31,16 @@ use yii\helpers\Html;
                 <a href="#profile-3" data-toggle="tab"><span class="visible-xs"><i class="fa-info hidden-xs"></i></span>
                         <i class="fa-info"></i> <span class="hidden-xs span-font-size"> PATIENT INFORMATION</span></a>
         </li>
+        <?php if (!$patient_info->isNewRecord) { ?>
+                <li>
+                        <a href="#profile-4" data-toggle="tab"><span class="visible-xs"><i class="linecons-note"></i></span>
+                                <i class="linecons-note"></i> <span class="hidden-xs span-font-size"> REMARKS</span></a>
+                </li>
 
-        <li>
-                <a href="#profile-4" data-toggle="tab"><span class="visible-xs"><i class="linecons-note"></i></span>
-                        <i class="linecons-note"></i> <span class="hidden-xs span-font-size"> REMARKS</span></a>
-        </li>
-
-        <li>
-                <a href="#profile-5" data-toggle="tab"><span class="visible-xs"><i class="fa fa-tasks" aria-hidden="true"></i></span>
-                        <i class="fa fa-tasks" aria-hidden="true"></i> <span class="hidden-xs span-font-size"> FOLLOWUPS</span></a>
-        </li>
-
+                <li>
+                        <a href="#profile-5" data-toggle="tab"><span class="visible-xs"><i class="fa fa-tasks" aria-hidden="true"></i></span>
+                                <i class="fa fa-tasks" aria-hidden="true"></i> <span class="hidden-xs span-font-size"> FOLLOWUPS</span></a>
+                </li>
+        <?php } ?>
 
 </ul>
