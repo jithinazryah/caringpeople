@@ -14,11 +14,13 @@ use common\models\StaffExperienceList;
 <div class="staff-other-info-form form-inline">
 
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'police_station_name')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'police_station_name')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'panchayat')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_1')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'muncipality_corporation')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'muncipality_corporation')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_2')->textInput(['maxlength' => true]) ?>
 
         </div>
         <?php
@@ -27,19 +29,23 @@ use common\models\StaffExperienceList;
                 $staff_interview_third->staff_experience = explode(',', $staff_interview_third->staff_experience);
         }
         ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'style' => 'height: 110px;']) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple','id'=>'skills']) ?>
 
         </div>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'smoke_or_drink', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'smoke_or_drink', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+
+        </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'drink', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+
+        </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'other', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
 
         </div><div style="clear: both">
 
         </div>
 
 
-        <h3 style="color:#148eaf;">Languages Known</h3>
+           <h4 style="color:#000;font-style: italic;">Languages Known</h4>
         <hr class="enquiry-hr"/>
 
         <div class="row languages">
@@ -206,7 +212,7 @@ use common\models\StaffExperienceList;
         </div>
 
 
-        <h3 style="color:#148eaf;">Family Details</h3>
+        <h4 style="color:#000;font-style: italic;">Family Details</h4>
         <hr class="enquiry-hr"/>
 
         <div id="staff_family">
@@ -344,153 +350,16 @@ use common\models\StaffExperienceList;
         </div>
 
 
-
-        <h3 style="color:#148eaf;">Emergency Contact Verification</h3>
+        <h4 style="color:#000;font-style: italic;">Interview Details</h4>
         <hr class="enquiry-hr"/>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'contact_verified_by')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'document_required')->textarea(['rows' => 1]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'document_received')->textarea(['rows' => 1]) ?>
 
-                <?php
-                if (!$staff_interview_second->isNewRecord) {
-                        $staff_interview_second->contact_verified_date = date('d-m-Y', strtotime($staff_interview_second->contact_verified_date));
-                }
-                ?>
-                <?=
-                DatePicker::widget([
-                    'model' => $staff_interview_second,
-                    'form' => $form,
-                    'type' => DatePicker::TYPE_INPUT,
-                    'attribute' => 'contact_verified_date',
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'dd-mm-yyyy',
-                    ]
-                ]);
-                ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'interest_level')->dropDownList(['' => '--Select--', '1' => 'High', '2' => 'No Interest', '3' => 'Medium']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'contact_verified_note')->textarea(['rows' => 2]) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'alt_contact_verified_by')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                <?php
-                if (!$staff_interview_second->isNewRecord) {
-                        $staff_interview_second->alt_contact_verified_date = date('d-m-Y', strtotime($staff_interview_second->alt_contact_verified_date));
-                }
-                ?>
-                <?=
-                DatePicker::widget([
-                    'model' => $staff_interview_second,
-                    'form' => $form,
-                    'type' => DatePicker::TYPE_INPUT,
-                    'attribute' => 'alt_contact_verified_date',
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'dd-mm-yyyy',
-                    ]
-                ]);
-                ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'alt_contact_verified_note')->textarea(['rows' => 2]) ?>
-
-        </div>
-
-
-
-        <h3 style="color:#148eaf;"> Verification Details</h3>
-        <hr class="enquiry-hr"/>
-
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_1')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_designation_1')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_mobile_no_1')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                <?php
-                if (!$staff_interview_second->isNewRecord) {
-                        $staff_interview_second->verified_date_1 = date('d-m-Y', strtotime($staff_interview_second->verified_date_1));
-                }
-                ?>
-                <?=
-                DatePicker::widget([
-                    'model' => $staff_interview_second,
-                    'form' => $form,
-                    'type' => DatePicker::TYPE_INPUT,
-                    'attribute' => 'verified_date_1',
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'dd-mm-yyyy',
-                    ]
-                ]);
-                ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_2')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_designation_2')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_mobile_no_2')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                <?php
-                if (!$staff_interview_second->isNewRecord) {
-                        $staff_interview_second->verified_date_2 = date('d-m-Y', strtotime($staff_interview_second->verified_date_2));
-                }
-                ?>
-                <?=
-                DatePicker::widget([
-                    'model' => $staff_interview_second,
-                    'form' => $form,
-                    'type' => DatePicker::TYPE_INPUT,
-                    'attribute' => 'verified_date_2',
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'dd-mm-yyyy',
-                    ]
-                ]);
-                ?>
-
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_3')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_designation_3')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_mobile_no_3')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                <?php
-                if (!$staff_interview_second->isNewRecord) {
-                        $staff_interview_second->verified_date_3 = date('d-m-Y', strtotime($staff_interview_second->verified_date_3));
-                }
-                ?>
-                <?=
-                DatePicker::widget([
-                    'model' => $staff_interview_second,
-                    'form' => $form,
-                    'type' => DatePicker::TYPE_INPUT,
-                    'attribute' => 'verified_date_3',
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'dd-mm-yyyy',
-                    ]
-                ]);
-                ?>
-
-
-
-        </div>
-
-
-
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'document_required')->textarea(['rows' => 6]) ?>
-
-        </div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'document_received')->textarea(['rows' => 6]) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'interest_level')->dropDownList(['' => '--Select--', '1' => 'High', '2' => 'No Interest', '3' => 'Medium']) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                 <?php
                 if (!$staff_interview_third->isNewRecord) {
                         $staff_interview_third->expected_date_of_joining = date('d-m-Y', strtotime($staff_interview_third->expected_date_of_joining));
@@ -510,13 +379,13 @@ use common\models\StaffExperienceList;
                 ?>
 
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'form_filled', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'form_filled', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
 
-        </div><div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'interview_notes')->textarea(['rows' => 6]) ?>
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'interview_notes')->textarea(['rows' => 1]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'interviewed_by')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'interviewed_by')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                 <?php
                 if (!$staff_interview_third->isNewRecord) {
                         $staff_interview_third->interviewed_date = date('d-m-Y', strtotime($staff_interview_third->interviewed_date));

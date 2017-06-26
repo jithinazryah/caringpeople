@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6725549dbd06c24172c383d4e4d43459",
-    "content-hash": "0a5ae57b18ccfd702feb2310033782d4",
+    "hash": "b2e5642415b677954e10ea3fcd26ce9d",
+    "content-hash": "664848cee0c2812a06f9dc5e3a09bfab",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -954,16 +954,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-select2",
-            "version": "v2.0.9",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "03f202e9e2415f4c84e93a64074d85677fd0cc51"
+                "reference": "690ddac32f6796f63b8317783f26e89ca26fa94a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/03f202e9e2415f4c84e93a64074d85677fd0cc51",
-                "reference": "03f202e9e2415f4c84e93a64074d85677fd0cc51",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/690ddac32f6796f63b8317783f26e89ca26fa94a",
+                "reference": "690ddac32f6796f63b8317783f26e89ca26fa94a",
                 "shasum": ""
             },
             "require": {
@@ -1003,7 +1003,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2017-04-12 09:00:24"
+            "time": "2017-06-21 11:33:04"
         },
         {
             "name": "mpdf/mpdf",
@@ -3708,7 +3708,8 @@
         "kartik-v/yii2-mpdf": 20,
         "kartik-v/yii2-widget-datepicker": 20,
         "kartik-v/yii2-grid": 20,
-        "kartik-v/yii2-date-range": 20
+        "kartik-v/yii2-date-range": 20,
+        "kartik-v/yii2-widget-select2": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
                                 <?php } ?>
                                 <?php if (!$model->isNewRecord && Yii::$app->controller->action->id != 'editprofile') { ?>
-                                        <a href="javascript:;" id="4_<?= $model->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
                                         <div id="rEset"> <a href="javascript:;" id="<?= $model->id; ?>"  class="ResetPassword" style="padding: 14px;
                                                             font-size: 14px;
                                                             font-weight: bold;
@@ -76,6 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     'staff_previous_employer' => $staff_previous_employer,
                                                                     'form' => $form,
                                                                     'staffinfo' => $model,
+                                                                    'staff_interview_second' => $staff_interview_second,
                                                                 ])
                                                                 ?>
                                                         </div>
@@ -90,6 +90,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     'staff_interview_third' => $staff_interview_third,
                                                                     'staff_family' => $staff_family,
                                                                     'staffinfo' => $model,
+                                                                    'form' => $form,
+                                                                ])
+                                                                ?>
+                                                        </div>
+                                            
+                                            <div class="tab-pane" id="profile-5">
+
+                                                                <?=
+                                                                $this->render('salary_details', [
+                                                                    'staff_interview_first' => $staff_interview_first,
+                                                                    'staff_interview_second' => $staff_interview_second,
+                                                                    'staff_interview_third' => $staff_interview_third,
+                                                                    'staff_family' => $staff_family,
+                                                                    'staffinfo' => $model,
+                                                                    'staff_salary' => $staff_salary,
                                                                     'form' => $form,
                                                                 ])
                                                                 ?>

@@ -23,19 +23,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px']) ?>
-<?php if (!$patient_info->isNewRecord) { ?>
-                                        <a href="javascript:;" id="1_<?= $patient_info->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
-                                <?php } ?>
-
+                                
                                 <?=
                                 $this->render('_menus', [
                                     'model' => $patient_info,
-                                    
                                 ])
                                 ?>
                                 <div class="panel-body panel_body_background">
                                         <?php $form = ActiveForm::begin(); ?>
-                                        <div class="tab-content tab_data_margin">
+                                        <div class="tab-content tab_data_margin" id="tabs_1">
 
                                                 <div class="tab-pane active" id="home-3">
 
@@ -60,11 +56,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ?>
                                                 </div>
 
-
                                                 
+                                                <div class="tab-pane" id="profile-4">
+                                                        <?=
+                                                        $this->render('remarks', [
+                                                            'patient_info' => $patient_info,
+                                                            'form' => $form,
+                                                        ])
+                                                        ?>
+                                                </div>
 
-                                        </div>
-                                        <div class='col-md-12 col-sm-6 col-xs-12' >
+                                                <div class="tab-pane" id="profile-5">
+                                                        <?php
+                                                        $this->render('remarks', [
+                                                            'patient_info' => $patient_info,
+                                                            'form' => $form,
+                                                        ])
+                                                        ?>
+                                                </div>
+                                            
+                                            <div class='col-md-12 col-sm-6 col-xs-12' >
                                                 <div class="form-group" >
                                                         <?php if ($patient_info->isNewRecord) { ?>
                                                                 <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
@@ -76,10 +87,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?php } ?>
                                                 </div>
                                         </div>
+
+                                            </div>
+                                    
+                                    
+                                        
+                                        
+                                    
                                         <?php ActiveForm::end(); ?>
 
-
-
+                                   
 
                                 </div>
                         </div>

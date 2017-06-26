@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="panel-body">
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                               <div class="col-md-6 col-sm-6 col-xs-12">
 
-                    <?= Html::a('<i class="fa-th-list"></i><span> Create City</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
                     GridView::widget([
                         'dataProvider' => $dataProvider,
@@ -63,6 +63,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]);
                     ?>
+                               </div>
+                    
+                    <div class="col-md-6 col-sm-6 col-xs-12 small-forms">
+                        <div class="header-small-forms">
+                            <?php if($model->isNewRecord) { ?>
+                               <h4>Add City</h4>
+                            <?php }  else {?>
+                               <h4>Update City : <?=$model->city_name;?></h4>
+                            <?php } ?>
+                        </div>
+                        
+                        <div class="small-forms-form">
+                                             <?=
+                                                $this->render('_form', [
+                                                    'model' => $model,
+                                                ])
+                                                ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

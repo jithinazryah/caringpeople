@@ -24,6 +24,8 @@ use common\models\FollowupsSearch;
 use yii\web\UploadedFile;
 use common\models\ContactDirectory;
 use common\models\RemarksSearch;
+use common\models\PatientEnquiryHospitalSecond;
+use common\models\PatientEnquiryHospitalDetails;
 
 /**
  * PatientInformationController implements the CRUD actions for PatientInformation model.
@@ -104,6 +106,72 @@ class PatientInformationController extends Controller {
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['type_id' => $id]);
                 return $this->render('remarks', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
+        }
+
+        public function actionProcced($id) {
+
+                $guardian_details = new PatientGuardianDetails();
+                $patient_general = new PatientGeneral();
+                $chronic_imformation = new PatientChronic();
+                $present_condition = new PatientPresentCondition();
+                $bystander_details = new PatientBystanderDetails();
+
+                $enquiry_data = PatientEnquiryGeneralFirst::find()->where(['id' => $id])->one();
+                $enquiry_patient_details = PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $id])->one();
+                $guardian_contact_details = PatientEnquiryGeneralSecond::find()->where(['enquiry_id' => $id])->one();
+                $patient_general = $this->SavePatientDatas($patient_general, $enquiry_patient_details, $enquiry_data, $id);
+                $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $id])->one();
+                $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $id]);
+
+
+                $transaction = PatientGeneral::getDb()->beginTransaction();
+                try {
+                        if ($patient_general->save(false)) {
+                                $enquiry_data->status = 3;
+                                $enquiry_data->patient_id = $patient_general->id;
+                                $enquiry_data->update();
+                                $guardian_details = $this->SaveGuardianDetials($guardian_details, $enquiry_data, $patient_general, $guardian_contact_details);
+                                $guardian_details->save();
+                        }
+                        $chronic_imformation->patient_id = $patient_general->id;
+                        $chronic_imformation->save();
+                        $present_condition->patient_id = $patient_general->id;
+                        $present_condition->save();
+                        $bystander_details->patient_id = $patient_general->id;
+                        $bystander_details->save();
+
+                        if (!empty($guardian_contact_details)) {
+                                $guardian_contact_details->patient_id = $patient_general->id;
+                                $guardian_contact_details->save();
+                        }
+
+                        if (!empty($enquiry_patient_details)) {
+                                $enquiry_patient_details->patient_id = $patient_general->id;
+                                $enquiry_patient_details->save();
+                        }
+                        if (!empty($patient_hospital_second)) {
+                                $patient_hospital_second->patient_id = $patient_general->id;
+                                $patient_hospital_second->save();
+                        }
+
+                        if (!empty($hospital_details)) {
+                                foreach ($hospital_details as $value) {
+                                        $value->patient_id = $patient_general->id;
+                                        $value->save();
+                                }
+                        }
+
+
+                        $transaction->commit();
+                } catch (\Exception $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                } catch (\Throwable $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                }
+
+                return $this->redirect(['update', 'id' => $patient_general->id]);
         }
 
         /**
@@ -199,14 +267,14 @@ class PatientInformationController extends Controller {
          * to save patient and contact person details from enquiry table to patient information table
          */
 
-        public function SavePatientDatas($patient_general, $enquiry_data, $id) {
+        public function SavePatientDatas($patient_general, $enquiry_data, $data, $id) {
                 $patient_general->patient_enquiry_id = $id;
                 $patient_general->first_name = $enquiry_data->required_person_name;
                 $patient_general->gender = $enquiry_data->patient_gender;
                 $patient_general->age = $enquiry_data->patient_age;
                 $patient_general->present_address = $enquiry_data->person_address;
                 $patient_general->pin_code = $enquiry_data->person_postal_code;
-
+                $patient_general->branch_id = $data->branch_id;
                 return $patient_general;
         }
 

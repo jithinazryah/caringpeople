@@ -21,10 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
 
-                        <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top: 10px;']) ?>
-                        <?php if (!$patient_general->isNewRecord) { ?>
-                                <a href="javascript:;" id="2_<?= $patient_general->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
-                        <?php } ?>
+                        <?= Html::a('<i class="fa-th-list"></i><span> Manage Patient</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top: 10px;']) ?>
+                        
                         <?=
                         $this->render('_menus', [
                             'model' => $model,

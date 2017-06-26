@@ -21,7 +21,7 @@ use common\models\StaffExperienceList;
 
         </div>
         <?php
-        if (!$staff_interview_third->isNewRecord) {
+        if (!$staff_interview_third->isNewRecord && $staff_interview_third->staff_experience != '') {
 
                 $staff_interview_third->staff_experience = explode(',', $staff_interview_third->staff_experience);
         }

@@ -43,8 +43,8 @@ class StaffEnquiryInterviewFirst extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['staff_id', 'age', 'height', 'weight', 'smoke_or_drink', 'mentioned_per_day_salary', 'relation', 'terms_conditions'], 'integer'],
-                        [['police_station_name', 'panchayat', 'family_name', 'job', 'mobile_no', 'language_1', 'language_2', 'language_3', 'language_4'], 'string', 'max' => 200],
+                        [['staff_id', 'age', 'height', 'weight', 'smoke_or_drink', 'mentioned_per_day_salary', 'terms_conditions','drink','other'], 'integer'],
+                        [['police_station_name','language_1', 'language_2', 'language_3', 'language_4'], 'string', 'max' => 200],
                         [['muncipality_corporation'], 'string', 'max' => 255],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
                 ];
@@ -60,15 +60,12 @@ class StaffEnquiryInterviewFirst extends \yii\db\ActiveRecord {
                     'age' => 'Age',
                     'height' => 'Height',
                     'weight' => 'Weight',
-                    'smoke_or_drink' => 'Smoke / Drink / Other',
+                    'smoke_or_drink' => 'Smoke',
+                    'drink'=>'Drink',
+                    'other'=>'Other',
                     'police_station_name' => 'Police Station Name',
-                    'panchayat' => 'Panchayat',
-                    'muncipality_corporation' => 'Muncipality / Corporation',
+                    'muncipality_corporation' => 'Panchayat / Muncipality / Corporation',
                     'mentioned_per_day_salary' => 'Mentioned Per Day Salary',
-                    'family_name' => 'Name',
-                    'relation' => 'Relationship',
-                    'job' => 'Job',
-                    'mobile_no' => 'Mobile No',
                     'terms_conditions' => 'I agree to the terms and conditions',
                     'language_1' => 'Language 1',
                     'language_2' => 'Language 2',

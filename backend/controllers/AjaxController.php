@@ -175,26 +175,26 @@ class AjaxController extends \yii\web\Controller {
 
                         $data = "<span>
 <hr style='border-top: 1px solid #979898 !important;'>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-hospital_name'>
                                         <label class='control-label'>Hospital Name</label>
                                         $options
                                 </div>
                         </div>
 
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-consultant_doctor'>
                                         <label class='control-label' for=''>Consultant Doctor</label>
                                         <input type='text' class='form-control' name='create[consultant_doctor][]'>
                                 </div>
                         </div>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-department'>
                                         <label class='control-label'>Department</label>
                                         <input type='text' class='form-control' name='create[department][]'>
                                 </div>
                         </div>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-hospital_room_no'>
                                         <label class='control-label' >Hospital Room No</label>
                                         <input type='text' class='form-control' name='create[hospital_room_no][]'>

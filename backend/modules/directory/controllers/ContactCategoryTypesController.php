@@ -35,10 +35,16 @@ class ContactCategoryTypesController extends Controller {
 	public function actionIndex() {
 		$searchModel = new ContactCategoryTypesSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $model = new ContactCategoryTypes();
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['index']);
+		} 
 
 		return $this->render('index', [
 			    'searchModel' => $searchModel,
 			    'dataProvider' => $dataProvider,
+                            'model' => $model,
 		]);
 	}
 
@@ -78,13 +84,17 @@ class ContactCategoryTypesController extends Controller {
 	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
+                $searchModel = new ContactCategoryTypesSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['index']);
 		} else {
-			return $this->render('update', [
-				    'model' => $model,
-			]);
+			return $this->render('index', [
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+                            'model' => $model,
+		]);
 		}
 	}
 

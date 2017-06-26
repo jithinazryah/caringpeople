@@ -32,8 +32,8 @@ class AppAsset extends AssetBundle {
             'js/xenon-api.js',
             'js/xenon-toggles.js',
             'js/xenon-widgets.js',
-            'js/devexpress-web-14.1/js/globalize.min.js',
-            'js/devexpress-web-14.1/js/dx.chartjs.js',
+            //'js/devexpress-web-14.1/js/globalize.min.js',
+            // 'js/devexpress-web-14.1/js/dx.chartjs.js',
             'js/toastr/toastr.min.js',
             'js/xenon-custom.js',
             'js/script.js',
@@ -41,6 +41,8 @@ class AppAsset extends AssetBundle {
             'js/enquiry.js',
             'js/followup.js',
             'js/select2/select2.min.js',
+            'js/add-to-dropdown.js',
+            
         ];
         public $depends = [
             'yii\web\YiiAsset',

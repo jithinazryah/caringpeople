@@ -12,12 +12,18 @@ use common\models\StaffExperienceList;
 ?>
 
 <div class="staff-other-info-form form-inline">
+    
+    
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'police_station_name')->textInput(['maxlength' => true]) ?>
+      
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'panchayat')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'police_station_name')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'muncipality_corporation')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_1')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'muncipality_corporation')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_2')->textInput(['maxlength' => true]) ?>
 
         </div>
         <?php
@@ -26,19 +32,23 @@ use common\models\StaffExperienceList;
                 $staff_interview_third->staff_experience = explode(',', $staff_interview_third->staff_experience);
         }
         ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'style' => 'height: 110px;']) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple','id'=>'skills']) ?>
 
         </div>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'smoke_or_drink', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'smoke_or_drink', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+
+        </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'drink', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+
+        </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'other', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
 
         </div><div style="clear: both">
 
         </div>
 
 
-        <h3 style="color:#148eaf;">Languages Known</h3>
+        <h4 style="color:#000;font-style: italic;">Languages Known</h4>
         <hr class="enquiry-hr"/>
 
         <div class="row languages">
@@ -206,12 +216,12 @@ use common\models\StaffExperienceList;
 
 
 
-        <h3 style="color:#148eaf;">Previous Employer</h3>
+        <h4 style="color:#000;font-style: italic;">Previous Employer</h4>
         <hr class="enquiry-hr"/>
 
 
 
-        <div id="p_scents">
+        <div id="p_scents_1">
                 <input type="hidden" id="delete_port_vals"  name="delete_port_vals" value="">
 
 
@@ -221,40 +231,40 @@ use common\models\StaffExperienceList;
                         foreach ($staff_previous_employer as $data) {
                                 ?>
                                 <span>
-                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-hospital_address">
                                                         <label class="control-label">Hospital Address</label>
                                                         <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][hospitaladdress][]" value="<?= $data->hospital_address; ?>" required>
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-designation">
                                                         <label class="control-label" for="">Designation</label>
                                                         <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][designation][]" value="<?= $data->designation; ?>" required>
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-length_of_service">
                                                         <label class="control-label" >Length of service</label>
                                                         <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][length][]" value="<?= $data->length_of_service; ?>" required>
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-service_from">
                                                         <label class="control-label" >From</label>
                                                         <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][from][]" value="<?= $data->service_from; ?>" required>
                                                 </div>
                                         </div>
-                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-service_to">
                                                         <label class="control-label" >To</label>
                                                         <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][to][]" value="<?= $data->service_to; ?>" required>
                                                 </div>
                                         </div>
-                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-1 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-salary">
                                                         <label class="control-label" >Salary</label>
                                                         <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][salary][]" value="<?= $data->salary; ?>" required>
@@ -272,37 +282,37 @@ use common\models\StaffExperienceList;
                 ?>
 
                 <span>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-hospital_address">
                                         <label class="control-label">Hospital Address</label>
                                         <input type="text" class="form-control" name="create[hospitaladdress][]">
                                 </div>
                         </div>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Designation</label>
                                         <input type="text" class="form-control" name="create[designation][]">
                                 </div>
                         </div>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-length_of_service">
                                         <label class="control-label" >Length of service</label>
                                         <input type="text" class="form-control" name="create[length][]">
                                 </div>
                         </div>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-service_from">
                                         <label class="control-label" >From</label>
                                         <input type="date" class="form-control" name="create[from][]">
                                 </div>
                         </div>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-service_to">
                                         <label class="control-label" >To</label>
                                         <input type="date" class="form-control" name="create[to][]">
                                 </div>
                         </div>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-salary">
                                         <label class="control-label" >Salary</label>
                                         <input type="text" class="form-control" name="create[salary][]">
@@ -317,32 +327,38 @@ use common\models\StaffExperienceList;
 
         <div class="row">
                 <div class="col-md-6">
-                        <a id="addScnt" class="btn btn-blue btn-icon btn-icon-standalone addScnt" ><i class="fa-plus"></i><span> Add More</span></a>
+                        <a id="addScnt_1" class="btn btn-blue btn-icon btn-icon-standalone addScnt_1" ><i class="fa-plus"></i><span> Add More Employer Details</span></a>
                 </div>
         </div>
 
         <hr style="border-top: 1px solid #979898 !important;">
 
-        <h3 style="color:#148eaf;">Emergency Contact</h3>
+        <h4 style="color:#000;font-style: italic;">Emergency Contact</h4>
         <hr class="enquiry-hr"/>
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'emergency_contact_name')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'relationship')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'relationship')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'mobile')->textInput(['maxlength' => true,]) ?>
 
-        </div><div style="clear: both;">
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'contact_verified_by')->textInput(['maxlength' => true,]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_emergency_contact_name')->textInput(['maxlength' => true]) ?>
+        </div>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_relationship')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_emergency_contact_name')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_phone')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_relationship')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_mobile')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_phone')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_mobile')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_mobile')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'alt_contact_verified_by')->textInput(['maxlength' => true,]) ?>
 
         </div>
 

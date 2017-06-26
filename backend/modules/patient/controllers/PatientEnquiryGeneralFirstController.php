@@ -94,6 +94,8 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_info_second = new PatientEnquiryGeneralSecond();
                 $patient_hospital = new PatientEnquiryHospitalFirst();
                 $patient_hospital_second = new PatientEnquiryHospitalSecond();
+                $followups=new Followups();
+              //  $remarks=new Remarks();
                 $patient_info->scenario = 'create';
                 $hospital_details = '';
 
@@ -173,13 +175,14 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                                 $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
                                                 $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
 
-                                                //Yii::$app->History->UpdateHistory('patient-enquiry', $patient_info->id, 'update');
-                                                Yii::$app->getSession()->setFlash('success', 'Enquiry Updated Successfully');
-                                                if (isset($_POST['patinet_info'])) {
 
-                                                        return $this->AddPatientInformation($id);
+
+                                                if (isset($_POST['patinet_info'])) {
+                                                        return $this->redirect(['patient-information/procced/', 'id' => $id]);
+                                                } else {
+                                                        Yii::$app->getSession()->setFlash('success', 'Updated Successfully');
+                                                        return $this->redirect(array('index'));
                                                 }
-                                                return $this->redirect(array('index'));
                                         }
                                 }
                         }

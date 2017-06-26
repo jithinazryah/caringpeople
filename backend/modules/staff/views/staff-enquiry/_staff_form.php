@@ -25,11 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
 
-                                <?php if (!$staff_enquiry->isNewRecord) { ?>
-                                        <a href="javascript:;" id="3_<?= $staff_enquiry->id; ?>"  class="btn btn-primary btn-single btn-sm Addfollowup" style="height: 36px;padding: 8px;">Add Followups</a>
-
-
-                                <?php } ?>
 
                                 <?=
                                 $this->render('_menus', [
@@ -63,19 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 </div>
 
-                                                <div class="tab-pane" id="home-2">
-                                                        <?=
-                                                        $this->render('_staff_enquiry_interview_1', [
-                                                            'model' => $other_info,
-                                                            'staff_previous_employer' => $staff_previous_employer,
-                                                            'staff_interview_first' => $staff_interview_first,
-                                                            'staff_interview_second' => $staff_interview_second,
-                                                            'staff_interview_third' => $staff_interview_third,
-                                                            'staff_family' => $staff_family,
-                                                            'form' => $form,
-                                                        ])
-                                                        ?>
-                                                </div>
+
 
 
                                                 <div class="tab-pane" id="profile-3">

@@ -389,4 +389,17 @@ $("document").ready(function () {
                         $("#patientgeneral-email").val('');
                 }
         });
+
+        $("#patientenquirygeneralsecond-required_service").select2({
+                placeholder: 'Choose Services',
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+        
+        /////////////////////////------------------  ---------------------/////////////////////////
+        
+        
+        
 });

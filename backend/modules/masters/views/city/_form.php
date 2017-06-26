@@ -21,10 +21,10 @@ use common\models\State;
     ?>
 
     <div class='col-md-4 col-sm-6 col-xs-12'>
-        <?= $form->field($model, 'country_id')->dropDownList($country, ['prompt' => '-Choose Country-', 'class' => 'form-control country-change']) ?>
+        <?= $form->field($model, 'country_id')->dropDownList($country, ['prompt' => '-Select-', 'class' => 'form-control country-change']) ?>
     </div>
     <div class='col-md-4 col-sm-6 col-xs-12'>
-        <?= $form->field($model, 'state_id')->dropDownList($State, ['prompt' => '-Choose State-', 'class' => 'form-control state-change no-city']) ?>
+        <?= $form->field($model, 'state_id')->dropDownList($State, ['prompt' => '-Select-', 'class' => 'form-control state-change no-city']) ?>
     </div>
     <div class='col-md-4 col-sm-6 col-xs-12'>
         <?= $form->field($model, 'city_name')->textInput(['maxlength' => true]) ?>

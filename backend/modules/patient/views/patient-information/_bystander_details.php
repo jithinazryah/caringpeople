@@ -18,7 +18,7 @@ use yii\helpers\Html;
             }
             ?>
 
-            <?= $form->field($model, 'service_need_for')->dropDownList(['1' => 'Home', '2' => 'Hospital'], ['multiple' => 'multiple', 'style' => 'height:58px !important']) ?>
+            <?= $form->field($model, 'service_need_for')->dropDownList(['1' => 'Home', '2' => 'Hospital'], ['multiple' => 'multiple', 'style' => 'height:40px !important']) ?>
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'hospital_name')->textInput(['maxlength' => true]) ?>
@@ -27,9 +27,9 @@ use yii\helpers\Html;
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'consulting_doctor')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'no_of_days')->textInput() ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'no_of_days')->textInput() ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'mode')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'mode')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
 

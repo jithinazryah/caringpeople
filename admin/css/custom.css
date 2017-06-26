@@ -85,8 +85,9 @@ table.table tr td:last-child a {
         border: 1px solid #eaeaea;
 }
 .form-control {
-        border: 1px solid #eaeaea;
+        border: none;
         color: black;
+        border-bottom: 1px solid #ddd;
 }
 .form-control{
         width: 100% !important;
@@ -207,7 +208,7 @@ table.table tr td:last-child a {
         margin-top: 5px !important;
         margin-bottom: 30px !important;
         border: 0;
-        border-top: 2px solid #979898 !important;
+        border-top: 1px solid #eee !important;
 }
 .tab_data_margin{
         margin-left: 28px;
@@ -299,3 +300,32 @@ table.table tr td:last-child a {
 .nav-tabs .span-font-size{
         margin-left: 5px;
 }
+input:focus,select:focus,textarea:focus {
+        border-bottom: 1px solid #337ab7 !important;
+}
+
+.small-forms{
+    border: 1px solid rgba(133, 127, 127, 0.05);
+}
+.small-forms .header-small-forms{
+    color: #555;
+    padding: 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+}
+.small-forms .header-small-forms h4{
+    margin: 0;
+    font-size: 18px;
+    font-weight: normal;
+    color: #111;
+}
+.small-forms .small-forms-form{
+    padding: 20px;
+}
+.staff-salary .form-group{
+    min-height: 30px;
+}
+.staff-salary .form-control{
+    border: none;
+}
+

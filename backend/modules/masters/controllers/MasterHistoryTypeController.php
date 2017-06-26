@@ -37,11 +37,17 @@ class MasterHistoryTypeController extends Controller
     {
         $searchModel = new MasterHistoryTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new MasterHistoryType();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+                            'model' => $model,
+		]);
     }
 
     /**
@@ -83,13 +89,17 @@ class MasterHistoryTypeController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $searchModel = new MasterHistoryTypeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->render('index', [
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+                            'model' => $model,
+		]);
         }
     }
 

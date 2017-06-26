@@ -18,72 +18,72 @@ use common\models\Branch;
 
 
         <div class="row">
-                <h2 style="color:#148eaf;">Guardian Details</h2>
+                <h4 style="color:#000;font-style: italic;">Guardian Details</h4>
                 <hr class="enquiry-hr"/>
 
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'id_card_or_passport_no')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'id_card_or_passport_no')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
 
                         <?php $religion = Religion::find()->where(['status' => '1'])->orderBy(['religion' => SORT_ASC])->all(); ?>
                         <?= $form->field($model, 'religion')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?php $nationality = Nationality::find()->where(['status' => '1'])->orderBy(['nationality' => SORT_ASC])->all(); ?>
                         <?= $form->field($model, 'nationality')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'occupatiion')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'occupatiion')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'permanent_address')->textarea(['rows' => 6]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'permanent_address')->textarea(['rows' => 1]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'pincode')->textInput() ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'pincode')->textInput() ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'landmark')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'landmark')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_number')->textInput() ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_number')->textInput() ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'adhar_card_no')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'adhar_card_no')->textInput(['maxlength' => true]) ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'passport')->fileInput() ?>
 
                 </div>
-                <!--		<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <!--		<div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                 <?= $form->field($model, 'driving_license')->fileInput() ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                 <?= $form->field($model, 'pan_card')->fileInput() ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                 <?= $form->field($model, 'voters_id')->fileInput() ?>
 
                                 </div>-->
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'guardian_profile_image')->fileInput() ?>
 
 
@@ -126,7 +126,7 @@ use common\models\Branch;
                 </div>
 
         </div>
-        <h2 style="color:#148eaf;">Patients Details</h2>
+        <h4 style="color:#000;font-style: italic;">Patients Details</h4>
         <hr class="enquiry-hr"/>
 
         <div class="row">
@@ -137,18 +137,18 @@ use common\models\Branch;
 
 
 
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($patient_general, 'patient_id')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($patient_general, 'patient_old_id')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'first_name')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'first_name')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'last_name')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'last_name')->textInput(['maxlength' => true]) ?>
 
                 </div>
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>     <?= $form->field($patient_general, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
@@ -157,7 +157,7 @@ use common\models\Branch;
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'age')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?php
                         if (!$patient_general->isNewRecord) {
                                 $patient_general->dob = date('d-m-Y', strtotime($patient_general->dob));
@@ -177,29 +177,29 @@ use common\models\Branch;
                         ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'weight')->textInput() ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'weight')->textInput() ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'blood_group')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'blood_group')->textInput(['maxlength' => true]) ?>
 
                 </div>
 
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'present_address')->textarea(['rows' => 6]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'present_address')->textarea(['rows' => 1]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'pin_code')->textInput() ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'pin_code')->textInput() ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'landmark')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'landmark')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'contact_number')->textInput() ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'contact_number')->textInput() ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'email')->textInput(['maxlength' => true]) ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'email')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($patient_general, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Closed', '3' => 'Pending', '4' => 'Deceased']) ?>
 
                 </div>
@@ -208,13 +208,13 @@ use common\models\Branch;
                 if (Yii::$app->user->identity->branch_id == '0') {
                         $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
                         ?>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
                         </div>
                 <?php } ?>
 
 
 
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($patient_general, 'patient_image')->fileInput() ?>
 
                 </div>

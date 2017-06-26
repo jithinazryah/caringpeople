@@ -20,7 +20,7 @@ use common\models\Country;
 
     <div class='col-md-4 col-sm-6 col-xs-12'>
 
-        <?= $form->field($model, 'country_id')->dropDownList($country, ['prompt' => '-Choose Country-']) ?>
+        <?= $form->field($model, 'country_id')->dropDownList($country, ['prompt' => '-Select-']) ?>
 
     </div>
     <div class='col-md-4 col-sm-6 col-xs-12'>

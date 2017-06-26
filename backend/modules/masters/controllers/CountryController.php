@@ -43,10 +43,16 @@ class CountryController extends Controller {
 	public function actionIndex() {
 		$searchModel = new CountrySearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $model = new Country();
+                
+		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+			return $this->redirect(['index']);
+		}
 
 		return $this->render('index', [
 			    'searchModel' => $searchModel,
 			    'dataProvider' => $dataProvider,
+                            'model' => $model,
 		]);
 	}
 
@@ -86,13 +92,17 @@ class CountryController extends Controller {
 	 */
 	public function actionUpdate($id) {
 		$model = $this->findModel($id);
+                $searchModel = new CountrySearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 		if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
 			return $this->redirect(['index']);
 		} else {
-			return $this->render('update', [
-				    'model' => $model,
-			]);
+			return $this->render('index', [
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+                            'model' => $model,
+		]);
 		}
 	}
 
