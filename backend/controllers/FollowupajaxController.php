@@ -23,18 +23,6 @@ class FollowupajaxController extends \yii\web\Controller {
                 return $this->render('index');
         }
 
-        public function actionAddfollowup1() {
-                if (Yii::$app->request->isAjax) {
-
-                        $followups = new \common\models\RepeatedFollowups();
-                        if ($followups->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($followups) && $followups->save(false)) {
-
-                                $file = UploadedFile::getInstance($followups, 'attachments');
-                                $this->upload($followups, $file, $followups->id, 1);
-                        }
-                }
-        }
-
         public function actionAddfollowup() {
                 if (Yii::$app->request->isAjax) {
 
@@ -42,7 +30,7 @@ class FollowupajaxController extends \yii\web\Controller {
                         if (isset($_POST['RepeatedFollowups']['related_staffs']) && $_POST['RepeatedFollowups']['related_staffs'] != '')
                                 $followups->related_staffs = implode(',', $_POST['RepeatedFollowups']['related_staffs']);
 
-                        if ($followups->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($followups)) {
+                        if ($followups->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($followups) && $followups->validate()) {
 
                                 $file = UploadedFile::getInstance($followups, 'attachments');
 

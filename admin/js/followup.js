@@ -55,7 +55,10 @@ $("document").ready(function () {
                         async: false,
                         success: function (data) {
                                 if (data) {
+                                        alert(data);
                                         $('#add-followup')[0].reset();
+                                        $("#create-assigned_to").select2("val", "");
+                                        $("#create-related_staffs").select2("val", "");
                                         var res = $.parseJSON(data);
                                         $('.followups-table table').append('<tr id="' + res.result[7] + '"><td>' + res.result[0] + '</td>\n\
                                                                   <td>' + res.result[1] + '</td>\n\

@@ -293,3 +293,9 @@ use common\models\Branch;
 
 </div>
 
+<div class='col-md-12 col-sm-6 col-xs-12' >
+        <div class="form-group" >
+                <?= Html::submitButton($patient_general->isNewRecord ? 'Create' : 'Update', ['class' => $patient_general->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
+
+        </div>
+</div>

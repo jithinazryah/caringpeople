@@ -42,8 +42,8 @@ class RepeatedFollowups extends \yii\db\ActiveRecord {
                         [['type', 'sub_type', 'type_id', 'assigned_to', 'repeated_type', 'status', 'CB', 'UB', 'releated_notification_patient', 'repeated_days', 'repeated'], 'integer'],
                         [['followup_date', 'DOC', 'DOU'], 'safe'],
                         [['followup_notes'], 'string'],
-                        [['status'], 'required'],
-                        [['attachments'], 'string', 'max' => 200],
+                    //   [['status'], 'required'],
+                    [['attachments'], 'string', 'max' => 200],
                         [['assigned_to',], 'required'],
                 ];
         }
