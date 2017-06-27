@@ -58,6 +58,7 @@ $("document").ready(function () {
                         type: "POST",
                         data: remarks,
                         success: function (data) {
+
                                 $('#add-remarks')[0].reset();
                                 var res = $.parseJSON(data);
                                 $('.remarks-table table').append('<tr id="' + res.result[5] + '"><td>' + res.result[0] + '</td>\n\

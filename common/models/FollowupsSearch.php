@@ -18,7 +18,7 @@ class FollowupsSearch extends Followups {
         public function rules() {
                 return [
                         [['id', 'type', 'type_id', 'assigned_to', 'assigned_from', 'related_staffs'], 'integer'],
-                        [['followup_date', 'followup_notes', 'DOC', 'related_staffs', 'assigned_to'], 'safe'],
+                        [['followup_date', 'followup_notes', 'DOC', 'related_staffs', 'assigned_to', 'sub_type', 'status'], 'safe'],
                 ];
         }
 

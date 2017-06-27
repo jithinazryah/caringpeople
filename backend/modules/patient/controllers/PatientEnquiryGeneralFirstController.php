@@ -20,6 +20,7 @@ use common\models\Branch;
 use common\models\ContactDirectory;
 use common\models\Remarks;
 use common\models\RemarksSearch;
+use yii\web\UploadedFile;
 
 /**
  * PatientEnquiryGeneralFirstController implements the CRUD actions for PatientEnquiryGeneralFirst model.
@@ -164,6 +165,9 @@ class PatientEnquiryGeneralFirstController extends Controller {
 
                 /* for adding followups */
                 $followups = new \common\models\RepeatedFollowups();
+                $searchModel1 = new FollowupsSearch();
+                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
+                $dataProvider1->query->andWhere(['type_id' => $id, 'type' => 1]);
 
 
 
@@ -205,7 +209,9 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                     'remarks' => $remarks,
                                     'searchModel' => $searchModel,
                                     'dataProvider' => $dataProvider,
-                                    'followups' => $followups
+                                    'followups' => $followups,
+                                    'searchModel1' => $searchModel1,
+                                    'dataProvider1' => $dataProvider1,
                         ]);
                 } else {
                         throw new \yii\base\UserException("Error Code : 2000");

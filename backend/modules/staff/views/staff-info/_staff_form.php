@@ -58,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 <?= Yii::$app->session->getFlash('success') ?>
                                                                         </div>
                                                                 <?php endif; ?>
+                                                                <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                                                                 <?=
                                                                 $this->render('_form', [
                                                                     'model' => $model,
@@ -78,6 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     'staff_interview_second' => $staff_interview_second,
                                                                 ])
                                                                 ?>
+
                                                         </div>
 
                                                         <div class="tab-pane" id="profile-4">
@@ -94,8 +96,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 ])
                                                                 ?>
                                                         </div>
-                                            
-                                            <div class="tab-pane" id="profile-5">
+
+                                                        <div class="tab-pane" id="profile-5">
 
                                                                 <?=
                                                                 $this->render('salary_details', [
@@ -108,7 +110,43 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     'form' => $form,
                                                                 ])
                                                                 ?>
+                                                                <?php ActiveForm::end(); ?>
                                                         </div>
+
+                                                        <?php if (!$model->isNewRecord) { ?>
+                                                                <div class="tab-pane" id="profile-12">
+                                                                        <?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
+                                                                        <?=
+                                                                        $this->render('remarks', [
+                                                                            'patient_info' => $model,
+                                                                            'form_remark' => $form_remark,
+                                                                            'remarks' => $remarks,
+                                                                            'searchModel' => $searchModel,
+                                                                            'dataProvider' => $dataProvider,
+                                                                        ])
+                                                                        ?>
+                                                                        <?php ActiveForm::end(); ?>
+                                                                </div>
+
+                                                                <div class="tab-pane" id="profile-13">
+
+                                                                        <?php
+                                                                        $form_followup = ActiveForm::begin(['id' => 'add-followup', 'options' => ['enctype' => 'multipart/form-data']]);
+                                                                        ?>
+                                                                        <?=
+                                                                        $this->render('followups', [
+                                                                            'patient_info' => $model,
+                                                                            'form_followup' => $form_followup,
+                                                                            'followups' => $followups,
+                                                                            'searchModel' => $searchModel1,
+                                                                            'dataProvider' => $dataProvider1,
+                                                                        ])
+                                                                        ?>
+                                                                        <?php ActiveForm::end(); ?>
+
+                                                                </div>
+
+                                                        <?php } ?>
 
                                                 <?php } else { ?>
                                                         <div class="tab-pane active" id="home-3">
@@ -134,12 +172,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <?php } ?>
 
                                         </div>
-                                        <div class='col-md-12 col-sm-6 col-xs-12' >
-                                                <div class="form-group" >
-                                                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:123px;margin-left:12px;', 'id' => 'form_button']) ?>
 
-                                                </div>
-                                        </div>
 
 
 

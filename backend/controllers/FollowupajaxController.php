@@ -8,7 +8,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use common\models\Enquiry;
+use common\models\RepeatedFollowups;
 use common\models\Followups;
 use common\models\FollowupType;
 use common\models\Hospital;
@@ -23,53 +23,113 @@ class FollowupajaxController extends \yii\web\Controller {
                 return $this->render('index');
         }
 
+        public function actionAddfollowup1() {
+                if (Yii::$app->request->isAjax) {
+
+                        $followups = new \common\models\RepeatedFollowups();
+                        if ($followups->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($followups) && $followups->save(false)) {
+
+                                $file = UploadedFile::getInstance($followups, 'attachments');
+                                $this->upload($followups, $file, $followups->id, 1);
+                        }
+                }
+        }
+
         public function actionAddfollowup() {
                 if (Yii::$app->request->isAjax) {
 
+                        $followups = new \common\models\RepeatedFollowups();
+                        if (isset($_POST['RepeatedFollowups']['related_staffs']) && $_POST['RepeatedFollowups']['related_staffs'] != '')
+                                $followups->related_staffs = implode(',', $_POST['RepeatedFollowups']['related_staffs']);
 
+                        if ($followups->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($followups)) {
 
-                        $repeated = $_POST['RepeatedFollowups']['repeated'];
-                        if ($repeated == 0) {
-                                $followups = new Followups();
-                                $this->Adddata($followups);
-                                $followups->save(false);
-                        } else {
-                                if ($_POST['RepeatedFollowups']['repeated_type'] != 1) {
-                                        $followups = new \common\models\RepeatedFollowups();
-                                        $this->Adddata($followups);
-                                        $followups->repeated_type = $_POST['RepeatedFollowups']['repeated_type'];
-                                        if ($_POST['create']['specific-days'] != '' || $_POST['create']['specific-dates-month'] != '') {
-                                                if ($followups->repeated_type == 2) {
-                                                        $followups->repeated_days = implode(',', $_POST['create']['specific-days']);
-                                                } else if ($followups->repeated_type == 3) {
-                                                        $followups->repeated_days = implode(',', $_POST['create']['specific-dates-month']);
-                                                }
-                                                $followups->save(false);
-                                        }
+                                $file = UploadedFile::getInstance($followups, 'attachments');
+
+                                if ($followups->repeated == 0) {
+                                        $followups_one = new Followups();
+                                        $this->Adddata($followups_one, $followups);
+                                        $followups_one->save(false);
+                                        $this->upload($followups_one, $file, $followups_one->id, 1);
+                                        $content = $this->Showdata($followups_one);
                                 } else {
-                                        foreach ($_POST['date']['remind_days1'] as $val) {
-                                                if ($val != '') {
-                                                        $followups_add = new Followups();
-                                                        $this->Adddata($followups_add);
-                                                        $followups_add->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val)));
-                                                        $followups_add->save(false);
+                                        if ($followups->repeated_type != 1) {
+                                                if ($_POST['create']['specific-days'] != '' || $_POST['create']['specific-dates-month'] != '') {
+                                                        if ($followups->repeated_type == 2) {
+                                                                $followups->repeated_days = implode(',', $_POST['create']['specific-days']);
+                                                        } else if ($followups->repeated_type == 3) {
+                                                                $followups->repeated_days = implode(',', $_POST['create']['specific-dates-month']);
+                                                        }
+                                                        $followups->save(false);
+                                                        $this->upload($followups, $file, $followups->id, 2);
+                                                }
+                                        } else {
+                                                foreach ($_POST['date']['remind_days1'] as $val) {
+                                                        if ($val != '') {
+                                                                $followups_add = new Followups();
+                                                                $this->Adddata($followups_add, $followups);
+                                                                $followups_add->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val)));
+                                                                $followups_add->save(false);
+                                                                $this->upload($followups_add, $file, $followups_add->id, 1);
+                                                        }
                                                 }
                                         }
+                                }
+                                if (!empty($content)) {
+                                        $data['result'] = $content;
+                                        echo json_encode($data);
                                 }
                         }
                 }
         }
 
-        public function Adddata($followups) {
-
-                $followups->type = $_POST['RepeatedFollowups']['type'];
-                $followups->type_id = $_POST['RepeatedFollowups']['type_id'];
-                $followups->followup_date = date('Y-m-d H:i:s', strtotime($_POST['Followups']['followup_date']));
-                $followups->followup_notes = $_POST['RepeatedFollowups']['followup_notes'];
-                $followups->assigned_to = $_POST['RepeatedFollowups']['assigned_to'];
-                $followups->assigned_from = Yii::$app->user->identity->id;
+        public function Adddata($followups_one, $followups) {
+                $followups_one->type = $followups->type;
+                $followups_one->type_id = $followups->type_id;
+                $followups_one->followup_date = date('Y-m-d H:i:s', strtotime($_POST['Followups']['followup_date']));
+                $followups_one->followup_notes = $followups->followup_notes;
+                $followups_one->assigned_to = $followups->assigned_to;
+                $followups_one->assigned_from = Yii::$app->user->identity->id;
                 if (isset($_POST['RepeatedFollowups']['related_staffs']) && $_POST['RepeatedFollowups']['related_staffs'] != '')
-                        $followups->related_staffs = $_POST['RepeatedFollowups']['related_staffs'];
+                        $followups_one->related_staffs = implode(',', $_POST['RepeatedFollowups']['related_staffs']);
+        }
+
+        public function Showdata($followup) {
+
+                $followup = Followups::findOne($followup->id);
+                $count = Followups::find()->where(['type' => $followup->type, 'type_id' => $followup->type_id, 'status' => 0])->count();
+                $subtype = FollowupSubType::findOne($followup->sub_type);
+                $assigned_to = StaffInfo::findOne($followup->assigned_to);
+                $assigned_from = StaffInfo::findOne($followup->assigned_from);
+                if (isset($followup->related_staffs) && $followup > related_staffs != '') {
+                        $related_staffs = explode(',', $followup->related_staffs);
+                        $relatedstaffs = '';
+                        $i = 0;
+                        if (!empty($related_staffs)) {
+                                foreach ($related_staffs as $related) {
+                                        if ($i != 0) {
+                                                $relatedstaffs .= ',';
+                                        }
+                                        $staff_name = StaffInfo::findOne($related);
+                                        $relatedstaffs .= $staff_name->staff_name;
+                                        $i++;
+                                }
+                        }
+                }
+                $arr_variable = array($count + 1, $subtype->sub_type, $followup->followup_date, $followup->followup_notes, $assigned_to->staff_name, $assigned_from->staff_name, $relatedstaffs, $followup->id);
+                return $arr_variable;
+        }
+
+        public function Upload($model, $image, $id, $type) {
+                if (isset($image->name) && $image->name != '') {
+                        if ($type == '1')
+                                $paths = ['followups', $id];
+                        else
+                                $paths = ['followups', 'repeated', $id];
+
+                        $paths = Yii::$app->UploadFile->CheckPath($paths);
+                        $image->saveAs($paths . '/' . $image->name . '.' . $image->extension);
+                }
         }
 
         /*

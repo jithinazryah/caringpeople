@@ -71,7 +71,7 @@ class PatientEnquiryGeneralSecond extends \yii\db\ActiveRecord {
                     'service_required' => 'Service Required',
                     'service_required_other' => 'Service Required Other',
                     'expected_date_of_service' => 'Expected Date Of Service',
-                    'how_long_service_required' => 'How Long Service Required',
+                    'how_long_service_required' => 'Estimated Duration',
                     'visit_type' => 'Visit Type',
                     'quotation_details' => 'Quotation Details',
                     'notes' => 'Notes',

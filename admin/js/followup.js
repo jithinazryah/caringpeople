@@ -16,8 +16,6 @@ $("document").ready(function () {
         {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
-
-
         $("#create-assigned_to").select2({
                 placeholder: '--Select--',
                 allowClear: true
@@ -25,9 +23,6 @@ $("document").ready(function () {
         {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
-
-
-
         /*
          * followup notes update
          */
@@ -46,57 +41,63 @@ $("document").ready(function () {
                         }
                 });
         });
-
         /*
          * when submitting followup
          */
-        $(document).on('submit', '#add-followup', function (e) {
-                var followups = $(this).serialize();
+        $("form#add-followup").submit(function () {
+
+                var formData = new FormData($(this)[0]);
                 $.ajax({
 
                         url: homeUrl + 'followupajax/addfollowup',
-                        type: "POST",
-                        data: followups,
+                        type: 'POST',
+                        data: formData,
+                        async: false,
                         success: function (data) {
-                                alert(data);
-                        }
+                                if (data) {
+                                        $('#add-followup')[0].reset();
+                                        var res = $.parseJSON(data);
+                                        $('.followups-table table').append('<tr id="' + res.result[7] + '"><td>' + res.result[0] + '</td>\n\
+                                                                  <td>' + res.result[1] + '</td>\n\
+                                                                  <td>' + res.result[2] + '</td>\n\
+                                                                  <td>' + res.result[3] + '</td>\n\
+                                                                  <td>' + res.result[4] + '</td>\n\
+                                                                  <td>' + res.result[5] + '</td>\n\
+                                                                  <td>' + res.result[6] + '</td>\n\
+                                                                  <td>Active</td>\n\
+                                                                  <td><input type="checkbox" class="iswitch iswitch-secondary followup-status" id="' + res.result[7] + '"></td></tr>');
+
+                                }
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
                 });
-                e.preventDefault();
 
+                return false;
         });
-
-
-
 
         /*
          * to change the status of followup (change status to closed)
          */
 
-        $('.followup_closed').change(function () {
-                if ($(this).attr('id') == '') {
-                        var type = '1';
-                } else {
-                        var type = '2';
-                }
-                var followup_id = $(this).val();
+
+        $(document).on('click', '.followup-status', function (e) {
+
+                var followup_id = $(this).attr('id');
+                var type = '1';
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {followup_id: followup_id, type: type},
+                        data: {followup_id: $(this).attr('id'), type: type},
                         url: homeUrl + 'followupajax/followupstatus',
                         success: function (data) {
-                                $('.' + followup_id).hide(1000);
+
+                                $('#3').remove();
+                                //  $('.remarks-table table tr#' + remark).remove();
                         }
                 });
         });
-
-
-
-
-
-
-
-
         /*
          * Followup subtype on followup type chanf
          */
@@ -116,7 +117,6 @@ $("document").ready(function () {
                         }
                 });
         });
-
         /*
          * delete attachment
          */
@@ -124,7 +124,6 @@ $("document").ready(function () {
         $('.followup-attach-remove').on('click', function (e) {
                 var data = $(this).attr('id');
                 var datas = data.split("-");
-
                 $.ajax({
                         type: 'POST',
                         cache: false,
@@ -135,8 +134,6 @@ $("document").ready(function () {
                         }
                 });
         });
-
-
         /*
          * if repetaed followup is checked hide Add more followups
          */
@@ -153,9 +150,6 @@ $("document").ready(function () {
                         $('.option2').hide();
                 }
         });
-
-
-
         $('#repeated-option').change(function () {
 
                 if ($(this).val() == '1') {
@@ -176,10 +170,6 @@ $("document").ready(function () {
                         $('.option2').hide();
                 }
         });
-
-
-
-
         $('.add-items').click(function () {
                 var n = $('.text-items').length + 1;
                 var box_html = $('<div class="col-md-3 col-sm-6 col-xs-12 left_padd text-items"><div class="form-group field-followups-date"><label class="control-label " for="reminder-remind_days">Select Date</label><input type="datetime-local" id="reminder-remind_days' + n + '" class="form-control remind_days1" name="date[remind_days1][]"></div></div>');
@@ -188,8 +178,6 @@ $("document").ready(function () {
                 box_html.fadeIn('slow');
                 return false;
         });
-
-
         $("#specific-days").select2({
                 placeholder: '--Select Days--',
                 allowClear: true
@@ -197,7 +185,6 @@ $("document").ready(function () {
         {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
-
         $("#specific-dates-month").select2({
                 placeholder: '--Select Days--',
                 allowClear: true
@@ -205,20 +192,13 @@ $("document").ready(function () {
         {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
-
-
-
-
-
-
-
         $(document).on('change', '.create-assignedto', function () {
                 var str = $("#" + $(this).attr('id') + " option:selected").text();
                 if (str.indexOf('Patient') > -1)
                 {
-                        $('#assigned_to_type_' + i).val('1');
+                        $('#assigned_to_type').val('1');
                 } else {
-                        $('#assigned_to_type_' + i).val('2');
+                        $('#assigned_to_type').val('2');
                 }
         });
 });

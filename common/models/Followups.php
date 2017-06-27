@@ -31,10 +31,10 @@ class Followups extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['type', 'sub_type', 'type_id', 'assigned_to', 'assigned_from', 'status', 'CB', 'UB', 'assigned_to_type', 'releated_notification_patient'], 'integer'],
+                        [['type', 'sub_type', 'type_id', 'assigned_to', 'status', 'CB', 'UB', 'assigned_to_type', 'releated_notification_patient'], 'integer'],
                         [['followup_date', 'DOC'], 'safe'],
                         [['followup_notes'], 'string'],
-                        [['attachments', 'related_staffs'], 'string', 'max' => 200],
+                        [['attachments'], 'string', 'max' => 200],
                 ];
         }
 
@@ -78,6 +78,18 @@ class Followups extends \yii\db\ActiveRecord {
                         }
                         return $relatedstaffs;
                 }
+        }
+
+        public function getTo0() {
+                return $this->hasOne(FollowupSubType::className(), ['id' => 'sub_type']);
+        }
+
+        public function getAssigned0() {
+                return $this->hasOne(StaffInfo::className(), ['id' => 'assigned_to']);
+        }
+
+        public function getAssignedfrom0() {
+                return $this->hasOne(StaffInfo::className(), ['id' => 'assigned_from']);
         }
 
 }

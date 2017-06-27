@@ -47,45 +47,46 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $ty
 </div>
 
 <div class="row remarks-table">
-        <?php if ($model->isNewRecord && $dataProvider != '' && $dataProvider->getTotalCount() > 0) { ?>
-                <?=
-                GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'rowOptions' => function ($model, $key, $index, $grid) {
-                            return ['id' => $model['id']];
+
+        <?=
+        GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'rowOptions' => function ($model, $key, $index, $grid) {
+                    return ['id' => $model['id']];
+            },
+            'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                    'attribute' => 'category',
+                    'value' => 'category0.category',
+                    'filter' => ArrayHelper::map(RemarksCategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category'),
+                ],
+                'sub_category',
+                'point',
+                'notes:ntext',
+                    [
+                    'attribute' => 'status',
+                    'value' => function($model, $key, $index, $column) {
+                            if ($model->status == '0') {
+                                    return 'Closed';
+                            } elseif ($model->status == '1') {
+                                    return 'Active';
+                            }
                     },
-                    'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-                            [
-                            'attribute' => 'category',
-                            'value' => 'category0.category',
-                            'filter' => ArrayHelper::map(RemarksCategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category'),
-                        ],
-                        'sub_category',
-                        'point',
-                        'notes:ntext',
-                            [
-                            'attribute' => 'status',
-                            'value' => function($model, $key, $index, $column) {
-                                    if ($model->status == '0') {
-                                            return 'Closed';
-                                    } elseif ($model->status == '1') {
-                                            return 'Active';
-                                    }
-                            },
-                            'filter' => [0 => 'Closed', 1 => 'Active'],
-                        ],
-                            [
-                            'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
+                    'filter' => [0 => 'Closed', 1 => 'Active'],
+                ],
+                    [
+                    'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
+                            if ($model->status != '0')
                                     return ['id' => $model->id, 'class' => 'iswitch iswitch-secondary remarks-status'];
-                            },
-                            'header' => 'Change Status',
-                        ],
-                    ],
-                ]);
-                ?>
-        <?php } ?>
+                    },
+                    'header' => 'Change Status',
+                ],
+            ],
+        ]);
+        ?>
+
 </div>
 
 

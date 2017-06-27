@@ -53,6 +53,17 @@ use yii\helpers\Html;
                 <a href="#bystander" data-toggle="tab"><span class="visible-xs"><i class="fa fa-user hidden-xs"></i></span>
                         <i class="fa fa-user"></i> <span class="hidden-xs span-font-size"> BYSTANDER DETAILS</span></a>
         </li>
+        <?php if (!$patient_info->isNewRecord) { ?>
+                <li>
+                        <a href="#profile-12" data-toggle="tab"><span class="visible-xs"><i class="linecons-note"></i></span>
+                                <i class="linecons-note"></i> <span class="hidden-xs span-font-size"> REMARKS</span></a>
+                </li>
+
+                <li>
+                        <a href="#profile-13" data-toggle="tab"><span class="visible-xs"><i class="fa fa-tasks" aria-hidden="true"></i></span>
+                                <i class="fa fa-tasks" aria-hidden="true"></i> <span class="hidden-xs span-font-size"> FOLLOWUPS</span></a>
+                </li>
+        <?php } ?>
 
 
 </ul>

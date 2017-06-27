@@ -44,17 +44,11 @@ class DropdownController extends \yii\web\Controller {
         }
 
         public function actionAddremarks() {
+
                 if (Yii::$app->request->isAjax) {
                         $remarks = new Remarks();
-                        $remarks->type = $_POST['Remarks']['type'];
-                        $remarks->type_id = $_POST['Remarks']['type_id'];
-                        $remarks->category = $_POST['Remarks']['category'];
-                        $remarks->sub_category = $_POST['Remarks']['sub_category'];
-                        $remarks->point = $_POST['Remarks']['point'];
-                        $remarks->notes = $_POST['Remarks']['notes'];
                         $remarks->status = 1;
-                        Yii::$app->SetValues->Attributes($remarks);
-                        if ($remarks->save()) {
+                        if ($remarks->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($remarks) && $remarks->validate() && $remarks->save()) {
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);
                                 $arr_variable = array($count + 1, $category->category, $remarks->sub_category, $remarks->point, $remarks->notes, $remarks->id);

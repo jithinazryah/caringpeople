@@ -78,6 +78,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'filter' => [1 => 'Doctor Visit', 2 => 'Nursing Care', 3 => 'Physiotherapy', 5 => 'Caregiver', 4 => 'Helath Checkup', 6 => 'Lab', 7 => 'Equipment', 8 => 'Other', 9 => 'General Enquiry', 10 => 'Wrong Number '],
                                             ],
                                                 [
+                                                'attribute' => 'whatsapp_reply',
+                                                // 'value' => 'patientGeneralInfo.whatsapp_reply',
+                                                'value' => function($model, $key, $index, $column) {
+                                                        if ($model->patientGeneralInfo->whatsapp_reply == '1') {
+                                                                return 'Yes';
+                                                        } else if ($model->patientGeneralInfo->whatsapp_reply == '0') {
+                                                                return 'No';
+                                                        }
+                                                },
+                                                'filter' => [1 => 'Yes', 0 => 'No'],
+                                            ],
+                                                [
                                                 'attribute' => 'status',
                                                 'value' => function($model, $key, $index, $column) {
                                                         if ($model->status == '1') {

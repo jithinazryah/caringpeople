@@ -39,12 +39,12 @@ class RepeatedFollowups extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['type', 'sub_type', 'type_id', 'assigned_to', 'repeated_type', 'status', 'CB', 'UB', 'releated_notification_patient', 'repeated', 'related_staffs'], 'integer'],
+                        [['type', 'sub_type', 'type_id', 'assigned_to', 'repeated_type', 'status', 'CB', 'UB', 'releated_notification_patient', 'repeated_days', 'repeated'], 'integer'],
                         [['followup_date', 'DOC', 'DOU'], 'safe'],
                         [['followup_notes'], 'string'],
                         [['status'], 'required'],
                         [['attachments'], 'string', 'max' => 200],
-                        [['repeated_days', 'assigned_from'], 'string', 'max' => 250],
+                        [['assigned_to',], 'required'],
                 ];
         }
 

@@ -15,7 +15,7 @@ use kartik\select2\Select2;
 
 <div class="patient-enquiry-hospital-first-form form-inline">
 
-        <h4 style="color:#000;font-style: italic;">Patient Basic Details</h4>
+        <h4 class="h4-labels">Patient Basic Details</h4>
         <hr class="enquiry-hr"/>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'required_person_name')->textInput(['maxlength' => true]) ?>
 
@@ -51,8 +51,7 @@ use kartik\select2\Select2;
 
         </div>
 
-        <h4 style="color:#000;font-style: italic;">Communication Details</h4>
-        <hr class="enquiry-hr"/>
+
         <div class="row>">
                 <input type="checkbox" id="checkbox_id" name="check" checkvalue="1" uncheckValue="0"><label style="color:black;font-weight:bold; margin-left: 5px;"> Caller address and person address are same</label>
         </div>
@@ -64,7 +63,7 @@ use kartik\select2\Select2;
 
         </div><div style="clear:both;"></div>
 
-        <h4 style="color:#000;font-style: italic;">Hospital Details</h4>
+        <h4 class="h4-labels">Hospital Details</h4>
         <hr class="enquiry-hr"/>
 
         <div id="p_scents1">
@@ -129,7 +128,7 @@ use kartik\select2\Select2;
                                         <?= Html::dropDownList('create[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'add-hospital']);
                                         ?>
                                 </div>
-                                <span><a class="add-hospital-link" id="add-hospital">+Add new</a></span>
+
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
@@ -163,7 +162,7 @@ use kartik\select2\Select2;
         </div>
 
 
-        <h4 style="color:#000;font-style: italic;">Medical Conditons/Current Diagnosis</h4>
+        <h4 class="h4-labels">Medical Conditons/Current Diagnosis</h4>
         <hr class="enquiry-hr"/>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'diabetic')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No', '2' => 'Yes,Insulin', '3' => 'Yes, On Tablet', '4' => 'Dont Know']) ?>
 

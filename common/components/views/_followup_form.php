@@ -50,12 +50,14 @@ if ($type == '5') {
 
 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'assigned_to')->dropDownList($data, ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'create-assigned_to']) ?>
 
+</div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'assigned_to_type')->hiddenInput(['id' => 'assigned_to_type'])->label(false); ?>
+
 </div>
 <?php
 $user = StaffInfo::findOne(Yii::$app->user->identity->id);
 $model->assigned_from = $user->staff_name;
 ?>
-<div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'assigned_from')->textInput(['maxlength' => true]) ?>
+<div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'assigned_from')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 
 </div>
 
@@ -135,7 +137,60 @@ $dates = Yii::$app->Followups->Dates();
 
 
 
+<div class="row followups-table">
 
+        <?=
+        GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'rowOptions' => function ($model, $key, $index, $grid) {
+                    return ['id' => $model['id']];
+            },
+            'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                    'attribute' => 'sub_type',
+                    'value' => 'to0.sub_type',
+                    'filter' => ArrayHelper::map(FollowupSubType::find()->where(['status' => '1'])->asArray()->all(), 'id', 'sub_type'),
+                ],
+                'followup_date',
+                'followup_notes',
+                    ['attribute' => 'assigned_to',
+                    'value' => 'assigned0.staff_name',
+                    'filter' => ArrayHelper::map(StaffInfo::find()->where(['status' => '1', 'post_id' => 5])->asArray()->all(), 'id', 'staff_name'),
+                ],
+                    ['attribute' => 'assigned_from',
+                    'value' => 'assignedfrom0.staff_name',
+                    'filter' => ArrayHelper::map(StaffInfo::find()->where(['status' => '1', 'post_id' => 5])->asArray()->all(), 'id', 'staff_name'),
+                ],
+                //'assigned_from',
+                ['attribute' => 'related_staffs',
+                    'value' => function($model, $key, $index, $column) {
+                            return $model->Relatedstaffs($model->related_staffs);
+                    },
+                ],
+                    [
+                    'attribute' => 'status',
+                    'value' => function($model, $key, $index, $column) {
+                            if ($model->status == '0') {
+                                    return 'Active';
+                            } elseif ($model->status == '1') {
+                                    return 'Closed';
+                            }
+                    },
+                    'filter' => [0 => 'Active', 1 => 'Closed'],
+                ],
+                    [
+                    'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
+                            return ['id' => $model->id, 'class' => 'iswitch iswitch-secondary followup-status'];
+                    },
+                    'header' => 'Change Status',
+                ],
+            ],
+        ]);
+        ?>
+
+</div>
 
 
 

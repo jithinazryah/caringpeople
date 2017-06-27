@@ -22,11 +22,12 @@ class PatientEnquiryGeneralFirstSearch extends PatientEnquiryGeneralFirst {
         public $patient_gender;
         public $patient_age;
         public $patient_city;
+        public $whatsapp_reply;
 
         public function rules() {
                 return [
                         [['id', 'contacted_source', 'caller_gender', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-                        [['enquiry_number', 'email', 'required_service', 'city', 'patient_name', 'patient_gender', 'patient_age', 'patient_city', 'contacted_date', 'incoming_missed', 'outgoing_number_from', 'outgoing_number_from_other', 'outgoing_call_date', 'caller_name', 'referral_source', 'referral_source_others', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'DOC', 'DOU'], 'safe'],
+                        [['enquiry_number', 'email', 'whatsapp_reply', 'required_service', 'city', 'patient_name', 'patient_gender', 'patient_age', 'patient_city', 'contacted_date', 'incoming_missed', 'outgoing_number_from', 'outgoing_number_from_other', 'outgoing_call_date', 'caller_name', 'referral_source', 'referral_source_others', 'mobile_number', 'mobile_number_2', 'mobile_number_3', 'DOC', 'DOU'], 'safe'],
                 ];
         }
 
@@ -96,6 +97,7 @@ class PatientEnquiryGeneralFirstSearch extends PatientEnquiryGeneralFirst {
                         ->andFilterWhere(['like', 'mobile_number', $this->mobile_number])
                         ->andFilterWhere(['like', 'mobile_number_2', $this->mobile_number_2])
                         ->andFilterWhere(['like', 'patient_enquiry_general_second.email', $this->email])
+                        ->andFilterWhere(['like', 'patient_enquiry_general_second.whatsapp_reply', $this->whatsapp_reply])
                         ->andFilterWhere(['like', 'patient_enquiry_general_second.required_service', $this->required_service])
                         ->andFilterWhere(['like', 'patient_enquiry_hospital_first.required_person_name', $this->patient_name])
                         ->andFilterWhere(['like', 'patient_enquiry_general_second.city', $this->city])

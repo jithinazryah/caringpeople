@@ -15,7 +15,7 @@ use kartik\date\DatePicker;
 
 <div class="patient-enquiry-general-first-form form-inline">
 
-        <h4 style="color:#000;font-style: italic;">Enquiry Details</h4>
+        <h4 class="h4-labels">Enquiry Details</h4>
         <hr class="enquiry-hr"/>
 
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info, 'contacted_source')->dropDownList(['' => '--Select Contact Source--', '0' => 'Phone', '1' => 'Email', '2' => 'Others']) ?>
@@ -76,7 +76,7 @@ use kartik\date\DatePicker;
 
         </div><div style="clear:both"></div>
 
-        <h4 style="color:#000;font-style: italic;">Enquirer Details</h4>
+        <h4 class="h4-labels">Enquirer Details</h4>
         <hr class="enquiry-hr"/>
 
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info, 'caller_name')->textInput(['maxlength' => true]) ?>
@@ -105,7 +105,7 @@ use kartik\date\DatePicker;
 
         </div><div style="clear:both"></div>
 
-        <h4 style="color:#000;font-style: italic;">Service Details</h4>
+        <h4 class="h4-labels">Service Details</h4>
         <hr class="enquiry-hr"/>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                 <?php
