@@ -113,40 +113,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?php ActiveForm::end(); ?>
                                                         </div>
 
-                                                        <?php if (!$model->isNewRecord) { ?>
-                                                                <div class="tab-pane" id="profile-12">
-                                                                        <?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
-                                                                        <?=
-                                                                        $this->render('remarks', [
-                                                                            'patient_info' => $model,
-                                                                            'form_remark' => $form_remark,
-                                                                            'remarks' => $remarks,
-                                                                            'searchModel' => $searchModel,
-                                                                            'dataProvider' => $dataProvider,
-                                                                        ])
-                                                                        ?>
-                                                                        <?php ActiveForm::end(); ?>
-                                                                </div>
-
-                                                                <div class="tab-pane" id="profile-13">
-
-                                                                        <?php
-                                                                        $form_followup = ActiveForm::begin(['id' => 'add-followup', 'options' => ['enctype' => 'multipart/form-data']]);
-                                                                        ?>
-                                                                        <?=
-                                                                        $this->render('followups', [
-                                                                            'patient_info' => $model,
-                                                                            'form_followup' => $form_followup,
-                                                                            'followups' => $followups,
-                                                                            'searchModel' => $searchModel1,
-                                                                            'dataProvider' => $dataProvider1,
-                                                                        ])
-                                                                        ?>
-                                                                        <?php ActiveForm::end(); ?>
-
-                                                                </div>
-
-                                                        <?php } ?>
 
                                                 <?php } else { ?>
                                                         <div class="tab-pane active" id="home-3">

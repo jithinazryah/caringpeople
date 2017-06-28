@@ -134,6 +134,7 @@ class StaffInfoController extends Controller {
                 $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['enquiry_id' => $id]);
                 $staff_interview_third = StaffEnquiryInterviewThird::findOne(['enquiry_id' => $id]);
                 $staff_family = \common\models\StaffEnquiryFamilyDetails::findAll(['enquiry_id' => $id]);
+                $staff_salary = new StaffSalary();
                 $model = \common\models\StaffEnquiry::findOne($id);
 
                 $staff_info->staff_enquiry_id = $id;
@@ -175,6 +176,10 @@ class StaffInfoController extends Controller {
                         if (!empty($staff_interview_third)) {
                                 $staff_interview_third->staff_id = $staff_info->id;
                                 $staff_interview_third->save();
+                        }
+                        if (!empty($staff_salary)) {
+                                $staff_salary->staff_id = $staff_info->id;
+                                $staff_salary->save();
                         }
 
                         if (!empty($staff_previous_employer)) {
@@ -480,7 +485,9 @@ class StaffInfoController extends Controller {
                 if (!empty($data)) {
                         $id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $data);
                 }
+
                 $model = $this->findModel($id);
+                $model->setScenario('update');
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $model->id]);
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $model->id]);
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $model->id]);
@@ -675,6 +682,11 @@ class StaffInfoController extends Controller {
                                 $arr[$i]['to'] = $val;
                                 $i++;
                         }
+                        $i = 0;
+                        foreach ($_POST['create']['salary'] as $val) {
+                                $arr[$i]['salary'] = $val;
+                                $i++;
+                        }
 
                         foreach ($arr as $val) {
                                 $add_previous = new StaffPerviousEmployer;
@@ -684,6 +696,7 @@ class StaffInfoController extends Controller {
                                 $add_previous->length_of_service = $val['length'];
                                 $add_previous->service_from = date('Y-m-d', strtotime($val['from']));
                                 $add_previous->service_to = date('Y-m-d', strtotime($val['to']));
+                                $add_previous->salary = $val['salary'];
                                 if (!empty($add_previous->hospital_address))
                                         $add_previous->save();
                         }
@@ -704,6 +717,7 @@ class StaffInfoController extends Controller {
                                 $arr[$key]['length'] = $val['length'][0];
                                 $arr[$key]['from'] = $val['from'][0];
                                 $arr[$key]['to'] = $val['to'][0];
+                                $arr[$key]['salary'] = $val['salary'][0];
                                 $i++;
                         }
 
@@ -714,6 +728,7 @@ class StaffInfoController extends Controller {
                                 $add_previous->length_of_service = $value['length'];
                                 $add_previous->service_from = date('Y-m-d', strtotime($value['from']));
                                 $add_previous->service_to = date('Y-m-d', strtotime($value['to']));
+                                $add_previous->salary = $value['salary'];
                                 $add_previous->update();
                         }
                 }

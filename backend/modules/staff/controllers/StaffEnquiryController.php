@@ -45,27 +45,12 @@ class StaffEnquiryController extends Controller {
 
         public function actionAdd() {
 
-                $staff_enquiry = StaffEnquiry::find()->where(['<>', 'proceed', '1'])->all();
-
+                $staff_enquiry = StaffEnquiryInterviewFirst::find()->all();
                 foreach ($staff_enquiry as $value) {
 
-                        $staff_edu = new StaffInfoEducation();
-                        $other_info = new StaffOtherInfo();
-                        $staff_interview_first = new StaffEnquiryInterviewFirst();
-                        $staff_interview_second = new StaffEnquiryInterviewSecond();
-                        $staff_interview_third = new StaffEnquiryInterviewThird();
-
-                        $staff_edu->enquiry_id = $value->id;
-                        $other_info->enquiry_id = $value->id;
-                        $staff_interview_first->enquiry_id = $value->id;
-                        $staff_interview_second->enquiry_id = $value->id;
-                        $staff_interview_third->enquiry_id = $value->id;
-
-                        $staff_edu->save(false);
-                        $other_info->save(false);
-                        $staff_interview_first->save(false);
-                        $staff_interview_second->save(false);
-                        $staff_interview_third->save(false);
+                        $staff_salary = new \common\models\StaffSalary();
+                        $staff_salary->staff_id = $value->staff_id;
+                        $staff_salary->save(false);
                 }
         }
 
