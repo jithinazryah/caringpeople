@@ -47,7 +47,7 @@ class DropdownController extends \yii\web\Controller {
 
                 if (Yii::$app->request->isAjax) {
                         $remarks = new Remarks();
-                        $remarks->status = 1;
+                        $remarks->status = 2;
                         if ($remarks->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($remarks) && $remarks->validate() && $remarks->save()) {
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);

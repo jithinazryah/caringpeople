@@ -31,6 +31,8 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'point') ?>
 
+    <?php // echo $form->field($model, 'date') ?>
+
     <?php // echo $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'CB') ?>

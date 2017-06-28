@@ -19,7 +19,7 @@ class RemarksSearch extends Remarks
     {
         return [
             [['id', 'type', 'type_id', 'category', 'remark_type', 'point', 'status', 'CB', 'UB'], 'integer'],
-            [['sub_category', 'notes', 'DOC', 'DOU'], 'safe'],
+            [['sub_category', 'notes', 'date', 'DOC', 'DOU'], 'safe'],
         ];
     }
 
@@ -65,6 +65,7 @@ class RemarksSearch extends Remarks
             'category' => $this->category,
             'remark_type' => $this->remark_type,
             'point' => $this->point,
+            'date' => $this->date,
             'status' => $this->status,
             'CB' => $this->CB,
             'UB' => $this->UB,

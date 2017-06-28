@@ -314,7 +314,7 @@ use common\models\StaffExperienceList;
                         <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffenquiryinterviewfirst-job">
                                         <label class="control-label" for="">Job</label>
-                                        <input type="text" class="form-control" name="createfamily[job][]">a
+                                        <input type="text" class="form-control" name="createfamily[job][]">
                                 </div>
                         </div>
 

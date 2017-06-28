@@ -83,13 +83,13 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
                     [
                     'attribute' => 'status',
                     'value' => function($model, $key, $index, $column) {
-                            if ($model->status == '0') {
+                            if ($model->status == '2') {
                                     return 'Closed';
                             } elseif ($model->status == '1') {
                                     return 'Active';
                             }
                     },
-                    'filter' => [0 => 'Closed', 1 => 'Active'],
+                    'filter' => [2 => 'Closed', 1 => 'Active'],
                 ],
                     [
                     'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {

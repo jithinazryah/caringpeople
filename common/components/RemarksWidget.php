@@ -32,7 +32,7 @@ class RemarksWidget extends Widget {
                 if (!empty(Yii::$app->request->queryParams['RemarksSearch']['status'])) {
                         $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['RemarksSearch']['status']]);
                 } else {
-                        $dataProvider->query->andWhere(['<>', 'status', 0]);
+                        $dataProvider->query->andWhere(['<>', 'status', 2]);
                 }
 
 
