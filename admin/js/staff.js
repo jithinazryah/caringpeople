@@ -44,6 +44,9 @@ $("document").ready(function () {
 
         $('#addScnt_1').on('click', function () {
 
+
+
+
                 var vers = '<span>\n\
                                 <hr style="border-top: 1px solid #979898 !important;">\n\
                                 <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
@@ -164,25 +167,21 @@ $("document").ready(function () {
         var i = $('#p_attach span').size() + 1;
 
         $('#addAttach').on('click', function () {
-                var ver = '<span>\n\
-                                <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
-                                <div class="form-group field-staffperviousemployer-hospital_address">\n\
-                                <label class="control-label">Attachment</label>\n\
-                                <input type="file"  name="creates[file][]">\n\
-                                </div> \n\
-                                </div> \n\
-                                <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
-                                <div class="form-group field-staffperviousemployer-salary">\n\
-                                <label class="control-label" >Attachment Name</label>\n\
-                                <input type="text" class="form-control" name="creates[file_name][]">\n\
-                                </div>\n\
-                                </div> \n\
-                                <a id="remAttach" class="btn btn-icon btn-red remAttach" style="margin-top: 15px;"><i class="fa-remove"></i></a>\n\
-                                <div style="claer:both"></div><br/>\n\
-                                </span><br/>';
-                $(ver).appendTo(scntDiv);
-                i++;
-                return false;
+
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {type: 1},
+                        url: homeUrl + 'ajax/attachment',
+                        success: function (data) {
+                                $(data).appendTo(scntDiv);
+                                i++;
+                                return false;
+
+                        }
+                });
+
+
         });
         $('#p_attach').on('click', '.remAttach', function () {
                 if (i > 2) {

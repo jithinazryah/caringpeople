@@ -188,29 +188,30 @@ use common\models\MasterDesignations;
 
         </div>
 
-        <div style="clear:both"></div>
+        <div style = "clear:both"></div>
 
-
-
-
-        <div id="p_attach">
-                <input type="hidden" id="delete_port_vals"  name="delete_port_vals" value="">
-                <h4 style="color:#000;font-style: italic;">Attachments</h4>
-                <hr class="enquiry-hr"/>
+        <div id = "p_attach">
+                <input type = "hidden" id = "delete_port_vals" name = "delete_port_vals" value = "">
+                <h4 style = "color:#000;font-style: italic;">Attachments</h4>
+                <hr class = "enquiry-hr"/>
 
 
                 <span>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                <div class="form-group field-staffperviousemployer-hospital_address">
-                                        <label class="control-label">Attachment</label>
-                                        <input type="file"  name="creates[file][]">
+                        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class = "form-group field-staffperviousemployer-hospital_address">
+                                        <label class = "control-label">Attachment</label>
+                                        <input type = "file" name = "creates[file][]">
 
                                 </div>
                         </div>
+                        <?php
+                        $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
+                        ?>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
-                                        <input type="text" class="form-control" name="creates[file_name][]">
+                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
+
                                 </div>
                         </div>
 

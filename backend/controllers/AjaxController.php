@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use common\models\PatientGuardianDetails;
 use common\models\PatientGeneral;
+use common\models\UploadCategory;
 use yii\db\Expression;
 
 class AjaxController extends \yii\web\Controller {
@@ -382,6 +383,29 @@ class AjaxController extends \yii\web\Controller {
                         $options .= "<option value='" . $mangers->id . "'>" . $mangers->staff_name . "</option>";
                 }
                 echo $options;
+        }
+
+        public function actionAttachment() {
+
+                $uploads_type = UploadCategory::find()->where(['status' => 1])->all();
+                $option = Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--']);
+                $vers = "<span>
+                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class='form-group field-staffperviousemployer-hospital_address'>
+                                <label class='control-label'>Attachment</label>
+                                <input type='file'  name='creates[file][]'>
+                                </div>
+                                </div>
+                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class='form-group field-staffperviousemployer-salary'>
+                                <label class='control-label' >Attachment Name</label>
+                              $option
+                                </div>
+                                </div>
+                                <a id='remAttach' class='btn btn-icon btn-red remAttach' style='margin-top: 15px;'><i class='fa-remove'></i></a>
+                                <div style='claer:both'></div><br/>
+                                </span><br/>";
+                echo $vers;
         }
 
 }

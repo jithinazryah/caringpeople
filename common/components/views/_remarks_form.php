@@ -6,6 +6,7 @@ use common\models\RemarksCategory;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 if ($type == 3) {
         $remark_type = 2;
@@ -30,7 +31,27 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
 
 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_remark->field($remark, 'type_id')->hiddenInput(['value' => $type_id])->label(false); ?>
 
-</div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+</div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+
+        <?php
+        if (!$remark->isNewRecord) {
+                $remark->date = date('d-m-Y', strtotime($remark->date));
+        } else {
+                $remark->date = date('d-m-Y');
+        }
+        echo DatePicker::widget([
+            'model' => $remark,
+            'form' => $form_remark,
+            'type' => DatePicker::TYPE_INPUT,
+            'attribute' => 'date',
+            'pluginOptions' => [
+                'autoclose' => true,
+                'format' => 'dd-mm-yyyy',
+            ]
+        ]);
+        ?>
+
+</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
         <fieldset class="rating">
                 <legend class="control-label">Rating:</legend>
                 <input type="radio" id="star9" name="rating" value="9" onclick="postToController();"/><label for="star9" title="Excellent">9 stars</label>
@@ -91,6 +112,7 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
                     },
                     'filter' => [2 => 'Closed', 1 => 'Active'],
                 ],
+                'date',
                     [
                     'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
                             if ($model->status != '0')

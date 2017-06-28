@@ -786,7 +786,8 @@ class StaffInfoController extends Controller {
                         }
                         $i = 0;
                         foreach ($_POST['creates']['file_name'] as $val) {
-                                $arrs[$i]['file_name'] = $val;
+                                $file_name = \common\models\UploadCategory::findOne($val);
+                                $arrs[$i]['file_name'] = $file_name->sub_category;
                                 $i++;
                         }
 

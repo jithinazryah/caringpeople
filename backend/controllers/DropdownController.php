@@ -48,7 +48,10 @@ class DropdownController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
                         $remarks = new Remarks();
                         $remarks->status = 2;
-                        if ($remarks->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($remarks) && $remarks->validate() && $remarks->save()) {
+
+                        if ($remarks->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($remarks) && $remarks->validate()) {
+                                $remarks->date = date('Y-m-d', strtotime($remarks->date));
+                                $remarks->save();
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);
                                 $arr_variable = array($count, $category->category, $remarks->sub_category, $remarks->point, $remarks->notes, $remarks->id);
