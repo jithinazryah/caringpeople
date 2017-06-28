@@ -314,7 +314,7 @@ use common\models\StaffExperienceList;
                         <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffenquiryinterviewfirst-job">
                                         <label class="control-label" for="">Job</label>
-                                        <input type="text" class="form-control" name="createfamily[job][]">
+                                        <input type="text" class="form-control" name="createfamily[job][]">a
                                 </div>
                         </div>
 
@@ -331,22 +331,6 @@ use common\models\StaffExperienceList;
         <div class="row">
                 <div class="col-md-6"> <a id="add_Staff_family" class="btn btn-blue btn-icon btn-icon-standalone Staff_family" ><i class="fa-plus"></i><span> Add Family Details</span></a>
                 </div>
-        </div>
-
-        <h3 style="color:#148eaf;">Bank Details</h3>
-        <hr class="enquiry-hr"/>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'bank_ac_no')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($staff_interview_third, 'bank_ac_hodername')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'bank_name')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'bank_branch')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'bank_ifsc')->textInput(['maxlength' => true]) ?>
-
-        </div><div style="clear: both">
-
         </div>
 
 

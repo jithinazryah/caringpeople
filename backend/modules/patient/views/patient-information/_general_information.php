@@ -18,8 +18,19 @@ use common\models\Branch;
 
 
         <div class="row">
+                <?php
+                if ($patient_general->patient_image != '') {
+                        ?>
+                        <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/patient_image.' . $patient_general->patient_image; ?> " style="width:100px;height: 50px;float:right"/>
+                        <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;left: 220px;top: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . 'patient_image.' . $patient_general->patient_image . "-patient_image" ?>"></i></a>
+
+
+                <?php }
+                ?>
                 <h4 style="color:#000;font-style: italic;">Guardian Details</h4>
                 <hr class="enquiry-hr"/>
+
+
 
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
