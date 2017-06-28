@@ -35,7 +35,11 @@ class RemarksController extends Controller {
         public function actionIndex() {
                 $searchModel = new RemarksSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+                if (!empty(Yii::$app->request->queryParams['RemarksSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['RemarksSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 0]);
+                }
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
@@ -58,26 +62,16 @@ class RemarksController extends Controller {
          * If creation is successful, the browser will be redirected to the 'view' page.
          * @return mixed
          */
-        public function actionCreate($id = NULL, $type = NULL) {
-
-
+        public function actionCreate() {
                 $model = new Remarks();
-                $searchModel = new RemarksSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type_id' => $id]);
-                $dataProvider->query->andWhere(['type' => $type]);
 
-                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
-                        Yii::$app->SetValues->Rating($model->type_id, $model->type);
-                        return $this->redirect(['create', 'id' => $model->type_id, 'type' => $model->type]);
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                        return $this->render('create', [
+                                    'model' => $model,
+                        ]);
                 }
-                return $this->render('create', [
-                            'model' => $model,
-                            'type_id' => $id,
-                            'type' => $type,
-                            'searchModel' => $searchModel,
-                            'dataProvider' => $dataProvider,
-                ]);
         }
 
         /**
@@ -88,17 +82,12 @@ class RemarksController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
-                $searchModel = '';
-                $dataProvider = '';
-                if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
-                        return $this->redirect(['create', 'id' => $model->type_id, 'type' => $model->type]);
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                        return $this->redirect(['view', 'id' => $model->id]);
                 } else {
-                        return $this->render('create', [
+                        return $this->render('update', [
                                     'model' => $model,
-                                    'type_id' => $model->type_id,
-                                    'type' => $model->type,
-                                    'searchModel' => $searchModel,
-                                    'dataProvider' => $dataProvider,
                         ]);
                 }
         }

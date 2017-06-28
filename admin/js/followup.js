@@ -55,7 +55,7 @@ $("document").ready(function () {
                         async: false,
                         success: function (data) {
                                 if (data) {
-                                        alert(data);
+
                                         $('#add-followup')[0].reset();
                                         $("#create-assigned_to").select2("val", "");
                                         $("#create-related_staffs").select2("val", "");
@@ -95,8 +95,8 @@ $("document").ready(function () {
                         data: {followup_id: $(this).attr('id'), type: type},
                         url: homeUrl + 'followupajax/followupstatus',
                         success: function (data) {
-
-                                $('#3').remove();
+                                alert(data);
+                                $('#1').remove();
                                 //  $('.remarks-table table tr#' + remark).remove();
                         }
                 });

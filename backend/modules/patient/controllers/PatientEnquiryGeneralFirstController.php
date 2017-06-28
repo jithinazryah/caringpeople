@@ -157,19 +157,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $patient_info->id]);
 
-                /* for adding remarks */
-                $remarks = new Remarks();
-                $searchModel = new RemarksSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type_id' => $id, 'type' => 1]);
-
-                /* for adding followups */
-                $followups = new \common\models\RepeatedFollowups();
-                $searchModel1 = new FollowupsSearch();
-                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
-                $dataProvider1->query->andWhere(['type_id' => $id, 'type' => 1]);
-
-
 
                 if (!empty($patient_info) && !empty($patient_info_second) && !empty($patient_hospital) && !empty($patient_hospital_second)) {
                         if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post())) {
@@ -206,12 +193,6 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                     'patient_hospital' => $patient_hospital,
                                     'patient_hospital_second' => $patient_hospital_second,
                                     'hospital_details' => $hospital_details,
-                                    'remarks' => $remarks,
-                                    'searchModel' => $searchModel,
-                                    'dataProvider' => $dataProvider,
-                                    'followups' => $followups,
-                                    'searchModel1' => $searchModel1,
-                                    'dataProvider1' => $dataProvider1,
                         ]);
                 } else {
                         throw new \yii\base\UserException("Error Code : 2000");

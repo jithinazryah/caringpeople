@@ -51,4 +51,16 @@ use yii\helpers\Html;
                 <a href="#profile-5" data-toggle="tab"><span class="visible-xs"><i class="fa fa-inr hidden-xs"></i></span>
                         <i class="fa fa-inr"></i><span class="hidden-xs span-font-size"> SALARY DETAILS</span></a>
         </li>
+
+        <?php if (!$model->isNewRecord) { ?>
+                <li>
+                        <a href="#profile-12" data-toggle="tab"><span class="visible-xs"><i class="linecons-note"></i></span>
+                                <i class="linecons-note"></i> <span class="hidden-xs span-font-size"> REMARKS</span></a>
+                </li>
+
+                <li>
+                        <a href="#profile-13" data-toggle="tab"><span class="visible-xs"><i class="fa fa-tasks" aria-hidden="true"></i></span>
+                                <i class="fa fa-tasks" aria-hidden="true"></i> <span class="hidden-xs span-font-size"> FOLLOWUPS</span></a>
+                </li>
+        <?php } ?>
 </ul>

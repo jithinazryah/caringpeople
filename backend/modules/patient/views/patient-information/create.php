@@ -90,35 +90,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <?php if (!$model->isNewRecord) { ?>
                                                 <div class="tab-pane" id="profile-12">
-                                                        <?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
+                                                        <?php // $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
                                                         <?=
                                                         $this->render('remarks', [
                                                             'patient_info' => $patient_general,
-                                                            'form_remark' => $form_remark,
-                                                            'remarks' => $remarks,
-                                                            'searchModel' => $searchModel,
-                                                            'dataProvider' => $dataProvider,
+                                                            // 'form_remark' => $form_remark,
+                                                            'type' => 2,
                                                         ])
                                                         ?>
-                                                        <?php ActiveForm::end(); ?>
+                                                        <?php //ActiveForm::end(); ?>
                                                 </div>
 
                                                 <div class="tab-pane" id="profile-13">
 
-                                                        <?php
-                                                        $form_followup = ActiveForm::begin(['id' => 'add-followup', 'options' => ['enctype' => 'multipart/form-data']]);
-                                                        //$form_followup = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'id' => 'add-followup',]]);
-                                                        ?>
+
                                                         <?=
                                                         $this->render('followups', [
                                                             'patient_info' => $patient_general,
-                                                            'form_followup' => $form_followup,
-                                                            'followups' => $followups,
-                                                            'searchModel' => $searchModel1,
-                                                            'dataProvider' => $dataProvider1,
+                                                            'type' => 2,
                                                         ])
                                                         ?>
-                                                        <?php ActiveForm::end(); ?>
+
 
                                                 </div>
 

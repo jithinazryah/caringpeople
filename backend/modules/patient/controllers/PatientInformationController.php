@@ -23,7 +23,6 @@ use common\models\Followups;
 use common\models\FollowupsSearch;
 use yii\web\UploadedFile;
 use common\models\ContactDirectory;
-use common\models\RemarksSearch;
 use common\models\PatientEnquiryHospitalSecond;
 use common\models\PatientEnquiryHospitalDetails;
 use common\models\Remarks;
@@ -435,18 +434,6 @@ class PatientInformationController extends Controller {
                 $present_condition = PatientPresentCondition::find()->where(['patient_id' => $id])->one();
                 $bystander_details = PatientBystanderDetails::find()->where(['patient_id' => $id])->one();
 
-                /* for adding remarks */
-                $remarks = new Remarks();
-                $searchModel = new RemarksSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type_id' => $id, 'type' => 2]);
-
-                /* for adding followups */
-                $followups = new \common\models\RepeatedFollowups();
-                $searchModel1 = new FollowupsSearch();
-                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
-                $dataProvider1->query->andWhere(['type_id' => $id, 'type' => 2]);
-
 
                 if (!empty($patient_general) && !empty($guardian_details) && !empty($chronic_imformation && $present_condition && !empty($bystander_details))) {
 
@@ -481,12 +468,6 @@ class PatientInformationController extends Controller {
                                     'pationt_medication_details' => $pationt_medication_details,
                                     'present_condition' => $present_condition,
                                     'bystander_details' => $bystander_details,
-                                    'remarks' => $remarks,
-                                    'searchModel' => $searchModel,
-                                    'dataProvider' => $dataProvider,
-                                    'followups' => $followups,
-                                    'searchModel1' => $searchModel1,
-                                    'dataProvider1' => $dataProvider1,
                         ]);
                 } else {
                         return $this->redirect([

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\components\FollowupsWidget;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use kartik\datetime\DateTimePicker;
 use common\models\FollowupSubType;
@@ -11,7 +12,9 @@ use common\models\StaffInfo;
 
 $followup_subtype = ArrayHelper::map(FollowupSubType::find()->where(['type_id' => $type, 'status' => 1])->all(), 'id', 'sub_type');
 ?>
-
+<?php
+$form_followup = ActiveForm::begin(['id' => 'add-followup', 'options' => ['enctype' => 'multipart/form-data']]);
+?>
 
 <div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'type')->hiddenInput(['value' => $type])->label(false); ?>
 
@@ -135,12 +138,15 @@ $dates = Yii::$app->Followups->Dates();
         </div>
 </div>
 
-
+<?php ActiveForm::end(); ?>
 
 <div class="row followups-table">
 
-        <?=
-        GridView::widget([
+        <?php
+        Pjax::begin([
+            'enablePushState' => false
+        ]);
+        echo GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'rowOptions' => function ($model, $key, $index, $grid) {
@@ -161,10 +167,9 @@ $dates = Yii::$app->Followups->Dates();
                 ],
                     ['attribute' => 'assigned_from',
                     'value' => 'assignedfrom0.staff_name',
-                    'filter' => ArrayHelper::map(StaffInfo::find()->where(['status' => '1', 'post_id' => 5])->asArray()->all(), 'id', 'staff_name'),
+                //'filter' => ArrayHelper::map(StaffInfo::find()->where(['status' => '1', 'post_id' => 5])->asArray()->all(), 'id', 'staff_name'),
                 ],
-                //'assigned_from',
-                ['attribute' => 'related_staffs',
+                    ['attribute' => 'related_staffs',
                     'value' => function($model, $key, $index, $column) {
                             return $model->Relatedstaffs($model->related_staffs);
                     },
@@ -188,6 +193,7 @@ $dates = Yii::$app->Followups->Dates();
                 ],
             ],
         ]);
+        Pjax::end();
         ?>
 
 </div>

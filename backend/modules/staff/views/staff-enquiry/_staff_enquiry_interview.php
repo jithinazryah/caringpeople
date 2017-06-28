@@ -215,6 +215,16 @@ use kartik\date\DatePicker;
 
         </div>
 </div>
+<div class='col-md-12 col-sm-6 col-xs-12' >
+        <div class="form-group" >
+                <?= Html::submitButton($staff_enquiry->isNewRecord ? 'Create' : 'Update', ['class' => $staff_enquiry->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
+                <?php
+                if (!$staff_enquiry->isNewRecord && $staff_enquiry->proceed != 1) {
+                        echo Html::submitButton('Proceed to Staff', ['name' => 'proceed', 'class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:125px;']);
+                }
+                ?>
+        </div>
+</div>
 
 <style>
         .cbr-inline{ margin-top: 10px; }

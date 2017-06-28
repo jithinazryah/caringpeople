@@ -73,6 +73,7 @@ class FollowupajaxController extends \yii\web\Controller {
 
         public function Adddata($followups_one, $followups) {
                 $followups_one->type = $followups->type;
+                $followups_one->sub_type = $followups->sub_type;
                 $followups_one->type_id = $followups->type_id;
                 $followups_one->followup_date = date('Y-m-d H:i:s', strtotime($_POST['Followups']['followup_date']));
                 $followups_one->followup_notes = $followups->followup_notes;
@@ -104,7 +105,7 @@ class FollowupajaxController extends \yii\web\Controller {
                                 }
                         }
                 }
-                $arr_variable = array($count + 1, $subtype->sub_type, $followup->followup_date, $followup->followup_notes, $assigned_to->staff_name, $assigned_from->staff_name, $relatedstaffs, $followup->id);
+                $arr_variable = array($count, $subtype->sub_type, $followup->followup_date, $followup->followup_notes, $assigned_to->staff_name, $assigned_from->staff_name, $relatedstaffs, $followup->id);
                 return $arr_variable;
         }
 
@@ -136,7 +137,12 @@ class FollowupajaxController extends \yii\web\Controller {
                         else
                                 $followup = \common\models\RepeatedFollowups::find()->where(['id' => $followup_id])->one();
                         $followup->status = 1;
-                        $followup->update();
+                        if ($followup->save()) {
+                                $return_val = 1;
+                        } else {
+                                $return_val = 0;
+                        }
+                        echo $return_val;
                 }
         }
 

@@ -17,13 +17,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'type') ?>
+
+    <?= $form->field($model, 'type_id') ?>
+
     <?= $form->field($model, 'category') ?>
 
     <?= $form->field($model, 'sub_category') ?>
 
-    <?= $form->field($model, 'notes') ?>
+    <?php // echo $form->field($model, 'notes') ?>
 
-    <?= $form->field($model, 'status') ?>
+    <?php // echo $form->field($model, 'remark_type') ?>
+
+    <?php // echo $form->field($model, 'point') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'CB') ?>
 

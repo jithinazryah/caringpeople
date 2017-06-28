@@ -28,11 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <?=
                                 $this->render('_menus', [
+                                    'staff_enquiry' => $staff_enquiry,
                                 ])
                                 ?>
 
                                 <div class="panel-body panel_body_background" >
-                                        <?php $form = ActiveForm::begin(); ?>
+
                                         <div class="tab-content tab_data_margin" >
 
                                                 <div class="tab-pane active" id="home-3">
@@ -46,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                                 </div>
                                                         <?php endif; ?>
+                                                        <?php $form = ActiveForm::begin(); ?>
                                                         <?=
                                                         $this->render('_form', [
                                                             //   'model' => $model,
@@ -72,6 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'staff_interview_second' => $staff_interview_second,
                                                             'staff_interview_third' => $staff_interview_third,
                                                             'form' => $form,
+                                                            'staff_enquiry' => $staff_enquiry,
                                                         ])
                                                         ?>
                                                 </div>
@@ -86,27 +89,43 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'staff_interview_third' => $staff_interview_third,
                                                             'staff_family' => $staff_family,
                                                             'form' => $form,
+                                                            'staff_enquiry' => $staff_enquiry,
                                                         ])
                                                         ?>
+                                                        <?php ActiveForm::end(); ?>
                                                 </div>
+
+                                                <?php if (!$patient_info->isNewRecord) { ?>
+                                                        <div class="tab-pane" id="profile-12">
+                                                                <?=
+                                                                $this->render('remarks', [
+                                                                    'patient_info' => $staff_enquiry,
+                                                                    'type' => 3,
+                                                                ])
+                                                                ?>
+                                                        </div>
+
+                                                        <div class="tab-pane" id="profile-13">
+
+                                                                <?=
+                                                                $this->render('followups', [
+                                                                    'patient_info' => $staff_enquiry,
+                                                                    'type' => 3,
+                                                                ])
+                                                                ?>
+
+                                                        </div>
+
+                                                <?php } ?>
 
 
 
                                         </div>
-                                        <div class='col-md-12 col-sm-6 col-xs-12' >
-                                                <div class="form-group" >
-                                                        <?= Html::submitButton($staff_enquiry->isNewRecord ? 'Create' : 'Update', ['class' => $staff_enquiry->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
-                                                        <?php
-                                                        if (!$staff_enquiry->isNewRecord && $staff_enquiry->proceed != 1) {
-                                                                echo Html::submitButton('Proceed to Staff', ['name' => 'proceed', 'class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:125px;']);
-                                                        }
-                                                        ?>
-                                                </div>
-                                        </div>
 
 
 
-                                        <?php ActiveForm::end(); ?>
+
+
 
 
 

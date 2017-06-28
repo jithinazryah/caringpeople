@@ -66,6 +66,7 @@ class FollowupsSearch extends Followups {
 
                 $query->andFilterWhere(['like', 'followup_notes', $this->followup_notes])
                         ->andFilterWhere(['like', 'followup_date', $this->followup_date])
+                        ->andFilterWhere(['like', 'sub_type', $this->sub_type])
                         ->andFilterWhere(['like', 'assigned_to', $this->assigned_to])
                         ->andFilterWhere(['like', 'related_staffs', $this->related_staffs]);
 

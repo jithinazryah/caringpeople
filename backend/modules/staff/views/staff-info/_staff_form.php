@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ?>
                                 <?php } ?>
                                 <div class="panel-body panel_body_background" >
-                                        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+
                                         <div class="tab-content tab_data_margin" >
                                                 <?php if (Yii::$app->controller->action->id != 'editprofile') { ?>
                                                         <div class="tab-pane active" id="home-3">
@@ -113,6 +113,29 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?php ActiveForm::end(); ?>
                                                         </div>
 
+                                                        <?php if (!$model->isNewRecord) { ?>
+                                                                <div class="tab-pane" id="profile-12">
+                                                                        <?=
+                                                                        $this->render('remarks', [
+                                                                            'patient_info' => $model,
+                                                                            'type' => 4,
+                                                                        ])
+                                                                        ?>
+                                                                </div>
+
+                                                                <div class="tab-pane" id="profile-13">
+
+                                                                        <?=
+                                                                        $this->render('followups', [
+                                                                            'patient_info' => $model,
+                                                                            'type' => 4,
+                                                                        ])
+                                                                        ?>
+
+                                                                </div>
+
+                                                        <?php } ?>
+
 
                                                 <?php } else { ?>
                                                         <div class="tab-pane active" id="home-3">
@@ -142,7 +165,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-                                        <?php ActiveForm::end(); ?>
+
 
 
 

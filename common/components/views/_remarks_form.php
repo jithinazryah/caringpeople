@@ -4,23 +4,35 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use common\models\RemarksCategory;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
+use yii\widgets\ActiveForm;
 
-$model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $type, 'status' => 1])->all(), 'id', 'category');
+if ($type == 3) {
+        $remark_type = 2;
+} else if ($type == 2) {
+        $remark_type = 1;
+} else if ($type == 4) {
+        $remark_type = 2;
+} else {
+        $remark_type = $type;
+}
+
+$model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $remark_type, 'status' => 1])->all(), 'id', 'category');
 ?>
 
+<?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
 
+<div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'category')->dropDownList($model_category, ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 
-<div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($model, 'category')->dropDownList($model_category, ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+</div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'sub_category')->textInput(['maxlength' => true]) ?>
 
-</div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($model, 'sub_category')->textInput(['maxlength' => true]) ?>
+</div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_remark->field($remark, 'type')->hiddenInput(['value' => $type])->label(false); ?>
 
-</div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_remark->field($model, 'type')->hiddenInput(['value' => $type])->label(false); ?>
-
-</div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_remark->field($model, 'type_id')->hiddenInput(['value' => $type_id])->label(false); ?>
+</div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_remark->field($remark, 'type_id')->hiddenInput(['value' => $type_id])->label(false); ?>
 
 </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
         <fieldset class="rating">
-                <legend class="control-label">Please rate:</legend>
+                <legend class="control-label">Rating:</legend>
                 <input type="radio" id="star9" name="rating" value="9" onclick="postToController();"/><label for="star9" title="Excellent">9 stars</label>
                 <input type="radio" id="star8" name="rating" value="8" onclick="postToController();"/><label for="star8" title="Very Good">8 stars</label>
                 <input type="radio" id="star7" name="rating" value="7" onclick="postToController();"/><label for="star7" title="Very Good">7 stars</label>
@@ -32,24 +44,27 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $ty
                 <input type="radio" id="star1" name="rating" value="1" onclick="postToController();"/><label for="star1" title="Sucks big time">1 star</label>
         </fieldset>
 
-        <?php echo $form_remark->field($model, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
+        <?php echo $form_remark->field($remark, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
 
-</div><div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($model, 'notes')->textarea(['rows' => 1]) ?>
+</div><div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'notes')->textarea(['rows' => 1]) ?>
 
 </div>
 
 
 <div class='col-md-12 col-sm-6 col-xs-12' >
         <div class="form-group" >
-                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Create', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Create', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
 
         </div>
 </div>
-
+<?php ActiveForm::end(); ?>
 <div class="row remarks-table">
 
-        <?=
-        GridView::widget([
+        <?php
+        Pjax::begin([
+            'enablePushState' => false
+        ]);
+        echo GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'rowOptions' => function ($model, $key, $index, $grid) {
@@ -85,6 +100,7 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $ty
                 ],
             ],
         ]);
+        Pjax::end();
         ?>
 
 </div>

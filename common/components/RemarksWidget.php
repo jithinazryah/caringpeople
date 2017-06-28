@@ -1,10 +1,14 @@
 <?php
 
+//
+
 namespace common\components;
 
+use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 use common\models\Remarks;
+use common\models\RemarksSearch;
 
 class RemarksWidget extends Widget {
 
@@ -20,8 +24,20 @@ class RemarksWidget extends Widget {
         }
 
         public function run() {
+                $remarks = new Remarks();
+                $searchModel = new RemarksSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['type_id' => $this->type_id, 'type' => $this->type]);
 
-                return $this->render('_remarks_form', ['type_id' => $this->type_id, 'type' => $this->type, 'model' => $this->model, 'form_remark' => $this->form_remark, 'searchModel' => $this->searchModel, 'dataProvider' => $this->dataProvider]);
+                if (!empty(Yii::$app->request->queryParams['RemarksSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['RemarksSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 0]);
+                }
+
+
+
+                return $this->render('_remarks_form', ['type_id' => $this->type_id, 'type' => $this->type, 'remark' => $remarks, 'searchModel' => $searchModel, 'dataProvider' => $dataProvider]);
         }
 
 }

@@ -51,7 +51,7 @@ class DropdownController extends \yii\web\Controller {
                         if ($remarks->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($remarks) && $remarks->validate() && $remarks->save()) {
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);
-                                $arr_variable = array($count + 1, $category->category, $remarks->sub_category, $remarks->point, $remarks->notes, $remarks->id);
+                                $arr_variable = array($count, $category->category, $remarks->sub_category, $remarks->point, $remarks->notes, $remarks->id);
                                 $data['result'] = $arr_variable;
                                 echo json_encode($data);
                         }

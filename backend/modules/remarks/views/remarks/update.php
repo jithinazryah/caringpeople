@@ -10,26 +10,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Remarks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="row">
-        <div class="col-md-12">
+<div class="remarks-update">
 
-                <div class="panel panel-default">
-                        <div class="panel-heading">
-                                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+    <h1><?= Html::encode($this->title) ?></h1>
 
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
 
-                        </div>
-                        <div class="panel-body">
-
-                                <div class="panel-body"><div class="remarks-create">
-                                                <?=
-                                                $this->render('_form', [
-                                                    'model' => $model,
-                                                ])
-                                                ?>
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-        </div>
 </div>
