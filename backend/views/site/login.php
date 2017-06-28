@@ -15,34 +15,34 @@ $this->title = 'Login';
                 <div class="col-sm-6">
 
                         <script type="text/javascript">
-				jQuery(document).ready(function ($)
-				{
-					setTimeout(function () {
-						$(".fade-in-effect").addClass('in');
-					}, 1);
+                                jQuery(document).ready(function ($)
+                                {
+                                        setTimeout(function () {
+                                                $(".fade-in-effect").addClass('in');
+                                        }, 1);
 
-				});
+                                });
                         </script>
                         <!-- Errors container -->
                         <div class="errors-container">
                         </div>
 
                         <!-- Add class "fade-in-effect" for login form effect -->
-			<?php
-			$form = ActiveForm::begin(
-					[
-					    'id' => 'login',
-					    'method' => 'post',
-					    'options' => [
-						'class' => 'login-form fade-in-effect'
-					    ]
-					]
-			);
-			?>
+                        <?php
+                        $form = ActiveForm::begin(
+                                        [
+                                            'id' => 'login',
+                                            'method' => 'post',
+                                            'options' => [
+                                                'class' => 'login-form fade-in-effect'
+                                            ]
+                                        ]
+                        );
+                        ?>
 
                         <div class="login-header">
                                 <a href="" class="logo">
-					<?php echo Html::img('@web/images/logos/logo-1.png', $options = ['width' => '369px']) ?>
+                                        <?php echo Html::img('@web/images/logos/logo-1.png', $options = ['width' => '369px']) ?>
                                         <!--<span>Emperor Admin log in</span>-->
                                 </a>
 
@@ -51,16 +51,16 @@ $this->title = 'Login';
 
 
                         <div class="form-group">
-				<?= $form->field($model, 'username')->textInput(['class' => 'form-control input-dark', 'autofocus' => 'true']) ?>
+                                <?= $form->field($model, 'username')->textInput(['class' => 'form-control input-dark', 'autofocus' => 'true']) ?>
                         </div>
 
                         <div class="form-group">
-				<?= $form->field($model, 'password')->passwordInput(['class' => 'form-control input-dark']) ?>
+                                <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control input-dark']) ?>
                         </div>
 
                         <div class="form-group">
-				<?= Html::submitButton('<i class="fa-lock"></i>Log In', ['class' => 'btn btn-dark  btn-block text-left'])
-				?>
+                                <?= Html::submitButton('<i class="fa-lock"></i>Log In', ['class' => 'btn btn-dark  btn-block text-left'])
+                                ?>
 
                         </div>
 
@@ -75,7 +75,7 @@ $this->title = 'Login';
 
                         </div>
 
-			<?php ActiveForm::end(); ?>
+                        <?php ActiveForm::end(); ?>
 
 
                 </div>
@@ -83,3 +83,12 @@ $this->title = 'Login';
         </div>
 
 </div>
+
+<style>
+        form div.required label.control-label:after {
+                display: none;
+        }
+        input:focus{
+                border-bottom: none !important;
+        }
+</style>
