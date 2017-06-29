@@ -47,6 +47,17 @@ class PatientInformationController extends Controller {
                 ];
         }
 
+        public function actionAdd() {
+
+                $staff_enquiry = PatientGeneral::find()->all();
+                foreach ($staff_enquiry as $value) {
+
+                        $staff_salary = new \common\models\PatientAssessment();
+                        $staff_salary->patient_id = $value->id;
+                        $staff_salary->save(false);
+                }
+        }
+
         /**
          * Lists all PatientInformation models.
          * @return mixed
@@ -116,6 +127,7 @@ class PatientInformationController extends Controller {
                 $chronic_imformation = new PatientChronic();
                 $present_condition = new PatientPresentCondition();
                 $bystander_details = new PatientBystanderDetails();
+                $patient_assessment = new PatientAssessment();
 
                 $enquiry_data = PatientEnquiryGeneralFirst::find()->where(['id' => $id])->one();
                 $enquiry_patient_details = PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $id])->one();
@@ -140,6 +152,8 @@ class PatientInformationController extends Controller {
                         $present_condition->save();
                         $bystander_details->patient_id = $patient_general->id;
                         $bystander_details->save();
+                        $patient_assessment->patient_id = $patient_general->id;
+                        $patient_assessment->save();
 
                         if (!empty($guardian_contact_details)) {
                                 $guardian_contact_details->patient_id = $patient_general->id;
