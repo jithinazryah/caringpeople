@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\models\Religion;
 use common\models\Nationality;
-use common\components\ViewlinkssWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffInfo */
@@ -20,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
-                                <?= ViewlinkssWidget::widget(['type_id' => $patient_details->id, 'type' => 2]); ?>
+
                         </div>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Patients</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
@@ -1028,12 +1027,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <td><?= $i ?></td>
                                                                                                                         <td><?php
-                                                                                                                                if ($medications->tablet_injection == 0)
-                                                                                                                                        echo "Tablet";
-                                                                                                                                elseif ($medications->tablet_injection == 1) {
-                                                                                                                                        echo "Injection";
-                                                                                                                                }
-                                                                                                                                ?></td>
+                                                                                                        if ($medications->tablet_injection == 0)
+                                                                                                                echo "Tablet";
+                                                                                                        elseif ($medications->tablet_injection == 1) {
+                                                                                                                echo "Injection";
+                                                                                                        }
+                                                                                                                ?></td>
                                                                                                                         <td><?= $medications->medicine_name; ?></td>
                                                                                                                         <td><?= $medications->dosage; ?></td>
                                                                                                                         <td><?= $medications->mode; ?></td>

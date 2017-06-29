@@ -5,7 +5,6 @@ use yii\widgets\DetailView;
 use common\models\Religion;
 use common\models\Caste;
 use common\models\Nationality;
-use common\components\ViewlinkssWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffInfo */
@@ -20,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel panel-default">
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
-                                <?= ViewlinkssWidget::widget(['type_id' => $staff_info->id, 'type' => 4]); ?>
+
                         </div>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>

@@ -2,7 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use common\components\FollowupsviewWidget;
+use yii\widgets\Pjax;
+use common\models\FollowupSubType;
+use yii\helpers\ArrayHelper;
+use common\models\StaffInfo;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\FollowupsSearch */
@@ -23,16 +26,64 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <div class="panel-body">
 
-                                        <?php
-                                        if (!empty($followups)) {
-                                                foreach ($followups as $value) {
+                                        <div class="row followups-table">
 
-                                                        echo FollowupsviewWidget::widget(['data' => $value]);
-                                                }
-                                        } else {
-                                                echo '<p style="text-align:center;"> No followups found !!</p>';
-                                        }
-                                        ?>
+                                                <?php
+                                                Pjax::begin([
+                                                    'enablePushState' => false
+                                                ]);
+                                                echo GridView::widget([
+                                                    'dataProvider' => $dataProvider,
+                                                    'filterModel' => $searchModel,
+                                                    'rowOptions' => function ($model, $key, $index, $grid) {
+                                                            return ['id' => $model['id']];
+                                                    },
+                                                    'columns' => [
+                                                            ['class' => 'yii\grid\SerialColumn'],
+                                                            [
+                                                            'attribute' => 'sub_type',
+                                                            'value' => 'to0.sub_type',
+                                                            'filter' => ArrayHelper::map(FollowupSubType::find()->where(['status' => '1'])->asArray()->all(), 'id', 'sub_type'),
+                                                        ],
+                                                        'followup_date',
+                                                        'followup_notes',
+                                                            ['attribute' => 'assigned_to',
+                                                            'value' => 'assigned0.staff_name',
+                                                            'filter' => ArrayHelper::map(StaffInfo::find()->where(['status' => '1', 'post_id' => 5])->asArray()->all(), 'id', 'staff_name'),
+                                                        ],
+                                                            ['attribute' => 'assigned_from',
+                                                            'value' => 'assignedfrom0.staff_name',
+                                                        //'filter' => ArrayHelper::map(StaffInfo::find()->where(['status' => '1', 'post_id' => 5])->asArray()->all(), 'id', 'staff_name'),
+                                                        ],
+                                                            ['attribute' => 'related_staffs',
+                                                            'value' => function($model, $key, $index, $column) {
+                                                                    return $model->Relatedstaffs($model->related_staffs);
+                                                            },
+                                                        ],
+                                                            [
+                                                            'attribute' => 'status',
+                                                            'value' => function($model, $key, $index, $column) {
+                                                                    if ($model->status == '0') {
+                                                                            return 'Active';
+                                                                    } elseif ($model->status == '1') {
+                                                                            return 'Closed';
+                                                                    }
+                                                            },
+                                                            'filter' => [0 => 'Active', 1 => 'Closed'],
+                                                        ],
+                                                            [
+                                                            'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
+                                                                    return ['id' => $model->id, 'class' => 'iswitch iswitch-secondary followup-status'];
+                                                            },
+                                                            'header' => 'Change Status',
+                                                        ],
+                                                    ],
+                                                ]);
+                                                Pjax::end();
+                                                ?>
+
+                                        </div>
+
                                 </div>
                         </div>
                 </div>

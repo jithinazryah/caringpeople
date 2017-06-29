@@ -604,7 +604,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                               ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                  ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -644,16 +644,16 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                         </a>
 
                                                         <ul class="dropdown-menu notifications">
-                                                                <li style="in-height: 50px;padding: 11px;">
-                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/view"> My Followups</a>
+                                                                <li style="height: 50px;padding: 11px;">
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/index" style="line-height: 3"> My Followups</a>
                                                                 </li>
 
-                                                                <li style="in-height: 50px;padding: 11px;">
-                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/followups"> Add Followups</a>
+                                                                <li style="height: 50px;padding: 11px;">
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/followups" style="line-height: 3"> Add Followups</a>
                                                                 </li>
 
-                                                                <li style="in-height: 50px;padding: 11px;">
-                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/viewrelated">My Related Followups</a>
+                                                                <li style="height: 50px;padding: 11px;">
+                                                                        <a href="<?= Yii::$app->homeUrl; ?>followup/followups/viewrelated" style="line-height: 3">My Related Followups</a>
                                                                 </li>
 
                                                         </ul>

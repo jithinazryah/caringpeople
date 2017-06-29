@@ -24,6 +24,7 @@ class FollowupajaxController extends \yii\web\Controller {
         }
 
         public function actionAddfollowup() {
+                $repeated = 1;
                 if (Yii::$app->request->isAjax) {
 
                         $followups = new \common\models\RepeatedFollowups();
@@ -39,7 +40,7 @@ class FollowupajaxController extends \yii\web\Controller {
                                         $this->Adddata($followups_one, $followups);
                                         $followups_one->save(false);
                                         $this->upload($followups_one, $file, $followups_one->id, 1);
-                                        $content = $this->Showdata($followups_one);
+                                        $repeated = 0;
                                 } else {
                                         if ($followups->repeated_type != 1) {
                                                 if ($_POST['create']['specific-days'] != '' || $_POST['create']['specific-dates-month'] != '') {
@@ -52,20 +53,20 @@ class FollowupajaxController extends \yii\web\Controller {
                                                         $this->upload($followups, $file, $followups->id, 2);
                                                 }
                                         } else {
+
                                                 foreach ($_POST['date']['remind_days1'] as $val) {
                                                         if ($val != '') {
                                                                 $followups_add = new Followups();
                                                                 $this->Adddata($followups_add, $followups);
                                                                 $followups_add->followup_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $val)));
-                                                                $followups_add->save(false);
+                                                                $followups_add->save();
                                                                 $this->upload($followups_add, $file, $followups_add->id, 1);
                                                         }
                                                 }
                                         }
                                 }
-                                if (!empty($content)) {
-                                        $data['result'] = $content;
-                                        echo json_encode($data);
+                                if ($repeated == 0) {
+                                        return \yii\helpers\Json::encode($followups_one);
                                 }
                         }
                 }

@@ -84,6 +84,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'model' => $bystander_details,
                                                 ])
                                                 ?>
+
+                                        </div>
+
+                                        <div class="tab-pane" id="assesment">
+
+                                                <?=
+                                                $this->render('_patient_assessment', [
+                                                    'form' => $form,
+                                                    'patient_assessment' => $patient_assessment,
+                                                ])
+                                                ?>
                                                 <?php ActiveForm::end(); ?>
                                         </div>
 

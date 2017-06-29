@@ -26,6 +26,7 @@ use common\models\ContactDirectory;
 use common\models\PatientEnquiryHospitalSecond;
 use common\models\PatientEnquiryHospitalDetails;
 use common\models\Remarks;
+use common\models\PatientAssessment;
 
 /**
  * PatientInformationController implements the CRUD actions for PatientInformation model.
@@ -189,6 +190,7 @@ class PatientInformationController extends Controller {
                 $pationt_medication_details = '';
                 $present_condition = new PatientPresentCondition();
                 $bystander_details = new PatientBystanderDetails();
+                $patient_assessment = new PatientAssessment();
 
                 $before_update_guardian_details = '';
                 $before_update_patient_details = '';
@@ -210,7 +212,9 @@ class PatientInformationController extends Controller {
                         }
                 }
 
+
                 if ($patient_general->load(Yii::$app->request->post()) && $guardian_details->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_general)) {
+
 
                         $patient_general->weight = Yii::$app->request->post()['PatientGeneral']['weight'];
                         if (Yii::$app->user->identity->branch_id != '0') {
@@ -221,11 +225,10 @@ class PatientInformationController extends Controller {
                         $chronic_imformation->load(Yii::$app->request->post());
                         $present_condition->load(Yii::$app->request->post());
                         $bystander_details->load(Yii::$app->request->post());
+                        $patient_assessment->load(Yii::$app->request->post());
+                        if ($patient_general->validate() && $guardian_details->validate() && $chronic_imformation->validate() && $present_condition->validate() && $patient_assessment->validate()) {
 
-
-                        if ($patient_general->validate() && $guardian_details->validate() && $chronic_imformation->validate() && $present_condition->validate()) {
-
-                                if ($patient_general->save() && $guardian_details->save() && $chronic_imformation->save() && $present_condition->save()) {
+                                if ($patient_general->save() && $guardian_details->save() && $chronic_imformation->save() && $present_condition->save() && $patient_assessment->save()) {
 
                                         $guardian_details->patient_id = $patient_general->id;
                                         $guardian_details->save();
@@ -239,8 +242,12 @@ class PatientInformationController extends Controller {
                                         $bystander_details->patient_id = $patient_general->id;
                                         $bystander_details->save();
 
+                                        $patient_assessment->patient_id = $patient_general->id;
+                                        $patient_assessment->save();
+
                                         $this->AddPresentMedication($patient_general);
                                         $this->AddBystanderDetails(Yii::$app->request->post(), $bystander_details);
+                                        $this->AddPatientAssessment($patient_assessment);
 
                                         $this->AddContactDirectory($patient_general);
                                         $guardian_datas = array('passport', 'guardian_profile_image');
@@ -260,6 +267,7 @@ class PatientInformationController extends Controller {
                             'pationt_medication_details' => $pationt_medication_details,
                             'present_condition' => $present_condition,
                             'bystander_details' => $bystander_details,
+                            'patient_assessment' => $patient_assessment
                 ]);
         }
 
@@ -298,6 +306,16 @@ class PatientInformationController extends Controller {
                 if (!empty($load_data['PatientBystanderDetails']['can_provide']))
                         $bystander_details->can_provide = implode(',', $load_data['PatientBystanderDetails']['can_provide']);
                 $bystander_details->save();
+        }
+
+        public function AddPatientAssessment($patient_assessment) {
+                if (isset($_POST['patient_medical_procedures']) && $_POST['patient_medical_procedures'] != '') {
+                        $patient_assessment->patient_medical_procedures = implode(',', $_POST['patient_medical_procedures']);
+                }
+                if (isset($_POST['suggested_professional']) && $_POST['suggested_professional'] != '') {
+                        $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
+                }
+                $patient_assessment->save();
         }
 
         public function AddPresentMedication($patient_general) {
@@ -433,7 +451,7 @@ class PatientInformationController extends Controller {
                 $pationt_medication_details = PatientPresentMedication::find()->where(['patient_id' => $id])->all();
                 $present_condition = PatientPresentCondition::find()->where(['patient_id' => $id])->one();
                 $bystander_details = PatientBystanderDetails::find()->where(['patient_id' => $id])->one();
-
+                $patient_assessment = PatientAssessment::find()->where(['patient_id' => $id])->one();
 
                 if (!empty($patient_general) && !empty($guardian_details) && !empty($chronic_imformation && $present_condition && !empty($bystander_details))) {
 
@@ -456,6 +474,7 @@ class PatientInformationController extends Controller {
                                         $present_condition->save();
                                         $bystander_details->save();
                                         $this->AddPresentMedication($patient_general);
+                                        $this->AddPatientAssessment($patient_assessment);
                                         $this->AddBystanderDetails(Yii::$app->request->post(), $bystander_details);
 
                                         return $this->redirect(['view', 'id' => $patient_general->id]);
@@ -468,6 +487,7 @@ class PatientInformationController extends Controller {
                                     'pationt_medication_details' => $pationt_medication_details,
                                     'present_condition' => $present_condition,
                                     'bystander_details' => $bystander_details,
+                                    'patient_assessment' => $patient_assessment
                         ]);
                 } else {
                         return $this->redirect([

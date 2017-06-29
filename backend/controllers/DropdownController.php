@@ -18,14 +18,20 @@ class DropdownController extends \yii\web\Controller {
         }
 
         public function actionAddhospital() {
+
                 $hospital = $this->renderPartial('_hospital');
+
                 echo $hospital;
         }
 
         public function actionAdd() {
 
                 if (Yii::$app->request->isAjax) {
-                        $hospital = new Hospital();
+                        $model = new Hospital();
+
+                        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+
+                        }
 
                         //$hospital->hospital_name=$_POST['hospital_name'];
 //            $hospital->contact_person=$_POST['contact_person'];
@@ -47,23 +53,25 @@ class DropdownController extends \yii\web\Controller {
 
                 if (Yii::$app->request->isAjax) {
                         $remarks = new Remarks();
-                        $remarks->status = 2;
+                        $remarks->status = 1;
 
                         if ($remarks->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($remarks) && $remarks->validate()) {
                                 $remarks->date = date('Y-m-d', strtotime($remarks->date));
                                 $remarks->save();
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);
-                                $arr_variable = array($count, $category->category, $remarks->sub_category, $remarks->point, $remarks->notes, $remarks->id);
+                                $arr_variable = array($count, $category->category, $remarks->sub_category, $remarks->point, $remarks->notes, $remarks->date, $remarks->id);
                                 $data['result'] = $arr_variable;
-                                echo json_encode($data);
+                                $remarks->category = $category->category;
+                                $remarks->UB = $count;
+                                return \yii\helpers\Json::encode($remarks);
                         }
                 }
         }
 
         public function actionChangeremarkstatus() {
                 $remark = Remarks::findOne($_POST['remark_id']);
-                $remark->status = 0;
+                $remark->status = 2;
                 if ($remark->update()) {
                         echo '1';
                 } else {

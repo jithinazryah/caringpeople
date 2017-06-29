@@ -55,7 +55,7 @@ class PatientEnquiryHospitalFirst extends \yii\db\ActiveRecord {
                     'patient_dob' => 'DOB',
                     'patient_weight' => 'Weight',
                     'relationship' => 'Relationship',
-                    'relationship_others' => 'Relationship Others',
+                    'relationship_others' => 'Relationship Details',
                     'person_address' => 'Person Address',
                     'person_city' => 'Person City',
                     'person_postal_code' => 'Person Postal Code',

@@ -10,15 +10,15 @@ $("document").ready(function () {
          * show add hospital form
          */
         $('.add-hospital-link').on('click', function (e) {
-                var select_box = $(this).attr('id');
+
                 $.ajax({
                         type: 'POST',
                         cache: false,
                         async: false,
-                        data: 'select_box=' + $(this).attr('id'),
+                        data: 'select_box=1',
                         url: homeUrl + 'dropdown/addhospital',
                         success: function (data) {
-
+                                alert(data);
                                 $("#modal-pop-up").html(data);
                                 $('#modal-6').modal('show', {backdrop: 'static'});
                                 e.preventDefault();
@@ -30,6 +30,7 @@ $("document").ready(function () {
          */
 
         $(document).on('submit', '#submit-add-hospital', function () {
+
                 var str = $(this).serialize();
 
                 $.ajax({
@@ -38,8 +39,7 @@ $("document").ready(function () {
                         type: "POST",
                         data: str,
                         success: function (data) {
-                                // var res = $.parseJSON(data);
-                                alert(data);
+
                                 //$(".partner_name").text(res.result['hospital_name']);
                                 // $("#salesinvoicedetails-busines_partner_code").val(res.result['id']);
                                 // $('#modal-6').modal('hide');
@@ -61,13 +61,14 @@ $("document").ready(function () {
 
                                 $('#add-remarks')[0].reset();
                                 var res = $.parseJSON(data);
-                                $('.remarks-table table').append('<tr id="' + res.result[5] + '"><td>' + res.result[0] + '</td>\n\
-                                                                  <td>' + res.result[1] + '</td>\n\
-                                                                  <td>' + res.result[2] + '</td>\n\
-                                                                  <td>' + res.result[3] + '</td>\n\
-                                                                  <td>' + res.result[4] + '</td>\n\
+                                $('.remarks-table table').append('<tr id="' + res.id + '"><td>' + res.UB + '</td>\n\
+                                                                  <td>' + res.category + '</td>\n\
+                                                                  <td>' + res.sub_category + '</td>\n\
+                                                                  <td>' + res.point + '</td>\n\
+                                                                  <td>' + res.notes + '</td>\n\
+                                                                  <td>' + res.date + '</td>\n\
                                                                   <td>Active</td>\n\
-                                                                  <td><input type="checkbox" class="iswitch iswitch-secondary remarks-status" id="' + res.result[5] + '"></td></tr>');
+                                                                  <td><input type="checkbox" class="iswitch iswitch-secondary remarks-status" id="' + res.id + '"></td></tr>');
                         }
                 });
                 e.preventDefault();

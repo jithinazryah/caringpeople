@@ -54,23 +54,27 @@ $("document").ready(function () {
                         data: formData,
                         async: false,
                         success: function (data) {
-                                if (data) {
 
-                                        $('#add-followup')[0].reset();
-                                        $("#create-assigned_to").select2("val", "");
-                                        $("#create-related_staffs").select2("val", "");
+                                if (data) {
+                                        var rowCount = $('.followups-table table tr').length;
+                                        var count = rowCount - 1;
                                         var res = $.parseJSON(data);
-                                        $('.followups-table table').append('<tr id="' + res.result[7] + '"><td>' + res.result[0] + '</td>\n\
-                                                                  <td>' + res.result[1] + '</td>\n\
-                                                                  <td>' + res.result[2] + '</td>\n\
-                                                                  <td>' + res.result[3] + '</td>\n\
-                                                                  <td>' + res.result[4] + '</td>\n\
-                                                                  <td>' + res.result[5] + '</td>\n\
-                                                                  <td>' + res.result[6] + '</td>\n\
+
+                                        $('.followups-table table').append('<tr id="' + res.id + '"><td>' + count + '</td>\n\
+                                                                  <td>' + $('#repeatedfollowups-sub_type option:selected').text() + '</td>\n\
+                                                                  <td>' + $('#Followup_date').val() + '</td>\n\
+                                                                  <td>' + $('#repeatedfollowups-followup_notes').val() + '</td>\n\
+                                                                  <td>' + $('#create-assigned_to option:selected').text() + '</td>\n\
+                                                                  <td>' + $('#repeatedfollowups-assigned_from').val() + '</td>\n\
+                                                                  <td>' + $('#create-related_staffs option:selected').text() + '</td>\n\
                                                                   <td>Active</td>\n\
-                                                                  <td><input type="checkbox" class="iswitch iswitch-secondary followup-status" id="' + res.result[7] + '"></td></tr>');
+                                                                  <td><input type="checkbox" class="iswitch iswitch-secondary followup-status" id="' + res.id + '"></td></tr>');
 
                                 }
+                                $('#add-followup')[0].reset();
+                                $("#create-assigned_to").select2("val", "");
+                                $("#create-related_staffs").select2("val", "");
+                                $('#repeated-fields').hide();
                         },
                         cache: false,
                         contentType: false,
@@ -95,9 +99,9 @@ $("document").ready(function () {
                         data: {followup_id: $(this).attr('id'), type: type},
                         url: homeUrl + 'followupajax/followupstatus',
                         success: function (data) {
-                                alert(data);
-                                $('#1').remove();
-                                //  $('.remarks-table table tr#' + remark).remove();
+
+
+                                $('.followups-table table tr#' + followup_id).remove();
                         }
                 });
         });
@@ -108,14 +112,15 @@ $("document").ready(function () {
 
         $(document).on('change', '.followup_type', function () {
                 var type = $(this).val();
-                var id_rand = $(this).attr('id');
+
                 $.ajax({
                         type: 'POST',
                         cache: false,
                         data: {type: type},
                         url: homeUrl + 'followupajax/subtype',
                         success: function (data) {
-                                $('#sub_' + id_rand).html(data);
+                                // alert(data);
+                                $('.sub_type').html(data);
                                 hideLoader();
                         }
                 });

@@ -101,6 +101,7 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
                 'sub_category',
                 'point',
                 'notes:ntext',
+                'date',
                     [
                     'attribute' => 'status',
                     'value' => function($model, $key, $index, $column) {
@@ -112,13 +113,19 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
                     },
                     'filter' => [2 => 'Closed', 1 => 'Active'],
                 ],
-                'date',
-                    [
-                    'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
-                            if ($model->status != '0')
-                                    return ['id' => $model->id, 'class' => 'iswitch iswitch-secondary remarks-status'];
-                    },
-                    'header' => 'Change Status',
+                    ['class' => 'yii\grid\ActionColumn',
+                    'template' => '{status}',
+                    'visibleButtons' => [
+                        'status' => function ($model, $key, $index) {
+                                return $model->status != '2' ? true : false;
+                        }
+                    ],
+                    'buttons' => [
+                        'status' => function ($url, $model) {
+
+                                return Html::checkbox('status', false, ['class' => 'iswitch iswitch-secondary remarks-status', 'id' => $model->id]);
+                        },
+                    ],
                 ],
             ],
         ]);

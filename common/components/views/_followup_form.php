@@ -9,18 +9,24 @@ use yii\helpers\ArrayHelper;
 use kartik\datetime\DateTimePicker;
 use common\models\FollowupSubType;
 use common\models\StaffInfo;
+use common\models\FollowupType;
 
 $followup_subtype = ArrayHelper::map(FollowupSubType::find()->where(['type_id' => $type, 'status' => 1])->all(), 'id', 'sub_type');
-?>
-<?php
+$followuptype = ArrayHelper::map(FollowupType::find()->all(), 'id', 'type');
 $form_followup = ActiveForm::begin(['id' => 'add-followup', 'options' => ['enctype' => 'multipart/form-data']]);
-?>
+if ($type != '') {
+        ?>
+        <div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'type')->hiddenInput(['value' => $type])->label(false); ?>
+        </div>
 
-<div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'type')->hiddenInput(['value' => $type])->label(false); ?>
+<?php } else { ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                <?= $form_followup->field($model, 'type')->dropDownList($followuptype, ['prompt' => '--Select--', 'class' => 'form-control followup_type']) ?>
+        </div>
+<?php } ?>
+<div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'type_id')->hiddenInput(['value' => $type_id])->label(false); ?>
 
-</div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'type_id')->hiddenInput(['value' => $type_id])->label(false); ?>
-
-</div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'sub_type')->dropDownList($followup_subtype, ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+</div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'sub_type')->dropDownList($followup_subtype, ['prompt' => '--Select--', 'class' => 'form-control sub_type']) ?>
 
 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
         <div class="form-group field-followups-followupdate">
@@ -28,6 +34,7 @@ $form_followup = ActiveForm::begin(['id' => 'add-followup', 'options' => ['encty
                 <?php
                 echo DateTimePicker::widget([
                     'name' => 'Followups[followup_date]',
+                    'id' => 'Followup_date',
                     'type' => DateTimePicker::TYPE_INPUT,
                     'value' => date('d-M-Y h:i'),
                     'pluginOptions' => [
@@ -81,51 +88,55 @@ if ($type == 5) {
 
 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'repeated')->checkBox(['id' => 'repeated_followups']); ?>
 
-</div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="repeated-types">    <?= $form_followup->field($model, 'repeated_type')->dropDownList(['' => '--Select--', '4' => 'Every Day', '1' => 'Specific Dates', '2' => 'Specific Days of week', '3' => 'Specific Days of month'], ['id' => 'repeated-option']) ?>
-
 </div>
+<div id="repeated-fields">
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="repeated-types">    <?= $form_followup->field($model, 'repeated_type')->dropDownList(['' => '--Select--', '4' => 'Every Day', '1' => 'Specific Dates', '2' => 'Specific Days of week', '3' => 'Specific Days of month'], ['id' => 'repeated-option']) ?>
+
+        </div>
 
 
 
-<!----------------------------Specific date------------------------------------->
-<div class="col-md-12 option1 col-sm-6 col-xs-12 left_padd" style="display: none;">
+        <!----------------------------Specific date------------------------------------->
+        <div class="col-md-12 option1 col-sm-6 col-xs-12 left_padd" style="display: none;">
 
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd text-items'>
-                <div class="form-group field-followups-date">
-                        <label class="control-label" for="reminder-remind_days">Select Date</label>
-                        <input type="datetime-local" id="reminder-remind_days1" class="form-control remind_days1" name="date[remind_days1][]">
+                <div class='col-md-3 col-sm-6 col-xs-12 left_padd text-items'>
+                        <div class="form-group field-followups-date">
+                                <label class="control-label" for="reminder-remind_days">Select Date</label>
+                                <input type="datetime-local" id="reminder-remind_days1" class="form-control remind_days1" name="date[remind_days1][]">
+                        </div>
+                </div>
+
+                <div class="col-md-3" style="margin-top: 15px;">
+                        <a class="btn btn-blue btn-icon btn-icon-standalone add-items" ><i class="fa-plus"></i><span>Add More Dates</span></a>
+
                 </div>
         </div>
 
-        <div class="col-md-3" style="margin-top: 15px;">
-                <a class="btn btn-blue btn-icon btn-icon-standalone add-items" ><i class="fa-plus"></i><span>Add More Dates</span></a>
+        <!----------------------------Specific days of week------------------------------------->
 
+        <?php
+        $days = Yii::$app->Followups->Days();
+        ?>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd option2' style="display: none;">
+                <div class="form-group field-followups-date">
+                        <label class="control-label" for="reminder-remind_days">Select Day</label>
+                        <?= Html::dropDownList('create[specific-days]', null, $days, ['class' => 'form-control', 'id' => 'specific-days', 'multiple' => 'multiple']); ?>
+                </div>
         </div>
-</div>
 
-<!----------------------------Specific days of week------------------------------------->
 
-<?php
-$days = Yii::$app->Followups->Days();
-?>
-<div class='col-md-3 col-sm-6 col-xs-12 left_padd option2' style="display: none;">
-        <div class="form-group field-followups-date">
-                <label class="control-label" for="reminder-remind_days">Select Day</label>
-                <?= Html::dropDownList('create[specific-days]', null, $days, ['class' => 'form-control', 'id' => 'specific-days', 'multiple' => 'multiple']); ?>
+        <!----------------------------Specific days of week------------------------------------->
+
+        <?php
+        $dates = Yii::$app->Followups->Dates();
+        ?>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd option3' style="display: none;">
+                <div class="form-group field-followups-date">
+                        <label class="control-label" for="reminder-remind_days">Select Date</label>
+                        <?= Html::dropDownList('create[specific-dates-month]', null, $dates, ['class' => 'form-control', 'id' => 'specific-dates-month', 'multiple' => 'multiple']); ?>
+                </div>
         </div>
-</div>
 
-
-<!----------------------------Specific days of week------------------------------------->
-
-<?php
-$dates = Yii::$app->Followups->Dates();
-?>
-<div class='col-md-3 col-sm-6 col-xs-12 left_padd option3' style="display: none;">
-        <div class="form-group field-followups-date">
-                <label class="control-label" for="reminder-remind_days">Select Date</label>
-                <?= Html::dropDownList('create[specific-dates-month]', null, $dates, ['class' => 'form-control', 'id' => 'specific-dates-month', 'multiple' => 'multiple']); ?>
-        </div>
 </div>
 
 
@@ -185,11 +196,19 @@ $dates = Yii::$app->Followups->Dates();
                     },
                     'filter' => [0 => 'Active', 1 => 'Closed'],
                 ],
-                    [
-                    'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
-                            return ['id' => $model->id, 'class' => 'iswitch iswitch-secondary followup-status'];
-                    },
-                    'header' => 'Change Status',
+                    ['class' => 'yii\grid\ActionColumn',
+                    'template' => '{status}',
+                    'visibleButtons' => [
+                        'status' => function ($model, $key, $index) {
+                                return $model->status != '1' ? true : false;
+                        }
+                    ],
+                    'buttons' => [
+                        'status' => function ($url, $model) {
+
+                                return Html::checkbox('status', false, ['class' => 'iswitch iswitch-secondary followup-status', 'id' => $model->id]);
+                        },
+                    ],
                 ],
             ],
         ]);
