@@ -54,12 +54,12 @@ use yii\helpers\Html;
 
         <?php if (!$model->isNewRecord) { ?>
                 <li>
-                        <a href="#profile-12" data-toggle="tab"><span class="visible-xs"><i class="linecons-note"></i></span>
+                        <a href="#profile-12" data-toggle="tab"><span class="visible-xs"><i class="linecons-note hidden-xs"></i></span>
                                 <i class="linecons-note"></i> <span class="hidden-xs span-font-size"> REMARKS</span></a>
                 </li>
 
                 <li>
-                        <a href="#profile-13" data-toggle="tab"><span class="visible-xs"><i class="fa fa-tasks" aria-hidden="true"></i></span>
+                        <a href="#profile-13" data-toggle="tab"><span class="visible-xs"><i class="fa fa-tasks hidden-xs" ></i></span>
                                 <i class="fa fa-tasks" aria-hidden="true"></i> <span class="hidden-xs span-font-size"> FOLLOWUPS</span></a>
                 </li>
         <?php } ?>

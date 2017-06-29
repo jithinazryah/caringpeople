@@ -32,20 +32,6 @@ class DropdownController extends \yii\web\Controller {
                         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
 
                         }
-
-                        //$hospital->hospital_name=$_POST['hospital_name'];
-//            $hospital->contact_person=$_POST['contact_person'];
-//            $hospital->contact_email=$_POST['contact_email'];
-//            $hospital->contact_number=$_POST['contact_number'];
-//            $hospital->contact_number_2=$_POST['contact_number_2'];
-//            $hospital->address=$_POST['address'];
-//            var_dump($hospital);exit;
-//            Yii::$app->SetValues->Attributes($model);
-//            if ($model->save(false)) {
-//                $arrr_variable = array('hospital-id' => $model->id, 'hospital-name' => $model->hospital_name);
-//                $data['result'] = $arrr_variable;
-//                echo json_encode($data);
-//            }
                 }
         }
 
@@ -58,10 +44,12 @@ class DropdownController extends \yii\web\Controller {
                         if ($remarks->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($remarks) && $remarks->validate()) {
                                 $remarks->date = date('Y-m-d', strtotime($remarks->date));
                                 $remarks->save();
+                                if ($remarks->type == '2' || $remarks->type == '4')
+                                        $pp = $this->Rating($remarks->type_id, $remarks->type);
+
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);
-                                $arr_variable = array($count, $category->category, $remarks->sub_category, $remarks->point, $remarks->notes, $remarks->date, $remarks->id);
-                                $data['result'] = $arr_variable;
+
                                 $remarks->category = $category->category;
                                 $remarks->UB = $count;
                                 return \yii\helpers\Json::encode($remarks);
@@ -77,6 +65,21 @@ class DropdownController extends \yii\web\Controller {
                 } else {
                         echo '0';
                 }
+        }
+
+        public function Rating($id, $type) {
+
+                if ($type == '4') {
+                        $person = \common\models\StaffInfo::findOne($id);
+                }
+                if ($type == '2') {
+                        $person = \common\models\PatientGeneral::findOne($id);
+                }
+                $total_remarks_point = Remarks::find()->where(['type_id' => $id])->sum('point');
+                $total_remarks = Remarks::find()->where(['type_id' => $id])->count();
+                $rating = $total_remarks_point / $total_remarks * 9;
+                $person->average_point = $rating;
+                $person->save();
         }
 
 }

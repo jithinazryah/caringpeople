@@ -60,32 +60,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <?=
                                                 $this->render('_present_medication', [
                                                     'form' => $form,
-                                                    'model' => $model,
+                                                    //  'model' => $model,
                                                     'pationt_medication_details' => $pationt_medication_details,
-                                                ])
-                                                ?>
-
-                                        </div>
-                                        <div class="tab-pane" id="condition">
-
-                                                <?=
-                                                $this->render('_present_condition', [
-                                                    'form' => $form,
                                                     'model' => $present_condition,
+                                                    'bystander_details' => $bystander_details,
                                                 ])
                                                 ?>
 
                                         </div>
-                                        <div class="tab-pane" id="bystander">
 
-                                                <?=
-                                                $this->render('_bystander_details', [
-                                                    'form' => $form,
-                                                    'model' => $bystander_details,
-                                                ])
-                                                ?>
 
-                                        </div>
 
                                         <div class="tab-pane" id="assesment">
 

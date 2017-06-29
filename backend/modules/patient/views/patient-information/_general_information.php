@@ -19,7 +19,7 @@ use common\models\Branch;
 
         <div class="row">
 
-                <h4 style="color:#000;font-style: italic;">Guardian Details</h4>
+                <h4 class="h4-labels">Guardian Details</h4>
                 <hr class="enquiry-hr"/>
 
 
@@ -129,7 +129,7 @@ use common\models\Branch;
                 </div>
 
         </div>
-        <h4 style="color:#000;font-style: italic;">Patients Details</h4>
+        <h4 class="h4-labels">Patients Details</h4>
         <hr class="enquiry-hr"/>
 
         <div class="row">
