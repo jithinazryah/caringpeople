@@ -68,8 +68,22 @@ class FollowupsController extends Controller {
                 ]);
         }
 
-        public function actionFollowups() {
+        public function actionRepeated($typeid, $type) {
+                $searchModel = new \common\models\RepeatedFollowupsSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['type_id' => $typeid, 'type' => $type]);
+                if (!empty(Yii::$app->request->queryParams['RepeatedFollowupsSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['RepeatedFollowupsSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 1]);
+                }
+                return $this->render('repeated', [
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
+                ]);
+        }
 
+        public function actionFollowups() {
 
                 $type_id = '';
                 $type = '';

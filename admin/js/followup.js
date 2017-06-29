@@ -106,6 +106,27 @@ $("document").ready(function () {
                 });
         });
         /*
+         * to change the status of repeated followup (change status to closed)
+         */
+
+
+        $(document).on('click', '.followup-status-repeated', function (e) {
+
+                var followup_id = $(this).attr('id');
+
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {followup_id: $(this).attr('id')},
+                        url: homeUrl + 'followupajax/followupstatusrepeated',
+                        success: function (data) {
+
+
+                                $('.repeated-table table tr#' + followup_id).remove();
+                        }
+                });
+        });
+        /*
          * Followup subtype on followup type chanf
          */
 

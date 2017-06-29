@@ -112,6 +112,7 @@ class FollowupajaxController extends \yii\web\Controller {
 
         public function Upload($model, $image, $id, $type) {
                 if (isset($image->name) && $image->name != '') {
+                        $model->attachments = $image->name;
                         if ($type == '1')
                                 $paths = ['followups', $id];
                         else
@@ -119,6 +120,7 @@ class FollowupajaxController extends \yii\web\Controller {
 
                         $paths = Yii::$app->UploadFile->CheckPath($paths);
                         $image->saveAs($paths . '/' . $image->name . '.' . $image->extension);
+                        $model->save(false);
                 }
         }
 
@@ -145,6 +147,15 @@ class FollowupajaxController extends \yii\web\Controller {
                         }
                         echo $return_val;
                 }
+        }
+
+        public function actionFollowupstatusrepeated() {
+
+                $followup_id = $_POST['followup_id'];
+
+                $followup = RepeatedFollowups::findOne($followup_id);
+                $followup->status = 1;
+                $followup->save(false);
         }
 
         /*

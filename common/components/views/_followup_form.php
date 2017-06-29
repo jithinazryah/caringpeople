@@ -149,10 +149,16 @@ if ($type == 5) {
         </div>
 </div>
 
+
+
 <?php ActiveForm::end(); ?>
 
-<div class="row followups-table">
 
+<div class="row followups-table">
+        <div class="col-md-12">
+                <a target="_blank" href="<?= Yii::$app->homeUrl ?>followup/followups/repeated?typeid=<?= $type_id ?> && type=<?= $type; ?>" class="btn btn-success" style="float: right">Repeated Followups</a>
+
+        </div>
         <?php
         Pjax::begin([
             'enablePushState' => false
@@ -216,6 +222,7 @@ if ($type == 5) {
         ?>
 
 </div>
+
 
 
 

@@ -75,4 +75,40 @@ class RepeatedFollowups extends \yii\db\ActiveRecord {
                 ];
         }
 
+        public static function Relatedstaffs($related_staffs) {
+
+                if (isset($related_staffs) && $related_staffs != '') {
+                        $related_staffs = explode(',', $related_staffs);
+                        $relatedstaffs = '';
+                        $i = 0;
+                        if (!empty($related_staffs)) {
+                                foreach ($related_staffs as $related) {
+                                        if ($i != 0) {
+                                                $relatedstaffs .= ',';
+                                        }
+                                        $staff_name = StaffInfo::findOne($related);
+                                        $relatedstaffs .= $staff_name->staff_name;
+                                        $i++;
+                                }
+                        }
+                        return $relatedstaffs;
+                }
+        }
+
+        public function getTo0() {
+                return $this->hasOne(FollowupSubType::className(), ['id' => 'sub_type']);
+        }
+
+        public function getAssigned0() {
+                return $this->hasOne(StaffInfo::className(), ['id' => 'assigned_to']);
+        }
+
+        public function getAssignedfrom0() {
+                return $this->hasOne(StaffInfo::className(), ['id' => 'assigned_from']);
+        }
+
+//        public static function Image($image, $id) {
+//
+//                return Yii::$app->homeUrl . '../uploads/followups/repeated' . $id . '/' . $image;
+//        }
 }
