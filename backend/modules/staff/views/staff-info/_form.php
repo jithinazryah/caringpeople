@@ -44,6 +44,23 @@ use common\models\MasterDesignations;
 
 
         </div>
+        <?php
+        if (!$model->isNewRecord) {
+
+                $model->designation = explode(',', $model->designation);
+        }
+        ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="designation">
+                <?php $designation = MasterDesignations::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>   <?= $form->field($model, 'designation')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'style' => 'height:120px']) ?>
+                <?php $form->field($model, 'designation')->dropDownList(['' => '--Select--', '1' => 'Registered Nurse', '2' => 'Care Assistant', '3' => 'Doctor visit at home', '4' => 'OP Clinic', '5' => 'DV + OP', '6' => 'Physio', '7' => 'Psychologist', '8' => 'Dietician', '9' => 'Receptionist', '10' => 'Office Staff', '11' => 'Accountant', '12' => 'Nurse Manager']) ?>
+
+        </div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd' >
+                <?php $managers = \common\models\StaffInfo::find()->where(['post_id' => 6])->orderBy(['staff_name' => SORT_ASC])->all(); ?>
+                <?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($managers, 'id', 'staff_name'), ['prompt' => '--Select--']) ?>
+
+
+        </div>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'age')->textInput(['maxlength' => true]) ?>
@@ -101,6 +118,7 @@ use common\models\MasterDesignations;
 
         </div>
 
+
         <div style="clear:both"></div>
 
         <div class="row"><input type="checkbox" id="checkbox_id" name="check" checkvalue="1" uncheckValue="0" style="margin-left: 20px;"><label style="color:black;font-weight:bold;margin-left: 5px;">Permanent contact details and Present contact details are same</label>
@@ -116,17 +134,7 @@ use common\models\MasterDesignations;
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'pan_or_adhar_no')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <?php
-        if (!$model->isNewRecord) {
-
-                $model->designation = explode(',', $model->designation);
-        }
-        ?>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="designation">
-                <?php $designation = MasterDesignations::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>   <?= $form->field($model, 'designation')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'style' => 'height:120px']) ?>
-                <?php $form->field($model, 'designation')->dropDownList(['' => '--Select--', '1' => 'Registered Nurse', '2' => 'Care Assistant', '3' => 'Doctor visit at home', '4' => 'OP Clinic', '5' => 'DV + OP', '6' => 'Physio', '7' => 'Psychologist', '8' => 'Dietician', '9' => 'Receptionist', '10' => 'Office Staff', '11' => 'Accountant', '12' => 'Nurse Manager']) ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'place')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'place')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'blood_group')->textInput(['maxlength' => true]) ?>
 

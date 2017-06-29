@@ -477,7 +477,7 @@ class PatientInformationController extends Controller {
                                         $this->AddPatientAssessment($patient_assessment);
                                         $this->AddBystanderDetails(Yii::$app->request->post(), $bystander_details);
 
-                                        return $this->redirect(['view', 'id' => $patient_general->id]);
+                                        return $this->redirect(['index']);
                                 }
                         }
                         return $this->render('create', [

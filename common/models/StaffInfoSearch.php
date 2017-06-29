@@ -20,7 +20,7 @@ class StaffInfoSearch extends StaffInfo {
         public function rules() {
                 return [
                         [['id', 'designation', 'gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-                        [['staff_name', 'dob', 'place', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'DOC', 'DOU', 'staff_id', 'count_of_remarks', 'average_point'], 'safe'],
+                        [['staff_name', 'dob', 'place', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'DOC', 'DOU', 'staff_id', 'staff_manager', 'average_point'], 'safe'],
                 ];
         }
 
@@ -161,37 +161,11 @@ class StaffInfoSearch extends StaffInfo {
                     ],
                     'average_point',
                         ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view}{update}{followup}{remarks}{delete}',
+                        'template' => '{update}{delete}',
                         'visibleButtons' => [
                             'delete' => function ($model, $key, $index) {
                                     return Yii::$app->user->identity->post_id != '1' ? false : true;
                             }
-                        ],
-                        'buttons' => [
-                            'followup' => function ($url, $model) {
-
-                                    $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=4';
-                                    return Html::a(
-                                                    '<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
-                                                'data-pjax' => '0',
-                                                'id' => $model->id,
-                                                'title' => 'Add Followups',
-                                                'target' => '_blank',
-                                                    ]
-                                    );
-                            },
-                            'remarks' => function ($url, $model) {
-
-                                    $url = Yii::$app->homeUrl . 'remarks/remarks/create?id=' . $model->id . '&type=2';
-                                    return Html::a(
-                                                    '<span><i class="linecons-note"></i>', $url, [
-                                                'data-pjax' => '0',
-                                                'id' => $model->id,
-                                                'title' => 'Add Remarks',
-                                                'target' => '_blank',
-                                                    ]
-                                    );
-                            },
                         ],
                     ],
                 ];

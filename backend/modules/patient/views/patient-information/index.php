@@ -96,37 +96,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                             // 'DOC',
                                             // 'DOU',
                                             ['class' => 'yii\grid\ActionColumn',
-                                                'template' => '{view}{update}{followup}{remarks}',
+                                                'template' => '{update}{delete}',
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;
                                                     }
-                                                ],
-                                                'buttons' => [
-                                                    'followup' => function ($url, $model) {
-
-                                                            $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=2';
-                                                            return Html::a(
-                                                                            '<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
-                                                                        'data-pjax' => '0',
-                                                                        'id' => $model->id,
-                                                                        'title' => 'Add Followups',
-                                                                        'target' => '_blank',
-                                                                            ]
-                                                            );
-                                                    },
-                                                    'remarks' => function ($url, $model) {
-
-                                                            $url = Yii::$app->homeUrl . 'remarks/remarks/create?id=' . $model->id . '&type=1';
-                                                            return Html::a(
-                                                                            '<span><i class="linecons-note"></i>', $url, [
-                                                                        'data-pjax' => '0',
-                                                                        'id' => $model->id,
-                                                                        'title' => 'Add Remarks',
-                                                                        'target' => '_blank',
-                                                                            ]
-                                                            );
-                                                    },
                                                 ],
                                             ],
                                         ];

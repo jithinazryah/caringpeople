@@ -43,10 +43,10 @@ class PatientGeneral extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['patient_id', 'first_name'], 'required'],
-                        [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'pin_code', 'contact_number', 'status', 'CB', 'UB', 'age', 'terms_conditions', 'average_point', 'count_of_remarks'], 'integer'],
+                        [['id', 'patient_enquiry_id', 'branch_id', 'gender', 'pin_code', 'contact_number', 'status', 'CB', 'UB', 'age', 'terms_conditions', 'average_point'], 'integer'],
                         [['present_address'], 'string'],
                         [['DOC', 'DOU'], 'safe'],
-                        [['patient_id', 'first_name', 'last_name', 'patient_image', 'landmark', 'email', 'patient_old_id'], 'string', 'max' => 100],
+                        [['patient_id', 'first_name', 'last_name', 'patient_image', 'landmark', 'email', 'patient_old_id', 'staff_manager'], 'string', 'max' => 100],
                         [['blood_group'], 'string', 'max' => 50],
                         [['branch_id'], 'required', 'when' => function ($model) {
                                 return Yii::$app->user->identity->branch_id == 0;
@@ -82,7 +82,7 @@ class PatientGeneral extends \yii\db\ActiveRecord {
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
                     'average_point' => 'Rating',
-                    'count_of_remarks' => 'Count Of Remarks',
+                    'staff_manager' => ' Manager',
                 ];
         }
 

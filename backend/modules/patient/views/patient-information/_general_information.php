@@ -35,9 +35,7 @@ use common\models\Branch;
                         <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
                 </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'id_card_or_passport_no')->textInput(['maxlength' => true]) ?>
 
-                </div>
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
 
                         <?php $religion = Religion::find()->where(['status' => '1'])->orderBy(['religion' => SORT_ASC])->all(); ?>
@@ -67,9 +65,7 @@ use common\models\Branch;
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'adhar_card_no')->textInput(['maxlength' => true]) ?>
 
-                </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'passport')->fileInput() ?>
 
@@ -200,6 +196,12 @@ use common\models\Branch;
 
                 </div>
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'email')->textInput(['maxlength' => true]) ?>
+
+                </div>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd' >
+                        <?php $managers = \common\models\StaffInfo::find()->where(['post_id' => 6])->orderBy(['staff_name' => SORT_ASC])->all(); ?>
+                        <?= $form->field($patient_general, 'staff_manager')->dropDownList(ArrayHelper::map($managers, 'id', 'staff_name'), ['prompt' => '--Select--']) ?>
+
 
                 </div>
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>

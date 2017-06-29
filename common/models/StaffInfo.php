@@ -84,14 +84,14 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
         public function rules() {
                 return [
                         [['email', 'present_email'], 'email'],
-                        [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB', 'age', 'terms_conditions', 'average_point', 'count_of_remarks'], 'integer'],
+                        [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB', 'age', 'terms_conditions', 'average_point',], 'integer'],
                         [['dob', 'DOC', 'DOU'], 'safe'],
                         [['staff_name', 'gender', 'username', 'password', 'present_contact_no', 'post_id'], 'required', 'on' => 'create'],
                         [['staff_name', 'gender', 'username', 'present_contact_no', 'post_id'], 'required', 'on' => 'update'],
                         [['branch_id'], 'exist', 'skipOnError' => true, 'targetClass' => Branch::className(), 'targetAttribute' => ['branch_id' => 'id']],
                         [['caste'], 'exist', 'skipOnError' => true, 'targetClass' => Caste::className(), 'targetAttribute' => ['caste' => 'id']],
                         [['religion'], 'exist', 'skipOnError' => true, 'targetClass' => Religion::className(), 'targetAttribute' => ['religion' => 'id']],
-                        [['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'place', 'staff_id'], 'string', 'max' => 200],
+                        [['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'place', 'staff_id', 'staff_manager'], 'string', 'max' => 200],
                         [['branch_id'], 'required', 'on' => 'create'],
                         [['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
                         [['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'update'],
@@ -153,7 +153,7 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
                     'average_point' => 'Rating',
-                    'count_of_remarks' => 'Count Of Remarks',
+                    'staff_manager' => 'Staff Manager',
                 ];
         }
 
