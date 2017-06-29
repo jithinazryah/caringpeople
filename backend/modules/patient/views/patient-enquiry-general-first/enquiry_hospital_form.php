@@ -158,7 +158,7 @@ use kartik\select2\Select2;
 
 
         <div class="row">
-                <div class="col-md-6"> <a id="addHosp" class="btn btn-icon btn-blue addHosp"><i class="fa-plus"></i>Add Hospital Details</a></div>
+                <div class="col-md-6"> <a id="addHosp" class="btn btn-icon btn-blue addHosp"><i class="fa-plus"></i> Add More Hospital Details</a></div>
         </div>
 
 

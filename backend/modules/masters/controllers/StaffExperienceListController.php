@@ -5,6 +5,8 @@ namespace backend\modules\masters\controllers;
 use Yii;
 use common\models\StaffExperienceList;
 use common\models\StaffExperienceListSearch;
+use common\models\SkillsCategory;
+use common\models\SkillsCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,16 +38,25 @@ class StaffExperienceListController extends Controller {
                 $searchModel = new StaffExperienceListSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $model = new StaffExperienceList();
+                $category = new SkillsCategory();
+                $searchModel1 = new SkillsCategorySearch();
+                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
                         return $this->redirect(['index']);
+                } else if ($category->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($category) && $category->validate() && $category->save()) {
+                        return $this->redirect(['index']);
                 }
 
+
                 return $this->render('index', [
-			    'searchModel' => $searchModel,
-			    'dataProvider' => $dataProvider,
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
                             'model' => $model,
-		]);
+                            'category' => $category,
+                            'searchModel1' => $searchModel1,
+                            'dataProvider1' => $dataProvider1,
+                ]);
         }
 
         /**
@@ -66,6 +77,8 @@ class StaffExperienceListController extends Controller {
          */
         public function actionCreate() {
                 $model = new StaffExperienceList();
+                $searchModel1 = new SkillsCategorySearch();
+                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
                         return $this->redirect(['index']);
@@ -84,17 +97,44 @@ class StaffExperienceListController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
+                $category = new SkillsCategory();
                 $searchModel = new StaffExperienceListSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $searchModel1 = new SkillsCategorySearch();
+                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
                         return $this->redirect(['index']);
                 } else {
                         return $this->render('index', [
-			    'searchModel' => $searchModel,
-			    'dataProvider' => $dataProvider,
-                            'model' => $model,
-		]);
+                                    'searchModel' => $searchModel,
+                                    'dataProvider' => $dataProvider,
+                                    'model' => $model,
+                                    'category' => $category,
+                                    'searchModel1' => $searchModel1,
+                                    'dataProvider1' => $dataProvider1,
+                        ]);
+                }
+        }
+
+        public function actionCategory($id) {
+                $category = SkillsCategory::findOne($id);
+                $searchModel = new StaffExperienceListSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $searchModel1 = new SkillsCategorySearch();
+                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
+                $model = new StaffExperienceList();
+                if ($category->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($category) && $category->validate() && $category->save()) {
+                        return $this->redirect(['index']);
+                } else {
+                        return $this->render('index', [
+                                    'searchModel' => $searchModel,
+                                    'dataProvider' => $dataProvider,
+                                    'category' => $category,
+                                    'model' => $model,
+                                    'searchModel1' => $searchModel1,
+                                    'dataProvider1' => $dataProvider1,
+                        ]);
                 }
         }
 
@@ -107,6 +147,12 @@ class StaffExperienceListController extends Controller {
         public function actionDelete($id) {
                 $this->findModel($id)->delete();
 
+                return $this->redirect(['index']);
+        }
+
+        public function actionCategorydelete($id) {
+                $cat = SkillsCategory::findOne($id);
+                $cat->delete();
                 return $this->redirect(['index']);
         }
 

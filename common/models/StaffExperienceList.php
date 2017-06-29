@@ -29,8 +29,8 @@ class StaffExperienceList extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['title'], 'required'],
-                        [['status', 'CB', 'UB'], 'integer'],
+                        [['title', 'category'], 'required'],
+                        [['status', 'CB', 'UB', 'category'], 'integer'],
                         [['DOC', 'DOU'], 'safe'],
                         [['title'], 'string', 'max' => 200],
                 ];
@@ -42,6 +42,7 @@ class StaffExperienceList extends \yii\db\ActiveRecord {
         public function attributeLabels() {
                 return [
                     'id' => 'ID',
+                    'category' => 'Category',
                     'title' => 'Title',
                     'status' => 'Status',
                     'CB' => 'Cb',
@@ -49,6 +50,10 @@ class StaffExperienceList extends \yii\db\ActiveRecord {
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
                 ];
+        }
+
+        public function getCat0() {
+                return $this->hasOne(SkillsCategory::className(), ['id' => 'category']);
         }
 
 }

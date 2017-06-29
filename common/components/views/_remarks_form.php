@@ -51,23 +51,27 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
         ]);
         ?>
 
-</div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-        <fieldset class="rating">
-                <legend class="control-label">Rating:</legend>
-                <input type="radio" id="star9" name="rating" value="9" onclick="postToController();"/><label for="star9" title="Excellent">9 stars</label>
-                <input type="radio" id="star8" name="rating" value="8" onclick="postToController();"/><label for="star8" title="Very Good">8 stars</label>
-                <input type="radio" id="star7" name="rating" value="7" onclick="postToController();"/><label for="star7" title="Very Good">7 stars</label>
-                <input type="radio" id="star6" name="rating" value="6" onclick="postToController();"/><label for="star6" title="Good">6 stars</label>
-                <input type="radio" id="star5" name="rating" value="5" onclick="postToController();"/><label for="star5" title="Average">5 stars</label>
-                <input type="radio" id="star4" name="rating" value="4" onclick="postToController();"/><label for="star4" title="Bad">4 stars</label>
-                <input type="radio" id="star3" name="rating" value="3" onclick="postToController();"/><label for="star3" title="Meh">3 stars</label>
-                <input type="radio" id="star2" name="rating" value="2" onclick="postToController();"/><label for="star2" title="Kinda bad">2 stars</label>
-                <input type="radio" id="star1" name="rating" value="1" onclick="postToController();"/><label for="star1" title="Sucks big time">1 star</label>
-        </fieldset>
+</div>
+<?php if ($type == 2 || $type == 4) { ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <fieldset class="rating">
+                        <legend class="control-label">Rating:</legend>
+                        <input type="radio" id="star9" name="rating" value="9" onclick="postToController();"/><label for="star9" title="Excellent">9 stars</label>
+                        <input type="radio" id="star8" name="rating" value="8" onclick="postToController();"/><label for="star8" title="Very Good">8 stars</label>
+                        <input type="radio" id="star7" name="rating" value="7" onclick="postToController();"/><label for="star7" title="Very Good">7 stars</label>
+                        <input type="radio" id="star6" name="rating" value="6" onclick="postToController();"/><label for="star6" title="Good">6 stars</label>
+                        <input type="radio" id="star5" name="rating" value="5" onclick="postToController();"/><label for="star5" title="Average">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" onclick="postToController();"/><label for="star4" title="Bad">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" onclick="postToController();"/><label for="star3" title="Meh">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" onclick="postToController();"/><label for="star2" title="Kinda bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" onclick="postToController();"/><label for="star1" title="Sucks big time">1 star</label>
+                </fieldset>
 
-        <?php echo $form_remark->field($remark, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
+                <?php echo $form_remark->field($remark, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
 
-</div><div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'notes')->textarea(['rows' => 1]) ?>
+        </div>
+<?php } ?>
+<div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'notes')->textarea(['rows' => 1]) ?>
 
 </div>
 

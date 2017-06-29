@@ -41,7 +41,7 @@ class StaffOtherInfo extends \yii\db\ActiveRecord {
                 return [
                         [['staff_id'], 'integer'],
                         [['current_from', 'current_to'], 'safe'],
-                        [['hospital_address', 'designation', 'length_of_service', 'emergency_contact_name', 'relationship', 'phone', 'mobile', 'alt_emergency_contact_name', 'alt_relationship', 'alt_phone', 'alt_mobile'], 'string', 'max' => 200],
+                        [['hospital_address', 'designation', 'length_of_service', 'emergency_contact_name', 'relationship', 'phone', 'mobile', 'alt_emergency_contact_name', 'alt_relationship', 'alt_phone', 'alt_mobile', 'salary'], 'string', 'max' => 200],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
                 ];
         }
@@ -66,6 +66,7 @@ class StaffOtherInfo extends \yii\db\ActiveRecord {
                     'alt_relationship' => 'Relationship',
                     'alt_phone' => 'Phone',
                     'alt_mobile' => 'Mobile',
+                    'salary' => 'Salary',
                 ];
         }
 

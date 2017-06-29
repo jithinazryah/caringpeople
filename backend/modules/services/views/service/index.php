@@ -120,7 +120,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                             // 'DOC',
                                             // 'DOU',
                                             ['class' => 'yii\grid\ActionColumn',
-                                                'template' => '{view}{update}{followup}{delete}',
+                                                'template' => '{update}{delete}',
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;
@@ -132,20 +132,6 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                                     return false;
                                                             }
                                                     }
-                                                ],
-                                                'buttons' => [
-                                                    'followup' => function ($url, $model) {
-
-                                                            $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=5&service=service';
-                                                            return Html::a(
-                                                                            '<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
-                                                                        'data-pjax' => '0',
-                                                                        'id' => $model->id,
-                                                                        'title' => 'Add Followups',
-                                                                        'target' => '_blank',
-                                                                            ]
-                                                            );
-                                                    },
                                                 ],
                                             ],
                                         ];

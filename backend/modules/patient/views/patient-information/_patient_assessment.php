@@ -33,7 +33,7 @@ use common\models\StaffExperienceList;
         <h4 style="color:#000;font-style: italic;font-weight: bold;">Medical Procedures</h4>
         <hr class="enquiry-hr"/>
         <?php
-        $skills = StaffExperienceList::find()->all();
+        $skills = StaffExperienceList::find()->where(['category' => 1])->all();
         foreach ($skills as $value) {
                 $checked = '';
                 if (!$patient_assessment->isNewRecord) {
