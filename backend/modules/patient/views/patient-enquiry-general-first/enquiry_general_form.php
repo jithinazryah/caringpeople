@@ -158,7 +158,7 @@ use kartik\date\DatePicker;
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
                 </div>
         <?php } ?>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit']) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'status')->dropDownList(['1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'quotation_details')->textarea(['rows' => 2]) ?>
 
@@ -167,19 +167,20 @@ use kartik\date\DatePicker;
         </div>
 
 
-        <div class='col-md-12 col-sm-6 col-xs-12' >
-                <div class="form-group" >
-                        <?php if ($patient_info->isNewRecord) { ?>
-                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
-                                <?php
-                        } else {
-                                ?>
-                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
-                                <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
-                        <?php } ?>
-                </div>
-        </div>
 
+
+</div>
+<div class='col-md-12 col-sm-6 col-xs-12' >
+        <div class="form-group" >
+                <?php if ($patient_info->isNewRecord) { ?>
+                        <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button_1']) ?>
+                        <?php
+                } else {
+                        ?>
+                        <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
+                        <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
+                <?php } ?>
+        </div>
 </div>
 
 

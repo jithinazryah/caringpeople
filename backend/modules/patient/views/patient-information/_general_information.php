@@ -205,7 +205,7 @@ use common\models\Branch;
 
                 </div>
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($patient_general, 'status')->dropDownList(['' => '--Select--', '1' => 'Active', '2' => 'Closed', '3' => 'Pending', '4' => 'Deceased']) ?>
+                        <?= $form->field($patient_general, 'status')->dropDownList(['1' => 'Active', '2' => 'Closed', '3' => 'Pending', '4' => 'Deceased']) ?>
 
                 </div>
 

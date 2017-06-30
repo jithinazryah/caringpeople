@@ -27,108 +27,99 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                 <?=
-                                $this->render('_menus', [
-                                    'staff_enquiry' => $staff_enquiry,
+                                $this->render('_main_menus', [
+                                    'model' => $staff_enquiry,
                                 ])
                                 ?>
 
                                 <div class="panel-body panel_body_background" >
 
-                                        <div class="tab-content tab_data_margin" >
+                                        <div class="tab-content tab_data_margin">
+                                                <div class="tab-pane active" id="main-1">
+                                                        <?=
+                                                        $this->render('_sub_menu_1', [
+                                                        ])
+                                                        ?>
 
-                                                <div class="tab-pane active" id="home-3">
-                                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
-                                                                <div class="alert alert-danger" role="alert">
-                                                                        <?= Yii::$app->session->getFlash('error') ?>
-                                                                </div>
-                                                        <?php endif; ?>
-                                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
-                                                                <div class="alert alert-success" role="alert">
-                                                                        <?= Yii::$app->session->getFlash('success') ?>
-                                                                </div>
-                                                        <?php endif; ?>
                                                         <?php $form = ActiveForm::begin(); ?>
-                                                        <?=
-                                                        $this->render('_form', [
-                                                            //   'model' => $model,
-                                                            'staff_edu' => $staff_edu,
-                                                            'staff_enquiry' => $staff_enquiry,
-                                                            'staff_interview_first' => $staff_interview_first,
-                                                            'form' => $form,
-                                                        ])
-                                                        ?>
-
-                                                </div>
+                                                        <div class="tab-content second-tab">
 
 
+                                                                <div class="tab-pane active" id="home-3">
+                                                                        <?=
+                                                                        $this->render('_form', [
+                                                                            'staff_edu' => $staff_edu,
+                                                                            'staff_enquiry' => $staff_enquiry,
+                                                                            'staff_interview_first' => $staff_interview_first,
+                                                                            'form' => $form,
+                                                                        ])
+                                                                        ?>
 
+                                                                </div>
 
-                                                <div class="tab-pane" id="profile-3">
+                                                                <div class="tab-pane" id="profile-3">
 
-                                                        <?=
-                                                        $this->render('_other_info_form', [
-                                                            'model' => $other_info,
-                                                            'staff_previous_employer' => $staff_previous_employer,
-                                                            'staff_previous_employer' => $staff_previous_employer,
-                                                            'staff_interview_first' => $staff_interview_first,
-                                                            'staff_interview_second' => $staff_interview_second,
-                                                            'staff_interview_third' => $staff_interview_third,
-                                                            'form' => $form,
-                                                            'staff_enquiry' => $staff_enquiry,
-                                                        ])
-                                                        ?>
-                                                </div>
-                                                <div class="tab-pane" id="profile-4">
+                                                                        <?=
+                                                                        $this->render('_other_info_form', [
+                                                                            'model' => $other_info,
+                                                                            'staff_previous_employer' => $staff_previous_employer,
+                                                                            'staff_previous_employer' => $staff_previous_employer,
+                                                                            'staff_interview_first' => $staff_interview_first,
+                                                                            'staff_interview_second' => $staff_interview_second,
+                                                                            'staff_interview_third' => $staff_interview_third,
+                                                                            'form' => $form,
+                                                                            'staff_enquiry' => $staff_enquiry,
+                                                                        ])
+                                                                        ?>
+                                                                </div>
+                                                                <div class="tab-pane" id="profile-4">
 
-                                                        <?=
-                                                        $this->render('_staff_enquiry_interview', [
-                                                            'model' => $other_info,
-                                                            'staff_previous_employer' => $staff_previous_employer,
-                                                            'staff_interview_first' => $staff_interview_first,
-                                                            'staff_interview_second' => $staff_interview_second,
-                                                            'staff_interview_third' => $staff_interview_third,
-                                                            'staff_family' => $staff_family,
-                                                            'form' => $form,
-                                                            'staff_enquiry' => $staff_enquiry,
-                                                        ])
-                                                        ?>
+                                                                        <?=
+                                                                        $this->render('_staff_enquiry_interview', [
+                                                                            'model' => $other_info,
+                                                                            'staff_previous_employer' => $staff_previous_employer,
+                                                                            'staff_interview_first' => $staff_interview_first,
+                                                                            'staff_interview_second' => $staff_interview_second,
+                                                                            'staff_interview_third' => $staff_interview_third,
+                                                                            'staff_family' => $staff_family,
+                                                                            'form' => $form,
+                                                                            'staff_enquiry' => $staff_enquiry,
+                                                                        ])
+                                                                        ?>
+
+                                                                </div>
+                                                        </div>
                                                         <?php ActiveForm::end(); ?>
+
+
                                                 </div>
+                                                <div class="tab-pane" id="main-2">
+                                                        <?=
+                                                        $this->render('_sub_menu_2', [
+                                                        ])
+                                                        ?>
 
-                                                <?php if (!$patient_info->isNewRecord) { ?>
-                                                        <div class="tab-pane" id="profile-12">
-                                                                <?=
-                                                                $this->render('remarks', [
-                                                                    'patient_info' => $staff_enquiry,
-                                                                    'type' => 3,
-                                                                ])
-                                                                ?>
+
+                                                        <div class="tab-content second-tab">
+                                                                <div class="tab-pane active" id="home-12">
+                                                                        <?=
+                                                                        $this->render('remarks', [
+                                                                            'patient_info' => $staff_enquiry,
+                                                                            'type' => 3,
+                                                                        ])
+                                                                        ?>
+                                                                </div>
+                                                                <div class="tab-pane" id="profile-13">
+                                                                        <?=
+                                                                        $this->render('followups', [
+                                                                            'patient_info' => $staff_enquiry,
+                                                                            'type' => 3,
+                                                                        ])
+                                                                        ?>
+                                                                </div>
                                                         </div>
-
-                                                        <div class="tab-pane" id="profile-13">
-
-                                                                <?=
-                                                                $this->render('followups', [
-                                                                    'patient_info' => $staff_enquiry,
-                                                                    'type' => 3,
-                                                                ])
-                                                                ?>
-
-                                                        </div>
-
-                                                <?php } ?>
-
-
-
+                                                </div>
                                         </div>
-
-
-
-
-
-
-
-
 
                                 </div>
                         </div>

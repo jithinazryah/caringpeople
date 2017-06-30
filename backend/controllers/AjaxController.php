@@ -172,7 +172,7 @@ class AjaxController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
 
                         $hospital_name = Hospital::find()->where(['status' => '1'])->all();
-                        $options = Html::dropDownList('create[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--']);
+                        $options = Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--']);
 
                         $data = "<span>
 <hr style='border-top: 1px solid #979898 !important;'>
@@ -186,19 +186,19 @@ class AjaxController extends \yii\web\Controller {
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-consultant_doctor'>
                                         <label class='control-label' for=''>Consultant Doctor</label>
-                                        <input type='text' class='form-control' name='create[consultant_doctor][]'>
+                                        <input type='text' class='form-control' name='addhospital[consultant_doctor][]'>
                                 </div>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-department'>
                                         <label class='control-label'>Department</label>
-                                        <input type='text' class='form-control' name='create[department][]'>
+                                        <input type='text' class='form-control' name='addhospital[department][]'>
                                 </div>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-hospital_room_no'>
                                         <label class='control-label' >Hospital Room No</label>
-                                        <input type='text' class='form-control' name='create[hospital_room_no][]'>
+                                        <input type='text' class='form-control' name='addhospital[hospital_room_no][]'>
                                 </div>
                         </div>
 

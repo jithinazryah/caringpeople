@@ -24,102 +24,100 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= Html::a('<i class="fa-th-list"></i><span> Manage Patient</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top: 10px;']) ?>
 
                         <?=
-                        $this->render('_menus', [
+                        $this->render('_main_menus', [
                             'model' => $patient_general,
-                        ]);
+                        ])
                         ?>
                         <div class="panel-body panel_body_background" >
 
-                                <div class="tab-content tab_data_margin" >
-
-                                        <div class="tab-pane active" id="home-3">
-                                                <?php
-                                                $form = ActiveForm::begin();
-                                                ?>
+                                <div class="tab-content tab_data_margin">
+                                        <div class="tab-pane active" id="main-1">
                                                 <?=
-                                                $this->render('_general_information', [
-                                                    'form' => $form,
-                                                    'model' => $model,
-                                                    'patient_general' => $patient_general,
+                                                $this->render('_sub_menu_1', [
                                                 ])
                                                 ?>
 
-                                        </div>
-                                        <div class="tab-pane" id="profile-3">
+                                                <?php $form = ActiveForm::begin(); ?>
+                                                <div class="tab-content second-tab">
+                                                        <div class="tab-pane active" id="home-3">
 
-                                                <?=
-                                                $this->render('_chronic_information', [
-                                                    'form' => $form,
-                                                    'model' => $chronic_imformation,
-                                                ])
-                                                ?>
+                                                                <?=
+                                                                $this->render('_general_information', [
+                                                                    'form' => $form,
+                                                                    'model' => $model,
+                                                                    'patient_general' => $patient_general,
+                                                                ])
+                                                                ?>
 
-                                        </div>
-                                        <div class="tab-pane" id="medication">
+                                                        </div>
+                                                        <div class="tab-pane" id="profile-3">
 
-                                                <?=
-                                                $this->render('_present_medication', [
-                                                    'form' => $form,
-                                                    //  'model' => $model,
-                                                    'pationt_medication_details' => $pationt_medication_details,
-                                                    'model' => $present_condition,
-                                                    'bystander_details' => $bystander_details,
-                                                ])
-                                                ?>
+                                                                <?=
+                                                                $this->render('_chronic_information', [
+                                                                    'form' => $form,
+                                                                    'model' => $chronic_imformation,
+                                                                ])
+                                                                ?>
 
-                                        </div>
+                                                        </div>
+                                                        <div class="tab-pane" id="medication">
+
+                                                                <?=
+                                                                $this->render('_present_medication', [
+                                                                    'form' => $form,
+                                                                    //  'model' => $model,
+                                                                    'pationt_medication_details' => $pationt_medication_details,
+                                                                    'model' => $present_condition,
+                                                                    'bystander_details' => $bystander_details,
+                                                                ])
+                                                                ?>
+
+                                                        </div>
 
 
 
-                                        <div class="tab-pane" id="assesment">
+                                                        <div class="tab-pane" id="assesment">
 
-                                                <?=
-                                                $this->render('_patient_assessment', [
-                                                    'form' => $form,
-                                                    'patient_assessment' => $patient_assessment,
-                                                ])
-                                                ?>
+                                                                <?=
+                                                                $this->render('_patient_assessment', [
+                                                                    'form' => $form,
+                                                                    'patient_assessment' => $patient_assessment,
+                                                                ])
+                                                                ?>
+
+                                                        </div>
+                                                </div>
                                                 <?php ActiveForm::end(); ?>
+
+
                                         </div>
+                                        <div class="tab-pane" id="main-2">
+                                                <?=
+                                                $this->render('_sub_menu_2', [
+                                                ])
+                                                ?>
 
 
-                                        <?php if (!$model->isNewRecord) { ?>
-                                                <div class="tab-pane" id="profile-12">
-                                                        <?php // $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
-                                                        <?=
-                                                        $this->render('remarks', [
-                                                            'patient_info' => $patient_general,
-                                                            // 'form_remark' => $form_remark,
-                                                            'type' => 2,
-                                                        ])
-                                                        ?>
-                                                        <?php //ActiveForm::end(); ?>
+                                                <div class="tab-content second-tab">
+                                                        <div class="tab-pane active" id="home-12">
+                                                                <?=
+                                                                $this->render('remarks', [
+                                                                    'patient_info' => $patient_general,
+                                                                    'type' => 2,
+                                                                ])
+                                                                ?>
+                                                        </div>
+                                                        <div class="tab-pane" id="profile-13">
+                                                                <?=
+                                                                $this->render('followups', [
+                                                                    'patient_info' => $patient_general,
+                                                                    'type' => 2,
+                                                                ])
+                                                                ?>
+                                                        </div>
                                                 </div>
-
-                                                <div class="tab-pane" id="profile-13">
-
-
-                                                        <?=
-                                                        $this->render('followups', [
-                                                            'patient_info' => $patient_general,
-                                                            'type' => 2,
-                                                        ])
-                                                        ?>
-
-
-                                                </div>
-
-                                        <?php } ?>
-
-
+                                        </div>
                                 </div>
-
-
-
-
-
-
-
 
 
                         </div>

@@ -32,7 +32,7 @@ use common\models\StaffExperienceList;
                 $staff_interview_third->staff_experience = explode(',', $staff_interview_third->staff_experience);
         }
         ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'skills']) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'skills']) ?>
 
         </div>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>

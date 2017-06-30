@@ -125,7 +125,7 @@ use kartik\select2\Select2;
                                 <div class="form-group field-patientenquiryhospitaldetails-hospital_name">
                                         <label class="control-label">Hospital Name</label>
 
-                                        <?= Html::dropDownList('create[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'add-hospital']);
+                                        <?= Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'add-hospital']);
                                         ?>
                                 </div>
 
@@ -133,19 +133,19 @@ use kartik\select2\Select2;
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
                                         <label class="control-label" for="">Consultant Doctor</label>
-                                        <input type="text" class="form-control" name="create[consultant_doctor][]">
+                                        <input type="text" class="form-control" name="addhospital[consultant_doctor][]">
                                 </div>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-department">
                                         <label class="control-label">Department</label>
-                                        <input type="text" class="form-control" name="create[department][]">
+                                        <input type="text" class="form-control" name="addhospital[department][]">
                                 </div>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-hospital_room_no">
                                         <label class="control-label" >Hospital Room No</label>
-                                        <input type="text" class="form-control" name="create[hospital_room_no][]">
+                                        <input type="text" class="form-control" name="addhospital[hospital_room_no][]">
                                 </div>
                         </div>
 
@@ -215,16 +215,18 @@ use kartik\select2\Select2;
 
         </div>
 
-        <div class='col-md-12 col-sm-6 col-xs-12' >
-                <div class="form-group" >
-                        <?php if ($patient_info->isNewRecord) { ?>
-                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
-                                <?php
-                        } else {
-                                ?>
-                                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
-                                <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
-                        <?php } ?>
-                </div>
+
+</div>
+
+<div class='col-md-12 col-sm-6 col-xs-12' >
+        <div class="form-group" >
+                <?php if ($patient_hospital_second->isNewRecord) { ?>
+                        <?= Html::submitButton($patient_hospital_second->isNewRecord ? 'Create' : 'Update', ['class' => $patient_hospital_second->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
+                        <?php
+                } else {
+                        ?>
+                        <?= Html::submitButton($patient_hospital_second->isNewRecord ? 'Create' : 'Update', ['class' => $patient_hospital_second->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
+                        <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
+                <?php } ?>
         </div>
 </div>

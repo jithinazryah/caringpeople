@@ -397,9 +397,13 @@ $("document").ready(function () {
         {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
-        
+
         /////////////////////////------------------  ---------------------/////////////////////////
-        
-        
-        
+
+        $('#form-submit_2').click(function (e) {
+                // e.preventDefault();
+                $('#w0,#w3').submit();
+        });
+
+
 });

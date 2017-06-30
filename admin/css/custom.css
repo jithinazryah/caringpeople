@@ -391,4 +391,7 @@ form div.required label.control-label:after {
         font-style: italic;
         font-weight: bold;
 }
+.second-tab{
+        margin-top: 20px;
+}
 

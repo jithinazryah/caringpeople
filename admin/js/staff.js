@@ -39,50 +39,46 @@ $("document").ready(function () {
 
 
 
-        var scntDivs = $('#p_scents_1');
-        var j = $('#p_scents_1 span').size() + 1;
+        var scntDivs = $('#p_scents');
+        var j = $('#p_scents span').size() + 1;
 
-        $('#addScnt_1').on('click', function () {
-
-
-
-
+        $('#addScnt').on('click', function () {
                 var vers = '<span>\n\
                                 <hr style="border-top: 1px solid #979898 !important;">\n\
-                                <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="col-md-4 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-hospital_address">\n\
                                 <label class="control-label">Hospital Address</label>\n\
-                                <input type="text" id="" class="form-control" name="create[hospitaladdress][]" >\n\
+                                <input type="text" id="" class="form-control" name="create[hospitaladdress][]" required>\n\
                                 </div> \n\
                                 </div> \n\
-                                <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="col-md-4 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-designation">\n\
                                 <label class="control-label" for="">Designation</label>\n\
-                                <input type="text" class="form-control" name="create[designation][]" >\n\
+                                <input type="text" class="form-control" name="create[designation][]" required>\n\
                                 </div> \n\
                                 </div> \n\
-                                <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="col-md-4 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-length_of_service">\n\
                                 <label class="control-label" >Length of service</label>\n\
-                                <input type="text" id="" class="form-control" name="create[length][]" >\n\
+                                <input type="text" id="" class="form-control" name="create[length][]" required>\n\
                                 </div>\n\
                                 </div> \n\
-                                <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="col-md-4 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-service_from">\n\
                                 <label class="control-label" >From</label>\n\
-                                <input type="date" id="" class="form-control" name="create[from][]" >\n\
+                                <input type="date" id="" class="form-control" name="create[from][]" required>\n\
                                 </div>\n\
                                 </div> \n\
-                                <div class="col-md-2 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="col-md-4 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-service_to">\n\
                                 <label class="control-label" >To</label>\n\
-                                <input type="date" id="" class="form-control" name="create[to][]" >\n\
+                                <input type="date" id="" class="form-control" name="create[to][]" required>\n\
                                 </div>\n\
                                 </div> \n\
-                                <div class="col-md-1 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">\n\
                                 <div class="form-group field-staffperviousemployer-salary">\n\
                                 <label class="control-label" >Salary</label>\n\
-                                <input type="text" id="" class="form-control" name="create[salary][]" >\n\
+                                <input type="text" id="" class="form-control" name="create[salary][]" required>\n\
                                 </div>\n\
                                 </div> \n\
                                 <a id="remScnt" class="btn btn-icon btn-red remScnt" style="margin-top: 15px;"><i class="fa-remove"></i></a>\n\
@@ -92,20 +88,18 @@ $("document").ready(function () {
                 j++;
                 return false;
         });
-        $('#p_scents_1').on('click', '.remScnt', function () {
+        $('#p_scents').on('click', '.remScnt', function () {
                 if (j > 2) {
                         $(this).parents('span').remove();
                         j--;
                 }
                 if (this.hasAttribute("val")) {
                         var valu = $(this).attr('val');
-
-                        $('#delete_port_vals_1').val($('#delete_port_vals_1').val() + valu + ',');
-                        var value = $('#delete_port_vals_1').val();
+                        $('#delete_port_vals').val($('#delete_port_vals').val() + valu + ',');
+                        var value = $('#delete_port_vals').val();
                 }
                 return false;
         });
-
 
         $('.img-remove').on('click', function (e) {
 

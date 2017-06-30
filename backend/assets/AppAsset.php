@@ -42,7 +42,6 @@ class AppAsset extends AssetBundle {
             'js/followup.js',
             'js/select2/select2.min.js',
             'js/add-to-dropdown.js',
-            
         ];
         public $depends = [
             'yii\web\YiiAsset',

@@ -51,6 +51,7 @@ $("document").ready(function () {
 
 
         $(document).on('submit', '#add-remarks', function (e) {
+                e.preventDefault();
                 var remarks = $(this).serialize();
                 $.ajax({
 
@@ -71,7 +72,7 @@ $("document").ready(function () {
                                                                   <td><input type="checkbox" class="iswitch iswitch-secondary remarks-status" id="' + res.id + '"></td></tr>');
                         }
                 });
-                e.preventDefault();
+
 
         });
 

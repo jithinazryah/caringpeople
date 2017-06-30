@@ -244,27 +244,27 @@ class PatientEnquiryGeneralFirstController extends Controller {
                  * to create hospital details
                  */
 
-                if (isset($_POST['create']) && $_POST['create'] != '') {
+                if (isset($_POST['addhospital']) && $_POST['addhospital'] != '') {
 
                         $arr = [];
                         $i = 0;
 
-                        foreach ($_POST['create']['hospital_name'] as $val) {
+                        foreach ($_POST['addhospital']['hospital_name'] as $val) {
                                 $arr[$i]['hospital_name'] = $val;
                                 $i++;
                         }
                         $i = 0;
-                        foreach ($_POST['create']['consultant_doctor'] as $val) {
+                        foreach ($_POST['addhospital']['consultant_doctor'] as $val) {
                                 $arr[$i]['consultant_doctor'] = $val;
                                 $i++;
                         }
                         $i = 0;
-                        foreach ($_POST['create']['department'] as $val) {
+                        foreach ($_POST['addhospital']['department'] as $val) {
                                 $arr[$i]['department'] = $val;
                                 $i++;
                         }
                         $i = 0;
-                        foreach ($_POST['create']['hospital_room_no'] as $val) {
+                        foreach ($_POST['addhospital']['hospital_room_no'] as $val) {
                                 $arr[$i]['hospital_room_no'] = $val;
                                 $i++;
                         }

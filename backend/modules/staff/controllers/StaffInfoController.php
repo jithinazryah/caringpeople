@@ -239,7 +239,6 @@ class StaffInfoController extends Controller {
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post()) && $staff_salary->load(Yii::$app->request->post())) {
 
                         $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
-
                         $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
                         $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
                         $model->username = Yii::$app->request->post()['StaffInfo']['username'];
@@ -587,20 +586,19 @@ class StaffInfoController extends Controller {
         public function actionDelete($id) {
                 $staff_info = $this->findModel($id);
                 $other_info = StaffOtherInfo::find()->where(['staff_id' => $id])->one();
-                $staff_previous_employer = StaffPerviousEmployer::find()->where(['staff_id' => $id])->one();
+
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $id]);
                 $staff_interview_first = StaffEnquiryInterviewFirst::findOne(['staff_id' => $id]);
                 $staff_interview_second = StaffEnquiryInterviewSecond::findOne(['staff_id' => $id]);
                 $staff_interview_third = StaffEnquiryInterviewThird::findOne(['staff_id' => $id]);
                 $staff_salary = StaffSalary::findOne(['staff_id' => $id]);
 
+                $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $id]);
                 // ...other DB operations...
 
                 $transaction = StaffInfo::getDb()->beginTransaction();
                 try {
-                        if (!empty($staff_previous_employer)) {
-                                $staff_previous_employer->delete();
-                        }
+
                         if (!empty($staff_edu)) {
                                 $staff_edu->delete();
                         }
@@ -615,6 +613,12 @@ class StaffInfoController extends Controller {
                         }
                         if (!empty($staff_salary)) {
                                 $staff_salary->delete();
+                        }
+                        if (!empty($staff_previous_employer)) {
+                                foreach ($staff_previous_employer as $value) {
+
+                                        $value->delete();
+                                }
                         }
 
                         if (!empty($other_info)) {

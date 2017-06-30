@@ -75,8 +75,8 @@ use kartik\date\DatePicker;
 
 
 
-        <div id="p_scents_1">
-                <input type="hidden" id="delete_port_vals_1"  name="delete_port_vals" value="">
+        <div id="p_scents">
+                <input type="hidden" id="delete_port_vals"  name="delete_port_vals" value="">
 
 
                 <?php
@@ -85,43 +85,43 @@ use kartik\date\DatePicker;
                         foreach ($staff_previous_employer as $data) {
                                 ?>
                                 <span>
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-hospital_address">
                                                         <label class="control-label">Hospital Address</label>
-                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][hospitaladdress][]" value="<?= $data->hospital_address; ?>" >
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][hospitaladdress][]" value="<?= $data->hospital_address; ?>" required>
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-designation">
                                                         <label class="control-label" for="">Designation</label>
-                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][designation][]" value="<?= $data->designation; ?>" >
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][designation][]" value="<?= $data->designation; ?>" required>
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-length_of_service">
                                                         <label class="control-label" >Length of service</label>
-                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][length][]" value="<?= $data->length_of_service; ?>" >
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][length][]" value="<?= $data->length_of_service; ?>" required>
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-service_from">
                                                         <label class="control-label" >From</label>
-                                                        <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][from][]" value="<?= $data->service_from; ?>" >
+                                                        <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][from][]" value="<?= $data->service_from; ?>" required>
                                                 </div>
                                         </div>
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-service_to">
                                                         <label class="control-label" >To</label>
-                                                        <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][to][]" value="<?= $data->service_to; ?>" >
+                                                        <input type="date" class="form-control" name="updatee[<?= $data->id; ?>][to][]" value="<?= $data->service_to; ?>" required>
                                                 </div>
                                         </div>
-                                        <div class='col-md-1 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffperviousemployer-salary">
                                                         <label class="control-label" >Salary</label>
-                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][salary][]" value="<?= $data->salary; ?>" >
+                                                        <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][salary][]" value="<?= $data->salary; ?>" required>
                                                 </div>
                                         </div>
                                         <div class='col-md-1 col-sm-6 col-xs-12 left_padd'>
@@ -136,38 +136,38 @@ use kartik\date\DatePicker;
                 ?>
 
                 <span>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-hospital_address">
                                         <label class="control-label">Hospital Address</label>
                                         <input type="text" class="form-control" name="create[hospitaladdress][]">
                                 </div>
                         </div>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Designation</label>
                                         <input type="text" class="form-control" name="create[designation][]">
                                 </div>
                         </div>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-length_of_service">
                                         <label class="control-label" >Length of service</label>
                                         <input type="text" class="form-control" name="create[length][]">
                                 </div>
                         </div>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-service_from">
                                         <label class="control-label" >From</label>
                                         <input type="date" class="form-control" name="create[from][]">
                                 </div>
                         </div>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-service_to">
                                         <label class="control-label" >To</label>
                                         <input type="date" class="form-control" name="create[to][]">
                                 </div>
                         </div>
 
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-salary">
                                         <label class="control-label" >Salary</label>
                                         <input type="text" class="form-control" name="create[salary][]">
@@ -181,7 +181,7 @@ use kartik\date\DatePicker;
 
         <div class="row">
                 <div class="col-md-6">
-                        <a id="addScnt_1" class="btn btn-blue btn-icon btn-icon-standalone addScnt" ><i class="fa-plus"></i><span> Add More Employer Details</span></a>
+                        <a id="addScnt" class="btn btn-blue btn-icon btn-icon-standalone addScnt" ><i class="fa-plus"></i><span> Add More</span></a>
                 </div>
         </div>
 
