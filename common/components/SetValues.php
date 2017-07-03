@@ -215,4 +215,17 @@ class SetValues extends Component {
                 }
         }
 
+        public function SendMail() {
+                $content = 'hii sabitha, mail here';
+                $message = Yii::$app->mailer->compose() // a view rendering result becomes the message body here
+                        ->setFrom('info@caringpeople.in')
+                        ->setTo('sabith@azryah.com')
+                        ->setTextBody($content)
+                        ->setSubject('New Followup');
+                var_dump($message);
+                exit;
+                $message->send();
+                return TRUE;
+        }
+
 }

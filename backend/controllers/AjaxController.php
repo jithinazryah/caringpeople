@@ -170,9 +170,9 @@ class AjaxController extends \yii\web\Controller {
 
         public function actionPatienthospitaldetails() {
                 if (Yii::$app->request->isAjax) {
-
+$rand=rand();
                         $hospital_name = Hospital::find()->where(['status' => '1'])->all();
-                        $options = Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control', 'prompt' => '--Select--']);
+                        $options = Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control hospital', 'prompt' => '--Select--','id' => 'hospital_'.$rand]);
 
                         $data = "<span>
 <hr style='border-top: 1px solid #979898 !important;'>
@@ -186,13 +186,13 @@ class AjaxController extends \yii\web\Controller {
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-consultant_doctor'>
                                         <label class='control-label' for=''>Consultant Doctor</label>
-                                        <input type='text' class='form-control' name='addhospital[consultant_doctor][]'>
+                                         <select name='addhospital[consultant_doctor][]' class='form-control doctor' id='doctor_$rand'></select>
                                 </div>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-department'>
                                         <label class='control-label'>Department</label>
-                                        <input type='text' class='form-control' name='addhospital[department][]'>
+                                        <input type='text' class='form-control' name='addhospital[department][]' id='department_$rand'>
                                 </div>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
@@ -406,6 +406,48 @@ class AjaxController extends \yii\web\Controller {
                                 <div style='claer:both'></div><br/>
                                 </span><br/>";
                 echo $vers;
+        }
+        
+        public function actionDoctors(){
+            if (Yii::$app->request->isAjax) {
+                        $hospital = $_POST['hospital'];
+                        if ($hospital == '') {
+                                echo '0';
+                                exit;
+                        } else {
+                                $doctors = \common\models\Doctors::find()->where(['hospital' => $hospital])->all();
+                                if (empty($doctors)) {
+                                        echo '0';
+                                        exit;
+                                } else {
+                                        $options = '<option value="">-Select-</option>';
+                                        foreach ($doctors as $doctors) {
+                                                $options .= "<option value='" . $doctors->id . "'>" . $doctors->name . "</option>";
+                                        }
+                                }
+                        }
+
+                        echo $options;
+                }
+        }
+        
+        public function actionDepartment(){
+            if (Yii::$app->request->isAjax) {
+                        $doctor = $_POST['doctor'];
+                        if ($doctor == '') {
+                                echo '0';
+                                exit;
+                        } else {
+                                $doctors = \common\models\Doctors::findOne($doctor);
+                                if (empty($doctors)) {
+                                       
+                                } else {
+                                        echo $doctors->department;
+                                }
+                        }
+
+                        //echo $options;
+                }
         }
 
 }

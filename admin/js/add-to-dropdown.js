@@ -13,15 +13,11 @@ $("document").ready(function () {
 
                 $.ajax({
                         type: 'POST',
-                        cache: false,
-                        async: false,
-                        data: 'select_box=1',
                         url: homeUrl + 'dropdown/addhospital',
                         success: function (data) {
-                                alert(data);
                                 $("#modal-pop-up").html(data);
                                 $('#modal-6').modal('show', {backdrop: 'static'});
-                                e.preventDefault();
+                               
                         }
                 });
         });
@@ -29,15 +25,16 @@ $("document").ready(function () {
          * add new hospital
          */
 
-        $(document).on('submit', '#submit-add-hospital', function () {
-
+        
+            $("form#add-hospital").submit(function (e) {
+                $('form#add-hospital').submit(false);
+           e.preventDefault();
                 var str = $(this).serialize();
-
+                
                 $.ajax({
-
                         url: homeUrl + 'dropdown/add',
                         type: "POST",
-                        data: str,
+                        data: id,
                         success: function (data) {
 
                                 //$(".partner_name").text(res.result['hospital_name']);
