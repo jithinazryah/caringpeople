@@ -27,10 +27,7 @@ use yii\helpers\Html;
                         <i class="fa-envelope-o"></i><span class="hidden-xs span-font-size">Start A Service</span></a>
         </li>
 
-        <li>
-                <a href="<?= Yii::$app->homeUrl; ?>followup/followups/followups?type_id=<?= $model->id; ?>&type=5&service=setvice" <?php if (!$model->id && $model->id == '') { ?> data-toggle="tab" <?php } ?>><span class="visible-xs"><i class="fa fa-tasks hidden-xs"></i></span>
-                        <i class="fa fa-tasks"></i><span class="hidden-xs span-font-size">Followups</span></a>
-        </li>
+
 
 
 </ul>

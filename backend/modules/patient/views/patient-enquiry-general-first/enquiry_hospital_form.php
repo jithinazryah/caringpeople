@@ -174,7 +174,7 @@ use kartik\select2\Select2;
 
         <h4 class="h4-labels">Medical Conditons/Current Diagnosis</h4>
         <hr class="enquiry-hr"/>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'diabetic')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No', '2' => 'Yes,Insulin', '3' => 'Yes, On Tablet', '4' => 'Dont Know']) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'diabetic')->dropDownList(['0' => 'No', '1' => 'Yes', '2' => 'Yes,Insulin', '3' => 'Yes, On Tablet', '4' => 'Dont Know']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id='diabetic_note'>    <?= $form->field($patient_hospital_second, 'diabetic_note')->textInput(['maxlength' => true]) ?>
 
@@ -194,7 +194,7 @@ use kartik\select2\Select2;
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'family_support_note')->textarea(['rows' => 1]) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'care_currently_provided')->dropDownList(['' => '--Select--', '1' => 'Family', '2' => 'Friends', '3' => 'Hospital', '5' => 'Home Nursing Agemcy', '4' => 'Others', '6' => 'Not Told']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'care_currently_provided')->dropDownList(['1' => 'Family', '2' => 'Friends', '3' => 'Hospital', '5' => 'Home Nursing Agemcy', '4' => 'Others', '6' => 'Not Told']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id='care_currently_provided_others'>    <?= $form->field($patient_hospital_second, 'care_currently_provided_others')->textInput(['maxlength' => true]) ?>
 

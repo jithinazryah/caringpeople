@@ -1,161 +1,49 @@
-<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<div class="container">
-        <section class="customer-logos slider">
-                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
-                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
-                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
-                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
-                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
-                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
-                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
-                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
-        </section>
-</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+<body>Single select example
+        <div class="selectRow">
+                <select id="singleSelectExample">
+                        <option></option>
+                        <option value="1">Apple</option>
+                        <option value="2">Orange 2</option>
+                        <option value="3">Banana</option>
+                        <option value="4">Mango</option>
+                        <option value="5">Pomegranate</option>
+                        <option value="5">avaa</option>
+                </select>
 
 
-<style>
-        /* Slider */
-        .slick-slide {
-                margin: 0px 20px;
-        }
 
-        .slick-slide img {
-                width: 100%;
-        }
+                <script>
+                        $(document).ready(function () {
+                                // Single select example if using params obj or configuration seen above
+                                var configParamsObj = {
+                                        placeholder: 'Select an option...', // Place holder text to place in the select
+                                        minimumResultsForSearch: 3, // Overrides default of 15 set above
+                                        matcher: function (params, data) {
+                                                // If there are no search terms, return all of the data
+                                                if ($.trim(params.term) === '') {
+                                                        return data;
+                                                }
 
-        .slick-slider
-        {
-                position: relative;
-                display: block;
-                box-sizing: border-box;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                -webkit-touch-callout: none;
-                -khtml-user-select: none;
-                -ms-touch-action: pan-y;
-                touch-action: pan-y;
-                -webkit-tap-highlight-color: transparent;
-        }
+                                                // `params.term` should be the term that is used for searching
+                                                // `data.text` is the text that is displayed for the data object
+                                                if (data.text.toLowerCase().startsWith(params.term.toLowerCase())) {
+                                                        var modifiedData = $.extend({}, data, true);
+                                                        modifiedData.text += ' ';
 
-        .slick-list
-        {
-                position: relative;
-                display: block;
-                overflow: hidden;
-                margin: 0;
-                padding: 0;
-        }
-        .slick-list:focus
-        {
-                outline: none;
-        }
-        .slick-list.dragging
-        {
-                cursor: pointer;
-                cursor: hand;
-        }
+                                                        // You can return modified objects from here
+                                                        // This includes matching the `children` how you want in nested data sets
+                                                        return modifiedData;
+                                                }
 
-        .slick-slider .slick-track,
-        .slick-slider .slick-list
-        {
-                -webkit-transform: translate3d(0, 0, 0);
-                -moz-transform: translate3d(0, 0, 0);
-                -ms-transform: translate3d(0, 0, 0);
-                -o-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-        }
-
-        .slick-track
-        {
-                position: relative;
-                top: 0;
-                left: 0;
-                display: block;
-        }
-        .slick-track:before,
-        .slick-track:after
-        {
-                display: table;
-                content: '';
-        }
-        .slick-track:after
-        {
-                clear: both;
-        }
-        .slick-loading .slick-track
-        {
-                visibility: hidden;
-        }
-
-        .slick-slide
-        {
-                display: none;
-                float: left;
-                height: 100%;
-                min-height: 1px;
-        }
-        [dir='rtl'] .slick-slide
-        {
-                float: right;
-        }
-        .slick-slide img
-        {
-                display: block;
-        }
-        .slick-slide.slick-loading img
-        {
-                display: none;
-        }
-        .slick-slide.dragging img
-        {
-                pointer-events: none;
-        }
-        .slick-initialized .slick-slide
-        {
-                display: block;
-        }
-        .slick-loading .slick-slide
-        {
-                visibility: hidden;
-        }
-        .slick-vertical .slick-slide
-        {
-                display: block;
-                height: auto;
-                border: 1px solid transparent;
-        }
-        .slick-arrow.slick-hidden {
-                display: none;
-        }
-</style>
-
-
-<script>
-        $(document).ready(function () {
-                $('.customer-logos').slick({
-                        slidesToShow: 6,
-                        slidesToScroll: 1,
-                        autoplay: true,
-                        autoplaySpeed: 1000,
-                        arrows: false,
-                        dots: false,
-                        pauseOnHover: false,
-                        responsive: [{
-                                        breakpoint: 768,
-                                        settings: {
-                                                slidesToShow: 4
+                                                // Return `null` if the term should not be displayed
+                                                return null;
                                         }
-                                }, {
-                                        breakpoint: 520,
-                                        settings: {
-                                                slidesToShow: 3
-                                        }
-                                }]
-                });
-        });
-</script>
+                                };
+                                $("#singleSelectExample").select2(configParamsObj);
+                        });
+
+                </script>

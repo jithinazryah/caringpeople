@@ -103,7 +103,7 @@ class ServiceController extends Controller {
                                         Yii::$app->SetValues->Notifications($history_id, $model->id, $notifiactions);
                                 }
 
-                                return $this->redirect(['/followup/followups/followups', 'type_id' => $model->id, 'type' => 5, 'service' => 'service']);
+                                return $this->redirect(['index']);
                         }
                 }
                 return $this->render('create', [
@@ -131,7 +131,7 @@ class ServiceController extends Controller {
                         $model->patient_advance_payment = Yii::$app->request->post()['Service']['patient_advance_payment'];
                         if ($model->validate() && $model->save()) {
                                 $staff_availabilty = Yii::$app->SetValues->StaffAvailabilty($model, $before_update);
-                                return $this->redirect(['/followup/followups/followups', 'type_id' => $model->id, 'type' => 5, 'service' => 'service']);
+                                return $this->redirect(['index']);
                         }
                 }
                 return $this->render('create', [
