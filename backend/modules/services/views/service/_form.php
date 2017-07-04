@@ -47,46 +47,19 @@ use yii\db\Expression;
 
                 </div>
 
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                        <?php $designation = MasterDesignations::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>   <?= $form->field($model, 'staff_type')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
-                        <?php $form->field($model, 'staff_type')->dropDownList(['1' => 'Registered Nurse', '2' => 'Care Assistant', '3' => 'Doctor'], ['prompt' => '--Select--']) ?>
-
-                </div>
 
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($model, 'duty_type')->dropDownList(['1' => 'Day', '2' => 'Night', '3' => 'Day & Night'], ['prompt' => '--Select--']) ?>
+                        <?php $duty_type = []; ?>
+                        <?= $form->field($model, 'duty_type')->dropDownList([$duty_type]) ?>
 
                 </div>
 
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="day_staff">
-                        <?php
-                        if (!$model->isNewRecord) {
 
-                                $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $model->staff_type])->andWhere(['branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
-                        } else {
-                                $staffs = [];
-                        }
-                        ?>
-                        <?= $form->field($model, 'day_staff')->dropDownList(ArrayHelper::map($staffs, 'id', 'staff_name'), ['class' => 'form-control staff-change', 'prompt' => '--Select--']) ?>
-
-                </div>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="night_staff">
-                        <?php
-                        if (!$model->isNewRecord) {
-                                $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $model->staff_type])->andWhere(['branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
-                        } else {
-                                $staffs = [];
-                        }
-                        ?>
-                        <?= $form->field($model, 'night_staff')->dropDownList(ArrayHelper::map($staffs, 'id', 'staff_name'), ['class' => 'form-control staff-change', 'prompt' => '--Select--']) ?>
-
-                </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                         <?php
                         $staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 6, 'branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
                         ?>
                         <?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($staff_managers, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']) ?>
-
                 </div>
 
 

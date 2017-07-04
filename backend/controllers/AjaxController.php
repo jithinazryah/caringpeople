@@ -452,4 +452,23 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
+        public function actionDutytype() {
+                $service = $_POST['service'];
+                $rates = \common\models\RateCard::find()->where(['status' => 1, 'service_id' => $service])->one();
+
+                $options = '<option value="">-Select-</option>';
+                if (isset($rates->rate_per_hour) && $rates->rate_per_hour != '') {
+                        $options .= "<option value='1'>Hourly</option>";
+                } if (isset($rates->rate_per_visit) && $rates->rate_per_visit != '') {
+                        $options .= "<option value='2'>Visit</option>";
+                } if (isset($rates->rate_per_day) && $rates->rate_per_day != '') {
+                        $options .= "<option value='3'>Day</option>";
+                } if (isset($rates->rate_per_night) && $rates->rate_per_night != '') {
+                        $options .= "<option value='4'>Night</option>";
+                } if (isset($rates->rate_per_day_night) && $rates->rate_per_day_night != '') {
+                        $options .= "<option value='5'>Day & Night</option>";
+                }
+                echo $options;
+        }
+
 }
