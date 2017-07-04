@@ -15,7 +15,7 @@ use kartik\date\DatePicker;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'service_id')->dropDownList(ArrayHelper::map(MasterServiceTypes::find()->where(['status' => 1])->all(), 'id', 'service_name'), ['prompt' => '--Select--']) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'service_id')->dropDownList(ArrayHelper::map(MasterServiceTypes::find()->where(['status' => 1])->orderBy(['service_name' => SORT_ASC])->all(), 'id', 'service_name'), ['prompt' => '--Select--']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'rate_card_name')->textInput(['maxlength' => true]) ?>
 

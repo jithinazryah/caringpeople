@@ -58,7 +58,7 @@ class RateCard extends \yii\db\ActiveRecord {
                     'rate_per_visit' => 'Rate Per Visit',
                     'rate_per_day' => 'Rate Per Day',
                     'rate_per_night' => 'Rate Per Night',
-                    'rate_per_day_night' => 'Rate Per Day Night',
+                    'rate_per_day_night' => 'Rate Per Day & Night',
                     'period_from' => 'Period From',
                     'period_to' => 'Period To',
                     'status' => 'Status',
