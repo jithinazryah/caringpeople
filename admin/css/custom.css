@@ -394,4 +394,12 @@ form div.required label.control-label:after {
 .second-tab{
         margin-top: 20px;
 }
+.add-new{
+
+        float: right;
+        margin-top: -12px;
+        cursor: pointer;
+        color: #0e62c7;
+        text-decoration: underline;
+}
 

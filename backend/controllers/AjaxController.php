@@ -170,9 +170,9 @@ class AjaxController extends \yii\web\Controller {
 
         public function actionPatienthospitaldetails() {
                 if (Yii::$app->request->isAjax) {
-$rand=rand();
+                        $rand = rand();
                         $hospital_name = Hospital::find()->where(['status' => '1'])->all();
-                        $options = Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control hospital', 'prompt' => '--Select--','id' => 'hospital_'.$rand]);
+                        $options = Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control hospital', 'prompt' => '--Select--', 'id' => 'hospital_' . $rand]);
 
                         $data = "<span>
 <hr style='border-top: 1px solid #979898 !important;'>
@@ -180,7 +180,9 @@ $rand=rand();
                                 <div class='form-group field-patientenquiryhospitaldetails-hospital_name'>
                                         <label class='control-label'>Hospital Name</label>
                                         $options
+                                                   <a class='add-option-dropdown add-new' id='hospital_$rand-1' style='margin-top:0px;'> + Add New</a>
                                 </div>
+
                         </div>
 
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
@@ -407,9 +409,9 @@ $rand=rand();
                                 </span><br/>";
                 echo $vers;
         }
-        
-        public function actionDoctors(){
-            if (Yii::$app->request->isAjax) {
+
+        public function actionDoctors() {
+                if (Yii::$app->request->isAjax) {
                         $hospital = $_POST['hospital'];
                         if ($hospital == '') {
                                 echo '0';
@@ -430,9 +432,9 @@ $rand=rand();
                         echo $options;
                 }
         }
-        
-        public function actionDepartment(){
-            if (Yii::$app->request->isAjax) {
+
+        public function actionDepartment() {
+                if (Yii::$app->request->isAjax) {
                         $doctor = $_POST['doctor'];
                         if ($doctor == '') {
                                 echo '0';
@@ -440,7 +442,7 @@ $rand=rand();
                         } else {
                                 $doctors = \common\models\Doctors::findOne($doctor);
                                 if (empty($doctors)) {
-                                       
+
                                 } else {
                                         echo $doctors->department;
                                 }

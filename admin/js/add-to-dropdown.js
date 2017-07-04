@@ -7,42 +7,54 @@
 $("document").ready(function () {
 
         /*
-         * show add hospital form
+         * show add new form
          */
-        $('.add-hospital-link').on('click', function (e) {
+
+        $(document).on('click', '.add-option-dropdown', function (e) {
+                var id_attr = $(this).attr('id');
+                var type = id_attr.split('-');
+                var cat_type = $(this).attr('type');
 
                 $.ajax({
                         type: 'POST',
-                        url: homeUrl + 'dropdown/addhospital',
+                        url: homeUrl + 'dropdown/showform',
+                        data: {type: type[1], field_id: type[0], cat_type: cat_type},
                         success: function (data) {
+
                                 $("#modal-pop-up").html(data);
                                 $('#modal-6').modal('show', {backdrop: 'static'});
-                               
+
                         }
                 });
         });
         /*
-         * add new hospital
+         * add new form submit
          */
 
-        
-            $("form#add-hospital").submit(function (e) {
-                $('form#add-hospital').submit(false);
-           e.preventDefault();
-                var str = $(this).serialize();
-                
+
+
+        $(document).on('submit', '#submit-add-form', function (e) {
+
+                e.preventDefault();
+                var data = $(this).serialize();
                 $.ajax({
+                        type: 'POST',
                         url: homeUrl + 'dropdown/add',
-                        type: "POST",
-                        data: id,
+                        data: data,
                         success: function (data) {
 
-                                //$(".partner_name").text(res.result['hospital_name']);
-                                // $("#salesinvoicedetails-busines_partner_code").val(res.result['id']);
-                                // $('#modal-6').modal('hide');
+                                var res = $.parseJSON(data);
+                                var newOption = $('<option value="' + res.result['id'] + '">' + res.result['name'] + '</option>');
+                                $('#' + res.result['field_id']).append(newOption);
+                                $('#' + res.result['field_id'] + ' option[value=' + res.result['id'] + ']').attr("selected", "selected");
+
+                                if (res.result['type'] == '2') {
+                                        var vals = $('#' + res.result['field_id']).val();
+                                        $('#' + res.result['field_id']).select2('val', vals);
+                                }
+                                $('#modal-6').modal('hide');
                         }
                 });
-
         });
 
 
@@ -87,6 +99,10 @@ $("document").ready(function () {
                                 }
                         }
                 });
+        });
+
+        $('#staff_skills').change(function () {
+                //  alert($('#staff_skills').val());
         });
 
 });

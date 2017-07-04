@@ -271,8 +271,8 @@ $("document").ready(function () {
                 $('#designation').hide();
 
 
-        $("#skills").select2({
-                placeholder: 'Select Skills',
+        $("#skills_staff").select2({
+                //  placeholder: 'Select Skills',
                 allowClear: true
         }).on('select2-open', function ()
         {
@@ -280,7 +280,7 @@ $("document").ready(function () {
         });
 
         $("#staff_skills").select2({
-                placeholder: 'Select Skills',
+                // placeholder: 'Select Skills',
                 allowClear: true
         }).on('select2-open', function ()
         {

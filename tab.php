@@ -1,46 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-        <head>
-                <title>Bootstrap Example</title>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        </head>
-        <body>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<div class="container">
+        <section class="customer-logos slider">
+                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
+                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
+                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
+                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
+                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
+                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
+                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
+                <div class="slide"><img src="http://astrolinesteel.com/uploads/clients/6/image.jpg"></div>
+        </section>
+</div>
 
-                <div class="container">
-                        <h2>Dynamic Pills</h2>
-                        <p>To make the tabs toggleable, add the data-toggle="pill" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
-                        <ul class="nav nav-pills">
-                                <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-                                <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
-                                <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-                                <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
-                        </ul>
 
-                        <div class="tab-content">
-                                <form>
-                                        <div id="home" class="tab-pane fade in active">
-                                                <h3>HOME</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        </div>
-                                        <div id="menu1" class="tab-pane fade">
-                                                <h3>Menu 1</h3>
-                                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                        </div>
-                                </form>
-                                <div id="menu2" class="tab-pane fade">
-                                        <h3>Menu 2</h3>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                                </div>
-                                <div id="menu3" class="tab-pane fade">
-                                        <h3>Menu 3</h3>
-                                        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                </div>
-                        </div>
-                </div>
+<style>
+        /* Slider */
+        .slick-slide {
+                margin: 0px 20px;
+        }
 
-        </body>
-</html>
+        .slick-slide img {
+                width: 100%;
+        }
+
+        .slick-slider
+        {
+                position: relative;
+                display: block;
+                box-sizing: border-box;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                -webkit-touch-callout: none;
+                -khtml-user-select: none;
+                -ms-touch-action: pan-y;
+                touch-action: pan-y;
+                -webkit-tap-highlight-color: transparent;
+        }
+
+        .slick-list
+        {
+                position: relative;
+                display: block;
+                overflow: hidden;
+                margin: 0;
+                padding: 0;
+        }
+        .slick-list:focus
+        {
+                outline: none;
+        }
+        .slick-list.dragging
+        {
+                cursor: pointer;
+                cursor: hand;
+        }
+
+        .slick-slider .slick-track,
+        .slick-slider .slick-list
+        {
+                -webkit-transform: translate3d(0, 0, 0);
+                -moz-transform: translate3d(0, 0, 0);
+                -ms-transform: translate3d(0, 0, 0);
+                -o-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+        }
+
+        .slick-track
+        {
+                position: relative;
+                top: 0;
+                left: 0;
+                display: block;
+        }
+        .slick-track:before,
+        .slick-track:after
+        {
+                display: table;
+                content: '';
+        }
+        .slick-track:after
+        {
+                clear: both;
+        }
+        .slick-loading .slick-track
+        {
+                visibility: hidden;
+        }
+
+        .slick-slide
+        {
+                display: none;
+                float: left;
+                height: 100%;
+                min-height: 1px;
+        }
+        [dir='rtl'] .slick-slide
+        {
+                float: right;
+        }
+        .slick-slide img
+        {
+                display: block;
+        }
+        .slick-slide.slick-loading img
+        {
+                display: none;
+        }
+        .slick-slide.dragging img
+        {
+                pointer-events: none;
+        }
+        .slick-initialized .slick-slide
+        {
+                display: block;
+        }
+        .slick-loading .slick-slide
+        {
+                visibility: hidden;
+        }
+        .slick-vertical .slick-slide
+        {
+                display: block;
+                height: auto;
+                border: 1px solid transparent;
+        }
+        .slick-arrow.slick-hidden {
+                display: none;
+        }
+</style>
+
+
+<script>
+        $(document).ready(function () {
+                $('.customer-logos').slick({
+                        slidesToShow: 6,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 1000,
+                        arrows: false,
+                        dots: false,
+                        pauseOnHover: false,
+                        responsive: [{
+                                        breakpoint: 768,
+                                        settings: {
+                                                slidesToShow: 4
+                                        }
+                                }, {
+                                        breakpoint: 520,
+                                        settings: {
+                                                slidesToShow: 3
+                                        }
+                                }]
+                });
+        });
+</script>

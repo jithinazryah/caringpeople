@@ -23,7 +23,9 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
 
 <?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
 
-<div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'category')->dropDownList($model_category, ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+<div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'category')->dropDownList($model_category, ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'remarks_category']) ?>
+
+        <a class="add-option-dropdown add-new" id="remarks_category-2" type="<?= $type ?>"> + Add New</a>
 
 </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'sub_category')->textInput(['maxlength' => true]) ?>
 

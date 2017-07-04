@@ -237,7 +237,6 @@ class StaffInfoController extends Controller {
 
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $other_info->load(Yii::$app->request->post()) && $staff_edu->load(Yii::$app->request->post()) && $staff_interview_first->load(Yii::$app->request->post()) && $staff_interview_second->load(Yii::$app->request->post()) && $staff_interview_third->load(Yii::$app->request->post()) && $staff_salary->load(Yii::$app->request->post())) {
-
                         $model->dob = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['StaffInfo']['dob']));
                         $other_info->current_from = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_from']));
                         $other_info->current_to = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffOtherInfo']['current_to']));
@@ -360,7 +359,8 @@ class StaffInfoController extends Controller {
          */
 
         public function AddLanguage($staff_interview_first, $staff_interview_third) {
-
+                // var_dump($_POST['StaffEnquiryInterviewThird']['staff_experience']);
+                //    exit;
                 if (isset($_POST['StaffEnquiryInterviewThird']['staff_experience']) && $_POST['StaffEnquiryInterviewThird']['staff_experience'] != '')
                         $staff_interview_third->staff_experience = implode(",", $_POST['StaffEnquiryInterviewThird']['staff_experience']);
                 $staff_interview_third->update();

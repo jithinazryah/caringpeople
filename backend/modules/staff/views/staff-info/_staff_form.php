@@ -126,16 +126,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <div class="tab-pane active" id="home-12">
                                                                         <?=
                                                                         $this->render('remarks', [
-                                                                            'patient_info' => $patient_info,
-                                                                            'type' => 1,
+                                                                            'patient_info' => $model,
+                                                                            'type' => 4,
                                                                         ])
                                                                         ?>
                                                                 </div>
                                                                 <div class="tab-pane" id="profile-13">
                                                                         <?=
                                                                         $this->render('followups', [
-                                                                            'patient_info' => $patient_info,
-                                                                            'type' => 1,
+                                                                            'patient_info' => $model,
+                                                                            'type' => 4,
                                                                         ])
                                                                         ?>
                                                                 </div>
