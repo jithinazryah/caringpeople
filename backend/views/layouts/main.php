@@ -173,6 +173,10 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                         <span class="title">Services</span>
                                                                 </a>
                                                                 <ul>
+
+                                                                        <li>
+                                                                                <?= Html::a('Rate Card', ['/masters/rate-card/index'], ['class' => 'title']) ?>
+                                                                        </li>
                                                                         <li>
                                                                                 <?= Html::a('Service', ['/services/service/index'], ['class' => 'title']) ?>
                                                                         </li>
@@ -607,7 +611,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                  ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                    ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -761,24 +765,24 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                         <script type="text/javascript">
                                                 // Here is just a sample how to open chat conversation box
                                                 jQuery(document).ready(function ($)
-                                                        {
+                                                {
                                                         var $chat_conversation = $(".chat-conversation");
 
                                                         $(".chat-group a").on('click', function (ev)
-                                                                {
+                                                        {
                                                                 ev.preventDefault();
 
                                                                 $chat_conversation.toggleClass('is-open');
 
-                                                        $(".chat-conversation textarea").trigger('autosize.resize').focus();
+                                                                $(".chat-conversation textarea").trigger('autosize.resize').focus();
                                                         });
 
                                                         $(".conversation-close").on('click', function (ev)
-                                                                {
+                                                        {
                                                                 ev.preventDefault();
-                                                        $chat_conversation.removeClass('is-open');
-                                                });
-                                                });                                        </script>
+                                                                $chat_conversation.removeClass('is-open');
+                                                        });
+                                                });</script>
 
 
                                         <div class="chat-group">
@@ -874,55 +878,55 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                 <div class="footer-sticked-chat"><!-- Start: Footer Sticked Chat -->
 
                         <script type="text/javascript">
-                                        function showLoader() {
-                                $('.page-loading-overlay').removeClass('loaded');
+                                function showLoader() {
+                                        $('.page-loading-overlay').removeClass('loaded');
                                 }
-                                        function hideLoader() {
-                                $('.page-loading-overlay').addClass('loaded');
+                                function hideLoader() {
+                                        $('.page-loading-overlay').addClass('loaded');
                                 }
                                 function toggleSampleChatWindow()
-                                        {
+                                {
                                         var $chat_win = jQuery("#sample-chat-window");
 
                                         $chat_win.toggleClass('open');
 
                                         if ($chat_win.hasClass('open'))
-                                                {
+                                        {
                                                 var $messages = $chat_win.find('.ps-scrollbar');
 
                                                 if ($.isFunction($.fn.perfectScrollbar))
-                                                        {
+                                                {
                                                         $messages.perfectScrollbar('destroy');
 
-                                                                setTimeout(function () {
+                                                        setTimeout(function () {
                                                                 $messages.perfectScrollbar();
-                                                        $chat_win.find('.form-control').focus();
-                                                }, 300);
-                                        }
+                                                                $chat_win.find('.form-control').focus();
+                                                        }, 300);
+                                                }
                                         }
 
                                         jQuery("#sample-chat-window form").on('submit', function (ev)
-                                                {
-                                        ev.preventDefault();
-                                });
+                                        {
+                                                ev.preventDefault();
+                                        });
                                 }
 
                                 jQuery(document).ready(function ($)
                                 {
 
                                         $(".footer-sticked-chat .chat-user, .other-conversations-list a").on('click', function (ev)
-                                                {
+                                        {
                                                 ev.preventDefault();
-                                        toggleSampleChatWindow();
+                                                toggleSampleChatWindow();
                                         });
 
                                         $(".mobile-chat-toggle").on('click', function (ev)
-                                                {
+                                        {
                                                 ev.preventDefault();
 
-                                        $(".footer-sticked-chat").toggleClass('mobile-is-visible');
-                                });
-                                });                        </script>
+                                                $(".footer-sticked-chat").toggleClass('mobile-is-visible');
+                                        });
+                                });</script>
 
 
 
@@ -943,16 +947,16 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                 <?php $this->endBody() ?>
                 <script type="text/javascript">
                         jQuery(document).ready(function ($)
-                                {
-                                        if ($(window).width() < 900) {
-                                $("#side-menuss").removeClass("collapsed");
+                        {
+                                if ($(window).width() < 900) {
+                                        $("#side-menuss").removeClass("collapsed");
                                 } else {
 
-                                //   $("#side-menuss").addClass('collapsed');
+                                        //   $("#side-menuss").addClass('collapsed');
                                 }
                                 ;
 
-                        });                </script>
+                        });</script>
         </body>
 
 </html>

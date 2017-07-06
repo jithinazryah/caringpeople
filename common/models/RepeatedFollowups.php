@@ -63,7 +63,7 @@ class RepeatedFollowups extends \yii\db\ActiveRecord {
                     'assigned_from' => 'Assigned From',
                     'attachments' => 'Attachments',
                     'related_staffs' => 'Related Staffs',
-                    'repeated_type' => 'Repeated Type',
+                    'repeated_type' => 'Followup to be set for',
                     'repeated_days' => 'Repeated Days',
                     'repeated' => 'Repeated Followups',
                     'status' => 'Status',

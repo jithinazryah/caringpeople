@@ -26,7 +26,20 @@ use yii\helpers\Html;
                 <a href="#home-3" data-toggle="tab"><span class="visible-xs"><i class="fa-envelope-o hidden-xs"></i></span>
                         <i class="fa-envelope-o"></i><span class="hidden-xs span-font-size">Start A Service</span></a>
         </li>
+        <?php
+        if (!$model->isNewRecord) {
+                ?>
+                <li>
+                        <a href="#home-4" data-toggle="tab"><span class="visible-xs"><i class="material-icons hidden-xs"></i></span>
+                                <i class="material-icons"></i><span class="hidden-xs span-font-size">Discounts</span></a>
+                </li>
 
+                <li>
+                        <a href="#home-5" data-toggle="tab"><span class="visible-xs"><i class="fa-user hidden-xs"></i></span>
+                                <i class="fa-user"></i><span class="hidden-xs span-font-size">Staff Allocation</span></a>
+                </li>
+                <?php }
+        ?>
 
 
 

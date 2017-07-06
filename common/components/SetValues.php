@@ -215,17 +215,30 @@ class SetValues extends Component {
                 }
         }
 
-        public function SendMail() {
-                $content = 'hii sabitha, mail here';
-                $message = Yii::$app->mailer->compose() // a view rendering result becomes the message body here
-                        ->setFrom('info@caringpeople.in')
-                        ->setTo('sabith@azryah.com')
-                        ->setTextBody($content)
-                        ->setSubject('New Followup');
-                var_dump($message);
-                exit;
-                $message->send();
-                return TRUE;
+        /*
+         * Service form duty type options
+         */
+
+        public function Dutytype($model) {
+
+                $option1 = [];
+                $option2 = [];
+                $option3 = [];
+                $option4 = [];
+                $option5 = [];
+                if (isset($model->rate_per_hour) && $model->rate_per_hour != '') {
+                        $option1 = ['1' => 'Hourly'];
+                } if (isset($model->rate_per_visit) && $model->rate_per_visit != '') {
+                        $option2 = ['2' => 'Visit'];
+                }if (isset($model->rate_per_day) && $model->rate_per_day != '') {
+                        $option3 = ['3' => 'Day'];
+                } if (isset($model->rate_per_night) && $model->rate_per_night != '') {
+                        $option4 = ['4' => 'Night'];
+                } if (isset($model->rate_per_day_night) && $model->rate_per_day_night != '') {
+                        $option5 = ['5' => 'Day & Night'];
+                }
+
+                return $option1 + $option2 + $option3 + $option4 + $option5;
         }
 
 }

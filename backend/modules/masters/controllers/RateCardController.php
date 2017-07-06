@@ -62,8 +62,7 @@ class RateCardController extends Controller {
                 $model = new RateCard();
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate()) {
-                        $model->period_from = date('Y-m-d', strtotime($model->period_from));
-                        $model->period_to = date('Y-m-d', strtotime($model->period_to));
+
                         if ($model->save())
                                 return $this->redirect(['index']);
                 }
@@ -82,8 +81,7 @@ class RateCardController extends Controller {
                 $model = $this->findModel($id);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate()) {
-                        $model->period_from = date('Y-m-d', strtotime($model->period_from));
-                        $model->period_to = date('Y-m-d', strtotime($model->period_to));
+
                         if ($model->save())
                                 return $this->redirect(['index']);
                 }

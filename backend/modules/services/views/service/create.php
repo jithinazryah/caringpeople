@@ -34,16 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="tab-content tab_data_margin" >
 
                                                 <div class="tab-pane active" id="home-3">
-                                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
-                                                                <div class="alert alert-danger" role="alert">
-                                                                        <?= Yii::$app->session->getFlash('error') ?>
-                                                                </div>
-                                                        <?php endif; ?>
-                                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
-                                                                <div class="alert alert-success" role="alert">
-                                                                        <?= Yii::$app->session->getFlash('success') ?>
-                                                                </div>
-                                                        <?php endif; ?>
+
                                                         <?=
                                                         $this->render('_form', [
                                                             'model' => $model,
@@ -51,28 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ?>
 
                                                 </div>
-                                                <div class="tab-pane" id="profile-3">
 
-                                                        <?php
-//							$this->render('_other_info_form', [
-//							    'model' => $other_info,
-//							    'staff_previous_employer' => $staff_previous_employer,
-//							    'form' => $form,
-//							])
-                                                        ?>
-                                                </div>
 
 
 
 
 
                                         </div>
-                                        <!--                                        <div class='col-md-12 col-sm-6 col-xs-12' >
-                                                                                        <div class="form-group" >
-                                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
-
-                                                                                        </div>
-                                                                                </div>-->
 
 
 

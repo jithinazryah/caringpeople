@@ -40,17 +40,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'rate_card_name',
                                                 'rate_per_hour',
                                                 'rate_per_visit',
-                                                // 'rate_per_day',
-                                                // 'rate_per_night',
-                                                // 'rate_per_day_night',
+                                                'rate_per_day',
+                                                'rate_per_night',
+                                                'rate_per_day_night',
                                                 // 'period_from',
                                                 // 'period_to',
-                                                // 'status',
+                                                [
+                                                    'attribute' => 'status',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            return $model->status == 0 ? 'Disabled' : 'Enabled';
+                                                    },
+                                                    'filter' => [1 => 'Enabled', 0 => 'Disabled'],
+                                                ],
                                                 // 'CB',
                                                 // 'UB',
                                                 // 'DOC',
                                                 // 'DOU',
-                                                ['class' => 'yii\grid\ActionColumn'],
+                                                ['class' => 'yii\grid\ActionColumn',
+                                                    'template' => '{update}{delete}'],
                                             ],
                                         ]);
                                         ?>

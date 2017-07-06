@@ -27,6 +27,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                 </div>
                                 <div class="panel-body">
 
+
                                         <?php if (Yii::$app->session->hasFlash('error')): ?>
                                                 <div class="alert alert-danger" role="alert">
                                                         <?= Yii::$app->session->getFlash('error') ?>
@@ -59,42 +60,18 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 'attribute' => 'duty_type',
                                                 'value' => function($model) {
                                                         if ($model->duty_type == '1') {
-                                                                return 'Day';
+                                                                return 'Hourly';
                                                         } else if ($model->duty_type == '2') {
-                                                                return 'Night';
+                                                                return 'Visit';
                                                         } else if ($model->duty_type == '3') {
+                                                                return 'Day';
+                                                        } else if ($model->duty_type == '4') {
+                                                                return 'Night';
+                                                        } else if ($model->duty_type == '5') {
                                                                 return 'Day & Night';
                                                         }
                                                 },
-                                                'filter' => [1 => 'Day', 2 => 'Night', 3 => 'Day & Night'],
-                                            ],
-                                                [
-                                                'attribute' => 'staffName',
-                                                'header' => 'Staff',
-                                                'value' => function($model) {
-                                                        if ($model->duty_type == 1) {
-                                                                $staff = StaffInfo::findOne($model->day_staff);
-                                                                return $staff->staff_name;
-                                                        } elseif ($model->duty_type == 2) {
-                                                                $staff = StaffInfo::findOne($model->night_staff);
-                                                                return $staff->staff_name;
-                                                        } elseif ($model->duty_type == 3) {
-                                                                $staff = StaffInfo::findOne($model->day_staff);
-                                                                $staff1 = StaffInfo::findOne($model->night_staff);
-                                                                return 'D-' . $staff->staff_name . ', N-' . $staff1->staff_name;
-                                                        }
-                                                },
-                                                'filter' => ArrayHelper::map(common\models\StaffInfo::find()->where(['status' => '1'])->orderBy(['staff_name' => SORT_ASC])->asArray()->all(), 'id', 'staff_name'),
-                                                'filterOptions' => array('id' => "staff_name_search"),
-                                            ],
-                                                [
-                                                'attribute' => 'staff_type',
-                                                'value' => function($model) {
-                                                        $designation = \common\models\MasterDesignations::findOne(['id' => $model->staff_type]);
-//
-                                                        return $designation->title;
-                                                },
-                                                'filter' => ArrayHelper::map($designations, 'id', 'title'),
+                                                'filter' => [1 => 'Hourly', 2 => 'Visit', 3 => 'Day', 4 => 'Night', 5 => 'Day & Night'],
                                             ],
                                                 [
                                                 'attribute' => 'branch_id',
@@ -154,9 +131,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                 </div>
         </div>
 </div>
-<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>/js/select2/select2.css">
-<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>/js/select2/select2-bootstrap.css">
-<script src="<?= Yii::$app->homeUrl; ?>/js/select2/select2.min.js"></script>
+
 <script>
         $(document).ready(function () {
                 $('#staff_name_search select').attr('id', 'staff_name');
@@ -179,6 +154,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                 });
         });
 </script>
+
+<style>
+        #patient_name_search{
+                width: 17%;
+        }
+</style>
 
 
 

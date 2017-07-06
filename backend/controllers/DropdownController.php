@@ -17,6 +17,10 @@ class DropdownController extends \yii\web\Controller {
                 return $this->render('index');
         }
 
+        /*
+         * dropdown add new popup content
+         */
+
         public function actionShowform() {
                 $type = $_POST['type'];
 
@@ -32,6 +36,10 @@ class DropdownController extends \yii\web\Controller {
 
                 echo $form;
         }
+
+        /*
+         * dropdown add new popup content submit
+         */
 
         public function actionAdd() {
 
@@ -69,6 +77,10 @@ class DropdownController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * add remarks
+         */
+
         public function actionAddremarks() {
 
                 if (Yii::$app->request->isAjax) {
@@ -91,6 +103,10 @@ class DropdownController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * change remark status
+         */
+
         public function actionChangeremarkstatus() {
                 $remark = Remarks::findOne($_POST['remark_id']);
                 $remark->status = 2;
@@ -100,6 +116,10 @@ class DropdownController extends \yii\web\Controller {
                         echo '0';
                 }
         }
+
+        /*
+         * calculate rating
+         */
 
         public function Rating($id, $type) {
 
@@ -114,6 +134,92 @@ class DropdownController extends \yii\web\Controller {
                 $rating = $total_remarks_point / $total_remarks * 9;
                 $person->average_point = $rating;
                 $person->save();
+        }
+
+        /*
+         *  add rate card popup form in service
+         */
+
+        public function actionRatecard() {
+                $form = $this->renderPartial('_ratecard', ['branch' => $_POST['branch'], 'service' => $_POST['service'], 'type' => '1']);
+                echo $form;
+        }
+
+        /*
+         *  add rate card popup form in service to db
+         */
+
+        public function actionAddratecard() {
+                if (Yii::$app->request->isAjax) {
+                        $model = new \common\models\RateCard();
+                        $model->status = 1;
+
+                        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate()) {
+                                if ($model->save()) {
+                                        $options = '<option value="">-Select-</option>';
+                                        $i = 0;
+                                        if (isset($model->rate_per_hour) && $model->rate_per_hour != '') {
+                                                $options .= "<option value='1'>Hourly</option>";
+                                                $i++;
+                                        } if (isset($model->rate_per_visit) && $model->rate_per_visit != '') {
+                                                $options .= "<option value='2'>Visit</option>";
+                                                $i++;
+                                        } if (isset($model->rate_per_day) && $model->rate_per_day != '') {
+                                                $options .= "<option value='3'>Day</option>";
+                                                $i++;
+                                        } if (isset($model->rate_per_night) && $model->rate_per_night != '') {
+                                                $options .= "<option value='4'>Night</option>";
+                                                $i++;
+                                        } if (isset($model->rate_per_day_night) && $model->rate_per_day_night != '') {
+                                                $options .= "<option value='5'>Day & Night</option>";
+                                                $i++;
+                                        }
+                                        echo $options;
+                                }
+                        }
+                }
+        }
+
+        /*
+         *  update rate card popup form in service
+         */
+
+        public function actionRatecardupdate() {
+                $form = $this->renderPartial('_ratecard', ['branch' => $_POST['branch'], 'service' => $_POST['service'], 'type' => 2]);
+                echo $form;
+        }
+
+        /*
+         *  update rate card popup form in service to db
+         */
+
+        public function actionUpdateratecard() {
+                if (Yii::$app->request->isAjax) {
+                        $service = $_POST['service'];
+                        $branch = $_POST['branch'];
+                        $model = \common\models\RateCard::find()->where(['service_id' => $service, 'branch_id' => $branch, 'status' => 1])->one();
+                        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+                                $options = '<option value="">-Select-</option>';
+                                $i = 0;
+                                if (isset($model->rate_per_hour) && $model->rate_per_hour != '') {
+                                        $options .= "<option value='1'>Hourly</option>";
+                                        $i++;
+                                } if (isset($model->rate_per_visit) && $model->rate_per_visit != '') {
+                                        $options .= "<option value='2'>Visit</option>";
+                                        $i++;
+                                } if (isset($model->rate_per_day) && $model->rate_per_day != '') {
+                                        $options .= "<option value='3'>Day</option>";
+                                        $i++;
+                                } if (isset($model->rate_per_night) && $model->rate_per_night != '') {
+                                        $options .= "<option value='4'>Night</option>";
+                                        $i++;
+                                } if (isset($model->rate_per_day_night) && $model->rate_per_day_night != '') {
+                                        $options .= "<option value='5'>Day & Night</option>";
+                                        $i++;
+                                }
+                                echo $options;
+                        }
+                }
         }
 
 }

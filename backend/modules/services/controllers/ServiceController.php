@@ -37,15 +37,15 @@ class ServiceController extends Controller {
         public function actionIndex() {
                 $searchModel = new ServiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                if (Yii::$app->session['post']['id'] != '1') {
-                        $dataProvider->query->andWhere(['IN', 'day_staff', Yii::$app->user->identity->id])->orWhere(['IN', 'night_staff', Yii::$app->user->identity->id])->orWhere(['IN', 'staff_manager', Yii::$app->user->identity->id]);
-                }
-
-                if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
-                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
-                } else {
-                        $dataProvider->query->andWhere(['<>', 'status', 2]);
-                }
+////                if (Yii::$app->session['post']['id'] != '1') {
+////                        $dataProvider->query->andWhere(['IN', 'day_staff', Yii::$app->user->identity->id])->orWhere(['IN', 'night_staff', Yii::$app->user->identity->id])->orWhere(['IN', 'staff_manager', Yii::$app->user->identity->id]);
+////                }
+//
+//                if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
+//                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
+//                } else {
+//                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+//                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,
@@ -91,19 +91,19 @@ class ServiceController extends Controller {
                         $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y');
                         $model->service_id = $code;
                         if ($model->validate() && $model->save()) {
-                                $staff_availabilty = Yii::$app->SetValues->StaffAvailabilty($model);
-                                $history_id = Yii::$app->SetValues->ServiceHistory($model, 1); /* 1 implies masterservice history type id 1 for new service */
-                                if (!empty($history_id)) {
-                                        $notifiactions = [
-                                                [$history_id, $model->id, 1, 1, $model->day_staff], /* history_id,service_id,1 => notification type is service ,1=>day staff */
-                                                [$history_id, $model->id, 1, 2, $model->night_staff], /* history_id,service_id,1 => notification type is service ,1=>night staff */
-                                                [$history_id, $model->id, 1, 3, $model->staff_manager], /* history_id,service_id,1 => notification type is service ,1=>manager */
-                                                [$history_id, $model->id, 1, 4, $model->CB], /* history_id,service_id,1 => notification type is service ,1=>superadmin */
-                                        ];
-                                        Yii::$app->SetValues->Notifications($history_id, $model->id, $notifiactions);
-                                }
+//                                $staff_availabilty = Yii::$app->SetValues->StaffAvailabilty($model);
+//                                $history_id = Yii::$app->SetValues->ServiceHistory($model, 1); /* 1 implies masterservice history type id 1 for new service */
+//                                if (!empty($history_id)) {
+//                                        $notifiactions = [
+//                                                [$history_id, $model->id, 1, 1, $model->day_staff], /* history_id,service_id,1 => notification type is service ,1=>day staff */
+//                                                [$history_id, $model->id, 1, 2, $model->night_staff], /* history_id,service_id,1 => notification type is service ,1=>night staff */
+//                                                [$history_id, $model->id, 1, 3, $model->staff_manager], /* history_id,service_id,1 => notification type is service ,1=>manager */
+//                                                [$history_id, $model->id, 1, 4, $model->CB], /* history_id,service_id,1 => notification type is service ,1=>superadmin */
+//                                        ];
+//                                        Yii::$app->SetValues->Notifications($history_id, $model->id, $notifiactions);
+//                                }
 
-                                return $this->redirect(['index']);
+                                return $this->redirect(['update', 'id' => $model->id]);
                         }
                 }
                 return $this->render('create', [

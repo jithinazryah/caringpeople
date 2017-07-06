@@ -27,8 +27,11 @@ class m170704_072701_rate_card_table extends Migration {
                   'DOU' => $this->timestamp(),
                   ]);
 
-                  $this->addForeignKey("fk_service_id", "rate_card", "service_id", "master_service_types", "id", "RESTRICT", "RESTRICT"); */
-                $this->addColumn('rate_card', 'branch_id', 'integer after period_to');
+                  $this->addForeignKey("fk_service_id", "rate_card", "service_id", "master_service_types", "id", "RESTRICT", "RESTRICT");
+                  $this->addColumn('rate_card', 'branch_id', 'integer after period_to'); */
+                $this->addColumn('service', 'frequency', 'string(200) after duty_type');
+                $this->addColumn('service', 'hours', 'string(200) after frequency');
+                $this->addColumn('service', 'days', 'string(200) after hours');
         }
 
         public function down() {

@@ -47,6 +47,8 @@ class ServiceSearch extends Service {
 
                 $dataProvider = new ActiveDataProvider([
                     'query' => $query,
+                    'sort' => ['defaultOrder' => ['id' => SORT_DESC,
+                        ]]
                 ]);
 
                 $this->load($params);
@@ -83,9 +85,9 @@ class ServiceSearch extends Service {
                         ->andFilterWhere(['like', 'night_staff', $this->night_staff])
                         ->andFilterWhere(['like', 'service_id', $this->service_id]);
                 // ->andFilterWhere(['like', 'advance_payment', $this->advance_payment]);
-                $query->andWhere('day_staff LIKE "%' . $this->staffName . '%" ' . //This will filter when only first name is searched.
-                        'OR night_staff LIKE "%' . $this->staffName . '%" ' //This will filter when only last name is searched.
-                );
+//                $query->andWhere('day_staff LIKE "%' . $this->staffName . '%" ' . //This will filter when only first name is searched.
+//                        'OR night_staff LIKE "%' . $this->staffName . '%" ' //This will filter when only last name is searched.
+//                );
 
                 return $dataProvider;
         }
