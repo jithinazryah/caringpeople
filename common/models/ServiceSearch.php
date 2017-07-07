@@ -19,8 +19,8 @@ class ServiceSearch extends Service {
          */
         public function rules() {
                 return [
-                        [['id', 'patient_id', 'service', 'staff_type', 'staff_id', 'staff_manager', 'status', 'branch_id', 'CB', 'UB', 'day_staff'], 'integer'],
-                        [['from_date', 'to_date', 'estimated_price_per_day', 'estimated_price', 'service_id', 'DOC', 'DOU', 'day_staff', 'duty_type'], 'safe'],
+                        [['id', 'patient_id', 'service', 'staff_id', 'staff_manager', 'status', 'branch_id', 'CB', 'UB'], 'integer'],
+                        [['from_date', 'to_date', 'estimated_price', 'service_id', 'DOC', 'DOU', 'duty_type'], 'safe'],
                         [['staffName'], 'safe']
                 ];
         }
@@ -64,9 +64,7 @@ class ServiceSearch extends Service {
                     'id' => $this->id,
                     'patient_id' => $this->patient_id,
                     'service' => $this->service,
-                    'staff_type' => $this->staff_type,
                     'staff_id' => $this->staff_id,
-                    //'day_staff' => $this->day_staff,
                     'duty_type' => $this->duty_type,
                     'staff_manager' => $this->staff_manager,
                     'from_date' => $this->from_date,
@@ -79,15 +77,9 @@ class ServiceSearch extends Service {
                     'DOU' => $this->DOU,
                 ]);
 
-                $query->andFilterWhere(['like', 'estimated_price_per_day', $this->estimated_price_per_day])
-                        ->andFilterWhere(['like', 'estimated_price', $this->estimated_price])
-                        ->andFilterWhere(['like', 'day_staff', $this->day_staff])
-                        ->andFilterWhere(['like', 'night_staff', $this->night_staff])
+
+                $query->andFilterWhere(['like', 'estimated_price', $this->estimated_price])
                         ->andFilterWhere(['like', 'service_id', $this->service_id]);
-                // ->andFilterWhere(['like', 'advance_payment', $this->advance_payment]);
-//                $query->andWhere('day_staff LIKE "%' . $this->staffName . '%" ' . //This will filter when only first name is searched.
-//                        'OR night_staff LIKE "%' . $this->staffName . '%" ' //This will filter when only last name is searched.
-//                );
 
                 return $dataProvider;
         }

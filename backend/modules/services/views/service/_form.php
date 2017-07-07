@@ -98,33 +98,24 @@ use yii\db\Expression;
                         ]);
                         ?>
 
-                        <span class="rate-card-error" style="height: 15px; color:white;display:none">Please add rate card ! <a  style="color:#fff;cursor: pointer;text-decoration: underline">Add New</a></span>
+                        <span class="rate-card-error" style="height: 15px; color:white;display:none">Error! <a  style="color:#fff;cursor: pointer;text-decoration: underline"></a></span>
 
                 </div>
 
 
 
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-
                         <?php
                         if (!$model->isNewRecord) {
                                 $model->to_date = date('d-m-Y', strtotime($model->to_date));
                         } else {
                                 $model->to_date = '';
                         }
-                        echo DatePicker::widget([
-                            'model' => $model,
-                            'form' => $form,
-                            'type' => DatePicker::TYPE_INPUT,
-                            'attribute' => 'to_date',
-                            'pluginOptions' => [
-                                'autoclose' => true,
-                                'format' => 'dd-mm-yyyy',
-                            ]
-                        ]);
                         ?>
 
-                        <span class="rate-card-error" style="color:white;display:none">Please add rate card ! <a style="color:#fff;cursor: pointer;text-decoration: underline">Add New</a></span>
+                        <?= $form->field($model, 'to_date')->textInput(['maxlength' => true, 'readonly' => true]) ?>
+
+                        <span class="rate-card-error" style="color:white;display:none">Error ! <a style="color:#fff;cursor: pointer;text-decoration: underline"></a></span>
 
                 </div>
 
@@ -144,14 +135,7 @@ use yii\db\Expression;
                         <?= $form->field($model, 'estimated_price')->textInput(['maxlength' => true]) ?>
 
                 </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($model, 'staff_advance_payment')->textInput(['maxlength' => true]) ?>
 
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($model, 'patient_advance_payment')->textInput(['maxlength' => true]) ?>
-
-                </div>
 
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'status')->dropDownList(['1' => 'Opened', '2' => 'Closed']) ?>

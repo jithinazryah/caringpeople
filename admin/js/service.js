@@ -111,7 +111,10 @@ $("document").ready(function () {
                                         $('.update-rate-card').attr('id', id_attr);
                                         $('.rate-card-update-error').show();
                                 } else {
+                                        $('.rate-card-error').hide();
+                                        $('.rate-card-update-error').hide();
                                         $('#service-duty_type').html(data);
+
                                 }
                         }
                 });
@@ -193,18 +196,13 @@ $("document").ready(function () {
         });
 
 
-
-
-
-
-
         $('.service-frequency').hide();
         $('.service-hours').hide();
         $('.service-days').hide();
 
         $('#service-duty_type').change(function () {
                 $('.service-frequency').show();
-                // FrequencyChange();
+                FrequencyChange();
         });
 
         /*
@@ -215,36 +213,12 @@ $("document").ready(function () {
         });
 
         $('#service-from_date').change(function () {
-                var frequency = $('#service-frequency').val();
-                var days = $('#service-days').val();
-                var from = $(this).val();
-
-
-                $.ajax({
-                        url: homeUrl + 'serviceajax/todate',
-                        type: 'POST',
-                        data: {frequency: frequency, days: days, from: from},
-                        success: function (data) {
-                                $('#service-to_date').val(data);
-                        }
-                });
-
-//                if (frequency == '1') {
-//                        var dayss = 2;
-//                        var inputString = from;
-//                        var dString = inputString.split('-');
-//                        var dt = new Date(dString[2], dString[1] - 1, dString[0]);
-//                        dt.setDate(dt.getDate() + parseInt(dayss));
-//
-//                        var finalDate = pad(dt.getDate(), 2) + "-" + pad(dt.getMonth() + 1, 2) + "-" + dt.getFullYear();
-//                        $('#service-to_date').val(finalDate);
-//                }
-
-
+                Datecalculate();
         });
 
         $('#service-days').change(function () {
                 EstimatedPrice();
+                Datecalculate();
 
         });
 
@@ -254,8 +228,39 @@ $("document").ready(function () {
                 FrequencyChange();
         }
 
+        $('.schedule-update').blur(function () {
+                var id_attr = $(this).attr('id');
+                var id = id_attr.split('-');
+                var remark_manager = $('#remarks_from_manager-' + id[1]).val();
+                var remark_staff = $('#remarks_from_staff-' + id[1]).val();
+                var remark_patient = $('#remarks_from_patient-' + id[1]).val();
+                var status = $('#status-' + id[1]).val();
+                var attendance = $('#attendance-' + id[1]).val();
 
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/scheduleupdate',
+                        data: {id: id[1], remarks_from_manager: remark_manager, remarks_from_staff: remark_staff, remarks_from_patient: remark_patient, status: status, attendance: attendance},
+                        success: function (data) {
 
+                        }
+                });
+        });
+        $('.schedule-update-date').change(function () {
+                var id_attr = $(this).attr('id');
+                var id = id_attr.split('-');
+                var date = $('#schedule_date-' + id[1]).val();
+
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/scheduledateupdate',
+                        data: {id: id[1], date: date},
+                        success: function (data) {
+
+                        }
+                });
+
+        });
 
 
 });
@@ -264,30 +269,34 @@ function FrequencyChange() {
 
         var duty_Type = $('#service-duty_type').val();
         var frequency = $('#service-frequency').val();
-
-        if ((duty_Type == '3' || duty_Type == '4') && frequency == '1') { /* duty type= day or night, frequency= daily */
-                $("label[for = service-days]").text("No of days");
-                $('.service-hours').hide();
-                $('.service-days').show();
-        } else {
-                if (duty_Type == 1) { /* if duty type= hourly*/
-                        $("label[for = service-hours]").text("Hours");
-                } else if (duty_Type == 2) {  /* if duty type= visit*/
-                        $("label[for = service-hours]").text("No.of visits");
-                } else if (duty_Type == 5) { /* if duty type= day & night*/
-                        $("label[for = service-hours]").text("Days");
-                }
-                if (frequency == 1) { /* if frequency= daily */
+        if (frequency) {
+                if ((duty_Type == '3' || duty_Type == '4' || duty_Type == '5') && frequency == '1') { /* duty type= day or night, frequency= daily */
                         $("label[for = service-days]").text("No of days");
-                } else if (frequency == 2) { /* if frequency= weekly */
-                        $("label[for = service-days]").text("No of weeks");
-                } else if (frequency == 3) { /* if frequency= monthly */
-                        $("label[for = service-days]").text("No of months");
+                        $('.service-hours').hide();
+                        $('.service-days').show();
+                } else {
+                        if (duty_Type == 1) { /* if duty type= hourly*/
+                                $("label[for = service-hours]").text("Hours");
+                        } else if (duty_Type == 2) {  /* if duty type= visit*/
+                                $("label[for = service-hours]").text("No.of visits");
+                        } else if (duty_Type == 5) { /* if duty type= day & night*/
+                                $("label[for = service-hours]").text("Days");
+                        } else if (duty_Type == 3) { /* if duty type= day & night*/
+                                $("label[for = service-hours]").text("Days");
+                        } else if (duty_Type == 4) { /* if duty type= day & night*/
+                                $("label[for = service-hours]").text("Days");
+                        }
+                        if (frequency == 1) { /* if frequency= daily */
+                                $("label[for = service-days]").text("No of days");
+                        } else if (frequency == 2) { /* if frequency= weekly */
+                                $("label[for = service-days]").text("No of weeks");
+                        } else if (frequency == 3) { /* if frequency= monthly */
+                                $("label[for = service-days]").text("No of months");
+                        }
+                        $('.service-hours').show();
+                        $('.service-days').show();
                 }
-                $('.service-hours').show();
-                $('.service-days').show();
         }
-
 
 }
 
@@ -315,14 +324,22 @@ function EstimatedPrice() {
         }
 }
 
-function pad(number, length) {
+function Datecalculate() {
 
-        var str = '' + number;
-        while (str.length < length) {
-                str = '0' + str;
+        var frequency = $('#service-frequency').val();
+        var days = $('#service-days').val();
+        var from = $('#service-from_date').val();
+
+        if (from) {
+                $.ajax({
+                        url: homeUrl + 'serviceajax/todate',
+                        type: 'POST',
+                        data: {frequency: frequency, days: days, from: from},
+                        success: function (data) {
+                                $('#service-to_date').val(data);
+                        }
+                });
         }
-
-        return str;
 
 }
 

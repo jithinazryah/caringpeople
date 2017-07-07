@@ -29,16 +29,12 @@ use yii\helpers\Html;
         <?php
         if (!$model->isNewRecord) {
                 ?>
-                <li>
-                        <a href="#home-4" data-toggle="tab"><span class="visible-xs"><i class="material-icons hidden-xs"></i></span>
-                                <i class="material-icons"></i><span class="hidden-xs span-font-size">Discounts</span></a>
-                </li>
 
                 <li>
                         <a href="#home-5" data-toggle="tab"><span class="visible-xs"><i class="fa-user hidden-xs"></i></span>
-                                <i class="fa-user"></i><span class="hidden-xs span-font-size">Staff Allocation</span></a>
+                                <i class="fa-user"></i><span class="hidden-xs span-font-size">Schedules</span></a>
                 </li>
-                <?php }
+        <?php }
         ?>
 
 

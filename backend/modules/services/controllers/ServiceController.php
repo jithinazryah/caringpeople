@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Branch;
 use common\models\MasterServiceTypes;
+use common\models\ServiceSchedule;
 
 /**
  * ServiceController implements the CRUD actions for Service model.
@@ -77,32 +78,13 @@ class ServiceController extends Controller {
 
                         $model->from_date = date('Y-m-d', strtotime($model->from_date));
                         $model->to_date = date('Y-m-d', strtotime($model->to_date));
-                        $model->duty_type = Yii::$app->request->post()['Service']['duty_type'];
-                        $model->day_staff = Yii::$app->request->post()['Service']['day_staff'];
-                        $model->night_staff = Yii::$app->request->post()['Service']['night_staff'];
-                        $model->patient_advance_payment = Yii::$app->request->post()['Service']['patient_advance_payment'];
-                        if (Yii::$app->user->identity->branch_id != '0') {
-                                Yii::$app->SetValues->currentBranch($model);
-                        } else {
-                                $model->branch_id = Yii::$app->request->post()['Service']['branch_id'];
-                        }
+
                         $branch_details = Branch::find()->where(['id' => $model->branch_id])->one();
                         $service_type = $this->ServiceType($model->service);
                         $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y');
                         $model->service_id = $code;
                         if ($model->validate() && $model->save()) {
-//                                $staff_availabilty = Yii::$app->SetValues->StaffAvailabilty($model);
-//                                $history_id = Yii::$app->SetValues->ServiceHistory($model, 1); /* 1 implies masterservice history type id 1 for new service */
-//                                if (!empty($history_id)) {
-//                                        $notifiactions = [
-//                                                [$history_id, $model->id, 1, 1, $model->day_staff], /* history_id,service_id,1 => notification type is service ,1=>day staff */
-//                                                [$history_id, $model->id, 1, 2, $model->night_staff], /* history_id,service_id,1 => notification type is service ,1=>night staff */
-//                                                [$history_id, $model->id, 1, 3, $model->staff_manager], /* history_id,service_id,1 => notification type is service ,1=>manager */
-//                                                [$history_id, $model->id, 1, 4, $model->CB], /* history_id,service_id,1 => notification type is service ,1=>superadmin */
-//                                        ];
-//                                        Yii::$app->SetValues->Notifications($history_id, $model->id, $notifiactions);
-//                                }
-
+                                $this->ServiceSchedule($model);
                                 return $this->redirect(['update', 'id' => $model->id]);
                         }
                 }
@@ -119,23 +101,21 @@ class ServiceController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
-                $before_update = $this->findModel($id);
+                $service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
 
                 if ($model->load(Yii::$app->request->post())) {
 
                         $model->from_date = date('Y-m-d', strtotime($model->from_date));
                         $model->to_date = date('Y-m-d', strtotime($model->to_date));
-                        $model->duty_type = Yii::$app->request->post()['Service']['duty_type'];
-                        $model->day_staff = Yii::$app->request->post()['Service']['day_staff'];
-                        $model->night_staff = Yii::$app->request->post()['Service']['night_staff'];
-                        $model->patient_advance_payment = Yii::$app->request->post()['Service']['patient_advance_payment'];
+
                         if ($model->validate() && $model->save()) {
-                                $staff_availabilty = Yii::$app->SetValues->StaffAvailabilty($model, $before_update);
+
                                 return $this->redirect(['index']);
                         }
                 }
                 return $this->render('create', [
                             'model' => $model,
+                            'service_schedule' => $service_schedule
                 ]);
         }
 
@@ -161,6 +141,40 @@ class ServiceController extends Controller {
                                 break;
                 }
                 return $result;
+        }
+
+        public function ServiceSchedule($model) {
+
+
+                if (($model->duty_type == 5 || $model->duty_type == 3 || $model->duty_type == 4 ) && $model->frequency == 1) {
+                        $schedule_count = $model->days;
+                } else if ($model->duty_type == 1) {
+                        $schedule_count = $model->days;
+                } else {
+                        $schedule_count = $model->hours * $model->days;
+                }
+
+                if ($model->duty_type == 5) {
+
+                        for ($x = 1; $x <= $schedule_count; $x++) {
+                                $day_schedule = new ServiceSchedule();
+                                $night_schedule = new ServiceSchedule();
+                                $day_schedule->service_id = $model->id;
+                                $day_schedule->patient_id = $model->patient_id;
+                                $night_schedule->service_id = $model->id;
+                                $night_schedule->patient_id = $model->patient_id;
+                                $night_schedule->save(false);
+                                $day_schedule->save(false);
+                        }
+                } else {
+
+                        for ($x = 1; $x <= $schedule_count; $x++) {
+                                $schedule = new ServiceSchedule();
+                                $schedule->service_id = $model->id;
+                                $schedule->patient_id = $model->patient_id;
+                                $schedule->save(false);
+                        }
+                }
         }
 
         /**

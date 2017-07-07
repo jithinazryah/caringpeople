@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\UploadedFile;
 use common\models\RateCard;
+use common\models\ServiceSchedule;
 
 class ServiceajaxController extends \yii\web\Controller {
 
@@ -137,6 +138,41 @@ class ServiceajaxController extends \yii\web\Controller {
                                 echo date('d-m-Y', strtotime($from . ' + ' . $days . ' weeks'));
                         } else if ($frequency == '3') {
                                 echo date('d-m-Y', strtotime($from . ' + ' . $days . ' months'));
+                        }
+                }
+        }
+
+        /*
+         * update schedule
+         */
+
+        public function actionScheduleupdate() {
+                if (Yii::$app->request->isAjax) {
+                        if (isset($_POST['id'])) {
+                                $service_schedule = ServiceSchedule::findOne($_POST['id']);
+                                $service_schedule->remarks_from_manager = $_POST['remarks_from_manager'];
+                                $service_schedule->remarks_from_staff = $_POST['remarks_from_staff'];
+                                $service_schedule->remarks_from_patient = $_POST['remarks_from_patient'];
+                                $service_schedule->status = $_POST['status'];
+                                $service_schedule->attendance = $_POST['attendance'];
+                                $service_schedule->update();
+                        }
+                }
+        }
+
+        /*
+         * update schedule date
+         */
+
+        public function actionScheduledateupdate() {
+                if (Yii::$app->request->isAjax) {
+                        if (isset($_POST['id'])) {
+
+                                $service_schedule = ServiceSchedule::findOne($_POST['id']);
+                                if (isset($_POST['date']) && $_POST['date'] != '')
+                                        $service_schedule->date = date('Y-m-d', strtotime($_POST['date']));
+
+                                $service_schedule->update();
                         }
                 }
         }

@@ -157,7 +157,7 @@ class StaffInfoSearch extends StaffInfo {
                                         return 'Occupied';
                                 }
                         },
-                        'filter' => [1 => 'Opened', 2 => 'Closed', 3 => 'Occupied'],
+                        'filter' => [1 => 'Opened', 2 => 'Closed'],
                     ],
                     'average_point',
                         ['class' => 'yii\grid\ActionColumn',

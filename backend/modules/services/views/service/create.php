@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ])
                                 ?>
                                 <div class="panel-body panel_body_background" >
-                                        <?php //$form = ActiveForm::begin(); ?>
+
                                         <div class="tab-content tab_data_margin" >
 
                                                 <div class="tab-pane active" id="home-3">
@@ -42,8 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ?>
 
                                                 </div>
+                                                <?php if (!$model->isNewRecord) { ?>
+                                                        <div class="tab-pane" id="home-5">
 
+                                                                <?=
+                                                                $this->render('schedules', [
+                                                                    'model' => $model,
+                                                                    'service_schedule' => $service_schedule
+                                                                ])
+                                                                ?>
 
+                                                        </div>
+                                                <?php } ?>
 
 
 
@@ -52,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-                                        <?php //ActiveForm::end();  ?>
+
 
 
 
@@ -62,33 +72,3 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
         </div>
 </div>
-
-<!--<script>
-        $('#form_button').click(function (e) { // using click function
-                // on contact form submit button
-                e.preventDefault();  // stop form from submitting right away
-
-                var error = false;
-
-                $(this).find('.required').each(function () {
-                        if ($(this).val().length < 1) {
-                                error = true;
-                        }
-                });
-                if (error == false) {
-
-                        var Id = $('.tab-pane.active').attr('id');
-                        $('#'.Id).removeClass('active');
-                        $('#home-3').addClass('active');  // you submit form
-                        $("#w0").submit();
-                }
-                if (!error) {
-                        return true;
-                }
-
-        });
-
-
-</script>-->
-
-

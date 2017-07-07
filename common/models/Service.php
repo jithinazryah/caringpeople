@@ -11,15 +11,12 @@ use Yii;
  * @property integer $patient_id
  * @property integer $service_id
  * @property integer $service
- * @property integer $staff_type
  * @property integer $staff_id
  * @property integer $staff_manager
  * @property string $from_date
  * @property string $to_date
- * @property string $estimated_price_per_day
+
  * @property string $estimated_price
- * @property string $staff_advance_payment
- * @property string $patient_advance_payment
  * @property string $branch_id
  * @property integer $status
  * @property integer $CB
@@ -46,9 +43,9 @@ class Service extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['patient_id', 'service', 'staff_type', 'staff_id', 'staff_manager', 'status', 'CB', 'UB'], 'integer'],
+                        [['patient_id', 'service', 'staff_id', 'staff_manager', 'status', 'CB', 'UB', 'duty_type'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
-                        [['estimated_price_per_day', 'estimated_price', 'staff_advance_payment', 'staff_advance_payment', 'frequency', 'hours', 'days'], 'string', 'max' => 255],
+                        [['estimated_price', 'frequency', 'hours', 'days'], 'string', 'max' => 255],
                         [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
                         [['service'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service' => 'id']],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
@@ -58,9 +55,9 @@ class Service extends \yii\db\ActiveRecord {
                 ];
         }
 
-        public function getStaffName() {
-                return $this->day_staff . ' ' . $this->night_staff;
-        }
+//        public function getStaffName() {
+//                return $this->day_staff . ' ' . $this->night_staff;
+//        }
 
         /**
          * @inheritdoc
@@ -70,19 +67,13 @@ class Service extends \yii\db\ActiveRecord {
                     'id' => 'ID',
                     'patient_id' => 'Patient',
                     'service' => 'Service',
-                    'staff_type' => 'Staff Type',
                     'staff_id' => 'Staff',
                     'staff_manager' => 'Staff Manager',
                     'duty_type' => 'Duty Type',
-                    'day_staff' => 'Day Staff',
-                    'night_staff' => 'Night Staff',
                     'staff_manager' => 'Staff Manager',
                     'from_date' => 'Period From',
                     'to_date' => 'Period To',
-                    'estimated_price_per_day' => 'Estimated Price/Day',
                     'estimated_price' => 'Estimated Price',
-                    'staff_advance_payment' => 'Staff Advance Payment',
-                    'patient_advance_payment' => 'Patient Advance Payment',
                     'branch_id' => 'Branch',
                     'status' => 'Status',
                     'staffName' => Yii::t('app', 'Staff'),
