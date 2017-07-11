@@ -241,4 +241,14 @@ class SetValues extends Component {
                 return $option1 + $option2 + $option3 + $option4 + $option5;
         }
 
+        public function Experience() {
+                $exp = [];
+                $exp['5'] = '0-5 yrs';
+                $exp['10'] = '5-10 yrs';
+                $exp['15'] = '10-15 yrs';
+
+
+                return $exp;
+        }
+
 }

@@ -11,6 +11,8 @@ use yii\helpers\Html;
 use yii\web\UploadedFile;
 use common\models\RateCard;
 use common\models\ServiceSchedule;
+use yii\db\Expression;
+use yii\data\Pagination;
 
 class ServiceajaxController extends \yii\web\Controller {
 
@@ -174,6 +176,101 @@ class ServiceajaxController extends \yii\web\Controller {
 
                                 $service_schedule->update();
                         }
+                }
+        }
+
+        /*
+         * choose staff for schedule
+         */
+
+        public function actionChoosestaff() {
+                $service_id = $_POST['service'];
+                $staff = $this->renderPartial('_choose_staff', ['service_id' => $service_id]);
+                echo $staff;
+        }
+
+        /*
+         * search staff
+         */
+
+        public function actionSearchstaff() {
+                if (Yii::$app->request->isAjax) {
+
+                        $service_id = $_POST['service_id'];
+                        $designation = $_POST['designation'];
+                        $skills = $_POST['skills'];
+                        $experience = $_POST['experience'];
+                        $duty_staff = $_POST['include_onduty_staff'];
+
+
+
+                        if (isset($experience) && $experience != '') {
+                                $expfrom = $this->Experiencefrom($experience);
+                                $expto = $this->Experienceto($experience);
+                        }
+
+                        /* ------------Query Builder-------------- */
+
+                        $sql = '';
+                        if (isset($designation) && $designation != '')
+                                $sql .= " and (FIND_IN_SET('$designation', designation)) ";
+
+                        if (isset($skills) && $skills != '')
+                                $sql .= " and (FIND_IN_SET('$skills', staff_experience)) ";
+
+                        if (isset($experience) && $experience != '')
+                                $sql .= " and `years_of_experience` BETWEEN $expfrom AND $expto ";
+
+                        if (isset($duty_staff) && $duty_staff == 'on')
+                                $sql .= " and working_status=1";
+                        else
+                                $sql .= " and working_status!=1";
+
+                        $result = \common\models\StaffInfo::find()->where("1=1 $sql")->all();
+
+
+                        $search_result = $this->renderPartial('_search_reults', ['result' => $result, 'service_id' => $service_id]);
+                        echo $search_result;
+                }
+        }
+
+        public function Experiencefrom($experience) {
+                if ($experience == 5) {
+                        $exp_from = 0;
+                } else if ($experience == 10) {
+                        $exp_from = 5;
+                } else if ($experience == 10) {
+                        $exp_from = 10;
+                }
+                return $exp_from;
+        }
+
+        public function Experienceto($experience) {
+                if ($experience == 5) {
+                        $exp_to = 5;
+                } else if ($experience == 10) {
+                        $exp_to = 10;
+                } else if ($experience == 10) {
+                        $exp_to = 15;
+                }
+                return $exp_to;
+        }
+
+        /* set selected staff for that service */
+
+        public function actionSelectedstaff() {
+                $staff = $_POST['staff'];
+                $service_id = $_POST['service_id'];
+                if (isset($service_id)) {
+                        $schedules = ServiceSchedule::find()->where(['service_id' => $service_id, 'status' => 0])->all();
+                        foreach ($schedules as $value) {
+                                $value->staff = $staff;
+                                $value->update();
+                        }
+                        $staff_status_update = \common\models\StaffInfo::findOne($staff);
+                        $staff_status_update->working_status = 1;
+                        $staff_status_update->update();
+                        echo $staff_status_update->staff_name;
                 }
         }
 

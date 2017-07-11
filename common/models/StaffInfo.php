@@ -84,7 +84,7 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
         public function rules() {
                 return [
                         [['email', 'present_email'], 'email'],
-                        [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB', 'age', 'terms_conditions', 'average_point',], 'integer'],
+                        [['gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB', 'age', 'terms_conditions', 'average_point', 'working_status'], 'integer'],
                         [['dob', 'DOC', 'DOU'], 'safe'],
                         [['staff_name', 'gender', 'username', 'password', 'present_contact_no', 'post_id'], 'required', 'on' => 'create'],
                         [['staff_name', 'gender', 'username', 'present_contact_no', 'post_id'], 'required', 'on' => 'update'],
@@ -154,6 +154,8 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                     'DOU' => 'Dou',
                     'average_point' => 'Rating',
                     'staff_manager' => 'Staff Manager',
+                    'staff_experience' => 'Skills',
+                    'working_status' => 'Working Status',
                 ];
         }
 

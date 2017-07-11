@@ -34,6 +34,17 @@ use yii\helpers\Html;
                         <a href="#home-5" data-toggle="tab"><span class="visible-xs"><i class="fa-user hidden-xs"></i></span>
                                 <i class="fa-user"></i><span class="hidden-xs span-font-size">Schedules</span></a>
                 </li>
+
+
+                <li>
+                        <a href="#home-12" data-toggle="tab"><span class="visible-xs"><i class="linecons-note hidden-xs"></i></span>
+                                <i class="linecons-note"></i><span class="hidden-xs span-font-size">REMARKS</span></a>
+                </li>
+
+                <li>
+                        <a href="#profile-13" data-toggle="tab"><span class="visible-xs"><i class="fa fa-tasks hidden-xs"></i></span>
+                                <i class="fa fa-tasks"></i> <span class="hidden-xs span-font-size">  FOLLOWUPS</span></a>
+                </li>
         <?php }
         ?>
 

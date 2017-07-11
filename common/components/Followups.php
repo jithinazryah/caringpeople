@@ -93,21 +93,20 @@ class Followups extends Component {
                 $super_admins = StaffInfo::find()->where(['post_id' => 1, 'status' => 1])->all();
                 $data2 = ArrayHelper::map($super_admins, 'id', 'fullname');
 
-
-                if ($service->duty_type == '1') { /* day */
-
-                        $daystaff = StaffInfo::findOne($service->day_staff);
-                        $data = [$patient->id => $patient->first_name . ' ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )',];
-                } else if ($service->duty_type == '2') { /* night */
-
-                        $nightstaff = StaffInfo::findOne($service->night_staff);
-                        $data = [$patient->id => $patient->first_name . ' ( Patient )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
-                } else if ($service->duty_type == '3') { /* day & night */
-
-                        $daystaff = StaffInfo::findOne($service->day_staff);
-                        $nightstaff = StaffInfo::findOne($service->night_staff);
-                        $data = [$patient->id => $patient->first_name . '    ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
-                }
+//                if ($service->duty_type == '1') { /* day */
+//
+//                        $daystaff = StaffInfo::findOne($service->day_staff);
+//                        $data = [$patient->id => $patient->first_name . ' ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )',];
+//                } else if ($service->duty_type == '2') { /* night */
+//
+//                        $nightstaff = StaffInfo::findOne($service->night_staff);
+//                        $data = [$patient->id => $patient->first_name . ' ( Patient )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
+//                } else if ($service->duty_type == '3') { /* day & night */
+//
+//                        $daystaff = StaffInfo::findOne($service->day_staff);
+//                        $nightstaff = StaffInfo::findOne($service->night_staff);
+//                        $data = [$patient->id => $patient->first_name . '    ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
+//                }
 
                 $datas = $data + $data3 + $data2;
                 return $datas;
@@ -130,10 +129,10 @@ class Followups extends Component {
                 $selected_staff = ArrayHelper::map($admins, 'id', 'id');
                 /* service related staff and patient */
                 $service = Service::findOne($type_id);
-                $day_staff = StaffInfo::findOne($service->day_staff);
-                $night_staff = StaffInfo::findOne($service->night_staff);
-                $selected_staff[$service->day_staff] = $service->day_staff;
-                $selected_staff[$service->night_staff] = $service->night_staff;
+//                $day_staff = StaffInfo::findOne($service->day_staff);
+//                $night_staff = StaffInfo::findOne($service->night_staff);
+//                $selected_staff[$service->day_staff] = $service->day_staff;
+//                $selected_staff[$service->night_staff] = $service->night_staff;
 
                 return $selected_staff;
         }

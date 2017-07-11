@@ -161,8 +161,10 @@ class ServiceController extends Controller {
                                 $night_schedule = new ServiceSchedule();
                                 $day_schedule->service_id = $model->id;
                                 $day_schedule->patient_id = $model->patient_id;
+                                $day_schedule->status = 0;
                                 $night_schedule->service_id = $model->id;
                                 $night_schedule->patient_id = $model->patient_id;
+                                $night_schedule->status = 0;
                                 $night_schedule->save(false);
                                 $day_schedule->save(false);
                         }
@@ -172,6 +174,7 @@ class ServiceController extends Controller {
                                 $schedule = new ServiceSchedule();
                                 $schedule->service_id = $model->id;
                                 $schedule->patient_id = $model->patient_id;
+                                $schedule->status = 0;
                                 $schedule->save(false);
                         }
                 }

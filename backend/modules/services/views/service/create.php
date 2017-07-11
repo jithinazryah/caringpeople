@@ -53,6 +53,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 ?>
 
                                                         </div>
+
+                                                        <div class="tab-pane " id="home-12">
+                                                                <?=
+                                                                $this->render('remarks', [
+                                                                    'patient_info' => $model,
+                                                                    'type' => 5,
+                                                                ])
+                                                                ?>
+                                                        </div>
+                                                        <div class="tab-pane" id="profile-13">
+                                                                <?=
+                                                                $this->render('followups', [
+                                                                    'patient_info' => $model,
+                                                                    'type' => 5,
+                                                                ])
+                                                                ?>
+                                                        </div>
                                                 <?php } ?>
 
 

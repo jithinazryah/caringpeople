@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'type')->dropDownList(['' => '--Select--', '1' => 'Patient', '2' => 'Staff']) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'type')->dropDownList(['' => '--Select--', '1' => 'Patient', '2' => 'Patient', '3' => 'Staff Enquiry', '4' => 'Staff', '5' => 'Service']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'category')->textInput(['maxlength' => true]) ?>
 

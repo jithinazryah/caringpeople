@@ -6,7 +6,7 @@
 $("document").ready(function () {
 
 
-
+        /********************************************************  Service  **********************************************/
         $("#service-patient_id").select2({
                 allowClear: true
         }).on('select2-open', function ()
@@ -228,6 +228,18 @@ $("document").ready(function () {
                 FrequencyChange();
         }
 
+        /********************************************************  Service  **********************************************/
+
+
+
+
+        /********************************************************  Service Schedule **********************************************/
+
+
+
+        /*
+         * upadte schedule row
+         */
         $('.schedule-update').blur(function () {
                 var id_attr = $(this).attr('id');
                 var id = id_attr.split('-');
@@ -246,6 +258,9 @@ $("document").ready(function () {
                         }
                 });
         });
+        /*
+         * update schedule date
+         */
         $('.schedule-update-date').change(function () {
                 var id_attr = $(this).attr('id');
                 var id = id_attr.split('-');
@@ -262,6 +277,80 @@ $("document").ready(function () {
 
         });
 
+        /*
+         * assign staff  for schedule
+         */
+
+        $('.choose-staff').click(function () {
+                var service = $(this).attr('id');
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/choosestaff',
+                        data: {service: service},
+                        success: function (data) {
+                                $("#modal-2-pop-up").html(data);
+                                $('#modal-2').modal('show');
+                        }
+                });
+        });
+
+
+        /*
+         * search staff for schedule
+         */
+
+        $(document).on('submit', '#schedulestaffSearch', function (e) {
+
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/searchstaff',
+                        data: data,
+                        success: function (data) {
+
+                                $('.staff-results table tr#click').remove();
+                                $("#example-11").find("tr:gt(0)").remove();
+                                $(".staff-search-results tbody").append(data);
+                        }
+                });
+        });
+
+
+        /*
+         * selct staff from the search result
+         */
+        $(document).on('submit', '#searchChooseStaff', function (e) {
+                e.preventDefault();
+                var staff = $('input[name=staff_choose]:checked').val();
+                var service_id = $('#choose_service_id').val();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/selectedstaff',
+                        data: {staff: staff, service_id: service_id},
+                        success: function (data) {
+                                $('.staff_duty_' + service_id).val(data);
+                                $('#modal-2').modal('hide');
+                        }
+                });
+
+        });
+
+        /*
+         *clear results whwn click on reset button
+         */
+
+        $(document).on('click', '#Resetbtn', function (e) {
+                $("#example-11").find("tr:gt(0)").remove();
+
+        });
+
+
+
+
+
+
+        /********************************************************  Service Schedule **********************************************/
 
 });
 
@@ -270,7 +359,7 @@ function FrequencyChange() {
         var duty_Type = $('#service-duty_type').val();
         var frequency = $('#service-frequency').val();
         if (frequency) {
-                if ((duty_Type == '3' || duty_Type == '4' || duty_Type == '5') && frequency == '1') { /* duty type= day or night, frequency= daily */
+                if ((duty_Type == '3' || duty_Type == '4' || duty_Type == '5') && frequency == '1') { /* duty type= day or night or day & night, frequency= daily */
                         $("label[for = service-days]").text("No of days");
                         $('.service-hours').hide();
                         $('.service-days').show();

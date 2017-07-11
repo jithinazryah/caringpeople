@@ -611,7 +611,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                    ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                         ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -1034,4 +1034,14 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                 </div>
         </div>
 </div>
+
+<!--------------------------------------------Schedule choose stsff---------------------------------------------->
+
+
+<div class="modal fade custom-width" id="modal-2">
+        <div class="modal-dialog" style="width: 60%;" id="modal-2-pop-up">
+
+        </div>
+</div>
+
 <?php $this->endPage() ?>

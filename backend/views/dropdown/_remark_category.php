@@ -19,12 +19,9 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
 
                 <div class="row">
                         <?php
-                        if ($cat_type == 1 || $cat_type == 2)
-                                $model->type = 1;
-                        else
-                                $model->type = 2;
+                        $model->type = $cat_type;
                         ?>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display: none;">    <?= $form->field($model, 'type')->dropDownList(['' => '--Select--', '1' => 'Patient', '2' => 'Staff']) ?>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display: none;">    <?= $form->field($model, 'type')->dropDownList(['' => '--Select--', '1' => 'Patient', '2' => 'Patient', '3' => 'Staff Enquiry', '4' => 'Staff', '5' => 'Service']) ?>
 
                         </div><div class='col-md-6 col-sm-6 col-xs-12 left_padd' style="margin-left: 20px;">    <?= $form->field($model, 'category')->textInput(['maxlength' => true]) ?>
 

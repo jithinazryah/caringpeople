@@ -24,12 +24,12 @@ use common\models\StaffExperienceList;
 
         </div>
         <?php
-        if (!$staff_interview_third->isNewRecord) {
+        if (!$staffinfo->isNewRecord) {
 
-                $staff_interview_third->staff_experience = explode(',', $staff_interview_third->staff_experience);
+                $staffinfo->staff_experience = explode(',', $staffinfo->staff_experience);
         }
         ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'staff_skills']) ?>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staffinfo, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'staff_skills']) ?>
                 <a class="add-option-dropdown add-new" id="staff_skills-4" type="<?= $type ?>"> + Add New</a>
         </div>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>
@@ -92,12 +92,12 @@ use common\models\StaffExperienceList;
                 </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'language_1')->textInput(['maxlength' => true])->label(false); ?>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' >    <input type="checkbox" name="language_1_1" id="language_1_read" class="cbr" <?php
-                        if (isset($language_1[1])) {
-                                if ($language_1[1] == '1') {
-                                        echo 'checked=checked';
-                                }
-                        }
-                        ?>>
+        if (isset($language_1[1])) {
+                if ($language_1[1] == '1') {
+                        echo 'checked=checked';
+                }
+        }
+        ?>>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' >    <input type="checkbox" name="language_1_2" id="language_1_write" class="cbr" <?php
                         if (isset($language_1[2])) {
@@ -105,7 +105,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' >    <input type="checkbox" name="language_1_3" id="language_1_speak" class="cbr" <?php
                         if (isset($language_1[3])) {
@@ -113,7 +113,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div>
         </div>
@@ -128,7 +128,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' style="text-align:center">    <input type="checkbox" name="language_2_2" id="language_2_write" class="cbr" <?php
                         if (isset($language_2[2])) {
@@ -136,7 +136,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' style="text-align:center">    <input type="checkbox" name="language_2_3" id="language_2_speak" class="cbr" <?php
                         if (isset($language_2[3])) {
@@ -144,7 +144,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div>
         </div>
@@ -159,7 +159,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' style="text-align:center">    <input type="checkbox" name="language_3_2" id="language_3_write" class="cbr" <?php
                         if (isset($language_3[2])) {
@@ -167,7 +167,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' style="text-align:center">    <input type="checkbox" name="language_3_3" id="language_3_speak" class="cbr" <?php
                         if (isset($language_3[3])) {
@@ -175,7 +175,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div>
         </div>
@@ -190,7 +190,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' style="text-align:center">    <input type="checkbox" name="language_4_2" id="language_4_write" class="cbr" <?php
                         if (isset($language_4[2])) {
@@ -198,7 +198,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd lang_check' style="text-align:center">    <input type="checkbox" name="language_4_3" id="language_4_speak" class="cbr" <?php
                         if (isset($language_4[3])) {
@@ -206,7 +206,7 @@ use common\models\StaffExperienceList;
                                         echo 'checked=checked';
                                 }
                         }
-                        ?>>
+        ?>>
 
                 </div>
         </div>
@@ -236,30 +236,30 @@ use common\models\StaffExperienceList;
                                                         <select name="updatefamily[<?= $family->id; ?>][relationship][]" id="family_relationships" class="form-control">
                                                                 <option value="">--Select--</option>
                                                                 <option value="Father" <?php
-                                                                if ($family->relationship == 'Father') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Father</option>
+                if ($family->relationship == 'Father') {
+                        echo 'selected=selected';
+                }
+                                ?>>Father</option>
                                                                 <option value="Mother" <?php
-                                                                if ($family->relationship == 'Mother') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Mother</option>
+                                                if ($family->relationship == 'Mother') {
+                                                        echo 'selected=selected';
+                                                }
+                                ?>>Mother</option>
                                                                 <option value="Spouse" <?php
-                                                                if ($family->relationship == 'Spouse') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Spouse</option>
+                                                if ($family->relationship == 'Spouse') {
+                                                        echo 'selected=selected';
+                                                }
+                                ?>>Spouse</option>
                                                                 <option value="Brother" <?php
-                                                                if ($family->relationship == 'Brother') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Brother</option>
+                                                if ($family->relationship == 'Brother') {
+                                                        echo 'selected=selected';
+                                                }
+                                ?>>Brother</option>
                                                                 <option value="Sister" <?php
-                                                                if ($family->relationship == 'Sister') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Sister</option>
+                                                if ($family->relationship == 'Sister') {
+                                                        echo 'selected=selected';
+                                                }
+                                ?>>Sister</option>
                                                         </select>
                                                 </div>
                                         </div>

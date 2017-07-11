@@ -145,6 +145,8 @@ class StaffInfoController extends Controller {
                 $staff_info->permanent_address = $model->address;
                 $staff_info->place = $model->place;
                 $staff_info->designation = $model->designation;
+                $staff_info->staff_experience = $staff_interview_third->staff_experience;
+
                 $staff_info->branch_id = $model->branch_id;
                 $staff_info->status = 1;
 
@@ -265,7 +267,7 @@ class StaffInfoController extends Controller {
                                 $other_info->update();
                                 $this->AddContactDirectory($model);
                                 $this->AddData($model, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third, $staff_salary);
-                                $this->AddLanguage($staff_interview_first, $staff_interview_third);
+                                $this->AddLanguage($model, $staff_interview_first, $staff_interview_third);
                                 $this->AddFamily($model);
                                 $this->Imageupload($model);
 
@@ -358,12 +360,11 @@ class StaffInfoController extends Controller {
          * Add staff languages known
          */
 
-        public function AddLanguage($staff_interview_first, $staff_interview_third) {
-                // var_dump($_POST['StaffEnquiryInterviewThird']['staff_experience']);
-                //    exit;
-                if (isset($_POST['StaffEnquiryInterviewThird']['staff_experience']) && $_POST['StaffEnquiryInterviewThird']['staff_experience'] != '')
-                        $staff_interview_third->staff_experience = implode(",", $_POST['StaffEnquiryInterviewThird']['staff_experience']);
-                $staff_interview_third->update();
+        public function AddLanguage($model, $staff_interview_first, $staff_interview_third) {
+
+                if (isset($_POST['StaffInfo']['staff_experience']) && $_POST['StaffInfo']['staff_experience'] != '')
+                        $model->staff_experience = implode(",", $_POST['StaffInfo']['staff_experience']);
+                $model->update(false);
 
                 for ($i = 1; $i <= 4; $i++) {
                         $language = '';
@@ -486,6 +487,7 @@ class StaffInfoController extends Controller {
                 }
 
                 $model = $this->findModel($id);
+
                 $model->setScenario('update');
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $model->id]);
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $model->id]);
@@ -518,7 +520,7 @@ class StaffInfoController extends Controller {
                                         $model->username = Yii::$app->request->post()['StaffInfo']['username'];
                                         $model->post_id = Yii::$app->request->post()['StaffInfo']['post_id'];
                                         $model->save();
-                                        $this->AddLanguage($staff_interview_first, $staff_interview_third);
+                                        $this->AddLanguage($model, $staff_interview_first, $staff_interview_third);
                                         $this->Imageupload($model);
                                         $this->AddFamily($model);
                                         $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);

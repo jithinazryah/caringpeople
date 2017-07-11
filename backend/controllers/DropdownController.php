@@ -27,8 +27,10 @@ class DropdownController extends \yii\web\Controller {
                 if ($type == '1') { /* add hospital */
                         $form = $this->renderPartial('_hospital', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 } else if ($type == 2) { /* add remarks category */
+
                         $form = $this->renderPartial('_remark_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'cat_type' => $_POST['cat_type']]);
                 } else if ($type == 3) { /* add followups category */
+
                         $form = $this->renderPartial('_followup_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'cat_type' => $_POST['cat_type']]);
                 } else if ($type == 4) { /* add staff skills */
                         $form = $this->renderPartial('_skills', ['type' => $type, 'field_id' => $_POST['field_id']]);

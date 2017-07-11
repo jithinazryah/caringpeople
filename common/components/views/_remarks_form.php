@@ -8,17 +8,7 @@ use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 
-if ($type == 3) {
-        $remark_type = 2;
-} else if ($type == 2) {
-        $remark_type = 1;
-} else if ($type == 4) {
-        $remark_type = 2;
-} else {
-        $remark_type = $type;
-}
-
-$model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $remark_type, 'status' => 1])->all(), 'id', 'category');
+$model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $type, 'status' => 1])->all(), 'id', 'category');
 ?>
 
 <?php $form_remark = ActiveForm::begin(['id' => 'add-remarks']); ?>
@@ -35,23 +25,23 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
 
 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
 
-        <?php
-        if (!$remark->isNewRecord) {
-                $remark->date = date('d-m-Y', strtotime($remark->date));
-        } else {
-                $remark->date = date('d-m-Y');
-        }
-        echo DatePicker::widget([
-            'model' => $remark,
-            'form' => $form_remark,
-            'type' => DatePicker::TYPE_INPUT,
-            'attribute' => 'date',
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format' => 'dd-mm-yyyy',
-            ]
-        ]);
-        ?>
+<?php
+if (!$remark->isNewRecord) {
+        $remark->date = date('d-m-Y', strtotime($remark->date));
+} else {
+        $remark->date = date('d-m-Y');
+}
+echo DatePicker::widget([
+    'model' => $remark,
+    'form' => $form_remark,
+    'type' => DatePicker::TYPE_INPUT,
+    'attribute' => 'date',
+    'pluginOptions' => [
+        'autoclose' => true,
+        'format' => 'dd-mm-yyyy',
+    ]
+]);
+?>
 
 </div>
 <?php if ($type == 2 || $type == 4) { ?>
@@ -69,7 +59,7 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
                         <input type="radio" id="star1" name="rating" value="1" onclick="postToController();"/><label for="star1" title="Sucks big time">1 star</label>
                 </fieldset>
 
-                <?php echo $form_remark->field($remark, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
+        <?php echo $form_remark->field($remark, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
 
         </div>
 <?php } ?>
@@ -80,63 +70,63 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $re
 
 <div class='col-md-12 col-sm-6 col-xs-12' >
         <div class="form-group" >
-                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Create', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
+<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Create', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
 
         </div>
 </div>
 <?php ActiveForm::end(); ?>
 <div class="row remarks-table">
 
-        <?php
-        Pjax::begin([
-            'enablePushState' => false
-        ]);
-        echo GridView::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'rowOptions' => function ($model, $key, $index, $grid) {
-                    return ['id' => $model['id']];
+<?php
+Pjax::begin([
+    'enablePushState' => false
+]);
+echo GridView::widget([
+    'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
+    'rowOptions' => function ($model, $key, $index, $grid) {
+            return ['id' => $model['id']];
+    },
+    'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+            'attribute' => 'category',
+            'value' => 'category0.category',
+            'filter' => ArrayHelper::map(RemarksCategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category'),
+        ],
+        'sub_category',
+        'point',
+        'notes:ntext',
+        'date',
+            [
+            'attribute' => 'status',
+            'value' => function($model, $key, $index, $column) {
+                    if ($model->status == '2') {
+                            return 'Closed';
+                    } elseif ($model->status == '1') {
+                            return 'Active';
+                    }
             },
-            'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    [
-                    'attribute' => 'category',
-                    'value' => 'category0.category',
-                    'filter' => ArrayHelper::map(RemarksCategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category'),
-                ],
-                'sub_category',
-                'point',
-                'notes:ntext',
-                'date',
-                    [
-                    'attribute' => 'status',
-                    'value' => function($model, $key, $index, $column) {
-                            if ($model->status == '2') {
-                                    return 'Closed';
-                            } elseif ($model->status == '1') {
-                                    return 'Active';
-                            }
-                    },
-                    'filter' => [2 => 'Closed', 1 => 'Active'],
-                ],
-                    ['class' => 'yii\grid\ActionColumn',
-                    'template' => '{status}',
-                    'visibleButtons' => [
-                        'status' => function ($model, $key, $index) {
-                                return $model->status != '2' ? true : false;
-                        }
-                    ],
-                    'buttons' => [
-                        'status' => function ($url, $model) {
-
-                                return Html::checkbox('status', false, ['class' => 'iswitch iswitch-secondary remarks-status', 'id' => $model->id]);
-                        },
-                    ],
-                ],
+            'filter' => [2 => 'Closed', 1 => 'Active'],
+        ],
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{status}',
+            'visibleButtons' => [
+                'status' => function ($model, $key, $index) {
+                        return $model->status != '2' ? true : false;
+                }
             ],
-        ]);
-        Pjax::end();
-        ?>
+            'buttons' => [
+                'status' => function ($url, $model) {
+
+                        return Html::checkbox('status', false, ['class' => 'iswitch iswitch-secondary remarks-status', 'id' => $model->id]);
+                },
+            ],
+        ],
+    ],
+]);
+Pjax::end();
+?>
 
 </div>
 
