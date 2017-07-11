@@ -309,9 +309,10 @@ $("document").ready(function () {
                         data: data,
                         success: function (data) {
 
-                                $('.staff-results table tr#click').remove();
-                                $("#example-11").find("tr:gt(0)").remove();
-                                $(".staff-search-results tbody").append(data);
+                                $('.staff-results table').remove();
+                                $('.staff-results .pagination').remove();
+                                $('.result-buttons').show();
+                                $(".staff-results").append(data);
                         }
                 });
         });
@@ -373,9 +374,11 @@ $("document").ready(function () {
                         data: data,
                         success: function (data) {
 
-                                $('.replace-results table tr#click').remove();
-                                $("#example-12").find("tr:gt(0)").remove();
-                                $(".staff-replace tbody").append(data);
+
+                                $('.replace-results table').remove();
+                                $('.replace-results .pagination').remove();
+                                $('.result-buttons').show();
+                                $(".replace-results").append(data);
                         }
                 });
         });

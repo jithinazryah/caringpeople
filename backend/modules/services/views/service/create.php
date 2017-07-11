@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?=
                                                                 $this->render('schedules', [
                                                                     'model' => $model,
-                                                                    'service_schedule' => $service_schedule
+                                                                    'service_schedule' => $service_schedule,
                                                                 ])
                                                                 ?>
 

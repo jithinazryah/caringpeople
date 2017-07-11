@@ -142,13 +142,14 @@ use yii\db\Expression;
 
                 </div>
         </div>
-        <div class="row">
+        <?php if ($model->isNewRecord) { ?>
+                <div class="row">
+                        <div class="form-group">
+                                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px; ']) ?>
+                        </div>
 
-                <div class="form-group">
-                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
                 </div>
-
-        </div>
+        <?php } ?>
 
         <?php ActiveForm::end(); ?>
 

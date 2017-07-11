@@ -237,6 +237,6 @@ use common\models\StaffInfo;
                 cursor: pointer;
         } .replace-staff:hover{
                 color: #0e62c7;
-        }
+        } 
 
 </style>

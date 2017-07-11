@@ -73,27 +73,11 @@ $model = new common\models\RemarksCategory();
 
                         </br>
                         <form id="searchReplaceStaff">
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 replace-results">
 
-                                        <div class="table-responsive replace-results">
 
-                                                <table id="example-12" class="table table-striped table-bordered staff-replace" cellspacing="0" width="100%">
-                                                        <thead>
-                                                                <tr>
-                                                                        <th>Name</th>
-                                                                        <th>Contact Number</th>
-                                                                        <th>Designation</th>
-                                                                        <th>Experience</th>
-                                                                        <th>Rating</th>
-                                                                        <th>Action</th>
-                                                                </tr>
-                                                        </thead>
-                                                        <tbody style="height: 230px;overflow-y: auto;"><tr id="click"><td class="text-center" colspan="7">Click 'Search' to getresults</td></tr></tbody>
-                                                </table>
-
-                                        </div>
                                 </div>
-                                <div class="modal-footer">
+                                <div class="modal-footer result-buttons" style="display: none;">
                                         <button type="submit" class="btn btn-success waves-effect" >Continue</button>
                                         <button type="button" class="btn btn-danger waves-effect pull-left" data-dismiss="modal">Cancel</button>
                                 </div>

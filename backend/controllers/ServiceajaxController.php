@@ -223,14 +223,19 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $sql .= " and `years_of_experience` BETWEEN $expfrom AND $expto ";
 
                         if (isset($duty_staff) && $duty_staff == 'on')
-                                $sql .= " and working_status=1";
+                                $sql .= " and working_status=1 and working_status=0";
                         else
                                 $sql .= " and working_status!=1";
 
-                        $result = StaffInfo::find()->where("1=1 $sql")->all();
+                        $query = StaffInfo::find()->where("1=1 $sql");
+                        $countQuery = clone $query;
+                        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+                        $result = $query->offset($pages->offset)
+                                ->limit($pages->limit)
+                                ->all();
 
 
-                        $search_result = $this->renderPartial('_search_reults', ['result' => $result, 'service_id' => $service_id]);
+                        $search_result = $this->renderPartial('_search_reults', ['result' => $result, 'service_id' => $service_id, 'pages' => $pages,]);
                         echo $search_result;
                 }
         }
