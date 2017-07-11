@@ -83,7 +83,8 @@ use common\models\StaffInfo;
                                                 }
                                                 ?>
 
-                                                <input type="text" value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $value->service_id; ?>" readonly="true">
+                                                <input type="text" value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $value->service_id; ?>" id="staff_on_duty_<?= $value->id ?>" readonly="true">
+                                                <?php if ($staff_on_duty != '') { ?>  <a id="<?= $value->id; ?>" class="replace-staff">Replace staff</a><?php } ?>
                                         </td>
 
 
@@ -230,6 +231,12 @@ use common\models\StaffInfo;
                 margin-right: 8px;
         } .choose-staff:hover{
                 border: none;
+        } .replace-staff{
+                float:right;
+                color:#b60d14;
+                cursor: pointer;
+        } .replace-staff:hover{
+                color: #0e62c7;
         }
 
 </style>

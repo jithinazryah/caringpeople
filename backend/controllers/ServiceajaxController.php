@@ -11,6 +11,7 @@ use yii\helpers\Html;
 use yii\web\UploadedFile;
 use common\models\RateCard;
 use common\models\ServiceSchedule;
+use common\models\StaffInfo;
 use yii\db\Expression;
 use yii\data\Pagination;
 
@@ -226,7 +227,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         else
                                 $sql .= " and working_status!=1";
 
-                        $result = \common\models\StaffInfo::find()->where("1=1 $sql")->all();
+                        $result = StaffInfo::find()->where("1=1 $sql")->all();
 
 
                         $search_result = $this->renderPartial('_search_reults', ['result' => $result, 'service_id' => $service_id]);
@@ -259,18 +260,55 @@ class ServiceajaxController extends \yii\web\Controller {
         /* set selected staff for that service */
 
         public function actionSelectedstaff() {
-                $staff = $_POST['staff'];
-                $service_id = $_POST['service_id'];
-                if (isset($service_id)) {
-                        $schedules = ServiceSchedule::find()->where(['service_id' => $service_id, 'status' => 0])->all();
-                        foreach ($schedules as $value) {
-                                $value->staff = $staff;
-                                $value->update();
+                if (Yii::$app->request->isAjax) {
+                        $staff = $_POST['staff'];
+                        $service_id = $_POST['service_id'];
+                        if (isset($service_id)) {
+                                $schedules = ServiceSchedule::find()->where(['service_id' => $service_id, 'status' => 0])->all();
+                                foreach ($schedules as $value) {
+                                        $value->staff = $staff;
+                                        $value->update();
+                                }
+                                $staff_status_update = StaffInfo::findOne($staff);
+                                $staff_status_update->working_status = 1;
+                                $staff_status_update->update();
+                                echo $staff_status_update->staff_name;
                         }
-                        $staff_status_update = \common\models\StaffInfo::findOne($staff);
-                        $staff_status_update->working_status = 1;
-                        $staff_status_update->update();
-                        echo $staff_status_update->staff_name;
+                }
+        }
+
+        /* popup content for staff replacement */
+
+        public function actionReplacestaffform() {
+                $schedule_id = $_POST['schedule_id'];
+                $staff = $this->renderPartial('_replace_staff', ['schedule_id' => $schedule_id]);
+                echo $staff;
+        }
+
+        /* replace staff for a schedule */
+
+        public function actionReplacestaff() {
+                if (Yii::$app->request->isAjax) {
+                        $schedule_id = $_POST['schedule_id'];
+                        $choosed_staff = $_POST['staff'];
+
+                        $schedule = ServiceSchedule::findOne($schedule_id);
+                        $old_staff = $schedule->staff;
+                        $schedule->staff = $choosed_staff;
+                        $schedule->update();
+
+                        $choosed_staff_status = StaffInfo::findOne($choosed_staff);
+                        $choosed_staff_status->working_status = 1;
+                        $choosed_staff_status->update();
+
+                        $old_staff_exists = ServiceSchedule::find()->where(['staff' => $old_staff])->exists();
+                        if ($old_staff_exists != '1') {
+                                $old_staff_status = StaffInfo::findOne($old_staff);
+                                $old_staff_status->working_status = 0;
+                                $old_staff_status->update();
+                        }
+
+                        echo $choosed_staff_status->staff_name;
                 }
         }
 

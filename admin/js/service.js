@@ -346,8 +346,58 @@ $("document").ready(function () {
         });
 
 
+        /*
+         * replace staff for a particular schedule
+         */
+        $(document).on('click', '.replace-staff', function (e) {
+
+                var schedule_id = $(this).attr('id');
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/replacestaffform',
+                        data: {schedule_id: schedule_id},
+                        success: function (data) {
+                                $("#modal-2-pop-up").html(data);
+                                $('#modal-2').modal('show');
+                        }
+                });
+        });
+
+        $(document).on('submit', '#replacestaffSearch', function (e) {
+
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/searchstaff',
+                        data: data,
+                        success: function (data) {
+
+                                $('.replace-results table tr#click').remove();
+                                $("#example-12").find("tr:gt(0)").remove();
+                                $(".staff-replace tbody").append(data);
+                        }
+                });
+        });
 
 
+        $(document).on('submit', '#searchReplaceStaff', function (e) {
+                e.preventDefault();
+                var staff = $('input[name=staff_choose]:checked').val();
+                var schedule_id = $('#choose_service_id').val();
+
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/replacestaff',
+                        data: {staff: staff, schedule_id: schedule_id},
+                        success: function (data) {
+
+                                $('#staff_on_duty_' + schedule_id).val(data);
+                                $('#modal-2').modal('hide');
+                        }
+                });
+
+        });
 
 
         /********************************************************  Service Schedule **********************************************/
