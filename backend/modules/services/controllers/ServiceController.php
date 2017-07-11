@@ -208,25 +208,12 @@ class ServiceController extends Controller {
 
         public function actionDelete($id) {
                 $model = $this->findModel($id);
-                $history = \common\models\Followups::find()->where(['type_id' => $id])->exists();
+                $schedule = ServiceSchedule::find()->where(['service_id' => $id])->count();
 
-
-                // ...other DB operations...
-
-                $transaction = Service::getDb()->beginTransaction();
-                try {
-                        if ($history != '1')
-                                $delete = $this->findModel($id)->delete();
-                        // ...other DB operations...
-                        $transaction->commit();
-                } catch (\Exception $e) {
-
-                        $transaction->rollBack();
-                        throw $e;
-                } catch (\Throwable $e) {
-                        $transaction->rollBack();
-                        throw $e;
+                if ($schedule == 0) {
+                        $delete = $this->findModel($id)->delete();
                 }
+
 
                 if ($delete == '1')
                         Yii::$app->getSession()->setFlash('success', 'succuessfully deleted');
