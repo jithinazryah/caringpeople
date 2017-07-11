@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use common\models\Branch;
 use common\models\MasterServiceTypes;
 use common\models\ServiceSchedule;
+use common\models\PatientAssessment;
 
 /**
  * ServiceController implements the CRUD actions for Service model.
@@ -102,20 +103,30 @@ class ServiceController extends Controller {
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
                 $service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
-
-                if ($model->load(Yii::$app->request->post())) {
-
-                        $model->from_date = date('Y-m-d', strtotime($model->from_date));
-                        $model->to_date = date('Y-m-d', strtotime($model->to_date));
-
-                        if ($model->validate() && $model->save()) {
-
-                                return $this->redirect(['index']);
-                        }
+                $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
+                if (empty($patient_assessment)) {
+                        $patient_assessment = new PatientAssessment ();
+                        $patient_assessment->service_id = $id;
+                        $patient_assessment->save();
                 }
+
+                if (Yii::$app->request->post()) {
+                        $patient_assessment->load(Yii::$app->request->post());
+
+                        if (isset($_POST['patient_medical_procedures']) && $_POST['patient_medical_procedures'] != '') {
+                                $patient_assessment->patient_medical_procedures = implode(',', $_POST['patient_medical_procedures']);
+                        }
+                        if (isset($_POST['suggested_professional']) && $_POST['suggested_professional'] != '') {
+                                $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
+                        }
+                        $patient_assessment->save();
+                        return $this->redirect(['index']);
+                }
+
                 return $this->render('create', [
                             'model' => $model,
-                            'service_schedule' => $service_schedule
+                            'service_schedule' => $service_schedule,
+                            'patient_assessment' => $patient_assessment
                 ]);
         }
 

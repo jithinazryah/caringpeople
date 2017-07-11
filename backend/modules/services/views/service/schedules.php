@@ -13,7 +13,9 @@ use common\models\StaffInfo;
 
 <div class="service-form form-inline">
         <div class="row">
-                <a href="javascript:;"  class="btn btn-primary btn-single btn-sm choose-staff" id="<?= $model->id; ?>">Choose Staff</a>
+                <a href="javascript:;"  class="btn btn-primary btn-single btn-sm xtra-btn choose-staff" id="<?= $model->id; ?>">Choose Staff</a>
+                <a href="javascript:;"  class="btn btn-primary btn-single btn-sm xtra-btn add-schedules" id="<?= $model->id; ?>">Add Schedules</a>
+
         </div>
 
         <div class="row">
@@ -84,7 +86,9 @@ use common\models\StaffInfo;
                                                 ?>
 
                                                 <input type="text" value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $value->service_id; ?>" id="staff_on_duty_<?= $value->id ?>" readonly="true">
-                                                <?php if ($staff_on_duty != '') { ?>  <a id="<?= $value->id; ?>" class="replace-staff">Replace staff</a><?php } ?>
+                                                <?php if ($staff_on_duty != '') { ?>  <a id="<?= $value->id; ?>" type="1" class="staff-allotment replace-staff">Replace staff</a><?php } else { ?>
+                                                        <a id="<?= $value->id; ?>" type="2" class="staff-allotment replace-staff">Add staff</a>
+                                                <?php } ?>
                                         </td>
 
 
@@ -220,7 +224,7 @@ use common\models\StaffInfo;
         }
         .patient-details-specific .row{
                 margin-left: 0px !important;;
-        }.choose-staff{
+        }.xtra-btn{
                 float: right;
                 background: #ff9600 !important;
                 border-radius: 5px;
@@ -229,14 +233,12 @@ use common\models\StaffInfo;
                 padding: 7px;
                 float: right;
                 margin-right: 8px;
-        } .choose-staff:hover{
+        } .xtra-btn:hover{
                 border: none;
-        } .replace-staff{
+        } .staff-allotment{
                 float:right;
-                color:#b60d14;
+                color:#0e62c7;
                 cursor: pointer;
-        } .replace-staff:hover{
-                color: #0e62c7;
-        } 
+        }
 
 </style>

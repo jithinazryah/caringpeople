@@ -196,6 +196,11 @@ class ServiceajaxController extends \yii\web\Controller {
 
         public function actionSearchstaff() {
                 if (Yii::$app->request->isAjax) {
+                        if (isset($_POST['type'])) {
+                                $type = $_POST['type'];
+                        } else {
+                                $type = '';
+                        }
 
                         $service_id = $_POST['service_id'];
                         $designation = $_POST['designation'];
@@ -235,7 +240,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                 ->all();
 
 
-                        $search_result = $this->renderPartial('_search_reults', ['result' => $result, 'service_id' => $service_id, 'pages' => $pages,]);
+                        $search_result = $this->renderPartial('_search_reults', ['result' => $result, 'service_id' => $service_id, 'pages' => $pages, 'type' => $type]);
                         echo $search_result;
                 }
         }
@@ -286,7 +291,8 @@ class ServiceajaxController extends \yii\web\Controller {
 
         public function actionReplacestaffform() {
                 $schedule_id = $_POST['schedule_id'];
-                $staff = $this->renderPartial('_replace_staff', ['schedule_id' => $schedule_id]);
+                $type = $_POST['type'];
+                $staff = $this->renderPartial('_replace_staff', ['schedule_id' => $schedule_id, 'type' => $type]);
                 echo $staff;
         }
 
@@ -294,6 +300,7 @@ class ServiceajaxController extends \yii\web\Controller {
 
         public function actionReplacestaff() {
                 if (Yii::$app->request->isAjax) {
+                        $type = $_POST['type'];
                         $schedule_id = $_POST['schedule_id'];
                         $choosed_staff = $_POST['staff'];
 
@@ -314,6 +321,77 @@ class ServiceajaxController extends \yii\web\Controller {
                         }
 
                         echo $choosed_staff_status->staff_name;
+                }
+        }
+
+        /*
+         * add more schedules popup
+         */
+
+        public function actionSchedule() {
+                $service_id = $_POST['service_id'];
+                $service = \common\models\Service::findOne($service_id);
+                $schedule = $this->renderPartial('add_schedule', ['service' => $service]);
+                echo $schedule;
+        }
+
+        /*
+         * add schedule
+         */
+
+        public function actionAddschedule() {
+
+                if (Yii::$app->request->isAjax) {
+                        $service_id = $_POST['service_id'];
+                        $patient_id = $_POST['patient_id'];
+                        $add_days = $_POST['no_of_days'];
+                        $duty_type = $_POST['duty_type'];
+                        $frequency = $_POST['frequency'];
+                        $hours = $_POST['hours'];
+                        $days = $_POST['days'];
+                        if (($duty_type == 5 || $duty_type == 3 || $duty_type == 4 ) && $frequency == 1) {
+                                $schedule_count = $add_days;
+                        } else if ($duty_type == 1) {
+                                $schedule_count = $add_days;
+                        } else {
+                                $schedule_count = $hours * $add_days;
+                        }
+
+
+                        if ($duty_type == 5) {
+
+                                for ($x = 1; $x <= $schedule_count; $x++) {
+                                        $day_schedule = new ServiceSchedule();
+                                        $night_schedule = new ServiceSchedule();
+                                        $day_schedule->service_id = $service_id;
+                                        $day_schedule->patient_id = $patient_id;
+                                        $day_schedule->status = 0;
+                                        $night_schedule->service_id = $service_id;
+                                        $night_schedule->patient_id = $patient_id;
+                                        $night_schedule->status = 0;
+                                        $night_schedule->save(false);
+                                        $day_schedule->save(false);
+                                }
+                        } else {
+                                for ($x = 1; $x <= $schedule_count; $x++) {
+                                        $schedule = new ServiceSchedule();
+                                        $schedule->service_id = $service_id;
+                                        $schedule->patient_id = $patient_id;
+                                        $schedule->status = 0;
+                                        $schedule->save(false);
+                                }
+                        }
+
+                        $service = \common\models\Service::findOne($service_id);
+                        $service->days = $service->days + $add_days;
+                        if ($frequency == '1') {
+                                $service->to_date = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' days'));
+                        } else if ($frequency == '2') {
+                                $service->to_date = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' weeks'));
+                        } else if ($frequency == '3') {
+                                $service->to_date = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' months'));
+                        }
+                        $service->save(FALSE);
                 }
         }
 

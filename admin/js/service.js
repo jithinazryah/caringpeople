@@ -104,12 +104,16 @@ $("document").ready(function () {
                                         $('#service-service').select2('val', '');
                                 } else if (data == '2') {
                                         var id_attr = branch + "_" + service;
+                                        $('#service-duty_type').empty();
                                         $('.add-rate-card').attr('id', id_attr);
                                         $('.rate-card-error').show();
+                                        $('.rate-card-update-error').hide();
                                 } else if (data == '3') {
                                         var id_attr = branch + "_" + service;
+                                        $('#service-duty_type').empty();
                                         $('.update-rate-card').attr('id', id_attr);
                                         $('.rate-card-update-error').show();
+                                        $('.rate-card-error').hide();
                                 } else {
                                         $('.rate-card-error').hide();
                                         $('.rate-card-update-error').hide();
@@ -342,7 +346,10 @@ $("document").ready(function () {
          */
 
         $(document).on('click', '#Resetbtn', function (e) {
-                $("#example-11").find("tr:gt(0)").remove();
+                $("#example-11").remove();
+                $('.staff-results .pagination').remove();
+                $('.replace-results .pagination').remove();
+                $('.result-buttons').hide();
 
         });
 
@@ -353,10 +360,12 @@ $("document").ready(function () {
         $(document).on('click', '.replace-staff', function (e) {
 
                 var schedule_id = $(this).attr('id');
+                var type = $(this).attr('type');
+
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'serviceajax/replacestaffform',
-                        data: {schedule_id: schedule_id},
+                        data: {schedule_id: schedule_id, type: type},
                         success: function (data) {
                                 $("#modal-2-pop-up").html(data);
                                 $('#modal-2').modal('show');
@@ -364,6 +373,9 @@ $("document").ready(function () {
                 });
         });
 
+        /*
+         * staff search in staff replace form
+         */
         $(document).on('submit', '#replacestaffSearch', function (e) {
 
                 e.preventDefault();
@@ -383,16 +395,19 @@ $("document").ready(function () {
                 });
         });
 
-
+        /*
+         * staff replacement
+         */
         $(document).on('submit', '#searchReplaceStaff', function (e) {
                 e.preventDefault();
                 var staff = $('input[name=staff_choose]:checked').val();
                 var schedule_id = $('#choose_service_id').val();
+                var type = $('#type').val();
 
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'serviceajax/replacestaff',
-                        data: {staff: staff, schedule_id: schedule_id},
+                        data: {staff: staff, schedule_id: schedule_id, type: type},
                         success: function (data) {
 
                                 $('#staff_on_duty_' + schedule_id).val(data);
@@ -401,6 +416,40 @@ $("document").ready(function () {
                 });
 
         });
+
+        /*
+         * add more schedules popup
+         */
+        $('.add-schedules').on('click', function () {
+                var service_id = $(this).attr('id');
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/schedule',
+                        data: {service_id: service_id},
+                        success: function (data) {
+                                $("#modal-pop-up").html(data);
+                                $('#modal-6').modal('show', {backdrop: 'static'});
+                        }
+                });
+        });
+        /*
+         * add schedules submit
+         */
+        $(document).on('submit', '#add-schedules', function (e) {
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/addschedule',
+                        data: data,
+                        success: function (data) {
+                                $('#modal-6').modal('hide');
+                                location.reload();
+                        }
+                });
+        });
+
+
 
 
         /********************************************************  Service Schedule **********************************************/

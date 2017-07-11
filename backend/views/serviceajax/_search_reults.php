@@ -57,6 +57,7 @@ use yii\widgets\LinkPager;
                 }
                 ?>
         <input type="hidden" name="service_id" value="<?= $service_id; ?>" id="choose_service_id">
+        <input type="hidden" name="type" value="<?= $type; ?>" id="type">
 
         </tbody>
 </table>

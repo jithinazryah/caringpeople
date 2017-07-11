@@ -58,6 +58,7 @@ $model = new common\models\RemarksCategory();
                                                 </div>
                                         </div>
                                         <input type="hidden" name="service_id" id="schedule_id" value="<?= $schedule_id; ?>">
+                                        <input type="hidden" name="type" id="type" value="<?= $type; ?>">
                                         <div class="col-sm-12 text-center">
 
                                                 <button type="submit" class="btn btn-primary waves-effect btnFilterStaff">Search</button>&nbsp;&nbsp;
