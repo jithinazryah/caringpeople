@@ -1,6 +1,6 @@
 /*
  * Created by   :- Sabitha
- * Created date :- 22-03-2017
+ * Created date :- 22-06-2017
  */
 
 $("document").ready(function () {
@@ -454,6 +454,30 @@ $("document").ready(function () {
 
         /********************************************************  Service Schedule **********************************************/
 
+        /********************************************************  Service Discounts **********************************************/
+
+
+        $('#servicediscounts-discount_type').change(function () {
+                var type = $("#servicediscounts-discount_type input[type='radio']:checked").val();
+                Discounts(type);
+        });
+
+
+        $('#servicediscounts-discount_value').change(function () {
+                var type = $("#servicediscounts-discount_type input[type='radio']:checked").val();
+                if (type && type != '')
+                        Discounts(type);
+                else
+                        alert('Please choose a discount type');
+
+
+        });
+
+
+        /********************************************************  Service Discounts **********************************************/
+
+
+
 });
 
 function FrequencyChange() {
@@ -532,6 +556,22 @@ function Datecalculate() {
                 });
         }
 
+}
+
+function Discounts(type) {
+
+        var discount_amount = $('#servicediscounts-discount_value').val();
+        var rate = $('#servicediscounts-rate').val();
+        var total_amount = 0;
+        if (discount_amount && discount_amount != '') {
+                if (type == 2) {
+                        total_amount = parseFloat(rate) - parseFloat(discount_amount);
+                } else if (type == 1) {
+                        var per = parseFloat(rate) * parseFloat(discount_amount) / 100;
+                        total_amount = parseFloat(rate) - parseFloat(per);
+                }
+                $('#servicediscounts-total_amount').val(total_amount);
+        }
 }
 
 

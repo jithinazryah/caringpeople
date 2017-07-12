@@ -110,7 +110,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         /*
                          * if frequency == daily snd duty type= day or night
                          */
-                        if ($frequency == 1 && $duty_type == 3 || $duty_type == 4) {
+                        if ($frequency == 1 && $duty_type == 3 || $duty_type == 4 || $duty_type == 5) {
                                 if (isset($ratecard->$type)) {
                                         $price = $days * $ratecard->$type;
                                 }
@@ -391,8 +391,42 @@ class ServiceajaxController extends \yii\web\Controller {
                         } else if ($frequency == '3') {
                                 $service->to_date = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' months'));
                         }
+                        $service->estimated_price = $this->Calculateprice($service->service, $service->branch_id, $duty_type, $frequency, $hours, $days + $add_days);
                         $service->save(FALSE);
                 }
+        }
+
+        public function Calculateprice($service_id, $branch_id, $duty_type, $frequency, $hours, $days) {
+                $price = 0;
+
+                $ratecard = RateCard::find()->where(['service_id' => $service_id, 'branch_id' => $branch_id, 'status' => 1])->one();
+
+                if ($duty_type == 1) {
+                        $type = 'rate_per_hour';
+                } else if ($duty_type == 2) {
+                        $type = 'rate_per_visit';
+                } else if ($duty_type == 3) {
+                        $type = 'rate_per_day';
+                } else if ($duty_type == 4) {
+                        $type = 'rate_per_night';
+                } else if ($duty_type == 5) {
+                        $type = 'rate_per_day_night';
+                }
+                /*
+                 * if frequency == daily snd duty type= day or night
+                 */
+                if ($frequency == 1 && $duty_type == 3 || $duty_type == 4 || $duty_type == 5) {
+                        if (isset($ratecard->$type)) {
+                                $price = $days * $ratecard->$type;
+                        }
+                } else {
+                        $total_hours = $hours * $days;
+                        if (isset($ratecard->$type)) {
+                                $price = $total_hours * $ratecard->$type;
+                        }
+                }
+
+                return $price;
         }
 
 }

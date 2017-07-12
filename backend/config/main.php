@@ -64,6 +64,9 @@ return [
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],
+        'accounts' => [
+            'class' => 'backend\modules\accounts\Module',
+        ],
     ],
     'components' => [
         'request' => [

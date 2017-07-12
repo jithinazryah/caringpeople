@@ -65,6 +65,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         </div>
 
+                                                        <div class="tab-pane" id="home-7">
+
+                                                                <?=
+                                                                $this->render('@backend/modules/accounts/views/service-discounts/_form', [
+                                                                    'service' => $model,
+                                                                    'model' => $discounts
+                                                                ])
+                                                                ?>
+
+                                                        </div>
+
                                                         <div class="tab-pane " id="home-12">
                                                                 <?=
                                                                 $this->render('remarks', [

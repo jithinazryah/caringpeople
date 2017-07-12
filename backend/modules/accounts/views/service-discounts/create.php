@@ -2,14 +2,15 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Service */
 
-$this->title = 'Update Service: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Services', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+/* @var $this yii\web\View */
+/* @var $model common\models\ServiceDiscounts */
+
+$this->title = 'Create Service Discounts';
+$this->params['breadcrumbs'][] = ['label' => 'Service Discounts', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="row">
         <div class="col-md-12">
 
@@ -17,12 +18,11 @@ $this->params['breadcrumbs'][] = 'Update';
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
-
                         </div>
                         <div class="panel-body">
-				<?=  Html::a('<i class="fa-th-list"></i><span> Manage Service</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="service-create">
-						<?= $this->render('_form', [
+                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Service Discounts</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div class="panel-body"><div class="service-discounts-create">
+                                                <?= $this->render('_form', [
                                                 'model' => $model,
                                                 ]) ?>
                                         </div>
@@ -31,3 +31,4 @@ $this->params['breadcrumbs'][] = 'Update';
                 </div>
         </div>
 </div>
+                

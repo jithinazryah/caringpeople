@@ -12,6 +12,7 @@ use common\models\Branch;
 use common\models\MasterServiceTypes;
 use common\models\ServiceSchedule;
 use common\models\PatientAssessment;
+use common\models\ServiceDiscounts;
 
 /**
  * ServiceController implements the CRUD actions for Service model.
@@ -79,7 +80,6 @@ class ServiceController extends Controller {
 
                         $model->from_date = date('Y-m-d', strtotime($model->from_date));
                         $model->to_date = date('Y-m-d', strtotime($model->to_date));
-
                         $branch_details = Branch::find()->where(['id' => $model->branch_id])->one();
                         $service_type = $this->ServiceType($model->service);
                         $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y');
@@ -104,29 +104,36 @@ class ServiceController extends Controller {
                 $model = $this->findModel($id);
                 $service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
+                $discounts = ServiceDiscounts::find()->where(['service_id' => $id])->one();
                 if (empty($patient_assessment)) {
                         $patient_assessment = new PatientAssessment ();
                         $patient_assessment->service_id = $id;
                         $patient_assessment->save();
                 }
+                if (empty($discounts)) {
+                        $discounts = new ServiceDiscounts();
+                        $discounts->service_id = $id;
+                        $discounts->save();
+                }
 
                 if (Yii::$app->request->post()) {
                         $patient_assessment->load(Yii::$app->request->post());
-
                         if (isset($_POST['patient_medical_procedures']) && $_POST['patient_medical_procedures'] != '') {
                                 $patient_assessment->patient_medical_procedures = implode(',', $_POST['patient_medical_procedures']);
                         }
                         if (isset($_POST['suggested_professional']) && $_POST['suggested_professional'] != '') {
                                 $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
                         }
-                        $patient_assessment->save();
-                        return $this->redirect(['index']);
+                        $discounts->load(Yii::$app->request->post());
+                        if ($patient_assessment->save() && $discounts->save()) {
+                                return $this->redirect(['index']);
+                        }
                 }
-
                 return $this->render('create', [
                             'model' => $model,
                             'service_schedule' => $service_schedule,
-                            'patient_assessment' => $patient_assessment
+                            'patient_assessment' => $patient_assessment,
+                            'discounts' => $discounts
                 ]);
         }
 
@@ -153,6 +160,10 @@ class ServiceController extends Controller {
                 }
                 return $result;
         }
+
+        /*
+         * add service schedules
+         */
 
         public function ServiceSchedule($model) {
 

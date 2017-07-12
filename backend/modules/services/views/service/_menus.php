@@ -40,6 +40,11 @@ use yii\helpers\Html;
                                 <i class="fa fa-book"></i><span class="hidden-xs span-font-size">Assessment</span></a>
                 </li>
 
+                <li>
+                        <a href="#home-7" data-toggle="tab"><span class="visible-xs"><i class="fa fa-book hidden-xs"></i></span>
+                                <i class="fa fa-book"></i><span class="hidden-xs span-font-size">Discounts</span></a>
+                </li>
+
 
                 <li>
                         <a href="#home-12" data-toggle="tab"><span class="visible-xs"><i class="linecons-note hidden-xs"></i></span>
