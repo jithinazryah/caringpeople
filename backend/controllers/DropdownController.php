@@ -10,6 +10,7 @@ use yii\web\Response;
 use yii\db\Expression;
 use common\models\Hospital;
 use common\models\Remarks;
+use common\components\SetValues;
 
 class DropdownController extends \yii\web\Controller {
 
@@ -34,6 +35,8 @@ class DropdownController extends \yii\web\Controller {
                         $form = $this->renderPartial('_followup_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'cat_type' => $_POST['cat_type']]);
                 } else if ($type == 4) { /* add staff skills */
                         $form = $this->renderPartial('_skills', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                } else if ($type == 5) { /* add upload category */
+                        $form = $this->renderPartial('_upload_category', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 }
 
                 echo $form;
@@ -55,6 +58,8 @@ class DropdownController extends \yii\web\Controller {
                                 $model = new \common\models\FollowupSubType();
                         } else if ($type == 4) {
                                 $model = new \common\models\StaffExperienceList();
+                        } else if ($type == 5) {
+                                $model = new \common\models\UploadCategory();
                         }
                         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                                 $model->status = 1;
@@ -71,6 +76,9 @@ class DropdownController extends \yii\web\Controller {
                                         }
                                         if ($type == 4) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '2');
+                                        } 
+                                        if ($type == 5) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }
                                         $data['result'] = $arr_variable;
                                         echo json_encode($data);
@@ -93,7 +101,7 @@ class DropdownController extends \yii\web\Controller {
                                 $remarks->date = date('Y-m-d', strtotime($remarks->date));
                                 $remarks->save();
                                 if ($remarks->type == '2' || $remarks->type == '4')
-                                        $pp = $this->Rating($remarks->type_id, $remarks->type);
+                                        $rates = SetValues::Rating($remarks->type_id, $remarks->type);
 
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);

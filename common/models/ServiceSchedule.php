@@ -26,60 +26,58 @@ use Yii;
  *
  * @property Service $service
  */
-class ServiceSchedule extends \yii\db\ActiveRecord
-{
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'service_schedule';
-    }
+class ServiceSchedule extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['service_id', 'patient_id', 'staff', 'attendance', 'status', 'CB', 'UB'], 'integer'],
-            [['date', 'DOC', 'DOU'], 'safe'],
-            [['notes', 'remarks_from_manager', 'remarks_from_staff', 'remarks_from_patient'], 'string'],
-            [['attachment'], 'string', 'max' => 255],
-            [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['service_id' => 'id']],
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'service_schedule';
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'service_id' => 'Service ID',
-            'patient_id' => 'Patient ID',
-            'date' => 'Date',
-            'staff' => 'Staff',
-            'attendance' => 'Attendance',
-            'notes' => 'Notes',
-            'remarks_from_manager' => 'Remarks From Manager',
-            'remarks_from_staff' => 'Remarks From Staff',
-            'remarks_from_patient' => 'Remarks From Patient',
-            'attachment' => 'Attachment',
-            'status' => 'Status',
-            'CB' => 'Cb',
-            'UB' => 'Ub',
-            'DOC' => 'Doc',
-            'DOU' => 'Dou',
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['service_id', 'patient_id', 'staff', 'attendance', 'status', 'CB', 'UB', 'rating'], 'integer'],
+                        [['date', 'DOC', 'DOU'], 'safe'],
+                        [['notes', 'remarks_from_manager', 'remarks_from_staff', 'remarks_from_patient'], 'string'],
+                        [['attachment'], 'string', 'max' => 255],
+                        [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['service_id' => 'id']],
+                ];
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getService()
-    {
-        return $this->hasOne(Service::className(), ['id' => 'service_id']);
-    }
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'service_id' => 'Service ID',
+                    'patient_id' => 'Patient ID',
+                    'date' => 'Date',
+                    'staff' => 'Staff',
+                    'attendance' => 'Attendance',
+                    'notes' => 'Notes',
+                    'remarks_from_manager' => 'Remarks From Manager',
+                    'remarks_from_staff' => 'Remarks From Staff',
+                    'remarks_from_patient' => 'Remarks From Patient',
+                    'rating' => 'Rating',
+                    'attachment' => 'Attachment',
+                    'status' => 'Status',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
+
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getService() {
+                return $this->hasOne(Service::className(), ['id' => 'service_id']);
+        }
+
 }

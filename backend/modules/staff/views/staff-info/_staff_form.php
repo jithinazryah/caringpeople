@@ -91,6 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             'staff_family' => $staff_family,
                                                                             'staffinfo' => $model,
                                                                             'form' => $form,
+                                                                            'type'=>4,
                                                                         ])
                                                                         ?>
                                                                 </div>

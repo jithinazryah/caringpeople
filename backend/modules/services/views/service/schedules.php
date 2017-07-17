@@ -13,7 +13,17 @@ use common\models\StaffInfo;
 
 <div class="service-form form-inline">
         <div class="row">
-                <a href="javascript:;"  class="btn btn-primary btn-single btn-sm xtra-btn choose-staff" id="<?= $model->id; ?>">Choose Staff</a>
+                <?php
+                $staff_set = \common\models\ServiceSchedule::find()->where(['not', ['staff' => null]])->andWhere(['service_id' => $model->id])->count();
+                ?>
+
+                <a href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=1" target="_blank"  class="btn btn-primary btn-single btn-sm xtra-btn" id="<?= $model->id; ?>"><?php
+                        if ($staff_set == 0) {
+                                echo 'Choose Staff';
+                        } else {
+                                echo 'Change Staff';
+                        }
+                        ?></a>
                 <a href="javascript:;"  class="btn btn-primary btn-single btn-sm xtra-btn add-schedules" id="<?= $model->id; ?>">Add Schedules</a>
 
         </div>
@@ -28,157 +38,190 @@ use common\models\StaffInfo;
 
         </div>
 
-        <table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                        <tr>
-                                <th>No</th>
-                                <th>Date</th>
-                                <th>Staff on duty</th>
-                                <th>Remarks from manager</th>
-                                <th>Remarks from staff</th>
-                                <th>Remarks from patient</th>
-                                <th>Attendance</th>
-                                <th>Status</th>
+        <div class="table-responsive">
 
-                        </tr>
-                </thead>
+                <table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                                <tr>
+                                        <th>No</th>
+                                        <th>Date</th>
+                                        <th>Staff on duty</th>
+                                        <th>Remarks from manager</th>
+                                        <th>Remarks from staff</th>
+                                        <th>Remarks from patient</th>
 
-
-                <tbody>
-                        <?php
-                        $p = 0;
-                        foreach ($service_schedule as $value) {
-                                $p++;
-                                ?>
-                                <tr id="<?= $value->id; ?>">
-                                        <td><?= $p; ?></td>
-
-                                        <td><?php
-                                                if (isset($value->date) && $value->date != '') {
-                                                        $date = date('d-m-Y', strtotime($value->date));
-                                                        //$date = date('Y/m/d', strtotime($value->date));
-                                                } else {
-                                                        $date = '';
-                                                }
-                                                echo DatePicker::widget([
-                                                    'name' => 'date',
-                                                    'id' => 'schedule_date-' . $value->id,
-                                                    'type' => DatePicker::TYPE_INPUT,
-                                                    'value' => $date,
-                                                    'pluginOptions' => [
-                                                        'autoclose' => true,
-                                                        'format' => 'dd-mm-yyyy',
-                                                    ],
-                                                    'options' => [
-                                                        'class' => 'schedule-update-date',
-                                                    ]
-                                                ]);
-                                                ?>
-                                        </td>
-                                        <td>
-                                                <?php
-                                                if (isset($value->staff)) {
-                                                        $staff = StaffInfo::findOne($value->staff);
-                                                        $staff_on_duty = $staff->staff_name;
-                                                } else {
-                                                        $staff_on_duty = '';
-                                                }
-                                                ?>
-
-                                                <input type="text" value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $value->service_id; ?>" id="staff_on_duty_<?= $value->id ?>" readonly="true">
-                                                <?php if ($staff_on_duty != '') { ?>  <a id="<?= $value->id; ?>" type="1" class="staff-allotment replace-staff">Replace staff</a><?php } else { ?>
-                                                        <a id="<?= $value->id; ?>" type="2" class="staff-allotment replace-staff">Add staff</a>
-                                                <?php } ?>
-                                        </td>
-
-
-                                        <td>
-                                                <input type="text" class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>" value="<?php
-                                                if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
-                                                        echo $value->remarks_from_manager;
-                                                }
-                                                ?>">
-                                        </td>
-
-
-                                        <td>
-                                                <input type="text" class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>" value="<?php
-                                                if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
-                                                        echo $value->remarks_from_staff;
-                                                }
-                                                ?>">
-                                        </td>
-
-
-                                        <td>
-                                                <input type="text" class="form-control schedule-update" name="remarks_from_patient" id="remarks_from_patient-<?= $value->id; ?>" value="<?php
-                                                if (isset($value->remarks_from_patient) && $value->remarks_from_patient != '') {
-                                                        echo $value->remarks_from_patient;
-                                                }
-                                                ?>">
-                                        </td>
-
-
-                                        <td>
-                                                <select name="attendance" id="attendance-<?= $value->id ?>" class="form-control schedule-update">
-                                                        <option value="1" <?php
-                                                        if ($value->attendance == '1') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>> Present</option>
-                                                        <option value="2" <?php
-                                                        if ($value->attendance == '2') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>> Half Day</option>
-                                                        <option value="3" <?php
-                                                        if ($value->attendance == '3') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>> Absent</option>
-                                                        <option value="4" <?php
-                                                        if ($value->attendance == '4') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>> Day Off</option>
-                                                </select>
-                                        </td>
-
-
-                                        <td>
-                                                <select name="status" id="status-<?= $value->id; ?>" class="form-control schedule-update">
-
-                                                        <option value="1" <?php
-                                                        if ($value->status == '1') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>>Pending</option>
-                                                        <option value="2" <?php
-                                                        if ($value->status == '2') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>>Confirmed</option>
-                                                        <option value="3" <?php
-                                                        if ($value->status == '3') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>>Completed</option>
-                                                        <option value="4" <?php
-                                                        if ($value->status == '4') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>>Interrupted</option>
-                                                        <option value="5" <?php
-                                                        if ($value->status == '5        ') {
-                                                                echo 'selected';
-                                                        }
-                                                        ?>>Cancelled</option>
-                                                </select>
-                                        </td>
+                                        <th>Status</th>
+                                        <th>Staff Rating</th>
                                 </tr>
-                        <?php } ?>
-                </tbody>
-        </table>
+                        </thead>
+
+
+                        <tbody>
+                                <?php
+                                $p = 0;
+                                foreach ($service_schedule as $value) {
+                                        $p++;
+                                        ?>
+                                        <tr id="<?= $value->id; ?>">
+                                                <td><?= $p; ?></td>
+
+                                                <td><?php
+                                                        if (isset($value->date) && $value->date != '') {
+                                                                $date = date('d-m-Y', strtotime($value->date));
+                                                                //$date = date('Y/m/d', strtotime($value->date));
+                                                        } else {
+                                                                $date = '';
+                                                        }
+                                                        echo DatePicker::widget([
+                                                            'name' => 'date',
+                                                            'id' => 'schedule_date-' . $value->id,
+                                                            'type' => DatePicker::TYPE_INPUT,
+                                                            'value' => $date,
+                                                            'pluginOptions' => [
+                                                                'autoclose' => true,
+                                                                'format' => 'dd-mm-yyyy',
+                                                            ],
+                                                            'options' => [
+                                                                'class' => 'schedule-update-date',
+                                                            ]
+                                                        ]);
+                                                        ?>
+                                                </td>
+                                                <td>
+                                                        <?php
+                                                        if (isset($value->staff)) {
+                                                                $staff = StaffInfo::findOne($value->staff);
+                                                                $staff_on_duty = $staff->staff_name;
+                                                        } else {
+                                                                $staff_on_duty = '';
+                                                        }
+                                                        if (isset($value->status) && $value->status != '') {
+                                                                if ($value->status == 2) {
+                                                                        $stat = 1;
+                                                                } else {
+                                                                        $stat = 0;
+                                                                }
+                                                        } else {
+                                                                $stat = 0;
+                                                        }
+                                                        ?>
+
+                                                        <input type="text" val='<?= $value->staff ?>' value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $value->service_id; ?>_<?= $stat ?>" id="staff_on_duty_<?= $value->id ?>" readonly="true">
+                                                        <?php if ($staff_on_duty != '') { ?>  <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>" id="<?= $value->id; ?>" type="1" class="staff-allotment">Replace staff</a><?php } else { ?>
+                                                                <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>" id="<?= $value->id; ?>" type="2" class="staff-allotment">Add staff</a>
+                                                        <?php } ?>
+                                                </td>
+
+
+                                                <td>
+                                                        <input type="text" class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>" value="<?php
+                                                        if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
+                                                                echo $value->remarks_from_manager;
+                                                        }
+                                                        ?>">
+                                                </td>
+
+
+                                                <td>
+                                                        <input type="text" class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>" value="<?php
+                                                        if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
+                                                                echo $value->remarks_from_staff;
+                                                        }
+                                                        ?>">
+                                                </td>
+
+
+                                                <td>
+                                                        <input type="text" class="form-control schedule-update" name="remarks_from_patient" id="remarks_from_patient-<?= $value->id; ?>" value="<?php
+                                                        if (isset($value->remarks_from_patient) && $value->remarks_from_patient != '') {
+                                                                echo $value->remarks_from_patient;
+                                                        }
+                                                        ?>">
+                                                </td>
+
+
+
+                                                <td>
+                                                        <select name="status" id="<?= $value->id; ?>" class="form-control schedule-update status-update">
+
+                                                                <option value="1" <?php
+                                                                if ($value->status == '1') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Pending</option>
+
+                                                                <option value="2" <?php
+                                                                if ($value->status == '2') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Completed</option>
+                                                                <option value="3" <?php
+                                                                if ($value->status == '3') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Interrupted</option>
+                                                                <option value="4" <?php
+                                                                if ($value->status == '4') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Cancelled</option>
+                                                        </select>
+                                                </td>
+                                                <td>
+                                                        <select class="form-control schedule-rating" id="<?= $value->id; ?>">
+                                                                <option value="">-Select Rating-</option>
+                                                                <option value="9" <?php
+                                                                if ($value->rating == '9') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Excellent</option>
+                                                                <option value="8" <?php
+                                                                if ($value->rating == '8') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Very Good</option>
+                                                                <option value="7" <?php
+                                                                if ($value->rating == '7') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Satisfactory</option>
+                                                                <option value="6" <?php
+                                                                if ($value->rating == '6') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Good</option>
+                                                                <option value="5" <?php
+                                                                if ($value->rating == '5') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Average</option>
+                                                                <option value="4" <?php
+                                                                if ($value->rating == '4') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Unsatisfactory</option>
+                                                                <option value="3" <?php
+                                                                if ($value->rating == '3') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Bad</option>
+                                                                <option value="2" <?php
+                                                                if ($value->rating == '2') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Very Bad</option>
+                                                                <option value="1" <?php
+                                                                if ($value->rating == '1') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Very Poor</option>
+                                                        </select>
+                                                </td>
+                                        </tr>
+                                <?php } ?>
+                        </tbody>
+                </table>
+        </div>
 
 
 </div>

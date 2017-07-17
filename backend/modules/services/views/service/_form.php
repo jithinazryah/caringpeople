@@ -50,6 +50,10 @@ use yii\db\Expression;
 
                 </div>
 
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <?= $form->field($model, 'gender_preference')->dropDownList(['2' => 'Any', '0' => 'Male', '1' => 'Female']) ?>
+                </div>
+
 
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?php

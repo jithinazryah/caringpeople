@@ -20,7 +20,7 @@ class StaffInfoSearch extends StaffInfo {
         public function rules() {
                 return [
                         [['id', 'designation', 'gender', 'religion', 'caste', 'nationality', 'years_of_experience', 'driving_licence', 'branch_id', 'status', 'CB', 'UB'], 'integer'],
-                        [['staff_name', 'dob', 'place', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'DOC', 'DOU', 'staff_id', 'staff_manager', 'average_point'], 'safe'],
+                        [['staff_name', 'dob', 'place', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'DOC', 'DOU', 'staff_id', 'staff_manager', 'average_point', 'staff_experience', 'working_status'], 'safe'],
                 ];
         }
 
@@ -90,6 +90,8 @@ class StaffInfoSearch extends StaffInfo {
                         ->andFilterWhere(['like', 'designation', $this->designation])
                         ->andFilterWhere(['like', 'present_email', $this->present_email])
                         ->andFilterWhere(['like', 'average_point', $this->average_point])
+                        ->andFilterWhere(['like', 'staff_experience', $this->staff_experience])
+                        ->andFilterWhere(['like', 'working_status', $this->working_status])
                         ->andFilterWhere(['like', 'licence_no', $this->licence_no]);
 
 

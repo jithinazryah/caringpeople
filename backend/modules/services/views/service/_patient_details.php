@@ -9,7 +9,7 @@ use yii\helpers\Html;
                 <div class="panel-heading collapse-patient-heading">
                         <h4 class="panel-title panel-default">
                                 <a data-toggle="collapse" data-parent="#accordion-test-2" href="#collapseOne-2" class="collapsed">
-                                        Patient Details
+                                        Service Details
                                 </a>
                         </h4>
                 </div>

@@ -22,6 +22,7 @@ class m170706_074341_create_service_schedule_table extends Migration {
                     'remarks_from_manager' => $this->text(),
                     'remarks_from_staff' => $this->text(),
                     'remarks_from_patient' => $this->text(),
+                    'rating' => $this->integer(),
                     'attachment' => $this->string(),
                     'status' => $this->integer(),
                     'CB' => $this->integer(),

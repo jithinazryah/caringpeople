@@ -41,8 +41,8 @@ use yii\helpers\Html;
                 </li>
 
                 <li>
-                        <a href="#home-7" data-toggle="tab"><span class="visible-xs"><i class="fa fa-book hidden-xs"></i></span>
-                                <i class="fa fa-book"></i><span class="hidden-xs span-font-size">Discounts</span></a>
+                        <a href="#home-7" data-toggle="tab"><span class="visible-xs"><i class="fa fa-minus-circle hidden-xs"></i></span>
+                                <i class="fa fa-minus-circle"></i><span class="hidden-xs span-font-size">Discounts</span></a>
                 </li>
 
 

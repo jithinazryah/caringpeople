@@ -66,6 +66,31 @@ class StaffInfoController extends Controller {
                 ]);
         }
 
+        public function actionChoose($branch = null, $gender = null, $service = null, $type = null, $schedule = null) {
+
+                $searchModel = new StaffInfoSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['branch_id' => $branch]);
+                $dataProvider->query->andWhere(['status' => 1]);
+
+                if ($gender == 0) {
+                        $dataProvider->query->andWhere(['gender' => 0]);
+                } else if ($gender == 1) {
+                        $dataProvider->query->andWhere(['gender' => 1]);
+                } else {
+
+                }
+
+
+                return $this->render('choose', [
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
+                            'service' => $service,
+                            'type' => $type,
+                            'schedule' => $schedule,
+                ]);
+        }
+
         /**
          * Displays a single StaffInfo model.
          * @param integer $id
@@ -83,41 +108,6 @@ class StaffInfoController extends Controller {
                             'staff_other_info' => $other_info,
                             'staff_previous_employer' => $staff_previous_employer
                 ]);
-        }
-
-        /*
-         * View followups of each staff
-         */
-
-        public function actionFollowups($id) {
-                $searchModel = new FollowupsSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['assigned_to' => $id]);
-                $dataProvider->query->andWhere(['assigned_to_type' => 2]);
-                return $this->render('followup', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
-        }
-
-        /*
-         * View Related followups
-         */
-
-        public function actionRelatedfollowups($id) {
-
-                $searchModel = new FollowupsSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(new Expression('FIND_IN_SET(:related_staffs, related_staffs)'))->addParams([':related_staffs' => $id]);
-                return $this->render('followup', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
-        }
-
-        /*
-         * View remarks of each staff
-         */
-
-        public function actionRemarks($id) {
-                $searchModel = new RemarksSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['type_id' => $id]);
-                return $this->render('remarks', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider, 'id' => $id]);
         }
 
         /*

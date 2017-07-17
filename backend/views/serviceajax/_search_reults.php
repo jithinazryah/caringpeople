@@ -58,12 +58,24 @@ use yii\widgets\LinkPager;
                 ?>
         <input type="hidden" name="service_id" value="<?= $service_id; ?>" id="choose_service_id">
         <input type="hidden" name="type" value="<?= $type; ?>" id="type">
+        <input type="hidden" name="staff_choose" value="<?= $staff_choose; ?>" id="staff_choose">
 
         </tbody>
 </table>
 
-<?php
-echo LinkPager::widget([
-    'pagination' => $pages,
-]);
+
+
+<?php /*
+  Pjax::begin();
+  echo GridView::widget([
+  'dataProvider' => $dataProvider,
+  'filterModel' => $searchModel,
+  'columns' => [
+  ['class' => 'yii\grid\SerialColumn'],
+  //'id',
+  'id',
+  'staff_name',
+  ],
+  ]);
+  Pjax::end(); */
 ?>

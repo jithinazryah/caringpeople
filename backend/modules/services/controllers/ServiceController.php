@@ -102,13 +102,14 @@ class ServiceController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
-                $service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
+                //$service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
+                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy(['status' => SORT_ASC])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
                 $discounts = ServiceDiscounts::find()->where(['service_id' => $id])->one();
                 if (empty($patient_assessment)) {
                         $patient_assessment = new PatientAssessment ();
                         $patient_assessment->service_id = $id;
-                        $patient_assessment->save();
+                        $patient_assessment->save(FALSE);
                 }
                 if (empty($discounts)) {
                         $discounts = new ServiceDiscounts();
@@ -186,17 +187,20 @@ class ServiceController extends Controller {
                                 $day_schedule->status = 0;
                                 $night_schedule->service_id = $model->id;
                                 $night_schedule->patient_id = $model->patient_id;
-                                $night_schedule->status = 0;
+                                $night_schedule->status = 1;
                                 $night_schedule->save(false);
                                 $day_schedule->save(false);
                         }
                 } else {
 
-                        for ($x = 1; $x <= $schedule_count; $x++) {
+                        for ($x = 0; $x < $schedule_count; $x++) {
                                 $schedule = new ServiceSchedule();
                                 $schedule->service_id = $model->id;
+                                if ($model->frequency == 1) {
+                                        $schedule->date = date('Y-m-d', strtotime($model->from_date . ' + ' . $x . ' days'));
+                                }
                                 $schedule->patient_id = $model->patient_id;
-                                $schedule->status = 0;
+                                $schedule->status = 1;
                                 $schedule->save(false);
                         }
                 }

@@ -17,7 +17,10 @@ use common\models\MasterDesignations;
 <?php $posts = \common\models\AdminPosts::find()->orderBy(['post_name' => SORT_ASC])->all(); ?>
 
 <div class="staff-info-form form-inline">
-
+    
+        
+    
+    
 
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'staff_id')->textInput(['maxlength' => true]) ?>
 
@@ -63,8 +66,6 @@ use common\models\MasterDesignations;
         </div>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'age')->textInput(['maxlength' => true]) ?>
-
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                 <div class="form-group field-staffinfo-dob">
                         <label class="control-label" for="staffinfo-dob">DOB</label>
@@ -79,6 +80,7 @@ use common\models\MasterDesignations;
                             'name' => 'StaffInfo[dob]',
                             'type' => DatePicker::TYPE_INPUT,
                             'value' => $model->dob,
+                            'id'=>'dob',
                             'pluginOptions' => [
                                 'autoclose' => true,
                                 'format' => 'dd-mm-yyyy',
@@ -88,6 +90,8 @@ use common\models\MasterDesignations;
 
 
                 </div>
+
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'age')->textInput(['maxlength' => true,'id'=>'age']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>  <?php $religion = Religion::find()->where(['status' => '1'])->orderBy(['religion' => SORT_ASC])->all(); ?>  <?= $form->field($model, 'religion')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control religion-change']) ?>
 
@@ -105,7 +109,7 @@ use common\models\MasterDesignations;
         </div>
 
         <?php if (!$model->isNewRecord) { ?><div style="clear:both"></div><?php } ?>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'permanent_address')->textarea(['rows' => 1]) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'permanent_address')->textarea(['rows' => 4]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'pincode')->textInput(['maxlength' => true]) ?>
 
@@ -123,7 +127,7 @@ use common\models\MasterDesignations;
 
         <div class="row"><input type="checkbox" id="checkbox_id" name="check" checkvalue="1" uncheckValue="0" style="margin-left: 20px;"><label style="color:black;font-weight:bold;margin-left: 5px;">Permanent contact details and Present contact details are same</label>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'present_address')->textarea(['rows' => 1]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'present_address')->textarea(['rows' => 6]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'present_pincode')->textInput(['maxlength' => true]) ?>
 
@@ -213,12 +217,14 @@ use common\models\MasterDesignations;
                                 </div>
                         </div>
                         <?php
+                        $rand = rand();
                         $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
                         ?>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
-                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--']); ?>
+                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--','id' => 'atachment_' . $rand]); ?>
+                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
 
                                 </div>
                         </div>

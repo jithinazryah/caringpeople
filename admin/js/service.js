@@ -51,6 +51,21 @@ $("document").ready(function () {
                 });
         });
 
+        $('#ratecard-service_id').change(function () {
+                showLoader();
+                var branch = $('#ratecard-branch_id').val();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {service: $(this).val(), branch: branch},
+                        url: homeUrl + 'serviceajax/subservices',
+                        success: function (data) {
+                                $('#ratecard-sub_service').html(data);
+                                hideLoader();
+                        }
+                });
+        });
+
         /*
          * show patients depends on branch
          */
@@ -250,13 +265,12 @@ $("document").ready(function () {
                 var remark_manager = $('#remarks_from_manager-' + id[1]).val();
                 var remark_staff = $('#remarks_from_staff-' + id[1]).val();
                 var remark_patient = $('#remarks_from_patient-' + id[1]).val();
-                var status = $('#status-' + id[1]).val();
-                var attendance = $('#attendance-' + id[1]).val();
+
 
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'serviceajax/scheduleupdate',
-                        data: {id: id[1], remarks_from_manager: remark_manager, remarks_from_staff: remark_staff, remarks_from_patient: remark_patient, status: status, attendance: attendance},
+                        data: {id: id[1], remarks_from_manager: remark_manager, remarks_from_staff: remark_staff, remarks_from_patient: remark_patient},
                         success: function (data) {
 
                         }
@@ -279,6 +293,39 @@ $("document").ready(function () {
                         }
                 });
 
+        });
+        /*
+         * update rating in schedule
+         */
+        $('.schedule-rating').change(function () {
+                var schedule_id = $(this).attr('id');
+                var rating = $(this).val();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/addrating',
+                        data: {schedule_id: schedule_id, rating: rating},
+                        success: function (data) {
+
+                        }
+                });
+
+        });
+
+        /*
+         * change status of schedule
+         */
+
+        $('.status-update').change(function () {
+                var status = $(this).val();
+                var schedule_id = $(this).attr('id');
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/statusupdate',
+                        data: {schedule_id: schedule_id, status: status},
+                        success: function (data) {
+
+                        }
+                });
         });
 
         /*
@@ -321,21 +368,28 @@ $("document").ready(function () {
                 });
         });
 
+        $('input[type=radio][name=staff_choose]').change(function () {
+                var selected_radio = $(this).val();
+                $('#choosed_staff').val(selected_radio);
+        });
+
 
         /*
          * selct staff from the search result
          */
         $(document).on('submit', '#searchChooseStaff', function (e) {
                 e.preventDefault();
-                var staff = $('input[name=staff_choose]:checked').val();
-                var service_id = $('#choose_service_id').val();
+                var staff = $('#choosed_staff').val();
+                var service_id = $('#service_id').val();
+                var schedule_id = $('#schedule_id').val();
+                var type = $('#type').val();
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'serviceajax/selectedstaff',
-                        data: {staff: staff, service_id: service_id},
+                        data: {staff: staff, service_id: service_id, schedule_id: schedule_id, type: type},
                         success: function (data) {
-                                $('.staff_duty_' + service_id).val(data);
-                                $('#modal-2').modal('hide');
+                                opener.location.reload();
+                                window.top.close();
                         }
                 });
 

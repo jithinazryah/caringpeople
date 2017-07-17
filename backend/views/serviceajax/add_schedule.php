@@ -116,4 +116,5 @@ use yii\helpers\ArrayHelper;
                 margin-top: 13px;
                 width: 100px;
         }
+
 </style>

@@ -12,8 +12,8 @@ use yii\helpers\Html;
         </li>
         <?php if (!$model->isNewRecord) { ?>
                 <li>
-                        <a href="#main-2" data-toggle="tab"><span class="visible-xs"><i class="fa-info hidden-xs"></i></span>
-                                <i class="fa-info"></i> <span class="hidden-xs span-font-size">  HISTORY</span></a>
+                        <a href="#main-2" data-toggle="tab"><span class="visible-xs"><i class="fa fa-history hidden-xs"></i></span>
+                                <i class="fa fa-history"></i> <span class="hidden-xs span-font-size">  HISTORY</span></a>
                 </li>
         <?php } ?>
 </ul>

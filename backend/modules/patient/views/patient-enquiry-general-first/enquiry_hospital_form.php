@@ -92,7 +92,7 @@ use kartik\select2\Select2;
                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
                                                         <label class="control-label" for="">Consultant Doctor</label>
-                                                        <?= Html::dropDownList('updatee[' . $data->id . '][consultant_doctor][]', $doctor, ArrayHelper::map($doctorlis, 'id', 'name'), ['class' => 'form-control doctor', 'prompt' => '--Select--', 'id' => 'doctor_' . $rand]); ?>
+                                                        <?= Html::dropDownList('updatee[' . $data->id . '][consultant_doctor][]', $doctor, ArrayHelper::map($doctorlis, 'id', 'name'), ['class' => 'form-control doctor', 'prompt' => '--Select--', 'id' => 'doctor']); ?>
 
                                                 </div>
                                         </div>

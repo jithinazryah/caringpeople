@@ -40,7 +40,7 @@ class RateCard extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['service_id', 'branch_id'], 'required'],
-                        [['service_id', 'status', 'CB', 'UB', 'branch_id'], 'integer'],
+                        [['service_id', 'status', 'CB', 'UB', 'branch_id','sub_service'], 'integer'],
                         [['period_from', 'period_to', 'DOC', 'DOU'], 'safe'],
                         [['rate_card_name', 'rate_per_hour', 'rate_per_visit', 'rate_per_day', 'rate_per_night', 'rate_per_day_night'], 'string', 'max' => 200],
                         [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service_id' => 'id']],
@@ -54,6 +54,7 @@ class RateCard extends \yii\db\ActiveRecord {
                 return [
                     'id' => 'ID',
                     'service_id' => 'Service',
+                    'sub_service'=>'Sub Service',
                     'rate_card_name' => 'Rate Card Name',
                     'rate_per_hour' => 'Rate Per Hour',
                     'rate_per_visit' => 'Rate Per Visit',

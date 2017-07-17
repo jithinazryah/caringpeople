@@ -402,4 +402,10 @@ form div.required label.control-label:after {
         color: #0e62c7;
         text-decoration: underline;
 }
+.cbr-replaced .cbr-state{
+    border: 1px solid #000;
+}
+label.cbr-inline{
+    color: #000;
+}
 

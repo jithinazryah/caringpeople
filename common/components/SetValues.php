@@ -23,6 +23,8 @@ use common\models\Service;
 use common\models\NotificationViewStatus;
 use common\models\StaffInfo;
 use common\models\PatientGeneral;
+use common\models\Remarks;
+use common\models\ServiceSchedule;
 
 class SetValues extends Component {
 
@@ -142,6 +144,31 @@ class SetValues extends Component {
          */
 
         public function Rating($id, $type) {
+
+                $schedule_remarks = 0;
+                $schedule_remarks_count = 0;
+
+                if ($type == '2') {
+
+                        $person = \common\models\PatientGeneral::findOne($id);
+                } else {
+
+                        $person = \common\models\StaffInfo::findOne($id);
+                        $schedule_remarks = ServiceSchedule::find()->where(['staff' => $id])->sum('rating');
+                        $schedule_remarks_count = ServiceSchedule::find()->where(['staff' => $id])->andWhere(['not', ['rating' => null]])->count();
+                }
+
+                $remarks_point = Remarks::find()->where(['type_id' => $id])->sum('point');
+                $remarks_count = Remarks::find()->where(['type_id' => $id])->count();
+                $total_remarks_point = $schedule_remarks + $remarks_point;
+                $total_remarks = $schedule_remarks_count + $remarks_count;
+                $rating = $total_remarks_point / $total_remarks * 9;
+
+                $person->average_point = $rating;
+                $person->update(FALSE);
+        }
+
+        public function Rating1($id, $type) {
 
                 $remarks = \common\models\Remarks::find()->where(['type_id' => $id])->andWhere(['not', ['remark_type' => null]])->all();
                 $count = count($remarks);

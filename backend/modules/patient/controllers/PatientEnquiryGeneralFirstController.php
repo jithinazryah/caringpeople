@@ -20,6 +20,7 @@ use common\models\Branch;
 use common\models\ContactDirectory;
 use common\models\Remarks;
 use common\models\RemarksSearch;
+use common\models\PatientAssessment;
 use yii\web\UploadedFile;
 
 /**
@@ -97,12 +98,13 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_info_second = new PatientEnquiryGeneralSecond();
                 $patient_hospital = new PatientEnquiryHospitalFirst();
                 $patient_hospital_second = new PatientEnquiryHospitalSecond();
+                $patient_assessment = new PatientAssessment();
                 $patient_info->scenario = 'create';
                 $hospital_details = '';
 
 
 
-                if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post())) {
+                if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post()) && $patient_assessment->load(Yii::$app->request->post())) {
 
                         $patient_info->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['contacted_date']));
                         $patient_info->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['outgoing_call_date']));
@@ -125,6 +127,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                         $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
                                         $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
                                         $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
+                                        $this->AddPatientAssessment($patient_assessment, $patient_info);
                                         $this->AddContactDirectory($patient_info, $patient_info_second);
                                         $this->sendMail($patient_info, $patient_info_second);
                                         Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
@@ -139,7 +142,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                             'patient_hospital' => $patient_hospital,
                             'patient_hospital_second' => $patient_hospital_second,
                             'hospital_details' => $hospital_details,
-                            'remarks' => $remarks,
+                            'patient_assessment' => $patient_assessment,
                 ]);
         }
 
@@ -155,11 +158,12 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_info_second = PatientEnquiryGeneralSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $patient_hospital = PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
+                $patient_assessment = PatientAssessment::find()->where(['patient_enquiry_id' => $patient_info->id])->one();
                 $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $patient_info->id]);
 
 
                 if (!empty($patient_info) && !empty($patient_info_second) && !empty($patient_hospital) && !empty($patient_hospital_second)) {
-                        if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post())) {
+                        if ($patient_info->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($patient_info) && $patient_hospital->load(Yii::$app->request->post()) && $patient_info_second->load(Yii::$app->request->post()) && $patient_hospital_second->load(Yii::$app->request->post()) && $patient_assessment->load(Yii::$app->request->post())) {
 
                                 $patient_info->contacted_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['contacted_date']));
                                 $patient_info->outgoing_call_date = date('Y-m-d H:i:s', strtotime(Yii::$app->request->post()['PatientEnquiryGeneralFirst']['outgoing_call_date']));
@@ -175,6 +179,8 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                                 $this->AddGeneralInfo($patient_info, Yii::$app->request->post(), $patient_info_second);
                                                 $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
                                                 $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
+                                                $this->AddPatientAssessment($patient_assessment, $patient_info);
+
 
 
 
@@ -193,6 +199,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                     'patient_hospital' => $patient_hospital,
                                     'patient_hospital_second' => $patient_hospital_second,
                                     'hospital_details' => $hospital_details,
+                                    'patient_assessment' => $patient_assessment,
                         ]);
                 } else {
                         throw new \yii\base\UserException("Error Code : 2000");
@@ -254,8 +261,13 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                 $i++;
                         }
                         $i = 0;
-                        foreach ($_POST['addhospital']['consultant_doctor'] as $val) {
-                                $arr[$i]['consultant_doctor'] = $val;
+                        if (isset($_POST['addhospital']['consultant_doctor']) && $_POST['addhospital']['consultant_doctor'] != '') {
+                                foreach ($_POST['addhospital']['consultant_doctor'] as $val) {
+                                        $arr[$i]['consultant_doctor'] = $val;
+                                        $i++;
+                                }
+                        } else {
+                                $arr[$i]['consultant_doctor'] = '';
                                 $i++;
                         }
                         $i = 0;
@@ -324,6 +336,17 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                 PatientEnquiryHospitalDetails::findOne($val)->delete();
                         }
                 }
+        }
+
+        public function AddPatientAssessment($patient_assessment, $model) {
+                $patient_assessment->patient_enquiry_id = $model->id;
+                if (isset($_POST['patient_medical_procedures']) && $_POST['patient_medical_procedures'] != '') {
+                        $patient_assessment->patient_medical_procedures = implode(',', $_POST['patient_medical_procedures']);
+                }
+                if (isset($_POST['suggested_professional']) && $_POST['suggested_professional'] != '') {
+                        $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
+                }
+                $patient_assessment->save();
         }
 
         /*

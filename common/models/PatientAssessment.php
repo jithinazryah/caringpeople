@@ -31,7 +31,7 @@ class PatientAssessment extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['patient_id', 'service_id', 'patient_condition'], 'integer'],
+                        [['patient_id', 'service_id', 'patient_condition','patient_conscious','patient_enquiry_id'], 'integer'],
                         [['other_notes'], 'string'],
                         [['assessment_date'], 'safe'],
                         [['patient_medical_procedures'], 'string', 'max' => 200],
@@ -45,9 +45,11 @@ class PatientAssessment extends \yii\db\ActiveRecord {
         public function attributeLabels() {
                 return [
                     'id' => 'ID',
+                    'patient_enquiry_id'=>'patient_enquiry_id',
                     'patient_id' => 'Patient ID',
                     'service_id' => 'Service ID',
                     'patient_condition' => 'Patient Condition',
+                    'patient_conscious'=>'Patient Conscious',
                     'patient_medical_procedures' => 'Patient Medical Procedures',
                     'suggested_professional' => 'Suggested Professional',
                     'other_notes' => 'Other Notes',

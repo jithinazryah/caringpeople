@@ -14,6 +14,7 @@ use common\models\ServiceSchedule;
 use common\models\StaffInfo;
 use yii\db\Expression;
 use yii\data\Pagination;
+use common\components\SetValues;
 
 class ServiceajaxController extends \yii\web\Controller {
 
@@ -37,6 +38,17 @@ class ServiceajaxController extends \yii\web\Controller {
                         $service_options .= "<option value='" . $service->id . "'>" . $service->service_name . "</option>";
                 }
                 echo $service_options;
+        }
+
+        public function actionSubservices() {
+
+                $sub_serv = \common\models\SubServices::find()->where(['service' => $_POST['service'], 'branch_id' => $_POST['branch']])->all();
+
+                $subservice_options = "<option>--Select--</option>";
+                foreach ($sub_serv as $service) {
+                        $subservice_options .= "<option value='" . $service->id . "'>" . $service->sub_service . "</option>";
+                }
+                echo $subservice_options;
         }
 
         /*
@@ -111,10 +123,12 @@ class ServiceajaxController extends \yii\web\Controller {
                          * if frequency == daily snd duty type= day or night
                          */
                         if ($frequency == 1 && $duty_type == 3 || $duty_type == 4 || $duty_type == 5) {
+                                die('if');
                                 if (isset($ratecard->$type)) {
                                         $price = $days * $ratecard->$type;
                                 }
                         } else {
+                                die('else');
                                 $total_hours = $hours * $days;
                                 if (isset($ratecard->$type)) {
                                         $price = $total_hours * $ratecard->$type;
@@ -132,7 +146,7 @@ class ServiceajaxController extends \yii\web\Controller {
         public function actionTodate() {
                 if (Yii::$app->request->isAjax) {
                         $frequency = $_POST['frequency'];
-                        $days = $_POST['days'];
+                        $days = $_POST['days'] - 1;
                         $from = $_POST['from'];
                         $from = date('Y-m-d', strtotime($from));
                         if ($frequency == '1') {
@@ -156,8 +170,6 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $service_schedule->remarks_from_manager = $_POST['remarks_from_manager'];
                                 $service_schedule->remarks_from_staff = $_POST['remarks_from_staff'];
                                 $service_schedule->remarks_from_patient = $_POST['remarks_from_patient'];
-                                $service_schedule->status = $_POST['status'];
-                                $service_schedule->attendance = $_POST['attendance'];
                                 $service_schedule->update();
                         }
                 }
@@ -176,6 +188,47 @@ class ServiceajaxController extends \yii\web\Controller {
                                         $service_schedule->date = date('Y-m-d', strtotime($_POST['date']));
 
                                 $service_schedule->update();
+                        }
+                }
+        }
+
+        /*
+         * add rating
+         */
+
+        public function actionAddrating() {
+                if (Yii::$app->request->isAjax) {
+                        $schedule_id = $_POST['schedule_id'];
+                        $schedule_staff = ServiceSchedule::findOne($schedule_id);
+                        $staff = $schedule_staff->staff;
+                        if (isset($staff) && $staff != '') {
+                                $schedule_staff->rating = $_POST['rating'];
+                                $schedule_staff->update();
+                                $rates = SetValues::Rating($staff, '');
+                        }
+                }
+        }
+
+        /*
+         * update schedule status
+         */
+
+        public function actionStatusupdate() {
+                if (Yii::$app->request->isAjax) {
+                        $schedule_id = $_POST['schedule_id'];
+                        $status = $_POST['status'];
+                        $schedule = ServiceSchedule::findOne($schedule_id);
+                        if (isset($schedule->staff) && $schedule->staff != '') {
+                                $schedule->status = $status;
+                                $schedule->update();
+                                if ($status == 2 || $status == 4) {
+                                        $taff_exists = ServiceSchedule::find()->where(['staff' => $schedule->staff, 'status' => 1])->exists();
+                                        if ($taff_exists != '1') {
+                                                $staff_status = StaffInfo::findOne($schedule->staff);
+                                                $staff_status->working_status = 0;
+                                                $staff_status->update();
+                                        }
+                                }
                         }
                 }
         }
@@ -271,20 +324,39 @@ class ServiceajaxController extends \yii\web\Controller {
 
         public function actionSelectedstaff() {
                 if (Yii::$app->request->isAjax) {
+                        $type = $_POST['type'];
                         $staff = $_POST['staff'];
-                        $service_id = $_POST['service_id'];
-                        if (isset($service_id)) {
-                                $schedules = ServiceSchedule::find()->where(['service_id' => $service_id, 'status' => 0])->all();
-                                foreach ($schedules as $value) {
-                                        $value->staff = $staff;
-                                        $value->update();
+                        if ($type == 1) {
+                                $service_id = $_POST['service_id'];
+                                if (isset($service_id)) {
+                                        $schedules = ServiceSchedule::find()->where(['service_id' => $service_id])->andWhere(['<>', 'status', '2'])->all();
+                                        foreach ($schedules as $value) {
+                                                $this->StaffStatus($value->staff, 0);
+                                                $value->staff = $staff;
+                                                $value->update();
+                                        }
+                                        $this->StaffStatus($staff, 1);
                                 }
-                                $staff_status_update = StaffInfo::findOne($staff);
-                                $staff_status_update->working_status = 1;
-                                $staff_status_update->update();
-                                echo $staff_status_update->staff_name;
+                        } else {
+                                $schedule_id = $_POST['schedule_id'];
+                                $schedule = ServiceSchedule::findOne($schedule_id);
+                                $old_staff = $schedule->staff;
+                                $schedule->staff = $staff;
+                                $schedule->update();
+                                $this->StaffStatus($staff, 1);
+
+                                $old_staff_exists = ServiceSchedule::find()->where(['staff' => $old_staff])->exists();
+                                if ($old_staff_exists != '1') {
+                                        $this->StaffStatus($old_staff, 0);
+                                }
                         }
                 }
+        }
+
+        public function StaffStatus($id, $status) {
+                $staff_status_update = StaffInfo::findOne($id);
+                $staff_status_update->working_status = $status;
+                $staff_status_update->update();
         }
 
         /* popup content for staff replacement */
@@ -365,10 +437,10 @@ class ServiceajaxController extends \yii\web\Controller {
                                         $night_schedule = new ServiceSchedule();
                                         $day_schedule->service_id = $service_id;
                                         $day_schedule->patient_id = $patient_id;
-                                        $day_schedule->status = 0;
+                                        $day_schedule->status = 1;
                                         $night_schedule->service_id = $service_id;
                                         $night_schedule->patient_id = $patient_id;
-                                        $night_schedule->status = 0;
+                                        $night_schedule->status = 1;
                                         $night_schedule->save(false);
                                         $day_schedule->save(false);
                                 }
@@ -377,7 +449,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                         $schedule = new ServiceSchedule();
                                         $schedule->service_id = $service_id;
                                         $schedule->patient_id = $patient_id;
-                                        $schedule->status = 0;
+                                        $schedule->status = 1;
                                         $schedule->save(false);
                                 }
                         }

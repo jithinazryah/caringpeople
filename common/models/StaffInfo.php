@@ -259,7 +259,10 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
         }
 
         public function getNamePost() {
-                return $this->staff_name . "(" . $this->post->post_name . ")";
+                if (isset($this->post))
+                        return $this->staff_name . "(" . $this->post->post_name . ")";
+                else
+                        return $this->staff_name;
         }
 
         public function getFullName() {
@@ -284,6 +287,26 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 }
 
                 return $designations;
+        }
+
+        public function Skills($skills) {
+
+                $skill = explode(',', $skills);
+                $skills = '';
+                $i = 0;
+                if (!empty($skill)) {
+                        foreach ($skill as $des) {
+
+                                if ($i != 0) {
+                                        $skills .= ',';
+                                }
+                                $skill_name = StaffExperienceList::findOne($des);
+                                $skills .= $skill_name->title;
+                                $i++;
+                        }
+                }
+
+                return $skills;
         }
 
         public function getIdPost() {

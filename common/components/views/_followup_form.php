@@ -147,7 +147,7 @@ if ($type == 5) {
 
 <div class='col-md-12 col-sm-6 col-xs-12' >
         <div class="form-group" >
-                <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Create', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Create', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
 
         </div>
 </div>
