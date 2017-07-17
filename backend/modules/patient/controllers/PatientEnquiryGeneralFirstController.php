@@ -160,6 +160,11 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $patient_info->id])->one();
                 $patient_assessment = PatientAssessment::find()->where(['patient_enquiry_id' => $patient_info->id])->one();
                 $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $patient_info->id]);
+                if (empty($patient_assessment)) {
+                        $patient_assessment = new PatientAssessment();
+                        $patient_assessment->patient_enquiry_id = $id;
+                        $patient_assessment->save();
+                }
 
 
                 if (!empty($patient_info) && !empty($patient_info_second) && !empty($patient_hospital) && !empty($patient_hospital_second)) {

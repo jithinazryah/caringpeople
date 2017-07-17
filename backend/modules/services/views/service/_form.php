@@ -70,6 +70,11 @@ use yii\db\Expression;
                         <span class="rate-card-update-error" style="color:red;position: absolute;top: 75px;display:none">Please update rate card rates! <a class="update-rate-card" style="color:#0e62c7;cursor: pointer;text-decoration: underline">Update Now</a></span>
                 </div>
 
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="day_night_staff">
+                        <?= $form->field($model, 'day_night_staff')->radioList(array('1' => 'Same Staff', 2 => 'Different Staff')); ?>
+
+                </div>
+
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd service-frequency'>
                         <?= $form->field($model, 'frequency')->dropDownList(['' => '-Select--', '1' => 'Daily', '2' => 'Weekly', '3' => 'Monthly']) ?>
                 </div>

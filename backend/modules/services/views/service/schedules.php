@@ -114,29 +114,36 @@ use common\models\StaffInfo;
 
 
                                                 <td>
-                                                        <input type="text" class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>" value="<?php
-                                                        if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
-                                                                echo $value->remarks_from_manager;
-                                                        }
-                                                        ?>">
+                                                        <textarea class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>"><?php
+                                                                if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
+                                                                        echo $value->remarks_from_manager;
+                                                                }
+                                                                ?>
+                                                        </textarea>
                                                 </td>
 
 
                                                 <td>
-                                                        <input type="text" class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>" value="<?php
-                                                        if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
-                                                                echo $value->remarks_from_staff;
-                                                        }
-                                                        ?>">
+
+                                                        <textarea class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>">
+                                                                <?php
+                                                                if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
+                                                                        echo $value->remarks_from_staff;
+                                                                }
+                                                                ?>
+                                                        </textarea>
                                                 </td>
 
 
                                                 <td>
-                                                        <input type="text" class="form-control schedule-update" name="remarks_from_patient" id="remarks_from_patient-<?= $value->id; ?>" value="<?php
-                                                        if (isset($value->remarks_from_patient) && $value->remarks_from_patient != '') {
-                                                                echo $value->remarks_from_patient;
-                                                        }
-                                                        ?>">
+
+                                                        <textarea class="form-control schedule-update" name="remarks_from_patient" id="remarks_from_patient-<?= $value->id; ?>">
+                                                                <?php
+                                                                if (isset($value->remarks_from_patient) && $value->remarks_from_patient != '') {
+                                                                        echo $value->remarks_from_patient;
+                                                                }
+                                                                ?>
+                                                        </textarea>
                                                 </td>
 
 

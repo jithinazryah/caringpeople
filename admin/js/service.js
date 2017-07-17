@@ -218,11 +218,16 @@ $("document").ready(function () {
         $('.service-frequency').hide();
         $('.service-hours').hide();
         $('.service-days').hide();
+        $('#day_night_staff').hide();
 
         $('#service-duty_type').change(function () {
                 $('.service-frequency').show();
                 FrequencyChange();
+                if ($(this).val() == '5')
+                        $('#day_night_staff').show();
         });
+
+
 
         /*
          * show hours/days on frequency change
@@ -245,6 +250,10 @@ $("document").ready(function () {
         if (duty_type) {
                 $('.service-frequency').show();
                 FrequencyChange();
+                if (duty_type == '5')
+                        $('#day_night_staff').show();
+
+
         }
 
         /********************************************************  Service  **********************************************/

@@ -123,12 +123,12 @@ class ServiceajaxController extends \yii\web\Controller {
                          * if frequency == daily snd duty type= day or night
                          */
                         if ($frequency == 1 && $duty_type == 3 || $duty_type == 4 || $duty_type == 5) {
-                                die('if');
+
                                 if (isset($ratecard->$type)) {
                                         $price = $days * $ratecard->$type;
                                 }
                         } else {
-                                die('else');
+
                                 $total_hours = $hours * $days;
                                 if (isset($ratecard->$type)) {
                                         $price = $total_hours * $ratecard->$type;

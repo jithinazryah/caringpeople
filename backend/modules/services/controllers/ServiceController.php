@@ -178,18 +178,27 @@ class ServiceController extends Controller {
                 }
 
                 if ($model->duty_type == 5) {
-
-                        for ($x = 1; $x <= $schedule_count; $x++) {
-                                $day_schedule = new ServiceSchedule();
-                                $night_schedule = new ServiceSchedule();
-                                $day_schedule->service_id = $model->id;
-                                $day_schedule->patient_id = $model->patient_id;
-                                $day_schedule->status = 0;
-                                $night_schedule->service_id = $model->id;
-                                $night_schedule->patient_id = $model->patient_id;
-                                $night_schedule->status = 1;
-                                $night_schedule->save(false);
-                                $day_schedule->save(false);
+                        if ($model->day_night_staff == 2) {
+                                for ($x = 1; $x <= $schedule_count; $x++) {
+                                        $day_schedule = new ServiceSchedule();
+                                        $night_schedule = new ServiceSchedule();
+                                        $day_schedule->service_id = $model->id;
+                                        $day_schedule->patient_id = $model->patient_id;
+                                        $day_schedule->status = 1;
+                                        $night_schedule->service_id = $model->id;
+                                        $night_schedule->patient_id = $model->patient_id;
+                                        $night_schedule->status = 1;
+                                        $night_schedule->save(false);
+                                        $day_schedule->save(false);
+                                }
+                        } else {
+                                for ($x = 1; $x <= $schedule_count; $x++) {
+                                        $day_schedule = new ServiceSchedule();
+                                        $day_schedule->service_id = $model->id;
+                                        $day_schedule->patient_id = $model->patient_id;
+                                        $day_schedule->status = 1;
+                                        $day_schedule->save(false);
+                                }
                         }
                 } else {
 

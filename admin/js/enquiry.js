@@ -370,23 +370,23 @@ $("document").ready(function () {
 
         $('#address_id').on('change', function (e) {
                 if (this.checked) {
-                        var address = $("#patientguardiandetails-permanent_address").val();
-                        var landmark = $("#patientguardiandetails-landmark").val();
-                        var pincode = $("#patientguardiandetails-pincode").val();
-                        var contact_number = $("#patientguardiandetails-contact_number").val();
-                        var email = $("#patientguardiandetails-email").val();
-                        $("#patientgeneral-present_address").val(address);
-                        $("#patientgeneral-landmark").val(landmark);
-                        $("#patientgeneral-pin_code").val(pincode);
-                        $("#patientgeneral-contact_number").val(contact_number);
-                        $("#patientgeneral-email").val(email);
+                        var address = $("#patientgeneral-present_address").val();
+                        var landmark = $("#patientgeneral-landmark").val();
+                        var pincode = $("#patientgeneral-pin_code").val();
+                        var contact_number = $("#patientgeneral-contact_number").val();
+                        var email = $("#patientgeneral-email").val();
+                        $("#patientguardiandetails-permanent_address").val(address);
+                        $("#patientguardiandetails-landmark").val(landmark);
+                        $("#patientguardiandetails-pincode").val(pincode);
+                        $("#patientguardiandetails-contact_number").val(contact_number);
+                        $("#patientguardiandetails-email").val(email);
                 }
                 if (!this.checked) {
-                        $("#patientgeneral-present_address").val('');
-                        $("#patientgeneral-landmark").val('');
-                        $("#patientgeneral-pin_code").val('');
-                        $("#patientgeneral-contact_number").val('');
-                        $("#patientgeneral-email").val('');
+                        $("#patientguardiandetails-permanent_address").val('');
+                        $("#patientguardiandetails-landmark").val('');
+                        $("#patientguardiandetails-pincode").val('');
+                        $("#patientguardiandetails-contact_number").val('');
+                        $("#patientguardiandetails-email").val('');
                 }
         });
 

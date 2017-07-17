@@ -17,10 +17,38 @@ use common\models\MasterDesignations;
 <?php $posts = \common\models\AdminPosts::find()->orderBy(['post_name' => SORT_ASC])->all(); ?>
 
 <div class="staff-info-form form-inline">
-    
-        
-    
-    
+
+
+        <div class="row">
+                <div class="col-md-8">
+                        <h4 class="h4-labels"></h4>
+
+                </div>
+                <?php
+                $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $model->id;
+                if (count(glob("{$path}/*")) > 0) {
+                        foreach (glob("{$path}/*") as $file) {
+                                $arry = explode('/', $file);
+                                $img_nmee = end($arry);
+                                $img_nam = explode('.', $img_nmee);
+
+                                if ($img_nam[0] == 'Profile Image') {
+                                        ?>
+                                        <div class="col-md-4 disp-image" id="patient_image">
+                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $model->id . '/' . $img_nmee ?>"/>
+                                        </div>
+
+                                        <?php
+                                }
+                        }
+                }
+                ?>
+
+
+
+
+        </div>
+
 
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'staff_id')->textInput(['maxlength' => true]) ?>
 
@@ -80,7 +108,7 @@ use common\models\MasterDesignations;
                             'name' => 'StaffInfo[dob]',
                             'type' => DatePicker::TYPE_INPUT,
                             'value' => $model->dob,
-                            'id'=>'dob',
+                            'id' => 'dob',
                             'pluginOptions' => [
                                 'autoclose' => true,
                                 'format' => 'dd-mm-yyyy',
@@ -91,7 +119,7 @@ use common\models\MasterDesignations;
 
                 </div>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'age')->textInput(['maxlength' => true,'id'=>'age']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'age')->textInput(['maxlength' => true, 'id' => 'age']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>  <?php $religion = Religion::find()->where(['status' => '1'])->orderBy(['religion' => SORT_ASC])->all(); ?>  <?= $form->field($model, 'religion')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control religion-change']) ?>
 
@@ -223,7 +251,7 @@ use common\models\MasterDesignations;
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
-                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--','id' => 'atachment_' . $rand]); ?>
+                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
                                         <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
 
                                 </div>

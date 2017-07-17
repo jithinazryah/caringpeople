@@ -19,10 +19,143 @@ use common\models\Branch;
 
         <div class="row">
 
+
+                <div class="row">
+                        <div class="col-md-8">
+                                <h4 class="h4-labels">Patient Details</h4>
+                                <hr class="enquiry-hr"/>
+                        </div>
+                        <?php
+                        if ($patient_general->patient_image != '') {
+                                $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
+                                ?>
+
+                                <div class="col-md-4 disp-image" id="patient_image">
+                                        <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/patient_image.' . $patient_general->patient_image; ?> "/>
+                                        <a title="Delete Patient Image"><i class="fa fa-remove img-removes" style="cursor: pointer;float: right" id="<?= $patient_general->id . "-" . 'patient_image.' . $patient_general->patient_image . "-patient_image" ?>"></i></a>
+                                </div>
+
+
+                        <?php }
+                        ?>
+                </div>
+
+
+
+
+
+
+                <div class="row">
+
+
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($patient_general, 'patient_id')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($patient_general, 'patient_old_id')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'first_name')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'last_name')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>     <?= $form->field($patient_general, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'age')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?php
+                                if (!$patient_general->isNewRecord) {
+                                        $patient_general->dob = date('d-m-Y', strtotime($patient_general->dob));
+                                }
+                                ?>
+                                <?=
+                                DatePicker::widget([
+                                    'model' => $patient_general,
+                                    'form' => $form,
+                                    'type' => DatePicker::TYPE_INPUT,
+                                    'attribute' => 'dob',
+                                    'pluginOptions' => [
+                                        'autoclose' => true,
+                                        'format' => 'dd-mm-yyyy',
+                                    ]
+                                ]);
+                                ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'weight')->textInput() ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'blood_group')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'present_address')->textarea(['rows' => 1]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'pin_code')->textInput() ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'landmark')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'contact_number')->textInput() ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'email')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd' >
+                                <?php $managers = \common\models\StaffInfo::find()->where(['post_id' => 6])->orderBy(['staff_name' => SORT_ASC])->all(); ?>
+                                <?= $form->field($patient_general, 'staff_manager')->dropDownList(ArrayHelper::map($managers, 'id', 'staff_name'), ['prompt' => '--Select--']) ?>
+
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($patient_general, 'status')->dropDownList(['1' => 'Active', '2' => 'Closed', '3' => 'Pending', '4' => 'Deceased']) ?>
+
+                        </div>
+
+                        <?php
+                        if (Yii::$app->user->identity->branch_id == '0') {
+                                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
+                                ?>
+                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                                </div>
+                        <?php } ?>
+
+
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($patient_general, 'patient_image')->fileInput() ?>
+
+                        </div>
+
+
+
+
+                </div>
+
+
+
+                <div style="clear:both"></div>
+
+
+
+
+
                 <h4 class="h4-labels">Guardian Details</h4>
                 <hr class="enquiry-hr"/>
 
-
+                <div class="row">
+                        <input type="checkbox" id="address_id" name="check" checkvalue="1" uncheckValue="0"><label style="color:black;font-weight:bold; margin-left: 5px;"> Guardian address and patient address are same</label>
+                </div>
 
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
@@ -47,6 +180,7 @@ use common\models\Branch;
                         <?= $form->field($model, 'nationality')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
 
                 </div>
+
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'occupatiion')->textInput(['maxlength' => true]) ?>
 
                 </div>
@@ -124,126 +258,15 @@ use common\models\Branch;
                         ?>
                 </div>
 
-        </div>
-        <h4 class="h4-labels">Patients Details</h4>
-        <hr class="enquiry-hr"/>
-
-        <div class="row">
-                <input type="checkbox" id="address_id" name="check" checkvalue="1" uncheckValue="0"><label style="color:black;font-weight:bold; margin-left: 5px;"> Guardian address and patient address are same</label>
-        </div>
-
-        <div class="row">
-
-
-
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($patient_general, 'patient_id')->textInput(['maxlength' => true]) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($patient_general, 'patient_old_id')->textInput(['maxlength' => true]) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'first_name')->textInput(['maxlength' => true]) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'last_name')->textInput(['maxlength' => true]) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>     <?= $form->field($patient_general, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'age')->textInput(['maxlength' => true]) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?php
-                        if (!$patient_general->isNewRecord) {
-                                $patient_general->dob = date('d-m-Y', strtotime($patient_general->dob));
-                        }
-                        ?>
-                        <?=
-                        DatePicker::widget([
-                            'model' => $patient_general,
-                            'form' => $form,
-                            'type' => DatePicker::TYPE_INPUT,
-                            'attribute' => 'dob',
-                            'pluginOptions' => [
-                                'autoclose' => true,
-                                'format' => 'dd-mm-yyyy',
-                            ]
-                        ]);
-                        ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'weight')->textInput() ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'blood_group')->textInput(['maxlength' => true]) ?>
-
-                </div>
-
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'present_address')->textarea(['rows' => 1]) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'pin_code')->textInput() ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'landmark')->textInput(['maxlength' => true]) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'contact_number')->textInput() ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_general, 'email')->textInput(['maxlength' => true]) ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd' >
-                        <?php $managers = \common\models\StaffInfo::find()->where(['post_id' => 6])->orderBy(['staff_name' => SORT_ASC])->all(); ?>
-                        <?= $form->field($patient_general, 'staff_manager')->dropDownList(ArrayHelper::map($managers, 'id', 'staff_name'), ['prompt' => '--Select--']) ?>
-
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($patient_general, 'status')->dropDownList(['1' => 'Active', '2' => 'Closed', '3' => 'Pending', '4' => 'Deceased']) ?>
-
-                </div>
-
-                <?php
-                if (Yii::$app->user->identity->branch_id == '0') {
-                        $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
-                        ?>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
-                        </div>
-                <?php } ?>
-
-
-
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($patient_general, 'patient_image')->fileInput() ?>
-
-                </div>
-
-
-                <?php
-                if ($patient_general->patient_image != '') {
-                        $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
-                        //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
-                        ?>
-
-                        <div class="col-md-2" id="patient_image">
-                                <span>Patient Image</span>
-                                <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/patient_image.' . $patient_general->patient_image; ?> " style="width:100px;height: 100px;"/>
-                                <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;left: 220px;top: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . 'patient_image.' . $patient_general->patient_image . "-patient_image" ?>"></i></a>
-                        </div>
-
-                <?php }
-                ?>
                 <div style="clear:both"></div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'terms_conditions', ['template' => "<label class='cbr-inline top'>{input}<a href='javascript:;' target='_blank' href='#' class='terms' id='2'>I agree to the terms and conditions</a></label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;', 'label' => '']) ?>
 
                 </div>
+
         </div>
+
+
+
         <?php /* if ($model->passport != '' || $model->driving_license != '' || $model->pan_card != '' || $model->voters_id != '') { ?>
           <!--                <div class="row">
           <label style="    color: #148eaf;font-size: 19px;margin-left: 14px;">Uploaded Files</label>
