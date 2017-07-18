@@ -71,7 +71,8 @@ class ServiceajaxController extends \yii\web\Controller {
                 $branch = $_POST['branch'];
                 $service = $_POST['service'];
                 if (isset($branch) && $branch != '') {
-                        $rates = RateCard::find()->where(['service_id' => $service, 'branch_id' => $branch, 'status' => 1])->one();
+                        $rates = RateCard::find()->where(['service_id' => $service, 'branch_id' => $branch, 'status' => 1, 'sub_service' => 0])->one();
+
                         if (!empty($rates)) {
                                 $options = '<option value="">-Select-</option>';
                                 $i = 0;

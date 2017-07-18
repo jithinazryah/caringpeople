@@ -58,33 +58,36 @@ $("document").ready(function () {
          */
 
         $(document).on('submit', '#rate-card', function (e) {
+                var action = $('#action').val();
 
-                var branch = $('#ratecard-branch_id').val();
-                var service = $('#ratecard-service_id').val();
-                var sub_service = $('#ratecard-sub_service').val();
+                if (action == '1') {
+                        var branch = $('#ratecard-branch_id').val();
+                        var service = $('#ratecard-service_id').val();
+                        var sub_service = $('#ratecard-sub_service').val();
 
 
-                $.ajax({
-                        url: homeUrl + 'serviceajax/checkratecard',
-                        'async': false,
-                        'type': "POST",
-                        'global': false,
-                        data: {service: service, branch: branch, sub_service: sub_service},
-                        beforeSend: function () {
-                                showLoader();
-                        }
-                })
-                        .done(function (data) {
-                                if (data == 0) {
-                                        return true;
-
-                                } else {
-                                        alert('Rate card is already added for this service and sub service');
-                                        e.preventDefault();
-                                        hideLoader();
-                                        return false;
+                        $.ajax({
+                                url: homeUrl + 'serviceajax/checkratecard',
+                                'async': false,
+                                'type': "POST",
+                                'global': false,
+                                data: {service: service, branch: branch, sub_service: sub_service},
+                                beforeSend: function () {
+                                        showLoader();
                                 }
-                        });
+                        })
+                                .done(function (data) {
+                                        if (data == 0) {
+                                                return true;
+
+                                        } else {
+                                                alert('Rate card is already added for this service and sub service');
+                                                e.preventDefault();
+                                                hideLoader();
+                                                return false;
+                                        }
+                                });
+                }
         });
 
         /*

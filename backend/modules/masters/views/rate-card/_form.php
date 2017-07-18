@@ -8,13 +8,19 @@ use kartik\date\DatePicker;
 use common\models\Branch;
 
 $branch = Branch::branch();
-
+if ($model->isNewRecord)
+        $action = 1;
+else
+        $action = 2;
 /* @var $this yii\web\View */
 /* @var $model common\models\RateCard */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="rate-card-form form-inline">
+
+
+        <input type="hidden" value="<?= $action ?>" id="action">
 
         <?php $form = ActiveForm::begin(['id' => 'rate-card']); ?>
 
