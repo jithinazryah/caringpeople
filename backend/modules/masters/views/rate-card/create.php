@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
 /* @var $model common\models\RateCard */
 
@@ -20,15 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Rate Card</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="rate-card-create">
-                                                <?= $this->render('_form', [
-                                                'model' => $model,
-                                                ]) ?>
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Rate Card</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div class="panel-body">
+                                        <div class="rate-card-create">
+                                                <?=
+                                                $this->render('_form', [
+                                                    'model' => $model,
+                                                ])
+                                                ?>
                                         </div>
                                 </div>
                         </div>
                 </div>
         </div>
 </div>
-                
+

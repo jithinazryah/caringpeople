@@ -75,7 +75,7 @@ class DropdownController extends \yii\web\Controller {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_type, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }
                                         if ($type == 4) {
-                                                $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '2');
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }
                                         if ($type == 5) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '1');

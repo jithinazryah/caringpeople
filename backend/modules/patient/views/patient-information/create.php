@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 ])
                                                 ?>
 
-                                                <?php $form = ActiveForm::begin(); ?>
+                                                <?php $form = ActiveForm::begin(['options' => ['id' => 'patient-form']]); ?>
                                                 <div class="tab-content second-tab">
                                                         <div class="tab-pane active" id="home-3">
 
@@ -125,3 +125,18 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 </div>
 
+<script>
+        var submitted = false;
+        $('#patient-form').submit(function () {
+                submitted = true;
+        });
+
+        $('#patient-form').data('serialize', $('#patient-form').serialize());
+        $(window).bind('beforeunload', function (e) {
+                if ($('#patient-form').serialize() != $('#patient-form').data('serialize') && !submitted)
+                        return true;
+                else
+                        e = null;
+        });
+
+</script>

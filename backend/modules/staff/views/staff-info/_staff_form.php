@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ])
                                                         ?>
 
-                                                        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+                                                        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'id' => 'add-staff-form']]); ?>
                                                         <div class="tab-content second-tab">
                                                                 <div class="tab-pane active" id="home-3">
 
@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             'staff_family' => $staff_family,
                                                                             'staffinfo' => $model,
                                                                             'form' => $form,
-                                                                            'type'=>4,
+                                                                            'type' => 4,
                                                                         ])
                                                                         ?>
                                                                 </div>
@@ -152,28 +152,11 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <script>
-//        $('#form_button').click(function (e) { // using click function
-//                // on contact form submit button
-//                e.preventDefault(); // stop form from submitting right away
-//
-//                var error = false;
-//                $(this).find('.required').each(function () {
-//                        if ($(this).val().length < 1) {
-//                                error = true;
-//                        }
-//                });
-//                if (error == false) {
-//
-//                        var Id = $('.tab-pane.active').attr('id');
-//                        $('#'.Id).removeClass('active');
-//                        $('#home-3').addClass('active'); // you submit form
-//                        $("#w0").submit();
-//                }
-//                if (!error) {
-//                        return true;
-//                }
-//
-//        });
+
+
+
+
+
         $('.ResetPassword').on('click', function () {
                 $('#user_id').val(this.id);
                 $('#modal-reset').modal('show', {backdrop: 'static'});
@@ -209,4 +192,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </script>
 
+<script>
+        var submitted = false;
+        $('#add-staff-form').submit(function () {
+                submitted = true;
+        });
+
+        $('#add-staff-form').data('serialize', $('#add-staff-form').serialize());
+        $(window).bind('beforeunload', function (e) {
+                if ($('#add-staff-form').serialize() != $('#add-staff-form').data('serialize') && !submitted)
+                        return true;
+                else
+                        e = null;
+        });
+
+</script>
 

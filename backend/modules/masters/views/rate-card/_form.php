@@ -20,9 +20,10 @@ else
 <div class="rate-card-form form-inline">
 
 
-        <input type="hidden" value="<?= $action ?>" id="action">
 
         <?php $form = ActiveForm::begin(['id' => 'rate-card']); ?>
+        <input type="hidden" value="<?= $action ?>" id="action">
+
 
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--',]) ?>
 

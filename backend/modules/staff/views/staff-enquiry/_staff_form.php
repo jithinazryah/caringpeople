@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ])
                                                         ?>
 
-                                                        <?php $form = ActiveForm::begin(); ?>
+                                                        <?php $form = ActiveForm::begin(['options' => ['id' => 'add-staff-enq']]); ?>
                                                         <div class="tab-content second-tab">
 
 
@@ -129,3 +129,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
+<script>
+        var submitted = false;
+        $('#add-staff-enq').submit(function () {
+                submitted = true;
+        });
+
+        $('#add-staff-enq').data('serialize', $('#add-staff-enq').serialize());
+        $(window).bind('beforeunload', function (e) {
+                if ($('#add-staff-enq').serialize() != $('#add-staff-enq').data('serialize') && !submitted)
+                        return true;
+                else
+                        e = null;
+        });
+
+</script>
