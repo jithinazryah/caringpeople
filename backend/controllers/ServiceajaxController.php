@@ -33,7 +33,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         $added_services[] = $value->service_id;
                 }
                 $service = \common\models\MasterServiceTypes::find()->where(['not in', 'id', $added_services])->andWhere(['status' => 1])->orderBy(['service_name' => SORT_ASC])->all();
-                $service_options = "<option>--Select--</option>";
+                $service_options = "<option value='0'>--Select--</option>";
                 foreach ($service as $service) {
                         $service_options .= "<option value='" . $service->id . "'>" . $service->service_name . "</option>";
                 }
@@ -42,13 +42,25 @@ class ServiceajaxController extends \yii\web\Controller {
 
         public function actionSubservices() {
 
-                $sub_serv = \common\models\SubServices::find()->where(['service' => $_POST['service'], 'branch_id' => $_POST['branch']])->all();
+                $sub_serv = \common\models\SubServices::find()->where(['branch_id' => $_POST['branch']])->orWhere(['branch_id' => 0])->andWhere(['service' => $_POST['service']])->all();
 
-                $subservice_options = "<option>--Select--</option>";
+                $subservice_options = "<option value='0'>--Select--</option>";
                 foreach ($sub_serv as $service) {
                         $subservice_options .= "<option value='" . $service->id . "'>" . $service->sub_service . "</option>";
                 }
                 echo $subservice_options;
+        }
+
+        public function actionCheckratecard() {
+                $branch = $_POST['branch'];
+                $service = $_POST['service'];
+                $sub_service = $_POST['sub_service'];
+                if (isset($sub_service) && $sub_service != '' && $sub_service != 0) {
+                        $exists = RateCard::find()->where(['service_id' => $service, 'sub_service' => $sub_service, 'branch_id' => $branch])->exists();
+                } else {
+                        $exists = RateCard::find()->where(['service_id' => $service, 'sub_service' => $sub_service, 'branch_id' => $branch])->exists();
+                }
+                echo $exists;
         }
 
         /*
@@ -60,6 +72,45 @@ class ServiceajaxController extends \yii\web\Controller {
                 $service = $_POST['service'];
                 if (isset($branch) && $branch != '') {
                         $rates = RateCard::find()->where(['service_id' => $service, 'branch_id' => $branch, 'status' => 1])->one();
+                        if (!empty($rates)) {
+                                $options = '<option value="">-Select-</option>';
+                                $i = 0;
+                                if (isset($rates->rate_per_hour) && $rates->rate_per_hour != '') {
+                                        $options .= "<option value='1'>Hourly</option>";
+                                        $i++;
+                                } if (isset($rates->rate_per_visit) && $rates->rate_per_visit != '') {
+                                        $options .= "<option value='2'>Visit</option>";
+                                        $i++;
+                                } if (isset($rates->rate_per_day) && $rates->rate_per_day != '') {
+                                        $options .= "<option value='3'>Day</option>";
+                                        $i++;
+                                } if (isset($rates->rate_per_night) && $rates->rate_per_night != '') {
+                                        $options .= "<option value='4'>Night</option>";
+                                        $i++;
+                                } if (isset($rates->rate_per_day_night) && $rates->rate_per_day_night != '') {
+                                        $options .= "<option value='5'>Day & Night</option>";
+                                        $i++;
+                                }
+
+                                if ($i == 0) {
+                                        echo '3';
+                                } else {
+                                        echo $options;
+                                }
+                        } else {
+                                echo '2';
+                        }
+                } else {
+                        echo '1';
+                }
+        }
+
+        public function actionSubdutytype() {
+                $branch = $_POST['branch'];
+                $service = $_POST['service'];
+                $sub_service = $_POST['sub_service'];
+                if (isset($branch) && $branch != '') {
+                        $rates = RateCard::find()->where(['service_id' => $service, 'branch_id' => $branch, 'status' => 1, 'sub_service' => $sub_service])->one();
                         if (!empty($rates)) {
                                 $options = '<option value="">-Select-</option>';
                                 $i = 0;
@@ -106,7 +157,10 @@ class ServiceajaxController extends \yii\web\Controller {
                         $duty_type = $_POST['duty_Type'];
                         $hours = $_POST['hours'];
                         $days = $_POST['days'];
-                        $ratecard = RateCard::find()->where(['service_id' => $_POST['service'], 'branch_id' => $_POST['branch'], 'status' => 1])->one();
+                        $sub_service = $_POST['sub_service'];
+                        if ($sub_service == '')
+                                $sub_service = 0;
+                        $ratecard = RateCard::find()->where(['service_id' => $_POST['service'], 'branch_id' => $_POST['branch'], 'status' => 1, 'sub_service' => $sub_service])->one();
 
                         if ($duty_type == 1) {
                                 $type = 'rate_per_hour';
@@ -331,7 +385,8 @@ class ServiceajaxController extends \yii\web\Controller {
                                 if (isset($service_id)) {
                                         $schedules = ServiceSchedule::find()->where(['service_id' => $service_id])->andWhere(['<>', 'status', '2'])->all();
                                         foreach ($schedules as $value) {
-                                                $this->StaffStatus($value->staff, 0);
+                                                if (isset($value->staff) && $value->staff != '')
+                                                        $this->StaffStatus($value->staff, 0);
                                                 $value->staff = $staff;
                                                 $value->update();
                                         }
@@ -355,8 +410,10 @@ class ServiceajaxController extends \yii\web\Controller {
 
         public function StaffStatus($id, $status) {
                 $staff_status_update = StaffInfo::findOne($id);
-                $staff_status_update->working_status = $status;
-                $staff_status_update->update();
+                if (!empty($staff_status_update)) {
+                        $staff_status_update->working_status = $status;
+                        $staff_status_update->update();
+                }
         }
 
         /* popup content for staff replacement */
@@ -428,21 +485,30 @@ class ServiceajaxController extends \yii\web\Controller {
                         } else {
                                 $schedule_count = $hours * $add_days;
                         }
-
+                        $service = \common\models\Service::findOne($service_id);
 
                         if ($duty_type == 5) {
-
-                                for ($x = 1; $x <= $schedule_count; $x++) {
-                                        $day_schedule = new ServiceSchedule();
-                                        $night_schedule = new ServiceSchedule();
-                                        $day_schedule->service_id = $service_id;
-                                        $day_schedule->patient_id = $patient_id;
-                                        $day_schedule->status = 1;
-                                        $night_schedule->service_id = $service_id;
-                                        $night_schedule->patient_id = $patient_id;
-                                        $night_schedule->status = 1;
-                                        $night_schedule->save(false);
-                                        $day_schedule->save(false);
+                                if ($model->day_night_staff == 2) {
+                                        for ($x = 1; $x <= $schedule_count; $x++) {
+                                                $day_schedule = new ServiceSchedule();
+                                                $night_schedule = new ServiceSchedule();
+                                                $day_schedule->service_id = $service_id;
+                                                $day_schedule->patient_id = $patient_id;
+                                                $day_schedule->status = 1;
+                                                $night_schedule->service_id = $service_id;
+                                                $night_schedule->patient_id = $patient_id;
+                                                $night_schedule->status = 1;
+                                                $night_schedule->save(false);
+                                                $day_schedule->save(false);
+                                        }
+                                } else {
+                                        for ($x = 1; $x <= $schedule_count; $x++) {
+                                                $day_schedule = new ServiceSchedule();
+                                                $day_schedule->service_id = $service_id;
+                                                $day_schedule->patient_id = $patient_id;
+                                                $day_schedule->status = 1;
+                                                $day_schedule->save(false);
+                                        }
                                 }
                         } else {
                                 for ($x = 1; $x <= $schedule_count; $x++) {
@@ -463,15 +529,15 @@ class ServiceajaxController extends \yii\web\Controller {
                         } else if ($frequency == '3') {
                                 $service->to_date = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' months'));
                         }
-                        $service->estimated_price = $this->Calculateprice($service->service, $service->branch_id, $duty_type, $frequency, $hours, $days + $add_days);
+                        $service->estimated_price = $this->Calculateprice($service->service, $service->branch_id, $duty_type, $frequency, $hours, $days + $add_days, $service->sub_service);
                         $service->save(FALSE);
                 }
         }
 
-        public function Calculateprice($service_id, $branch_id, $duty_type, $frequency, $hours, $days) {
+        public function Calculateprice($service_id, $branch_id, $duty_type, $frequency, $hours, $days, $sub_service) {
                 $price = 0;
 
-                $ratecard = RateCard::find()->where(['service_id' => $service_id, 'branch_id' => $branch_id, 'status' => 1])->one();
+                $ratecard = RateCard::find()->where(['service_id' => $service_id, 'branch_id' => $branch_id, 'status' => 1, 'sub_service' => $sub_service])->one();
 
                 if ($duty_type == 1) {
                         $type = 'rate_per_hour';

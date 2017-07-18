@@ -43,7 +43,7 @@ class Service extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['patient_id', 'service', 'staff_id', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff'], 'integer'],
+                        [['patient_id', 'service', 'staff_id', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
                         [['estimated_price', 'frequency', 'hours', 'days'], 'string', 'max' => 255],
                         [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
@@ -67,6 +67,7 @@ class Service extends \yii\db\ActiveRecord {
                     'id' => 'ID',
                     'patient_id' => 'Patient',
                     'service' => 'Service',
+                    'sub_service' => 'Sub Service',
                     'staff_id' => 'Staff',
                     'gender_preference' => 'Staff Gender Preference',
                     'staff_manager' => 'Staff Manager',

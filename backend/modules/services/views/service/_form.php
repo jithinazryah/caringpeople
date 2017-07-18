@@ -50,6 +50,17 @@ use yii\db\Expression;
 
                 </div>
 
+                <?php
+                if (!$model->isNewRecord) {
+                        $sub_services = common\models\SubServices::find()->where(['service' => $model->service])->all();
+                } else {
+                        $sub_services = [];
+                }
+                ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sub_service')->dropDownList(ArrayHelper::map($sub_services, 'id', 'sub_service')) ?>
+
+                </div>
+
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?= $form->field($model, 'gender_preference')->dropDownList(['2' => 'Any', '0' => 'Male', '1' => 'Female']) ?>
                 </div>

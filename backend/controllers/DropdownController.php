@@ -76,7 +76,7 @@ class DropdownController extends \yii\web\Controller {
                                         }
                                         if ($type == 4) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '2');
-                                        } 
+                                        }
                                         if ($type == 5) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }
@@ -151,7 +151,7 @@ class DropdownController extends \yii\web\Controller {
          */
 
         public function actionRatecard() {
-                $form = $this->renderPartial('_ratecard', ['branch' => $_POST['branch'], 'service' => $_POST['service'], 'type' => '1']);
+                $form = $this->renderPartial('_ratecard', ['branch' => $_POST['branch'], 'service' => $_POST['service'], 'type' => '1', 'sub_service' => $_POST['sub_service']]);
                 echo $form;
         }
 
@@ -195,7 +195,7 @@ class DropdownController extends \yii\web\Controller {
          */
 
         public function actionRatecardupdate() {
-                $form = $this->renderPartial('_ratecard', ['branch' => $_POST['branch'], 'service' => $_POST['service'], 'type' => 2]);
+                $form = $this->renderPartial('_ratecard', ['branch' => $_POST['branch'], 'service' => $_POST['service'], 'type' => 2, 'sub_service' => $_POST['sub_service']]);
                 echo $form;
         }
 

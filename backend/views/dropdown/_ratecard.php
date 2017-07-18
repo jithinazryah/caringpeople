@@ -32,9 +32,28 @@ if ($type != 2) {
                         $model->branch_id = $branch;
                         $services = \common\models\MasterServiceTypes::find()->where(['id' => $service])->all();
                         ?>
+
                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd' >    <?= $form->field($model, 'service_id')->dropDownList(ArrayHelper::map($services, 'id', 'service_name')) ?>
 
-                        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'rate_card_name')->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <?php
+                        if (isset($sub_service) && $sub_service != '') {
+                                $sub_services = \common\models\SubServices::find()->where(['id' => $sub_service])->all();
+                                ?>
+                                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sub_service')->dropDownList(ArrayHelper::map($sub_services, 'id', 'sub_service')) ?>
+
+                                </div>
+                                <?php
+                        } else {
+                                ?>
+                                <div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display: none;">    <?= $form->field($model, 'sub_service')->dropDownList(['0' => '--select--']) ?>
+
+                                </div>
+                                <?php
+                        }
+                        ?>
+
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'rate_card_name')->textInput(['maxlength' => true]) ?>
 
                         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'rate_per_hour')->textInput(['maxlength' => true]) ?>
 

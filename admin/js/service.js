@@ -33,24 +33,10 @@ $("document").ready(function () {
         {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
+
         /*
-         * service rate card
+         * show sub service in ratecard
          */
-
-        $('#ratecard-branch_id').change(function () {
-                showLoader();
-                $.ajax({
-                        type: 'POST',
-                        cache: false,
-                        data: {branch: $(this).val()},
-                        url: homeUrl + 'serviceajax/services',
-                        success: function (data) {
-                                $('#ratecard-service_id').html(data);
-                                hideLoader();
-                        }
-                });
-        });
-
         $('#ratecard-service_id').change(function () {
                 showLoader();
                 var branch = $('#ratecard-branch_id').val();
@@ -64,6 +50,41 @@ $("document").ready(function () {
                                 hideLoader();
                         }
                 });
+        });
+
+
+        /*
+         * check this ratecard is already added or not
+         */
+
+        $(document).on('submit', '#rate-card', function (e) {
+
+                var branch = $('#ratecard-branch_id').val();
+                var service = $('#ratecard-service_id').val();
+                var sub_service = $('#ratecard-sub_service').val();
+
+
+                $.ajax({
+                        url: homeUrl + 'serviceajax/checkratecard',
+                        'async': false,
+                        'type': "POST",
+                        'global': false,
+                        data: {service: service, branch: branch, sub_service: sub_service},
+                        beforeSend: function () {
+                                showLoader();
+                        }
+                })
+                        .done(function (data) {
+                                if (data == 0) {
+                                        return true;
+
+                                } else {
+                                        alert('Rate card is already added for this service and sub service');
+                                        e.preventDefault();
+                                        hideLoader();
+                                        return false;
+                                }
+                        });
         });
 
         /*
@@ -101,6 +122,24 @@ $("document").ready(function () {
                 });
         });
 
+        /*
+         * show sub services
+         */
+        $('#service-service').change(function () {
+                showLoader();
+                var branch = $('#service-branch_id').val();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {service: $(this).val(), branch: branch},
+                        url: homeUrl + 'serviceajax/subservices',
+                        success: function (data) {
+                                $('#service-sub_service').html(data);
+                                hideLoader();
+                        }
+                });
+        });
+
 
         /*
          * service show duty type
@@ -118,13 +157,50 @@ $("document").ready(function () {
                                         alert('Please select branch');
                                         $('#service-service').select2('val', '');
                                 } else if (data == '2') {
-                                        var id_attr = branch + "_" + service;
+                                        var id_attr = branch + "_" + service + "_";
                                         $('#service-duty_type').empty();
                                         $('.add-rate-card').attr('id', id_attr);
                                         $('.rate-card-error').show();
                                         $('.rate-card-update-error').hide();
                                 } else if (data == '3') {
-                                        var id_attr = branch + "_" + service;
+                                        var id_attr = branch + "_" + service + "_";
+                                        $('#service-duty_type').empty();
+                                        $('.update-rate-card').attr('id', id_attr);
+                                        $('.rate-card-update-error').show();
+                                        $('.rate-card-error').hide();
+                                } else {
+                                        $('.rate-card-error').hide();
+                                        $('.rate-card-update-error').hide();
+                                        $('#service-duty_type').html(data);
+
+                                }
+                        }
+                });
+        });
+
+
+        $('#service-sub_service').change(function () {
+                var branch = $('#service-branch_id').val();
+                var service = $('#service-service').val();
+                var sub_service = $('#service-sub_service').val();
+                $.ajax({
+                        url: homeUrl + 'serviceajax/subdutytype',
+                        type: 'POST',
+                        data: {service: service, branch: branch, sub_service: sub_service},
+                        success: function (data) {
+
+                                if (data == '1') {
+                                        alert('Please select branch');
+                                        $('#service-service').select2('val', '');
+                                        $('#service-sub_service').val('');
+                                } else if (data == '2') {
+                                        var id_attr = branch + "_" + service + "_" + sub_service;
+                                        $('#service-duty_type').empty();
+                                        $('.add-rate-card').attr('id', id_attr);
+                                        $('.rate-card-error').show();
+                                        $('.rate-card-update-error').hide();
+                                } else if (data == '3') {
+                                        var id_attr = branch + "_" + service + "_" + sub_service;
                                         $('#service-duty_type').empty();
                                         $('.update-rate-card').attr('id', id_attr);
                                         $('.rate-card-update-error').show();
@@ -149,7 +225,7 @@ $("document").ready(function () {
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {branch: type[0], service: type[1]},
+                        data: {branch: type[0], service: type[1], sub_service: type[2]},
                         url: homeUrl + 'dropdown/ratecard',
                         success: function (data) {
                                 $("#modal-pop-up").html(data);
@@ -586,12 +662,13 @@ function EstimatedPrice() {
         var service = $('#service-service').val();
         var branch = $('#service-branch_id').val();
         var duty_Type = $('#service-duty_type').val();
+        var sub_service = $('#service-sub_service').val();
 
         if (frequency && service && branch && duty_Type) {
                 $.ajax({
                         url: homeUrl + 'serviceajax/estimatedprice',
                         type: 'POST',
-                        data: {frequency: frequency, days: days, hours: hours, service: service, branch: branch, duty_Type: duty_Type},
+                        data: {frequency: frequency, days: days, hours: hours, service: service, branch: branch, duty_Type: duty_Type, sub_service: sub_service},
                         success: function (data) {
                                 $('#service-estimated_price').val(data);
                         }
