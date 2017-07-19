@@ -57,7 +57,8 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                     'value' => function($model, $key, $index, $column) {
                                                             return $model->skills($model->staff_experience);
                                                     },
-                                                    'filter' => ArrayHelper::map(\common\models\StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->asArray()->all(), 'id', 'title'),
+                                                    'filter' => Html::activeDropDownList($searchModel, 'staff_experience', ArrayHelper::map(\common\models\StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->asArray()->all(), 'id', 'title'), ['class' => 'form-control', 'multiple' => true]),
+                                                    'filterOptions' => array('id' => "staff_skills_search"),
                                                 ],
                                                 'average_point',
                                                     [
@@ -107,3 +108,17 @@ $designations = \common\models\MasterDesignations::designationlist();
 
 
 
+<script>
+        $(document).ready(function () {
+                $('#staff_skills_search select').attr('id', 'skills_search');
+                $("#skills_search").select2({
+                        placeholder: '',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+
+        });
+</script>

@@ -14,11 +14,15 @@ $("document").ready(function () {
                 var id_attr = $(this).attr('id');
                 var type = id_attr.split('-');
                 var cat_type = $(this).attr('type');
+                if (type[1] == 7)
+                        var category = $('#contactcategory').val();
+                else
+                        var category = '';
 
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'dropdown/showform',
-                        data: {type: type[1], field_id: type[0], cat_type: cat_type},
+                        data: {type: type[1], field_id: type[0], cat_type: cat_type, category: category},
                         success: function (data) {
 
                                 $("#modal-pop-up").html(data);

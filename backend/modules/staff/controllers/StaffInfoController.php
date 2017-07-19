@@ -67,15 +67,15 @@ class StaffInfoController extends Controller {
         }
 
         public function actionChoose($branch = null, $gender = null, $service = null, $type = null, $schedule = null) {
-
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['branch_id' => $branch]);
                 $dataProvider->query->andWhere(['status' => 1]);
 
-                if ($gender == 0) {
+                if ($gender == 0 && $gender != '') {
                         $dataProvider->query->andWhere(['gender' => 0]);
-                } else if ($gender == 1) {
+                } else
+                if ($gender == 1 && $gender != '') {
                         $dataProvider->query->andWhere(['gender' => 1]);
                 } else {
 

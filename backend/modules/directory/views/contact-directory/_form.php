@@ -23,11 +23,12 @@ use yii\helpers\ArrayHelper;
                                 $form->field($model, 'category_type')
                                 ->dropDownList(ArrayHelper::map($categories, 'id', 'category_name'), [
                                     'class' => 'form-control contact_category_change',
+                                    'id' => 'contactcategory',
                                     'prompt' => '--select contact type--'
                                         ]
                                 )
                         ?>
-
+                        <a class="add-option-dropdown add-new" id="contactcategory-6" > + Add New</a>
                 </div>
                 <?php
                 if (!$model->isNewRecord) {
@@ -36,10 +37,10 @@ use yii\helpers\ArrayHelper;
                         $category = [];
                 }
                 ?>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'subcategory_type')->dropDownList(ArrayHelper::map($category, 'id', 'sub_category'), ['prompt' => '--Select--', 'class' => 'form-control subcategory-change']); ?>
-
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'subcategory_type')->dropDownList(ArrayHelper::map($category, 'id', 'sub_category'), ['prompt' => '--Select--', 'class' => 'form-control subcategory-change', 'id' => 'contactsubcategory']); ?>
+                        <a class="add-option-dropdown add-new" id="contactsubcategory-7" > + Add New</a>
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
+                        <a class="add-option-dropdown add-new" id="contactsubcategory-99" style="visibility: hidden;"> + Add New</a>
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email_1')->textInput(['maxlength' => true]) ?>
 
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email_2')->textInput(['maxlength' => true]) ?>

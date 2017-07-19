@@ -24,11 +24,16 @@ if ($type != '') {
                 <?= $form_followup->field($model, 'type')->dropDownList($followuptype, ['prompt' => '--Select--', 'class' => 'form-control followup_type']) ?>
         </div>
 <?php } ?>
+
 <div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'type_id')->hiddenInput(['value' => $type_id])->label(false); ?>
 
-</div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'sub_type')->dropDownList($followup_subtype, ['prompt' => '--Select--', 'class' => 'form-control sub_type', 'id' => 'sub_type']) ?>
+</div>
+
+<div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'sub_type')->dropDownList($followup_subtype, ['prompt' => '--Select--', 'class' => 'form-control sub_type', 'id' => 'sub_type']) ?>
         <a class="add-option-dropdown add-new" id="sub_type-3" type="<?= $type ?>"> + Add New</a>
-</div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+</div>
+
+<div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
         <div class="form-group field-followups-followupdate">
                 <label class="control-label" for="followups-followupdate">Followup Date</label>
                 <?php
@@ -49,6 +54,8 @@ if ($type != '') {
         </div>
 
 </div>
+
+
 <?php
 $all_users = StaffInfo::find()->where(['<>', 'post_id', '5'])->orderBy(['staff_name' => SORT_ASC])->all();
 $data = ArrayHelper::map($all_users, 'id', 'namepost');
@@ -60,9 +67,13 @@ if ($type == '5') {
 
 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'assigned_to')->dropDownList($data, ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'create-assigned_to']) ?>
 
-</div><div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'assigned_to_type')->hiddenInput(['id' => 'assigned_to_type'])->label(false); ?>
+</div>
+
+<div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="display: none">  <?php echo $form_followup->field($model, 'assigned_to_type')->hiddenInput(['id' => 'assigned_to_type'])->label(false); ?>
 
 </div>
+
+
 <?php
 $user = StaffInfo::findOne(Yii::$app->user->identity->id);
 $model->assigned_from = $user->staff_name;
@@ -80,14 +91,15 @@ if ($type == 5) {
         $related_staff = ArrayHelper::map($all_users, 'id', 'namepost');
 }
 ?>
-<div class='col-md-2 col-sm-6 col-xs-12 left_padd'>          <?= $form_followup->field($model, 'related_staffs')->dropDownList($related_staff, ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'create-related_staffs', 'multiple' => 'multiple']) ?>
-
-</div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'attachments')->fileInput(['maxlength' => true]) ?>
+<div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'attachments')->fileInput(['maxlength' => true]) ?>
 
 </div>
 
+<div class='col-md-6 col-sm-6 col-xs-12 left_padd'>          <?= $form_followup->field($model, 'related_staffs')->dropDownList($related_staff, ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'create-related_staffs', 'multiple' => 'multiple']) ?>
 
-<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'followup_notes')->textArea(['rows' => 1]) ?>
+</div>
+
+<div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'followup_notes')->textArea(['rows' => 1]) ?>
 
 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'repeated')->checkBox(['id' => 'repeated_followups']); ?>
 

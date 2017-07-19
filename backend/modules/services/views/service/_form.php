@@ -69,7 +69,12 @@ use yii\db\Expression;
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?php
                         if (!$model->isNewRecord) {
-                                $rates = \common\models\RateCard::find()->where(['service_id' => $model->service, 'branch_id' => $model->branch_id, 'status' => 1])->one();
+                                if (isset($model->sub_service) && $model->sub_service != '' && $model->sub_service != 0) {
+
+                                        $rates = \common\models\RateCard::find()->where(['service_id' => $model->service, 'branch_id' => $model->branch_id, 'status' => 1, 'sub_service' => $model->sub_service])->one();
+                                } else {
+                                        $rates = \common\models\RateCard::find()->where(['service_id' => $model->service, 'branch_id' => $model->branch_id, 'status' => 1, 'sub_service' => 0])->one();
+                                }
                                 $data = Yii::$app->SetValues->Dutytype($rates);
                         } else {
                                 $data = [];

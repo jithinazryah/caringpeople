@@ -28,15 +28,17 @@ class DropdownController extends \yii\web\Controller {
                 if ($type == '1') { /* add hospital */
                         $form = $this->renderPartial('_hospital', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 } else if ($type == 2) { /* add remarks category */
-
                         $form = $this->renderPartial('_remark_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'cat_type' => $_POST['cat_type']]);
                 } else if ($type == 3) { /* add followups category */
-
                         $form = $this->renderPartial('_followup_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'cat_type' => $_POST['cat_type']]);
                 } else if ($type == 4) { /* add staff skills */
                         $form = $this->renderPartial('_skills', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 } else if ($type == 5) { /* add upload category */
                         $form = $this->renderPartial('_upload_category', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                } else if ($type == 6) { /* add contact directory category */
+                        $form = $this->renderPartial('_contact_category', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                } else if ($type == 7) { /* add contact directory sub category */
+                        $form = $this->renderPartial('_contact_sub_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'category' => $_POST['category']]);
                 }
 
                 echo $form;
@@ -60,6 +62,10 @@ class DropdownController extends \yii\web\Controller {
                                 $model = new \common\models\StaffExperienceList();
                         } else if ($type == 5) {
                                 $model = new \common\models\UploadCategory();
+                        } else if ($type == 6) {
+                                $model = new \common\models\ContactCategoryTypes();
+                        } else if ($type == 7) {
+                                $model = new \common\models\ContactSubcategory();
                         }
                         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                                 $model->status = 1;
@@ -78,6 +84,12 @@ class DropdownController extends \yii\web\Controller {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }
                                         if ($type == 5) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '1');
+                                        }
+                                        if ($type == 6) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->category_name, 'field_id' => $_POST['field_id'], 'type' => '1');
+                                        }
+                                        if ($type == 7) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }
                                         $data['result'] = $arr_variable;

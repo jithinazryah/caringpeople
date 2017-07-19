@@ -279,9 +279,10 @@ class ServiceajaxController extends \yii\web\Controller {
                                 if ($status == 2 || $status == 4) {
                                         $taff_exists = ServiceSchedule::find()->where(['staff' => $schedule->staff, 'status' => 1])->exists();
                                         if ($taff_exists != '1') {
-                                                $staff_status = StaffInfo::findOne($schedule->staff);
-                                                $staff_status->working_status = 0;
-                                                $staff_status->update();
+                                                $this->StaffStatus($schedule->staff, 0);
+                                                $service_detail = \common\models\Service::findOne($schedule->service_id);
+                                                $service_detail->service_staffs = $this->Servicestaffs($schedule->service_id);
+                                                $service_detail->update(FALSE);
                                         }
                                 }
                         }
@@ -392,6 +393,9 @@ class ServiceajaxController extends \yii\web\Controller {
                                                 $value->update();
                                         }
                                         $this->StaffStatus($staff, 1);
+                                        $service_detail = \common\models\Service::findOne($service_id);
+                                        $service_detail->service_staffs = $this->Servicestaffs($service_id);
+                                        $service_detail->update(FALSE);
                                 }
                         } else {
                                 $schedule_id = $_POST['schedule_id'];
@@ -400,6 +404,9 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $schedule->staff = $staff;
                                 $schedule->update();
                                 $this->StaffStatus($staff, 1);
+                                $service_detail = \common\models\Service::findOne($schedule->service_id);
+                                $service_detail->service_staffs = $this->Servicestaffs($schedule->service_id);
+                                $service_detail->update(FALSE);
 
                                 $old_staff_exists = ServiceSchedule::find()->where(['staff' => $old_staff])->exists();
                                 if ($old_staff_exists != '1') {
@@ -566,6 +573,22 @@ class ServiceajaxController extends \yii\web\Controller {
                 }
 
                 return $price;
+        }
+
+        public function Servicestaffs($service) {
+                $schedules = ServiceSchedule::find()->where(['service_id' => $service])->andWhere(['<>', 'status', '2'])->all();
+                $i = 0;
+                $id = '';
+                foreach ($schedules as $value) {
+                        if ($i != 0) {
+                                $id .= ',';
+                        }
+                        if (isset($value->staff))
+                                $id .= $value->staff;
+
+                        $i++;
+                }
+                return $id;
         }
 
 }

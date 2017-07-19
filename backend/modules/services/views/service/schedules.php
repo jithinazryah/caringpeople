@@ -43,7 +43,7 @@ use common\models\StaffInfo;
                 <table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                                 <tr>
-                                        <th>No</th>
+                                        <th style="width:10px;">No</th>
                                         <th>Date</th>
                                         <th>Staff on duty</th>
                                         <th>Remarks from manager</th>
@@ -149,7 +149,7 @@ use common\models\StaffInfo;
 
 
                                                 <td>
-                                                        <select name="status" id="<?= $value->id; ?>" class="form-control schedule-update status-update">
+                                                        <select name="status" id="status_<?= $value->id; ?>" class="form-control schedule-update status-update">
 
                                                                 <option value="1" <?php
                                                                 if ($value->status == '1') {

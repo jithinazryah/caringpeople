@@ -308,6 +308,9 @@ $("document").ready(function () {
                 FrequencyChange();
                 if ($(this).val() == '5')
                         $('#day_night_staff').show();
+                else
+                        $('#day_night_staff').hide();
+
         });
 
 
@@ -409,15 +412,23 @@ $("document").ready(function () {
 
         $('.status-update').change(function () {
                 var status = $(this).val();
-                var schedule_id = $(this).attr('id');
-                $.ajax({
-                        type: 'POST',
-                        url: homeUrl + 'serviceajax/statusupdate',
-                        data: {schedule_id: schedule_id, status: status},
-                        success: function (data) {
+                var idd_atr = $(this).attr('id');
+                var schedule_id = idd_atr.split('_');
+                var date = $('#schedule_date-' + schedule_id[1]).val();
+                if (date && date != '') {
 
-                        }
-                });
+                        $.ajax({
+                                type: 'POST',
+                                url: homeUrl + 'serviceajax/statusupdate',
+                                data: {schedule_id: schedule_id, status: status},
+                                success: function (data) {
+
+                                }
+                        });
+                } else {
+                        $('#' + idd_atr + ' option[value=1]').prop("selected", "selected");
+                        alert('Please select a date for this schedule');
+                }
         });
 
         /*
