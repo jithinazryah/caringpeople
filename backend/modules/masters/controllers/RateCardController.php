@@ -35,6 +35,9 @@ class RateCardController extends Controller {
         public function actionIndex() {
                 $searchModel = new RateCardSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                if (Yii::$app->user->identity->branch_id != '0') {
+                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,

@@ -61,8 +61,18 @@ use common\models\StaffInfo;
                                 $p = 0;
                                 foreach ($service_schedule as $value) {
                                         $p++;
+                                        if (isset($value->date) && $value->date != '') {
+                                                $dead_date = date('d-m-Y', strtotime($value->date . ' +2 days'));
+                                                $today_date = date('Y-m-d');
+                                                if ($today_date >= $dead_date)
+                                                        $style = "pointer-events:none;";
+                                                else
+                                                        $style = '';
+                                        } else {
+                                                $style = '';
+                                        }
                                         ?>
-                                        <tr id="<?= $value->id; ?>" style="text-align:center">
+                                        <tr style="<?= $style; ?>" id="<?= $value->id; ?>" style="text-align:center">
                                                 <td><?= $p; ?></td>
 
                                                 <td><?php
@@ -295,6 +305,9 @@ use common\models\StaffInfo;
         }
         table td .sorting_1{
                 text-align: center !important;
+        }
+        #example-1_filter{
+                display: none;
         }
 
 </style>

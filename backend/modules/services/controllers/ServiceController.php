@@ -85,9 +85,10 @@ class ServiceController extends Controller {
                         $model->to_date = date('Y-m-d', strtotime($model->to_date));
                         $branch_details = Branch::find()->where(['id' => $model->branch_id])->one();
                         $service_type = $this->ServiceType($model->service);
-                        $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y');
-                        $model->service_id = $code;
                         if ($model->validate() && $model->save()) {
+                                $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y') . '-' . $model->id;
+                                $model->service_id = $code;
+                                $model->update();
                                 $this->ServiceSchedule($model);
                                 return $this->redirect(['update', 'id' => $model->id]);
                         }
