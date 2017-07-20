@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'value' => function($model, $key, $index, $column) {
                                                         return $model->service($model->id);
                                                 },
-                                                'filter' => [1 => 'Doctor Visit', 2 => 'Nursing Care', 3 => 'Physiotherapy', 5 => 'Caregiver', 4 => 'Helath Checkup', 6 => 'Lab', 7 => 'Equipment', 8 => 'Other', 9 => 'General Enquiry', 10 => 'Wrong Number '],
+                                                'filter' => ArrayHelper::map(common\models\MasterServiceTypes::find()->where(['status' => 1])->asArray()->all(), 'id', 'service_name'),
                                             ],
                                                 [
                                                 'attribute' => 'whatsapp_reply',
@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'filter' => ArrayHelper::map($branch, 'id', 'branch_name'),
                                             ],
                                                 ['class' => 'yii\grid\ActionColumn',
-                                                'template' => '{update}{delete}',
+                                                'template' => '{view}{update}{delete}',
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;

@@ -25,599 +25,638 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry </span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="patient-enquiry-general-first-view">
+                                <div class="panel-body">
+                                        <div class="patient-enquiry-general-first-view">
+
 
 
                                                 <div id="pdf">
-
-
-                                                        <style type="text/css">
-
-                                                                @media print {
-                                                                        thead {display: table-header-group;}
-                                                                        .table th{ background-color: rgba(155, 156, 157, 0.5);}
-                                                                }
-                                                                @page {
-                                                                        size: A4;
-                                                                }
-
-                                                                @media screen{
-                                                                        .main-tabl{
-                                                                                width: 42%;
-                                                                        }
-                                                                }
+                                                        <style>
                                                                 .print{
                                                                         text-align: center;
                                                                         margin-top: 18px;
                                                                 }
-
-                                                                tfoot{display: table-footer-group;}
-                                                                table { page-break-inside:auto;}
-                                                                tr{ page-break-inside:avoid; page-break-after:auto; }
-
-                                                                table.table{
-                                                                        border: .1px solid #969696;
-                                                                        border-collapse: collapse;
-                                                                        margin: auto;
-                                                                        color:#000;
-
-                                                                }
-                                                                .table th {
-                                                                        border: 1px solid #969696;
-                                                                        color: #525252;
-                                                                        font-weight: bold;
-                                                                }
-                                                                .table td {
-                                                                        border: .1px solid #969696;
-                                                                        font-size: 12px;
-                                                                        text-align: center;
-                                                                        padding: 3px;
-                                                                }
-                                                                .header{
-                                                                        font-size: 12.5px;
-                                                                        display: inline-block;
+                                                                .appoint{
                                                                         width: 100%;
+                                                                        /*     background-color: #eeeeee;*/
                                                                 }
-                                                                .main-left{
-                                                                        float: left;
-                                                                }
-
-                                                                .label_sty{
-                                                                        float: left;
-                                                                }
-                                                                .data_sty{
-                                                                        float: left;
-                                                                        padding: 0px 18px;
-                                                                        border-bottom: 1px solid black;
+                                                                .value{
                                                                         font-weight: bold;
-                                                                        margin-left: 10px;
-                                                                        text-align: center;
-                                                                        min-height: 30px;
+                                                                        text-align: left;
                                                                 }
+                                                                .appoint .labell{
+                                                                        text-align: left;
+                                                                }
+                                                                .appoint .colen{
 
-
-
-
+                                                                }
+                                                                .appoint td{
+                                                                        padding: 10px;
+                                                                }
+                                                                table th{
+                                                                        color:black;
+                                                                }
+                                                                table td{
+                                                                        color:black;
+                                                                }
+                                                                .sales-master{
+                                                                        margin-bottom: 40px;
+                                                                }
+                                                                .sales-details{
+                                                                        margin-bottom: 40px;
+                                                                }
+                                                                h4{
+                                                                        color: #2196F3;
+                                                                }
+                                                                .label-class{
+                                                                        font-weight: bold;
+                                                                }
                                                         </style>
 
 
-                                                        <table class="main-tabl table table-responsive" border="0"  style="line-height:30px;">
-                                                                <thead>
+                                                        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Enquirer Details</label>
+                                                                        </td>
+
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('caller_name'); ?> <td class="value"> <?= $model->caller_name; ?></td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('caller_gender'); ?></td><td class="value"><?php
+                                                                                if (isset($model->caller_gender)) {
+                                                                                        if ($model->caller_gender == '0') {
+                                                                                                echo 'Male';
+                                                                                        } else if ($model->caller_gender == '1') {
+                                                                                                echo 'Female';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('mobile_number'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->mobile_number)) {
+                                                                                        echo $model->mobile_number;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('mobile_number_2'); ?></td><td class="value"><?php
+                                                                                if (isset($model->mobile_number_2)) {
+                                                                                        echo $model->mobile_number_2;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('mobile_number_3'); ?></td><td class="value"><?php
+                                                                                if (isset($model->mobile_number_3)) {
+                                                                                        echo $model->mobile_number_3;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('referral_source'); ?></td><td class="value"><?php
+                                                                                if (isset($model->referral_source)) {
+                                                                                        if ($model->referral_source == '0') {
+                                                                                                echo 'Internet';
+                                                                                        } else if ($model->referral_source == '1') {
+                                                                                                echo 'Care and Care';
+                                                                                        } else if ($model->referral_source == '2') {
+                                                                                                echo 'Guardian Angel';
+                                                                                        } else if ($model->referral_source == '3') {
+                                                                                                echo 'Caremark';
+                                                                                        } else if ($model->referral_source == '4') {
+                                                                                                echo 'Cancure';
+                                                                                        } else if ($model->referral_source == '6') {
+                                                                                                echo 'Dont Know';
+                                                                                        } else if ($model->referral_source == '5') {
+                                                                                                echo $model->referral_source_others . ' (Other)';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.address'); ?> </td><td class="value"> <?php
+                                                                                if (isset($model->patientGeneralInfo->address) && $model->patientGeneralInfo->address != '') {
+                                                                                        echo $model->patientGeneralInfo->address;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.city'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->city) && $model->patientGeneralInfo->city != '') {
+                                                                                        echo $model->patientGeneralInfo->city;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.zip_pc'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->zip_pc) && $model->patientGeneralInfo->zip_pc != '') {
+                                                                                        echo $model->patientGeneralInfo->zip_pc;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.email'); ?> </td><td class="value"> <?php
+                                                                                if (isset($model->patientGeneralInfo->email) && $model->patientGeneralInfo->email != '') {
+                                                                                        echo $model->patientGeneralInfo->email;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.email1'); ?> </td><td class="value" colspan="4"><?php
+                                                                                if (isset($model->patientGeneralInfo->email1) && $model->patientGeneralInfo->email1 != '') {
+                                                                                        echo $model->patientGeneralInfo->email1;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Service Details</label>
+                                                                        </td>
+                                                                </tr>
+
+
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.required_service'); ?> </td><td class="value"> <?php
+                                                                                if (isset($model->patientGeneralInfo->required_service) && $model->patientGeneralInfo->required_service != '') {
+
+                                                                                        $required_services = explode(',', $model->patientGeneralInfo->required_service);
+                                                                                        $services = '';
+                                                                                        $a = 0;
+                                                                                        if (!empty($required_services)) {
+                                                                                                foreach ($required_services as $service) {
+
+                                                                                                        if ($a != 0) {
+                                                                                                                $services .= ',';
+                                                                                                        }
+                                                                                                        if ($service == '1') {
+                                                                                                                $services .= 'DV';
+                                                                                                        } else if ($service == '2') {
+                                                                                                                $services .= 'Nursing Care';
+                                                                                                        } else if ($service == '3') {
+                                                                                                                $services .= 'Physiotherapy';
+                                                                                                        } else if ($service == '5') {
+                                                                                                                $services .= 'Caregiver';
+                                                                                                        } else if ($service == '4') {
+                                                                                                                $services .= 'Helath Checkup';
+                                                                                                        } else if ($service == '6') {
+                                                                                                                $services .= 'Lab';
+                                                                                                        } else if ($service == '7') {
+                                                                                                                $services .= 'Equipment';
+                                                                                                        } else if ($service == '8') {
+                                                                                                                $services .= 'Other';
+                                                                                                        } else if ($service == '9') {
+                                                                                                                $services .= 'General Enquiry';
+                                                                                                        } else if ($service == '10') {
+                                                                                                                $services .= 'Wrong Number';
+                                                                                                        }
+                                                                                                        $a++;
+                                                                                                }
+                                                                                        }
+                                                                                        echo $services;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.service_required'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->service_required) && $model->patientGeneralInfo->service_required != '') {
+                                                                                        if ($model->patientGeneralInfo->service_required == 1) {
+                                                                                                echo 'Immediately';
+                                                                                        } else if ($model->patientGeneralInfo->service_required == 2) {
+                                                                                                echo 'Couple Weeks';
+                                                                                        } else if ($model->patientGeneralInfo->service_required == 3) {
+                                                                                                echo 'Month';
+                                                                                        } else if ($model->patientGeneralInfo->service_required == 4) {
+                                                                                                echo 'Unsure';
+                                                                                        } else if ($model->patientGeneralInfo->service_required == 5) {
+                                                                                                echo $model->patientGeneralInfo->service_required_other ? $model->patientGeneralInfo->service_required_other : '';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.expected_date_of_service'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->expected_date_of_service) && $model->patientGeneralInfo->expected_date_of_service != '') {
+                                                                                        echo $model->patientGeneralInfo->expected_date_of_service;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.how_long_service_required'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->how_long_service_required) && $model->patientGeneralInfo->how_long_service_required != '') {
+                                                                                        echo $model->patientGeneralInfo->how_long_service_required;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.whatsapp_reply'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->whatsapp_reply) && $model->patientGeneralInfo->whatsapp_reply != '') {
+                                                                                        if ($model->patientGeneralInfo->whatsapp_reply == '1')
+                                                                                                echo 'Yes';
+                                                                                        else
+                                                                                                echo 'No';
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientGeneralInfo.priority'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->priority) && $model->patientGeneralInfo->priority != '') {
+                                                                                        if ($model->patientGeneralInfo->priority == '1') {
+                                                                                                echo 'Hot';
+                                                                                        } else if ($model->patientGeneralInfo->priority == '2') {
+                                                                                                echo 'Warm';
+                                                                                        } else if ($model->patientGeneralInfo->priority == '3') {
+                                                                                                echo 'Cold';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <?php if (isset($model->patientGeneralInfo->notes) && $model->patientGeneralInfo->notes != '') { ?>
                                                                         <tr>
-                                                                                <th style="width:100%">
-                                                                                        <div class="header">
-                                                                                                <div class="main-left">
-                                                                                                        <img src="<?= Yii::$app->homeUrl ?>/images/logos/logo-collapsed.png" />
-
-                                                                                                </div>
-                                                                                                <div class="enqview_heading">
-                                                                                                        <p>CARING PEOPLE</p>
-                                                                                                        <p>CUSTOMER ENQUIRY CONTACT SHEET</p>
-                                                                                                </div>
-                                                                                                <br/>
-                                                                                        </div>
-                                                                                </th>
-                                                                        </tr>
-
-                                                                </thead>
-
-                                                                <tbody>
-                                                                        <tr>
-                                                                                <td>
-                                                                                        <div class="content info" style="text-align:right;">
-                                                                                                <label><b>NO:<?= $model->enquiry_number; ?></b></label>
-                                                                                        </div>
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty">
-                                                                                                        <label>Contacted by:</label>
-                                                                                                </div>
-                                                                                                <div class="data_sty">
-                                                                                                        <span><?php
-                                                                                                                if ($model->contacted_source == '0') {
-                                                                                                                        echo 'Phone';
-                                                                                                                } elseif ($model->contacted_source == '1') {
-                                                                                                                        echo 'Email';
-                                                                                                                } elseif ($model->contacted_source == '2') {
-                                                                                                                        echo 'Other';
-                                                                                                                }
-                                                                                                                ?></span>
-                                                                                                </div>
-
-                                                                                                <div class="label_sty"><label>Date:</label></div><div class="data_sty" style="width: 110px;"><span><?= $date = date('d-m-Y', strtotime($model->contacted_date)); ?></span></div>
-                                                                                                <div class="label_sty"><label>Time:</label></div><div class="data_sty"><span><?= $time = date('H:i', strtotime($model->contacted_date)); ?></span></div>
-                                                                                                <div class="label_sty"><label><?php
-                                                                                                                if ($model->contacted_source == '0') {
-                                                                                                                        echo 'Inocming Call Number:';
-                                                                                                                } elseif ($model->contacted_source == '1') {
-                                                                                                                        echo 'Email:';
-                                                                                                                } elseif ($model->contacted_source == '2') {
-                                                                                                                        echo 'Contacted Source Others:';
-                                                                                                                }
-                                                                                                                ?></label></div><div class="data_sty" style="width:126px;"><span><?= $model->incoming_missed; ?></span></div>
-
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Outgoing Call from:</label></div>
-                                                                                                <div class="data_sty" style="width:200px;"><span>
-                                                                                                                <?php
-                                                                                                                if (isset($model->outgoing_number_from) && $model->outgoing_number_from != '') {
-
-                                                                                                                        $outgoing_number = OutgoingNumbers::findOne($model->outgoing_number_from);
-                                                                                                                        echo $outgoing_number->phone_number;
-                                                                                                                }
-                                                                                                                ?>
-                                                                                                        </span>
-                                                                                                </div>
-                                                                                                <div class="label_sty"><label>Date:</label></div><div class="data_sty" style="width:135px;"><span><?= date('d-m-Y', strtotime($model->outgoing_call_date)); ?></span></div>
-                                                                                                <div class="label_sty"><label>Time:</label></div><div class="data_sty" style="width:144px;"><span><?= date('H:i', strtotime($model->outgoing_call_date)); ?></span></div>
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Name of caller:</label></div><div class="data_sty" style="width:395px;"><span><?= $model->caller_name; ?></span></div>
-                                                                                                <div class="label_sty"><label>Gender:</label></div><div class="data_sty" style="width:131px;"><span><?php
-                                                                                                                if ($model->caller_gender == '0') {
-                                                                                                                        echo 'Male';
-                                                                                                                } elseif ($model->caller_gender == '1') {
-                                                                                                                        echo 'Female';
-                                                                                                                }
-                                                                                                                ?></span></div>
-
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Referral source:</label></div><div class="data_sty" style="width:572px;"><span><?= $model->referral_source; ?>
-                                                                                                                <?php
-                                                                                                                if ($model->referral_source != '5') {
-                                                                                                                        if ($model->referral_source == '0') {
-                                                                                                                                echo 'Internet';
-                                                                                                                        } elseif ($model->referral_source == '1') {
-                                                                                                                                echo 'Care and care';
-                                                                                                                        } elseif ($model->referral_source == '2') {
-                                                                                                                                echo 'Guardian Angel';
-                                                                                                                        } elseif ($model->referral_source == '3') {
-                                                                                                                                echo 'Caremark';
-                                                                                                                        } elseif ($model->referral_source == '4') {
-                                                                                                                                echo 'Cancure';
-                                                                                                                        }
-                                                                                                                } else {
-                                                                                                                        echo $model->referral_source_others;
-                                                                                                                }
-                                                                                                                ?></span></div>
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-
-                                                                                                <div class="label_sty"><label>Mobile:</label></div><div class="data_sty" style="width:165px;"><span><?= $model->mobile_number; ?></span></div>
-                                                                                                <div class="label_sty"><label>Mobile 2:</label></div><div class="data_sty" style="width:165px;"><span><?= $model->mobile_number_2; ?></span></div>
-                                                                                                <div class="label_sty"><label>Mobile 3:</label></div><div class="data_sty" style="width:174px;"><span><?= $model->mobile_number_3; ?></span></div>
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Address:</label></div><div class="data_sty" style="width:612px;"><span><?= $patient_info_second->address; ?></span> </div>
-
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>City:</label></div><div class="data_sty" style="width:160px;"><span><?= $patient_info_second->city; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Zip/PC:</label></div><div class="data_sty" style="width:150px;"><span><?= $patient_info_second->zip_pc; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Email:</label></div><div class="data_sty" style="width:230px;"><span><?= $patient_info_second->email; ?></span> </div>
-
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Name of person requiring service:</label></div><div class="data_sty" style="width:290px;"><span><?= $patient_hospital->required_person_name; ?></span></div>
-                                                                                                <div class="label_sty"><label>Gender:</label></div><div class="data_sty" ><span><?php
-                                                                                                                if ($patient_hospital->patient_gender == '0') {
-                                                                                                                        echo 'Male';
-                                                                                                                } elseif ($patient_hospital->patient_gender == '1') {
-                                                                                                                        echo 'Female';
-                                                                                                                }
-                                                                                                                ?></span></div>
-                                                                                                <?php
-                                                                                                if (isset($patient_hospital->patient_age) && $patient_hospital->patient_age != '0000-00-00') {
-                                                                                                        $datee = date('d-m-Y', strtotime($patient_hospital->patient_age));
-                                                                                                        $age = date_diff(date_create($datee), date_create('today'))->y;
-                                                                                                }
-                                                                                                ?>
-                                                                                                <div class="label_sty"><label>DOB:</label></div><div class="data_sty" ><span><?= date('d-m-Y', strtotime($patient_hospital->patient_age)); ?> <?php
-                                                                                                                if (isset($age)) {
-                                                                                                                        echo '(' . $age . ')';
-                                                                                                                }
-                                                                                                                ?></span></div>
-
-                                                                                        </div>
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Weight:</label></div><div class="data_sty" style="width: 98px;"><span><?= $patient_hospital->patient_weight; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Relationship:</label></div><div class="data_sty" style="width: 280px;"><span><?php
-                                                                                                                if ($patient_hospital->relationship != '3') {
-                                                                                                                        if ($patient_hospital->relationship == '0') {
-                                                                                                                                echo 'Spouse';
-                                                                                                                        } elseif ($patient_hospital->relationship == '1') {
-                                                                                                                                echo 'Parent';
-                                                                                                                        } elseif ($patient_hospital->relationship == '2') {
-                                                                                                                                echo 'Grandparent';
-                                                                                                                        } elseif ($patient_hospital->relationship == '3') {
-                                                                                                                                echo 'Other';
-                                                                                                                        }
-                                                                                                                } else {
-                                                                                                                        echo $patient_hospital->relationship_others;
-                                                                                                                }
-                                                                                                                ?></span> </div>
-
-
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Person Address:</label></div><div class="data_sty" style="width:575px;"><span><?= $patient_hospital->person_address; ?></span> </div>
-
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Person City:</label></div><div class="data_sty" style="width:140px;"><span><?= $patient_hospital->person_city; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Person Postal Code:</label></div><div class="data_sty" style="width:100px;"><span><?= $patient_hospital->person_postal_code; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Whatsapp Reply:</label></div><div class="data_sty" style="width:135px;"><span>
-                                                                                                                <?php
-                                                                                                                if ($patient_info_second->whatsapp_reply == '0') {
-                                                                                                                        echo 'No';
-                                                                                                                } elseif ($patient_info_second->whatsapp_reply == '1') {
-                                                                                                                        echo 'Yes' . $patient_info_second->whatsapp_number;
-                                                                                                                }
-                                                                                                                ?></span> </div>
-
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-
-
-                                                                                        <?php if ($patient_info_second->notes != '') { ?>
-                                                                                                <div style="clear:both"></div>
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty"><label>Notes:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $patient_info_second->notes; ?></span></div>
-                                                                                                </div>
-                                                                                        <?php } ?>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Hospital:</label></div><div class="data_sty" style="width:200px;"><span>
-                                                                                                                <?php
-                                                                                                                if (isset($patient_hospital->hospital_name) && $patient_hospital->hospital_name != '') {
-                                                                                                                        $hospital_name = Hospital::findOne($patient_hospital->hospital_name);
-                                                                                                                        echo $hospital_name->hospital_name;
-                                                                                                                }
-                                                                                                                ?>
-                                                                                                        </span> </div>
-                                                                                                <div class="label_sty"><label>Room No:</label></div><div class="data_sty" style="width: 65px;"><span><?= $patient_hospital->hospital_room_no; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Consultant Doctor:</label></div><div class="data_sty" style="width:180px;"><span><?= $patient_hospital->consultant_doctor; ?></span> </div>
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Department:</label></div><div class="data_sty" style="width: 315px;"><span><?= $patient_hospital->department; ?></span> </div>
-                                                                                                <div class="label_sty"><label>Hypertension </label></div><div class="data_sty" style="width:205px;"><span><?= $patient_hospital_second->hypertension; ?></span></div>
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-
-
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Feeding Tube:</label></div><div class="data_sty" style="width: 195px;"><span>
-                                                                                                                <?php
-                                                                                                                if ($patient_hospital_second->feeding == '0') {
-                                                                                                                        echo 'Nasogastric';
-                                                                                                                } elseif ($patient_hospital_second->feeding == '1') {
-                                                                                                                        echo 'Nasoduodenal';
-                                                                                                                } elseif ($patient_hospital_second->feeding == '2') {
-                                                                                                                        echo 'Nasojejunal Tubes';
-                                                                                                                } elseif ($patient_hospital_second->feeding == '3') {
-                                                                                                                        echo 'Gastrostomy';
-                                                                                                                } elseif ($patient_hospital_second->feeding == '4') {
-                                                                                                                        echo 'Gastrojejunostomy';
-                                                                                                                } elseif ($patient_hospital_second->feeding == '5') {
-                                                                                                                        echo 'Jejunostomyfeeding tube';
-                                                                                                                }
-                                                                                                                ?>
-                                                                                                        </span> </div>
-
-                                                                                                <div class="label_sty"><label>Urine Tube:</label></div><div class="data_sty" style="width: 140px;"><span>
-                                                                                                                <?php
-                                                                                                                if ($patient_hospital_second->urine == '0') {
-                                                                                                                        echo 'Foleys catheter';
-                                                                                                                } elseif ($patient_hospital_second->urine == '1') {
-                                                                                                                        echo 'Suprapubic';
-                                                                                                                } elseif ($patient_hospital_second->urine == '2') {
-                                                                                                                        echo 'Condom catheter';
-                                                                                                                }
-                                                                                                                ?></span> </div>
-
-                                                                                                <div class="label_sty"><label>IV LINE:</label></div><div class="data_sty" style="width: 125px;"><span><?= $patient_hospital_second->iv_line; ?></span> </div>
-
-
-                                                                                        </div>
-                                                                                        <div style="clear:both"></div>
-
-                                                                                        <div class="content">
-
-
-                                                                                                <div class="label_sty"><label>Oxygen </label></div><div class="data_sty" style="width:130px;"><span>
-                                                                                                                <?php
-                                                                                                                if ($patient_hospital_second->oxygen == '0') {
-                                                                                                                        echo 'No';
-                                                                                                                } elseif ($patient_hospital_second->oxygen == '1') {
-                                                                                                                        echo 'Yes';
-                                                                                                                } elseif ($patient_hospital_second->oxygen == '2') {
-                                                                                                                        echo 'Ventilator';
-                                                                                                                } elseif ($patient_hospital_second->oxygen == '3') {
-                                                                                                                        echo 'BiPAP';
-                                                                                                                } elseif ($patient_hospital_second->oxygen == '4') {
-                                                                                                                        echo 'SOS';
-                                                                                                                }
-                                                                                                                ?>
-                                                                                                        </span></div>
-                                                                                                <div class="label_sty"><label>Tracheostomy </label></div><div class="data_sty" style="width:180px;"><span><?= $patient_hospital_second->tracheostomy; ?></span></div>
-                                                                                                <div class="label_sty"><label>Diabetic:</label></div><div class="data_sty" style="width: 170px;"><span>
-                                                                                                                <?php
-                                                                                                                if ($patient_hospital_second->diabetic == '0') {
-                                                                                                                        echo 'No';
-                                                                                                                } elseif ($patient_hospital_second->diabetic == '1') {
-                                                                                                                        echo 'Yes';
-                                                                                                                } elseif ($patient_hospital_second->diabetic == '2') {
-                                                                                                                        echo 'Yes,Insulin';
-                                                                                                                } elseif ($patient_hospital_second->diabetic == '3') {
-                                                                                                                        echo 'Yes, On Tablet';
-                                                                                                                } elseif ($patient_hospital_second->diabetic == '4') {
-                                                                                                                        echo 'Dont Know';
-                                                                                                                }
-                                                                                                                ?>
-                                                                                                        </span> </div>
-                                                                                        </div>
-
-
-<?php if ($patient_hospital_second->diabetic == '1' && $patient_hospital_second->diabetic_note != '') { ?>
-                                                                                                <div style="clear:both"></div>
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty"><label>Diabetic Notes:</label></div><div class="data_sty" ><span><?= $patient_hospital_second->diabetic_note; ?></span> </div>
-                                                                                                </div>
-<?php } ?>
-
-                                                                                        <div style="clear:both"></div>
-
-
-
-
-                                                                                        <div style="clear:both"></div>
-<?php if ($patient_hospital_second->family_support != '') { ?>
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty"><label>Nearyby family support:</label></div><div class="data_sty" style="width:538px;"><span><?php
-                                                                                                                        if ($patient_hospital_second->family_support == '1') {
-                                                                                                                                echo 'Close';
-                                                                                                                        } elseif ($patient_hospital_second->family_support == '2') {
-                                                                                                                                echo 'Distant';
-                                                                                                                        } elseif ($patient_hospital_second->family_support == '3') {
-                                                                                                                                echo 'None';
-                                                                                                                        }
-                                                                                                                        ?></span> </div>
-
-                                                                                                </div>
-<?php } ?>
-
-                                                                                        <div style="clear:both"></div>
-
-<?php if ($patient_hospital_second->family_support_note != '') { ?>
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty" ><label>Nearyby family support Note: </label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $patient_hospital_second->family_support_note; ?></span></div>
-                                                                                                </div>
-<?php } ?>
-
-                                                                                        <div style="clear:both"></div>
-
-<?php if ($patient_hospital_second->care_currently_provided != '4' && $patient_hospital_second->care_currently_provided != '') { ?>
-                                                                                                <div class="content">
-
-                                                                                                        <div class="label_sty"><label>Care currently being provided:</label></div><div class="data_sty"><span><?php
-                                                                                                                        if ($patient_hospital_second->care_currently_provided == '1') {
-                                                                                                                                echo 'Family';
-                                                                                                                        } elseif ($patient_hospital_second->care_currently_provided == '2') {
-                                                                                                                                echo 'Friends';
-                                                                                                                        } elseif ($patient_hospital_second->care_currently_provided == '3') {
-                                                                                                                                echo 'Hospital';
-                                                                                                                        } elseif ($patient_hospital_second->care_currently_provided == '4') {
-                                                                                                                                echo 'Others';
-                                                                                                                        }
-                                                                                                                        ?></span> </div>
-        <?php if ($patient_hospital_second->care_currently_provided == '3') { ?>       <div class="label_sty"><label>Expected Date Of Discharge</label></div><div class="data_sty" style="width:230px"><span><?= $date = date('d-m-Y', strtotime($patient_hospital_second->date_of_discharge)); ?></span></div><?php } ?>
-
-
-                                                                                                </div>
-                                                                                                <?php
-                                                                                        } else {
-                                                                                                if ($patient_hospital_second->care_currently_provided_others != '') {
-                                                                                                        ?>
-                                                                                                        <div class="content">
-                                                                                                                <div class="label_sty"><label>Care currently being provided:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $patient_hospital_second->care_currently_provided_others; ?></span></div>
-                                                                                                        </div>
-                                                                                                        <?php
-                                                                                                }
-                                                                                        }
-                                                                                        ?>
-<?php if ($patient_hospital_second->details_of_current_care != '') { ?>
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty"><label>Details Of Current Care:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $patient_hospital_second->details_of_current_care; ?></span></div>
-                                                                                                </div>
-<?php } ?>
-
-
-
-<?php if ($patient_hospital_second->difficulty_in_movement != '5' && $patient_hospital_second->difficulty_in_movement != '') { ?>
-
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty"><label>Difficulty in movement:</label></div><div class="data_sty" style="width:540px;"><span>
-                                                                                                                        <?php
-                                                                                                                        if ($patient_hospital_second->difficulty_in_movement == '1') {
-                                                                                                                                echo 'No difficulty';
-                                                                                                                        } elseif ($patient_hospital_second->difficulty_in_movement == '2') {
-                                                                                                                                echo 'Assistance required';
-                                                                                                                        } elseif ($patient_hospital_second->difficulty_in_movement == '3') {
-                                                                                                                                echo 'Wheelchair';
-                                                                                                                        } elseif ($patient_hospital_second->difficulty_in_movement == '4') {
-                                                                                                                                echo 'Bedridden';
-                                                                                                                        } elseif ($patient_hospital_second->difficulty_in_movement == '5') {
-                                                                                                                                echo 'Other';
-                                                                                                                        }
-                                                                                                                        ?></span> </div>
-                                                                                                </div>
-
-                                                                                                <?php
-                                                                                        } else {
-                                                                                                if ($patient_hospital_second->difficulty_in_movement_other != '') {
-                                                                                                        ?>
-                                                                                                        <div class="content">
-                                                                                                                <div class="label_sty"><label>Difficulty in movement:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"> <?= $patient_hospital_second->difficulty_in_movement_other; ?></span></div>
-                                                                                                        </div>
-                                                                                                        <?php
-                                                                                                }
-                                                                                        }
-                                                                                        ?>
-
-
-                                                                                        <div style="clear:both"></div>
-
-<?php if ($patient_info_second->service_required != '5' && $patient_info_second->service_required != '') { ?>
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty"><label>Service Required:</label></div><div class="data_sty" style="width:565px;"><span>
-                                                                                                                        <?php
-                                                                                                                        if ($patient_info_second->service_required == '1') {
-                                                                                                                                echo 'Immediately';
-                                                                                                                        } elseif ($patient_info_second->service_required == '2') {
-                                                                                                                                echo 'Couple weeks';
-                                                                                                                        } elseif ($patient_info_second->service_required == '3') {
-                                                                                                                                echo 'Month';
-                                                                                                                        } elseif ($patient_info_second->service_required == '4') {
-                                                                                                                                echo 'Unsure';
-                                                                                                                        } elseif ($patient_info_second->service_required == '5') {
-                                                                                                                                echo 'Other';
-                                                                                                                        }
-                                                                                                                        ?></span> </div>
-                                                                                                </div>
-                                                                                                <?php
-                                                                                        } else {
-                                                                                                if ($patient_info_second->service_required_other != '') {
-                                                                                                        ?>
-                                                                                                        <div class="content">
-                                                                                                                <div class="label_sty"><label>Service Required:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold"> <?= $patient_info_second->service_required_other; ?></span></div>
-                                                                                                        </div>
-                                                                                                        <?php
-                                                                                                }
-                                                                                        }
-                                                                                        ?>
-                                                                                        </div>
-                                                                                        <div style="clear:both"></div>
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Expected Date Of Service Needed:</label></div><div class="data_sty" ><span> <?= $date = date('d-m-Y', strtotime($patient_info_second->expected_date_of_service)); ?></span></div>
-                                                                                                <div class="label_sty"><label>How Long Service Required:</label></div><div class="data_sty" style="width:200px;"><span> <?= $patient_info_second->how_long_service_required; ?></span></div>
-
-
-
-                                                                                        </div>
-
-                                                                                        <div style="clear:both"></div>
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Priority:</label></div><div class="data_sty" style="width:615px;"><span> <?php
-                                                                                                                if ($patient_info_second->priority == '1') {
-                                                                                                                        echo 'Hot';
-                                                                                                                } elseif ($patient_info_second->priority == '2') {
-                                                                                                                        echo 'Warm';
-                                                                                                                } elseif ($patient_info_second->priority == '3') {
-                                                                                                                        echo 'Cold';
-                                                                                                                }
-                                                                                                                ?></span></div>
-                                                                                        </div>
-
-
-
-<?php if ($patient_info_second->quotation_details != '') { ?>
-                                                                                                <div style="clear:both"></div>
-                                                                                                <div class="content">
-                                                                                                        <div class="label_sty"><label>Quotation Details:</label><span style="border-bottom:1px solid black;padding:6px;font-weight: bold;"><?= $patient_info_second->quotation_details; ?></span></div>
-                                                                                                </div>
-<?php } ?>
-
-                                                                                        <div style="clear:both"></div>
-                                                                                        <div class="content">
-                                                                                                <div class="label_sty"><label>Data Entered By:</label></div><div class="data_sty" style="width:200px;">
-                                                                                                        <span>
-                                                                                                                <?php
-                                                                                                                $data_entered = AdminUsers::findOne($model->CB);
-                                                                                                                ?>
-<?= $data_entered->name; ?>
-                                                                                                        </span></div>
-                                                                                                <div class="label_sty"><label>Data Entered On:</label></div><div class="data_sty" style="width:200px;">
-                                                                                                        <span>
-<?= date('d-m-Y', strtotime($model->DOC)); ?>
-                                                                                                        </span></div>
-                                                                                        </div>
-                                                                                        </div>
-
-
-
-
+                                                                                <td><?= $model->getAttributeLabel('patientGeneralInfo.notes'); ?></td>
+                                                                                <td colspan="4" class="value">
+                                                                                        <?= $model->patientGeneralInfo->notes; ?>
                                                                                 </td>
 
                                                                         </tr>
+                                                                <?php } ?>
+
+                                                                <?php if (isset($model->patientGeneralInfo->quotation_details) && $model->patientGeneralInfo->quotation_details != '') { ?>
+                                                                        <tr>
+                                                                                <td><?= $model->getAttributeLabel('patientGeneralInfo.quotation_details'); ?></td>
+                                                                                <td colspan="4" class="value">
+                                                                                        <?= $model->patientGeneralInfo->quotation_details; ?>
+                                                                                </td>
+
+                                                                        </tr>
+                                                                <?php } ?>
+
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Patient Details</label>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.required_person_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->required_person_name) && $model->patientGeneralInfo->required_person_name != '') {
+                                                                                        echo $model->patientGeneralInfo->required_person_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.patient_gender'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->patient_gender) && $model->patientGeneralInfo->patient_gender != '') {
+                                                                                        if ($model->patientGeneralInfo->required_person_name == 0) {
+                                                                                                echo 'Male';
+                                                                                        } else if ($model->patientGeneralInfo->required_person_name == 1) {
+                                                                                                echo 'Female';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.patient_age'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->patient_age) && $model->patientGeneralInfo->patient_age != '') {
+                                                                                        echo $model->patientGeneralInfo->patient_age;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.patient_dob'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->patient_dob) && $model->patientGeneralInfo->patient_dob != '') {
+                                                                                        echo $model->patientGeneralInfo->patient_dob;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.patient_weight'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->patient_weight) && $model->patientGeneralInfo->patient_weight != '') {
+                                                                                        echo $model->patientGeneralInfo->patient_weight;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.relationship'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->relationship) && $model->patientGeneralInfo->relationship != '') {
+                                                                                        if ($model->patientGeneralInfo->relationship == '0') {
+                                                                                                echo 'Spouse';
+                                                                                        } else if ($model->patientGeneralInfo->relationship == '1') {
+                                                                                                echo 'Parent';
+                                                                                        } else if ($model->patientGeneralInfo->relationship == '2') {
+                                                                                                echo 'GrandParent';
+                                                                                        } else if ($model->patientGeneralInfo->relationship == '3') {
+                                                                                                if (isset($model->patientGeneralInfo->relationship_others)) {
+                                                                                                        echo $model->patientGeneralInfo->relationship_others;
+                                                                                                }
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.person_address'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->person_address) && $model->patientGeneralInfo->person_address != '') {
+                                                                                        echo $model->patientGeneralInfo->person_address;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.person_city'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->person_city) && $model->patientGeneralInfo->person_city != '') {
+                                                                                        echo $model->patientGeneralInfo->person_city;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.person_address'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->person_address) && $model->patientGeneralInfo->person_address != '') {
+                                                                                        echo $model->patientGeneralInfo->person_address;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.person_city'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->person_city) && $model->patientGeneralInfo->person_city != '') {
+                                                                                        echo $model->patientGeneralInfo->person_city;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.person_postal_code'); ?> </td><td class="value" colspan="4"><?php
+                                                                                if (isset($model->patientGeneralInfo->person_postal_code) && $model->patientGeneralInfo->person_postal_code != '') {
+                                                                                        echo $model->patientGeneralInfo->person_postal_code;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Hospital Details</label>
+                                                                        </td>
+                                                                </tr>
+
+
+                                                                <?php
+                                                                if (!empty($patient_hospital_setails)) {
+                                                                        foreach ($patient_hospital_setails as $value) {
+                                                                                ?>
+                                                                                <tr>
+                                                                                        <td class="labell">Hospital Name</td><td class="value"><?php
+                                                                                                if (isset($value->hospital_name)) {
+                                                                                                        $hospital_name = common\models\ContactSubcategory::findOne($value->hospital_name);
+                                                                                                        echo $hospital_name->sub_category;
+                                                                                                }
+                                                                                                ?></td>
+                                                                                        <td class="labell">Doctor</td><td class="value"><?php
+                                                                                                if (isset($value->consultant_doctor)) {
+                                                                                                        $doctor = \common\models\ContactDirectory::findOne($value->consultant_doctor);
+                                                                                                        echo $doctor->name;
+                                                                                                }
+                                                                                                ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="labell">Department</td><td class="value"><?php
+                                                                                                if (isset($value->department)) {
+                                                                                                        echo $value->department;
+                                                                                                }
+                                                                                                ?></td>
+                                                                                        <td class="labell">Hospital Room No</td><td class="value"><?php
+                                                                                                if (isset($value->hospital_room_no)) {
+                                                                                                        echo $value->hospital_room_no;
+                                                                                                }
+                                                                                                ?></td>
+                                                                                </tr>
+                                                                                <?php
+                                                                        }
+                                                                }
+                                                                ?>
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Medical Conditons/Current Diagnosis</label>
+                                                                        </td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.diabetic'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->diabetic) && $model->patientGeneralInfo->diabetic != '') {
+                                                                                        if ($model->patientGeneralInfo->diabetic == '0') {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->patientGeneralInfo->diabetic == '1') {
+                                                                                                echo 'Yes';
+                                                                                        } else if ($model->patientGeneralInfo->diabetic == '2') {
+                                                                                                echo 'Yes,Insulin';
+                                                                                        } else if ($model->patientGeneralInfo->diabetic == '3') {
+                                                                                                echo 'Yes, On Tablet';
+                                                                                        } else if ($model->patientGeneralInfo->diabetic == '4') {
+                                                                                                echo 'Dont Know';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.hypertension'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->hypertension) && $model->patientGeneralInfo->hypertension != '') {
+                                                                                        echo $model->patientGeneralInfo->hypertension;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.feeding'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->feeding) && $model->patientGeneralInfo->feeding != '') {
+                                                                                        if ($model->patientGeneralInfo->feeding == '0') {
+                                                                                                echo 'Nasogastric';
+                                                                                        } else if ($model->patientGeneralInfo->feeding == '1') {
+                                                                                                echo 'Nasoduodenal';
+                                                                                        } else if ($model->patientGeneralInfo->feeding == '2') {
+                                                                                                echo 'Nasojejunal Tubes';
+                                                                                        } else if ($model->patientGeneralInfo->feeding == '3') {
+                                                                                                echo 'Gastrostomy';
+                                                                                        } else if ($model->patientGeneralInfo->feeding == '4') {
+                                                                                                echo 'Gastrojejunostomy';
+                                                                                        } else if ($model->patientGeneralInfo->feeding == '5') {
+                                                                                                echo 'Jejunostomyfeeding tube';
+                                                                                        } else if ($model->patientGeneralInfo->feeding == '6') {
+                                                                                                echo 'NA';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.urine'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->urine) && $model->patientGeneralInfo->urine != '') {
+                                                                                        if ($model->patientGeneralInfo->urine == '0') {
+                                                                                                echo 'Foleys catheter';
+                                                                                        } else if ($model->patientGeneralInfo->urine == '1') {
+                                                                                                echo 'Suprapubic';
+                                                                                        } else if ($model->patientGeneralInfo->urine == '2') {
+                                                                                                echo 'Condom catheter';
+                                                                                        } else if ($model->patientGeneralInfo->urine == '6') {
+                                                                                                echo 'NA';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.oxygen'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->oxygen) && $model->patientGeneralInfo->oxygen != '') {
+                                                                                        if ($model->patientGeneralInfo->oxygen == '0') {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->patientGeneralInfo->oxygen == '1') {
+                                                                                                echo 'Yes';
+                                                                                        } else if ($model->patientGeneralInfo->oxygen == '2') {
+                                                                                                echo 'Ventilator ';
+                                                                                        } else if ($model->patientGeneralInfo->oxygen == '3') {
+                                                                                                echo 'BiPAP';
+                                                                                        } else if ($model->patientGeneralInfo->oxygen == '4') {
+                                                                                                echo 'SOS';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.tracheostomy'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->tracheostomy) && $model->patientGeneralInfo->tracheostomy != '') {
+                                                                                        if ($model->patientGeneralInfo->tracheostomy == '0') {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->patientGeneralInfo->tracheostomy == '1') {
+                                                                                                echo 'Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.iv_line'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->iv_line) && $model->patientGeneralInfo->iv_line != '') {
+                                                                                        if ($model->patientGeneralInfo->iv_line == '0') {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->patientGeneralInfo->iv_line == '1') {
+                                                                                                echo 'Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.family_support'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->family_support) && $model->patientGeneralInfo->family_support != '') {
+                                                                                        if ($model->patientGeneralInfo->family_support == '1') {
+                                                                                                echo 'Close';
+                                                                                        } else if ($model->patientGeneralInfo->iv_line == '2') {
+                                                                                                echo 'Distant';
+                                                                                        } else if ($model->patientGeneralInfo->iv_line == '3') {
+                                                                                                echo 'None';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.family_support_note'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->family_support_note) && $model->patientGeneralInfo->family_support_note != '') {
+                                                                                        echo $model->patientGeneralInfo->family_support_note;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.care_currently_provided'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->care_currently_provided) && $model->patientGeneralInfo->care_currently_provided != '') {
+                                                                                        if ($model->patientGeneralInfo->care_currently_provided == '1') {
+                                                                                                echo 'Family';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '2') {
+                                                                                                echo 'Friends';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '3') {
+                                                                                                echo 'Hospital';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '4') {
+                                                                                                echo 'Others';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '5') {
+                                                                                                echo 'Home Nursing Agemcy';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '6') {
+                                                                                                echo 'Not Told';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+
+                                                                </tr>
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.details_of_current_care'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->details_of_current_care) && $model->patientGeneralInfo->details_of_current_care != '') {
+                                                                                        echo $model->patientGeneralInfo->details_of_current_care;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.difficulty_in_movement'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientGeneralInfo->difficulty_in_movement) && $model->patientGeneralInfo->difficulty_in_movement != '') {
+                                                                                        if ($model->patientGeneralInfo->difficulty_in_movement == '1') {
+                                                                                                echo 'No difficulty';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '2') {
+                                                                                                echo 'Assistance required';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '3') {
+                                                                                                echo 'Wheelchair';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '4') {
+                                                                                                echo 'Bedridden';
+                                                                                        } else if ($model->patientGeneralInfo->care_currently_provided == '5') {
+                                                                                                echo 'Others';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
 
 
 
-
-
-                                                                </tbody>
 
 
                                                         </table>
+
+
+
+
+
+
+
                                                 </div>
                                                 <script>
                                                         function printContent(el) {
@@ -631,7 +670,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 <!--</html>-->
                                                 <div class="print">
-                                                        <button onclick="printContent('pdf')" style="font-weight: bold !important;">Print</button>
+                                                        <button onclick="printContent('pdf')" style="font-weight: bold !important;" class="btn btn-success">Print</button>
                                                 </div>
                                         </div>
                                 </div>

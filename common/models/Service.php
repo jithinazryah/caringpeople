@@ -45,13 +45,13 @@ class Service extends \yii\db\ActiveRecord {
                 return [
                         [['patient_id', 'service', 'staff_id', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
-                        [['estimated_price', 'frequency', 'hours', 'days', 'service_staffs'], 'string', 'max' => 255],
+                        [['estimated_price', 'frequency', 'hours', 'days'], 'string', 'max' => 255],
                         [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
                         [['service'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service' => 'id']],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
                         [['staff_manager'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_manager' => 'id']],
                         [['patient_id', 'service', 'from_date', 'to_date', 'status'], 'required', 'on' => 'create'],
-                        [['branch_id', 'service_id', 'duty_type'], 'required', 'on' => 'create'],
+                        [['branch_id', 'duty_type'], 'required', 'on' => 'create'],
                         [['day_night_staff'], 'required', 'when' => function ($model) {
 
                         }, 'whenClient' => "function (attribute, value) {

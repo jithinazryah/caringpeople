@@ -114,7 +114,7 @@ $("document").ready(function () {
         /*
          * show mangers depends on branch
          */
-        $('#service-patient_id').change(function () {
+        $('#service-branch_id').change(function () {
                 var branch = $('#service-branch_id').val();
                 showLoader();
                 $.ajax({

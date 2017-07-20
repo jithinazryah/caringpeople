@@ -79,12 +79,16 @@ class ServiceController extends Controller {
                 $model = new Service();
                 $model->setScenario('create');
 
+
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
 
                         $model->from_date = date('Y-m-d', strtotime($model->from_date));
                         $model->to_date = date('Y-m-d', strtotime($model->to_date));
+                        $model->service_staffs = $model->CB . ',' . $model->staff_manager;
                         $branch_details = Branch::find()->where(['id' => $model->branch_id])->one();
                         $service_type = $this->ServiceType($model->service);
+                        $model->validate();
+
                         if ($model->validate() && $model->save()) {
                                 $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y') . '-' . $model->id;
                                 $model->service_id = $code;

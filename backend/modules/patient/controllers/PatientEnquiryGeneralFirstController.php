@@ -82,8 +82,13 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 $patient_info_second = PatientEnquiryGeneralSecond::find()->where(['enquiry_id' => $id])->one();
                 $patient_hospital = PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $id])->one();
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $id])->one();
+                $patient_hospital_setails = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $id]);
                 return $this->render('view', [
-                            'model' => $this->findModel($id), 'patient_info_second' => $patient_info_second, 'patient_hospital' => $patient_hospital, 'patient_hospital_second' => $patient_hospital_second
+                            'model' => $this->findModel($id),
+                            'patient_info_second' => $patient_info_second,
+                            'patient_hospital' => $patient_hospital,
+                            'patient_hospital_second' => $patient_hospital_second,
+                            'patient_hospital_setails' => $patient_hospital_setails,
                 ]);
         }
 

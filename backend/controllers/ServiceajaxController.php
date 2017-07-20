@@ -580,14 +580,24 @@ class ServiceajaxController extends \yii\web\Controller {
                 $i = 0;
                 $id = '';
                 foreach ($schedules as $value) {
-                        if ($i != 0) {
-                                $id .= ',';
+
+                        if (isset($value->staff)) {
+                                if (!preg_match('/\b' . $value->staff . '\b/', $id)) {
+                                        if ($i != 0) {
+                                                $id .= ',';
+                                        }
+                                        $id .= $value->staff;
+                                }
                         }
-                        if (isset($value->staff))
-                                $id .= $value->staff;
 
                         $i++;
                 }
+                $id .= ',';
+                $service_details = \common\models\Service::findOne($service);
+                $id .= $service_details->CB . ',';
+                if (isset($service_details->staff_manager))
+                        $id .= $service_details->staff_manager;
+
                 return $id;
         }
 
