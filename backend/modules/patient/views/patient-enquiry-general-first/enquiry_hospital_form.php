@@ -72,20 +72,32 @@ use kartik\select2\Select2;
 
                 <?php
                 if (!empty($hospital_details)) {
-                        $hospital_name = Hospital::find()->where(['status' => '1'])->all();
+                        if ($patient_info->branch_id == 1) {
+                                $category = 5;
+                        } else {
+                                $category = 17;
+                        }
+
+                        $hospital_name = common\models\ContactSubcategory::find()->where(['category_id' => $category, 'status' => 1])->all();
+
                         $selected[] = '';
                         $doctor[] = '';
+                        $a = 0;
                         foreach ($hospital_details as $data) {
+                                $a++;
+                                unset($doctor);
                                 $rand_1 = rand();
+
                                 $selected[] = $data->hospital_name;
                                 $doctor[] = $data->consultant_doctor;
-                                $doctorlis = common\models\Doctors::find()->where(['status' => '1', 'hospital' => $data->hospital_name])->all();
+
+                                $doctorlis = \common\models\ContactDirectory::find()->where(['subcategory_type' => $data->hospital_name, 'designation' => 13])->all();
                                 ?>
                                 <span>
                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-patientenquiryhospitaldetails-hospital_name">
                                                         <label class="control-label">Hospital Name</label>
-                                                        <?= Html::dropDownList('updatee[' . $data->id . '][hospital_name][]', $selected, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control hospital', 'prompt' => '--Select--', 'id' => 'hospital_' . $rand_1]); ?>
+                                                        <?= Html::dropDownList('updatee[' . $data->id . '][hospital_name][]', $selected, ArrayHelper::map($hospital_name, 'id', 'sub_category'), ['class' => 'form-control hospital', 'prompt' => '--Select--', 'id' => 'hospital_' . $rand_1]); ?>
                                                 </div>
                                         </div>
 
@@ -127,29 +139,40 @@ use kartik\select2\Select2;
                 <span>
                         <?php
                         $rand = rand();
-                        $hospital_name = Hospital::find()->where(['status' => '1'])->all()
+                        if (!$patient_hospital_second->isNewRecord) {
+                                if ($patient_info->branch_id == 1) {
+                                        $category = 5;
+                                } else {
+                                        $category = 17;
+                                }
+
+                                $hospital_name = common\models\ContactSubcategory::find()->where(['category_id' => $category, 'status' => 1])->all();
+                        } else {
+                                $hospital_name = [];
+                        }
                         ?>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-hospital_name">
                                         <label class="control-label">Hospital Name</label>
 
-                                        <?= Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'hospital_name'), ['class' => 'form-control hospital', 'prompt' => '--Select--', 'id' => 'hospital_' . $rand]);
+                                        <?= Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'sub_category'), ['class' => 'form-control hospital', 'prompt' => '--Select--', 'id' => 'hospital_4']);
                                         ?>
-                                        <a class="add-option-dropdown add-new" id="hospital_<?= $rand ?>-1" style="margin-top:0px;"> + Add New</a>
+                                        <a class="add-option-dropdown add-new" id="hospital_4-1" style="margin-top:0px;"> + Add New</a>
                                 </div>
 
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
                                         <label class="control-label" for="">Consultant Doctor</label>
-                                        <select name="addhospital[consultant_doctor][]" class="form-control doctor" id="doctor_<?= $rand; ?>"></select>
+                                        <select name="addhospital[consultant_doctor][]" class="form-control doctor" id="doctor_4"></select>
+                                        <a class="add-option-dropdown add-new" id="doctor_4-9" style="margin-top:0px;"> + Add New</a>
 
                                 </div>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-department">
                                         <label class="control-label">Department</label>
-                                        <input type="text" class="form-control" name="addhospital[department][]" id="department_<?= $rand; ?>">
+                                        <input type="text" class="form-control" name="addhospital[department][]" id="department_4">
                                 </div>
                         </div>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>

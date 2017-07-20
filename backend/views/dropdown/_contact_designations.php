@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$model = new common\models\ContactSubcategory();
+$model = new common\models\ContactDirectoryDesignation();
 $form = ActiveForm::begin(['id' => 'submit-add-form']);
 ?>
 
@@ -12,22 +12,13 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
 <div class="modal-content">
         <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Add Hospital</h4>
+                <h4 class="modal-title">Add Designation</h4>
         </div>
 
         <div class="modal-body">
 
                 <div class="row">
-                        <?php
-                        if ($category == 1) {
-                                $model->category_id = 5;
-                        } else {
-                                $model->category_id = 17;
-                        }
-                        ?>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form->field($model, 'category_id')->textInput(['maxlength' => true]) ?>
-
-                        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>     <?= $form->field($model, 'sub_category')->textInput(['maxlength' => true]) ?>
+                        <div class='col-md-6 col-sm-6 col-xs-12 left_padd' style="margin-left: 20px;">    <?= $form->field($model, 'designation')->textInput(['maxlength' => true]) ?>
 
                         </div>
                         <input type="hidden" name="type" id="type" value="<?= $type; ?>">

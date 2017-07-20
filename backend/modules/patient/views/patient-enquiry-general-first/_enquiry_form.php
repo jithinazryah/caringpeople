@@ -57,6 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             'patient_hospital' => $patient_hospital,
                                                                             'patient_hospital_second' => $patient_hospital_second,
                                                                             'hospital_details' => $hospital_details,
+                                                                            'patient_info' => $patient_info,
                                                                             'form' => $form,
                                                                         ])
                                                                         ?>

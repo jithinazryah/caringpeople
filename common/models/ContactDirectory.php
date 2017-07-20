@@ -85,4 +85,8 @@ class ContactDirectory extends \yii\db\ActiveRecord {
                 return $this->hasOne(ContactCategoryTypes::className(), ['id' => 'category_type']);
         }
 
+        public function getDesignationType() {
+                return $this->hasOne(ContactDirectoryDesignation::className(), ['id' => 'designation']);
+        }
+
 }

@@ -26,7 +26,7 @@ class DropdownController extends \yii\web\Controller {
                 $type = $_POST['type'];
 
                 if ($type == '1') { /* add hospital */
-                        $form = $this->renderPartial('_hospital', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                        $form = $this->renderPartial('_hospital', ['type' => $type, 'field_id' => $_POST['field_id'], 'category' => $_POST['category']]);
                 } else if ($type == 2) { /* add remarks category */
                         $form = $this->renderPartial('_remark_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'cat_type' => $_POST['cat_type']]);
                 } else if ($type == 3) { /* add followups category */
@@ -39,6 +39,10 @@ class DropdownController extends \yii\web\Controller {
                         $form = $this->renderPartial('_contact_category', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 } else if ($type == 7) { /* add contact directory sub category */
                         $form = $this->renderPartial('_contact_sub_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'category' => $_POST['category']]);
+                } else if ($type == 8) { /* add contact directory designation */
+                        $form = $this->renderPartial('_contact_designations', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                } else if ($type == 9) { /* add contact directory  */
+                        $form = $this->renderPartial('_contact_directory', ['type' => $type, 'field_id' => $_POST['field_id'], 'category' => $_POST['category']]);
                 }
 
                 echo $form;
@@ -53,7 +57,7 @@ class DropdownController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
                         $type = $_POST['type'];
                         if ($type == 1) {
-                                $model = new Hospital();
+                                $model = new \common\models\ContactSubcategory();
                         } else if ($type == 2) {
                                 $model = new \common\models\RemarksCategory();
                         } else if ($type == 3) {
@@ -66,13 +70,17 @@ class DropdownController extends \yii\web\Controller {
                                 $model = new \common\models\ContactCategoryTypes();
                         } else if ($type == 7) {
                                 $model = new \common\models\ContactSubcategory();
+                        } else if ($type == 8) {
+                                $model = new \common\models\ContactDirectoryDesignation();
+                        } else if ($type == 9) {
+                                $model = new \common\models\ContactDirectory();
                         }
                         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                                 $model->status = 1;
                                 if ($model->save(false)) {
 
                                         if ($type == 1) {
-                                                $arr_variable = array('id' => $model->id, 'name' => $model->hospital_name, 'field_id' => $_POST['field_id'], 'type' => '1');
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '2');
                                         }
                                         if ($type == 2) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->category, 'field_id' => $_POST['field_id'], 'type' => '1');
@@ -91,6 +99,11 @@ class DropdownController extends \yii\web\Controller {
                                         }
                                         if ($type == 7) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '1');
+                                        }
+                                        if ($type == 8) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->designation, 'field_id' => $_POST['field_id'], 'type' => '1');
+                                        }if ($type == 9) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->name, 'field_id' => $_POST['field_id'], 'type' => '2');
                                         }
                                         $data['result'] = $arr_variable;
                                         echo json_encode($data);

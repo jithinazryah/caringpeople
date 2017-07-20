@@ -62,7 +62,7 @@ use common\models\StaffInfo;
                                 foreach ($service_schedule as $value) {
                                         $p++;
                                         ?>
-                                        <tr id="<?= $value->id; ?>">
+                                        <tr id="<?= $value->id; ?>" style="text-align:center">
                                                 <td><?= $p; ?></td>
 
                                                 <td><?php
@@ -289,6 +289,12 @@ use common\models\StaffInfo;
                 float:right;
                 color:#0e62c7;
                 cursor: pointer;
+        }
+        table td{
+                padding: 0 !important;
+        }
+        table td .sorting_1{
+                text-align: center !important;
         }
 
 </style>

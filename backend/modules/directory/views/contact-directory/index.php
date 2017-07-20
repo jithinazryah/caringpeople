@@ -55,7 +55,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 //'email_2:email',
                                                 'phone_1',
                                                 // 'phone_2',
-                                                'designation',
+                                                // 'designation',
+                                                ['attribute' => 'designation',
+                                                    'value' => 'designationType.designation',
+                                                    'filter' => ArrayHelper::map(common\models\ContactDirectoryDesignation::find()->where(['status' => '1'])->asArray()->all(), 'id', 'designation'),
+                                                ],
                                                 // 'company_name',
                                                 // 'references',
                                                 // 'remarks:ntext',
@@ -81,8 +85,10 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
-<script>
-
-</script>
+<style>
+        table.table tr td:last-child {
+                width: 20px!important;
+        }
+</style>
 
 

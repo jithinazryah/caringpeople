@@ -322,28 +322,96 @@ $("document").ready(function () {
         });
 
 
+
+
         /*
          -----------------ENQUIRY HOSPITAL INFO FORM--------------
          */
+
+        /*
+         * select 2 widget for add hospital
+         */
+        $("#hospital_4").select2({
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+        $("#doctor_4").select2({
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+        /*
+         * list hospital on change of branch
+         */
+        $('#patientenquirygeneralfirst-branch_id').change(function () {
+                var branch = $(this).val();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {branch: branch},
+                        url: homeUrl + 'ajax/hospitals',
+                        success: function (data) {
+                                $('.hospital').html(data);
+                                $("#hospital_4").select2({
+                                        allowClear: true
+                                }).on('select2-open', function ()
+                                {
+                                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                });
+                                $("#doctor_4").select2({
+                                        allowClear: true
+                                }).on('select2-open', function ()
+                                {
+                                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                });
+
+                        }
+                });
+
+        });
+
+
 
 
         var scntDiv = $('#p_scents1');
         var i = $('#p_scents1 span').size() + 1;
 
         $('#addHosp').on('click', function () {
-
-                var id = 1;
+                var branch = $('#patientenquirygeneralfirst-branch_id').val();
+                var count = i + 1;
                 showLoader();
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {id: id},
+                        data: {branch: branch, count: count},
                         url: homeUrl + 'ajax/patienthospitaldetails',
                         success: function (data) {
+
                                 hideLoader();
-                                $(data).appendTo(scntDiv);
-                                i++;
-                                return false;
+                                if (data == '1') {
+                                        alert('Please select branch');
+                                } else {
+                                        $(data).appendTo(scntDiv);
+                                        $('#hospital_' + count).select2({
+                                                allowClear: true
+                                        }).on('select2-open', function ()
+                                        {
+                                                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                        });
+                                        $('#doctor_' + count).select2({
+                                                allowClear: true
+                                        }).on('select2-open', function ()
+                                        {
+                                                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                        });
+                                        i++;
+                                        return false;
+                                }
 
                         }
                 });
@@ -363,6 +431,33 @@ $("document").ready(function () {
                 }
                 return false;
         });
+
+
+
+        $(document).on('change', '.hospital', function (e) {
+                var hospital = $(this).val();
+                var id = $(this).attr('id');
+                var idd = id.split('_');
+                showLoader();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {hospital: hospital},
+                        url: homeUrl + 'ajax/doctors',
+                        success: function (data) {
+
+                                if (data == 0) {
+                                        //  alert('Failed to Load data, please try again error:1001');
+                                } else {
+                                        $("#doctor_" + idd[1]).html(data);
+                                }
+                                hideLoader();
+                        }
+                });
+        });
+
+
+
 
         /*
          * patient module if address same
@@ -400,10 +495,6 @@ $("document").ready(function () {
 
         /////////////////////////------------------  ---------------------/////////////////////////
 
-        $('#form-submit_2').click(function (e) {
-                // e.preventDefault();
-                $('#w0,#w3').submit();
-        });
 
 
 });

@@ -14,10 +14,18 @@ $("document").ready(function () {
                 var id_attr = $(this).attr('id');
                 var type = id_attr.split('-');
                 var cat_type = $(this).attr('type');
-                if (type[1] == 7)
+                if (type[1] == 7) {
                         var category = $('#contactcategory').val();
-                else
+                } else if (type[1] == 1) {
+                        var category = $('#patientenquirygeneralfirst-branch_id').val();
+                } else if (type[1] == 9) {
+                        var doctor = type[0].split('_');
+                        var category = $('#hospital_' + doctor[1]).val();
+
+                } else {
                         var category = '';
+
+                }
 
                 $.ajax({
                         type: 'POST',
