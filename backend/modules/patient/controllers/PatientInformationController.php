@@ -75,6 +75,7 @@ class PatientInformationController extends Controller {
                 $pationt_medication_details = PatientPresentMedication::find()->where(['patient_id' => $id])->all();
                 $present_condition = PatientPresentCondition::find()->where(['patient_id' => $id])->one();
                 $bystander_details = PatientBystanderDetails::find()->where(['patient_id' => $id])->one();
+                $assessment = PatientAssessment::find()->where(['patient_id' => $id])->one();
                 return $this->render('view', [
                             'guardian_details' => $guardian_details,
                             'patient_details' => $patient_general,
@@ -82,6 +83,7 @@ class PatientInformationController extends Controller {
                             'pationt_medication_details' => $pationt_medication_details,
                             'present_condition' => $present_condition,
                             'bystander_details' => $bystander_details,
+                            'assessment' => $assessment
                 ]);
         }
 
@@ -230,6 +232,7 @@ class PatientInformationController extends Controller {
                         $present_condition->load(Yii::$app->request->post());
                         $bystander_details->load(Yii::$app->request->post());
                         $patient_assessment->load(Yii::$app->request->post());
+
                         if ($patient_general->validate() && $guardian_details->validate() && $chronic_imformation->validate() && $present_condition->validate() && $patient_assessment->validate()) {
 
                                 if ($patient_general->save() && $guardian_details->save() && $chronic_imformation->save() && $present_condition->save() && $patient_assessment->save()) {
@@ -319,7 +322,7 @@ class PatientInformationController extends Controller {
                 if (isset($_POST['suggested_professional']) && $_POST['suggested_professional'] != '') {
                         $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
                 }
-                $patient_assessment->save();
+                $patient_assessment->save(FALSE);
         }
 
         public function AddPresentMedication($patient_general) {
@@ -466,7 +469,7 @@ class PatientInformationController extends Controller {
                                 $patient_general->contact_number = Yii::$app->request->post()['PatientGeneral']['contact_number'];
                                 $chronic_imformation->load(Yii::$app->request->post());
                                 $present_condition->load(Yii::$app->request->post());
-
+                                $patient_assessment->load(Yii::$app->request->post());
                                 $present_condition->last_change_date = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientPresentCondition']['last_change_date']));
                                 $present_condition->foleys_last_change_date = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientPresentCondition']['foleys_last_change_date']));
                                 $bystander_details->load(Yii::$app->request->post());

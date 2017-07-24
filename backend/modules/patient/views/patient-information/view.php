@@ -1027,12 +1027,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                                         <td><?= $i ?></td>
                                                                                                                         <td><?php
-                                                                                                        if ($medications->tablet_injection == 0)
-                                                                                                                echo "Tablet";
-                                                                                                        elseif ($medications->tablet_injection == 1) {
-                                                                                                                echo "Injection";
-                                                                                                        }
-                                                                                                                ?></td>
+                                                                                                                                if ($medications->tablet_injection == 0)
+                                                                                                                                        echo "Tablet";
+                                                                                                                                elseif ($medications->tablet_injection == 1) {
+                                                                                                                                        echo "Injection";
+                                                                                                                                }
+                                                                                                                                ?></td>
                                                                                                                         <td><?= $medications->medicine_name; ?></td>
                                                                                                                         <td><?= $medications->dosage; ?></td>
                                                                                                                         <td><?= $medications->mode; ?></td>
@@ -1411,6 +1411,141 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </table>
                                                                                 </td>
                                                                         </tr>
+
+
+                                                                        <tr>
+                                                                                <td>
+                                                                                        <table class="table1" style="border:0px sloid #000;">
+                                                                                                <tr>
+                                                                                                        <td colspan="2">
+                                                                                                                <div class="heading" style="text-align:left;">PATIET ASSESSMENT</div>
+                                                                                                        </td>
+                                                                                                </tr>
+
+                                                                                                <tr>
+                                                                                                        <td colspan="2">
+                                                                                                                <div class="content">
+                                                                                                                        <div class="label_sty" style="width: 150px;">
+                                                                                                                                Patient's Condition:
+                                                                                                                        </div>
+                                                                                                                        <div class="data_sty" style="width: 300px;">
+                                                                                                                                <?php
+                                                                                                                                if ($assessment->patient_condition == 1) {
+                                                                                                                                        echo 'Mobile';
+                                                                                                                                } else if ($assessment->patient_condition == 2) {
+                                                                                                                                        echo 'Bedridden';
+                                                                                                                                } else if ($assessment->patient_condition == 3) {
+                                                                                                                                        echo 'Semi Bedridden';
+                                                                                                                                }
+                                                                                                                                echo ' , ';
+
+                                                                                                                                if ($assessment->patient_conscious == 4) {
+                                                                                                                                        echo 'Conscious';
+                                                                                                                                } else if ($assessment->patient_conscious == 5) {
+                                                                                                                                        echo 'UnConscious';
+                                                                                                                                } else if ($assessment->patient_conscious == 6) {
+                                                                                                                                        echo 'Semi Conscious';
+                                                                                                                                }
+                                                                                                                                ?>
+                                                                                                                        </div>
+
+                                                                                                                </div>
+                                                                                                        </td>
+                                                                                                </tr>
+
+
+                                                                                                <tr>
+                                                                                                        <td colspan="2">
+                                                                                                                <div class="content">
+                                                                                                                        <div class="label_sty" style="width: 150px;">
+                                                                                                                                Medical Procedures:
+                                                                                                                        </div>
+                                                                                                                        <div class="data_sty" style="width: 300px;">
+                                                                                                                                <?php
+                                                                                                                                if (isset($assessment->patient_medical_procedures) && $assessment->patient_medical_procedures != '') {
+                                                                                                                                        $procedures = explode(',', $assessment->patient_medical_procedures);
+                                                                                                                                        $procedure = '';
+                                                                                                                                        $b = 0;
+                                                                                                                                        foreach ($procedures as $value) {
+                                                                                                                                                $b++;
+                                                                                                                                                if ($b != 1) {
+                                                                                                                                                        $procedure .= ' , ';
+                                                                                                                                                }
+                                                                                                                                                $skill = common\models\StaffExperienceList::findOne($value);
+                                                                                                                                                $procedure .= $skill->title;
+                                                                                                                                        }
+                                                                                                                                        echo $procedure;
+                                                                                                                                }
+                                                                                                                                ?>
+                                                                                                                        </div>
+
+                                                                                                                </div>
+                                                                                                        </td>
+                                                                                                </tr>
+
+
+                                                                                                <tr>
+                                                                                                        <td colspan="2">
+                                                                                                                <div class="content">
+                                                                                                                        <div class="label_sty" style="width: 150px;">
+                                                                                                                                Suggested Home Care Professional:
+                                                                                                                        </div>
+                                                                                                                        <div class="data_sty" style="width: 300px;">
+                                                                                                                                <?php
+                                                                                                                                if (isset($assessment->suggested_professional) && $assessment->suggested_professional != '') {
+                                                                                                                                        $suggest = explode(',', $assessment->suggested_professional);
+                                                                                                                                        $suggested = '';
+                                                                                                                                        $c = 0;
+                                                                                                                                        foreach ($suggest as $values) {
+                                                                                                                                                $c++;
+                                                                                                                                                if ($c != 1) {
+                                                                                                                                                        $suggested .= ' , ';
+                                                                                                                                                }
+                                                                                                                                                if ($values == 1) {
+                                                                                                                                                        $suggested .= 'Registered Nurse Male';
+                                                                                                                                                } else if ($values == 2) {
+                                                                                                                                                        $suggested .= 'Registered Nurse Female';
+                                                                                                                                                } else if ($values == 3) {
+                                                                                                                                                        $suggested .= 'Associate Nurse Male';
+                                                                                                                                                } else if ($values == 3) {
+                                                                                                                                                        $suggested .= 'Associate Nurse Female';
+                                                                                                                                                } else if ($values == 3) {
+                                                                                                                                                        $suggested .= 'Nurse Attendent Male';
+                                                                                                                                                } else if ($values == 3) {
+                                                                                                                                                        $suggested .= 'Nurse Attendent Female';
+                                                                                                                                                }
+                                                                                                                                        }
+                                                                                                                                        echo $suggested;
+                                                                                                                                }
+                                                                                                                                ?>
+                                                                                                                        </div>
+
+                                                                                                                </div>
+                                                                                                        </td>
+                                                                                                </tr>
+
+                                                                                                <tr>
+                                                                                                        <td colspan="2">
+                                                                                                                <div class="content">
+                                                                                                                        <div class="label_sty" style="width: 150px;">
+                                                                                                                                Notes :
+                                                                                                                        </div>
+                                                                                                                        <div class="data_sty" style="width: 300px;">
+                                                                                                                                <?php
+                                                                                                                                if (isset($assessment->other_notes) && $assessment->other_notes != '') {
+                                                                                                                                        echo $assessment->other_notes;
+                                                                                                                                }
+                                                                                                                                ?>
+                                                                                                                        </div>
+
+                                                                                                                </div>
+                                                                                                        </td>
+                                                                                                </tr>
+
+                                                                                        </table>
+                                                                                </td>
+                                                                        </tr>
+
                                                                         <tr>
                                                                                 <td>
                                                                                         <table class="table1" style="border:0px sloid #000;">

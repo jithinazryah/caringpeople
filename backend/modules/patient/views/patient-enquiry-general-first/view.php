@@ -646,6 +646,101 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 </tr>
 
 
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Assessment Details</label>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientAssessment.patient_condition'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientAssessment->patient_condition) && $model->patientAssessment->patient_condition != '') {
+                                                                                        if ($model->patientAssessment->patient_condition == 1) {
+                                                                                                echo 'Mobile';
+                                                                                        } else if ($model->patientAssessment->patient_condition == 2) {
+                                                                                                echo 'Bedridden';
+                                                                                        } else if ($model->patientAssessment->patient_condition == 3) {
+                                                                                                echo 'Semi Bedridden';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientAssessment.patient_conscious'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientAssessment->patient_conscious) && $model->patientAssessment->patient_conscious != '') {
+                                                                                        if ($model->patientAssessment->patient_conscious == 4) {
+                                                                                                echo 'Conscious';
+                                                                                        } else if ($model->patientAssessment->patient_conscious == 5) {
+                                                                                                echo 'UnConscious';
+                                                                                        } else if ($model->patientAssessment->patient_conscious == 6) {
+                                                                                                echo 'Semi Conscious';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientAssessment.patient_medical_procedures'); ?> </td><td class="value" colspan="3"><?php
+                                                                                if (isset($model->patientAssessment->patient_medical_procedures) && $model->patientAssessment->patient_medical_procedures != '') {
+                                                                                        $procedures = explode(',', $model->patientAssessment->patient_medical_procedures);
+                                                                                        $procedure = '';
+                                                                                        $b = 0;
+                                                                                        foreach ($procedures as $value) {
+                                                                                                $b++;
+                                                                                                if ($b != 1) {
+                                                                                                        $procedure .= ' , ';
+                                                                                                }
+                                                                                                $skill = common\models\StaffExperienceList::findOne($value);
+                                                                                                $procedure .= $skill->title;
+                                                                                        }
+                                                                                        echo $procedure;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientAssessment.suggested_professional'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientAssessment->suggested_professional) && $model->patientAssessment->suggested_professional != '') {
+                                                                                        $suggest = explode(',', $model->patientAssessment->suggested_professional);
+                                                                                        $suggested = '';
+                                                                                        $c = 0;
+                                                                                        foreach ($suggest as $values) {
+                                                                                                $c++;
+                                                                                                if ($c != 1) {
+                                                                                                        $suggested .= ' , ';
+                                                                                                }
+                                                                                                if ($values == 1) {
+                                                                                                        $suggested .= 'Registered Nurse Male';
+                                                                                                } else if ($values == 2) {
+                                                                                                        $suggested .= 'Registered Nurse Female';
+                                                                                                } else if ($values == 3) {
+                                                                                                        $suggested .= 'Associate Nurse Male';
+                                                                                                } else if ($values == 3) {
+                                                                                                        $suggested .= 'Associate Nurse Female';
+                                                                                                } else if ($values == 3) {
+                                                                                                        $suggested .= 'Nurse Attendent Male';
+                                                                                                } else if ($values == 3) {
+                                                                                                        $suggested .= 'Nurse Attendent Female';
+                                                                                                }
+                                                                                        }
+                                                                                        echo $suggested;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('patientAssessment.other_notes'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->patientAssessment->other_notes) && $model->patientAssessment->other_notes != '') {
+                                                                                        echo $model->patientAssessment->other_notes;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+
 
 
 

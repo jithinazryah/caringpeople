@@ -98,6 +98,10 @@ class PatientEnquiryGeneralFirst extends \yii\db\ActiveRecord {
                 return $this->hasOne(PatientEnquiryHospitalSecond::className(), ['enquiry_id' => 'id']);
         }
 
+        public function getPatientAssessment() {
+                return $this->hasOne(PatientAssessment::className(), ['patient_enquiry_id' => 'id']);
+        }
+
         public static function Service($id) {
                 $patient_details = PatientEnquiryGeneralSecond::find()->where(['enquiry_id' => $id])->one();
                 $required_services = explode(',', $patient_details->required_service);

@@ -22,11 +22,11 @@ use common\models\StaffExperienceList;
         <hr class="enquiry-hr"/>
 
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_condition')->radio(['label' => 'Mobile', 'value' => 1, 'uncheck' => null]) ?></div>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_condition')->radio(['label' => 'Bedridden', 'value' => 0, 'uncheck' => null]) ?></div>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_condition')->radio(['label' => 'Semi Bedridden', 'value' => 2, 'uncheck' => null]) ?></div>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_conscious')->radio(['label' => 'Conscious', 'value' => 3, 'uncheck' => null]) ?></div>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_conscious')->radio(['label' => 'UnConscious', 'value' => 3, 'uncheck' => null]) ?></div>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_conscious')->radio(['label' => 'Semi Conscious', 'value' => 3, 'uncheck' => null]) ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_condition')->radio(['label' => 'Bedridden', 'value' => 2, 'uncheck' => null]) ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_condition')->radio(['label' => 'Semi Bedridden', 'value' => 3, 'uncheck' => null]) ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_conscious')->radio(['label' => 'Conscious', 'value' => 4, 'uncheck' => null]) ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_conscious')->radio(['label' => 'UnConscious', 'value' => 5, 'uncheck' => null]) ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($patient_assessment, 'patient_conscious')->radio(['label' => 'Semi Conscious', 'value' => 6, 'uncheck' => null]) ?></div>
 
 
 
