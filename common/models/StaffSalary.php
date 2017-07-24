@@ -23,56 +23,54 @@ use Yii;
  *
  * @property StaffInfo $staff
  */
-class StaffSalary extends \yii\db\ActiveRecord
-{
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'staff_salary';
-    }
+class StaffSalary extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['staff_id'], 'integer'],
-            [['date_of_salary'], 'safe'],
-            [['basic_salary','hra', 'food_and_accomodation', 'conveyance', 'lta', 'medical_allowance', 'other_allowances', 'stipend', 'PF_deduction', 'ESI_deduction', 'other_deduction'], 'string', 'max' => 200],
-            [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'staff_salary';
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'staff_id' => 'Staff ID',
-            'basic_salary' => 'Basic Salary',
-            'food_and_accomodation' => 'Food And Accomodation',
-            'conveyance' => 'Conveyance',
-            'lta' => 'Lta',
-            'medical_allowance' => 'Medical Allowance',
-            'other_allowances' => 'Other Allowances',
-            'stipend' => 'Stipend',
-            'PF_deduction' => 'Pf Deduction',
-            'ESI_deduction' => 'Esi Deduction',
-            'other_deduction' => 'Other Deduction',
-            'date_of_salary' => 'Date Of Salary',
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['staff_id'], 'integer'],
+                        [['date_of_salary'], 'safe'],
+                        [['basic_salary', 'hra', 'food_and_accomodation', 'conveyance', 'lta', 'medical_allowance', 'other_allowances', 'stipend', 'PF_deduction', 'ESI_deduction', 'other_deduction'], 'string', 'max' => 200],
+                        [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
+                ];
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getStaff()
-    {
-        return $this->hasOne(StaffInfo::className(), ['id' => 'staff_id']);
-    }
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'staff_id' => 'Staff ID',
+                    'basic_salary' => 'Basic Salary',
+                    'hra' => 'HRA',
+                    'food_and_accomodation' => 'Food And Accomodation',
+                    'conveyance' => 'Conveyance',
+                    'lta' => 'Lta',
+                    'medical_allowance' => 'Medical Allowance',
+                    'other_allowances' => 'Other Allowances',
+                    'stipend' => 'Stipend',
+                    'PF_deduction' => 'Pf Deduction',
+                    'ESI_deduction' => 'Esi Deduction',
+                    'other_deduction' => 'Other Deduction',
+                    'date_of_salary' => 'Date Of Salary',
+                ];
+        }
+
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getStaff() {
+                return $this->hasOne(StaffInfo::className(), ['id' => 'staff_id']);
+        }
+
 }

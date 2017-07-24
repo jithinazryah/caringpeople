@@ -333,4 +333,8 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 return $this->hasOne(StaffEnquiryInterviewThird::className(), ['staff_id' => 'id']);
         }
 
+        public function getStaffsalary() {
+                return $this->hasOne(StaffSalary::className(), ['staff_id' => 'id']);
+        }
+
 }

@@ -187,63 +187,67 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 <?php
                                                                 if (!empty($staff_previous_employer)) {
-                                                                        ?>
-                                                                        <tr>
-                                                                                <td colspan="5">
-                                                                                        <label class="label-class">Previous Employer Details</label>
-                                                                                </td>
-                                                                        </tr>
+                                                                        foreach ($staff_previous_employer as $staff_previous_employer) {
+                                                                                ?>
+                                                                                <tr>
+                                                                                        <td colspan="5">
+                                                                                                <label class="label-class">Previous Employer Details</label>
+                                                                                        </td>
+                                                                                </tr>
 
-                                                                        <tr>
-                                                                                <td class="labell">Hospital Address </td><td class="value"><?php
-                                                                                        if (isset($staff_previous_employer->hospital_address) && $model->hospital_address != '') {
-                                                                                                echo $model->hospital_address;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
+                                                                                <tr>
+                                                                                        <td class="labell">Hospital Address </td><td class="value"><?php
+                                                                                                if (isset($staff_previous_employer->hospital_address) && $staff_previous_employer->hospital_address != '') {
+                                                                                                        echo $staff_previous_employer->hospital_address;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
 
-                                                                                <td class="labell">Designation </td><td class="value"><?php
-                                                                                        if (isset($staff_previous_employer->designation) && $model->designation != '') {
-                                                                                                echo $model->designation;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
+                                                                                        <td class="labell">Designation </td><td class="value"><?php
+                                                                                                if (isset($staff_previous_employer->designation) && $staff_previous_employer->designation != '') {
+                                                                                                        echo $staff_previous_employer->designation;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
 
-                                                                        </tr>
+                                                                                </tr>
 
-                                                                        <tr>
-                                                                                <td class="labell">Length Of Service </td><td class="value"><?php
-                                                                                        if (isset($staff_previous_employer->length_of_service) && $model->length_of_service != '') {
-                                                                                                echo $model->length_of_service;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
+                                                                                <tr>
+                                                                                        <td class="labell">Length Of Service </td><td class="value"><?php
+                                                                                                if (isset($staff_previous_employer->length_of_service) && $staff_previous_employer->length_of_service != '') {
+                                                                                                        echo $staff_previous_employer->length_of_service;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
 
-                                                                                <td class="labell">Service From </td><td class="value"><?php
-                                                                                        if (isset($staff_previous_employer->service_from) && $model->service_from != '') {
-                                                                                                echo $model->service_from;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
-                                                                        </tr>
+                                                                                        <td class="labell">Service From </td><td class="value"><?php
+                                                                                                if (isset($staff_previous_employer->service_from) && $staff_previous_employer->service_from != '') {
+                                                                                                        echo $staff_previous_employer->service_from;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
+                                                                                </tr>
 
-                                                                        <tr>
-                                                                                <td class="labell">Service To</td><td class="value"><?php
-                                                                                        if (isset($staff_previous_employer->service_to) && $model->service_to != '') {
-                                                                                                echo $model->service_to;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
+                                                                                <tr>
+                                                                                        <td class="labell">Service To</td><td class="value"><?php
+                                                                                                if (isset($staff_previous_employer->service_to) && $staff_previous_employer->service_to != '') {
+                                                                                                        echo $staff_previous_employer->service_to;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
 
-                                                                                <td class="labell">Salary</td><td class="value"><?php
-                                                                                        if (isset($staff_previous_employer->salary) && $model->salary != '') {
-                                                                                                echo $model->salary;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
-                                                                        </tr>
+                                                                                        <td class="labell">Salary</td><td class="value"><?php
+                                                                                                if (isset($staff_previous_employer->salary) && $staff_previous_employer->salary != '') {
+                                                                                                        echo $staff_previous_employer->salary;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
+                                                                                </tr>
 
-                                                                <?php } ?>
+                                                                                <?php
+                                                                        }
+                                                                }
+                                                                ?>
 
 
                                                                 <tr>
@@ -322,47 +326,49 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 <?php
                                                                 if (!empty($staff_family_details)) {
-                                                                        ?>
-                                                                        <tr>
-                                                                                <td colspan="5">
-                                                                                        <label class="label-class">Family Details</label>
-                                                                                </td>
-                                                                        </tr>
+                                                                        foreach ($staff_family_details as $staff_family_details) {
+                                                                                ?>
+                                                                                <tr>
+                                                                                        <td colspan="5">
+                                                                                                <label class="label-class">Family Details</label>
+                                                                                        </td>
+                                                                                </tr>
 
-                                                                        <tr>
-                                                                                <td class="labell">Name </td><td class="value"><?php
-                                                                                        if (isset($staff_family_details->name) && $staff_family_details->name != '') {
-                                                                                                echo $staff_family_details->name;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
+                                                                                <tr>
+                                                                                        <td class="labell">Name </td><td class="value"><?php
+                                                                                                if (isset($staff_family_details->name) && $staff_family_details->name != '') {
+                                                                                                        echo $staff_family_details->name;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
 
-                                                                                <td class="labell">Relationship </td><td class="value"><?php
-                                                                                        if (isset($staff_family_details->relationship) && $staff_family_details->relationship != '') {
-                                                                                                echo $staff_family_details->relationship;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
+                                                                                        <td class="labell">Relationship </td><td class="value"><?php
+                                                                                                if (isset($staff_family_details->relationship) && $staff_family_details->relationship != '') {
+                                                                                                        echo $staff_family_details->relationship;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
 
-                                                                        </tr>
+                                                                                </tr>
 
-                                                                        <tr>
-                                                                                <td class="labell">Job </td><td class="value"><?php
-                                                                                        if (isset($staff_family_details->job) && $staff_family_details->job != '') {
-                                                                                                echo $staff_family_details->job;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
+                                                                                <tr>
+                                                                                        <td class="labell">Job </td><td class="value"><?php
+                                                                                                if (isset($staff_family_details->job) && $staff_family_details->job != '') {
+                                                                                                        echo $staff_family_details->job;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
 
-                                                                                <td class="labell">Mobile no </td><td class="value"><?php
-                                                                                        if (isset($staff_family_details->mobile_no) && $staff_family_details->mobile_no != '') {
-                                                                                                echo $staff_family_details->mobile_no;
-                                                                                        }
-                                                                                        ?>
-                                                                                </td>
+                                                                                        <td class="labell">Mobile no </td><td class="value"><?php
+                                                                                                if (isset($staff_family_details->mobile_no) && $staff_family_details->mobile_no != '') {
+                                                                                                        echo $staff_family_details->mobile_no;
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
 
-                                                                        </tr>
-                                                                        <?php
+                                                                                </tr>
+                                                                                <?php
+                                                                        }
                                                                 }
                                                                 ?>
 
@@ -547,6 +553,63 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         </td>
 
                                                                         <td colspan="2"></td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Bank Details</label>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.bank_ac_hodername'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->bank_ac_hodername) && $model->interviewthird->bank_ac_hodername != '') {
+                                                                                        echo $model->interviewthird->bank_ac_hodername;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.bank_ac_no'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->bank_ac_no) && $model->interviewthird->bank_ac_no != '') {
+                                                                                        echo $model->interviewthird->bank_ac_no;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.bank_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->bank_name) && $model->interviewthird->bank_name != '') {
+                                                                                        echo $model->interviewthird->bank_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.bank_branch'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->bank_branch) && $model->interviewthird->bank_branch != '') {
+                                                                                        echo $model->interviewthird->bank_branch;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.bank_ifsc'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->bank_ifsc) && $model->interviewthird->bank_ifsc != '') {
+                                                                                        echo $model->interviewthird->bank_ifsc;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td colspan="2">
+
+                                                                        </td>
 
                                                                 </tr>
 
