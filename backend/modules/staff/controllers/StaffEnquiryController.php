@@ -87,8 +87,16 @@ class StaffEnquiryController extends Controller {
          */
         public function actionView($id) {
 
+                $staff_edu = StaffInfoEducation::findOne(['enquiry_id' => $id]);
+                $other_info = StaffOtherInfo::findOne(['enquiry_id' => $id]);
+                $staff_previous_employer = StaffPerviousEmployer::findAll(['enquiry_id' => $id]);
+                $staff_family_details = \common\models\StaffEnquiryFamilyDetails::findAll(['enquiry_id' => $id]);
                 return $this->render('view', [
                             'model' => $this->findModel($id),
+                            'staff_edu' => $staff_edu,
+                            'staff_other_info' => $other_info,
+                            'staff_previous_employer' => $staff_previous_employer,
+                            'staff_family_details' => $staff_family_details
                 ]);
         }
 

@@ -94,7 +94,7 @@ class StaffEnquiry extends \yii\db\ActiveRecord {
                 return $this->hasOne(StaffInfoEducation::className(), ['enquiry_id' => 'id']);
         }
 
-        public function getOtherinfo() {
+        public function getStaffOtherinfo() {
                 return $this->hasOne(StaffOtherInfo::className(), ['enquiry_id' => 'id']);
         }
 

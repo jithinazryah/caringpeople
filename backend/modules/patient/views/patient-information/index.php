@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             // 'DOC',
                                             // 'DOU',
                                             ['class' => 'yii\grid\ActionColumn',
-                                                'template' => '{update}{delete}',
+                                                'template' => '{view}{update}{delete}',
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;

@@ -2,12 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\Religion;
+use common\models\Caste;
+use common\models\Nationality;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\StaffEnquiry */
+/* @var $model common\models\StaffInfo */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Staff Enquiries', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Staff Infos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -20,191 +23,565 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff Enquiry</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="staff-enquiry-view">
-                                                <p>
-                                                        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry </span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div class="panel-body">
+                                        <div class="patient-enquiry-general-first-view">
 
-                                                </p>
 
-                                                <?=
-                                                DetailView::widget([
-                                                    'model' => $model,
-                                                    'attributes' => [
-                                                        'name',
-                                                            [
-                                                            'attribute' => 'gender',
-                                                            'value' => function($model) {
-                                                                    if ($model->gender == '0') {
-                                                                            return 'Male';
-                                                                    } else if ($model->gender == '1') {
-                                                                            return 'Female';
-                                                                    }
-                                                            }
-                                                        ],
-                                                            [
-                                                            'attribute' => 'dob',
-                                                            'value' => function($model) {
-//                                                                    return Yii::$app->formatter->asDate($model->dob);
-                                                                    if (isset($model->dob) && $model->dob != '0000-00-00') {
-                                                                            $datee = date('d-m-Y', strtotime($model->dob));
-                                                                            $age = date_diff(date_create($datee), date_create('today'))->y;
-                                                                            if (isset($age))
-                                                                                    return \Yii::$app->formatter->asDatetime($model->dob, "php:d-m-Y") . ' (' . $age . ')';
-                                                                            else
-                                                                                    return \Yii::$app->formatter->asDatetime($model->dob, "php:d-m-Y");
-                                                                    }
-                                                            }
-                                                        ],
-                                                        'phone_number',
-                                                        'email:email',
-                                                        'address',
-                                                            [
-                                                            'attribute' => 'designation',
-                                                            'value' => function($model) {
-                                                                    if ($model->designation == '1') {
-                                                                            return 'Registered Nurse';
-                                                                    } else if ($model->designation == '2') {
-                                                                            return 'Care Assistant';
-                                                                    } else if ($model->designation == '3') {
-                                                                            return 'Doctor visit at home';
-                                                                    } else if ($model->designation == '4') {
-                                                                            return 'OP Clinic';
-                                                                    } else if ($model->designation == '5') {
-                                                                            return 'DV + OP';
-                                                                    } else if ($model->designation == '6') {
-                                                                            return 'Physio';
-                                                                    } else if ($model->designation == '7') {
-                                                                            return 'Psychologist';
-                                                                    } else if ($model->designation == '8') {
-                                                                            return 'Dietician';
-                                                                    } else if ($model->designation == '9') {
-                                                                            return 'Receptionist';
-                                                                    } else if ($model->designation == '10') {
-                                                                            return 'Office Staff';
-                                                                    } else if ($model->designation == '11') {
-                                                                            return 'Accountant';
-                                                                    } else if ($model->designation == '12') {
-                                                                            return 'Nurse Manager';
-                                                                    }
-                                                            }
-                                                        ],
-                                                        // 'follow_up_date',
-                                                        'notes:ntext',
-                                                        'education.sslc_institution',
-                                                        'education.sslc_year_of_passing',
-                                                        'education.sslc_place',
-                                                        'education.hse_institution',
-                                                        'education.hse_year_of_passing',
-                                                        'education.hse_place',
-                                                        'education.nursing_institution',
-                                                        'education.nursing_year_of_passing',
-                                                        'education.nursing_place',
-                                                        'interviewfirst.police_station_name',
-                                                        'interviewfirst.panchayat',
-                                                        'interviewfirst.muncipality_corporation',
-                                                        'interviewfirst.mentioned_per_day_salary',
-                                                            [
-                                                            'label' => 'Languages known',
-                                                            'attribute' => 'interviewfirst.language_1',
-                                                            'value' => function($model) {
-                                                                    $lang = $model->language($model->interviewfirst->language_1);
-                                                                    $lang2 = $model->language($model->interviewfirst->language_2);
-                                                                    $lang3 = $model->language($model->interviewfirst->language_3);
-                                                                    $lang4 = $model->language($model->interviewfirst->language_4);
-                                                                    return $lang . "," . $lang2 . "," . $lang3 . "," . $lang4;
-                                                            }
-                                                        ],
-                                                        'interviewfirst.family_name',
-                                                            [
-                                                            'attribute' => 'interviewfirst.relation',
-                                                            'value' => function($model) {
-                                                                    if ($model->interviewfirst->relation == '1') {
-                                                                            return 'Father';
-                                                                    } else if ($model->interviewfirst->relation == '2') {
-                                                                            return 'Mother';
-                                                                    } else if ($model->interviewfirst->relation == '3') {
-                                                                            return 'Spouse';
-                                                                    } else if ($model->interviewfirst->relation == '4') {
-                                                                            return 'Brother';
-                                                                    } else if ($model->interviewfirst->relation == '5') {
-                                                                            return 'Sister';
-                                                                    } else if ($model->interviewfirst->relation == '6') {
-                                                                            return 'Neighbour';
-                                                                    }
-                                                            }
-                                                        ],
-                                                        'interviewfirst.job',
-                                                        'interviewfirst.mobile_no',
-                                                        'otherinfo.emergency_contact_name',
-                                                        'otherinfo.relationship',
-                                                        'otherinfo.phone',
-                                                        'otherinfo.mobile',
-                                                        'otherinfo.alt_emergency_contact_name',
-                                                        'otherinfo.alt_relationship',
-                                                        'otherinfo.alt_phone',
-                                                        'otherinfo.alt_mobile',
-                                                        'interviewsecond.contact_verified_by',
-                                                        'interviewsecond.contact_verified_date',
-                                                        'interviewsecond.contact_verified_note',
-                                                        'interviewsecond.alt_contact_verified_by',
-                                                        'interviewsecond.alt_contact_verified_date',
-                                                        'interviewsecond.alt_contact_verified_note',
-                                                        'interviewsecond.verified_name_1',
-                                                        'interviewsecond.verified_designation_1',
-                                                        'interviewsecond.verified_date_1',
-                                                        'interviewsecond.verified_mobile_no_1',
-                                                        'interviewthird.bank_ac_no',
-                                                        'interviewthird.bank_ac_hodername',
-                                                        'interviewthird.bank_name',
-                                                        'interviewthird.bank_branch',
-                                                        'interviewthird.bank_ifsc',
-                                                            [
-                                                            'attribute' => 'interviewthird.staff_experience',
-                                                            'value' => function($model) {
-                                                                    return $model->staffexperience($model->interviewthird->staff_experience);
-                                                            }
-                                                        ],
-                                                        'interviewthird.document_required',
-                                                        'interviewthird.document_received',
-                                                            [
-                                                            'attribute' => 'interviewthird.form_filled',
-                                                            'value' => function($model) {
-                                                                    if ($model->interviewthird->form_filled == '0') {
-                                                                            return 'No';
-                                                                    } else if ($model->interviewthird->form_filled == '1') {
-                                                                            return 'Yes';
-                                                                    }
-                                                            }
-                                                        ],
-                                                            [
-                                                            'attribute' => 'interviewthird.interest_level',
-                                                            'value' => function($model) {
-                                                                    if ($model->interviewthird->interest_level == '1') {
-                                                                            return 'High';
-                                                                    } else if ($model->interviewthird->interest_level == '2') {
-                                                                            return 'No Interest';
-                                                                    } else if ($model->interviewthird->interest_level == '3') {
-                                                                            return 'Medium';
-                                                                    }
-                                                            }
-                                                        ],
-                                                        'interviewthird.expected_date_of_joining',
-                                                        'interviewthird.interview_notes',
-                                                        'interviewthird.interviewed_by',
-                                                        'interviewthird.interviewed_date',
-                                                            [
-                                                            'attribute' => 'status',
-                                                            'value' => $model->status == 1 ? 'Enabled' : 'Disabled',
-                                                        ],
-                                                    ],
-                                                ])
-                                                ?>
+
+                                                <div id="pdf">
+                                                        <style>
+                                                                .print{
+                                                                        text-align: center;
+                                                                        margin-top: 18px;
+                                                                }
+                                                                .appoint{
+                                                                        width: 100%;
+                                                                        /*     background-color: #eeeeee;*/
+                                                                }
+                                                                .value{
+                                                                        font-weight: bold;
+                                                                        text-align: left;
+                                                                }
+                                                                .appoint .labell{
+                                                                        text-align: left;
+                                                                }
+                                                                .appoint .colen{
+
+                                                                }
+                                                                .appoint td{
+                                                                        padding: 10px;
+                                                                }
+                                                                table th{
+                                                                        color:black;
+                                                                }
+                                                                table td{
+                                                                        color:black;
+                                                                }
+                                                                .sales-master{
+                                                                        margin-bottom: 40px;
+                                                                }
+                                                                .sales-details{
+                                                                        margin-bottom: 40px;
+                                                                }
+                                                                h4{
+                                                                        color: #2196F3;
+                                                                }
+                                                                .label-class{
+                                                                        font-weight: bold;
+                                                                }
+                                                        </style>
+
+
+                                                        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Staff Basic Details</label>
+                                                                        </td>
+
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('name'); ?> <td class="value"> <?= $model->name; ?></td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('gender'); ?></td><td class="value"><?php
+                                                                                if (isset($model->gender)) {
+                                                                                        if ($model->gender == '0') {
+                                                                                                echo 'Male';
+                                                                                        } else if ($model->gender == '1') {
+                                                                                                echo 'Female';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('dob'); ?></td><td class="value"><?php
+                                                                                if (isset($model->dob)) {
+                                                                                        echo $model->dob;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('age'); ?></td><td class="value"><?php
+                                                                                if (isset($model->age)) {
+                                                                                        echo $model->age;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.height'); ?></td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->height)) {
+                                                                                        echo $model->interviewfirst->height;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.weight'); ?></td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->weight)) {
+                                                                                        echo $model->interviewfirst->weight;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('address'); ?></td><td class="value"><?php
+                                                                                if (isset($model->address) && $model->address != '') {
+                                                                                        echo $model->address;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('phone_number'); ?></td><td class="value"><?php
+                                                                                if (isset($model->phone_number) && $model->phone_number != '') {
+                                                                                        echo $model->phone_number;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('place'); ?></td><td class="value"><?php
+                                                                                if (isset($model->place) && $model->place != '') {
+                                                                                        echo $model->place;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('email'); ?></td><td class="value"><?php
+                                                                                if (isset($model->email) && $model->email != '') {
+                                                                                        echo $model->email;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('designation'); ?></td><td class="value"><?php
+                                                                                if (isset($model->designation) && $model->designation != '') {
+                                                                                        $desig = app\models\MasterDesignations::findOne($model->designation);
+                                                                                        echo $desig->title;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+
+
+
+
+
+
+
+
+
+                                                                <?php
+                                                                if (!empty($staff_previous_employer)) {
+                                                                        ?>
+                                                                        <tr>
+                                                                                <td colspan="5">
+                                                                                        <label class="label-class">Previous Employer Details</label>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                                <td class="labell">Hospital Address </td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->hospital_address) && $model->hospital_address != '') {
+                                                                                                echo $model->hospital_address;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Designation </td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->designation) && $model->designation != '') {
+                                                                                                echo $model->designation;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                                <td class="labell">Length Of Service </td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->length_of_service) && $model->length_of_service != '') {
+                                                                                                echo $model->length_of_service;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Service From </td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->service_from) && $model->service_from != '') {
+                                                                                                echo $model->service_from;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                                <td class="labell">Service To</td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->service_to) && $model->service_to != '') {
+                                                                                                echo $model->service_to;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Salary</td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->salary) && $model->salary != '') {
+                                                                                                echo $model->salary;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                <?php } ?>
+
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Emergency Contact</label>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.emergency_contact_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->emergency_contact_name) && $model->staffOtherinfo->emergency_contact_name != '') {
+                                                                                        echo $model->staffOtherinfo->emergency_contact_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.relationship'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->relationship) && $model->staffOtherinfo->relationship != '') {
+                                                                                        echo $model->staffOtherinfo->relationship;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.phone'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->phone) && $model->staffOtherinfo->phone != '') {
+                                                                                        echo $model->staffOtherinfo->phone;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.mobile'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->mobile) && $model->staffOtherinfo->mobile != '') {
+                                                                                        echo $model->staffOtherinfo->mobile;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_emergency_contact_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_emergency_contact_name) && $model->staffOtherinfo->alt_emergency_contact_name != '') {
+                                                                                        echo $model->staffOtherinfo->alt_emergency_contact_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_relationship'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_relationship) && $model->staffOtherinfo->alt_relationship != '') {
+                                                                                        echo $model->staffOtherinfo->alt_relationship;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_phone'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_phone) && $model->staffOtherinfo->alt_phone != '') {
+                                                                                        echo $model->staffOtherinfo->alt_phone;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_mobile'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_mobile) && $model->staffOtherinfo->alt_mobile != '') {
+                                                                                        echo $model->staffOtherinfo->alt_mobile;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <?php
+                                                                if (!empty($staff_family_details)) {
+                                                                        ?>
+                                                                        <tr>
+                                                                                <td colspan="5">
+                                                                                        <label class="label-class">Family Details</label>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                                <td class="labell">Name </td><td class="value"><?php
+                                                                                        if (isset($staff_family_details->name) && $staff_family_details->name != '') {
+                                                                                                echo $staff_family_details->name;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Relationship </td><td class="value"><?php
+                                                                                        if (isset($staff_family_details->relationship) && $staff_family_details->relationship != '') {
+                                                                                                echo $staff_family_details->relationship;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                                <td class="labell">Job </td><td class="value"><?php
+                                                                                        if (isset($staff_family_details->job) && $staff_family_details->job != '') {
+                                                                                                echo $staff_family_details->job;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Mobile no </td><td class="value"><?php
+                                                                                        if (isset($staff_family_details->mobile_no) && $staff_family_details->mobile_no != '') {
+                                                                                                echo $staff_family_details->mobile_no;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                        </tr>
+                                                                        <?php
+                                                                }
+                                                                ?>
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Interview Information</label>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.police_station_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->police_station_name) && $model->interviewfirst->police_station_name != '') {
+                                                                                        echo $model->interviewfirst->police_station_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewsecond.verified_name_1'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewsecond->verified_name_1) && $model->interviewsecond->verified_name_1 != '') {
+                                                                                        echo $model->interviewsecond->verified_name_1;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.muncipality_corporation'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->muncipality_corporation) && $model->interviewfirst->muncipality_corporation != '') {
+                                                                                        echo $model->interviewfirst->muncipality_corporation;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewsecond.verified_name_2'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewsecond->verified_name_2) && $model->interviewsecond->verified_name_2 != '') {
+                                                                                        echo $model->interviewsecond->verified_name_2;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell" ><?= $model->getAttributeLabel('staff_experience'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staff_experience) && $model->staff_experience != '') {
+                                                                                        $skill = explode(',', $model->staff_experience);
+                                                                                        $skills = '';
+                                                                                        $i = 0;
+                                                                                        if (!empty($skill)) {
+                                                                                                foreach ($skill as $des) {
+
+                                                                                                        if ($i != 0) {
+                                                                                                                $skills .= ',';
+                                                                                                        }
+                                                                                                        $skill_name = \common\models\StaffExperienceList::findOne($des);
+                                                                                                        $skills .= $skill_name->title;
+                                                                                                        $i++;
+                                                                                                }
+                                                                                        }
+                                                                                        echo $skills;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.mentioned_per_day_salary'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->mentioned_per_day_salary) && $model->interviewfirst->mentioned_per_day_salary != '') {
+                                                                                        echo $model->interviewfirst->mentioned_per_day_salary;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.smoke_or_drink'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->smoke_or_drink) && $model->interviewfirst->smoke_or_drink != '') {
+                                                                                        if ($model->interviewfirst->smoke_or_drink == 1) {
+                                                                                                echo 'Yes';
+                                                                                        } else {
+                                                                                                echo 'No';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell">Drink/Other </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->drink) && $model->interviewfirst->drink != '') {
+
+                                                                                        if ($model->interviewfirst->drink == 1) {
+                                                                                                echo 'Drink : Yes';
+                                                                                        } else {
+                                                                                                echo 'Drink : Yes';
+                                                                                        }
+                                                                                }
+                                                                                if (isset($model->interviewfirst->drink) && $model->interviewfirst->drink != '') {
+                                                                                        echo ',';
+                                                                                }
+
+                                                                                if (isset($model->interviewfirst->other) && $model->interviewfirst->other != '') {
+
+                                                                                        if ($model->interviewfirst->other == 1) {
+                                                                                                echo 'Drink : Yes';
+                                                                                        } else {
+                                                                                                echo 'Drink : Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.document_required'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->document_required) && $model->interviewthird->document_required != '') {
+                                                                                        echo $model->interviewthird->document_required;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.document_received'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->document_received) && $model->interviewthird->document_received != '') {
+                                                                                        echo $model->interviewthird->document_received;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.form_filled'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->form_filled) && $model->interviewthird->form_filled != '') {
+                                                                                        if ($model->interviewthird->form_filled == 1) {
+                                                                                                echo 'yes';
+                                                                                        } else {
+                                                                                                echo 'No';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.interest_level'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->interest_level) && $model->interviewthird->interest_level != '') {
+                                                                                        if ($model->interviewthird->interest_level == 1) {
+                                                                                                echo 'High';
+                                                                                        } else if ($model->interviewthird->interest_level == 2) {
+                                                                                                echo 'No interest';
+                                                                                        } else if ($model->interviewthird->interest_level == 3) {
+                                                                                                echo 'Medium';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.interview_notes'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->interview_notes) && $model->interviewthird->interview_notes != '') {
+                                                                                        echo $model->interviewthird->interview_notes;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.interviewed_by'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->interviewed_by) && $model->interviewthird->interviewed_by != '') {
+                                                                                        echo $model->interviewthird->interviewed_by;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell" ><?= $model->getAttributeLabel('interviewthird.interviewed_date'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->interviewed_date) && $model->interviewthird->interviewed_date != '') {
+                                                                                        echo $model->interviewthird->interviewed_date;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td colspan="2"></td>
+
+                                                                </tr>
+
+
+
+
+
+
+
+                                                        </table>
+
+
+
+
+
+
+
+                                                </div>
+                                                <script>
+                                                        function printContent(el) {
+                                                                var restorepage = document.body.innerHTML;
+                                                                var printcontent = document.getElementById(el).innerHTML;
+                                                                document.body.innerHTML = printcontent;
+                                                                window.print();
+                                                                document.body.innerHTML = restorepage;
+                                                        }
+                                                </script>
+
+                                                <!--</html>-->
+                                                <div class="print">
+                                                        <button onclick="printContent('pdf')" style="font-weight: bold !important;" class="btn btn-success">Print</button>
+                                                </div>
                                         </div>
                                 </div>
                         </div>
                 </div>
         </div>
 </div>
-
-

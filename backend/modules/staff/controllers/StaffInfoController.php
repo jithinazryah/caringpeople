@@ -102,11 +102,13 @@ class StaffInfoController extends Controller {
                 $staff_edu = StaffInfoEducation::findOne(['staff_id' => $id]);
                 $other_info = StaffOtherInfo::findOne(['staff_id' => $id]);
                 $staff_previous_employer = StaffPerviousEmployer::findAll(['staff_id' => $id]);
+                $staff_family_details = \common\models\StaffEnquiryFamilyDetails::findAll(['staff_id' => $id]);
                 return $this->render('view', [
-                            'staff_info' => $this->findModel($id),
+                            'model' => $this->findModel($id),
                             'staff_edu' => $staff_edu,
                             'staff_other_info' => $other_info,
-                            'staff_previous_employer' => $staff_previous_employer
+                            'staff_previous_employer' => $staff_previous_employer,
+                            'staff_family_details' => $staff_family_details
                 ]);
         }
 

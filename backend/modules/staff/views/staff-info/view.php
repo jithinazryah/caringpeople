@@ -9,7 +9,7 @@ use common\models\Nationality;
 /* @var $this yii\web\View */
 /* @var $model common\models\StaffInfo */
 
-$this->title = $staff_info->staff_name;
+$this->title = $model->staff_name;
 $this->params['breadcrumbs'][] = ['label' => 'Staff Infos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,1197 +20,825 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel-heading">
                                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
+
                         </div>
                         <div class="panel-body">
-                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Staff</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Enquiry </span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div class="panel-body">
+                                        <div class="patient-enquiry-general-first-view">
 
-                                <div class="panel-body"><div class="staff-info-view">
-                                                <div id="pdf" class="table-responsive">
 
 
-                                                        <style type="text/css">
-
-                                                                @media print {
-                                                                        thead {display: table-header-group;}
-                                                                        .table th{ background-color: rgba(155, 156, 157, 0.5);}
-                                                                }
-                                                                @page {
-                                                                        size: A4;
-                                                                }
-
-                                                                @media screen{
-                                                                        .main-tabl{
-                                                                                width: 42%;
-                                                                        }
-                                                                }
+                                                <div id="pdf">
+                                                        <style>
                                                                 .print{
                                                                         text-align: center;
                                                                         margin-top: 18px;
                                                                 }
-
-                                                                tfoot{display: table-footer-group;}
-                                                                table { page-break-inside:auto;}
-                                                                tr{ page-break-inside:avoid; page-break-after:auto; }
-
-                                                                table.table{
-                                                                        /* border: .1px solid #969696;*/
-                                                                        border-collapse: collapse;
-                                                                        margin: auto;
-                                                                        color:#000;
-
-                                                                }
-                                                                .table th {
-                                                                        border: .1px solid #969696;
-                                                                        color: #525252;
-                                                                        font-weight: bold;
-                                                                        background-color: #fff !important;
-                                                                }
-                                                                .table td {
-                                                                        border: 1px solid #969696;
-                                                                        font-size: 12px;
-                                                                        text-align: center;
-                                                                        padding: 3px;
-                                                                }
-                                                                .table1 td{
-                                                                        border: 0px solid #969696;
-
-                                                                }
-                                                                .table p{
-                                                                        color:#000;
-                                                                        font-size: 12px;
-                                                                        font-weight: normal;
-                                                                }
-                                                                .header{
-                                                                        font-size: 12.5px;
-                                                                        display: inline-block;
+                                                                .appoint{
                                                                         width: 100%;
-                                                                        height: 110px;
+                                                                        /*     background-color: #eeeeee;*/
                                                                 }
-                                                                .main-left{
-                                                                        float: left;
-                                                                        font-size: 13px;
+                                                                .value{
+                                                                        font-weight: bold;
+                                                                        text-align: left;
                                                                 }
-                                                                .heading{
-                                                                        font-size: 16px;
+                                                                .appoint .labell{
+                                                                        text-align: left;
+                                                                }
+                                                                .appoint .colen{
+
+                                                                }
+                                                                .appoint td{
+                                                                        padding: 10px;
+                                                                }
+                                                                table th{
+                                                                        color:black;
+                                                                }
+                                                                table td{
+                                                                        color:black;
+                                                                }
+                                                                .sales-master{
+                                                                        margin-bottom: 40px;
+                                                                }
+                                                                .sales-details{
+                                                                        margin-bottom: 40px;
+                                                                }
+                                                                h4{
+                                                                        color: #2196F3;
+                                                                }
+                                                                .label-class{
                                                                         font-weight: bold;
                                                                 }
-                                                                .label_sty{
-                                                                        float: left;
-                                                                        font-size:14px;
-                                                                }
-                                                                .data_sty{
-                                                                        float: left;
-                                                                        padding: 0px 18px;
-                                                                        border-bottom: 1px dotted black;
-                                                                        font-weight: bold;
-                                                                        margin-left: 10px;
-                                                                        text-align: center;
-                                                                        min-height: 30px;
-                                                                }
-                                                                .education .label_sty{
-                                                                        text-align: center;
-                                                                }
-                                                                .break { page-break-before: always; }
-
-
-
-
-
-
                                                         </style>
 
-                                                        <table class="main-tabl table table-responsive" border="0"  style="line-height:30px;">
 
+                                                        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
                                                                 <tr>
-                                                                        <td>
-                                                                                <table class="table1">
-                                                                                        <tr>
-                                                                                                <td>
-                                                                                                        <div class="main-left">
-                                                                                                                <img src="<?= Yii::$app->homeUrl ?>/images/logos/logo-1.png" style="width:250px;"/>
-                                                                                                        </div>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                        <div class="main-left" style="width:225px;margin-left: 25px;text-align: justify;">
-                                                                                                                Door No.5 DD Vyapar Bhavan <br>
-                                                                                                                K.P Vallon Road, Kavandthra Jn<br>
-                                                                                                                <b>Koohi-20 | </b>Tel:0484 4033505<br>
-
-                                                                                                        </div>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                        <div class="main-left" style="width:230px;text-align: right;">
-                                                                                                                Shop No 16, Brindavan Co-op Housing <br>
-                                                                                                                Evershine Nagar, Malad West<br>
-                                                                                                                <b>Mumbai -40064 |</b> Tel:022 40 111 351<br>
-
-                                                                                                        </div>
-                                                                                                </td>
-                                                                                        </tr>
-
-                                                                                        <tr>
-                                                                                                <td></td>
-                                                                                                <td colspan="2">
-                                                                                                        <div class="main-left" style="margin-left:25px;">
-                                                                                                                www.caringpeople.in <b>|</b> Email :info@caringpeople.in <b>|</b> Helpline No: 90 20 599 599
-                                                                                                        </div>
-
-                                                                                                </td>
-                                                                                        </tr>
-                                                                                </table>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Staff Basic Details</label>
                                                                         </td>
 
 
                                                                 </tr>
 
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staff_id'); ?> <td class="value"> <?= $model->staff_id; ?></td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staff_name'); ?> <td class="value"> <?= $model->staff_name; ?></td>
 
 
-                                                                <tbody>
+                                                                </tr>
 
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('gender'); ?></td><td class="value"><?php
+                                                                                if (isset($model->gender)) {
+                                                                                        if ($model->gender == '0') {
+                                                                                                echo 'Male';
+                                                                                        } else if ($model->gender == '1') {
+                                                                                                echo 'Female';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('dob'); ?></td><td class="value"><?php
+                                                                                if (isset($model->dob)) {
+                                                                                        echo $model->dob;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('age'); ?></td><td class="value"><?php
+                                                                                if (isset($model->age)) {
+                                                                                        echo $model->age;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('religion'); ?></td><td class="value"><?php
+                                                                                if (isset($model->religion)) {
+                                                                                        $religion = Religion::findOne($model->religion);
+                                                                                        echo $religion->religion;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('caste'); ?></td><td class="value"><?php
+                                                                                if (isset($model->caste)) {
+                                                                                        $caste = Caste::findOne($model->caste);
+                                                                                        echo $caste->caste;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('permanent_address'); ?></td><td class="value"><?php
+                                                                                if (isset($model->permanent_address)) {
+                                                                                        echo $model->permanent_address;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('pincode'); ?></td><td class="value"><?php
+                                                                                if (isset($model->pincode)) {
+                                                                                        echo $model->pincode;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('contact_no'); ?></td><td class="value"><?php
+                                                                                if (isset($model->contact_no)) {
+                                                                                        echo $model->contact_no;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('email'); ?></td><td class="value"><?php
+                                                                                if (isset($model->email)) {
+                                                                                        echo $model->email;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('nationality'); ?></td><td class="value"><?php
+                                                                                if (isset($model->nationality)) {
+                                                                                        $nationality = Nationality::findOne($model->nationality);
+                                                                                        echo $nationality->nationality;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('present_address'); ?></td><td class="value"><?php
+                                                                                if (isset($model->present_address)) {
+                                                                                        echo $model->present_address;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('present_pincode'); ?></td><td class="value"><?php
+                                                                                if (isset($model->present_pincode)) {
+                                                                                        echo $model->present_pincode;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('present_contact_no'); ?></td><td class="value"><?php
+                                                                                if (isset($model->present_contact_no)) {
+                                                                                        echo $model->present_contact_no;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('present_email'); ?></td><td class="value"><?php
+                                                                                if (isset($model->present_email)) {
+                                                                                        echo $model->present_email;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('place'); ?></td><td class="value"><?php
+                                                                                if (isset($model->place)) {
+                                                                                        echo $model->place;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('blood_group'); ?></td><td class="value"><?php
+                                                                                if (isset($model->blood_group)) {
+                                                                                        echo $model->blood_group;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('years_of_experience'); ?></td><td class="value"><?php
+                                                                                if (isset($model->years_of_experience)) {
+                                                                                        echo $model->years_of_experience;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('driving_licence'); ?></td><td class="value"><?php
+                                                                                if (isset($model->driving_licence)) {
+                                                                                        if ($model->driving_licence == 0) {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->driving_licence == 1) {
+                                                                                                echo 'Motor Cycle & LMV';
+                                                                                        } else if ($model->driving_licence == 2) {
+                                                                                                echo 'Motor Cycle';
+                                                                                        } else if ($model->driving_licence == 3) {
+                                                                                                echo 'LMV';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Education Qualification</label>
+                                                                        </td>
+
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.sslc_institution'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->sslc_institution) && $model->staffEducation->sslc_institution != '') {
+                                                                                        echo $model->staffEducation->sslc_institution;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.sslc_year_of_passing'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->sslc_year_of_passing) && $model->staffEducation->sslc_year_of_passing != '') {
+                                                                                        echo $model->staffEducation->sslc_year_of_passing;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.sslc_place'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->sslc_place) && $model->staffEducation->sslc_place != '') {
+                                                                                        echo $model->staffEducation->sslc_place;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.hse_institution'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->hse_institution) && $model->staffEducation->hse_institution != '') {
+                                                                                        echo $model->staffEducation->hse_institution;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.hse_year_of_passing'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->hse_year_of_passing) && $model->staffEducation->hse_year_of_passing != '') {
+                                                                                        echo $model->staffEducation->hse_year_of_passing;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.hse_place'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->hse_place) && $model->staffEducation->hse_place != '') {
+                                                                                        echo $model->staffEducation->hse_place;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.nursing_institution'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->nursing_institution) && $model->staffEducation->nursing_institution != '') {
+                                                                                        echo $model->staffEducation->nursing_institution;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.nursing_year_of_passing'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->nursing_year_of_passing) && $model->staffEducation->nursing_year_of_passing != '') {
+                                                                                        echo $model->staffEducation->nursing_year_of_passing;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.nursing_place'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->nursing_place) && $model->staffEducation->nursing_place != '') {
+                                                                                        echo $model->staffEducation->nursing_place;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.timing'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->timing) && $model->staffEducation->timing != '') {
+                                                                                        if ($model->staffEducation->timing == 0) {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->staffEducation->timing == 1) {
+                                                                                                echo 'Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.uniform'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->uniform) && $model->staffEducation->uniform != '') {
+                                                                                        if ($model->staffEducation->uniform == 0) {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->staffEducation->uniform == 1) {
+                                                                                                echo 'Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.company_id'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->company_id) && $model->staffEducation->company_id != '') {
+                                                                                        if ($model->staffEducation->company_id == 0) {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->staffEducation->company_id == 1) {
+                                                                                                echo 'Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.emergency_conatct_verification'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->emergency_conatct_verification) && $model->staffEducation->emergency_conatct_verification != '') {
+                                                                                        if ($model->staffEducation->emergency_conatct_verification == 0) {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->staffEducation->emergency_conatct_verification == 1) {
+                                                                                                echo 'Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffEducation.panchayath_cleraance_verification'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffEducation->panchayath_cleraance_verification) && $model->staffEducation->panchayath_cleraance_verification != '') {
+                                                                                        if ($model->staffEducation->panchayath_cleraance_verification == 0) {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->staffEducation->panchayath_cleraance_verification == 1) {
+                                                                                                echo 'Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Current Employer Details</label>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.hospital_address'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->hospital_address) && $model->staffOtherinfo->hospital_address != '') {
+                                                                                        echo $model->staffOtherinfo->hospital_address;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.designation'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->designation) && $model->staffOtherinfo->designation != '') {
+                                                                                        echo $model->staffOtherinfo->designation;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.length_of_service'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->length_of_service) && $model->staffOtherinfo->length_of_service != '') {
+                                                                                        echo $model->stafstaffOtherinfofEducation->length_of_service;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.current_from'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->current_from) && $model->staffOtherinfo->current_from != '') {
+                                                                                        echo $model->staffOtherinfo->current_from;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.current_to'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->current_to) && $model->staffOtherinfo->current_to != '') {
+                                                                                        echo $model->staffOtherinfo->current_to;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td colspan="2"></td>
+
+                                                                </tr>
+
+                                                                <?php
+                                                                if (!empty($staff_previous_employer)) {
+                                                                        ?>
                                                                         <tr>
-                                                                                <td style="padding-top:25px;">
-                                                                                        <div class="heading">APPLICATION FORM FOR STAFF</div>
+                                                                                <td colspan="5">
+                                                                                        <label class="label-class">Previous Employer Details</label>
                                                                                 </td>
                                                                         </tr>
 
+                                                                        <tr>
+                                                                                <td class="labell">Hospital Address </td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->hospital_address) && $model->hospital_address != '') {
+                                                                                                echo $model->hospital_address;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
 
+                                                                                <td class="labell">Designation </td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->designation) && $model->designation != '') {
+                                                                                                echo $model->designation;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                        </tr>
 
                                                                         <tr>
-                                                                                <td>
-                                                                                        <table class="table1" style="border:0px sloid #000;">
+                                                                                <td class="labell">Length Of Service </td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->length_of_service) && $model->length_of_service != '') {
+                                                                                                echo $model->length_of_service;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Service From </td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->service_from) && $model->service_from != '') {
+                                                                                                echo $model->service_from;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                                <td class="labell">Service To</td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->service_to) && $model->service_to != '') {
+                                                                                                echo $model->service_to;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Salary</td><td class="value"><?php
+                                                                                        if (isset($staff_previous_employer->salary) && $model->salary != '') {
+                                                                                                echo $model->salary;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                <?php } ?>
 
 
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Emergency Contact</label>
+                                                                        </td>
+                                                                </tr>
 
-                                                                                                <tr>
-                                                                                                        <td colspan="3">
-                                                                                                                <div class="profile_image" style="float:right;">
-                                                                                                                        <?php if ($staff_uploads->profile_image_type != '') { ?>
-                                                                                                                                <img src="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/profile_image_type.' . $staff_uploads->profile_image_type; ?> " style="width:115px;height:115px;"/>
-                                                                                                                                <?php
-                                                                                                                        } else {
-                                                                                                                                if ($staff_info->gender == '0') {
-                                                                                                                                        ?>
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/themes/photo.png" style="width:115px;height:115px;"/>
-                                                                                                                                        <?php
-                                                                                                                                } elseif ($staff_info->gender == '1') {
-                                                                                                                                        ?>
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/themes/female.png" style="width:115px;height:115px;"/>
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.emergency_contact_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->emergency_contact_name) && $model->staffOtherinfo->emergency_contact_name != '') {
+                                                                                        echo $model->staffOtherinfo->emergency_contact_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
 
-                                                                                                                                        <?php
-                                                                                                                                }
-                                                                                                                        }
-                                                                                                                        ?>
-                                                                                                                </div>
-                                                                                                        </td>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.relationship'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->relationship) && $model->staffOtherinfo->relationship != '') {
+                                                                                        echo $model->staffOtherinfo->relationship;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
 
-                                                                                                </tr>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.phone'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->phone) && $model->staffOtherinfo->phone != '') {
+                                                                                        echo $model->staffOtherinfo->phone;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.mobile'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->mobile) && $model->staffOtherinfo->mobile != '') {
+                                                                                        echo $model->staffOtherinfo->mobile;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_emergency_contact_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_emergency_contact_name) && $model->staffOtherinfo->alt_emergency_contact_name != '') {
+                                                                                        echo $model->staffOtherinfo->alt_emergency_contact_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_relationship'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_relationship) && $model->staffOtherinfo->alt_relationship != '') {
+                                                                                        echo $model->staffOtherinfo->alt_relationship;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_phone'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_phone) && $model->staffOtherinfo->alt_phone != '') {
+                                                                                        echo $model->staffOtherinfo->alt_phone;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_mobile'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_mobile) && $model->staffOtherinfo->alt_mobile != '') {
+                                                                                        echo $model->staffOtherinfo->alt_mobile;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <?php
+                                                                if (!empty($staff_family_details)) {
+                                                                        ?>
+                                                                        <tr>
+                                                                                <td colspan="5">
+                                                                                        <label class="label-class">Family Details</label>
+                                                                                </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                                <td class="labell">Name </td><td class="value"><?php
+                                                                                        if (isset($staff_family_details->name) && $staff_family_details->name != '') {
+                                                                                                echo $staff_family_details->name;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Relationship </td><td class="value"><?php
+                                                                                        if (isset($staff_family_details->relationship) && $staff_family_details->relationship != '') {
+                                                                                                echo $staff_family_details->relationship;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                                <td class="labell">Job </td><td class="value"><?php
+                                                                                        if (isset($staff_family_details->job) && $staff_family_details->job != '') {
+                                                                                                echo $staff_family_details->job;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                                <td class="labell">Mobile no </td><td class="value"><?php
+                                                                                        if (isset($staff_family_details->mobile_no) && $staff_family_details->mobile_no != '') {
+                                                                                                echo $staff_family_details->mobile_no;
+                                                                                        }
+                                                                                        ?>
+                                                                                </td>
+
+                                                                        </tr>
+                                                                        <?php
+                                                                }
+                                                                ?>
+
+                                                                <tr>
+                                                                        <td colspan="5">
+                                                                                <label class="label-class">Interview Information</label>
+                                                                        </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.police_station_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->police_station_name) && $model->interviewfirst->police_station_name != '') {
+                                                                                        echo $model->interviewfirst->police_station_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewsecond.verified_name_1'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewsecond->verified_name_1) && $model->interviewsecond->verified_name_1 != '') {
+                                                                                        echo $model->interviewsecond->verified_name_1;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.muncipality_corporation'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->muncipality_corporation) && $model->interviewfirst->muncipality_corporation != '') {
+                                                                                        echo $model->interviewfirst->muncipality_corporation;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewsecond.verified_name_2'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewsecond->verified_name_2) && $model->interviewsecond->verified_name_2 != '') {
+                                                                                        echo $model->interviewsecond->verified_name_2;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
 
 
-                                                                                                <tr>
-                                                                                                        <td colspan="3">
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Name of the applicant :
-                                                                                                                        </div>
+                                                                </tr>
 
-                                                                                                                        <div class="data_sty" style="width:595px;">
-                                                                                                                                <?= $staff_info->staff_name; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
+                                                                <tr>
+                                                                        <td class="labell" ><?= $model->getAttributeLabel('staff_experience'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staff_experience) && $model->staff_experience != '') {
+                                                                                        $skill = explode(',', $model->staff_experience);
+                                                                                        $skills = '';
+                                                                                        $i = 0;
+                                                                                        if (!empty($skill)) {
+                                                                                                foreach ($skill as $des) {
 
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Gender :
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:170px">
-                                                                                                                                <?php
-                                                                                                                                if ($staff_info->gender == '0') {
-                                                                                                                                        echo 'Male';
-                                                                                                                                } elseif ($staff_info->gender == '1') {
-                                                                                                                                        echo 'Female';
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                        <?php
-                                                                                                        if (isset($staff_info->dob) && $staff_info->dob != '0000-00-00') {
-                                                                                                                $datee = date('d-m-Y', strtotime($staff_info->dob));
-                                                                                                                $age = date_diff(date_create($datee), date_create('today'))->y;
+                                                                                                        if ($i != 0) {
+                                                                                                                $skills .= ',';
                                                                                                         }
-                                                                                                        ?>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                DOB :
-                                                                                                                        </div>
+                                                                                                        $skill_name = \common\models\StaffExperienceList::findOne($des);
+                                                                                                        $skills .= $skill_name->title;
+                                                                                                        $i++;
+                                                                                                }
+                                                                                        }
+                                                                                        echo $skills;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.mentioned_per_day_salary'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->mentioned_per_day_salary) && $model->interviewfirst->mentioned_per_day_salary != '') {
+                                                                                        echo $model->interviewfirst->mentioned_per_day_salary;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewfirst.smoke_or_drink'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->smoke_or_drink) && $model->interviewfirst->smoke_or_drink != '') {
+                                                                                        if ($model->interviewfirst->smoke_or_drink == 1) {
+                                                                                                echo 'Yes';
+                                                                                        } else {
+                                                                                                echo 'No';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell">Drink/Other </td><td class="value"><?php
+                                                                                if (isset($model->interviewfirst->drink) && $model->interviewfirst->drink != '') {
+
+                                                                                        if ($model->interviewfirst->drink == 1) {
+                                                                                                echo 'Drink : Yes';
+                                                                                        } else {
+                                                                                                echo 'Drink : Yes';
+                                                                                        }
+                                                                                }
+                                                                                if (isset($model->interviewfirst->drink) && $model->interviewfirst->drink != '') {
+                                                                                        echo ',';
+                                                                                }
+
+                                                                                if (isset($model->interviewfirst->other) && $model->interviewfirst->other != '') {
+
+                                                                                        if ($model->interviewfirst->other == 1) {
+                                                                                                echo 'Drink : Yes';
+                                                                                        } else {
+                                                                                                echo 'Drink : Yes';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.document_required'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->document_required) && $model->interviewthird->document_required != '') {
+                                                                                        echo $model->interviewthird->document_required;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.document_received'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->document_received) && $model->interviewthird->document_received != '') {
+                                                                                        echo $model->interviewthird->document_received;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.form_filled'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->form_filled) && $model->interviewthird->form_filled != '') {
+                                                                                        if ($model->interviewthird->form_filled == 1) {
+                                                                                                echo 'yes';
+                                                                                        } else {
+                                                                                                echo 'No';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.interest_level'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->interest_level) && $model->interviewthird->interest_level != '') {
+                                                                                        if ($model->interviewthird->interest_level == 1) {
+                                                                                                echo 'High';
+                                                                                        } else if ($model->interviewthird->interest_level == 2) {
+                                                                                                echo 'No interest';
+                                                                                        } else if ($model->interviewthird->interest_level == 3) {
+                                                                                                echo 'Medium';
+                                                                                        }
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.interview_notes'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->interview_notes) && $model->interviewthird->interview_notes != '') {
+                                                                                        echo $model->interviewthird->interview_notes;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
 
-                                                                                                                        <div class="data_sty" style="width:170px">
-                                                                                                                                <?= $date = date('d-m-Y', strtotime($staff_info->dob)); ?>
-                                                                                                                                <?php
-                                                                                                                                if (isset($age)) {
-                                                                                                                                        echo '(' . $age . ')';
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Blood Group :
-                                                                                                                        </div>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('interviewthird.interviewed_by'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->interviewed_by) && $model->interviewthird->interviewed_by != '') {
+                                                                                        echo $model->interviewthird->interviewed_by;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
 
-                                                                                                                        <div class="data_sty" style="width:170px">
-                                                                                                                                <?= $date = $staff_info->blood_group; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
+                                                                </tr>
 
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Religion :
-                                                                                                                        </div>
+                                                                <tr>
+                                                                        <td class="labell" ><?= $model->getAttributeLabel('interviewthird.interviewed_date'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->interviewthird->interviewed_date) && $model->interviewthird->interviewed_date != '') {
+                                                                                        echo $model->interviewthird->interviewed_date;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
 
-                                                                                                                        <div class="data_sty" style="width:170px">
-                                                                                                                                <?php
-                                                                                                                                if (isset($staff_info->religion)) {
-                                                                                                                                        $religion = Religion::findOne($staff_info->religion);
-                                                                                                                                        echo $religion->religion;
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Caste :
-                                                                                                                        </div>
+                                                                        <td colspan="2"></td>
 
-                                                                                                                        <div class="data_sty" style="width:170px">
-                                                                                                                                <?php
-                                                                                                                                if (isset($staff_info->caste)) {
-                                                                                                                                        $caste = Caste::findOne($staff_info->caste);
-                                                                                                                                        echo $caste->caste;
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Nationality :
-                                                                                                                        </div>
+                                                                </tr>
 
-                                                                                                                        <div class="data_sty" style="width:185px">
-                                                                                                                                <?php
-                                                                                                                                if (isset($staff_info->nationality)) {
-                                                                                                                                        $nationality = Nationality::findOne($staff_info->nationality);
-                                                                                                                                        echo $nationality->nationality;
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
 
-                                                                                                <tr>
-                                                                                                        <td colspan="3">
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Pan card/Adhar card No :
-                                                                                                                        </div>
 
-                                                                                                                        <div class="data_sty" style="width:580px;">
-                                                                                                                                <?= $staff_info->pan_or_adhar_no; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
 
 
-
-                                                                                        </table>
-                                                                                </td>
-                                                                        </tr>
-
-
-                                                                        <tr>
-                                                                                <td>
-                                                                                        <table class="table1">
-                                                                                                <tr>
-                                                                                                        <td style="padding-top:20px;">
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width:325px;font-weight: bold;">
-                                                                                                                                Permanent Address (Residence) :
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td style="padding-top:20px;">
-                                                                                                                <div class="content" style="width:320px;font-weight: bold;margin-left: 30px;">
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Present Address :
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="label_sty">
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:355px;margin-left: 2px;">
-                                                                                                                        <?= $staff_info->permanent_address; ?>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="label_sty">
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:350px;margin-left: 30px;">
-                                                                                                                        <?= $staff_info->present_address; ?>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="label_sty">
-                                                                                                                        Pincode :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:290px">
-                                                                                                                        <?= $staff_info->pincode; ?>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="label_sty" style="margin-left: 30px;">
-                                                                                                                        Pincode :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:280px">
-                                                                                                                        <?= $staff_info->present_pincode; ?>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="label_sty">
-                                                                                                                        Contact No :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:270px">
-                                                                                                                        <?= $staff_info->contact_no; ?>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="label_sty" style="margin-left: 30px;">
-                                                                                                                        Contact No :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:261px">
-                                                                                                                        <?= $staff_info->present_contact_no; ?>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="label_sty">
-                                                                                                                        Email :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:305px;"><?= $staff_info->email; ?></div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="label_sty" style="margin-left: 30px;">
-                                                                                                                        Email :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:295px"><?= $staff_info->present_email; ?></div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="label_sty">
-                                                                                                                        Total years of experiences :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:175px;">
-                                                                                                                        <?= $staff_info->years_of_experience; ?>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="label_sty">
-                                                                                                                        Driving License :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:240px">
-                                                                                                                        <?php
-                                                                                                                        if ($staff_info->driving_licence == '0') {
-                                                                                                                                echo 'No';
-                                                                                                                        } elseif ($staff_info->driving_licence == '1') {
-                                                                                                                                echo 'Motor Cycle & LMV';
-                                                                                                                        } elseif ($staff_info->driving_licence == '2') {
-                                                                                                                                echo 'Motor Cycle';
-                                                                                                                        } elseif ($staff_info->driving_licence == '3') {
-                                                                                                                                echo 'LMV';
-                                                                                                                        }
-                                                                                                                        ?>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="label_sty" style="margin-left:30px;">
-                                                                                                                        License No :
-                                                                                                                </div>
-
-                                                                                                                <div class="data_sty" style="width:260px">
-                                                                                                                        <?= $staff_info->licence_no; ?>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-                                                                                        </table>
-                                                                                </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                                <td style="padding-top:25px;">
-                                                                                        <table class="table1">
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="font-weight: bold;width: 100px;">
-                                                                                                                                Qualification
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content education" >
-                                                                                                                        <div class="label_sty" style="font-weight: bold;width: 220px;">
-                                                                                                                                Name of the institution
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty" style="font-size: 12px;font-weight: bold;width: 100px;">
-                                                                                                                                Year of passing
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content education" >
-                                                                                                                        <div class="label_sty" style="font-weight: bold;width: 200px;">
-                                                                                                                                Place
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width: 100px;">
-                                                                                                                                SSSLC
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="data_sty" style="font-weight: bold;width: 220px;">
-                                                                                                                                <?= $staff_edu->sslc_institution; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="data_sty" style="font-weight: bold;width: 100px;">
-                                                                                                                                <?= $staff_edu->sslc_year_of_passing; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 200px;">
-                                                                                                                                <?= $staff_edu->sslc_place; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width: 100px;">
-                                                                                                                                HSE
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="data_sty" style="font-weight: bold;width: 220px;">
-                                                                                                                                <?= $staff_edu->hse_institution; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="data_sty" style="font-weight: bold;width: 100px;">
-                                                                                                                                <?= $staff_edu->hse_year_of_passing; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 200px;">
-                                                                                                                                <?= $staff_edu->hse_place; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width: 100px;">
-                                                                                                                                Nursing
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="data_sty" style="font-weight: bold;width: 220px;">
-                                                                                                                                <?= $staff_edu->nursing_institution; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="data_sty" style="font-weight: bold;width: 100px;">
-                                                                                                                                <?= $staff_edu->nursing_year_of_passing; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 200px;">
-                                                                                                                                <?= $staff_edu->nursing_place; ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width: 150px;">
-                                                                                                                                Tiiming
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 220px;">
-                                                                                                                                <?php
-                                                                                                                                if ($staff_edu->timing == '0') {
-                                                                                                                                        echo 'Part Time';
-                                                                                                                                } elseif ($staff_edu->timing == '1') {
-                                                                                                                                        echo 'Full Time';
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width: 150px;">
-                                                                                                                                Uniform provided
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 195px;">
-                                                                                                                                <?php
-                                                                                                                                if ($staff_edu->uniform == '0') {
-                                                                                                                                        echo 'No';
-                                                                                                                                } elseif ($staff_edu->uniform == '1') {
-                                                                                                                                        echo 'Yes';
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width: 150px;">
-                                                                                                                                Company ID provided
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 195px;">
-                                                                                                                                <?php
-                                                                                                                                if ($staff_edu->company_id == '0') {
-                                                                                                                                        echo 'No';
-                                                                                                                                } elseif ($staff_edu->company_id == '1') {
-                                                                                                                                        echo 'Yes';
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width: 130px;">
-                                                                                                                                Emergency Contact Verification
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 195px;">
-                                                                                                                                <?php
-                                                                                                                                if ($staff_edu->emergency_conatct_verification == '0') {
-                                                                                                                                        echo 'No';
-                                                                                                                                } elseif ($staff_edu->emergency_conatct_verification == '1') {
-                                                                                                                                        echo 'Yes';
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content">
-                                                                                                                        <div class="label_sty" style="width: 130px;">
-                                                                                                                                Panchayath Clearnce Verification
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content">
-                                                                                                                        <div class="data_sty"  style="font-weight: bold;width: 195px;">
-                                                                                                                                <?php
-                                                                                                                                if ($staff_edu->panchayath_cleraance_verification == '0') {
-                                                                                                                                        echo 'No';
-                                                                                                                                } elseif ($staff_edu->panchayath_cleraance_verification == '1') {
-                                                                                                                                        echo 'Yes';
-                                                                                                                                }
-                                                                                                                                ?>
-                                                                                                                        </div>
-
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-
-                                                                                        </table>
-                                                                                </td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                                <td>
-                                                                                        <table class="table1">
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="heading" style="text-align:left;">Current Employer (For Part-time employees)</div>
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Hospital Address:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:630px;">
-                                                                                                                                <?= $staff_other_info->hospital_address; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Designation:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:249px;margin-left: 40px;">
-                                                                                                                                <?= $staff_other_info->designation; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Length Of Service:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:249px;">
-                                                                                                                                <?= $staff_other_info->length_of_service; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
-
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                From:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:249px;margin-left: 80px;">
-                                                                                                                                <?= date('d-M-Y', strtotime($staff_other_info->current_from)); ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                To:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width: 345px;"><?= date('d-M-Y', strtotime($staff_other_info->current_to)); ?></div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
-                                                                                        </table>
-                                                                                </td>
-                                                                        </tr>
-
-
-                                                                        <tr>
-                                                                                <td>
-                                                                                        <table class='table1'>
-
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content">
-                                                                                                                        <div class="heading" style="text-align:left;">Previous Employer</div>
-                                                                                                                </div>
-                                                                                                        </td>
-                                                                                                </tr>
-                                                                                                <?php
-                                                                                                foreach ($staff_previous_employer as $value) {
-                                                                                                        ?>
-                                                                                                        <tr>
-                                                                                                                <td colspan="2">
-                                                                                                                        <div class="content" >
-                                                                                                                                <div class="label_sty">
-                                                                                                                                        Hospital Address:
-                                                                                                                                </div>
-
-                                                                                                                                <div class="data_sty" style="width:630px;">
-                                                                                                                                        <?= $value->hospital_address; ?>
-                                                                                                                                </div>
-                                                                                                                        </div>
-                                                                                                                </td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                                <td>
-                                                                                                                        <div class="content" >
-                                                                                                                                <div class="label_sty">
-                                                                                                                                        Designation:
-                                                                                                                                </div>
-
-                                                                                                                                <div class="data_sty" style="width:249px;margin-left: 40px;">
-                                                                                                                                        <?= $value->designation; ?>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                </td>
-
-                                                                                                                <td>
-                                                                                                                        <div class="content" >
-                                                                                                                                <div class="label_sty">
-                                                                                                                                        Length Of Service:
-                                                                                                                                </div>
-
-                                                                                                                                <div class="data_sty" style="width:249px;">
-                                                                                                                                        <?= $value->length_of_service; ?>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                </td>
-                                                                                                        </tr>
-
-
-                                                                                                        <tr>
-                                                                                                                <td>
-                                                                                                                        <div class="content" >
-                                                                                                                                <div class="label_sty">
-                                                                                                                                        From:
-                                                                                                                                </div>
-
-                                                                                                                                <div class="data_sty" style="width:249px;margin-left: 80px;">
-                                                                                                                                        <?= date('d-M-Y', strtotime($value->service_from)); ?>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                </td>
-
-                                                                                                                <td>
-                                                                                                                        <div class="content" >
-                                                                                                                                <div class="label_sty">
-                                                                                                                                        To:
-                                                                                                                                </div>
-
-                                                                                                                                <div class="data_sty" style="width: 345px;">
-                                                                                                                                        <?= date('d-M-Y', strtotime($value->service_to)); ?>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                </td>
-                                                                                                        </tr>
-
-                                                                                                <?php } ?>
-
-
-
-
-                                                                                        </table>
-                                                                                </td>
-                                                                        </tr>
-
-
-                                                                        <tr>
-                                                                                <td>
-                                                                                        <table class="table1">
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" style="text-align:center;">
-                                                                                                                        <div class="heading">EMERGENCY CONTACT</div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Emergency contact name:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:570px;;">
-                                                                                                                                <?= $staff_other_info->emergency_contact_name; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Relationship:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:650px;">
-                                                                                                                                <?= $staff_other_info->relationship; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Phone:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:300px;">
-                                                                                                                                <?= $staff_other_info->phone; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Mobile:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:320px;">
-                                                                                                                                <?= $staff_other_info->mobile; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Alternate Emergency contact name:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:507px;">
-                                                                                                                                <?= $staff_other_info->alt_emergency_contact_name; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Relationship:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:650px;">
-                                                                                                                                <?= $staff_other_info->alt_relationship; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                                <tr>
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Phone:
-                                                                                                                        </div>
-                                                                                                                        <div class="data_sty" style="width:300px;">
-                                                                                                                                <?= $staff_other_info->alt_phone; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-
-                                                                                                        <td>
-                                                                                                                <div class="content" >
-                                                                                                                        <div class="label_sty">
-                                                                                                                                Mobile:
-                                                                                                                        </div>
-
-                                                                                                                        <div class="data_sty" style="width:320px;">
-                                                                                                                                <?= $staff_other_info->alt_mobile; ?>
-                                                                                                                        </div>
-                                                                                                                </div>
-
-                                                                                                        </td>
-                                                                                                </tr>
-
-                                                                                        </table>
-                                                                                </td>
-                                                                        </tr>
-
-
-                                                                        <tr>
-                                                                                <td>
-                                                                                        <table class="table1" style="border:0px sloid #000;">
-
-                                                                                                <tr>
-                                                                                                        <td>
-
-                                                                                                                <p class="patient_consent">The information in this section is true and complete. I agree that any deliberate omission falsification
-                                                                                                                        or misrepresentation in the application form will be grounds for rejecting this application or subsequent dismissal if employed by the organisation.
-                                                                                                                        Where applicable, I consent that the organisation can seek clarification regarding professional registration details. I agree to the above declaration.
-
-                                                                                                                </p>
-
-                                                                                                        </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" style="width: 50%;float: left">
-                                                                                                                        <div class="label_sty" style="width: 100px;">
-                                                                                                                                Place:
-                                                                                                                        </div>
-                                                                                                                        <div class="" style="width: 100px;">
-
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                                <div class="content" style="width: 50%;float: right">
-                                                                                                                        <div class="label_sty" style="width: 100px;">
-                                                                                                                                Name:
-                                                                                                                        </div>
-                                                                                                                        <div class="" style="width: 100px;">
-
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                        <td colspan="2">
-                                                                                                                <div class="content" style="width: 50%;float: left">
-                                                                                                                        <div class="label_sty" style="width: 100px;">
-                                                                                                                                Date:
-                                                                                                                        </div>
-                                                                                                                        <div class="" style="width: 100px;">
-
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                                <div class="content" style="width: 50%;float: right">
-                                                                                                                        <div class="label_sty" style="width: 100px;">
-                                                                                                                                Signature:
-                                                                                                                        </div>
-                                                                                                                        <div class="" style="width: 100px;">
-
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </td>
-
-
-                                                                                                </tr>
-
-
-
-
-
-
-                                                                                        </table>
-                                                                                </td>
-                                                                        </tr>
-
-
-
-
-
-                                                                </tbody>
 
 
                                                         </table>
 
-                                                        <script>
-                                                                function printContent(el) {
-                                                                        var restorepage = document.body.innerHTML;
-                                                                        var printcontent = document.getElementById(el).innerHTML;
-                                                                        document.body.innerHTML = printcontent;
-                                                                        window.print();
-                                                                        document.body.innerHTML = restorepage;
-                                                                }
 
-
-
-
-                                                        </script>
-
-                                                        <!--</html>-->
-
-                                                </div>
 
 
 
 
 
-                                                <!-----------------View uploaded files--------->
-                                                <hr class="appoint_history" />
-                                                <h4 class="sub-heading">Uploaded Files</h4>
-                                                <div class="row">
-                                                        <?php
-                                                        $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $staff_info->id;
-                                                        $k = 0;
-                                                        foreach (glob("{$path}/*") as $file) {
-                                                                $k++;
-                                                                $arry = explode('/', $file);
-                                                                $img_nmee = end($arry);
-                                                                $img_nmees = explode('.', $img_nmee);
-                                                                ?>
-
-                                                                <div class = "col-md-2 img-box" id="<?= $k; ?>">
-                                                                        <a href="<?= Yii::$app->homeUrl . '../uploads/staff/' . $staff_info->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
-                                                                        <a  title="Delete" class="staff-enq-img-remove" id="<?= $staff_info->id . "-" . $img_nmee . "-" . $k; ?>" style="cursor:pointer"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
-                                                                </div>
-                                                        <?php }
-                                                        ?>
                                                 </div>
+                                                <script>
+                                                        function printContent(el) {
+                                                                var restorepage = document.body.innerHTML;
+                                                                var printcontent = document.getElementById(el).innerHTML;
+                                                                document.body.innerHTML = printcontent;
+                                                                window.print();
+                                                                document.body.innerHTML = restorepage;
+                                                        }
+                                                </script>
 
-
-
-
+                                                <!--</html>-->
                                                 <div class="print">
-                                                        <button onclick="printContent('pdf')" style="font-weight: bold !important;">Print</button>
+                                                        <button onclick="printContent('pdf')" style="font-weight: bold !important;" class="btn btn-success">Print</button>
                                                 </div>
                                         </div>
                                 </div>
@@ -1218,13 +846,3 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
         </div>
 </div>
-
-
-<style>
-        .img_data {
-                margin-top: 16px;
-        }
-        a{
-                color: #3c4ba1;
-        }
-</style>

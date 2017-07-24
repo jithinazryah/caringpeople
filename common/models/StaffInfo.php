@@ -313,4 +313,24 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 return $this->id . "-" . $this->post->id;
         }
 
+        public function getStaffEducation() {
+                return $this->hasOne(StaffInfoEducation::className(), ['staff_id' => 'id']);
+        }
+
+        public function getStaffOtherinfo() {
+                return $this->hasOne(StaffOtherInfo::className(), ['staff_id' => 'id']);
+        }
+
+        public function getInterviewfirst() {
+                return $this->hasOne(StaffEnquiryInterviewFirst::className(), ['staff_id' => 'id']);
+        }
+
+        public function getInterviewsecond() {
+                return $this->hasOne(StaffEnquiryInterviewSecond::className(), ['staff_id' => 'id']);
+        }
+
+        public function getInterviewthird() {
+                return $this->hasOne(StaffEnquiryInterviewThird::className(), ['staff_id' => 'id']);
+        }
+
 }
