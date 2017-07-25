@@ -23,6 +23,8 @@ use kartik\date\DatePicker;
                 <?php
                 if (!empty($staff_family)) {
                         foreach ($staff_family as $family) {
+                                unset($relationship);
+                                $relationship = $family->relationship;
                                 ?>
                                 <span>
                                         <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
@@ -35,34 +37,11 @@ use kartik\date\DatePicker;
                                         <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-staffenquiryinterviewfirst-relation">
                                                         <label class="control-label" for="">Relationship</label>
-                                                        <select name="updatefamily[<?= $family->id; ?>][relationship][]" id="family_relationships" class="form-control">
-                                                                <option value="">--Select--</option>
-                                                                <option value="Father" <?php
-                                                                if ($family->relationship == 'Father') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Father</option>
-                                                                <option value="Mother" <?php
-                                                                if ($family->relationship == 'Mother') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Mother</option>
-                                                                <option value="Spouse" <?php
-                                                                if ($family->relationship == 'Spouse') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Spouse</option>
-                                                                <option value="Brother" <?php
-                                                                if ($family->relationship == 'Brother') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Brother</option>
-                                                                <option value="Sister" <?php
-                                                                if ($family->relationship == 'Sister') {
-                                                                        echo 'selected=selected';
-                                                                }
-                                                                ?>>Sister</option>
-                                                        </select>
+                                                        <?php $relations = \common\models\MasterRelationships::find()->where(['status' => 1])->all(); ?>
+                                                        <?=
+                                                        Html::dropDownList('updatee[' . $family->id . '][relationship][]', $relationship, ArrayHelper::map($relations, 'id', 'title'), ['class' => 'form-control', 'prompt' => ' --Select--', 'id' => 'family_relationships_1']);
+                                                        ?>
+
                                                 </div>
                                         </div>
 
@@ -102,14 +81,11 @@ use kartik\date\DatePicker;
                         <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffenquiryinterviewfirst-relation">
                                         <label class="control-label" for="">Relationship</label>
-                                        <select name="createfamily[relationship][]" id="family_relationships" class="form-control">
-                                                <option value="">--Select--</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Brother">Brother</option>
-                                                <option value="Sister">Sister</option>
-                                        </select>
+                                        <?php $relations = \common\models\MasterRelationships::find()->where(['status' => 1])->all(); ?>
+                                        <?= Html::dropDownList('createfamily[relationship][]', null, ArrayHelper::map($relations, 'id', 'title'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'family_relationships_1']);
+                                        ?>
+                                        <a class="add-option-dropdown add-new" id="family_relationships_1-10" style="margin-top:0px;"> + Add New</a>
+
                                 </div>
                         </div>
 
@@ -136,8 +112,9 @@ use kartik\date\DatePicker;
         </div>
 
         <h4 style="color:#000;font-style: italic;">Bank Details</h4>
-        <hr class="enquiry-hr"/>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'bank_ac_no')->textInput(['maxlength' => true]) ?>
+        <hr class = "enquiry-hr"/>
+        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($staff_interview_third, 'bank_ac_no')->textInput(['maxlength' => true])
+                                        ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($staff_interview_third, 'bank_ac_hodername')->textInput(['maxlength' => true]) ?>
 

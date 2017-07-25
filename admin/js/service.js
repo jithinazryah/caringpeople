@@ -411,23 +411,33 @@ $("document").ready(function () {
          */
 
         $('.status-update').change(function () {
+
                 var status = $(this).val();
                 var idd_atr = $(this).attr('id');
                 var schedule_id = idd_atr.split('_');
                 var date = $('#schedule_date-' + schedule_id[1]).val();
-                if (date && date != '') {
+                var staf = $('#staff_on_duty_' + schedule_id[1]).attr('val');
+                if (staf && staf != '') {
+                        if (date && date != '') {
 
-                        $.ajax({
-                                type: 'POST',
-                                url: homeUrl + 'serviceajax/statusupdate',
-                                data: {schedule_id: schedule_id, status: status},
-                                success: function (data) {
+                                $.ajax({
+                                        type: 'POST',
+                                        url: homeUrl + 'serviceajax/statusupdate',
+                                        data: {schedule_id: schedule_id, status: status},
+                                        success: function (data) {
 
-                                }
-                        });
+                                                $("#modal-4-pop-up").html(data);
+                                                $('#modal-4').modal('show', {backdrop: 'static'});
+
+                                        }
+                                });
+                        } else {
+                                $('#' + idd_atr + ' option[value=1]').prop("selected", "selected");
+                                alert('Please select a date for this schedule');
+                        }
                 } else {
                         $('#' + idd_atr + ' option[value=1]').prop("selected", "selected");
-                        alert('Please select a date for this schedule');
+                        alert('Please assign a staff for this schedule');
                 }
         });
 
@@ -602,6 +612,21 @@ $("document").ready(function () {
                         success: function (data) {
                                 $('#modal-6').modal('hide');
                                 location.reload();
+                        }
+                });
+        });
+
+
+
+        $(document).on('submit', '#schedule-daily-rate', function (e) {
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/addrate',
+                        data: data,
+                        success: function (data) {
+                                $('#modal-4').modal('hide');
                         }
                 });
         });

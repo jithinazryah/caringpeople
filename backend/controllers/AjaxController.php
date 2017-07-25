@@ -491,4 +491,45 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
+        public function actionFamily() {
+                if (Yii::$app->request->isAjax) {
+                        $k = $_POST['count'];
+                        $relations = \common\models\MasterRelationships::find()->where(['status' => 1])->all();
+                        $options = Html::dropDownList('createfamily[relationship][]', null, ArrayHelper::map($relations, 'id', 'title'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'family_relationships_' . $k]);
+
+                        $options = $family = '<span>
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">
+                                     <div class="form-group field-staffenquiryinterviewfirst-family_name">
+                                        <label class="control-label">Name</label>
+                                        <input type="text" class="form-control" name="createfamily[name][]">
+                                     </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">
+                                     <div class="form-group field-staffenquiryinterviewfirst-relation">
+                                        <label class="control-label">Relationship</label>
+                                        ' . $options . '
+                                                 <a class="add-option-dropdown add-new" id="family_relationships_' . $k . '-10" style="margin-top:0px;"> + Add New</a>
+                        </div>
+                        </div>
+                        <div class = "col-md-3 col-sm-6 col-xs-12 left_padd">
+                        <div class = "form-group field-staffenquiryinterviewfirst-job">
+                        <label class = "control-label">Job</label>
+                        <input type = "text" class = "form-control" name = "createfamily[job][]">
+                        </div>
+                        </div>
+                        <div class = "col-md-2 col-sm-6 col-xs-12 left_padd">
+                        <div class = "form-group field-staffenquiryinterviewfirst-mobile_no">
+                        <label class = "control-label">Mobile No</label>
+                        <input type = "text" class = "form-control" name = "createfamily[mobile_no][]">
+                        </div>
+                        </div>
+                        <div class = "col-md-1 col-sm-6 col-xs-12 left_padd">
+                        <a id = "remFamily" class = "btn btn-icon btn-red remFamily" style = "margin-top: 15px;"><i class = "fa-remove"></i></a>
+                        </div>\
+                        <div style = "claer:both"></div><br/>
+                        </span><br/>';
+                        echo $family;
+                }
+        }
+
 }

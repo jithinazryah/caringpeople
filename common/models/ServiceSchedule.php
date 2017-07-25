@@ -43,7 +43,7 @@ class ServiceSchedule extends \yii\db\ActiveRecord {
                         [['service_id', 'patient_id', 'staff', 'attendance', 'status', 'CB', 'UB', 'rating'], 'integer'],
                         [['date', 'DOC', 'DOU'], 'safe'],
                         [['notes', 'remarks_from_manager', 'remarks_from_staff', 'remarks_from_patient'], 'string'],
-                        [['attachment'], 'string', 'max' => 255],
+                        [['rate'], 'string', 'max' => 255],
                         [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['service_id' => 'id']],
                 ];
         }
@@ -64,7 +64,7 @@ class ServiceSchedule extends \yii\db\ActiveRecord {
                     'remarks_from_staff' => 'Remarks From Staff',
                     'remarks_from_patient' => 'Remarks From Patient',
                     'rating' => 'Rating',
-                    'attachment' => 'Attachment',
+                    'rate' => 'Rate',
                     'status' => 'Status',
                     'CB' => 'Cb',
                     'UB' => 'Ub',

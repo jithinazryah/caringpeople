@@ -74,7 +74,7 @@ class Service extends \yii\db\ActiveRecord {
                     'service' => 'Service',
                     'sub_service' => 'Sub Service',
                     'staff_id' => 'Staff',
-                    'gender_preference' => 'Staff Gender Preference',
+                    'gender_preference' => 'Staff Preference',
                     'staff_manager' => 'Staff Manager',
                     'duty_type' => 'Duty Type',
                     'staff_manager' => 'Staff Manager',
@@ -109,6 +109,10 @@ class Service extends \yii\db\ActiveRecord {
          */
         public function getService0() {
                 return $this->hasOne(MasterServiceTypes::className(), ['id' => 'service']);
+        }
+
+        public function getSubservice() {
+                return $this->hasOne(SubServices::className(), ['id' => 'sub_service']);
         }
 
         /**

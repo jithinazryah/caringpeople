@@ -43,6 +43,8 @@ class DropdownController extends \yii\web\Controller {
                         $form = $this->renderPartial('_contact_designations', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 } else if ($type == 9) { /* add contact directory  */
                         $form = $this->renderPartial('_contact_directory', ['type' => $type, 'field_id' => $_POST['field_id'], 'category' => $_POST['category']]);
+                } else if ($type == 10) { /* add relationships  */
+                        $form = $this->renderPartial('_relationships', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 }
 
                 echo $form;
@@ -74,6 +76,8 @@ class DropdownController extends \yii\web\Controller {
                                 $model = new \common\models\ContactDirectoryDesignation();
                         } else if ($type == 9) {
                                 $model = new \common\models\ContactDirectory();
+                        } else if ($type == 10) {
+                                $model = new \common\models\MasterRelationships();
                         }
                         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                                 $model->status = 1;
@@ -104,6 +108,8 @@ class DropdownController extends \yii\web\Controller {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->designation, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }if ($type == 9) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->name, 'field_id' => $_POST['field_id'], 'type' => '2');
+                                        }if ($type == 10) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }
                                         $data['result'] = $arr_variable;
                                         echo json_encode($data);

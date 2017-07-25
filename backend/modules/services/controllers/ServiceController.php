@@ -111,7 +111,7 @@ class ServiceController extends Controller {
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
                 //$service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
-                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy(['status' => SORT_ASC])->all();
+                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)')])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
                 $discounts = ServiceDiscounts::find()->where(['service_id' => $id])->one();
                 if (empty($patient_assessment)) {
@@ -196,12 +196,15 @@ class ServiceController extends Controller {
                                         }
                                         $day_schedule->patient_id = $model->patient_id;
                                         $day_schedule->status = 1;
+                                        $day_schedule->rate = 0;
+
                                         $night_schedule->service_id = $model->id;
                                         if ($model->frequency == 1) {
                                                 $night_schedule->date = date('Y-m-d', strtotime($model->from_date . ' + ' . $x . ' days'));
                                         }
                                         $night_schedule->patient_id = $model->patient_id;
                                         $night_schedule->status = 1;
+                                        $night_schedule->rate = 0;
                                         $night_schedule->save(false);
                                         $day_schedule->save(false);
                                 }
@@ -214,6 +217,7 @@ class ServiceController extends Controller {
                                         }
                                         $day_schedule->patient_id = $model->patient_id;
                                         $day_schedule->status = 1;
+                                        $day_schedule->rate = 0;
                                         $day_schedule->save(false);
                                 }
                         }
@@ -226,6 +230,7 @@ class ServiceController extends Controller {
                                         $schedule->date = date('Y-m-d', strtotime($model->from_date . ' + ' . $x . ' days'));
                                 }
                                 $schedule->patient_id = $model->patient_id;
+                                $schedule->rate = 0;
                                 $schedule->status = 1;
                                 $schedule->save(false);
                         }

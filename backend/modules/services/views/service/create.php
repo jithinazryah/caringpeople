@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -11,6 +10,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Services';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="enquiry-index">
 
         <div class="row">
@@ -35,10 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 <div class="tab-pane active" id="home-3">
 
-                                                        <?=
-                                                        $this->render('_form', [
+                                                        <?php
+                                                        echo $this->render('_form', [
                                                             'model' => $model,
-                                                        ])
+                                                        ]);
                                                         ?>
 
                                                 </div>

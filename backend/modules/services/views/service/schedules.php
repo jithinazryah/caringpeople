@@ -46,8 +46,8 @@ use common\models\StaffInfo;
                                         <th style="width:10px;">No</th>
                                         <th>Date</th>
                                         <th>Staff on duty</th>
-                                        <th>Remarks from manager</th>
-                                        <th>Remarks from staff</th>
+                                        <!--<th>Remarks from manager</th>-->
+<!--                                        <th>Remarks from staff</th>-->
                                         <th>Remarks from patient</th>
 
                                         <th>Status</th>
@@ -61,18 +61,27 @@ use common\models\StaffInfo;
                                 $p = 0;
                                 foreach ($service_schedule as $value) {
                                         $p++;
+                                        $style = '';
+                                        $class = '';
+                                        $class1 = '';
                                         if (isset($value->date) && $value->date != '') {
-                                                $dead_date = date('d-m-Y', strtotime($value->date . ' +2 days'));
+
+                                                $dead_date = date('Y-m-d', strtotime($value->date . ' +2 days'));
                                                 $today_date = date('Y-m-d');
-                                                if ($today_date >= $dead_date)
+                                                if ($today_date >= $dead_date || $value->status == 2) {
                                                         $style = "pointer-events:none;";
-                                                else
+                                                        $class = 'completed';
+                                                        $class1 = 'hide-class';
+                                                } else {
                                                         $style = '';
+                                                        $class = '';
+                                                        $class1 = '';
+                                                }
                                         } else {
                                                 $style = '';
                                         }
                                         ?>
-                                        <tr style="<?= $style; ?>" id="<?= $value->id; ?>" style="text-align:center">
+                                        <tr style="<?= $style; ?>" id="<?= $value->id; ?>" style="text-align:center" class="<?= $class; ?>">
                                                 <td><?= $p; ?></td>
 
                                                 <td><?php
@@ -92,7 +101,7 @@ use common\models\StaffInfo;
                                                                 'format' => 'dd-mm-yyyy',
                                                             ],
                                                             'options' => [
-                                                                'class' => 'schedule-update-date',
+                                                                'class' => 'schedule-update-date ' . $class . '',
                                                             ]
                                                         ]);
                                                         ?>
@@ -116,38 +125,38 @@ use common\models\StaffInfo;
                                                         }
                                                         ?>
 
-                                                        <input type="text" val='<?= $value->staff ?>' value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $value->service_id; ?>_<?= $stat ?>" id="staff_on_duty_<?= $value->id ?>" readonly="true">
-                                                        <?php if ($staff_on_duty != '') { ?>  <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>" id="<?= $value->id; ?>" type="1" class="staff-allotment">Replace staff</a><?php } else { ?>
+                                                        <input type="text" val='<?= $value->staff ?>' value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $value->service_id; ?>_<?= $stat ?>  <?= $class ?>" id="staff_on_duty_<?= $value->id ?>" readonly="true">
+                                                        <?php if ($staff_on_duty != '') { ?>  <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>" id="<?= $value->id; ?>" type="1" class="staff-allotment <?= $class1 ?>">Replace staff</a><?php } else { ?>
                                                                 <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>" id="<?= $value->id; ?>" type="2" class="staff-allotment">Add staff</a>
                                                         <?php } ?>
                                                 </td>
 
 
-                                                <td>
-                                                        <textarea class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>"><?php
-                                                                if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
-                                                                        echo $value->remarks_from_manager;
-                                                                }
-                                                                ?>
-                                                        </textarea>
-                                                </td>
+                                                                                                                                                                                                                                                                                        <!--                                                <td>
+                                                                                                                                                                                                                                                                                                                                                <textarea class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>"><?php
+                                                if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
+                                                        echo $value->remarks_from_manager;
+                                                }
+                                                ?>
+                                                                                                                                                                                                                                                                                                                                                </textarea>
+                                                                                                                                                                                                                                                                                                                                        </td>-->
+
+
+                                                                                                                                                                                                                                                                <!--                                                <td>
+
+                                                                                                                                                                                                                                                                                                                        <textarea class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>">
+                                                <?php
+                                                if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
+                                                        echo $value->remarks_from_staff;
+                                                }
+                                                ?>
+                                                                                                                                                                                                                                                                                                                        </textarea>
+                                                                                                                                                                                                                                                                                                                </td>-->
 
 
                                                 <td>
 
-                                                        <textarea class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>">
-                                                                <?php
-                                                                if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
-                                                                        echo $value->remarks_from_staff;
-                                                                }
-                                                                ?>
-                                                        </textarea>
-                                                </td>
-
-
-                                                <td>
-
-                                                        <textarea class="form-control schedule-update" name="remarks_from_patient" id="remarks_from_patient-<?= $value->id; ?>">
+                                                        <textarea class="form-control schedule-update <?= $class ?>" name="remarks_from_patient" id="remarks_from_patient-<?= $value->id; ?>">
                                                                 <?php
                                                                 if (isset($value->remarks_from_patient) && $value->remarks_from_patient != '') {
                                                                         echo $value->remarks_from_patient;
@@ -159,7 +168,7 @@ use common\models\StaffInfo;
 
 
                                                 <td>
-                                                        <select name="status" id="status_<?= $value->id; ?>" class="form-control schedule-update status-update">
+                                                        <select name="status" id="status_<?= $value->id; ?>" class="form-control schedule-update status-update <?= $class ?>">
 
                                                                 <option value="1" <?php
                                                                 if ($value->status == '1') {
@@ -185,7 +194,7 @@ use common\models\StaffInfo;
                                                         </select>
                                                 </td>
                                                 <td>
-                                                        <select class="form-control schedule-rating" id="<?= $value->id; ?>">
+                                                        <select class="form-control schedule-rating <?= $class ?>" id="<?= $value->id; ?>">
                                                                 <option value="">-Select Rating-</option>
                                                                 <option value="9" <?php
                                                                 if ($value->rating == '9') {
@@ -308,6 +317,14 @@ use common\models\StaffInfo;
         }
         #example-1_filter{
                 display: none;
+        }.dataTables_wrapper .table thead>tr .sorting:before, .dataTables_wrapper .table thead>tr .sorting_asc:before, .dataTables_wrapper .table thead>tr .sorting_desc:before{
+                display: none;
+        }.sorting_1{
+                text-align: center;
+        }.completed{
+                background-color: #f6eeee !important;
+        }.hide-class{
+                display: none !important;
         }
 
 </style>
