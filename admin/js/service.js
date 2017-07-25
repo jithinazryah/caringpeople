@@ -467,6 +467,7 @@ $("document").ready(function () {
                         success: function (data) {
                                 $("#modal-2-pop-up").html(data);
                                 $('#modal-2').modal('show');
+
                         }
                 });
         });
@@ -572,6 +573,7 @@ $("document").ready(function () {
                         data: data,
                         success: function (data) {
                                 $('#modal-4').modal('hide');
+                                location.reload();
                         }
                 });
         });

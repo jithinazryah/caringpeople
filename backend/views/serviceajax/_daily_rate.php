@@ -51,7 +51,7 @@ use yii\helpers\ArrayHelper;
                                                 </div>
 
                                                 <div class="col-md-8">
-                                                        <input type="text" id="time_in" name="time_in" required="" class="fields">
+                                                        <input type="text" id="time_in" name="time_in"  class="fields">
                                                 </div>
                                         </div>
                                 </div>
@@ -63,7 +63,7 @@ use yii\helpers\ArrayHelper;
                                                 </div>
 
                                                 <div class="col-md-8">
-                                                        <input type="text" id="time_out" name="time_out" required="" class="fields">
+                                                        <input type="text" id="time_out" name="time_out"  class="fields">
                                                 </div>
                                         </div>
                                 </div>
