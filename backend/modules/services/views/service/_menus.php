@@ -21,7 +21,7 @@ use yii\helpers\Html;
 
 
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" id="myTab">
         <li class="active">
                 <a href="#home-3" data-toggle="tab"><span class="visible-xs"><i class="fa-envelope-o hidden-xs"></i></span>
                         <i class="fa-envelope-o"></i><span class="hidden-xs span-font-size">Start A Service</span></a>
