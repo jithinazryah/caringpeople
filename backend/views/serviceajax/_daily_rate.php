@@ -47,6 +47,30 @@ use yii\helpers\ArrayHelper;
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
                                                 <div class="col-md-4">
+                                                        <label>Time In :</label>
+                                                </div>
+
+                                                <div class="col-md-8">
+                                                        <input type="text" id="time_in" name="time_in" required="" class="fields">
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                                <div class="col-md-4">
+                                                        <label>Time Out :</label>
+                                                </div>
+
+                                                <div class="col-md-8">
+                                                        <input type="text" id="time_out" name="time_out" required="" class="fields">
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                                <div class="col-md-4">
                                                         <label>Daily Rate :</label>
                                                 </div>
 
@@ -70,6 +94,9 @@ use yii\helpers\ArrayHelper;
 <style>
         .fields{
                 width:100%;
+        }
+        .row{
+                margin-bottom: 10px;
         }
 
 </style>

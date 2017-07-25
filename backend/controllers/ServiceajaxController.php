@@ -512,6 +512,8 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $schedule_detail->remarks_from_staff = $_POST['remarks_staff'];
                                 $schedule_detail->remarks_from_manager = $_POST['remarks_manager'];
                                 $schedule_detail->rate = $_POST['rate'];
+                                $schedule_detail->time_in = $_POST['time_in'];
+                                $schedule_detail->time_out = $_POST['time_out'];
                                 $schedule_detail->update();
                         }
                 }
