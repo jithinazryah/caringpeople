@@ -184,7 +184,9 @@ $("document").ready(function () {
                         }
                 });
         });
-
+        /*
+         * show duty types of sub service
+         */
 
         $('#service-sub_service').change(function () {
                 var branch = $('#service-branch_id').val();
@@ -224,7 +226,7 @@ $("document").ready(function () {
 
 
         /*
-         * add new rate card
+         * add new rate card popup
          */
         $('.add-rate-card').click(function () {
                 var id_attr = $(this).attr('id');
@@ -261,7 +263,7 @@ $("document").ready(function () {
 
 
         /*
-         * update new rate card
+         * update new rate card popup
          */
         $('.update-rate-card').click(function () {
                 var id_attr = $(this).attr('id');
@@ -508,81 +510,8 @@ $("document").ready(function () {
 
         });
 
-        /*
-         *clear results whwn click on reset button
-         */
-
-        $(document).on('click', '#Resetbtn', function (e) {
-                $("#example-11").remove();
-                $('.staff-results .pagination').remove();
-                $('.replace-results .pagination').remove();
-                $('.result-buttons').hide();
-
-        });
 
 
-        /*
-         * replace staff for a particular schedule
-         */
-        $(document).on('click', '.replace-staff', function (e) {
-
-                var schedule_id = $(this).attr('id');
-                var type = $(this).attr('type');
-
-                $.ajax({
-                        type: 'POST',
-                        url: homeUrl + 'serviceajax/replacestaffform',
-                        data: {schedule_id: schedule_id, type: type},
-                        success: function (data) {
-                                $("#modal-2-pop-up").html(data);
-                                $('#modal-2').modal('show');
-                        }
-                });
-        });
-
-        /*
-         * staff search in staff replace form
-         */
-        $(document).on('submit', '#replacestaffSearch', function (e) {
-
-                e.preventDefault();
-                var data = $(this).serialize();
-                $.ajax({
-                        type: 'POST',
-                        url: homeUrl + 'serviceajax/searchstaff',
-                        data: data,
-                        success: function (data) {
-
-
-                                $('.replace-results table').remove();
-                                $('.replace-results .pagination').remove();
-                                $('.result-buttons').show();
-                                $(".replace-results").append(data);
-                        }
-                });
-        });
-
-        /*
-         * staff replacement
-         */
-        $(document).on('submit', '#searchReplaceStaff', function (e) {
-                e.preventDefault();
-                var staff = $('input[name=staff_choose]:checked').val();
-                var schedule_id = $('#choose_service_id').val();
-                var type = $('#type').val();
-
-                $.ajax({
-                        type: 'POST',
-                        url: homeUrl + 'serviceajax/replacestaff',
-                        data: {staff: staff, schedule_id: schedule_id, type: type},
-                        success: function (data) {
-
-                                $('#staff_on_duty_' + schedule_id).val(data);
-                                $('#modal-2').modal('hide');
-                        }
-                });
-
-        });
 
         /*
          * add more schedules popup
@@ -617,7 +546,9 @@ $("document").ready(function () {
         });
 
 
-
+        /*
+         * schedule daily rate submit
+         */
         $(document).on('submit', '#schedule-daily-rate', function (e) {
                 e.preventDefault();
                 var data = $(this).serialize();

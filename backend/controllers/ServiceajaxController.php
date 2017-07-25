@@ -40,6 +40,10 @@ class ServiceajaxController extends \yii\web\Controller {
                 echo $service_options;
         }
 
+        /*
+         * show subservices in ratecard
+         */
+
         public function actionSubservices() {
 
                 $sub_serv = \common\models\SubServices::find()->where(['branch_id' => $_POST['branch']])->orWhere(['branch_id' => 0])->andWhere(['service' => $_POST['service']])->all();
@@ -50,6 +54,10 @@ class ServiceajaxController extends \yii\web\Controller {
                 }
                 echo $subservice_options;
         }
+
+        /*
+         * for checking if already rate card is added to this service/subservice
+         */
 
         public function actionCheckratecard() {
                 $branch = $_POST['branch'];
@@ -64,7 +72,7 @@ class ServiceajaxController extends \yii\web\Controller {
         }
 
         /*
-         * show service duty type values based on ratecard values
+         * show service duty type values based on ratecard values of service
          */
 
         public function actionDutytype() {
@@ -105,6 +113,10 @@ class ServiceajaxController extends \yii\web\Controller {
                         echo '1';
                 }
         }
+
+        /*
+         * show service duty type values based on ratecard values of subservice
+         */
 
         public function actionSubdutytype() {
                 $branch = $_POST['branch'];
@@ -265,7 +277,7 @@ class ServiceajaxController extends \yii\web\Controller {
         }
 
         /*
-         * update schedule status
+         * update schedule status and rate
          */
 
         public function actionStatusupdate() {
@@ -291,16 +303,6 @@ class ServiceajaxController extends \yii\web\Controller {
                                 echo $rate;
                         }
                 }
-        }
-
-        /*
-         * choose staff for schedule
-         */
-
-        public function actionChoosestaff() {
-                $service_id = $_POST['service'];
-                $staff = $this->renderPartial('_choose_staff', ['service_id' => $service_id]);
-                echo $staff;
         }
 
         /* set selected staff for that service */
@@ -349,15 +351,6 @@ class ServiceajaxController extends \yii\web\Controller {
                         $staff_status_update->working_status = $status;
                         $staff_status_update->update();
                 }
-        }
-
-        /* popup content for staff replacement */
-
-        public function actionReplacestaffform() {
-                $schedule_id = $_POST['schedule_id'];
-                $type = $_POST['type'];
-                $staff = $this->renderPartial('_replace_staff', ['schedule_id' => $schedule_id, 'type' => $type]);
-                echo $staff;
         }
 
         /*
@@ -478,6 +471,10 @@ class ServiceajaxController extends \yii\web\Controller {
                 return $price;
         }
 
+        /*
+         * who can view this service ->assign that list
+         */
+
         public function Servicestaffs($service) {
                 $schedules = ServiceSchedule::find()->where(['service_id' => $service])->andWhere(['<>', 'status', '2'])->all();
                 $i = 0;
@@ -503,6 +500,10 @@ class ServiceajaxController extends \yii\web\Controller {
 
                 return $id;
         }
+
+        /*
+         * Add rate of staff of each schedule
+         */
 
         public function actionAddrate() {
                 if (Yii::$app->request->isAjax) {
