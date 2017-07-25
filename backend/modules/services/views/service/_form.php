@@ -283,8 +283,24 @@ use yii\db\Expression;
 
 
 
-                                        <?php if (isset($model->hours) && $model->hours != '') { ?>
-                                                <td class = "labell">Hours </td><td class = "value"><?= $model->hours ?> </td>
+                                        <?php
+                                        if (isset($model->hours) && $model->hours != '') {
+
+                                                if ($model->duty_type == 1) { /* if duty type= hourly */
+                                                        $label = 'Hours';
+                                                } else if ($model->duty_type == 2) { /* if duty type= visit */
+                                                        $label = "No.of visits";
+                                                } else if ($model->duty_type == 5) { /* if duty type= day & night */
+                                                        $label = "Days";
+                                                } else if ($model->duty_type == 3) { /* if duty type= day & night */
+                                                        $label = "Days";
+                                                } else if ($model->duty_type == 4) { /* if duty type= day & night */
+                                                        $label = "Days";
+                                                } else {
+                                                        $label = 'Hours';
+                                                }
+                                                ?>
+                                                <td class = "labell"><?= $label ?> </td><td class = "value"><?= $model->hours ?> </td>
                                                 <?php
                                                 $k++;
                                                 tradjust($k);
@@ -292,8 +308,20 @@ use yii\db\Expression;
                                         ?>
 
 
-                                        <?php if (isset($model->days) && $model->days != '') { ?>
-                                                <td class = "labell">Days </td><td class = "value"><?= $model->days ?> </td>
+                                        <?php
+                                        if (isset($model->days) && $model->days != '') {
+                                                if ($model->frequency == 1) { /* if frequency= daily */
+                                                        $days = "No of days";
+                                                } else if ($model->frequency == 2) { /* if frequency= weekly */
+                                                        $days = "No of weeks";
+                                                } else if ($model->frequency == 3) { /* if frequency= monthly */
+                                                        $days = "No of months";
+                                                } else {
+                                                        $days = 'Days';
+                                                }
+                                                ?>
+                                                <td class = "labell"><?= $days ?></td><td class="value"><?= $model->days ?> </td>
+
                                                 <?php
                                                 $k++;
                                                 tradjust($k);

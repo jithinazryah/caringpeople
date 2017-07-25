@@ -70,7 +70,7 @@ use common\models\StaffInfo;
                                                 $today_date = date('Y-m-d');
                                                 if ($today_date >= $dead_date || $value->status == 2) {
                                                         $style = "pointer-events:none;";
-                                                        $class = 'completed';
+                                                        $class = 'date-over';
                                                         $class1 = 'hide-class';
                                                 } else {
                                                         $style = '';
@@ -79,6 +79,9 @@ use common\models\StaffInfo;
                                                 }
                                         } else {
                                                 $style = '';
+                                        }
+                                        if ($value->status == 2) {
+                                                $class = 'completed';
                                         }
                                         ?>
                                         <tr style="<?= $style; ?>" id="<?= $value->id; ?>" style="text-align:center" class="<?= $class; ?>">
@@ -132,26 +135,26 @@ use common\models\StaffInfo;
                                                 </td>
 
 
-                                                                                                                                                                                                                                                                                        <!--                                                <td>
-                                                                                                                                                                                                                                                                                                                                                <textarea class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>"><?php
+                                                                                                                                                                                                                                                                                                                                                <!--                                                <td>
+                                                                                                                                                                                                                                                                                                                                                                                                        <textarea class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>"><?php
                                                 if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
                                                         echo $value->remarks_from_manager;
                                                 }
                                                 ?>
-                                                                                                                                                                                                                                                                                                                                                </textarea>
-                                                                                                                                                                                                                                                                                                                                        </td>-->
+                                                                                                                                                                                                                                                                                                                                                                                                        </textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                </td>-->
 
 
-                                                                                                                                                                                                                                                                <!--                                                <td>
+                                                                                                                                                                                                                                                                                                                        <!--                                                <td>
 
-                                                                                                                                                                                                                                                                                                                        <textarea class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>">
+                                                                                                                                                                                                                                                                                                                                                                                <textarea class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>">
                                                 <?php
                                                 if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
                                                         echo $value->remarks_from_staff;
                                                 }
                                                 ?>
-                                                                                                                                                                                                                                                                                                                        </textarea>
-                                                                                                                                                                                                                                                                                                                </td>-->
+                                                                                                                                                                                                                                                                                                                                                                                </textarea>
+                                                                                                                                                                                                                                                                                                                                                                        </td>-->
 
 
                                                 <td>
@@ -325,6 +328,8 @@ use common\models\StaffInfo;
                 background-color: #f6eeee !important;
         }.hide-class{
                 display: none !important;
+        }.date-over{
+                background-color: #dadcde !important;
         }
 
 </style>
