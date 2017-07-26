@@ -49,9 +49,9 @@ use common\models\StaffInfo;
                                         <!--<th>Remarks from manager</th>-->
 <!--                                        <th>Remarks from staff</th>-->
                                         <th>Remarks from patient</th>
-
-                                        <th>Status</th>
                                         <th>Staff Rating</th>
+                                        <th>Status</th>
+
                                 </tr>
                         </thead>
 
@@ -135,26 +135,26 @@ use common\models\StaffInfo;
                                                 </td>
 
 
-                                                                                                                                                                                                                                                                                                                                                <!--                                                <td>
-                                                                                                                                                                                                                                                                                                                                                                                                        <textarea class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>"><?php
+                                                                                                                                                                                                                                                                                                                                                                <!--                                                <td>
+                                                                                                                                                                                                                                                                                                                                                                                                                        <textarea class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>"><?php
                                                 if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
                                                         echo $value->remarks_from_manager;
                                                 }
                                                 ?>
-                                                                                                                                                                                                                                                                                                                                                                                                        </textarea>
-                                                                                                                                                                                                                                                                                                                                                                                                </td>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                        </textarea>
+                                                                                                                                                                                                                                                                                                                                                                                                                </td>-->
 
 
-                                                                                                                                                                                                                                                                                                                        <!--                                                <td>
+                                                                                                                                                                                                                                                                                                                                        <!--                                                <td>
 
-                                                                                                                                                                                                                                                                                                                                                                                <textarea class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>">
+                                                                                                                                                                                                                                                                                                                                                                                                <textarea class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>">
                                                 <?php
                                                 if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
                                                         echo $value->remarks_from_staff;
                                                 }
                                                 ?>
-                                                                                                                                                                                                                                                                                                                                                                                </textarea>
-                                                                                                                                                                                                                                                                                                                                                                        </td>-->
+                                                                                                                                                                                                                                                                                                                                                                                                </textarea>
+                                                                                                                                                                                                                                                                                                                                                                                        </td>-->
 
 
                                                 <td>
@@ -168,34 +168,6 @@ use common\models\StaffInfo;
                                                         </textarea>
                                                 </td>
 
-
-
-                                                <td>
-                                                        <select name="status" id="status_<?= $value->id; ?>" class="form-control schedule-update status-update <?= $class ?>">
-
-                                                                <option value="1" <?php
-                                                                if ($value->status == '1') {
-                                                                        echo 'selected';
-                                                                }
-                                                                ?>>Pending</option>
-
-                                                                <option value="2" <?php
-                                                                if ($value->status == '2') {
-                                                                        echo 'selected';
-                                                                }
-                                                                ?>>Completed</option>
-                                                                <option value="3" <?php
-                                                                if ($value->status == '3') {
-                                                                        echo 'selected';
-                                                                }
-                                                                ?>>Interrupted</option>
-                                                                <option value="4" <?php
-                                                                if ($value->status == '4') {
-                                                                        echo 'selected';
-                                                                }
-                                                                ?>>Cancelled</option>
-                                                        </select>
-                                                </td>
                                                 <td>
                                                         <select class="form-control schedule-rating <?= $class ?>" id="<?= $value->id; ?>">
                                                                 <option value="">-Select Rating-</option>
@@ -246,6 +218,34 @@ use common\models\StaffInfo;
                                                                 ?>>Very Poor</option>
                                                         </select>
                                                 </td>
+
+                                                <td>
+                                                        <select name="status" id="status_<?= $value->id; ?>" class="form-control schedule-update status-update <?= $class ?>">
+
+                                                                <option value="1" <?php
+                                                                if ($value->status == '1') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Pending</option>
+
+                                                                <option value="2" <?php
+                                                                if ($value->status == '2') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Completed</option>
+                                                                <option value="3" <?php
+                                                                if ($value->status == '3') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Interrupted</option>
+                                                                <option value="4" <?php
+                                                                if ($value->status == '4') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Cancelled</option>
+                                                        </select>
+                                                </td>
+
                                         </tr>
                                 <?php } ?>
                         </tbody>

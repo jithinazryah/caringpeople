@@ -213,15 +213,18 @@ class ServiceajaxController extends \yii\web\Controller {
         public function actionTodate() {
                 if (Yii::$app->request->isAjax) {
                         $frequency = $_POST['frequency'];
-                        $days = $_POST['days'] - 1;
+                        $days = $_POST['days'];
                         $from = $_POST['from'];
                         $from = date('Y-m-d', strtotime($from));
                         if ($frequency == '1') {
-                                echo date('d-m-Y', strtotime($from . ' + ' . $days . ' days'));
+                                $dates = date('d-m-Y', strtotime($from . ' + ' . $days . ' days'));
+                                echo date('d-m-Y', strtotime($dates . ' -1 days'));
                         } else if ($frequency == '2') {
-                                echo date('d-m-Y', strtotime($from . ' + ' . $days . ' weeks'));
+                                $dates = date('d-m-Y', strtotime($from . ' + ' . $days . ' weeks'));
+                                echo date('d-m-Y', strtotime($dates . ' -1 days'));
                         } else if ($frequency == '3') {
-                                echo date('d-m-Y', strtotime($from . ' + ' . $days . ' months'));
+                                $dates = date('d-m-Y', strtotime($from . ' + ' . $days . ' months'));
+                                echo date('d-m-Y', strtotime($dates . ' -1 days'));
                         }
                 }
         }

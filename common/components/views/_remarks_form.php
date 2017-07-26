@@ -25,23 +25,23 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $ty
 
 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
 
-<?php
-if (!$remark->isNewRecord) {
-        $remark->date = date('d-m-Y', strtotime($remark->date));
-} else {
-        $remark->date = date('d-m-Y');
-}
-echo DatePicker::widget([
-    'model' => $remark,
-    'form' => $form_remark,
-    'type' => DatePicker::TYPE_INPUT,
-    'attribute' => 'date',
-    'pluginOptions' => [
-        'autoclose' => true,
-        'format' => 'dd-mm-yyyy',
-    ]
-]);
-?>
+        <?php
+        if (!$remark->isNewRecord) {
+                $remark->date = date('d-m-Y', strtotime($remark->date));
+        } else {
+                $remark->date = date('d-m-Y');
+        }
+        echo DatePicker::widget([
+            'model' => $remark,
+            'form' => $form_remark,
+            'type' => DatePicker::TYPE_INPUT,
+            'attribute' => 'date',
+            'pluginOptions' => [
+                'autoclose' => true,
+                'format' => 'dd-mm-yyyy',
+            ]
+        ]);
+        ?>
 
 </div>
 <?php if ($type == 2 || $type == 4) { ?>
@@ -50,16 +50,17 @@ echo DatePicker::widget([
                         <legend class="control-label">Rating:</legend>
                         <input type="radio" id="star9" name="rating" value="9" onclick="postToController();"/><label for="star9" title="Excellent">9 stars</label>
                         <input type="radio" id="star8" name="rating" value="8" onclick="postToController();"/><label for="star8" title="Very Good">8 stars</label>
-                        <input type="radio" id="star7" name="rating" value="7" onclick="postToController();"/><label for="star7" title="Very Good">7 stars</label>
+                        <input type="radio" id="star7" name="rating" value="7" onclick="postToController();"/><label for="star7" title="Satisfactory">7 stars</label>
                         <input type="radio" id="star6" name="rating" value="6" onclick="postToController();"/><label for="star6" title="Good">6 stars</label>
                         <input type="radio" id="star5" name="rating" value="5" onclick="postToController();"/><label for="star5" title="Average">5 stars</label>
-                        <input type="radio" id="star4" name="rating" value="4" onclick="postToController();"/><label for="star4" title="Bad">4 stars</label>
-                        <input type="radio" id="star3" name="rating" value="3" onclick="postToController();"/><label for="star3" title="Meh">3 stars</label>
-                        <input type="radio" id="star2" name="rating" value="2" onclick="postToController();"/><label for="star2" title="Kinda bad">2 stars</label>
-                        <input type="radio" id="star1" name="rating" value="1" onclick="postToController();"/><label for="star1" title="Sucks big time">1 star</label>
+                        <input type="radio" id="star4" name="rating" value="4" onclick="postToController();"/><label for="star4" title="Unsatisfactory">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" onclick="postToController();"/><label for="star3" title="Bad">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" onclick="postToController();"/><label for="star2" title="Very Bad">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" onclick="postToController();"/><label for="star1" title="Very Poor">1 star</label>
                 </fieldset>
 
-        <?php echo $form_remark->field($remark, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
+
+                <?php echo $form_remark->field($remark, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
 
         </div>
 <?php } ?>
@@ -70,63 +71,63 @@ echo DatePicker::widget([
 
 <div class='col-md-12 col-sm-6 col-xs-12' >
         <div class="form-group" >
-<?= Html::submitButton($remark->isNewRecord ? 'Create' : 'Create', ['class' => $remark->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
+                <?= Html::submitButton($remark->isNewRecord ? 'Create' : 'Create', ['class' => $remark->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
 
         </div>
 </div>
 <?php ActiveForm::end(); ?>
 <div class="row remarks-table">
 
-<?php
-Pjax::begin([
-    'enablePushState' => false
-]);
-echo GridView::widget([
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'rowOptions' => function ($model, $key, $index, $grid) {
-            return ['id' => $model['id']];
-    },
-    'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-            'attribute' => 'category',
-            'value' => 'category0.category',
-            'filter' => ArrayHelper::map(RemarksCategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category'),
-        ],
-        'sub_category',
-        'point',
-        'notes:ntext',
-        'date',
-            [
-            'attribute' => 'status',
-            'value' => function($model, $key, $index, $column) {
-                    if ($model->status == '2') {
-                            return 'Closed';
-                    } elseif ($model->status == '1') {
-                            return 'Active';
-                    }
+        <?php
+        Pjax::begin([
+            'enablePushState' => false
+        ]);
+        echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'rowOptions' => function ($model, $key, $index, $grid) {
+                    return ['id' => $model['id']];
             },
-            'filter' => [2 => 'Closed', 1 => 'Active'],
-        ],
-            ['class' => 'yii\grid\ActionColumn',
-            'template' => '{status}',
-            'visibleButtons' => [
-                'status' => function ($model, $key, $index) {
-                        return $model->status != '2' ? true : false;
-                }
-            ],
-            'buttons' => [
-                'status' => function ($url, $model) {
+            'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                    'attribute' => 'category',
+                    'value' => 'category0.category',
+                    'filter' => ArrayHelper::map(RemarksCategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category'),
+                ],
+                'sub_category',
+                'point',
+                'notes:ntext',
+                'date',
+                    [
+                    'attribute' => 'status',
+                    'value' => function($model, $key, $index, $column) {
+                            if ($model->status == '2') {
+                                    return 'Closed';
+                            } elseif ($model->status == '1') {
+                                    return 'Active';
+                            }
+                    },
+                    'filter' => [2 => 'Closed', 1 => 'Active'],
+                ],
+                    ['class' => 'yii\grid\ActionColumn',
+                    'template' => '{status}',
+                    'visibleButtons' => [
+                        'status' => function ($model, $key, $index) {
+                                return $model->status != '2' ? true : false;
+                        }
+                    ],
+                    'buttons' => [
+                        'status' => function ($url, $model) {
 
-                        return Html::checkbox('status', false, ['class' => 'iswitch iswitch-secondary remarks-status', 'id' => $model->id]);
-                },
+                                return Html::checkbox('status', false, ['class' => 'iswitch iswitch-secondary remarks-status', 'id' => $model->id]);
+                        },
+                    ],
+                ],
             ],
-        ],
-    ],
-]);
-Pjax::end();
-?>
+        ]);
+        Pjax::end();
+        ?>
 
 </div>
 
