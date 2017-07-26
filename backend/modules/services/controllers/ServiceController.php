@@ -110,7 +110,6 @@ class ServiceController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
-                //$service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
                 $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)')])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
                 $discounts = ServiceDiscounts::find()->where(['service_id' => $id])->one();
@@ -134,9 +133,9 @@ class ServiceController extends Controller {
                                 $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
                         }
                         $discounts->load(Yii::$app->request->post());
-                        if ($patient_assessment->save() && $discounts->save()) {
-                                return $this->redirect(['index']);
-                        }
+                        $patient_assessment->save();
+                        $discounts->save();
+                        return $this->redirect(['index']);
                 }
                 return $this->render('create', [
                             'model' => $model,

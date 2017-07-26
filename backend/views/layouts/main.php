@@ -207,7 +207,11 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                         </li>
 
                                                                         <li>
-                                                                                <?= Html::a('Attendance Report ', ['/attendance/attendance/report'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Employee Attendance Report ', ['/attendance/attendance/report'], ['class' => 'title']) ?>
+                                                                        </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Staff-wise Attendance Report ', ['/attendance/attendance/staffattendance'], ['class' => 'title']) ?>
                                                                         </li>
 
                                                                 </ul>
@@ -612,7 +616,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                                  ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                                      ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">

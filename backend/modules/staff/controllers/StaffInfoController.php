@@ -70,7 +70,7 @@ class StaffInfoController extends Controller {
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['branch_id' => $branch]);
-                $dataProvider->query->andWhere(['status' => 1]);
+                $dataProvider->query->andWhere(['post_id' => 5]);
 
                 if ($gender == 0 && $gender != '') {
                         $dataProvider->query->andWhere(['gender' => 0]);

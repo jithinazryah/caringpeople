@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use common\models\StaffInfo;
 use common\models\AttendanceEntry;
 use yii\helpers\ArrayHelper;
+use common\models\ServiceSchedule;
 
 /**
  * AttendanceController implements the CRUD actions for Attendance model.
@@ -113,7 +114,7 @@ class AttendanceController extends Controller {
                 if (isset(Yii::$app->session['attendance'])) {
 
                         $date = date('Y-m-d', strtotime(Yii::$app->session['attendance']->date));
-                        $employees = StaffInfo::find()->where(['branch_id' => Yii::$app->session['attendance']->branch_id, 'post_id' => 5])->all();
+                        $employees = StaffInfo::find()->where(['branch_id' => Yii::$app->session['attendance']->branch_id])->orWhere(['branch_id' => '0'])->andWhere(['<>', 'post_id', 5])->andWhere(['<>', 'post_id', 1])->all();
                         $attendance = new Attendance;
                         $attendance->date = $date;
                         $attendance->branch_id = Yii::$app->session['attendance']->branch_id;
@@ -192,6 +193,35 @@ class AttendanceController extends Controller {
                 }
                 return $this->render('report', [
                             'model' => $model, 'report' => $report, 'selected_branch' => $branch
+                ]);
+        }
+
+        /*
+         * Staff Attendance Report
+         */
+
+        public function actionStaffattendance() {
+                $model = new ServiceSchedule();
+                $model->scenario = 'staffreport';
+                $report = '';
+                $total_attendance = '';
+                $total_amount = '';
+
+                if ($model->load(Yii::$app->request->post())) {
+                        $from = date('Y-m-d', strtotime($model->date));
+                        $to = date('Y-m-d', strtotime($model->DOC));
+                        $staff = $model->staff;
+                        $report = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->orderBy(['date' => SORT_ASC])->all();
+                        $total_attendance = ServiceSchedule::find()->where(['staff' => $staff, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
+                        $total_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->sum('rate');
+                }
+
+
+                return $this->render('staff_report', [
+                            'model' => $model,
+                            'report' => $report,
+                            'total_attendance' => $total_attendance,
+                            'total_amount' => $total_amount
                 ]);
         }
 

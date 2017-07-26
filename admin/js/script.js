@@ -165,4 +165,13 @@ $("document").ready(function () {
 
 
 
+        $("#report-staff").select2({
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+
+
 });
