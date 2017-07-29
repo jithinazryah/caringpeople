@@ -5,23 +5,24 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "staff_experience_list".
+ * This is the model class for table "assessment_category".
  *
  * @property integer $id
- * @property string $title
+ * @property integer $assessment_id
+ * @property string $sub_category
  * @property integer $status
  * @property integer $CB
  * @property integer $UB
  * @property string $DOC
  * @property string $DOU
  */
-class StaffExperienceList extends \yii\db\ActiveRecord {
+class AssessmentCategory extends \yii\db\ActiveRecord {
 
         /**
          * @inheritdoc
          */
         public static function tableName() {
-                return 'staff_experience_list';
+                return 'assessment_category';
         }
 
         /**
@@ -29,10 +30,10 @@ class StaffExperienceList extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['title', 'category'], 'required'],
-                        [['status', 'CB', 'UB', 'category', 'sub_category'], 'integer'],
+                        [['assessment_id', 'status', 'CB', 'UB'], 'integer'],
                         [['DOC', 'DOU'], 'safe'],
-                        [['title'], 'string', 'max' => 200],
+                        [['sub_category'], 'string', 'max' => 200],
+                        [['sub_category'], 'required']
                 ];
         }
 
@@ -42,19 +43,14 @@ class StaffExperienceList extends \yii\db\ActiveRecord {
         public function attributeLabels() {
                 return [
                     'id' => 'ID',
-                    'category' => 'Category',
-                    'sub_category' => 'Sub Category',
-                    'title' => 'Title',
+                    'assessment_id' => 'Assessment ID',
+                    'sub_category' => 'Category',
                     'status' => 'Status',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
                 ];
-        }
-
-        public function getSubCat() {
-                return $this->hasOne(AssessmentCategory::className(), ['id' => 'sub_category']);
         }
 
 }

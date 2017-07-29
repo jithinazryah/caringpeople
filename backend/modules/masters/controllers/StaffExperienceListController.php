@@ -10,6 +10,8 @@ use common\models\SkillsCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\AssessmentCategory;
+use common\models\AssessmentCategorySearch;
 
 /**
  * StaffExperienceListController implements the CRUD actions for StaffExperienceList model.
@@ -40,8 +42,15 @@ class StaffExperienceListController extends Controller {
                 $dataProvider->query->andWhere(['status' => 1]);
                 $model = new StaffExperienceList();
 
+                $searchModel1 = new AssessmentCategorySearch();
+                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
+                $dataProvider1->query->andWhere(['status' => 1]);
+                $category = new AssessmentCategory();
+
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
+                        return $this->redirect(['index']);
+                } else if ($category->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($category) && $category->validate() && $category->save()) {
                         return $this->redirect(['index']);
                 }
 
@@ -50,6 +59,9 @@ class StaffExperienceListController extends Controller {
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
                             'model' => $model,
+                            'category' => $category,
+                            'searchModel1' => $searchModel1,
+                            'dataProvider1' => $dataProvider1,
                 ]);
         }
 
@@ -97,6 +109,12 @@ class StaffExperienceListController extends Controller {
                 $dataProvider->query->andWhere(['status' => 1]);
 
 
+                $searchModel1 = new AssessmentCategorySearch();
+                $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
+                $dataProvider1->query->andWhere(['status' => 1]);
+                $category = new AssessmentCategory();
+
+
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
                         return $this->redirect(['index']);
                 } else {
@@ -104,15 +122,18 @@ class StaffExperienceListController extends Controller {
                                     'searchModel' => $searchModel,
                                     'dataProvider' => $dataProvider,
                                     'model' => $model,
+                                    'category' => $category,
+                                    'searchModel1' => $searchModel1,
+                                    'dataProvider1' => $dataProvider1,
                         ]);
                 }
         }
 
         public function actionCategory($id) {
-                $category = SkillsCategory::findOne($id);
+                $category = AssessmentCategory::findOne($id);
                 $searchModel = new StaffExperienceListSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $searchModel1 = new SkillsCategorySearch();
+                $searchModel1 = new AssessmentCategorySearch();
                 $dataProvider1 = $searchModel1->search(Yii::$app->request->queryParams);
                 $model = new StaffExperienceList();
                 if ($category->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($category) && $category->validate() && $category->save()) {
@@ -142,7 +163,7 @@ class StaffExperienceListController extends Controller {
         }
 
         public function actionCategorydelete($id) {
-                $cat = SkillsCategory::findOne($id);
+                $cat = AssessmentCategory::findOne($id);
                 $cat->delete();
                 return $this->redirect(['index']);
         }

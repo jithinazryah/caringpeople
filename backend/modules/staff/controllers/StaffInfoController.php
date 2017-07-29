@@ -81,6 +81,12 @@ class StaffInfoController extends Controller {
 
                 }
 
+                if (!empty(Yii::$app->request->queryParams['StaffInfoSearch']['working_status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffInfoSearch']['working_status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'working_status', 1]);
+                }
+
 
                 return $this->render('choose', [
                             'searchModel' => $searchModel,

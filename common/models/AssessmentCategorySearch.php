@@ -5,20 +5,20 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\StaffExperienceList;
+use common\models\AssessmentCategory;
 
 /**
- * StaffExperienceListSearch represents the model behind the search form about `common\models\StaffExperienceList`.
+ * AssessmentCategorySearch represents the model behind the search form about `common\models\AssessmentCategory`.
  */
-class StaffExperienceListSearch extends StaffExperienceList {
+class AssessmentCategorySearch extends AssessmentCategory {
 
         /**
          * @inheritdoc
          */
         public function rules() {
                 return [
-                        [['id', 'status', 'CB', 'UB'], 'integer'],
-                        [['title', 'DOC', 'DOU', 'category', 'sub_category'], 'safe'],
+                        [['id', 'assessment_id', 'status', 'CB', 'UB'], 'integer'],
+                        [['sub_category', 'DOC', 'DOU'], 'safe'],
                 ];
         }
 
@@ -38,7 +38,7 @@ class StaffExperienceListSearch extends StaffExperienceList {
          * @return ActiveDataProvider
          */
         public function search($params) {
-                $query = StaffExperienceList::find();
+                $query = AssessmentCategory::find();
 
                 // add conditions that should always apply here
 
@@ -59,17 +59,15 @@ class StaffExperienceListSearch extends StaffExperienceList {
                 // grid filtering conditions
                 $query->andFilterWhere([
                     'id' => $this->id,
+                    'assessment_id' => $this->assessment_id,
                     'status' => $this->status,
-                    //  'category' => $this->category,
                     'CB' => $this->CB,
                     'UB' => $this->UB,
                     'DOC' => $this->DOC,
                     'DOU' => $this->DOU,
                 ]);
 
-                $query->andFilterWhere(['like', 'title', $this->title])
-                        ->andFilterWhere(['like', 'category', $this->category])
-                        ->andFilterWhere(['like', 'sub_category', $this->sub_category]);
+                $query->andFilterWhere(['like', 'sub_category', $this->sub_category]);
 
                 return $dataProvider;
         }

@@ -58,6 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             },
                                                             'filter' => [1 => 'Assessment', 2 => 'Staff Skills'],
                                                         ],
+                                                            [
+                                                            'attribute' => 'sub_category',
+                                                            'value' => 'subCat.sub_category',
+                                                            'filter' => ArrayHelper::map(\common\models\AssessmentCategory::find()->where(['status' => 1])->asArray()->all(), 'id', 'sub_category'),
+                                                        ],
                                                         'title',
                                                             [
                                                             'attribute' => 'status',
@@ -84,47 +89,47 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </div>
 
                                                 <div class="small-forms-form">
-                                                        <?php /*
-                                                          $this->render('category', [
-                                                          'category' => $category,
-                                                          ]) */
+
+                                                        <?=
+                                                        $this->render('category', [
+                                                            'category' => $category,
+                                                        ])
                                                         ?>
                                                 </div>
 
 
-                                                <div class="row">
-                                                        <?php /*
-                                                          GridView::widget([
-                                                          'dataProvider' => $dataProvider1,
-                                                          'filterModel' => $searchModel1,
-                                                          'columns' => [
-                                                          ['class' => 'yii\grid\SerialColumn'],
-                                                          //   'id',
-                                                          'category',
-                                                          [
-                                                          'attribute' => 'status',
-                                                          'value' => function($model, $key, $index, $column) {
-                                                          return $model->status == 0 ? 'Disabled' : 'Enabled';
-                                                          },
-                                                          'filter' => [1 => 'Enabled', 0 => 'Disabled'],
-                                                          ],
-                                                          ['class' => 'yii\grid\ActionColumn',
-                                                          'template' => '{update}{delete}',
-                                                          'buttons' => [
-                                                          'update' => function ($url, $model) {
-                                                          return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'category?id=' . $model->id, [
-                                                          'title' => Yii::t('app', 'New Action1'),
-                                                          ]);
-                                                          },
-                                                          'delete' => function ($url, $model) {
-                                                          return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'categorydelete?id=' . $model->id, [
-                                                          'title' => Yii::t('app', 'New Action1'),
-                                                          ]);
-                                                          }
-                                                          ],
-                                                          ],
-                                                          ],
-                                                          ]); */
+                                                <div class="row category">
+                                                        <?=
+                                                        GridView::widget([
+                                                            'dataProvider' => $dataProvider1,
+                                                            'filterModel' => $searchModel1,
+                                                            'columns' => [
+                                                                    ['class' => 'yii\grid\SerialColumn'],
+                                                                'sub_category',
+                                                                    [
+                                                                    'attribute' => 'status',
+                                                                    'value' => function($model, $key, $index, $column) {
+                                                                            return $model->status == 0 ? 'Disabled' : 'Enabled';
+                                                                    },
+                                                                    'filter' => [1 => 'Enabled', 0 => 'Disabled'],
+                                                                ],
+                                                                    ['class' => 'yii\grid\ActionColumn',
+                                                                    'template' => '{update}{delete}',
+                                                                    'buttons' => [
+                                                                        'update' => function ($url, $model) {
+                                                                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'category?id=' . $model->id, [
+                                                                                            'title' => Yii::t('app', 'New Action1'),
+                                                                                ]);
+                                                                        },
+                                                                        'delete' => function ($url, $model) {
+                                                                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'categorydelete?id=' . $model->id, [
+                                                                                            'title' => Yii::t('app', 'New Action1'),
+                                                                                ]);
+                                                                        }
+                                                                    ],
+                                                                ],
+                                                            ],
+                                                        ]);
                                                         ?>
                                                 </div>
                                         </div>
@@ -135,3 +140,8 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
+<style>
+        .category .summary{
+                display: none;
+        }
+</style>

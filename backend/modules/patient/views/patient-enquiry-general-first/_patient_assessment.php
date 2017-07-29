@@ -48,7 +48,32 @@ use common\models\StaffExperienceList;
         <?php }
         ?>
 
+        <div style="clear:both"></div>
+        <?php
+        $assessment_category = \common\models\AssessmentCategory::find()->where(['status' => 1])->all();
+        foreach ($assessment_category as $assessment_category) {
+                $assessment_category_skills = StaffExperienceList::find()->where(['sub_category' => $assessment_category->id])->all();
+                if (count($assessment_category_skills) > 0) {
+                        ?>
+                        <div style="clear:both"></div>
+                        <h4 style="color:#000;font-style: italic;font-weight: bold;"><?= $assessment_category->sub_category; ?></h4>
+                        <hr class="enquiry-hr" style="margin-bottom:10px !important;"/>
 
+                        <?php
+                        foreach ($assessment_category_skills as $assessment_category_skills) {
+                                $checked = '';
+                                $procedures = explode(',', $patient_assessment->patient_medical_procedures);
+                                if (in_array($assessment_category_skills->id, $procedures))
+                                        $checked = "checked";
+                                ?>
+                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                        <input type='checkbox' name='patient_medical_procedures[]'  class="cbr" value='<?= $assessment_category_skills->id; ?>' <?= $checked ?>><label class='cbr-inline top'><?= $assessment_category_skills->title; ?></label>
+                                </div>
+                        <?php } ?>
+                        <?php
+                }
+        }
+        ?>
 
 
 
