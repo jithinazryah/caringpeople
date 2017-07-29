@@ -107,8 +107,11 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
 
 
                         $user = $this->getUser();
-
-                        if (!$user || !Yii::$app->security->validatePassword($this->password, $user->password)) {
+                        if (isset($user->password)) {
+                                if (!$user || !Yii::$app->security->validatePassword($this->password, $user->password)) {
+                                        $this->addError($attribute, 'Incorrect username or password.');
+                                }
+                        } else {
                                 $this->addError($attribute, 'Incorrect username or password.');
                         }
                 }

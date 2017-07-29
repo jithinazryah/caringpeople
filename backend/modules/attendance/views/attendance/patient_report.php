@@ -55,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     'pluginOptions' => [
                                                                         'autoclose' => true,
                                                                         'format' => 'dd-mm-yyyy',
+                                                                        "endDate" => (string) date('d/m/Y'),
                                                                     ]
                                                                 ]);
                                                                 ?>
