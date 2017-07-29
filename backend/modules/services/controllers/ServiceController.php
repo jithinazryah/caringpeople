@@ -92,6 +92,19 @@ class ServiceController extends Controller {
                         if ($model->validate() && $model->save()) {
                                 $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y') . '-' . $model->id;
                                 $model->service_id = $code;
+                                $ratecard = \common\models\RateCard::find()->where(['service_id' => $model->service, 'branch_id' => $model->branch_id, 'status' => 1, 'sub_service' => $model->sub_service])->one();
+                                if ($model->duty_type == 1) {
+                                        $type = 'rate_per_hour';
+                                } else if ($model->duty_type == 2) {
+                                        $type = 'rate_per_visit';
+                                } else if ($model->duty_type == 3) {
+                                        $type = 'rate_per_day';
+                                } else if ($model->duty_type == 4) {
+                                        $type = 'rate_per_night';
+                                } else if ($model->duty_type == 5) {
+                                        $type = 'rate_per_day_night';
+                                }
+                                $model->rate_card_value = $ratecard->$type;
                                 $model->update();
                                 $this->ServiceSchedule($model);
                                 return $this->redirect(['update', 'id' => $model->id]);

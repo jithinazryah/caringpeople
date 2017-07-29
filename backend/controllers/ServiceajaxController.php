@@ -556,27 +556,15 @@ class ServiceajaxController extends \yii\web\Controller {
                 $rate = 0;
                 $ratecard = RateCard::find()->where(['service_id' => $service->service, 'branch_id' => $service->branch_id, 'status' => 1, 'sub_service' => $service->sub_service])->one();
                 $service_dutytype = $service->duty_type;
-                if ($service_dutytype == 1) {
-                        $type = 'rate_per_hour';
-                } else if ($service_dutytype == 2) {
-                        $type = 'rate_per_visit';
-                } else if ($service_dutytype == 3) {
-                        $type = 'rate_per_day';
-                } else if ($service_dutytype == 4) {
-                        $type = 'rate_per_night';
-                } else if ($service_dutytype == 5) {
-                        $type = 'rate_per_day_night';
-                }
-
 
                 if ($service->frequency == 1 && $service->duty_type == 3 || $service->duty_type == 4 || $service->duty_type == 5) {
                         if (isset($ratecard->$type)) {
-                                $rate = $days * $ratecard->$type;
+                                $rate = $days * $service->rate_card_value;
                         }
                 } else {
                         $total_hours = $service->hours * $days;
                         if (isset($ratecard->$type)) {
-                                $rate = $total_hours * $ratecard->$type;
+                                $rate = $total_hours * $service->rate_card_value;
                         }
                 }
                 if ($pricetype == 2) {

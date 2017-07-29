@@ -84,7 +84,8 @@ class RateCardController extends Controller {
                 $model = $this->findModel($id);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate()) {
-
+                        if ($model->sub_service == '')
+                                $model->sub_service = 0;
                         if ($model->save())
                                 return $this->redirect(['index']);
                 }

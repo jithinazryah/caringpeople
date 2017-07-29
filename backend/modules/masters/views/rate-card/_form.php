@@ -36,12 +36,12 @@ else
         </div>
         <?php
         if (!$model->isNewRecord) {
-                $sub_services = common\models\SubServices::find()->where(['service' => $model->service_id])->all();
+                $sub_services = common\models\SubServices::find()->where(['service' => $model->service_id, 'branch_id' => $model->branch_id])->all();
         } else {
                 $sub_services = [];
         }
         ?>
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sub_service')->dropDownList(ArrayHelper::map($sub_services, 'id', 'sub_service')) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'sub_service')->dropDownList(ArrayHelper::map($sub_services, 'id', 'sub_service'), ['prompt' => '--Select--']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'rate_card_name')->textInput(['maxlength' => true]) ?>
 
