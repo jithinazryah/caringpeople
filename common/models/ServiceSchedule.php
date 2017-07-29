@@ -46,6 +46,7 @@ class ServiceSchedule extends \yii\db\ActiveRecord {
                         [['rate'], 'string', 'max' => 255],
                         [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['service_id' => 'id']],
                         [['date', 'DOC', 'staff', 'rating'], 'required', 'on' => 'staffreport'],
+                        [['date', 'DOC', 'patient_id', 'rating'], 'required', 'on' => 'patientreport'],
                 ];
         }
 
@@ -56,13 +57,13 @@ class ServiceSchedule extends \yii\db\ActiveRecord {
                 return [
                     'id' => 'ID',
                     'service_id' => 'Service ID',
-                    'patient_id' => 'Patient ID',
-                    'date' => ($this->scenario == 'staffreport' ? 'Date From' : 'Date'),
+                    'patient_id' => 'Patient',
+                    'date' => ($this->scenario == 'staffreport' || $this->scenario == 'patientreport' ? 'Date From' : 'Date'),
                     'staff' => 'Staff',
                     'remarks_from_manager' => 'Remarks From Manager',
                     'remarks_from_staff' => 'Remarks From Staff',
                     'remarks_from_patient' => 'Remarks From Patient',
-                    'rating' => ($this->scenario == 'staffreport' ? 'Branch' : 'Rating'),
+                    'rating' => ($this->scenario == 'staffreport' || $this->scenario == 'patientreport' ? 'Branch' : 'Rating'),
                     'rate' => 'Rate',
                     'patient_rate' => 'Patient Rate',
                     'time_in' => 'Time In',

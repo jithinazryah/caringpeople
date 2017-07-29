@@ -9,7 +9,7 @@ use common\models\MasterAttendanceType;
 use common\models\StaffInfo;
 use common\models\AttendanceEntry;
 
-$this->title = 'Staff Attendance Report';
+$this->title = 'Patient Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -63,27 +63,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </div>
 
                                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                                                <?php $branch = Branch::Branch(); ?>
-                                                                <?= $form->field($model, 'rating')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--', 'id' => 'report-branch']); ?>
+                                                                <?php $branch = Branch::Branch();
+                                                                ?>
+                                                                <?= $form->field($model, 'rating')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--', 'id' => 'report-patient-branch']); ?>
                                                         </div>
 
 
                                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                                 <?php
                                                                 if (isset($model->rating)) {
-                                                                        $staff = StaffInfo::find()->where(['branch_id' => $model->rating, 'status' => 1, 'post_id' => 5])->all();
+                                                                        $patients = \common\models\PatientGeneral::find()->where(['branch_id' => $model->rating, 'status' => 1])->all();
                                                                 } else {
-                                                                        $staff = [];
+                                                                        $patients = [];
                                                                 }
                                                                 ?>
-                                                                <?= $form->field($model, 'staff')->dropDownList(ArrayHelper::map($staff, 'id', 'staff_name'), ['prompt' => '--Select--', 'id' => 'report-staff']) ?>
+                                                                <?= $form->field($model, 'patient_id')->dropDownList(ArrayHelper::map($patients, 'id', 'first_name'), ['prompt' => '--Select--', 'id' => 'report-patient']) ?>
                                                         </div>
-
 
 
                                                         <div class='col-md-3 col-sm-6 col-xs-12' >
                                                                 <div class="form-group" >
-                                                                        <?= Html::submitButton($model->isNewRecord ? 'Search' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
+                                                                        <?= Html::submitButton($model->isNewRecord ? 'Search' : 'Search', ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
                                                                 </div>
                                                         </div>
 
@@ -91,16 +91,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </div>
 
                                                 <div style="clear:both"></div>
+
                                                 <!-------------------------------------------------REPORT----------------------------------------------------------------------------->
                                                 <?php if (!empty($report) && $report != '') { ?>
 
                                                         <div class="row">
                                                                 <div class="col-md-6 col-sm-6 col-xs-12 left_padd counts1" >
                                                                         <p>
-                                                                                Staff : <span><?php
-                                                                                        if (isset($model->staff) && $model->staff != '') {
-                                                                                                $staff_detail = StaffInfo::findOne($model->staff);
-                                                                                                echo $staff_detail->staff_name;
+                                                                                Patient : <span><?php
+                                                                                        if (isset($model->patient_id) && $model->patient_id != '') {
+                                                                                                $patient_detail = \common\models\PatientGeneral::findOne($model->patient_id);
+                                                                                                echo $patient_detail->first_name;
                                                                                         }
                                                                                         ?></span>
                                                                         </p>
@@ -108,26 +109,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 <div class="col-md-6 col-sm-6 col-xs-12 left_padd counts">
                                                                         <p>
-                                                                                Total Schedules &nbsp;&nbsp;&nbsp;   :  &nbsp;<span> <?= count($report); ?><br></span>
-                                                                                Total Attendance &nbsp; &nbsp;:  &nbsp;<span><?= $total_attendance ?> <br></span>
-                                                                                Total Amount Paid&nbsp;  :  &nbsp;<span>Rs.<?= $total_amount ?> /-</span>
+                                                                                Total Schedules &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   :  &nbsp;<span> <?= count($report); ?><br></span>
+                                                                                Completed Schedules :  &nbsp;<span><?= $completed ?> <br></span>
                                                                         </p>
                                                                 </div>
                                                         </div>
 
 
                                                         <div class = "table-responsive">
-                                                                <table class = "table table-striped">
+                                                                <table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                                         <thead>
                                                                         <th>NO</th>
                                                                         <th>DATE</th>
                                                                         <th>SERVICE</th>
-                                                                        <th>PATIENT</th>
+                                                                        <th>STAFF</th>
                                                                         <th>REMARKS</th>
                                                                         <th>TIME IN</th>
                                                                         <th>TIME OUT</th>
                                                                         <th>RATE</th>
-                                                                        <th>ATTENDANCE</th>
+                                                                        <th>STATUS</th>
 
 
                                                                         </thead>
@@ -147,9 +147,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <td><?= $service->service_id ?></td>
 
                                                                                                 <td><?php
-                                                                                                        if (isset($value->patient_id) && $value->patient_id != '') {
-                                                                                                                $patient = common\models\PatientGeneral::findOne($value->patient_id);
-                                                                                                                echo $patient->first_name;
+                                                                                                        if (isset($value->staff) && $value->staff != '') {
+                                                                                                                $staff = StaffInfo::findOne($value->staff);
+                                                                                                                echo $staff->staff_name;
                                                                                                         }
                                                                                                         ?>
                                                                                                 </td>
@@ -220,7 +220,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 ?>
 
 
-
                                         </div>
 
                                 </div>
@@ -231,7 +230,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <style>
-
+        .form-control{
+                border: none;
+        }.table-responsive{
+                border: none;
+        }
+        select[name="example-1_length"]{
+                width: 75px !important;
+        }
+        .dataTables_wrapper .table thead>tr .sorting:before, .dataTables_wrapper .table thead>tr .sorting_asc:before, .dataTables_wrapper .table thead>tr .sorting_desc:before{
+                display: none;
+        }#example-1_filter{
+                display: none;
+        }
         .present{
                 color: green;
         }
@@ -254,3 +265,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 font-style: italic;
         }
 </style>
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>js/table/dataTables.bootstrap.css">
+<script src="<?= Yii::$app->homeUrl; ?>js/table/jquery.dataTables.min.js"></script>
+
+<script src="<?= Yii::$app->homeUrl; ?>js/table/dataTables.bootstrap.js"></script>
+<script src="<?= Yii::$app->homeUrl; ?>js/table/jquery.dataTables.yadcf.js"></script>
+<script src="<?= Yii::$app->homeUrl; ?>js/table/dataTables.tableTools.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function ($)
+        {
+                $("#example-1").dataTable({
+                        aLengthMenu: [
+                                [20, 50, 100, -1], [20, 50, 100, "All"]
+                        ]
+                });
+        });
+</script>

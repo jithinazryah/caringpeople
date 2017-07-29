@@ -225,6 +225,32 @@ class AttendanceController extends Controller {
                 ]);
         }
 
+        /*
+         * Patient wise Report
+         */
+
+        public function actionPatientreport() {
+                $model = new ServiceSchedule();
+                $model->scenario = 'patientreport';
+                $report = '';
+                $completed = '';
+
+                if ($model->load(Yii::$app->request->post())) {
+                        $from = date('Y-m-d', strtotime($model->date));
+                        $to = date('Y-m-d', strtotime($model->DOC));
+                        $patient = $model->patient_id;
+                        $report = ServiceSchedule::find()->where(['patient_id' => $patient])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->orderBy(['date' => SORT_ASC])->all();
+                        $completed = ServiceSchedule::find()->where(['patient_id' => $patient, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
+                }
+
+
+                return $this->render('patient_report', [
+                            'model' => $model,
+                            'report' => $report,
+                            'completed' => $completed,
+                ]);
+        }
+
         /**
          * Displays a single Attendance model.
          * @param integer $id
