@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 <div class="attendance-form form-inline">
                                                         <?php $form = ActiveForm::begin(); ?>
-                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                                 <?=
                                                                 DatePicker::widget([
                                                                     'model' => $model,
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </div>
 
 
-                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                                 <?=
                                                                 DatePicker::widget([
                                                                     'model' => $model,
@@ -62,13 +62,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         </div>
 
+                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                                <?php $branch = Branch::Branch(); ?>
+                                                                <?= $form->field($model, 'rating')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--', 'id' => 'report-branch']); ?>
+                                                        </div>
 
-                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+
+                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                                 <?php
-                                                                if (Yii::$app->user->identity->branch_id != '0') {
-                                                                        $staff = StaffInfo::find()->where(['branch_id' => Yii::$app->user->identity->branch_id, 'status' => 1, 'post_id' => 5])->all();
-                                                                } else {
-                                                                        $staff = StaffInfo::find()->where(['status' => 1, 'post_id' => 5])->all();
+                                                                if (isset($model->rating)) {
+                                                                        $staff = StaffInfo::find()->where(['branch_id' => $model->rating, 'status' => 1, 'post_id' => 5])->all();
                                                                 }
                                                                 ?>
                                                                 <?= $form->field($model, 'staff')->dropDownList(ArrayHelper::map($staff, 'id', 'staff_name'), ['prompt' => '--Select--', 'id' => 'report-staff']) ?>
@@ -85,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?php ActiveForm::end(); ?>
                                                 </div>
 
-
+                                                <div style="clear:both"></div>
                                                 <!-------------------------------------------------REPORT----------------------------------------------------------------------------->
                                                 <?php if (!empty($report) && $report != '') { ?>
 
@@ -116,10 +119,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <thead>
                                                                         <th>NO</th>
                                                                         <th>DATE</th>
+                                                                        <th>SERVICE</th>
                                                                         <th>PATIENT</th>
+                                                                        <th>REMARKS</th>
+                                                                        <th>TIME IN</th>
+                                                                        <th>TIME OUT</th>
                                                                         <th>RATE</th>
                                                                         <th>ATTENDANCE</th>
-                                                                        <th>REMARKS</th>
+
 
                                                                         </thead>
 
@@ -131,7 +138,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         ?>
                                                                                         <tr>
                                                                                                 <td><?= $k; ?></td>
+
                                                                                                 <td><?= date('d-m-Y', strtotime($value->date)) ?></td>
+
+                                                                                                <?php $service = common\models\Service::findOne($value->service_id) ?>
+                                                                                                <td><?= $service->service_id ?></td>
+
                                                                                                 <td><?php
                                                                                                         if (isset($value->patient_id) && $value->patient_id != '') {
                                                                                                                 $patient = common\models\PatientGeneral::findOne($value->patient_id);
@@ -139,6 +151,31 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         }
                                                                                                         ?>
                                                                                                 </td>
+
+                                                                                                <td>
+                                                                                                        <?php
+                                                                                                        if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
+                                                                                                                echo $value->remarks_from_manager;
+                                                                                                        }
+                                                                                                        ?>
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                        <?php
+                                                                                                        if (isset($value->time_in) && $value->time_in != '') {
+                                                                                                                echo $value->time_in;
+                                                                                                        }
+                                                                                                        ?>
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                        <?php
+                                                                                                        if (isset($value->time_out) && $value->time_out != '') {
+                                                                                                                echo $value->time_out;
+                                                                                                        }
+                                                                                                        ?>
+                                                                                                </td>
+
                                                                                                 <td>
                                                                                                         <?php
                                                                                                         if (isset($value->rate) && $value->rate != '') {
@@ -146,6 +183,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         }
                                                                                                         ?>
                                                                                                 </td>
+
                                                                                                 <td><?php if ($value->status == 2) { ?>
                                                                                                                 <i class="fa fa-check present" aria-hidden="true"></i>
                                                                                                                 <?php
@@ -163,13 +201,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                                 <a title="<?= $status ?>"><i class="fa fa-times absent" aria-hidden="true"></i></a>
                                                                                                         <?php } ?>
                                                                                                 </td>
-                                                                                                <td>
-                                                                                                        <?php
-                                                                                                        if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
-                                                                                                                echo $value->remarks_from_manager;
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                </td>
+
                                                                                         </tr>
                                                                                 <?php } ?>
 
