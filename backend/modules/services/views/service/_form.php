@@ -165,8 +165,13 @@ use yii\db\Expression;
                         </div>
 
 
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">
                                 <?= $form->field($model, 'status')->dropDownList(['1' => 'Opened', '2' => 'Closed']) ?>
+
+                        </div>
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'co_worker')->dropDownList(['0' => 'No', '1' => 'Yes',]) ?>
 
                         </div>
                 </div>

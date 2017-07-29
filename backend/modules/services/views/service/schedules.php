@@ -46,11 +46,11 @@ use common\models\StaffInfo;
                                         <th style="width:10px;">No</th>
                                         <th>Date</th>
                                         <th>Staff on duty</th>
-                                        <!--<th>Remarks from manager</th>-->
-<!--                                        <th>Remarks from staff</th>-->
+
                                         <th>Remarks from patient</th>
                                         <th>Staff Rating</th>
                                         <th>Status</th>
+                                        <th style="width:1px;"></th>
 
                                 </tr>
                         </thead>
@@ -120,28 +120,6 @@ use common\models\StaffInfo;
                                                                 <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>" id="<?= $value->id; ?>" type="2" class="staff-allotment">Add staff</a>
                                                         <?php } ?>
                                                 </td>
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                                        <!--                                                <td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <textarea class="form-control schedule-update" name="remarks_from_manager" id="remarks_from_manager-<?= $value->id; ?>"><?php
-                                                if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
-                                                        echo $value->remarks_from_manager;
-                                                }
-                                                ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </textarea>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </td>-->
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                <!--                                                <td>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        <textarea class="form-control schedule-update" name="remarks_from_staff" id="remarks_from_staff-<?= $value->id; ?>">
-                                                <?php
-                                                if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
-                                                        echo $value->remarks_from_staff;
-                                                }
-                                                ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        </textarea>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                </td>-->
 
 
                                                 <td>
@@ -233,6 +211,12 @@ use common\models\StaffInfo;
                                                         </select>
                                                 </td>
 
+                                                <td>
+                                                        <?php if (isset($value->status) && $value->status != 1) { ?>
+                                                                <a title="View Schedule Details" class="view_schedule" id="<?= $value->id ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                </td>
+
                                         </tr>
                                 <?php } ?>
                         </tbody>
@@ -253,7 +237,7 @@ use common\models\StaffInfo;
         {
                 $("#example-1").dataTable({
                         aLengthMenu: [
-                                [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]
+                                [30, 50, 100, -1], [30, 50, 100, "All"]
                         ]
                 });
         });
@@ -316,6 +300,10 @@ use common\models\StaffInfo;
                 pointer-events: none;
         }.hide-class{
                 display: none !important;
+        }.view_schedule{
+                pointer-events: auto;
+                cursor: pointer;
+                color: #000!important;
         }
 
 </style>

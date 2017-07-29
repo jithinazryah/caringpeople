@@ -20,7 +20,10 @@ use yii\helpers\ArrayHelper;
 
                                 <input type="hidden" name="scheduleid" id="scheduleid" value="<?= $schedule_id ?>">
                                 <input type="hidden" name="status" id="status" value="<?= $status ?>">
-
+                                <?php
+                                $service_schedule = common\models\ServiceSchedule::findOne($schedule_id);
+                                $service = common\models\Service::findOne($service_schedule->service_id);
+                                ?>
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
                                                 <div class="col-md-4">
@@ -92,6 +95,22 @@ use yii\helpers\ArrayHelper;
                                                 </div>
                                         </div>
                                 </div>
+
+                                <?php if ($service->co_worker == '1') { ?>
+                                        <div class="row">
+                                                <div class="col-md-12 col-sm-6 col-xs-12">
+                                                        <div class="col-md-4">
+                                                                <label>Co-worker:</label>
+                                                        </div>
+                                                        <?php
+                                                        $co_worker = common\models\StaffInfo::find()->where(['<>', 'post_id', '5'])->andWhere(['<>', 'post_id', '1'])->andWhere(['status' => 1, 'branch_id' => $service->branch_id])->all();
+                                                        ?>
+                                                        <div class="col-md-8">
+                                                                <?= Html::dropDownList('co_worker', null, ArrayHelper::map($co_worker, 'id', 'staff_name'), ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'oc_worker', 'style' => 'border: 1px solid #a9a9a9;']); ?>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                <?php } ?>
 
 
                                 <input type="submit" name="submitf" id="submitf" class="btn btn-primary" style="float: right;margin-top: 10px;">

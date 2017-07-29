@@ -19,7 +19,7 @@ class ServiceSearch extends Service {
          */
         public function rules() {
                 return [
-                        [['id', 'patient_id', 'service', 'staff_id', 'staff_manager', 'status', 'branch_id', 'CB', 'UB'], 'integer'],
+                        [['id', 'patient_id', 'service', 'staff_manager', 'status', 'branch_id', 'CB', 'UB'], 'integer'],
                         [['from_date', 'to_date', 'estimated_price', 'service_id', 'DOC', 'DOU', 'duty_type'], 'safe'],
                         [['staffName'], 'safe']
                 ];
@@ -64,7 +64,6 @@ class ServiceSearch extends Service {
                     'id' => $this->id,
                     'patient_id' => $this->patient_id,
                     'service' => $this->service,
-                    'staff_id' => $this->staff_id,
                     'duty_type' => $this->duty_type,
                     'staff_manager' => $this->staff_manager,
                     'from_date' => $this->from_date,

@@ -563,7 +563,18 @@ $("document").ready(function () {
 
 
 
-
+        $(document).on('click', '.view_schedule', function (e) {
+                var schedule_id = $(this).attr('id');
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/viewschedule',
+                        data: {schedule_id: schedule_id},
+                        success: function (data) {
+                                $("#modal-pop-up").html(data);
+                                $('#modal-6').modal('show', {backdrop: 'static'});
+                        }
+                });
+        });
 
 
         /********************************************************  Service Schedule **********************************************/
