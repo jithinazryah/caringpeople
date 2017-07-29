@@ -7,10 +7,10 @@ use yii\helpers\ArrayHelper;
 ?>
 
 
-<div class="modal-content ">
+<div class="modal-content " >
 
         <div class="modal-header bg-blue">
-
+                <button type="button" class="close" data-dismiss="modal">×</button>
                 <h4 class="modal-title" id="largeModalLabel" style="color: #b60d14;">Add Daily Rate</h4>
         </div>
 
@@ -19,6 +19,7 @@ use yii\helpers\ArrayHelper;
                         <form id="schedule-daily-rate" >
 
                                 <input type="hidden" name="scheduleid" id="scheduleid" value="<?= $schedule_id ?>">
+                                <input type="hidden" name="status" id="status" value="<?= $status ?>">
 
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
@@ -71,14 +72,27 @@ use yii\helpers\ArrayHelper;
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
                                                 <div class="col-md-4">
-                                                        <label>Daily Rate :</label>
+                                                        <label>Daily Rate Patient:</label>
                                                 </div>
 
                                                 <div class="col-md-8">
-                                                        <input type="text" id="rate" name="rate" required="" class="fields">
+                                                        <input type="text" id="rate_patient" name="rate_patient"  class="fields">
                                                 </div>
                                         </div>
                                 </div>
+
+                                <div class="row">
+                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                                <div class="col-md-4">
+                                                        <label>Daily Rate Staff:</label>
+                                                </div>
+
+                                                <div class="col-md-8">
+                                                        <input type="text" id="rate" name="rate"  class="fields">
+                                                </div>
+                                        </div>
+                                </div>
+
 
                                 <input type="submit" name="submitf" id="submitf" class="btn btn-primary" style="float: right;margin-top: 10px;">
 

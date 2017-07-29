@@ -13,8 +13,7 @@ use yii\helpers\ArrayHelper;
 
         <?php $form = ActiveForm::begin(); ?>
         <div class="row">
-                <?php $category = common\models\SkillsCategory::find()->where(['status' => 1])->all(); ?>
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'category')->dropDownList(ArrayHelper::map($category, 'id', 'category'), ['prompt' => '--Select--']) ?>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'category')->dropDownList(['' => '--Select--', '1' => 'Assessment', '2' => 'Staff Skills']) ?>
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>

@@ -162,7 +162,7 @@ class SetValues extends Component {
                 $remarks_count = Remarks::find()->where(['type_id' => $id])->count();
                 $total_remarks_point = $schedule_remarks + $remarks_point;
                 $total_remarks = $schedule_remarks_count + $remarks_count;
-                $rating = $total_remarks_point / $total_remarks * 9;
+                $rating = $total_remarks_point / $total_remarks * 100;
 
                 $person->average_point = $rating;
                 $person->update(FALSE);

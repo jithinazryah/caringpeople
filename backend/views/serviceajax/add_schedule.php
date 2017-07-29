@@ -28,17 +28,23 @@ use yii\helpers\ArrayHelper;
                                 <div class="col-md-6">
                                         <?php
                                         $duty_type = '';
+                                        $label = '';
                                         if (isset($service->duty_type)) {
                                                 if ($service->duty_type == 1) {
                                                         $duty_type = 'Hourly';
+                                                        $label = 'Hours';
                                                 } else if ($service->duty_type == 2) {
                                                         $duty_type = 'Visit';
+                                                        $label = 'No.of visits';
                                                 } else if ($service->duty_type == 3) {
                                                         $duty_type = 'Day';
+                                                        $label = 'Days';
                                                 } else if ($service->duty_type == 4) {
                                                         $duty_type = 'Night';
+                                                        $label = 'Days';
                                                 } else if ($service->duty_type == 5) {
                                                         $duty_type = 'Day & Night';
+                                                        $label = 'Days';
                                                 }
                                         }
                                         ?>
@@ -53,13 +59,17 @@ use yii\helpers\ArrayHelper;
                                 <div class="col-md-6">
                                         <?php
                                         $frequency = '';
+                                        $count = '';
                                         if (isset($service->frequency)) {
                                                 if ($service->frequency == 1) {
                                                         $frequency = 'Daily';
+                                                        $count = 'days';
                                                 } else if ($service->frequency == 2) {
                                                         $frequency = 'Weekely';
+                                                        $count = 'weeks';
                                                 } else if ($service->frequency == 3) {
                                                         $frequency = 'Monthly';
+                                                        $count = 'months';
                                                 }
                                         }
                                         ?>
@@ -67,9 +77,20 @@ use yii\helpers\ArrayHelper;
                                 </div>
 
                                 <div class="col-md-6">
-                                        <label> No:of days : </label> <?= $service->days; ?>
+                                        <label> No:of <?= $count ?> : </label> <?= $service->days; ?>
                                 </div>
                         </div>
+
+
+                        <?php if (isset($service->hours) && $service->hours != '') { ?>
+                                <div class="row" style="margin-left: 0px;">
+                                        <div class="col-md-6">
+                                                <label><?= $label ?> : </label> <?= $service->hours; ?>
+                                        </div>
+                                </div>
+                        <?php } ?>
+
+
                         <br>
                         <div class="row" style="margin-left: 0px;">
                                 <form id="add-schedules">
@@ -83,7 +104,7 @@ use yii\helpers\ArrayHelper;
 
                                         <div class="row" style="margin-left: 0px;">
                                                 <div class="col-md-6">
-                                                        <label>How many more days you wish to add?     </label>
+                                                        <label>How many more <?= $count ?> you wish to add?     </label>
                                                 </div>
                                                 <div class="col-md-6">
                                                         <input type="text" name="no_of_days" id="no_of_days" required>

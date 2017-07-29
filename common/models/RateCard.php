@@ -42,7 +42,7 @@ class RateCard extends \yii\db\ActiveRecord {
                         [['service_id', 'branch_id'], 'required'],
                         [['service_id', 'status', 'CB', 'UB', 'branch_id', 'sub_service'], 'integer'],
                         [['period_from', 'period_to', 'DOC', 'DOU'], 'safe'],
-                        [['rate_card_name', 'rate_per_hour', 'rate_per_visit', 'rate_per_day', 'rate_per_night', 'rate_per_day_night'], 'string', 'max' => 200],
+                        [['rate_card_name', 'rate_per_hour', 'rate_per_visit', 'rate_per_day', 'rate_per_night', 'rate_per_day_night', 'staff_price', 'estimated_staff_price'], 'string', 'max' => 200],
                         [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service_id' => 'id']],
                 ];
         }
@@ -63,6 +63,8 @@ class RateCard extends \yii\db\ActiveRecord {
                     'rate_per_day_night' => 'Rate Per Day & Night',
                     'period_from' => 'Period From',
                     'period_to' => 'Period To',
+                    'staff_price' => 'Staff Price',
+                    'estimated_staff_price' => 'Estimated Staff Price',
                     'branch_id' => 'Branch',
                     'status' => 'Status',
                     'CB' => 'Cb',

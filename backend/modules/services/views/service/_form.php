@@ -253,7 +253,7 @@ use yii\db\Expression;
                                                 <td class = "labell">Staff for day & night </td><td class = "value"><?php
                                                         if ($model->day_night_staff == 1) {
                                                                 echo 'Same Staff';
-                                                        } else if ($model->day_night_staff == 1) {
+                                                        } else if ($model->day_night_staff == 2) {
                                                                 echo 'Different Staff';
                                                         }
                                                         ?> </td>
@@ -348,7 +348,7 @@ use yii\db\Expression;
 
 
                                         <?php if (isset($model->staff_manager) && $model->staff_manager != '') { ?>
-                                                <td class = "labell">Staff Manager</td><td class = "value"><?= date('d-m-Y', strtotime($model->staffManager->staff_name)) ?> </td>
+                                                <td class = "labell">Staff Manager</td><td class = "value"><?= $model->staffManager->staff_name; ?> </td>
                                                 <?php
                                                 $k++;
                                                 tradjust($k);
@@ -362,13 +362,44 @@ use yii\db\Expression;
                                                 tradjust($k);
                                         }
                                         ?>
+                                        <td class = "labell">Status</td><td class = "value"><span class="service-status-text"><?php
+                                                        if ($model->status == 2) {
+                                                                echo 'Closed';
+                                                        } else {
+                                                                echo 'Opened';
+                                                        }
+                                                        ?>  </span></td>
 
+                                        <?php
+                                        $k++;
+                                        tradjust($k);
+                                        ?>
 
                                 </tr>
+
+
+
+
                         </table>
+                        <?php if ($model->status != 2) { ?>
+                                <div class="row status" >
+                                        <div class="col-md-12" >
+                                                <p style="float: right;">
+                                                        <a class="btn btn-secondary popover-secondary service_stat" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Close this service only if there is no pending schedule !!" data-original-title="Confirm Before closing"><input type="checkbox" class="cbr service_status" value="<?= $model->id; ?>"><span>&nbsp;Check here to close this service</span></a>
+                                                <p>
+                                        </div>
+                                </div>
+                        <?php }
+                        ?>
                 </div>
 
-        <?php } ?>
+
+
+
+
+                <?php
+        }
+        ?>
 
 </div>
 
@@ -400,6 +431,15 @@ function tradjust($k) {
                 color: #b60d14;
                 padding: 0px 0px 0px 14px;
                 margin-bottom: 15px;
+        }
+        .status span{
+                color: #000;
+                font-weight: bold;
+        }.status .btn-secondary{
+                background-color: #fff!important;
+        }
+        .btn.btn-secondary:active, .btn.btn-secondary:focus{
+                border: none ! important;
         }
 
 </style>

@@ -80,42 +80,82 @@ use common\models\MasterDesignations;
         <?php } ?>
 
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?= $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true]) ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?php // $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true])        ?></div>
         <div style="clear:both"></div>
+
+        <div id = "p_attach">
+                <input type = "hidden" id = "delete_port_vals" name = "delete_port_vals" value = "">
+                <h4 style = "color:#000;font-style: italic;">Attachments</h4>
+                <hr class = "enquiry-hr"/>
+
+
+                <span>
+                        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class = "form-group field-staffperviousemployer-hospital_address">
+                                        <label class = "control-label">Attachment</label>
+                                        <input type = "file" name = "creates[file][]">
+
+                                </div>
+                        </div>
+                        <?php
+                        $rand = rand();
+                        $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
+                        ?>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-designation">
+                                        <label class="control-label" for="">Attachment Name</label>
+                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
+                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
+
+                                </div>
+                        </div>
+
+
+                        <div style="clear:both"></div>
+                </span>
+                <br/>
+        </div>
+
+
+        <div class="row">
+                <div class="col-md-6">
+                        <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" ><i class="fa-plus"></i><span> Add More Attachments</span></a>
+                </div>
+        </div>
+
+
+
 
         <?php if (!$staff_enquiry->isNewRecord) { ?>
                 <br/>
-                <hr class="appoint_history" />
-                <h4 class="sub-heading">Uploaded Files</h4>
-                <div class="container" style="margin-left: 0">
-                        <div class="row">
-                                <?php
-                                $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $staff_enquiry->id;
+
+                <div class="row">
+                        <?php
+                        $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $staff_enquiry->id;
+
+                        if (count(glob("{$path}/*")) > 0) {
+                                echo "<hr class='appoint_history'/> <h4 class='sub-heading'>Uploaded Files</h4>";
+
+                                $k = 0;
                                 foreach (glob("{$path}/*") as $file) {
+                                        $k++;
                                         $arry = explode('/', $file);
                                         $img_nmee = end($arry);
                                         $img_nmees = explode('.', $img_nmee);
-
-                                        if ($img_nmees[1] != 'pdf') {
-                                                ?>
-
-                                                <div class = "col-md-2 img-box">
-                                                        <img src="<?= Yii::$app->homeUrl . '../uploads/staff-enquiry/' . $staff_enquiry->id . '/' . end($arry) ?>" style="position:relative;width:135px;height: 135px;" class="img-responsive" />
-                                                        <label><?= end($arry); ?></label>
-                                                        <a href="<?= Yii::$app->homeUrl ?>staff/staff-enquiry/remove?id=<?= $staff_enquiry->id ?>&name=<?= end($arry) ?>" title="Delete"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
-                                                </div>
-
-                                        <?php } else { ?>
-                                                <div class = "col-md-2 img-box">
-                                                        <a href="<?= Yii::$app->homeUrl . '../uploads/staff-enquiry/' . $staff_enquiry->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
-                                                        <a href="<?= Yii::$app->homeUrl ?>staff/staff-enquiry/remove?id=<?= $staff_enquiry->id ?>&name=<?= end($arry) ?>" title="Delete"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
-                                                </div>
-                                        <?php }
                                         ?>
-                                <?php }
-                                ?>
-                        </div>
+
+                                        <div class = "col-md-2 img-box" id="<?= $k; ?>">
+                                                <a href="<?= Yii::$app->homeUrl . '../uploads/staff-enquiry/' . $staff_enquiry->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
+                                                <a  title="Delete" class="staff-enqiry-img-remove" id="<?= $staff_enquiry->id . "-" . $img_nmee . "-" . $k; ?>" style="cursor:pointer"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
+                                        </div>
+
+
+                                        <?php
+                                }
+                        }
+                        ?>
                 </div>
+
         <?php } ?>
 </div>
 

@@ -25,7 +25,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body">
                                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                                
+                                                <div class="small-forms">
+                                                        <div class="header-small-forms">
+                                                                <?php if ($model->isNewRecord) { ?>
+                                                                        <h4>Add Skills</h4>
+                                                                <?php } else { ?>
+                                                                        <h4>Update Skills : <?= $model->title; ?></h4>
+                                                                <?php } ?>
+                                                        </div>
+
+                                                        <div class="small-forms-form">
+                                                                <?=
+                                                                $this->render('_form', [
+                                                                    'model' => $model,
+                                                                ])
+                                                                ?>
+                                                        </div>
+                                                </div
 
 
                                                 <?=
@@ -35,9 +51,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'columns' => [
                                                             ['class' => 'yii\grid\SerialColumn'],
                                                         //   'id',
-                                                        ['attribute' => 'category',
-                                                            'value' => 'cat0.category',
-                                                            'filter' => ArrayHelper::map(common\models\SkillsCategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category'),
+                                                        [
+                                                            'attribute' => 'category',
+                                                            'value' => function($model, $key, $index, $column) {
+                                                                    return $model->category == 1 ? 'Assessment' : 'Staff Skills';
+                                                            },
+                                                            'filter' => [1 => 'Assessment', 2 => 'Staff Skills'],
                                                         ],
                                                         'title',
                                                             [
@@ -56,22 +75,57 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
 
                                         <div class="col-md-6 col-sm-6 col-xs-12 small-forms">
-                                                <div class="small-forms">
-                                                        <div class="header-small-forms">
-                                                                <?php if ($model->isNewRecord) { ?>
-                                                                        <h4>Add Skills</h4>
-                                                                <?php } else { ?>
-                                                                        <h4>Update Skills : <?= $model->title; ?></h4>
-                                                                <?php } ?>
-                                                        </div>
+                                                <div class="header-small-forms">
+                                                        <?php if ($model->isNewRecord) { ?>
+                                                                <h4>Add Assessment Category</h4>
+                                                        <?php } else { ?>
+                                                                <h4>Update Assessment Category</h4>
+                                                        <?php } ?>
+                                                </div>
 
-                                                        <div class="small-forms-form">
-                                                                <?=
-                                                                $this->render('_form', [
-                                                                    'model' => $model,
-                                                                ])
-                                                                ?>
-                                                        </div>
+                                                <div class="small-forms-form">
+                                                        <?php /*
+                                                          $this->render('category', [
+                                                          'category' => $category,
+                                                          ]) */
+                                                        ?>
+                                                </div>
+
+
+                                                <div class="row">
+                                                        <?php /*
+                                                          GridView::widget([
+                                                          'dataProvider' => $dataProvider1,
+                                                          'filterModel' => $searchModel1,
+                                                          'columns' => [
+                                                          ['class' => 'yii\grid\SerialColumn'],
+                                                          //   'id',
+                                                          'category',
+                                                          [
+                                                          'attribute' => 'status',
+                                                          'value' => function($model, $key, $index, $column) {
+                                                          return $model->status == 0 ? 'Disabled' : 'Enabled';
+                                                          },
+                                                          'filter' => [1 => 'Enabled', 0 => 'Disabled'],
+                                                          ],
+                                                          ['class' => 'yii\grid\ActionColumn',
+                                                          'template' => '{update}{delete}',
+                                                          'buttons' => [
+                                                          'update' => function ($url, $model) {
+                                                          return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'category?id=' . $model->id, [
+                                                          'title' => Yii::t('app', 'New Action1'),
+                                                          ]);
+                                                          },
+                                                          'delete' => function ($url, $model) {
+                                                          return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'categorydelete?id=' . $model->id, [
+                                                          'title' => Yii::t('app', 'New Action1'),
+                                                          ]);
+                                                          }
+                                                          ],
+                                                          ],
+                                                          ],
+                                                          ]); */
+                                                        ?>
                                                 </div>
                                         </div>
                                 </div>

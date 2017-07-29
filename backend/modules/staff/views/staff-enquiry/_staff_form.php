@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ])
                                                         ?>
 
-                                                        <?php $form = ActiveForm::begin(['options' => ['id' => 'add-staff-enq']]); ?>
+                                                        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'id' => 'add-staff-enq']]); ?>
                                                         <div class="tab-content second-tab">
 
 

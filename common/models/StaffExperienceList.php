@@ -52,8 +52,4 @@ class StaffExperienceList extends \yii\db\ActiveRecord {
                 ];
         }
 
-        public function getCat0() {
-                return $this->hasOne(SkillsCategory::className(), ['id' => 'category']);
-        }
-
 }

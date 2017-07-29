@@ -355,6 +355,26 @@ $("document").ready(function () {
 
         }
 
+        $('.service_status').change(function () {
+                var service_id = $(this).val();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/servicestatus',
+                        data: {service_id: service_id},
+                        success: function (data) {
+                                if (data == '1') {
+                                        $('.service-status-text').text('Closed');
+                                        $(".service_stat").css({"pointer-events": "none"});
+                                        alert('Status updated successfully');
+                                } else if (data == '2') {
+                                        $('.service_stat .cbr-replaced').removeClass("cbr-checked");
+                                        alert('This service has pending schedules. You cannot close this service!');
+                                }
+                        }
+                });
+
+        });
+
         /********************************************************  Service  **********************************************/
 
 
@@ -454,46 +474,27 @@ $("document").ready(function () {
                 }
         });
 
-        /*
-         * assign staff  for schedule
-         */
-
-        $('.choose-staff').click(function () {
-                var service = $(this).attr('id');
-                $.ajax({
-                        type: 'POST',
-                        url: homeUrl + 'serviceajax/choosestaff',
-                        data: {service: service},
-                        success: function (data) {
-                                $("#modal-2-pop-up").html(data);
-                                $('#modal-2').modal('show');
-
-                        }
-                });
-        });
-
 
         /*
-         * search staff for schedule
+         * schedule daily rate submit
          */
-
-        $(document).on('submit', '#schedulestaffSearch', function (e) {
-
+        $(document).on('submit', '#schedule-daily-rate', function (e) {
                 e.preventDefault();
                 var data = $(this).serialize();
                 $.ajax({
                         type: 'POST',
-                        url: homeUrl + 'serviceajax/searchstaff',
+                        url: homeUrl + 'serviceajax/addrate',
                         data: data,
                         success: function (data) {
-
-                                $('.staff-results table').remove();
-                                $('.staff-results .pagination').remove();
-                                $('.result-buttons').show();
-                                $(".staff-results").append(data);
+                                $('#modal-4').modal('hide');
+                                location.reload();
                         }
                 });
         });
+
+
+
+
 
         $('input[type=radio][name=staff_choose]').change(function () {
                 var selected_radio = $(this).val();
@@ -561,22 +562,6 @@ $("document").ready(function () {
         });
 
 
-        /*
-         * schedule daily rate submit
-         */
-        $(document).on('submit', '#schedule-daily-rate', function (e) {
-                e.preventDefault();
-                var data = $(this).serialize();
-                $.ajax({
-                        type: 'POST',
-                        url: homeUrl + 'serviceajax/addrate',
-                        data: data,
-                        success: function (data) {
-                                $('#modal-4').modal('hide');
-                                location.reload();
-                        }
-                });
-        });
 
 
 

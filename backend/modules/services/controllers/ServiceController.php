@@ -42,12 +42,12 @@ class ServiceController extends Controller {
                 $searchModel = new ServiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-//
-//                if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
-//                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
-//                } else {
-//                        $dataProvider->query->andWhere(['<>', 'status', 2]);
-//                }
+
+                if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+                }
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }if (Yii::$app->session['post']['id'] != '1') {

@@ -141,11 +141,7 @@ class StaffEnquiryController extends Controller {
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
                                 $this->AddFamily($staff_enquiry);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
-                                $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
-                                if (!empty($attachments)) {
-                                        $root_path = ['staff-enquiry', $staff_enquiry->id];
-                                        Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
-                                }
+                                $this->Imageupload($staff_enquiry);
                                 Yii::$app->getSession()->setFlash('success', 'Data Added Successfully');
                                 return $this->redirect(array('index'));
                         }
@@ -197,12 +193,7 @@ class StaffEnquiryController extends Controller {
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
                                 $this->AddFamily($staff_enquiry);
-
-                                $attachments = UploadedFile::getInstances($staff_enquiry, 'attachments');
-                                if (!empty($attachments)) {
-                                        $root_path = ['staff-enquiry', $staff_enquiry->id];
-                                        Yii::$app->UploadFile->UploadSingle($attachments, $staff_enquiry, $root_path);
-                                }
+                                $this->Imageupload($staff_enquiry);
 
 
                                 if (isset($_POST['proceed'])) {
@@ -476,6 +467,70 @@ class StaffEnquiryController extends Controller {
                                 \common\models\StaffEnquiryFamilyDetails::findOne($val)->delete();
                         }
                 }
+        }
+
+        /*
+         * to upload image
+         *  */
+
+        public function Imageupload($model) {
+
+                if (isset($_POST['creates']) && $_POST['creates'] != '') {
+
+
+                        $arrs = [];
+                        $i = 0;
+
+                        foreach ($_FILES['creates'] ['name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $arrs[$i]['name'] = $value;
+                                        $i++;
+                                }
+                        }
+                        $i = 0;
+                        foreach ($_FILES['creates'] ['tmp_name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $arrs[$i]['tmp_name'] = $value;
+                                        $i++;
+                                }
+                        }
+                        $i = 0;
+
+                        foreach ($_FILES['creates'] ['name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $ext = pathinfo($value, PATHINFO_EXTENSION);
+                                        $arrs[$i]['extension'] = $ext;
+                                        $i++;
+                                }
+                        }
+                        $i = 0;
+                        foreach ($_POST['creates']['file_name'] as $val) {
+                                $file_name = \common\models\UploadCategory::findOne($val);
+                                $arrs[$i]['file_name'] = $file_name->sub_category;
+                                $i++;
+                        }
+
+                        foreach ($arrs as $val) {
+                                $this->Upload($model->id, $val['name'], $val['tmp_name'], $val['file_name'], $val['extension']);
+                        }
+                }
+        }
+
+        /*
+         * to save the image in folder
+         * if
+         */
+
+        public function Upload($id, $name, $Tmpfilename, $filename, $extension) {
+                $paths = ['staff-enquiry', $id];
+                $paths = Yii::$app->UploadFile->CheckPath($paths);
+                $target_dir = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $id . "/";
+                if (empty($filename))
+                        $filename = 'attachment' . rand();
+                move_uploaded_file($Tmpfilename, $target_dir . $filename . "." . $extension);
         }
 
         /*
