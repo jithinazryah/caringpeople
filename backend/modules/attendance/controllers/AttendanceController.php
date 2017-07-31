@@ -233,21 +233,26 @@ class AttendanceController extends Controller {
                 $model = new ServiceSchedule();
                 $model->scenario = 'patientreport';
                 $report = '';
-                $completed = '';
 
                 if ($model->load(Yii::$app->request->post())) {
                         $from = date('Y-m-d', strtotime($model->date));
                         $to = date('Y-m-d', strtotime($model->DOC));
-                        $patient = $model->patient_id;
-                        $report = ServiceSchedule::find()->where(['patient_id' => $patient])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->orderBy(['date' => SORT_ASC])->all();
-                        $completed = ServiceSchedule::find()->where(['patient_id' => $patient, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
+                        if (isset($model->service_id)) {
+                                if ($model->service_id != 0) {
+                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->orderBy(['date' => SORT_ASC])->all();
+                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
+                                } else {
+                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->orderBy(['date' => SORT_ASC])->all();
+                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
+                                }
+                        }
                 }
 
 
                 return $this->render('patient_report', [
                             'model' => $model,
                             'report' => $report,
-                            'completed' => $completed,
+                            'patient_services' => $patient_services,
                 ]);
         }
 

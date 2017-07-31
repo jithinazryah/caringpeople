@@ -5,9 +5,9 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use common\models\Branch;
-use common\models\MasterAttendanceType;
 use common\models\StaffInfo;
-use common\models\AttendanceEntry;
+use common\models\Service;
+use common\models\ServiceSchedule;
 
 $this->title = 'Patient Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                                 <?php
                                                                 if (isset($model->rating)) {
-                                                                        $patients = \common\models\PatientGeneral::find()->where(['branch_id' => $model->rating, 'status' => 1])->all();
+                                                                        $patients = \common\models\PatientGeneral::find()->where(['branch_id' => $model->rating, 'status' => 1])->orderBy(['first_name' => SORT_ASC])->all();
                                                                 } else {
                                                                         $patients = [];
                                                                 }
@@ -81,8 +81,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?= $form->field($model, 'patient_id')->dropDownList(ArrayHelper::map($patients, 'id', 'first_name'), ['prompt' => '--Select--', 'id' => 'report-patient']) ?>
                                                         </div>
 
+                                                        <?php
+                                                        $style = 'display:none;';
+                                                        if (isset($model->patient_id)) {
+                                                                $services = Service::find()->where(['patient_id' => $model->patient_id])->all();
+                                                                if (count($services) > 1)
+                                                                        $style = 'display:show;';
+                                                        } else {
+                                                                $services = [];
+                                                        }
 
-                                                        <div class='col-md-3 col-sm-6 col-xs-12' >
+                                                        $list = ArrayHelper::map($services, 'id', 'service_id');
+                                                        $data = ['0' => 'All'];
+                                                        $list = $data + $list;
+                                                        ?>
+
+                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd report-services' style="<?= $style ?>">
+
+                                                                <?= $form->field($model, 'service_id')->dropDownList($list, ['prompt' => '--Select--', 'id' => 'report-services']); ?>
+                                                        </div>
+
+
+                                                        <div class='col-md-2 col-sm-6 col-xs-12' >
                                                                 <div class="form-group" >
                                                                         <?= Html::submitButton($model->isNewRecord ? 'Search' : 'Search', ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
                                                                 </div>
@@ -107,12 +127,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         ?></span>
                                                                         </p>
                                                                 </div>
+                                                        </div>
+                                                        <div class="row">
 
-                                                                <div class="col-md-6 col-sm-6 col-xs-12 left_padd counts">
-                                                                        <p>
-                                                                                Total Schedules &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   :  &nbsp;<span> <?= count($report); ?><br></span>
-                                                                                Completed Schedules :  &nbsp;<span><?= $completed ?> <br></span>
-                                                                        </p>
+                                                                <div class="col-md-12 col-sm-6 col-xs-12 left_padd service_detail">
+                                                                        <?php
+                                                                        foreach ($patient_services as $patient_services) {
+                                                                                $schedule = Service::findOne($patient_services->service_id);
+                                                                                $total_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->count();
+                                                                                $total_completed_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 2])->count();
+                                                                                ?>
+
+                                                                                <span class="counts">
+                                                                                        Service    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label class="label-1"> : </label> &nbsp;<span> <?= $schedule->service_id; ?><br></span>
+                                                                                        Total Schedules &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label> : </label> &nbsp;<span> <?= $total_schedules; ?><br></span>
+                                                                                        Completed Schedules  <label> : </label> &nbsp;<span><?= $total_completed_schedules ?> <br></span>
+                                                                                </span>
+                                                                                <br>
+                                                                                <br>
+                                                                                <br>
+                                                                                <br>
+                                                                        <?php } ?>
+
                                                                 </div>
                                                         </div>
 
@@ -144,7 +180,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                 <td><?= date('d-m-Y', strtotime($value->date)) ?></td>
 
-                                                                                                <?php $service = common\models\Service::findOne($value->service_id) ?>
+                                                                                                <?php $service = Service::findOne($value->service_id) ?>
                                                                                                 <td><?= $service->service_id ?></td>
 
                                                                                                 <td><?php
@@ -214,7 +250,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         <?php
                                                 } else {
-                                                        if (isset($model->staff) && $model->staff != '') {
+                                                        if (isset($model->patient_id) && $model->patient_id != '') {
                                                                 echo '<p class="no-result">No results found !!</p>';
                                                         }
                                                 }
@@ -264,6 +300,10 @@ $this->params['breadcrumbs'][] = $this->title;
         }.no-result{
                 text-align: center;
                 font-style: italic;
+        }.service_detail .counts{
+                float: right;
+        }.label-1{
+                margin-left: 48px;
         }
 </style>
 <link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>js/table/dataTables.bootstrap.css">

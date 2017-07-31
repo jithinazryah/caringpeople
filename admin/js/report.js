@@ -56,6 +56,25 @@ $("document").ready(function () {
         });
 
 
+        $('#report-patient').change(function () {
+                var patient = $(this).val();
+                showLoader();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {patient: patient},
+                        url: homeUrl + 'report/services',
+                        success: function (data) {
+                                if (data != 0) {
+                                        $('.report-services').show();
+                                        $('#report-services').html(data);
+                                }
+                                hideLoader();
+                        }
+                });
+        });
+
+
 
 
 });

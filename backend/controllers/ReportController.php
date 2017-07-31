@@ -17,6 +17,10 @@ class ReportController extends \yii\web\Controller {
                 return $this->render('index');
         }
 
+        /*
+         * show staffs on branch change :-staff report
+         */
+
         public function actionStaffs() {
                 if (Yii::$app->request->isAjax) {
                         $branch = $_POST['branch'];
@@ -29,6 +33,10 @@ class ReportController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * show patients on patient change :-patient report
+         */
+
         public function actionPatients() {
                 if (Yii::$app->request->isAjax) {
                         $branch = $_POST['branch'];
@@ -38,6 +46,26 @@ class ReportController extends \yii\web\Controller {
                                 $options .= "<option value='" . $patients->id . "'>" . $patients->first_name . "</option>";
                         }
                         echo $options;
+                }
+        }
+
+        /*
+         * show services on patient change :-patient report
+         */
+
+        public function actionServices() {
+                if (Yii::$app->request->isAjax) {
+                        $patient = $_POST['patient'];
+                        $services = \common\models\Service::find()->where(['patient_id' => $patient])->all();
+                        if (count($services) > 1) {
+                                $options .= "<option value='0'>All</option>";
+                                foreach ($services as $services) {
+                                        $options .= "<option value='" . $services->id . "'>" . $services->service_id . "</option>";
+                                }
+                                echo $options;
+                        } else {
+                                echo '0';
+                        }
                 }
         }
 
