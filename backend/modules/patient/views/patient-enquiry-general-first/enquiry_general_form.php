@@ -166,8 +166,82 @@ use kartik\date\DatePicker;
 
         </div>
 
+        <div style="clear:both"></div>
+
+        <div id = "p_attach">
+                <input type = "hidden" id = "delete_port_vals" name = "delete_port_vals" value = "">
+                <h4 style = "color:#000;font-style: italic;">Attachments</h4>
+                <hr class = "enquiry-hr"/>
 
 
+                <span>
+                        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class = "form-group field-staffperviousemployer-hospital_address">
+                                        <label class = "control-label">Attachment</label>
+                                        <input type = "file" name = "creates[file][]">
+
+                                </div>
+                        </div>
+                        <?php
+                        $rand = rand();
+                        $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
+                        ?>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-designation">
+                                        <label class="control-label" for="">Attachment Name</label>
+                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
+                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
+
+                                </div>
+                        </div>
+
+
+                        <div style="clear:both"></div>
+                </span>
+                <br/>
+        </div>
+
+        <div class="row">
+                <div class="col-md-6">
+                        <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" ><i class="fa-plus"></i><span> Add More</span></a>
+                </div>
+        </div>
+
+
+        <div style="clear:both"></div>
+
+
+        <?php if (!$patient_info->isNewRecord) { ?>
+                <br/>
+
+                <div class="row">
+                        <?php
+                        $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient-enquiry/' . $patient_info->id;
+
+                        if (count(glob("{$path}/*")) > 0) {
+                                echo "<hr class='appoint_history'/> <h4 class='sub-heading'>Uploaded Files</h4>";
+
+                                $k = 0;
+                                foreach (glob("{$path}/*") as $file) {
+                                        $k++;
+                                        $arry = explode('/', $file);
+                                        $img_nmee = end($arry);
+                                        $img_nmees = explode('.', $img_nmee);
+                                        ?>
+
+                                        <div class = "col-md-2 img-box" id="<?= $k; ?>">
+                                                <a href="<?= Yii::$app->homeUrl . '../uploads/patient-enquiry/' . $patient_info->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
+                                                <a  title="Delete" class="patient-enquiry-img-remove" id="<?= $patient_info->id . "-" . $img_nmee . "-" . $k; ?>" style="cursor:pointer"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
+                                        </div>
+
+
+                                        <?php
+                                }
+                        }
+                        ?>
+                </div>
+
+        <?php } ?>
 
 </div>
 <div class='col-md-12 col-sm-6 col-xs-12' >

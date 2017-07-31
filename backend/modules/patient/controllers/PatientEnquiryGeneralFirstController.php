@@ -133,6 +133,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                         $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
                                         $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
                                         $this->AddPatientAssessment($patient_assessment, $patient_info);
+                                        $this->Imageupload($patient_info);
                                         $this->AddContactDirectory($patient_info, $patient_info_second);
                                         $this->sendMail($patient_info, $patient_info_second);
                                         Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');
@@ -190,7 +191,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                                                 $this->AddHospitalInfo($patient_info, Yii::$app->request->post(), $patient_hospital, $patient_hospital_second);
                                                 $this->AddHospitalDetails($patient_info, Yii::$app->request->post());
                                                 $this->AddPatientAssessment($patient_assessment, $patient_info);
-
+                                                $this->Imageupload($patient_info);
 
 
 
@@ -357,6 +358,69 @@ class PatientEnquiryGeneralFirstController extends Controller {
                         $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
                 }
                 $patient_assessment->save();
+        }
+
+        /*
+         * to upload image
+         *  */
+
+        public function Imageupload($model) {
+
+                if (isset($_POST['creates']) && $_POST['creates'] != '') {
+
+                        $arrs = [];
+                        $i = 0;
+
+                        foreach ($_FILES['creates'] ['name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $arrs[$i]['name'] = $value;
+                                        $i++;
+                                }
+                        }
+                        $i = 0;
+                        foreach ($_FILES['creates'] ['tmp_name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $arrs[$i]['tmp_name'] = $value;
+                                        $i++;
+                                }
+                        }
+                        $i = 0;
+
+                        foreach ($_FILES['creates'] ['name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $ext = pathinfo($value, PATHINFO_EXTENSION);
+                                        $arrs[$i]['extension'] = $ext;
+                                        $i++;
+                                }
+                        }
+                        $i = 0;
+                        foreach ($_POST['creates']['file_name'] as $val) {
+                                $file_name = \common\models\UploadCategory::findOne($val);
+                                $arrs[$i]['file_name'] = $file_name->sub_category;
+                                $i++;
+                        }
+
+                        foreach ($arrs as $val) {
+                                $this->Upload($model->id, $val['name'], $val['tmp_name'], $val['file_name'], $val['extension']);
+                        }
+                }
+        }
+
+        /*
+         * to save the image in folder
+         * if
+         */
+
+        public function Upload($id, $name, $Tmpfilename, $filename, $extension) {
+                $paths = ['patient-enquiry', $id];
+                $paths = Yii::$app->UploadFile->CheckPath($paths);
+                $target_dir = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient-enquiry/' . $id . "/";
+                if (empty($filename))
+                        $filename = 'attachment' . rand();
+                move_uploaded_file($Tmpfilename, $target_dir . $filename . "." . $extension);
         }
 
         /*

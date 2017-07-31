@@ -314,6 +314,23 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
+        public function actionPatientenquiryremove() {
+
+                $id = $_POST['id'];
+                $name = $_POST['name'];
+
+                $root_path = Yii::$app->basePath . '/../uploads/patient-enquiry';
+                $path = $root_path . '/' . $id . '/' . $name;
+
+
+                if (file_exists($path)) {
+
+                        if (unlink($path)) {
+
+                        }
+                }
+        }
+
         /*
          * to remove images of patient (uploaded images in patient)
          */

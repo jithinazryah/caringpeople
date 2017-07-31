@@ -495,6 +495,21 @@ $("document").ready(function () {
 
         /////////////////////////------------------  ---------------------/////////////////////////
 
+        $('.patient-enquiry-img-remove').on('click', function (e) {
+                var data = $(this).attr('id');
+                var datas = data.split("-");
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {id: datas[0], name: datas[1]},
+                        url: homeUrl + 'ajax/patientenquiryremove',
+                        success: function (data) {
+                                $('#' + datas[2]).remove();
+                        }
+                });
+        });
+
+
 
 
 });
