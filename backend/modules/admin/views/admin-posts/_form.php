@@ -29,7 +29,11 @@ use yii\widgets\ActiveForm;
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'leave_approval')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'rate_card')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'service')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+
+        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'expenses')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_directory')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>

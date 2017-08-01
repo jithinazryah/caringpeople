@@ -73,12 +73,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'value' => $model->service == 1 ? 'Yes' : 'No',
                                                         ],
                                                             [
-                                                            'attribute' => 'users',
-                                                            'value' => $model->users == 1 ? 'Yes' : 'No',
+                                                            'attribute' => 'rate_card',
+                                                            'value' => $model->rate_card == 1 ? 'Yes' : 'No',
                                                         ],
                                                             [
-                                                            'attribute' => 'employees',
-                                                            'value' => $model->employees == 1 ? 'Yes' : 'No',
+                                                            'attribute' => 'expenses',
+                                                            'value' => $model->expenses == 1 ? 'Yes' : 'No',
                                                         ],
                                                     //'enquiry',
                                                     //'users',
