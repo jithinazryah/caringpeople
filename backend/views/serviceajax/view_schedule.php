@@ -28,22 +28,36 @@ use yii\helpers\ArrayHelper;
                                 </div>
                         </div>
 
-                        <?php if (!empty($schedule->remarks_from_staff) && remarks_from_staff != '') { ?>
-                                <div class="row" style="margin-left: 0px;">
-                                        <div class="col-md-12">
-                                                <label>Remarks from staff : </label> <?= $schedule->remarks_from_staff; ?>
-                                        </div>
+
+                        <div class="row" style="margin-left: 0px;">
+                                <div class="col-md-12">
+                                        <label>Remarks from staff : </label>
                                 </div>
-                        <?php } ?>
+                        </div>
+
+                        <div class="row" style="margin-left: 0px;">
+                                <div class="col-md-12">
+                                        <textarea id="ckeditor1"><?= $schedule->remarks_from_staff; ?></textarea>
+                                </div>
+                        </div>
 
 
-                        <?php if (!empty($schedule->remarks_from_manager) && remarks_from_manager != '') { ?>
-                                <div class="row" style="margin-left: 0px;">
-                                        <div class="col-md-12">
-                                                <label>Remarks from manager : </label> <?= $schedule->remarks_from_manager; ?>
-                                        </div>
+
+
+                        <div class="row" style="margin-left: 0px;">
+                                <div class="col-md-12">
+                                        <label>Remarks from manager : </label>
                                 </div>
-                        <?php } ?>
+                        </div>
+
+
+                        <div class="row" style="margin-left: 0px;">
+                                <div class="col-md-12">
+                                        <textarea id="page_body1"><?= $schedule->remarks_from_manager; ?></textarea>
+                                </div>
+                        </div>
+
+
 
                         <div class="row" style="margin-left: 0px;">
                                 <div class="col-md-6">
@@ -96,3 +110,20 @@ use yii\helpers\ArrayHelper;
         }
 
 </style>
+<script src="<?= Yii::$app->homeUrl; ?>js/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript">
+        CKEDITOR.addCss('h3{font-weight:bold;}');
+        CKEDITOR.addCss('h3{text-decoration:underline;}');
+        CKEDITOR.replace('ckeditor1',
+                {
+                        toolbar: 'Basic', /* this does the magic */
+                        height: '100px',
+                });
+
+        CKEDITOR.replace('page_body1',
+                {
+                        toolbar: 'Basic', /* this does the magic */
+                        height: '100px',
+                });</script>
+</script>

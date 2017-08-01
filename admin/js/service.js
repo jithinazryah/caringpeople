@@ -459,8 +459,8 @@ $("document").ready(function () {
                                         data: {schedule_id: schedule_id, status: status},
                                         success: function (data) {
 
-                                                $("#modal-4-pop-up").html(data);
-                                                $('#modal-4').modal('show', {backdrop: 'static'});
+                                                $("#modal-2-pop-up").html(data);
+                                                $('#modal-2').modal('show', {backdrop: 'static'});
 
                                         }
                                 });
@@ -486,7 +486,7 @@ $("document").ready(function () {
                         url: homeUrl + 'serviceajax/addrate',
                         data: data,
                         success: function (data) {
-                                $('#modal-4').modal('hide');
+                                $('#modal-2').modal('hide');
                                 location.reload();
                         }
                 });

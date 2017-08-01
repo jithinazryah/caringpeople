@@ -30,9 +30,22 @@ use yii\helpers\ArrayHelper;
                                                         <label>Remarks from Staff :</label>
                                                 </div>
 
-                                                <div class="col-md-8">
-                                                        <textarea id="" class="fields" name="remarks_staff"></textarea>
-                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-md-12 col-sm-6 col-xs-12">
+
+                                                <textarea id="ckeditor" class="remarks_staff" name="remarks_staff">
+                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
+                                                        <br><br>
+                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
+                                                        <br><br>
+                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
+                                                        <br><br>
+                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
+
+                                                </textarea>
                                         </div>
                                 </div>
 
@@ -42,31 +55,30 @@ use yii\helpers\ArrayHelper;
                                                         <label>Remarks from Manager :</label>
                                                 </div>
 
-                                                <div class="col-md-8">
-                                                        <textarea id="" class="fields" name="remarks_manager"></textarea>
-                                                </div>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                                <textarea  class="fields" name="remarks_manager" id="page_body"></textarea>
                                         </div>
                                 </div>
 
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                         <label>Time In :</label>
                                                 </div>
 
-                                                <div class="col-md-8">
+                                                <div class="col-md-3">
                                                         <input type="text" id="time_in" name="time_in"  class="fields">
                                                 </div>
-                                        </div>
-                                </div>
 
-                                <div class="row">
-                                        <div class="col-md-12 col-sm-6 col-xs-12">
-                                                <div class="col-md-4">
+
+                                                <div class="col-md-3">
                                                         <label>Time Out :</label>
                                                 </div>
 
-                                                <div class="col-md-8">
+                                                <div class="col-md-3">
                                                         <input type="text" id="time_out" name="time_out"  class="fields">
                                                 </div>
                                         </div>
@@ -74,23 +86,20 @@ use yii\helpers\ArrayHelper;
 
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                         <label>Daily Rate Patient:</label>
                                                 </div>
 
-                                                <div class="col-md-8">
+                                                <div class="col-md-3">
                                                         <input type="text" id="rate_patient" name="rate_patient"  class="fields">
                                                 </div>
-                                        </div>
-                                </div>
 
-                                <div class="row">
-                                        <div class="col-md-12 col-sm-6 col-xs-12">
-                                                <div class="col-md-4">
+
+                                                <div class="col-md-3">
                                                         <label>Daily Rate Staff:</label>
                                                 </div>
 
-                                                <div class="col-md-8">
+                                                <div class="col-md-3">
                                                         <input type="text" id="rate" name="rate"  class="fields">
                                                 </div>
                                         </div>
@@ -133,3 +142,23 @@ use yii\helpers\ArrayHelper;
         }
 
 </style>
+
+
+
+
+<script src="<?= Yii::$app->homeUrl; ?>js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+        CKEDITOR.addCss('h3{font-weight:bold;}');
+        CKEDITOR.addCss('h3{text-decoration:underline;}');
+        CKEDITOR.replace('ckeditor',
+                {
+                        toolbar: 'Basic', /* this does the magic */
+                        height: '100px',
+
+                });
+        CKEDITOR.replace('page_body',
+                {
+                        toolbar: 'Basic', /* this does the magic */
+                        height: '100px',
+                });</script>
+
