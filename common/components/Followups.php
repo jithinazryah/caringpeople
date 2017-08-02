@@ -86,29 +86,34 @@ class Followups extends Component {
                 $patient = PatientGeneral::findOne($service->patient_id);
                 if ($service->staff_manager != '') {
                         $manager = StaffInfo::findOne($service->staff_manager);
-                        $data3 = [$manager->id => $manager->staff_name . ' ( Staff Manager )'];
+                        $data2 = [$manager->id => $manager->staff_name . ' ( Staff Manager )'];
                 } else {
-                        $data3 = [];
+                        $data2 = [];
                 }
                 $super_admins = StaffInfo::find()->where(['post_id' => 1, 'status' => 1])->all();
                 $data2 = ArrayHelper::map($super_admins, 'id', 'fullname');
 
-//                if ($service->duty_type == '1') { /* day */
-//
-//                        $daystaff = StaffInfo::findOne($service->day_staff);
-//                        $data = [$patient->id => $patient->first_name . ' ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )',];
-//                } else if ($service->duty_type == '2') { /* night */
-//
-//                        $nightstaff = StaffInfo::findOne($service->night_staff);
-//                        $data = [$patient->id => $patient->first_name . ' ( Patient )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
-//                } else if ($service->duty_type == '3') { /* day & night */
-//
-//                        $daystaff = StaffInfo::findOne($service->day_staff);
-//                        $nightstaff = StaffInfo::findOne($service->night_staff);
-//                        $data = [$patient->id => $patient->first_name . '    ( Patient )', $daystaff->id => $daystaff->staff_name . ' ( Day Staff )', $nightstaff->id => $nightstaff->staff_name . ' ( Night Staff )'];
-//                }
+                if ($service->staff_manager != '') {
+                        $manager = StaffInfo::findOne($service->staff_manager);
+                        $data3 = [$manager->id => $manager->staff_name . ' ( Staff Manager )'];
+                } else {
+                        $data3 = [];
+                }
+                $service_staffs = \common\models\ServiceSchedule::find()->select('staff')->where(['service_id' => $service->id])->andWhere(['<>', 'status', '2'])->distinct()->all();
+                if (!empty($service_staffs)) {
+                        foreach ($service_staffs as $staffs) {
+                                $staff_name = StaffInfo::findOne($staffs->staff);
+                                $da[$staffs->staff] .= $staff_name->staff_name;
+                        }
+                } else {
+                        $da = [];
+                }
 
-                $datas = $data + $data3 + $data2;
+
+
+
+
+                $datas = $data + $data3 + $data2 + $da;
                 return $datas;
         }
 

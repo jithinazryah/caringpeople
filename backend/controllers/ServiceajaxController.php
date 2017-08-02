@@ -190,14 +190,14 @@ class ServiceajaxController extends \yii\web\Controller {
                         /*
                          * if frequency == daily snd duty type= day or night
                          */
-                        if ($frequency == 1 && $duty_type == 3 || $duty_type == 4 || $duty_type == 5) {
 
+                        if ($frequency == 1 && ($duty_type == 3 || $duty_type == 4 || $duty_type == 5)) {
                                 if (isset($ratecard->$type)) {
                                         $price = $days * $ratecard->$type;
                                 }
                         } else {
-
                                 $total_hours = $hours * $days;
+
                                 if (isset($ratecard->$type)) {
                                         $price = $total_hours * $ratecard->$type;
                                 }
@@ -433,7 +433,8 @@ class ServiceajaxController extends \yii\web\Controller {
                         $service = Service::findOne($service_id);
 
                         if ($duty_type == 5) {
-                                if ($model->day_night_staff == 2) {
+                                if ($service->day_night_staff == 2) {
+
                                         for ($x = 1; $x <= $schedule_count; $x++) {
                                                 $day_schedule = new ServiceSchedule();
                                                 $night_schedule = new ServiceSchedule();
@@ -449,6 +450,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                                 $day_schedule->save(false);
                                         }
                                 } else {
+
                                         for ($x = 1; $x <= $schedule_count; $x++) {
                                                 $day_schedule = new ServiceSchedule();
                                                 $day_schedule->service_id = $service_id;
@@ -505,7 +507,7 @@ class ServiceajaxController extends \yii\web\Controller {
                 /*
                  * if frequency == daily snd duty type= day or night
                  */
-                if ($frequency == 1 && $duty_type == 3 || $duty_type == 4 || $duty_type == 5) {
+                if ($frequency == 1 && ($duty_type == 3 || $duty_type == 4 || $duty_type == 5)) {
                         if (isset($ratecard->$type)) {
                                 $price = $days * $ratecard->$type;
                         }
@@ -557,16 +559,18 @@ class ServiceajaxController extends \yii\web\Controller {
                 $ratecard = RateCard::find()->where(['service_id' => $service->service, 'branch_id' => $service->branch_id, 'status' => 1, 'sub_service' => $service->sub_service])->one();
                 $service_dutytype = $service->duty_type;
 
-                if ($service->frequency == 1 && $service->duty_type == 3 || $service->duty_type == 4 || $service->duty_type == 5) {
-                        if (isset($ratecard->$type)) {
+                if ($service->frequency == 1 && ($service->duty_type == 3 || $service->duty_type == 4 || $service->duty_type == 5)) {
+                        if (isset($service->rate_card_value)) {
                                 $rate = $days * $service->rate_card_value;
                         }
                 } else {
                         $total_hours = $service->hours * $days;
-                        if (isset($ratecard->$type)) {
+                        if (isset($service->rate_card_value)) {
                                 $rate = $total_hours * $service->rate_card_value;
                         }
                 }
+
+
                 if ($pricetype == 2) {
                         if ($service_dutytype == 5 && $service->day_night_staff == 2) {
                                 $rate = $rate / 2;
