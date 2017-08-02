@@ -555,8 +555,8 @@ $("document").ready(function () {
                         url: homeUrl + 'serviceajax/addschedule',
                         data: data,
                         success: function (data) {
-                                //  $('#modal-6').modal('hide');
-                                // location.reload();
+                                $('#modal-6').modal('hide');
+                                location.reload();
                         }
                 });
         });
