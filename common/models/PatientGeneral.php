@@ -48,6 +48,7 @@ class PatientGeneral extends \yii\db\ActiveRecord {
                         [['DOC', 'DOU'], 'safe'],
                         [['patient_id', 'first_name', 'last_name', 'patient_image', 'landmark', 'email', 'patient_old_id', 'staff_manager'], 'string', 'max' => 100],
                         [['blood_group'], 'string', 'max' => 50],
+                        [['patient_id'], 'unique', 'message' => 'Patient ID must be unique.'],
                         [['branch_id'], 'required', 'when' => function ($model) {
                                 return Yii::$app->user->identity->branch_id == 0;
                         },],

@@ -228,6 +228,25 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                         <?php } ?>
 
 
+                                        <ul id="main-menu" class="main-menu">
+                                                <li>
+                                                        <a href="dashboard-1.html">
+                                                                <i class="fa fa-credit-card"></i>
+                                                                <span class="title">Satff Payroll</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Payroll ', ['/accounts/staff-payroll/create'], ['class' => 'title']) ?>
+                                                                </li>
+
+
+
+                                                        </ul>
+                                                </li>
+
+                                        </ul>
+
+
                                         <?php if (Yii::$app->session['post']['leave_approval'] == 1 || Yii::$app->session['post']['leave_application'] == 1 || Yii::$app->session['post']['admin'] == 1) { ?>
                                                 <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
@@ -628,7 +647,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                                                 ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                                                         ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">

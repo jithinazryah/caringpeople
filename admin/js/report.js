@@ -1,3 +1,5 @@
+
+
 /*
  * Created by   :- Sabitha
  * Created date :- 22-06-2017
@@ -7,6 +9,7 @@
 
 $("document").ready(function () {
 
+//--------------------------------------------------------------Staff and patient Report------------------------------------------//
         $("#report-staff").select2({
                 allowClear: true
         }).on('select2-open', function ()
@@ -74,7 +77,37 @@ $("document").ready(function () {
                 });
         });
 
+//--------------------------------------------------------------Staff and patient Report------------------------------------------//
 
+
+//--------------------------------------------------------------Staff Payment------------------------------------------//
+
+        $("#staffpayroll-staff_id").select2({
+                allowClear: true
+        }).on('select2-open', function ()
+        {
+                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
+        $('#staffpayroll-branch_id').change(function () {
+                var branch = $(this).val();
+                showLoader();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {branch: branch},
+                        url: homeUrl + 'report/staffs',
+                        success: function (data) {
+                                $('#staffpayroll-staff_id').html(data);
+                                hideLoader();
+                        }
+                });
+        });
+
+
+
+
+//--------------------------------------------------------------Staff Payment------------------------------------------//
 
 
 });

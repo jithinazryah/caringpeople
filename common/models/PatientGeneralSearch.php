@@ -78,7 +78,7 @@ class PatientGeneralSearch extends PatientGeneral {
                     'DOU' => $this->DOU,
                 ]);
 
-                $query->andFilterWhere(['like', 'patient_id', $this->patient_id])
+                $query->andFilterWhere(['like', 'patient_general.patient_id', $this->patient_id])
                         ->andFilterWhere(['like', 'patient_general.first_name', $this->first_name])
                         ->andFilterWhere(['like', 'last_name', $this->last_name])
                         ->andFilterWhere(['like', 'blood_group', $this->blood_group])
