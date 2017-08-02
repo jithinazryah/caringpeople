@@ -82,6 +82,7 @@ class StaffPayrollController extends Controller {
                 } else if (isset($_POST['submit_amount'])) {
 
                         $model->load(Yii::$app->request->post());
+                        Yii::$app->SetValues->Attributes($model);
                         if (!empty($model->payment_date))
                                 $model->payment_date = date('Y-m-d', strtotime($model->payment_date));
                         $model->save(FALSE);
