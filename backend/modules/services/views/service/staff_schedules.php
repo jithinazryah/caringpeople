@@ -12,94 +12,80 @@ $this->params['breadcrumbs'][] = $this->title;
 /* @var $model common\models\Service */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<div class="enquiry-index">
-        <div class="row">
-                <div class="col-md-12">
-                        <div class="panel panel-default">
-                                <div class="panel-heading">
-                                        <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
-
-                                </div>
-
-                                <div class="row">
-                                        <p class="serv_details">Service : CPBSR-001010-2019</p>
-                                </div>
 
 
-                                <div class="table-responsive">
-                                        <table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                                <thead>
-                                                        <tr>
-                                                                <th style="width:10px;">No</th>
-                                                                <th>Date</th>
-                                                                <th>Remarks from staff</th>
+
+<div class="table-responsive">
+        <table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                        <tr>
+                                <th style="width:10px;">No</th>
+                                <th>Date</th>
+                                <th>Remarks from staff</th>
 
 
-                                                        </tr>
-                                                </thead>
+                        </tr>
+                </thead>
 
-                                                <tbody>
+                <tbody>
+                        <?php
+                        $p = 0;
+                        foreach ($service_schedule as $value) {
+                                $p++;
+                                $class = 'completed';
+                                $class1 = 'hide-class';
+                                ?>
+                                <tr  id="<?= $value->id; ?>" style="text-align:center">
+                                        <td><?= $p; ?></td>
+
+                                        <td><?php
+                                                if (isset($value->date) && $value->date != '') {
+                                                        $date = date('d-m-Y', strtotime($value->date));
+                                                } else {
+                                                        $date = '';
+                                                }
+                                                echo DatePicker::widget([
+                                                    'name' => 'date',
+                                                    'id' => 'schedule_date-' . $value->id,
+                                                    'type' => DatePicker::TYPE_INPUT,
+                                                    'value' => $date,
+                                                    'pluginOptions' => [
+                                                        'autoclose' => true,
+                                                        'format' => 'dd-mm-yyyy',
+                                                    ],
+                                                    'options' => [
+                                                        'class' => 'schedule-update-dates ' . $class . '',
+                                                    ]
+                                                ]);
+                                                ?>
+                                        </td>
+
+                                        <td class="sas">
+
+                                                <textarea class="form-control remarks_staff" name="remarks_from_patient" id="<?= $value->id ?>">
                                                         <?php
-                                                        $p = 0;
-                                                        foreach ($schedules as $value) {
-                                                                $p++;
-                                                                $class = 'completed';
-                                                                $class1 = 'hide-class';
+                                                        if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
+                                                                echo $value->remarks_from_staff;
+                                                        } else {
                                                                 ?>
-                                                                <tr  id="<?= $value->id; ?>" style="text-align:center">
-                                                                        <td><?= $p; ?></td>
-
-                                                                        <td><?php
-                                                                                if (isset($value->date) && $value->date != '') {
-                                                                                        $date = date('d-m-Y', strtotime($value->date));
-                                                                                } else {
-                                                                                        $date = '';
-                                                                                }
-                                                                                echo DatePicker::widget([
-                                                                                    'name' => 'date',
-                                                                                    'id' => 'schedule_date-' . $value->id,
-                                                                                    'type' => DatePicker::TYPE_INPUT,
-                                                                                    'value' => $date,
-                                                                                    'pluginOptions' => [
-                                                                                        'autoclose' => true,
-                                                                                        'format' => 'dd-mm-yyyy',
-                                                                                    ],
-                                                                                    'options' => [
-                                                                                        'class' => 'schedule-update-dates ' . $class . '',
-                                                                                    ]
-                                                                                ]);
-                                                                                ?>
-                                                                        </td>
-
-                                                                        <td class="sas">
-
-                                                                                <textarea class="form-control remarks_staff" name="remarks_from_patient" id="<?= $value->id ?>">
-                                                                                        <?php
-                                                                                        if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
-                                                                                                echo $value->remarks_from_staff;
-                                                                                        } else {
-                                                                                                ?>
-                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
-                                                                                                                                                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
-                                                                                                                                                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
-                                                                                                                                                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
-                                                                                        <?php } ?>
-                                                                                </textarea>
-                                                                        </td>
-
-                                                                </tr>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <br><br>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <br><br>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <br><br>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
                                                         <?php } ?>
-                                                </tbody>
-                                        </table>
-                                </div>
+                                                </textarea>
+                                        </td>
 
-                        </div>
-                </div>
-        </div>
+                                </tr>
+                        <?php } ?>
+                </tbody>
+        </table>
 </div>
+
+
 
 
 <script src="<?= Yii::$app->homeUrl; ?>js/ckeditor/ckeditor.js"></script>
@@ -107,6 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
         CKEDITOR.addCss('h3{font-weight:bold;}');
         CKEDITOR.addCss('h3{text-decoration:underline;}');
         CKEDITOR.replaceClass = 'remarks_staff';
+
 
 
 </script>

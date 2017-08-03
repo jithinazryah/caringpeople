@@ -44,12 +44,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </div>
                                                 <?php if (!$model->isNewRecord) { ?>
                                                         <div class="tab-pane" id="home-5">
-
-                                                                <?=
-                                                                $this->render('schedules', [
-                                                                    'model' => $model,
-                                                                    'service_schedule' => $service_schedule,
-                                                                ])
+                                                                <?php
+                                                                if (Yii::$app->session['post']['id'] != 5) {
+                                                                        echo
+                                                                        $this->render('schedules', [
+                                                                            'model' => $model,
+                                                                            'service_schedule' => $service_schedule,
+                                                                        ]);
+                                                                } else {
+                                                                        echo $this->render('staff_schedules', [
+                                                                            'service_schedule' => $service_schedule,
+                                                                        ]);
+                                                                }
                                                                 ?>
 
                                                         </div>

@@ -144,7 +144,6 @@ class SetValues extends Component {
          */
 
         public function Rating($id, $type) {
-
                 $schedule_remarks = 0;
                 $schedule_remarks_count = 0;
 
@@ -156,10 +155,12 @@ class SetValues extends Component {
                         $person = \common\models\StaffInfo::findOne($id);
                         $schedule_remarks = ServiceSchedule::find()->where(['staff' => $id])->sum('rating');
                         $schedule_remarks_count = ServiceSchedule::find()->where(['staff' => $id])->andWhere(['not', ['rating' => null]])->count();
+                        $schedule_remarks_count = $schedule_remarks_count * 9;
                 }
 
                 $remarks_point = Remarks::find()->where(['type_id' => $id])->sum('point');
-                $remarks_count = Remarks::find()->where(['type_id' => $id])->count();
+                $remarks_count = Remarks::find()->where(['type_id' => $id])->andWhere(['not', ['point' => null]])->count();
+                $remarks_count = $remarks_count * 9;
                 $total_remarks_point = $schedule_remarks + $remarks_point;
                 $total_remarks = $schedule_remarks_count + $remarks_count;
                 $rating = $total_remarks_point / $total_remarks * 100;

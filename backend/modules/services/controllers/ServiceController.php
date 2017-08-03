@@ -253,7 +253,7 @@ class ServiceController extends Controller {
                 $id = 1027;
                 $schedules = ServiceSchedule::find()->where(['service_id' => $id])->andWhere(['status' => 1])->all();
                 return $this->render('staff_schedules', [
-                            'schedules' => $schedules,
+                            'service_schedule' => $schedules,
                 ]);
         }
 

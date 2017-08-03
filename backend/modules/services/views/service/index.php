@@ -102,13 +102,6 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;
                                                     },
-                                                    'update' => function ($model, $key, $index) {
-                                                            if (Yii::$app->user->identity->post_id == '1' || $model->staff_manager == Yii::$app->user->identity->id) {
-                                                                    return true;
-                                                            } else {
-                                                                    return false;
-                                                            }
-                                                    }
                                                 ],
                                             ],
                                         ];
