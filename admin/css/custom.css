@@ -414,5 +414,9 @@ label.cbr-inline{
         height: 80px;
         float: right;
         border-radius: 40px;
+}.add-new-label{
+        width: 100px;
+        height: 36px;
+        padding: 10px;
 }
 

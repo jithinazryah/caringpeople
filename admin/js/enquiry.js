@@ -81,8 +81,8 @@ $("document").ready(function () {
          *  If referal source field value is other show referal source others field
          */
 
-        $("#patientenquirygeneralfirst-referral_source").change(function () {
-                if ($("#patientenquirygeneralfirst-referral_source option:selected").val() === '5')
+        $("#referral_source").change(function () {
+                if ($("#referral_source option:selected").val() === '5')
                         $('#referral_source_others').show();
                 else
                         $('#referral_source_others').hide();
@@ -92,7 +92,7 @@ $("document").ready(function () {
         /*
          *  If referal source field value is other show referal source others field on update
          */
-        $referal_source = $("#patientenquirygeneralfirst-referral_source option:selected").val();
+        $referal_source = $("#referral_source option:selected").val();
         if ($referal_source === '5') {
                 $('#referral_source_others').show();
         } else {

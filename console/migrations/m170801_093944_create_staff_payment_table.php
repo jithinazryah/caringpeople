@@ -43,6 +43,16 @@ class m170801_093944_create_staff_payment_table extends Migration {
                     'DOC' => $this->date(),
                     'DOU' => $this->dateTime(),
                 ]);
+
+                $this->createTable('referral_source', [
+                    'id' => $this->primaryKey(),
+                    'title' => $this->string(200),
+                    'status' => $this->integer(),
+                    'CB' => $this->integer(),
+                    'UB' => $this->integer(),
+                    'DOC' => $this->date(),
+                    'DOU' => $this->dateTime(),
+                ]);
         }
 
         /**

@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use common\models\Branch;
 use common\models\OutgoingNumbers;
 use kartik\date\DatePicker;
+use common\models\ReferralSource;
 
 /* @var $this yii\web\View */
 /* @var $patient_info common\models\PatientEnquiryGeneralFirst */
@@ -97,7 +98,8 @@ use kartik\date\DatePicker;
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info, 'mobile_number_3')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info, 'referral_source')->dropDownList(['' => '--Select--', '0' => 'Internet', '1' => 'Care and care', '2' => 'Guardian Angel', '3' => 'Caremark', '4' => 'Cancure', '6' => 'Dont Know', '5' => 'Other']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>  <?php $referral_source = ReferralSource::find()->where(['status' => 1])->all(); ?>  <?= $form->field($patient_info, 'referral_source')->dropDownList(ArrayHelper::map($referral_source, 'id', 'title'), ['prompt' => '--Select--', 'id' => 'referral_source']) ?>
+                <a class="add-option-dropdown add-new" id="referral_source-11" type="<?= $type ?>"> <div class="add-new-label">+ Add New</div></a>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="referral_source_others">    <?= $form->field($patient_info, 'referral_source_others')->textInput(['maxlength' => true]) ?>
 

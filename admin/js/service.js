@@ -602,10 +602,7 @@ $("document").ready(function () {
 
 
         });
-        $(document).on('change', '.remarks_staff, ', function () {
 
-                alert();
-        });
 
 
         /********************************************************  Service Discounts **********************************************/

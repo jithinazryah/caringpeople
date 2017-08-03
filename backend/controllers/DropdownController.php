@@ -45,6 +45,8 @@ class DropdownController extends \yii\web\Controller {
                         $form = $this->renderPartial('_contact_directory', ['type' => $type, 'field_id' => $_POST['field_id'], 'category' => $_POST['category']]);
                 } else if ($type == 10) { /* add relationships  */
                         $form = $this->renderPartial('_relationships', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                } else if ($type == 11) { /* add referral source  */
+                        $form = $this->renderPartial('_refferal_source', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 }
 
                 echo $form;
@@ -78,6 +80,8 @@ class DropdownController extends \yii\web\Controller {
                                 $model = new \common\models\ContactDirectory();
                         } else if ($type == 10) {
                                 $model = new \common\models\MasterRelationships();
+                        } else if ($type == 11) {
+                                $model = new \common\models\ReferralSource();
                         }
                         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                                 $model->status = 1;
@@ -85,30 +89,25 @@ class DropdownController extends \yii\web\Controller {
 
                                         if ($type == 1) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '2');
-                                        }
-                                        if ($type == 2) {
+                                        } else if ($type == 2) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->category, 'field_id' => $_POST['field_id'], 'type' => '1');
-                                        }
-                                        if ($type == 3) {
+                                        } else if ($type == 3) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_type, 'field_id' => $_POST['field_id'], 'type' => '1');
-                                        }
-                                        if ($type == 4) {
+                                        } else if ($type == 4) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
-                                        }
-                                        if ($type == 5) {
+                                        } else if ($type == 5) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '1');
-                                        }
-                                        if ($type == 6) {
+                                        } else if ($type == 6) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->category_name, 'field_id' => $_POST['field_id'], 'type' => '1');
-                                        }
-                                        if ($type == 7) {
+                                        } else if ($type == 7) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->sub_category, 'field_id' => $_POST['field_id'], 'type' => '1');
-                                        }
-                                        if ($type == 8) {
+                                        } else if ($type == 8) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->designation, 'field_id' => $_POST['field_id'], 'type' => '1');
-                                        }if ($type == 9) {
+                                        } else if ($type == 9) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->name, 'field_id' => $_POST['field_id'], 'type' => '2');
-                                        }if ($type == 10) {
+                                        } else if ($type == 10) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
+                                        } else if ($type == 11) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         }
                                         $data['result'] = $arr_variable;
