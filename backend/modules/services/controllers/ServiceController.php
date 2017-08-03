@@ -249,21 +249,20 @@ class ServiceController extends Controller {
                 }
         }
 
+        public function actionStaffschedules() {
+                $id = 1027;
+                $schedules = ServiceSchedule::find()->where(['service_id' => $id])->andWhere(['status' => 1])->all();
+                return $this->render('staff_schedules', [
+                            'schedules' => $schedules,
+                ]);
+        }
+
         /**
          * Deletes an existing Service model.
          * If deletion is successful, the browser will be redirected to the 'index' page.
          * @param integer $id
          * @return mixed
          */
-        public function actionDelete1($id) {
-                $model = $this->findModel($id);
-                $history = \common\models\Followups::find()->where(['type_id' => $id])->exists();
-                if ($history != '1')
-                        $this->findModel($id)->delete();
-
-                return $this->redirect(['index']);
-        }
-
         public function actionDelete($id) {
                 $model = $this->findModel($id);
                 $schedule = ServiceSchedule::find()->where(['service_id' => $id])->count();

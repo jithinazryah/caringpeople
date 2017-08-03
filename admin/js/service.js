@@ -577,6 +577,11 @@ $("document").ready(function () {
         });
 
 
+
+
+
+
+
         /********************************************************  Service Schedule **********************************************/
 
         /********************************************************  Service Discounts **********************************************/
@@ -596,6 +601,10 @@ $("document").ready(function () {
                         alert('Please choose a discount type');
 
 
+        });
+        $(document).on('change', '.remarks_staff, ', function () {
+
+                alert();
         });
 
 

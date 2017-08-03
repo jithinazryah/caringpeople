@@ -18,6 +18,14 @@ use kartik\date\DatePicker;
         <h4 class="h4-labels">Enquiry Details</h4>
         <hr class="enquiry-hr"/>
 
+        <?php
+        if (Yii::$app->user->identity->branch_id == '0') {
+                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
+                ?>
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                </div>
+        <?php } ?>
+
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info, 'contacted_source')->dropDownList(['' => '--Select Contact Source--', '0' => 'Phone', '1' => 'Email', '2' => 'Others']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
@@ -151,13 +159,7 @@ use kartik\date\DatePicker;
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'priority')->dropDownList(['' => '--Select--', '1' => 'Hot', '2' => 'Warm', '3' => 'Cold']) ?>
 
         </div>
-        <?php
-        if (Yii::$app->user->identity->branch_id == '0') {
-                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
-                ?>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
-                </div>
-        <?php } ?>
+
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'status')->dropDownList(['1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'quotation_details')->textarea(['rows' => 2]) ?>

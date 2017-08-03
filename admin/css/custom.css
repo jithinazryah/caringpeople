@@ -111,6 +111,7 @@ table.table tr td:last-child a {
 }
 .left_padd{
         padding-left: 0;
+        min-height: 100px;
 }
 
 .title_span{
