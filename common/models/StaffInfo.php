@@ -340,4 +340,13 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 return $this->hasOne(StaffSalary::className(), ['staff_id' => 'id']);
         }
 
+        public static function Liststaffs() {
+                if (Yii::$app->user->identity->branch_id == '0') {
+                        $staffs = StaffInfo::find()->where(['status' => 1])->all();
+                } else {
+                        $staffs = StaffInfo::find()->where(['branch_id' => Yii::$app->user->identity->branch_id, 'status' => 1])->all();
+                }
+                return $staffs;
+        }
+
 }

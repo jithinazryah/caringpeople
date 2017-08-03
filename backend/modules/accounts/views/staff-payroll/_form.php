@@ -126,6 +126,7 @@ Branch::Branch();
                         <div class="row payment">
                                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form1->field($model, 'month')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form1->field($model, 'staff_id')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+                                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form1->field($model, 'branch_id')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form1->field($model, 'type')->dropDownList(['' => '--Select--', '1' => 'Advance', '2' => 'Full Payment']) ?>
                                 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form1->field($model, 'amount')->textInput(['maxlength' => true]) ?>
                                 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>  <?php $banks = AccountHead::find()->where(['status' => 1])->all(); ?>   <?= $form1->field($model, 'bank')->dropDownList(ArrayHelper::map($banks, 'id', 'bank_name'), ['class' => 'form-control']) ?>
@@ -171,7 +172,7 @@ Branch::Branch();
                 $('.date-picker').datepicker({
                         changeMonth: true,
                         changeYear: true,
-                        yearRange: "c-0:c+100",
+                        yearRange: "c-5:c+100",
                         showButtonPanel: true,
                         dateFormat: 'mm-yy',
                         onClose: function (dateText, inst) {

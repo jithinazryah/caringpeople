@@ -34,7 +34,7 @@ class StaffPayroll extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['staff_id', 'type', 'CB', 'UB', 'branch_id'], 'integer'],
+                        [['staff_id', 'type', 'CB', 'UB', 'branch_id', 'selected_month'], 'integer'],
                         [['DOC', 'DOU', 'payment_date'], 'safe'],
                         [['month', 'year', 'amount'], 'string', 'max' => 200],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
@@ -56,6 +56,7 @@ class StaffPayroll extends \yii\db\ActiveRecord {
                     'type' => 'Type',
                     'amount' => 'Amount',
                     'payment_date' => 'Payment Date',
+                    'selected_month' => 'Month',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
@@ -68,6 +69,16 @@ class StaffPayroll extends \yii\db\ActiveRecord {
          */
         public function getStaff() {
                 return $this->hasOne(StaffInfo::className(), ['id' => 'staff_id']);
+        }
+
+        public static function Liststaffs() {
+                $currently_selected = date('Y');
+                $earliest_year = date("Y", strtotime("-5 year"));
+                $latest_year = date("Y", strtotime("+10 year"));
+                foreach (range($earliest_year, $latest_year) as $i) {
+                        $year[$i] .= $i;
+                }
+                return $year;
         }
 
 }

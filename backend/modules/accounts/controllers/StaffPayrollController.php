@@ -37,7 +37,9 @@ class StaffPayrollController extends Controller {
         public function actionIndex() {
                 $searchModel = new StaffPayrollSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+                if (Yii::$app->user->identity->branch_id != '0') {
+                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
@@ -83,6 +85,11 @@ class StaffPayrollController extends Controller {
 
                         $model->load(Yii::$app->request->post());
                         Yii::$app->SetValues->Attributes($model);
+                        if (isset($model->month)) {
+                                $month_year = explode('-', $model->month);
+                                $model->selected_month = $month_year[0];
+                                $model->year = $month_year[1];
+                        }
                         if (!empty($model->payment_date))
                                 $model->payment_date = date('Y-m-d', strtotime($model->payment_date));
                         $model->save(FALSE);

@@ -2,12 +2,18 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use common\models\StaffInfo;
+
+$staffs = StaffInfo::Liststaffs();
+
+$year = \common\models\StaffPayroll::Liststaffs();
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\StaffPayrollSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Staff Payrolls';
+$this->title = 'Payroll Report';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="staff-payroll-index">
@@ -22,9 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Staff Payroll</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?=
                                         GridView::widget([
                                             'dataProvider' => $dataProvider,
@@ -35,19 +39,36 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 [
                                                     'attribute' => 'staff_id',
                                                     'value' => 'staff.staff_name',
+                                                    'filter' => ArrayHelper::map($staffs, 'id', 'staff_name'),
+                                                    'filterOptions' => array('id' => "staff_name_search"),
                                                 ],
-                                                //   'staff_id',
-                                                //'month',
-                                                ['attribute' => 'month',
-                                                    'filterOptions' => array('id' => "date"),],
-                                                // 'year',
-                                                'type',
-                                                // 'amount',
-                                                // 'CB',
-                                                // 'UB',
-                                                // 'DOC',
-                                                // 'DOU',
-                                                ['class' => 'yii\grid\ActionColumn'],
+                                                    ['attribute' => 'selected_month',
+                                                    'value' => function($model) {
+                                                            if ($model->selected_month == 7) {
+                                                                    return 'July';
+                                                            } else if ($model->selected_month == 8) {
+                                                                    return 'August';
+                                                            }
+                                                    },
+                                                    'filter' => [1 => 'January', 2 => 'Februaruy', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'],
+                                                ],
+                                                    [
+                                                    'attribute' => 'year',
+                                                    'filter' => $year,
+                                                    'filterOptions' => array('id' => "year_search"),
+                                                ],
+                                                    [
+                                                    'attribute' => 'type',
+                                                    'value' => function($model) {
+                                                            if ($model->type == 1) {
+                                                                    return 'Advance';
+                                                            } else if ($model->type == 2) {
+                                                                    return 'Full Payment';
+                                                            }
+                                                    },
+                                                    'filter' => [1 => 'Advanced', 2 => 'Full Payment'],
+                                                ],
+                                                'amount',
                                             ],
                                         ]);
                                         ?>
@@ -57,39 +78,28 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 </div>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 <script>
         $(document).ready(function () {
-                $('#date input').attr('id', 'date-picker');
-                $('.ui-datepicker-close').attr('id', 'close');
-                $('.ui-priority-primary').attr('id', 'close');
-//                $('.ui-datepicker-close').click(function () {
-//                        alert();
-//                });
-        });
-</script>
-
-<script>
-        $(function () {
-                $('#date-picker').datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        yearRange: "c-0:c+100",
-                        showButtonPanel: true,
-                        dateFormat: 'mm-yy',
-                        onClose: function (dateText, inst) {
-                                var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                                $(this).datepicker('setDate', new Date(year, month, 1));
-                        }
+                $('#staff_name_search select').attr('id', 'staff_name');
+                $('#year_search select').attr('id', 'year');
+                $("#staff_name").select2({
+                        placeholder: '',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
                 });
 
-
+                $("#year").select2({
+                        placeholder: '',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
         });
 </script>
-<style>
-        .ui-datepicker-calendar {
-                display: none;
-        }
-</style>
+
