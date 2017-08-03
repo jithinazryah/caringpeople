@@ -30,7 +30,7 @@ if ($type != '') {
 </div>
 
 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'sub_type')->dropDownList($followup_subtype, ['prompt' => '--Select--', 'class' => 'form-control sub_type', 'id' => 'sub_type']) ?>
-        <a class="add-option-dropdown add-new" id="sub_type-3" type="<?= $type ?>"> + Add New</a>
+        <div class="added"><a class="add-option-dropdown add-new" id="sub_type-3" type="<?= $type ?>"> + Add New</a></div>
 </div>
 
 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
@@ -241,7 +241,11 @@ if ($type == 5) {
 
 
 
-
+<style>
+        .left_padd{
+                min-height: 100px;
+        }
+</style>
 
 
 
