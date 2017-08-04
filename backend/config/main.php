@@ -67,6 +67,15 @@ return [
         'accounts' => [
             'class' => 'backend\modules\accounts\Module',
         ],
+        'product' => [
+            'class' => 'backend\modules\product\Module',
+        ],
+        'sales' => [
+            'class' => 'backend\modules\sales\Module',
+        ],
+        'stock' => [
+            'class' => 'backend\modules\stock\Module',
+        ],
     ],
     'components' => [
         'request' => [

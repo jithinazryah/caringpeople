@@ -556,8 +556,66 @@ class PatientInformationController extends Controller {
          * @param integer $id
          * @return mixed
          */
-        public function actionDelete($id) {
+        public function actionDelete1($id) {
                 $this->findModel($id)->delete();
+
+                return $this->redirect(['index']);
+        }
+
+        public function actionDelete($id) {
+                $patient_general = PatientGeneral::findOne($id);
+                $guardian_details = PatientGuardianDetails::find()->where(['patient_id' => $patient_general->id])->one();
+                $chronic_imformation = PatientChronic::find()->where(['patient_id' => $patient_general->id])->one();
+                $pationt_medication_details = PatientPresentMedication::find()->where(['patient_id' => $id])->all();
+                $present_condition = PatientPresentCondition::find()->where(['patient_id' => $id])->one();
+                $bystander_details = PatientBystanderDetails::find()->where(['patient_id' => $id])->one();
+                $patient_assessment = PatientAssessment::find()->where(['patient_id' => $id])->one();
+
+                // ...other DB operations...
+                $service_patient = \common\models\Service::find()->where(['patient_id' => $id])->exists();
+                if ($service_patient != 1) {
+                        $transaction = PatientGeneral::getDb()->beginTransaction();
+                        try {
+                                if (!empty($guardian_details)) {
+                                        $guardian_details->delete();
+                                }
+                                if (!empty($chronic_imformation)) {
+                                        $chronic_imformation->delete();
+                                }
+                                if (!empty($present_condition)) {
+                                        $present_condition->delete();
+                                }
+                                if (!empty($bystander_details)) {
+                                        $bystander_details->delete();
+                                }
+                                if (!empty($patient_assessment)) {
+                                        $patient_assessment->delete();
+                                }
+                                if (!empty($pationt_medication_details)) {
+                                        foreach ($pationt_medication_details as $value) {
+
+                                                $value->delete();
+                                        }
+                                }
+
+
+                                if (!empty($patient_general)) {
+                                        $patient_general->delete();
+                                }
+
+                                // ...other DB operations...
+                                $transaction->commit();
+                        } catch (\Exception $e) {
+                                $transaction->rollBack();
+                                throw $e;
+                        } catch (\Throwable $e) {
+                                $transaction->rollBack();
+                                throw $e;
+                        }
+                        Yii::$app->getSession()->setFlash('success', 'succuessfully deleted');
+                } else {
+                        Yii::$app->getSession()->setFlash('error', 'Oops! You cannot delete this patient');
+                }
 
                 return $this->redirect(['index']);
         }

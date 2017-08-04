@@ -279,4 +279,40 @@ class SetValues extends Component {
                 return $exp;
         }
 
+        public function CalculateAvg($item_id) {
+
+                $in_stocks = \common\models\StockRegister::find()->where(['item_id' => $item_id])->all();
+                $qty_tot = 0;
+                $price_tot = 0;
+                foreach ($in_stocks as $stock) {
+                        $qty_tot += $stock->balance_qty;
+                        $amount = $stock->balance_qty * $stock->item_cost;
+                        $price_tot += $amount;
+                }
+                $avg_price = $price_tot / $qty_tot;
+                $item_data = \common\models\ItemMaster::findOne(['id' => $item_id]);
+                $item_data->item_cost = $avg_price;
+                $item_data->save();
+                return $avg_price;
+        }
+
+        public function StockDeduction($item_id, $qty) {
+                $stocks = \common\models\StockRegister::find()->where(['item_id' => $item_id])->andWhere(['>', 'balance_qty', 0])->all();
+                $k = $qty;
+                foreach ($stocks as $stock) {
+                        $existing_stock = \common\models\StockRegister::findOne(['id' => $stock->id]);
+                        if ($k <= $existing_stock->balance_qty) {
+                                $existing_stock->balance_qty = $existing_stock->balance_qty - $k;
+                                $existing_stock->save();
+                                break;
+                        } else {
+                                $existing_stock->balance_qty = 0;
+                                $existing_stock->save();
+                                $k = $k - $existing_stock->balance_qty;
+                                continue;
+                        }
+                }
+                return;
+        }
+
 }

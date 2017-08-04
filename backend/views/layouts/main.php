@@ -193,6 +193,25 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
                                                 </ul>
                                         <?php } ?>
+
+                                        <ul id="main-menu" class="main-menu">
+                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                <li>
+                                                        <a href="dashboard-1.html">
+                                                                <i class="fa fa-shopping-cart"></i>
+                                                                <span class="title">Materials</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Materials', ['/sales/sales-invoice-details/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
+
+                                        </ul>
+
                                         <?php
                                         if (Yii::$app->session['post']['attendance'] == 1) {
                                                 ?>
@@ -241,6 +260,10 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
                                                                 <li>
                                                                         <?= Html::a('Payroll Report', ['/accounts/staff-payroll/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                                <li>
+                                                                        <?= Html::a('Payroll Report', ['/accounts/account-head/index'], ['class' => 'title']) ?>
                                                                 </li>
 
                                                         </ul>
@@ -359,6 +382,48 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
 
                                                 </ul>
                                         <?php } ?>
+
+                                        <ul id="main-menu" class="main-menu">
+                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                <li>
+                                                        <a href="dashboard-1.html">
+                                                                <i class="fa fa-suitcase"></i>
+                                                                <span class="title">Inventory</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Inventory Master', ['/product/item-master/index'], ['class' => 'title']) ?>
+                                                                </li>
+                                                                <li>
+                                                                        <?= Html::a('Purchase', ['/sales/purchase-invoice-details/index'], ['class' => 'title']) ?>
+                                                                </li>
+                                                        </ul>
+                                                </li>
+
+                                        </ul>
+
+
+                                        <ul id="main-menu" class="main-menu">
+                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                <li>
+                                                        <a href="dashboard-1.html">
+                                                                <i class="fa fa-suitcase"></i>
+                                                                <span class="title">Stock</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Stock', ['/stock/stock-view/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
+
+                                        </ul>
+
+
+
 
                                         <?php
                                         if (Yii::$app->session['post']['expenses'] == 1) {
@@ -653,7 +718,7 @@ $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::
                                                                                         foreach ($new_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                                                               ?>followup/followups/view">
+                                                                                                        <a href="<?php //Yii::$app->homeUrl;                                                                                                                                                                                                     ?>followup/followups/view">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">

@@ -157,10 +157,14 @@ class StaffInfoSearch extends StaffInfo {
                                 } else if ($model->status == '2') {
                                         return 'Closed';
                                 } else if ($model->status == '3') {
-                                        return 'Occupied';
+                                        return 'Terminated';
+                                } else if ($model->status == '4') {
+                                        return 'Resigned';
+                                } else if ($model->status == '5') {
+                                        return 'Without Resignation';
                                 }
                         },
-                        'filter' => [1 => 'Opened', 2 => 'Closed'],
+                        'filter' => [1 => 'Opened', 2 => 'Closed', 3 => 'Terminated', 4 => 'Resigned', 5 => 'Without Resignation'],
                     ],
                     'average_point',
                         ['class' => 'yii\grid\ActionColumn',

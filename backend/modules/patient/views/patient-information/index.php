@@ -27,6 +27,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
+
+
+                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                        <?= Yii::$app->session->getFlash('error') ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                <div class="alert alert-success" role="alert">
+                                                        <?= Yii::$app->session->getFlash('success') ?>
+                                                </div>
+                                        <?php endif; ?>
+
                                         <a class="patient-advanced-search" style="font-size: 17px;color:#0e62c7;cursor: pointer;">Advanced Search</a>
                                         <hr class="appoint_history" style="margin-top:5px;"/>
                                         <?php echo $this->render('_search', ['model' => $searchModel]); ?>

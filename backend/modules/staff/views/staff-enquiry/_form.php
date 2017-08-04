@@ -17,8 +17,34 @@ use common\models\MasterDesignations;
 <?php $posts = \common\models\AdminPosts::find()->orderBy(['post_name' => SORT_ASC])->all(); ?>
 
 <div class="staff-info-form form-inline">
+        <?php if (!$model->isNewRecord) { ?>
+                <div class="row">
+                        <div class="col-md-8">
+                                <h4 class="h4-labels"></h4>
 
+                        </div>
+                        <?php
+                        $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff-enquiry/' . $staff_enquiry->id;
+                        if (count(glob("{$path}/*")) > 0) {
+                                foreach (glob("{$path}/*") as $file) {
+                                        $arry = explode('/', $file);
+                                        $img_nmee = end($arry);
+                                        $img_nam = explode('.', $img_nmee);
 
+                                        if ($img_nam[0] == 'Profile Image') {
+                                                ?>
+                                                <div class="col-md-4 disp-image" id="patient_image">
+                                                        <img src="<?= Yii::$app->homeUrl . '../uploads/staff-enquiry/' . $staff_enquiry->id . '/' . $img_nmee ?>"/>
+                                                </div>
+
+                                                <?php
+                                        }
+                                }
+                        }
+                        ?>
+
+                </div>
+        <?php } ?>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'name')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
@@ -80,7 +106,7 @@ use common\models\MasterDesignations;
         <?php } ?>
 
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?php // $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true])        ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?php // $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true])             ?></div>
         <div style="clear:both"></div>
 
         <div id = "p_attach">
