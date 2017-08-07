@@ -5,29 +5,28 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\BusinessPartner;
+use common\models\Tax;
 
 /**
- * BusinessPartnerSearch represents the model behind the search form about `common\models\BusinessPartner`.
+ * TaxSearch represents the model behind the search form about `common\models\Tax`.
  */
-class BusinessPartnerSearch extends BusinessPartner
-{
+class TaxSearch extends Tax {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'type', 'status', 'CB', 'UB'], 'integer'],
-            [['business_partner_code', 'name', 'phone', 'email', 'city', 'DOC', 'DOU'], 'safe'],
+            [['value'], 'number'],
+            [['name', 'DOC', 'DOU'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,9 +38,9 @@ class BusinessPartnerSearch extends BusinessPartner
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = BusinessPartner::find();
+    public function search($params) {
+
+        $query = Tax::find();
 
         // add conditions that should always apply here
 
@@ -61,6 +60,7 @@ class BusinessPartnerSearch extends BusinessPartner
         $query->andFilterWhere([
             'id' => $this->id,
             'type' => $this->type,
+            'value' => $this->value,
             'status' => $this->status,
             'CB' => $this->CB,
             'UB' => $this->UB,
@@ -68,12 +68,9 @@ class BusinessPartnerSearch extends BusinessPartner
             'DOU' => $this->DOU,
         ]);
 
-        $query->andFilterWhere(['like', 'business_partner_code', $this->business_partner_code])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'city', $this->city]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }
+
 }
