@@ -195,23 +195,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                 </ul>
                                         <?php } ?>
 
-                                        <ul id="main-menu" class="main-menu">
-                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                                                <li>
-                                                        <a href="dashboard-1.html">
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                                <span class="title">Materials</span>
-                                                        </a>
-                                                        <ul>
-                                                                <li>
-                                                                        <?= Html::a('Materials', ['/sales/sales-invoice-details/index'], ['class' => 'title']) ?>
-                                                                </li>
 
-                                                        </ul>
-                                                </li>
-
-                                        </ul>
 
                                         <?php
                                         if (Yii::$app->session['post']['attendance'] == 1) {
@@ -399,29 +383,21 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 <li>
                                                                         <?= Html::a('Purchase', ['/sales/purchase-invoice-details/index'], ['class' => 'title']) ?>
                                                                 </li>
-                                                        </ul>
-                                                </li>
 
-                                        </ul>
+                                                                <li>
+                                                                        <?= Html::a('Materials', ['/sales/sales-invoice-details/index'], ['class' => 'title']) ?>
+                                                                </li>
 
-
-                                        <ul id="main-menu" class="main-menu">
-                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                                                <li>
-                                                        <a href="dashboard-1.html">
-                                                                <i class="fa fa-suitcase"></i>
-                                                                <span class="title">Stock</span>
-                                                        </a>
-                                                        <ul>
                                                                 <li>
                                                                         <?= Html::a('Stock', ['/stock/stock-view/index'], ['class' => 'title']) ?>
                                                                 </li>
-
                                                         </ul>
                                                 </li>
 
                                         </ul>
+
+
+
 
 
 

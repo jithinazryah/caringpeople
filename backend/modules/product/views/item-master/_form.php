@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use common\models\Tax;
 use common\models\Hsn;
+use common\models\BaseUnit;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ItemMaster */
@@ -16,6 +17,7 @@ use common\models\Hsn;
         <?php $form = ActiveForm::begin(); ?>
         <?php
         $tax = ArrayHelper::map(Tax::find()->where(['status' => 1])->all(), 'id', 'name');
+        $base_unit = ArrayHelper::map(BaseUnit::find()->where(['status' => 1])->all(), 'id', 'name');
         if ($model->isNewRecord) {
                 $hsn_datas = [];
         } else {
