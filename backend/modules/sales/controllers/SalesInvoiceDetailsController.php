@@ -191,8 +191,8 @@ class SalesInvoiceDetailsController extends Controller {
                 $model_sales_master->card_amount = $data['card_amount'];
                 $model_sales_master->round_of_amount = $data['round_of'];
                 $model_sales_master->discount_amount = $data['discount_sub_total'];
-                $model_sales_master->amount_payed = $data['payed_amount'];
-                $model_sales_master->due_amount = $data['balance'];
+                $model_sales_master->amount_payed = $data['balance'];
+                $model_sales_master->due_amount = $data['payed_amount'];
                 $goods_service = $this->GetGoodsServiceTotal($arr);
                 $model_sales_master->goods_total = $goods_service['goods-total'];
                 $model_sales_master->due_date = date("Y-m-d", strtotime($data['due_date']));

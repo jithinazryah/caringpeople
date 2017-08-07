@@ -447,3 +447,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 return valid;
         }
 </script>
+
+<style>
+        .field-purchaseinvoicemaster-due_date label{
+                display: none;
+        }
+</style>

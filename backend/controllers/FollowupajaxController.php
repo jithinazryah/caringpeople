@@ -35,24 +35,26 @@ class FollowupajaxController extends \yii\web\Controller {
 
                                 $file = UploadedFile::getInstance($followups, 'attachments');
 
-                                if ($followups->repeated == 0) {
+                                if ($followups->repeated == 0) { /* not repeated followups */
                                         $followups_one = new Followups();
                                         $this->Adddata($followups_one, $followups);
                                         $followups_one->save(false);
                                         $this->upload($followups_one, $file, $followups_one->id, 1);
                                         $repeated = 0;
                                 } else {
-                                        if ($followups->repeated_type != 1) {
+                                        if ($followups->repeated_type != 1) { /* if it is repeated and it is not on specific date */
                                                 if ($_POST['create']['specific-days'] != '' || $_POST['create']['specific-dates-month'] != '') {
-                                                        if ($followups->repeated_type == 2) {
+                                                        if ($followups->repeated_type == 2) { /* specific days */
                                                                 $followups->repeated_days = implode(',', $_POST['create']['specific-days']);
-                                                        } else if ($followups->repeated_type == 3) {
+                                                        } else if ($followups->repeated_type == 3) {/* specific days in month */
                                                                 $followups->repeated_days = implode(',', $_POST['create']['specific-dates-month']);
                                                         }
-                                                        $followups->save(false);
-                                                        $this->upload($followups, $file, $followups->id, 2);
+                                                } else if ($followups->repeated_type == 4) { /* everyday */
+                                                        $followups->repeated_type = 4;
                                                 }
-                                        } else {
+                                                $followups->save(false);
+                                                $this->upload($followups, $file, $followups->id, 2);
+                                        } else { /* specific dates */
 
                                                 foreach ($_POST['date']['remind_days1'] as $val) {
                                                         if ($val != '') {
