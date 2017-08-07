@@ -26,21 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="row">
                 <div class="col-md-12">
-                        <div class="col-md-3">
-                                <div class="panel panel-default">
-                                        <div class="panel-body"><div class="demo-create">
 
-                                                        <?=
-                                                        $this->render('_form', [
-                                                            'model' => $model,
-                                                            'type' => $type,
-                                                        ])
-                                                        ?>
-                                                </div>
-                                        </div>
-                                </div>
-
-                        </div>
                         <div class="col-md-9">
                                 <div class="panel panel-default">
                                         <div class="panel-body table-responsive">
@@ -163,6 +149,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 ?>
                                         </div>
                                 </div>
+                        </div>
+
+                        <div class="col-md-3">
+                                <div class="panel panel-default">
+                                        <div class="panel-body"><div class="demo-create">
+
+                                                        <?=
+                                                        $this->render('_form', [
+                                                            'model' => $model,
+                                                            'type' => $type,
+                                                        ])
+                                                        ?>
+                                                </div>
+                                        </div>
+                                </div>
+
                         </div>
                 </div>
         </div>
