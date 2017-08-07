@@ -27,7 +27,7 @@ $(document).ready(function () {
 
                 }
         });
-        $(document).on('keydown.autocomplete', '.salesinvoicedetails-items', function (e) {
+        $(document).on('.salesinvoicedetails-items', function (e) {
 
 //    $(".salesinvoicedetails-items").autocomplete({
                 $(this).autocomplete({

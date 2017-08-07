@@ -45,7 +45,7 @@ use common\models\Hsn;
 
                                 </div>-->
                 <div class='col-md-3 col-sm-6 col-xs-12'>
-                        <?= $form->field($model, 'base_unit_id')->dropDownList(['' => '--Select', '1' => 'Number', '2' => 'Kilogram', '3' => 'Gram']) ?>
+                        <?= $form->field($model, 'base_unit_id')->dropDownList($base_unit, ['prompt' => '-Choose Base Unit-']) ?>
 
                 </div>
 

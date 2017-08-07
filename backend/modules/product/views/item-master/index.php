@@ -64,13 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'attribute' => 'base_unit_id',
                                                     'format' => 'raw',
                                                     'value' => function ($model) {
-                                                            if ($model->base_unit_id == '1') {
-                                                                    return 'Number';
-                                                            } else if ($model->base_unit_id == '2') {
-                                                                    return 'Kilogram';
-                                                            } else if ($model->base_unit_id == '3') {
-                                                                    return 'Gram';
-                                                            }
+                                                            return BaseUnit::findOne($model->base_unit_id)->value;
                                                     },
                                                 ],
                                                 // 'MRP',
