@@ -35,71 +35,72 @@ use Yii;
  */
 class PurchaseInvoiceMaster extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public static function tableName() {
-        return 'purchase_invoice_master';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules() {
-        return [
-            [['sales_invoice_date', 'DOC', 'DOU', 'due_date', 'CB', 'UB', 'general_terms', 'receipt_no', 'goods_total', 'service_total'], 'safe'],
-            [['order_type', 'busines_partner_code', 'salesman', 'payment_status', 'status', 'CB', 'UB', 'receipt_id'], 'integer'],
-            [['amount', 'tax_amount', 'order_amount', 'card_amount', 'cash_amount', 'round_of_amount', 'amount_payed', 'due_amount', 'discount_amount'], 'number'],
-            [['sales_invoice_number', 'ship_to_adress', 'reference', 'error_message'], 'string', 'max' => 50],
-            [['payment_terms', 'delivery_terms'], 'string', 'max' => 30],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels() {
-        return [
-            'id' => 'ID',
-            'sales_invoice_number' => 'Sales Invoice Number',
-            'sales_invoice_date' => 'Sales Invoice Date',
-            'order_type' => 'Order Type',
-            'busines_partner_code' => 'Customer',
-            'salesman' => 'Buyer ',
-            'payment_terms' => 'Payment Terms',
-            'delivery_terms' => 'Delivery Terms',
-            'general_terms' => 'General Terms',
-            'amount' => 'Amount',
-            'tax_amount' => 'Tax Amount',
-            'order_amount' => 'Order Amount',
-            'ship_to_adress' => 'Ship To Adress',
-            'card_amount' => 'Card Amount',
-            'cash_amount' => 'Cash Amount',
-            'round_of_amount' => 'Round Of Amount',
-            'amount_payed' => 'Amount Paid',
-            'due_amount' => 'Due Amount',
-            'due_date' => 'Due Date',
-            'payment_status' => 'Payment Status',
-            'reference' => 'Reference',
-            'error_message' => 'Error Message',
-            'status' => 'Status',
-            'CB' => 'Cb',
-            'UB' => 'Ub',
-            'DOC' => 'Doc',
-            'DOU' => 'Dou',
-        ];
-    }
-
-    public static function getPurchaseTotal($from_date, $to, $field_name) {
-        if ($from_date != '' && $to != '') {
-            $from_date = $from_date . ' 00:00:00';
-            $to = $to . ' 60:60:60';
-            return PurchaseInvoiceMaster::find()->where(['>=', 'sales_invoice_date', $from_date])->andWhere(['<=', 'sales_invoice_date', $to])->sum($field_name);
-        } elseif ($from_date != '' || $to != '') {
-            return 0;
-        } else {
-            return PurchaseInvoiceMaster::find()->sum($field_name);
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'purchase_invoice_master';
         }
-    }
+
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['sales_invoice_date', 'DOC', 'DOU', 'due_date', 'CB', 'UB', 'general_terms', 'receipt_no', 'goods_total', 'service_total'], 'safe'],
+                        [['order_type', 'busines_partner_code', 'salesman', 'payment_status', 'status', 'CB', 'UB', 'receipt_id', 'payment'], 'integer'],
+                        [['amount', 'tax_amount', 'order_amount', 'card_amount', 'cash_amount', 'round_of_amount', 'amount_payed', 'due_amount', 'discount_amount'], 'number'],
+                        [['sales_invoice_number', 'ship_to_adress', 'reference', 'error_message'], 'string', 'max' => 50],
+                        [['payment_terms', 'delivery_terms'], 'string', 'max' => 30],
+                ];
+        }
+
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'sales_invoice_number' => 'Sales Invoice Number',
+                    'sales_invoice_date' => 'Sales Invoice Date',
+                    'order_type' => 'Order Type',
+                    'busines_partner_code' => 'Customer',
+                    'salesman' => 'Buyer ',
+                    'payment_terms' => 'Payment Terms',
+                    'delivery_terms' => 'Delivery Terms',
+                    'general_terms' => 'General Terms',
+                    'amount' => 'Amount',
+                    'tax_amount' => 'Tax Amount',
+                    'order_amount' => 'Order Amount',
+                    'ship_to_adress' => 'Ship To Adress',
+                    'card_amount' => 'Card Amount',
+                    'cash_amount' => 'Cash Amount',
+                    'round_of_amount' => 'Round Of Amount',
+                    'amount_payed' => 'Amount Paid',
+                    'due_amount' => 'Due Amount',
+                    'due_date' => 'Due Date',
+                    'payment_status' => 'Payment Status',
+                    'reference' => 'Reference',
+                    'error_message' => 'Error Message',
+                    'status' => 'Status',
+                    'payment' => 'Payment',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
+
+        public static function getPurchaseTotal($from_date, $to, $field_name) {
+                if ($from_date != '' && $to != '') {
+                        $from_date = $from_date . ' 00:00:00';
+                        $to = $to . ' 60:60:60';
+                        return PurchaseInvoiceMaster::find()->where(['>=', 'sales_invoice_date', $from_date])->andWhere(['<=', 'sales_invoice_date', $to])->sum($field_name);
+                } elseif ($from_date != '' || $to != '') {
+                        return 0;
+                } else {
+                        return PurchaseInvoiceMaster::find()->sum($field_name);
+                }
+        }
 
 }

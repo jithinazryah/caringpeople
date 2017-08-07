@@ -141,6 +141,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         </div>
 
+                                                        <div class='col-md-2 col-sm-6 col-xs-12'>
+                                                                <?= $form->field($model_purchase_master, 'payment')->dropDownList(ArrayHelper::map(\common\models\AccountHead::find()->where(['status' => 1])->all(), 'id', 'bank_name'), ['prompt' => '--Select--']) ?>
+
+                                                        </div>
+
                                                 </div>
                                         </div>
                                 </div>
@@ -317,29 +322,29 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <div class='col-md-4 col-sm-6 col-xs-12' style="float:right;">
                                                                 <table cellspacing="0" class="table table-small-font table-bordered table-striped" style="float:right;text-align: left;">
                                                                 <!--<table style="float:right;text-align: left;">-->
-                                                                        <tr>
+                                                                        <tr style="display:none">
                                                                                 <td>Round off</td>
                                                                                 <td><input type="text" id="round_of" class="amount-receipt"  name="round_of" style="width: 100%;" autocomplete="off" value="<?= sprintf('%0.2f', 0); ?>"/></td>
                                                                         </tr>
-                                                                        <tr>
+                                                                        <tr style="display:none">
                                                                                 <td>Cash</td>
                                                                                 <td><input type="text" id="cash_amount" class="amount-receipt"  name="cash_amount" style="width: 100%;" autocomplete="off" value="<?= sprintf('%0.2f', 0); ?>"/></td>
                                                                         </tr>
-                                                                        <tr>
+                                                                        <tr style="display:none">
                                                                                 <td>Card</td>
                                                                                 <td><input type="text" id="card_amount" class="amount-receipt"  name="card_amount" style="width: 100%;" autocomplete="off" value="<?= sprintf('%0.2f', 0); ?>"/></td>
                                                                         </tr>
 
                                                                         <tr>
                                                                                 <td>Amount Paid</td>
-                                                                                <td><input type="text" id="payed_amount" class="amount-receipt"  name="payed_amount" style="width: 100%;" readonly/></td></td>
+                                                                                <td><input type="text" id="payed_amount" class="amount-receipt"  name="payed_amount" style="width: 100%;border:none" readonly/></td></td>
                                                                         </tr>
-                                                                        <tr>
+                                                                        <tr style="display:none">
                                                                                 <td>Balance</td>
                                                                                 <td><input type="text" id="balance" class="amount-receipt"  name="balance" style="width: 100%;" readonly/></td>
                                                                                 <!--<td><span id="balance"></span></td>-->
                                                                         </tr>
-                                                                        <tr>
+                                                                        <tr style="display:none">
                                                                                 <td>Due Date</td>
                                                                                 <td>
                                                                                         <?php

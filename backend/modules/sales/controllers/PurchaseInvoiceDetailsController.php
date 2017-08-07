@@ -182,8 +182,7 @@ class PurchaseInvoiceDetailsController extends Controller {
                 $model_purchase_master->salesman = $data['PurchaseInvoiceMaster']['salesman'];
                 $model_purchase_master->reference = $data['PurchaseInvoiceMaster']['reference'];
                 $model_purchase_master->general_terms = $data['PurchaseInvoiceMaster']['general_terms'];
-//        $model_purchase_master->payment_terms = $data['PurchaseInvoiceMaster']['payment_terms'];
-//        $model_purchase_master->payment_status = $data['PurchaseInvoiceMaster']['payment_status'];
+                $model_purchase_master->payment = $data['PurchaseInvoiceMaster']['payment'];
                 $model_purchase_master->amount = $data['amount_without_tax'];
                 $model_purchase_master->tax_amount = $data['tax_sub_total'];
                 $model_purchase_master->order_amount = $data['order_sub_total'];

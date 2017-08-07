@@ -16,31 +16,35 @@ use Yii;
  * @property string $DOC
  * @property string $DOU
  */
-class BaseUnit extends \yii\db\ActiveRecord {
-
+class BaseUnit extends \yii\db\ActiveRecord
+{
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'base_unit';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
-            [['name', 'value'], 'required'],
+            [['name', 'CB', 'UB'], 'required'],
             [['status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU', 'value'], 'safe'],
+            [['DOC', 'DOU'], 'safe'],
             [['name'], 'string', 'max' => 30],
+            [['value'], 'string', 'max' => 15],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -48,9 +52,8 @@ class BaseUnit extends \yii\db\ActiveRecord {
             'status' => 'Status',
             'CB' => 'Cb',
             'UB' => 'Ub',
-            'DOC' => 'Date of Creation',
-            'DOU' => 'Date of Updation',
+            'DOC' => 'Doc',
+            'DOU' => 'Dou',
         ];
     }
-
 }
