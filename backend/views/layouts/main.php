@@ -248,7 +248,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </li>
 
                                                                 <li>
-                                                                        <?= Html::a('Payroll Report', ['/accounts/account-head/index'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('Account Head', ['/accounts/account-head/index'], ['class' => 'title']) ?>
                                                                 </li>
 
                                                         </ul>
@@ -391,6 +391,22 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 <li>
                                                                         <?= Html::a('Stock', ['/stock/stock-view/index'], ['class' => 'title']) ?>
                                                                 </li>
+
+                                                                <li>
+                                                                        <a href="#">
+                                                                                <i class="entypo-flow-parallel"></i>
+                                                                                <span class="title">Masters</span>
+                                                                        </a>
+                                                                        <ul>
+                                                                                <li>
+                                                                                        <?= Html::a('Suppliers', ['/masters/business-partner/index'], ['class' => 'title']) ?>
+                                                                                </li>
+                                                                                <li>
+                                                                                        <?= Html::a('Tax', ['/masters/tax/index'], ['class' => 'title']) ?>
+                                                                                </li>
+
+                                                                        </ul>
+                                                                </li>
                                                         </ul>
                                                 </li>
 
@@ -507,6 +523,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                         <li>
                                                                                 <?= Html::a('Skills', ['/masters/staff-experience-list/index'], ['class' => 'title']) ?>
                                                                         </li>
+
                                                                         <li>
                                                                                 <?= Html::a('Remarks Category', ['/remarks/remarks-category/index'], ['class' => 'title']) ?>
                                                                         </li>

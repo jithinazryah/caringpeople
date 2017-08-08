@@ -34,9 +34,9 @@ class StaffPayroll extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['staff_id', 'type', 'CB', 'UB', 'branch_id', 'selected_month'], 'integer'],
+                        [['staff_id', 'type', 'CB', 'UB', 'branch_id', 'selected_month', 'bank'], 'integer'],
                         [['DOC', 'DOU', 'payment_date'], 'safe'],
-                        [['month', 'year', 'amount'], 'string', 'max' => 200],
+                        [['month', 'year', 'amount', 'reference_no'], 'string', 'max' => 200],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
                         [['staff_id', 'branch_id', 'month'], 'required', 'on' => 'payment'],
                         [['amount', 'type'], 'required', 'on' => 'cash-payment'],
@@ -55,6 +55,8 @@ class StaffPayroll extends \yii\db\ActiveRecord {
                     'year' => 'Year',
                     'type' => 'Type',
                     'amount' => 'Amount',
+                    'bank' => 'Bank',
+                    'reference_no' => 'Reference No',
                     'payment_date' => 'Payment Date',
                     'selected_month' => 'Month',
                     'CB' => 'Cb',
