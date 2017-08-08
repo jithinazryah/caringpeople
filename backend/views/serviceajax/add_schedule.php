@@ -113,6 +113,15 @@ use yii\helpers\ArrayHelper;
 
 
 
+                                        <div class="row" style="margin: 10px 0px 0px 15px;">
+                                                <div class="col-md-6">
+                                                </div>
+                                                <div class="col-md-6">
+                                                        <input type="checkbox" name="change_price" id="chnage_price">  Change in estimated price
+                                                </div>
+                                        </div>
+
+
                                         <div class="row">
                                                 <input type="submit" name="add_schedule" id="add_schedule" value="Add" class="btn btn-primary">
                                         </div>

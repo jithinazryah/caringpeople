@@ -506,6 +506,7 @@ class ServiceajaxController extends \yii\web\Controller {
 
                         $history_id = Yii::$app->SetValues->ServiceHistory($service, 3, $add_days); /* 3 implies masterservice history type id 3 for more added schedules */
                         Yii::$app->SetValues->Notifications($history_id, $service->id, $service, 1); /* 1 => notification type is for service */
+
                         $service->days = $service->days + $add_days;
                         if ($frequency == '1') {
                                 $todate = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' days'));
@@ -517,7 +518,9 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $todate = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' months'));
                                 $service->to_date = date('Y-m-d', strtotime($todate . ' - 1 days'));
                         }
-                        $service->estimated_price = $this->ChangePrice($service, $add_days, 1);
+                        if ($_POST['change_price'] == 'on') {
+                                $service->estimated_price = $this->ChangePrice($service, $add_days, 1);
+                        }
                         $service->save(FALSE);
                 }
         }
