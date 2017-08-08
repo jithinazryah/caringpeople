@@ -15,6 +15,8 @@ use common\models\EnquiryOtherInfo;
 use common\models\StaffInfo;
 use common\models\NotificationViewStatus;
 use common\models\Followups;
+use common\models\PendingFollowups;
+use yii\db\Expression;
 
 /**
  * Site controller
@@ -30,7 +32,7 @@ class SiteController extends Controller {
 			'class' => AccessControl::className(),
 			'rules' => [
 				[
-				'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'staff-login', 'staff-home', 'notifications'],
+				'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'staff-login', 'staff-home', 'notifications', 'pending-followups'],
 				'allow' => true,
 			    ],
 				[
@@ -282,6 +284,34 @@ class SiteController extends Controller {
 			$new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::$app->user->identity->id, 'view_status' => 0])->orderBy(['id' => SORT_DESC])->all();
 			return $this->render('notifications', [
 				    'new_notifications' => $new_notifications,
+			]);
+		}
+	}
+
+	public function actionPendingFollowups($id = null) {
+		if (!empty($id)) {
+			$pending_followup = \common\models\PendingFollowups::find()->where(['id' => $id])->one();
+			$followup_data = Followups::find()->where(['id' => $pending_followup->followup_id])->one();
+			if ($followup_data->type == 1) {
+				$model = \common\models\PatientEnquiryGeneralFirst::find()->where(['id' => $followup_data->type_id])->one();
+				$this->redirect(\Yii::$app->homeUrl . 'update-patient-enquiry/' . $model->id);
+			} elseif ($followup_data->type == 2) {
+				$model = \common\models\PatientGeneral::find()->where(['id' => $followup_data->type_id])->one();
+				$this->redirect(\Yii::$app->homeUrl . 'update-patient/' . $model->id);
+			} elseif ($followup_data->type == 3) {
+				$model = \common\models\StaffEnquiry::find()->where(['id' => $followup_data->type_id])->one();
+				$this->redirect(\Yii::$app->homeUrl . 'update-staff-enquiry/' . $model->id);
+			} elseif ($followup_data->type == 4) {
+				$model = StaffInfo::find()->where(['id' => $followup_data->type_id])->one();
+				$this->redirect(\Yii::$app->homeUrl . 'update-staff/' . $model->id);
+			} elseif ($followup_data->type == 5) {
+				$model = \common\models\Service::find()->where(['id' => $followup_data->type_id])->one();
+				$this->redirect(\Yii::$app->homeUrl . 'update-service/' . $model->id);
+			}
+		} else {
+			$pending_followups = PendingFollowups::find()->where(new Expression('FIND_IN_SET(:assigned_to, assigned_to)'))->addParams([':assigned_to' => Yii::$app->user->identity->id])->andWhere(['status' => 0])->orderBy(['date' => SORT_DESC])->all();
+			return $this->render('pending-followups', [
+				    'pending_followups' => $pending_followups,
 			]);
 		}
 	}

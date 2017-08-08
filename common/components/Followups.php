@@ -195,4 +195,71 @@ class Followups extends Component {
 		}
 	}
 
+	public function PendingFollowups() {
+
+		$pending_followups = \common\models\Followups::find()->where(['<=', 'followup_date', date('Y-m-d')])->andWhere(['status' => 0])->all();
+
+		foreach ($pending_followups as $pending_followup) {
+			if ($pending_followup->type == 1) {
+				$data_model = \common\models\PatientEnquiryGeneralFirst::find()->where(['id' => $pending_followup->type_id])->one();
+				$superadmins = StaffInfo::find()->where(['branch_id' => $data_model->branch_id, 'status' => 1, 'post_id' => 1])->orWhere(['branch_id' => 0])->all();
+				foreach ($superadmins as $superadmin) {
+					$x .= $superadmin->id . ',';
+				}
+				$content = "A followup is pending for patient enquiry " . $data_model->enquiry_number;
+			} elseif ($pending_followup->type == 2) {
+
+
+				$data_model2 = PatientGeneral::find()->where(['id' => $pending_followup->type_id])->one();
+
+				$superadmins = StaffInfo::find()->where(['branch_id' => $data_model2->branch_id, 'status' => 1, 'post_id' => 1])->orWhere(['branch_id' => 0])->all();
+
+				foreach ($superadmins as $superadmin) {
+					$x .= $superadmin->id . ',';
+				}
+				$content = "A followup is pending for patient " . $data_model2->patient_id;
+			} elseif ($pending_followup->type == 3) {
+				$data_model3 = \common\models\StaffEnquiry::find()->where(['id' => $pending_followup->type_id])->one();
+				$superadmins = StaffInfo::find()->where(['branch_id' => $data_model3->branch_id, 'status' => 1, 'post_id' => 1])->orWhere(['branch_id' => 0])->all();
+				foreach ($superadmins as $superadmin) {
+					$x .= $superadmin->id . ',';
+				}
+				$content = "A followup is pending for staff enquiry " . $data_model3->enquiry_id;
+			} elseif ($pending_followup->type == 4) {
+				$data_model4 = StaffInfo::find()->where(['id' => $pending_followup->type_id])->one();
+				$superadmins = StaffInfo::find()->where(['branch_id' => $data_model4->branch_id, 'status' => 1, 'post_id' => 1])->orWhere(['branch_id' => 0])->all();
+				foreach ($superadmins as $superadmin) {
+					$x .= $superadmin->id . ',';
+				}
+				$content = "A followup is pending for staff " . $data_model4->staff_id;
+			} elseif ($pending_followup->type == 5) {
+				$data_model5 = Service::find()->where(['id' => $pending_followup->type_id])->one();
+				$superadmins = StaffInfo::find()->where(['branch_id' => $data_model5->branch_id, 'status' => 1, 'post_id' => 1])->orWhere(['branch_id' => 0])->all();
+				foreach ($superadmins as $superadmin) {
+					$x .= $superadmin->id . ',';
+				}
+				$x .= $data_model5->staff_manager . ',';
+				$content = "A followup is pending for service " . $data_model5->service_id;
+			}
+			$x .= $pending_followup->assigned_to;
+			$this->AddDataToPendingFollowups($pending_followup->id, $x, $content);
+			$x = '';
+		}
+	}
+
+	public function AddDataToPendingFollowups($followup_id, $assigne_to, $content) {
+		$exist = \common\models\PendingFollowups::find()->where(['followup_id' => $followup_id])->one();
+		if (empty($exist)) {
+			$model = new \common\models\PendingFollowups();
+			$model->followup_id = $followup_id;
+			$model->assigned_to = $assigne_to;
+			$model->content = $content;
+			$model->status = 0;
+			$model->save();
+			return TRUE;
+		} else {
+			return true;
+		}
+	}
+
 }
