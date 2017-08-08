@@ -11,6 +11,7 @@ use common\models\ItemMaster;
 use common\models\Tax;
 use common\models\Salesman;
 use kartik\date\DatePicker;
+use common\models\Branch;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\EstimatedProforma */
@@ -44,10 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <h2  class="appoint-title panel-title"><?= Html::encode($this->title) . '</b>' ?></h2>
                                 <div class="diplay-amount"><i class="fa fa-inr" aria-hidden="true"></i> <span id="total-order-amount">00.00</span></div>
                         </div>
-                        <?php //Pjax::begin();       ?>
+                        <?php //Pjax::begin();         ?>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Invoice</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <?php // Html::a('<i class="fa fa-arrow-left bank-link-icon"></i>', ['index'], ['class' => 'back-link'])  ?>
+                                <?php // Html::a('<i class="fa fa-arrow-left bank-link-icon"></i>', ['index'], ['class' => 'back-link'])   ?>
                                 <div class="modal fade" id="modal-6">
                                         <div class="modal-dialog" id="modal-pop-up">
 
@@ -65,7 +66,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="sales-invoice-master-create">
                                                 <div class="sales-invoice-master-form form-inline">
 
-                                                        <div class='col-md-4 col-sm-6 col-xs-12' style="padding-left: 0px;">
+                                                        <div class='col-md-2 col-sm-6 col-xs-12'>
+                                                                <?php $branch = Branch::branch(); ?>   <?= $form->field($model_purchase_master, 'branch_id')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+
+                                                        </div>
+
+                                                        <div class='col-md-2 col-sm-6 col-xs-12' style="padding-left: 0px;">
                                                                 <div class="form-group">
                                                                         <label class="control-label" for="purchaseinvoicedetails-busines_partner_code">Supplier</label>
                                                                         <div class="frmSearch auto-search" id="auto-complete" >
@@ -222,7 +228,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <!--                            <td>
                                                             <span id="sale-uom-1"></span>
                                                             <input type="hidden" value="" placeholder="UOM" class="form-control" id="sales-uom-1" name="sales-uom[1]" readonly/>
-                                                        <?php // $form->field($model, 'item_name')->textInput(['placeholder' => 'UOM'])->label(false)                    ?>
+                                                        <?php // $form->field($model, 'item_name')->textInput(['placeholder' => 'UOM'])->label(false)                      ?>
                                                         </td>-->
                                                         <td>
                                                                 <div class="form-group field-salesinvoicedetails-rate has-success">
@@ -369,7 +375,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <div style="float:right;">
-                                        <?php // Html::submitButton('Save & Print', ['class' => 'btn btn-secondary', 'name' => 'save-print', 'value' => 'save-print']) ?>
+                                        <?php // Html::submitButton('Save & Print', ['class' => 'btn btn-secondary', 'name' => 'save-print', 'value' => 'save-print'])  ?>
                                         <?= Html::submitButton('Save', ['class' => 'btn btn-secondary', 'name' => 'save', 'value' => 'save']) ?>
                                 </div>
 
@@ -378,7 +384,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                         </div>
-                        <?php //Pjax::end();                                  ?>
+                        <?php //Pjax::end();                                    ?>
                 </div>
         </div>
 </div>

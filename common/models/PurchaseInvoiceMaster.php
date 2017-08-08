@@ -48,10 +48,11 @@ class PurchaseInvoiceMaster extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['sales_invoice_date', 'DOC', 'DOU', 'due_date', 'CB', 'UB', 'general_terms', 'receipt_no', 'goods_total', 'service_total'], 'safe'],
-                        [['order_type', 'busines_partner_code', 'salesman', 'payment_status', 'status', 'CB', 'UB', 'receipt_id', 'payment'], 'integer'],
+                        [['order_type', 'busines_partner_code', 'salesman', 'payment_status', 'status', 'CB', 'UB', 'receipt_id', 'payment', 'branch_id'], 'integer'],
                         [['amount', 'tax_amount', 'order_amount', 'card_amount', 'cash_amount', 'round_of_amount', 'amount_payed', 'due_amount', 'discount_amount'], 'number'],
                         [['sales_invoice_number', 'ship_to_adress', 'reference', 'error_message'], 'string', 'max' => 50],
                         [['payment_terms', 'delivery_terms'], 'string', 'max' => 30],
+                        [['branch_id'], 'required']
                 ];
         }
 
@@ -84,6 +85,7 @@ class PurchaseInvoiceMaster extends \yii\db\ActiveRecord {
                     'error_message' => 'Error Message',
                     'status' => 'Status',
                     'payment' => 'Payment',
+                    'branch_id' => 'Branch',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',

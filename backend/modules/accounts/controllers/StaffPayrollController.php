@@ -97,7 +97,7 @@ class StaffPayrollController extends Controller {
                                 $type = 'Salary Advance';
                         else
                                 $type = 'Salary Payment';
-                        Yii::$app->SetValues->Accounts($model->branch_id, $model->id, 1, 1, $type, $model->bank, $model->amount, $model->payment_date);
+                        Yii::$app->SetValues->Accounts($model->branch_id, 1, $model->id, 1, $type, $model->bank, $model->amount, $model->payment_date);
                         $model = new StaffPayroll();
                         Yii::$app->getSession()->setFlash('success', 'Payment added Successfully');
                 }

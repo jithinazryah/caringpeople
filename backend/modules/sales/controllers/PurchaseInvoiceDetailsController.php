@@ -153,6 +153,7 @@ class PurchaseInvoiceDetailsController extends Controller {
                                 try {
                                         if ($model_purchase_master->save() && $this->AddPurchaseDetails($arr, $model_purchase_master)) {
                                                 $transaction->commit();
+                                                Yii::$app->SetValues->Accounts($model_purchase_master->branch_id, 2, $model_purchase_master->id, 1, 'Purchase', $model_purchase_master->payment, $model_purchase_master->amount_payed, $model_purchase_master->sales_invoice_date);
                                         } else {
                                                 $transaction->rollBack();
                                         }
@@ -183,6 +184,7 @@ class PurchaseInvoiceDetailsController extends Controller {
                 $model_purchase_master->reference = $data['PurchaseInvoiceMaster']['reference'];
                 $model_purchase_master->general_terms = $data['PurchaseInvoiceMaster']['general_terms'];
                 $model_purchase_master->payment = $data['PurchaseInvoiceMaster']['payment'];
+                $model_purchase_master->branch_id = $data['PurchaseInvoiceMaster']['branch_id'];
                 $model_purchase_master->amount = $data['amount_without_tax'];
                 $model_purchase_master->tax_amount = $data['tax_sub_total'];
                 $model_purchase_master->order_amount = $data['order_sub_total'];
@@ -190,8 +192,8 @@ class PurchaseInvoiceDetailsController extends Controller {
                 $model_purchase_master->card_amount = 0;
                 $model_purchase_master->round_of_amount = 0;
                 $model_purchase_master->discount_amount = $data['discount_sub_total'];
-                $model_purchase_master->amount_payed = 0;
-                $model_purchase_master->due_amount = $data['order_sub_total'];
+                $model_purchase_master->amount_payed = $data['order_sub_total'];
+                $model_purchase_master->due_amount = 0;
                 $goods_service = $this->GetGoodsServiceTotal($arr);
                 $model_purchase_master->goods_total = $goods_service['goods-total'];
                 $model_purchase_master->due_date = date("Y-m-d", strtotime($data['due_date']));
