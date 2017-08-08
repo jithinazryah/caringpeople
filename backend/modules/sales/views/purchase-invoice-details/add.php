@@ -48,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php //Pjax::begin();         ?>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Invoice</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <?php // Html::a('<i class="fa fa-arrow-left bank-link-icon"></i>', ['index'], ['class' => 'back-link'])   ?>
                                 <div class="modal fade" id="modal-6">
                                         <div class="modal-dialog" id="modal-pop-up">
 
@@ -56,10 +55,29 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                                 <?php $form = ActiveForm::begin(); ?>
                                 <?php
-                                //  $default_partner = common\models\BusinessPartner::findOne(['id' => 2]);
                                 $default_partner = [];
                                 ?>
                                 <div class="panel-body">
+                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+
+                                                <div class="alert alert-danger">
+                                                        <button type="button" class="close" data-dismiss="alert">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                        </button>
+                                                        <?= Yii::$app->session->getFlash('error') ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::$app->session->hasFlash('success')): ?>
+                                                <div class="alert alert-success">
+                                                        <button type="button" class="close" data-dismiss="alert">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                <span class="sr-only">Close</span>
+                                                        </button>
+
+                                                        <?= Yii::$app->session->getFlash('success') ?>
+                                                </div>
+                                        <?php endif; ?>
 
                                         <input type="hidden" id="purchaseinvoicemaster-amount" class="form-control" name="PurchaseInvoiceMaster[amount]" readonly="" aria-invalid="false">
 
@@ -105,13 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </div>
 
                                                         <div class='col-md-3 col-sm-6 col-xs-12' style="display:none">
-                                                                <?php /*
-                                                                  $default_salesman = Salesman::findOne(['type' => 1])->id;
-                                                                 */ ?>
-                                                                <?php /*
-                                                                  $form->field($model_purchase_master, 'salesman')->dropDownList(
-                                                                  ArrayHelper::map(Salesman::find()->where(['status' => 1])->all(), 'id', 'name'), ['options' => [$default_salesman => ['selected' => true]]])
-                                                                 */ ?>
+
 
                                                         </div>
 

@@ -154,19 +154,13 @@ class PurchaseInvoiceDetailsController extends Controller {
                                         if ($model_purchase_master->save() && $this->AddPurchaseDetails($arr, $model_purchase_master)) {
                                                 $transaction->commit();
                                                 Yii::$app->SetValues->Accounts($model_purchase_master->branch_id, 2, $model_purchase_master->id, 1, 'Purchase', $model_purchase_master->payment, $model_purchase_master->amount_payed, $model_purchase_master->sales_invoice_date);
+                                                Yii::$app->getSession()->setFlash('success', 'Purchased Successfully');
                                         } else {
                                                 $transaction->rollBack();
                                         }
                                 } catch (Exception $e) {
                                         $transaction->rollBack();
                                 }
-                                // return $this->redirect(['/sales/payment/add', 'id' => $model_purchase_master->id]);
-//                if (isset($_POST['save-print'])) {
-//                    $report_id = $model_purchase_master->id;
-//                } else {
-//                    $report_id = '';
-//                    return $this->redirect(Yii::$app->request->referrer);
-//                }
                         }
                 }
                 return $this->render('add', [

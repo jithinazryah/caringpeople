@@ -15,7 +15,7 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model common\models\EstimatedProforma */
 
-$this->title = 'Sales Invoice';
+$this->title = 'Used Purchased Materials';
 $this->params['breadcrumbs'][] = ['label' => ' Pre-Funding', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
