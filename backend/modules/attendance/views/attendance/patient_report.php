@@ -217,8 +217,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                 <td>
                                                                                                         <?php
-                                                                                                        if (isset($value->rate) && $value->rate != '') {
-                                                                                                                echo $value->rate;
+                                                                                                        if (isset($value->patient_rate) && $value->patient_rate != '') {
+                                                                                                                echo $value->patient_rate;
                                                                                                         }
                                                                                                         ?>
                                                                                                 </td>
