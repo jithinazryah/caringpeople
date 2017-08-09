@@ -53,22 +53,28 @@ class m170801_093944_create_staff_payment_table extends Migration {
 //                    'DOC' => $this->date(),
 //                    'DOU' => $this->dateTime(),
 //                ]);
-
-                $this->createTable('accounts', [
+//                $this->createTable('accounts', [
+//                    'id' => $this->primaryKey(),
+//                    'branch_id' => $this->integer(),
+//                    'reference_type' => $this->integer()->comment('1=staff payroll,2=purchase,3=patient invoice'),
+//                    'invoice_id' => $this->integer(),
+//                    'debited_to_credited_by' => $this->integer(),
+//                    'type' => $this->integer()->comment('1=debit,2=credit'),
+//                    'purpose' => $this->string(200),
+//                    'payment_type' => $this->integer(),
+//                    'amount' => $this->string(200),
+//                    'payment_date' => $this->date(),
+//                    'CB' => $this->integer(),
+//                    'UB' => $this->integer(),
+//                    'DOC' => $this->date(),
+//                    'DOU' => $this->dateTime(),
+//                ]);
+                $this->createTable('service_schedule_history', [
                     'id' => $this->primaryKey(),
-                    'branch_id' => $this->integer(),
-                    'reference_type' => $this->integer()->comment('1=staff payroll,2=purchase,3=patient invoice'),
-                    'invoice_id' => $this->integer(),
-                    'debited_to_credited_by' => $this->integer(),
-                    'type' => $this->integer()->comment('1=debit,2=credit'),
-                    'purpose' => $this->string(200),
-                    'payment_type' => $this->integer(),
-                    'amount' => $this->string(200),
-                    'payment_date' => $this->date(),
-                    'CB' => $this->integer(),
-                    'UB' => $this->integer(),
-                    'DOC' => $this->date(),
-                    'DOU' => $this->dateTime(),
+                    'service_id' => $this->integer(),
+                    'schedules' => $this->integer(),
+                    'price' => $this->string(200),
+                    'date' => $this->date(),
                 ]);
         }
 

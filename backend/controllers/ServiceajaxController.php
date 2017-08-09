@@ -522,6 +522,19 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $service->estimated_price = $this->ChangePrice($service, $add_days, 1);
                         }
                         $service->save(FALSE);
+
+
+                        $history = new \common\models\ServiceScheduleHistory();
+                        $history->service_id = $service_id;
+                        $history->schedules = $add_days;
+                        if ($_POST['change_price'] == 'on') {
+                                $price = $add_days * $service->rate_card_value;
+                        } else {
+                                $price = 0;
+                        }
+                        $history->price = $price;
+                        $history->date = date('Y-m-d');
+                        $history->save(FALSE);
                 }
         }
 
