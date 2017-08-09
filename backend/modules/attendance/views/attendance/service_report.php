@@ -9,7 +9,7 @@ use common\models\StaffInfo;
 use common\models\Service;
 use common\models\ServiceSchedule;
 
-$this->title = 'Patient Report';
+$this->title = 'Service-wise Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,39 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 <div class="attendance-form form-inline">
                                                         <?php $form = ActiveForm::begin(); ?>
-                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                                                <?=
-                                                                DatePicker::widget([
-                                                                    'model' => $model,
-                                                                    'form' => $form,
-                                                                    'type' => DatePicker::TYPE_INPUT,
-                                                                    'attribute' => 'date',
-                                                                    'pluginOptions' => [
-                                                                        'autoclose' => true,
-                                                                        'format' => 'dd-mm-yyyy',
-                                                                    ]
-                                                                ]);
-                                                                ?>
-                                                        </div>
 
 
-                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                                                <?=
-                                                                DatePicker::widget([
-                                                                    'model' => $model,
-                                                                    'form' => $form,
-                                                                    'type' => DatePicker::TYPE_INPUT,
-                                                                    'attribute' => 'DOC',
-                                                                    'pluginOptions' => [
-                                                                        'autoclose' => true,
-                                                                        'format' => 'dd-mm-yyyy',
-                                                                        "endDate" => (string) date('d/m/Y'),
-                                                                    ]
-                                                                ]);
-                                                                ?>
 
 
-                                                        </div>
 
                                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                                 <?php $branch = Branch::Branch();
@@ -87,16 +58,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 $services = Service::find()->where(['patient_id' => $model->patient_id])->all();
                                                                 if (count($services) > 1)
                                                                         $style = 'display:show;';
-                                                        } else {
-                                                                $services = [];
-                                                        }
 
-                                                        $list = ArrayHelper::map($services, 'id', 'service_id');
-                                                        $data = ['0' => 'All'];
-                                                        $list = $data + $list;
+                                                                $list = ArrayHelper::map($services, 'id', 'service_id');
+                                                                $data = ['0' => 'All'];
+                                                                $list = $data + $list;
+                                                        } else {
+                                                                $list = [];
+                                                        }
                                                         ?>
 
-                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd report-services' style="<?= $style ?>">
+                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd report-services'>
 
                                                                 <?= $form->field($model, 'service_id')->dropDownList($list, ['prompt' => '--Select--', 'id' => 'report-services']); ?>
                                                         </div>
@@ -128,21 +99,36 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <div class="row" style="margin:10px 0px 0px 0px;">
 
                                                                 <?php
-                                                                $from = date('Y-m-d', strtotime($model->date));
-                                                                $to = date('Y-m-d', strtotime($model->DOC));
                                                                 $m = 0;
                                                                 foreach ($patient_services as $patient_services) {
                                                                         $m++;
                                                                         $schedule = Service::findOne($patient_services->service_id);
-                                                                        $total_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
-                                                                        $total_completed_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
+                                                                        $total_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->count();
+                                                                        $total_completed_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 2])->count();
+                                                                        $total_cancelled_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 3])->orWhere(['status' => 4])->count();
+                                                                        $total_pending_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 1])->count();
+                                                                        $total_rate = $total_schedules * $schedule->rate_card_value;
+                                                                        $total_schedules_rate = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->all();
+                                                                        $total_completed_schedules_rate = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 2])->all();
+                                                                        $completed_rate = 0;
+                                                                        foreach ($total_completed_schedules_rate as $total_completed_schedules_rate) {
+                                                                                $completed_rate += $total_completed_schedules_rate->patient_rate;
+                                                                        }
                                                                         ?>
-                                                                        <div class="col-md-4 col-sm-6 col-xs-12 left_padd service_detail">
+                                                                        <div class="col-md-6 col-sm-6 col-xs-12 left_padd service_detail">
                                                                                 <span class="counts">
-                                                                                        Service    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label class="label-1"> : </label> &nbsp;<span> <?= $schedule->service_id; ?><br></span>
-                                                                                        Total Schedules &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label> : </label> &nbsp;<span> <?= $total_schedules; ?>  <br></span>
-                                                                                        Completed Schedules  <label> : </label> &nbsp;<span><?= $total_completed_schedules ?> <br>
-                                                                                        </span>
+                                                                                        <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Service  </div><div class="col-md-1 col-sm-6 col-xs-12"> <label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span><?= $schedule->service_id; ?><br></span></div>
+                                                                                        <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Total Schedules  </div><div class="col-md-1 col-sm-6 col-xs-12"> <label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span> <?= $total_schedules; ?>   ( Rs. <?= $schedule->rate_card_value; ?>  /- )<br></span></div>
+                                                                                        <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Completed Schedules  </div><div class="col-md-1 col-sm-6 col-xs-12"><label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span><?= $total_completed_schedules ?> <?php
+                                                                                                        if ($completed_rate > 0) {
+                                                                                                                echo ' ( Rs.' . $completed_rate . '/- )';
+                                                                                                        }
+                                                                                                        ?><br>
+                                                                                                </span></div>
+                                                                                        <?php if ($total_cancelled_schedules > 0) { ?>
+                                                                                                <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Cancelled/Interuppted Schedules   </div><div class="col-md-1 col-sm-6 col-xs-12"><label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span> <?= $total_cancelled_schedules ?><br></span></div>
+                                                                                        <?php } ?>
+                                                                                        <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Pending Schedules  </div><div class="col-md-1 col-sm-6 col-xs-12"> <label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span> <?= $total_pending_schedules; ?>  <br></span></div>
 
                                                                                 </span>
 
@@ -162,7 +148,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <th>REMARKS</th>
                                                                         <th>TIME IN</th>
                                                                         <th>TIME OUT</th>
-                                                                        <th>RATE</th>
+                                                                        <th>PATIENT RATE</th>
+                                                                        <th>STAFF RATE</th>
                                                                         <th>STATUS</th>
 
 
@@ -218,6 +205,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <?php
                                                                                                         if (isset($value->patient_rate) && $value->patient_rate != '') {
                                                                                                                 echo $value->patient_rate;
+                                                                                                        }
+                                                                                                        ?>
+                                                                                                </td>
+
+                                                                                                <td>
+                                                                                                        <?php
+                                                                                                        if (isset($value->rate) && $value->rate != '') {
+                                                                                                                echo $value->rate;
                                                                                                         }
                                                                                                         ?>
                                                                                                 </td>

@@ -256,6 +256,35 @@ class AttendanceController extends Controller {
                 ]);
         }
 
+        /*
+         * Service-wise report
+         */
+
+        public function actionServicereport() {
+                $model = new ServiceSchedule();
+                $model->scenario = 'servicereport';
+                $report = '';
+
+                if ($model->load(Yii::$app->request->post())) {
+                        if (isset($model->service_id)) {
+                                if ($model->service_id != 0) {
+                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->orderBy(['date' => SORT_ASC])->all();
+                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->all();
+                                } else {
+                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id])->all();
+                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id])->all();
+                                }
+                        }
+                }
+
+
+                return $this->render('service_report', [
+                            'model' => $model,
+                            'report' => $report,
+                            'patient_services' => $patient_services,
+                ]);
+        }
+
         /**
          * Displays a single Attendance model.
          * @param integer $id
