@@ -27,17 +27,17 @@ use yii\widgets\ActiveForm;
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form form-inline">
 
         <?= "<?php " ?>$form = ActiveForm::begin(); ?>
-        <div class="row">
-                <?php
-                foreach ($generator->getColumnNames() as $attribute) {
-                        if (in_array($attribute, $safeAttributes)) {
-                                echo "<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>";
-                                echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
-                                echo "</div>";
-                        }
+
+        <?php
+        foreach ($generator->getColumnNames() as $attribute) {
+                if (in_array($attribute, $safeAttributes)) {
+                        echo "<div class='col-md-4 col-sm-6 col-xs-12 left_padd'>";
+                        echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
+                        echo "</div>";
                 }
-                ?>
-        </div>
+        }
+        ?>
+
         <div class='col-md-4 col-sm-6 col-xs-12' style="float:right;">
                 <div class="form-group" style="float: right;">
                         <?= "<?= " ?>Html::submitButton($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>

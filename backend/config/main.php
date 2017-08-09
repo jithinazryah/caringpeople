@@ -76,6 +76,9 @@ return [
         'stock' => [
             'class' => 'backend\modules\stock\Module',
         ],
+        'invoice' => [
+            'class' => 'backend\modules\invoice\Module',
+        ],
     ],
     'components' => [
         'request' => [
