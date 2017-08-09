@@ -77,6 +77,27 @@ $("document").ready(function () {
                 });
         });
 
+
+        $('.report-service-patient').change(function () {
+                var patient = $(this).val();
+                showLoader();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {patient: patient},
+                        url: homeUrl + 'report/servicesall',
+                        success: function (data) {
+                                if (data != 0) {
+                                        $('#report-services-services').html(data);
+                                }
+                                hideLoader();
+                        }
+                });
+        });
+
+
+
+
 //--------------------------------------------------------------Staff and patient Report------------------------------------------//
 
 

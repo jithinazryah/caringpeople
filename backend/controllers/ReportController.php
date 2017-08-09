@@ -69,4 +69,20 @@ class ReportController extends \yii\web\Controller {
                 }
         }
 
+        /*
+         * show services on patient change :-service report
+         */
+
+        public function actionServicesall() {
+                if (Yii::$app->request->isAjax) {
+                        $patient = $_POST['patient'];
+                        $services = \common\models\Service::find()->where(['patient_id' => $patient])->all();
+                        $options .= "<option value='0'>All</option>";
+                        foreach ($services as $services) {
+                                $options .= "<option value='" . $services->id . "'>" . $services->service_id . "</option>";
+                        }
+                        echo $options;
+                }
+        }
+
 }

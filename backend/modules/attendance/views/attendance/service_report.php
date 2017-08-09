@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         $patients = [];
                                                                 }
                                                                 ?>
-                                                                <?= $form->field($model, 'patient_id')->dropDownList(ArrayHelper::map($patients, 'id', 'first_name'), ['prompt' => '--Select--', 'id' => 'report-patient']) ?>
+                                                                <?= $form->field($model, 'patient_id')->dropDownList(ArrayHelper::map($patients, 'id', 'first_name'), ['prompt' => '--Select--', 'id' => 'report-patient', 'class' => 'report-service-patient']) ?>
                                                         </div>
 
                                                         <?php
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd report-services'>
 
-                                                                <?= $form->field($model, 'service_id')->dropDownList($list, ['prompt' => '--Select--', 'id' => 'report-services']); ?>
+                                                                <?= $form->field($model, 'service_id')->dropDownList($list, ['prompt' => '--Select--', 'id' => 'report-services-services']); ?>
                                                         </div>
 
 
@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <div class="col-md-6 col-sm-6 col-xs-12 left_padd service_detail">
                                                                                 <span class="counts">
                                                                                         <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Service  </div><div class="col-md-1 col-sm-6 col-xs-12"> <label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span><?= $schedule->service_id; ?><br></span></div>
-                                                                                        <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Total Schedules  </div><div class="col-md-1 col-sm-6 col-xs-12"> <label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span> <?= $total_schedules; ?>   ( Rs. <?= $schedule->rate_card_value; ?>  /- )<br></span></div>
+                                                                                        <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Total Schedules  </div><div class="col-md-1 col-sm-6 col-xs-12"> <label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span> <?= $total_schedules; ?>   ( Rs. <?= $schedule->estimated_price; ?>  /- )<br></span></div>
                                                                                         <div style="clear:both"></div><div class="col-md-3 col-sm-6 col-xs-12"> Completed Schedules  </div><div class="col-md-1 col-sm-6 col-xs-12"><label> : </label> &nbsp;</div><div class="col-md-3 col-sm-6 col-xs-12"><span><?= $total_completed_schedules ?> <?php
                                                                                                         if ($completed_rate > 0) {
                                                                                                                 echo ' ( Rs.' . $completed_rate . '/- )';
