@@ -38,4 +38,8 @@ return [
     'update-patient-enquiry/<id:\d+>' => 'patient/patient-enquiry-general-first/update',
     'update-patient/<id:\d+>' => 'patient/patient-information/update',
     'update-service/<id:\d+>' => 'services/service/update',
+    'office-staff-attendance-report' => 'attendance/attendance/report',
+    'oncall-staff-attendance-report' => 'attendance/attendance/staffattendance',
+    'patient-report' => 'attendance/attendance/patientreport',
+    'service-report' => 'attendance/attendance/servicereport',
 ];

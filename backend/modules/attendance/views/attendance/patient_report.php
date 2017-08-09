@@ -116,40 +116,41 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <!-------------------------------------------------REPORT----------------------------------------------------------------------------->
                                                 <?php if (!empty($report) && $report != '') { ?>
 
-                                                        <div class="row">
-                                                                <div class="col-md-6 col-sm-6 col-xs-12 left_padd counts1" >
-                                                                        <p>
-                                                                                Patient : <span><?php
-                                                                                        if (isset($model->patient_id) && $model->patient_id != '') {
-                                                                                                $patient_detail = \common\models\PatientGeneral::findOne($model->patient_id);
-                                                                                                echo $patient_detail->first_name;
-                                                                                        }
-                                                                                        ?></span>
-                                                                        </p>
-                                                                </div>
-                                                        </div>
-                                                        <div class="row">
+                                                        <p class="counts1">
+                                                                Patient : <span><?php
+                                                                        if (isset($model->patient_id) && $model->patient_id != '') {
+                                                                                $patient_detail = \common\models\PatientGeneral::findOne($model->patient_id);
+                                                                                echo $patient_detail->first_name;
+                                                                        }
+                                                                        ?></span>
+                                                        </p>
 
-                                                                <div class="col-md-12 col-sm-6 col-xs-12 left_padd service_detail">
-                                                                        <?php
-                                                                        foreach ($patient_services as $patient_services) {
-                                                                                $schedule = Service::findOne($patient_services->service_id);
-                                                                                $total_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->count();
-                                                                                $total_completed_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 2])->count();
-                                                                                ?>
+                                                        <div class="row" style="margin:10px 0px 0px 0px;">
 
+                                                                <?php
+                                                                $from = date('Y-m-d', strtotime($model->date));
+                                                                $to = date('Y-m-d', strtotime($model->DOC));
+                                                                $m = 0;
+                                                                foreach ($patient_services as $patient_services) {
+                                                                        $m++;
+                                                                        $schedule = Service::findOne($patient_services->service_id);
+                                                                        $total_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
+                                                                        $total_completed_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
+                                                                        $total_rate = $total_schedules * $schedule->rate_card_value;
+                                                                        $total_schedules_rate = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
+                                                                        ?>
+                                                                        <div class="col-md-4 col-sm-6 col-xs-12 left_padd service_detail">
                                                                                 <span class="counts">
                                                                                         Service    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label class="label-1"> : </label> &nbsp;<span> <?= $schedule->service_id; ?><br></span>
-                                                                                        Total Schedules &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label> : </label> &nbsp;<span> <?= $total_schedules; ?><br></span>
-                                                                                        Completed Schedules  <label> : </label> &nbsp;<span><?= $total_completed_schedules ?> <br></span>
-                                                                                </span>
-                                                                                <br>
-                                                                                <br>
-                                                                                <br>
-                                                                                <br>
-                                                                        <?php } ?>
+                                                                                        Total Schedules &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label> : </label> &nbsp;<span> <?= $total_schedules; ?>  <br></span>
+                                                                                        Completed Schedules  <label> : </label> &nbsp;<span><?= $total_completed_schedules ?> <br>
+                                                                                        </span>
 
-                                                                </div>
+                                                                                </span>
+
+                                                                        </div>
+                                                                <?php } ?>
+
                                                         </div>
 
 
@@ -184,11 +185,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <td><?= $service->service_id ?></td>
 
                                                                                                 <td><?php
-                                                                                                        if (isset($value->staff) && $value->staff != '') {
-                                                                                                                $staff = StaffInfo::findOne($value->staff);
-                                                                                                                echo $staff->staff_name;
-                                                                                                        }
-                                                                                                        ?>
+                                                                                if (isset($value->staff) && $value->staff != '') {
+                                                                                        $staff = StaffInfo::findOne($value->staff);
+                                                                                        echo $staff->staff_name;
+                                                                                }
+                                                                                                ?>
                                                                                                 </td>
 
                                                                                                 <td>
@@ -292,16 +293,13 @@ $this->params['breadcrumbs'][] = $this->title;
         }.counts span,.counts1 span{
                 font-weight: bold;
                 color: #000;
-        }.counts1 p{
-                margin-left: 20px;
+        }.counts1{
                 color: #000;
         }.table-responsive{
                 margin-top: 15px;
         }.no-result{
                 text-align: center;
                 font-style: italic;
-        }.service_detail .counts{
-                float: right;
         }.label-1{
                 margin-left: 48px;
         }
@@ -322,3 +320,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 });
         });
 </script>
+
+<?php
+
+function divadjust($k) {
+        if ($k % 3 == 0) {
+                echo '</div><div class="row">';
+        }
+        return;
+}
+?>
