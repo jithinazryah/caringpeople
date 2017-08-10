@@ -16,42 +16,41 @@ use Yii;
  * @property integer $CB
  * @property string $DOC
  */
-class Invoice extends \yii\db\ActiveRecord
-{
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'invoice';
-    }
+class Invoice extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['branch_id', 'patient_id', 'service_id', 'type', 'CB'], 'integer'],
-            [['DOC'], 'safe'],
-            [['amount'], 'string', 'max' => 200],
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'invoice';
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'branch_id' => 'Branch ID',
-            'patient_id' => 'Patient ID',
-            'service_id' => 'Service ID',
-            'type' => 'Type',
-            'amount' => 'Amount',
-            'CB' => 'Cb',
-            'DOC' => 'Doc',
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['branch_id', 'patient_id', 'service_id', 'type', 'CB'], 'integer'],
+                        [['DOC'], 'safe'],
+                        [['amount'], 'string', 'max' => 200],
+                        [['branch_id', 'patient_id'], 'required']
+                ];
+        }
+
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'branch_id' => 'Branch',
+                    'patient_id' => 'Patient',
+                    'service_id' => 'Service ID',
+                    'type' => 'Type',
+                    'amount' => 'Amount',
+                    'CB' => 'Cb',
+                    'DOC' => 'Doc',
+                ];
+        }
+
 }
