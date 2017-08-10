@@ -341,7 +341,10 @@ class ServiceajaxController extends \yii\web\Controller {
                                                 }
                                         }
                                         if ($status == 3 || $status == 4) { /* status is interupted or cancelled */
-                                                $service_detail->estimated_price = $this->ChangePrice($service_detail, 1, 2);
+
+                                                $rate = $this->ChangePrice($service_detail, 1, 2);
+                                                $service_detail->estimated_price = $service_detail->estimated_price - $rate;
+                                                $service_detail->due_amount = $service_detail->due_amount - $rate;
                                                 $service_detail->estimated_price;
                                                 $service_detail->update(FALSE);
                                         }
@@ -519,7 +522,9 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $service->to_date = date('Y-m-d', strtotime($todate . ' - 1 days'));
                         }
                         if ($_POST['change_price'] == 'on') {
-                                $service->estimated_price = $this->ChangePrice($service, $add_days, 1);
+                                $rate = $this->ChangePrice($service, $add_days, 1);
+                                $service->estimated_price = $service->estimated_price + $rate;
+                                $service->due_amount = $service->due_amount + $rate;
                         }
                         $service->save(FALSE);
 
@@ -606,15 +611,21 @@ class ServiceajaxController extends \yii\web\Controller {
         public function ChangePrice($service, $days, $pricetype) {
 
                 $rate = 0;
-                $ratecard = RateCard::find()->where(['service_id' => $service->service, 'branch_id' => $service->branch_id, 'status' => 1, 'sub_service' => $service->sub_service])->one();
                 $service_dutytype = $service->duty_type;
 
                 if ($service->frequency == 1 && ($service->duty_type == 3 || $service->duty_type == 4 || $service->duty_type == 5)) {
+                        die('if');
                         if (isset($service->rate_card_value)) {
                                 $rate = $days * $service->rate_card_value;
                         }
                 } else {
+
                         $total_hours = $service->hours * $days;
+                        if ($pricetype == 2) {
+                                if ($service->duty_type != 1) {
+                                        $total_hours = $days * $days;
+                                }
+                        }
                         if (isset($service->rate_card_value)) {
                                 $rate = $total_hours * $service->rate_card_value;
                         }
@@ -629,7 +640,7 @@ class ServiceajaxController extends \yii\web\Controller {
                 } else {
                         $price = $service->estimated_price + $rate;
                 }
-                return $price;
+                return $rate;
         }
 
         public function actionViewschedule() {

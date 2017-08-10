@@ -148,6 +148,7 @@ class StaffInfoController extends Controller {
 
                 $staff_info->branch_id = $model->branch_id;
                 $staff_info->status = 1;
+                $staff_info->working_status = 0;
 
                 $transaction = StaffInfo::getDb()->beginTransaction();
                 try {

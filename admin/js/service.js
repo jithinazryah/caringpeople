@@ -487,7 +487,7 @@ $("document").ready(function () {
                         data: data,
                         success: function (data) {
                                 $('#modal-2').modal('hide');
-                                location.reload();
+                                //  location.reload();
                         }
                 });
         });
