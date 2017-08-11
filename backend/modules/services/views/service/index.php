@@ -26,10 +26,7 @@ $designations = \common\models\MasterDesignations::designationlist();
 
                                 </div>
                                 <div class="panel-body">
-                                        <button class="btn btn-white" id="search-option" style="float: right;">
-                                                <i class="linecons-search"></i>
-                                                <span>Search</span>
-                                        </button>
+
 
 
                                         <?php if (Yii::$app->session->hasFlash('error')): ?>

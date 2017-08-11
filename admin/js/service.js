@@ -407,7 +407,8 @@ $("document").ready(function () {
         /*
          * update schedule date
          */
-        $('.schedule-update-date').change(function () {
+        // $('.schedule-update-date').change(function () {
+        $(document).on('change', '.schedule-update-date', function (e) {
                 var id_attr = $(this).attr('id');
                 var id = id_attr.split('-');
                 var date = $('#schedule_date-' + id[1]).val();
@@ -422,6 +423,8 @@ $("document").ready(function () {
                 });
 
         });
+
+
         /*
          * update rating in schedule
          */
@@ -452,13 +455,13 @@ $("document").ready(function () {
                 var staf = $('#staff_on_duty_' + schedule_id[1]).attr('val');
                 if (staf && staf != '') {
                         if (date && date != '') {
-
+                                showLoader();
                                 $.ajax({
                                         type: 'POST',
                                         url: homeUrl + 'serviceajax/statusupdate',
                                         data: {schedule_id: schedule_id, status: status},
                                         success: function (data) {
-
+                                                hideLoader();
                                                 $("#modal-2-pop-up").html(data);
                                                 $('#modal-2').modal('show', {backdrop: 'static'});
 

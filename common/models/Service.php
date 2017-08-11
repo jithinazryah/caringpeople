@@ -45,7 +45,8 @@ class Service extends \yii\db\ActiveRecord {
                 return [
                         [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
-                        [['estimated_price', 'frequency', 'hours', 'days', 'rate_card_value', 'due_amount'], 'string', 'max' => 255],
+                        [['frequency', 'hours', 'days', 'rate_card_value'], 'string', 'max' => 255],
+                        [['estimated_price', 'due_amount'], 'number'],
                         [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
                         [['service'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service' => 'id']],
                         [['staff_manager'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_manager' => 'id']],

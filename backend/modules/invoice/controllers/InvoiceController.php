@@ -8,6 +8,8 @@ use common\models\InvoiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Service;
+use yii\base\UserException;
 
 /**
  * InvoiceController implements the CRUD actions for Invoice model.
@@ -45,9 +47,44 @@ class InvoiceController extends Controller {
         public function actionInvoice() {
 
                 $model = new Invoice;
+                $services = '';
+                $model->scenario = 'invoice';
+                if ($model->load(Yii::$app->request->post())) {
+                        $services = Service::find()->where(['patient_id' => $model->patient_id])->andWhere(['>', 'due_amount', 0])->all();
+                }
                 return $this->render('invoice', [
                             'model' => $model,
+                            'services' => $services
                 ]);
+        }
+
+        public function actionPayment() {
+                if (isset($_POST['patient'])) {
+                        $services = Service::find()->where(['patient_id' => $_POST['patient']])->andWhere(['>', 'due_amount', 0])->all();
+                        foreach ($services as $values) {
+                                $model = new Invoice();
+                                if (isset($_POST['amount_paid_' . $values->id]) && $_POST['amount_paid_' . $values->id] > 0) {
+                                        $model->patient_id = $_POST['patient'];
+                                        $model->service_id = $values->id;
+                                        $model->amount = $_POST['amount_paid_' . $values->id];
+                                        $model->CB = Yii::$app->user->identity->id;
+                                        $model->DOC = date('Y-m-d');
+                                        if ($model->save()) {
+                                                $service = Service::findOne($model->service_id);
+                                                $service->due_amount = $service->due_amount - $model->amount;
+                                                if ($service->update()) {
+                                                        exit('if');
+                                                } else {
+                                                        var_dump($service->getErrors());
+                                                        exit;
+                                                }
+                                                // return $this->redirect(['invoice']);
+                                        }
+                                }
+                        }
+                } else {
+                        throw new UserException('Error Code:  1003');
+                }
         }
 
         /**

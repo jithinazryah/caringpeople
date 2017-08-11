@@ -14,6 +14,7 @@ use common\models\ServiceSchedule;
 use common\models\PatientAssessment;
 use common\models\ServiceDiscounts;
 use yii\db\Expression;
+use yii\base\UserException;
 
 /**
  * ServiceController implements the CRUD actions for Service model.
@@ -92,13 +93,6 @@ class ServiceController extends Controller {
                         if ($model->validate() && $model->save()) {
                                 $history_id = Yii::$app->SetValues->ServiceHistory($model, 1); /* 1 implies masterservice history type id 1 for new service */
                                 if (!empty($history_id)) {
-                                        $notifiactions = [
-//						[$history_id, $model->id, 1, 1, $model->day_staff], /* history_id,service_id,1 => notification type is service ,1=>day staff */
-//						[$history_id, $model->id, 1, 2, $model->night_staff], /* history_id,service_id,1 => notification type is service ,1=>night staff */
-//						[$history_id, $model->id, 1, 3, $model->staff_manager], /* history_id,service_id,1 => notification type is service ,1=>manager */
-//						[$history_id, $model->id, 1, 4, $model->CB], /* history_id,service_id,1 => notification type is service ,1=>superadmin */
-                                        ];
-//					Yii::$app->SetValues->Notifications($history_id, $model->id, $notifiactions);
                                         Yii::$app->SetValues->Notifications($history_id, $model->id, $model, 1); /* 1 => notification type is service */
                                 }
                                 $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y') . '-' . $model->id;
@@ -137,7 +131,7 @@ class ServiceController extends Controller {
                 $model = $this->findModel($id);
                 $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'), 'date' => SORT_ASC])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
-                $discounts = ServiceDiscounts::find()->where(['service_id' => $id])->one();
+                $discounts = new ServiceDiscounts();
                 if (empty($patient_assessment)) {
                         $patient_assessment = new PatientAssessment ();
                         $patient_assessment->service_id = $id;
@@ -158,15 +152,28 @@ class ServiceController extends Controller {
                                 $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
                         }
                         $discounts->load(Yii::$app->request->post());
+                        $model->estimated_price = $model->estimated_price - $discounts->discount_value;
                         $patient_assessment->save();
-                        $discounts->save();
+                        $transaction = Yii::$app->db->beginTransaction();
+
+                        try {
+                                if ($model->update()) {
+                                        $discounts->service_id = $model->id;
+                                        $discounts->date = date('Y-m-d');
+                                        $discounts->save();
+                                        $transaction->commit();
+                                }
+                        } catch (Exception $ex) {
+                                $transaction->rollBack();
+                        }
+
                         return $this->redirect(['index']);
                 }
                 return $this->render('create', [
                             'model' => $model,
                             'service_schedule' => $service_schedule,
                             'patient_assessment' => $patient_assessment,
-                            'discounts' => $discounts
+                            'discounts' => $discounts,
                 ]);
         }
 

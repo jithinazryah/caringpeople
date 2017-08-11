@@ -31,6 +31,11 @@ use yii\helpers\Html;
                 ?>
 
                 <li>
+                        <a href="#home-7" data-toggle="tab"><span class="visible-xs"><i class="fa fa-minus-circle hidden-xs"></i></span>
+                                <i class="fa fa-minus-circle"></i><span class="hidden-xs span-font-size">Discounts</span></a>
+                </li>
+
+                <li>
                         <a href="#home-5" data-toggle="tab"><span class="visible-xs"><i class="fa-user hidden-xs"></i></span>
                                 <i class="fa-user"></i><span class="hidden-xs span-font-size">Schedules</span></a>
                 </li>
@@ -40,10 +45,7 @@ use yii\helpers\Html;
                                 <i class="fa fa-book"></i><span class="hidden-xs span-font-size">Assessment</span></a>
                 </li>
 
-                <li>
-                        <a href="#home-7" data-toggle="tab"><span class="visible-xs"><i class="fa fa-minus-circle hidden-xs"></i></span>
-                                <i class="fa fa-minus-circle"></i><span class="hidden-xs span-font-size">Discounts</span></a>
-                </li>
+
 
 
                 <li>

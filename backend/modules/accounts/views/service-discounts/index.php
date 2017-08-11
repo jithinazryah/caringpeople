@@ -22,26 +22,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-                                                                                            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                                        
-                                        <?=  Html::a('<i class="fa-th-list"></i><span> Create Service Discounts</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                                                                                                                                        <?= GridView::widget([
-                                                'dataProvider' => $dataProvider,
-                                                'filterModel' => $searchModel,
-        'columns' => [
-                                                ['class' => 'yii\grid\SerialColumn'],
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                                                            'id',
-            'service_id',
-            'rate',
-            'discount_type',
-            'discount_value',
-            // 'total_amount',
-
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Create Service Discounts</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                        <?=
+                                        GridView::widget([
+                                            'dataProvider' => $dataProvider,
+                                            'filterModel' => $searchModel,
+                                            'columns' => [
+                                                    ['class' => 'yii\grid\SerialColumn'],
+                                                'id',
+                                                'service_id',
+                                                'rate',
+                                                'discount_type',
+                                                'discount_value',
+                                                // 'total_amount',
                                                 ['class' => 'yii\grid\ActionColumn'],
-                                                ],
-                                                ]); ?>
-                                                                                                                </div>
+                                            ],
+                                        ]);
+                                        ?>
+                                </div>
                         </div>
                 </div>
         </div>

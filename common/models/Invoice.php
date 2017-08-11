@@ -33,7 +33,7 @@ class Invoice extends \yii\db\ActiveRecord {
                         [['branch_id', 'patient_id', 'service_id', 'type', 'CB'], 'integer'],
                         [['DOC'], 'safe'],
                         [['amount'], 'string', 'max' => 200],
-                        [['branch_id', 'patient_id'], 'required']
+                        [['branch_id', 'patient_id'], 'required', 'on' => 'invoice']
                 ];
         }
 

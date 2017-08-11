@@ -272,8 +272,11 @@ class ServiceajaxController extends \yii\web\Controller {
                         if (isset($_POST['id'])) {
 
                                 $service_schedule = ServiceSchedule::findOne($_POST['id']);
-                                if (isset($_POST['date']) && $_POST['date'] != '')
+                                if (!empty($_POST['date'])) {
                                         $service_schedule->date = date('Y-m-d', strtotime($_POST['date']));
+                                } else {
+                                        $service_schedule->date == '0000-00-00';
+                                }
 
                                 $service_schedule->update();
                         }
@@ -435,7 +438,8 @@ class ServiceajaxController extends \yii\web\Controller {
                         $frequency = $_POST['frequency'];
                         $hours = $_POST['hours'];
                         $days = $_POST['days'];
-                        if (($duty_type == 5 || $duty_type == 3 || $duty_type == 4 ) && $frequency == 1) {
+
+                        if ($frequency == 1 && ($duty_type == 3 || $duty_type == 4 || $duty_type == 5)) {
                                 $schedule_count = $add_days;
                         } else if ($duty_type == 1) {
                                 $schedule_count = $add_days;
@@ -446,10 +450,9 @@ class ServiceajaxController extends \yii\web\Controller {
                         $service = Service::findOne($service_id);
                         $sschedules_all_count = ServiceSchedule::find()->where(['service_id' => $service->id])->count();
                         if ($sschedules_all_count > 0) {
-                                $schedule_dates = ServiceSchedule::find()->where(['service_id' => $service->id])->max('date');
-                                $schedule_dated = date('Y-m-d', strtotime($schedule_dates . ' + 1 days'));
+                                $schedule_dated = ServiceSchedule::find()->where(['service_id' => $service->id])->max('date');
                         } else {
-                                $schedule_dated = $service->from_date;
+                                $schedule_dated = date('Y-m-d', strtotime($service->from_date . ' - 1 days'));
                         }
 
 
@@ -460,7 +463,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                                 $night_schedule = new ServiceSchedule();
                                                 $day_schedule->service_id = $service_id;
                                                 if ($frequency == 1) {
-                                                        $schedule_dated = date('Y-m-d', strtotime($schedule_dated . ' + ' . $x . ' days'));
+                                                        $schedule_dated = date('Y-m-d', strtotime($schedule_dated . ' + 1 days'));
                                                         $day_schedule->date = date('Y-m-d', strtotime($schedule_dated));
                                                 }
                                                 $day_schedule->patient_id = $patient_id;
@@ -469,8 +472,8 @@ class ServiceajaxController extends \yii\web\Controller {
 
                                                 $night_schedule->service_id = $service_id;
                                                 if ($frequency == 1) {
-                                                        $scheduled_date = date('Y-m-d', strtotime($schedule_date . ' + ' . $x . ' days'));
-                                                        $night_schedule->date = date('Y-m-d', strtotime($scheduled_date));
+                                                        $schedule_dated = date('Y-m-d', strtotime($schedule_dated . ' + 1 days'));
+                                                        $night_schedule->date = date('Y-m-d', strtotime($schedule_dated));
                                                 }
                                                 $night_schedule->patient_id = $patient_id;
                                                 $night_schedule->status = 1;
@@ -480,10 +483,13 @@ class ServiceajaxController extends \yii\web\Controller {
                                         }
                                 } else {
                                         for ($x = 0; $x < $schedule_count; $x++) {
+
+
                                                 $day_schedule = new ServiceSchedule();
                                                 $day_schedule->service_id = $service_id;
                                                 if ($frequency == 1) {
-                                                        $schedule_dated = date('Y-m-d', strtotime($schedule_dated . ' + ' . $x . ' days'));
+
+                                                        $schedule_dated = date('Y-m-d', strtotime($schedule_dated . ' + 1 days'));
                                                         $day_schedule->date = date('Y-m-d', strtotime($schedule_dated));
                                                 }
                                                 $day_schedule->patient_id = $patient_id;
@@ -497,7 +503,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                         $schedule = new ServiceSchedule();
                                         $schedule->service_id = $service_id;
                                         if ($frequency == 1) {
-                                                $schedule_dated = date('Y-m-d', strtotime($schedule_dated . ' + ' . $x . ' days'));
+                                                $schedule_dated = date('Y-m-d', strtotime($schedule_dated . ' + 1 days'));
                                                 $schedule->date = date('Y-m-d', strtotime($schedule_dated));
                                         }
                                         $schedule->patient_id = $patient_id;
@@ -511,6 +517,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         Yii::$app->SetValues->Notifications($history_id, $service->id, $service, 1); /* 1 => notification type is for service */
 
                         $service->days = $service->days + $add_days;
+
                         if ($frequency == '1') {
                                 $todate = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' days'));
                                 $service->to_date = date('Y-m-d', strtotime($todate . ' - 1 days'));
@@ -521,6 +528,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $todate = date('Y-m-d', strtotime($service->from_date . ' + ' . $service->days . ' months'));
                                 $service->to_date = date('Y-m-d', strtotime($todate . ' - 1 days'));
                         }
+
                         if ($_POST['change_price'] == 'on') {
                                 $rate = $this->ChangePrice($service, $add_days, 1);
                                 $service->estimated_price = $service->estimated_price + $rate;
@@ -532,6 +540,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         $history = new \common\models\ServiceScheduleHistory();
                         $history->service_id = $service_id;
                         $history->schedules = $add_days;
+
                         if ($_POST['change_price'] == 'on') {
                                 $price = $add_days * $service->rate_card_value;
                         } else {
@@ -614,7 +623,7 @@ class ServiceajaxController extends \yii\web\Controller {
                 $service_dutytype = $service->duty_type;
 
                 if ($service->frequency == 1 && ($service->duty_type == 3 || $service->duty_type == 4 || $service->duty_type == 5)) {
-                        die('if');
+
                         if (isset($service->rate_card_value)) {
                                 $rate = $days * $service->rate_card_value;
                         }
