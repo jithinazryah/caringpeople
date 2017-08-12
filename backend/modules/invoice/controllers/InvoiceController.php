@@ -61,12 +61,17 @@ class InvoiceController extends Controller {
         public function actionPayment() {
                 if (isset($_POST['patient'])) {
                         $services = Service::find()->where(['patient_id' => $_POST['patient']])->andWhere(['>', 'due_amount', 0])->all();
+                        $k = 0;
                         foreach ($services as $values) {
+                                $k++;
                                 $model = new Invoice();
                                 if (isset($_POST['amount_paid_' . $values->id]) && $_POST['amount_paid_' . $values->id] > 0) {
                                         $model->patient_id = $_POST['patient'];
+                                        $model->branch_id = $_POST['branch_id'];
                                         $model->service_id = $values->id;
+                                        $model->total_amount = $_POST['total_amount_' . $values->id];
                                         $model->amount = $_POST['amount_paid_' . $values->id];
+                                        $model->due_amount = $model->total_amount - $model->amount;
                                         $model->CB = Yii::$app->user->identity->id;
                                         $model->DOC = date('Y-m-d');
                                         if ($model->save()) {
@@ -74,10 +79,11 @@ class InvoiceController extends Controller {
                                                 $service->due_amount = $service->due_amount - $model->amount;
                                                 $service->estimated_price = $service->estimated_price - $model->amount;
                                                 $service->update();
-                                                return $this->redirect(['invoice']);
+                                                Yii::$app->SetValues->Accounts($model->branch_id, 3, $model->id, 2, 'Patient Invoice', 0, $model->amount, $model->DOC);
                                         }
                                 }
                         }
+                        return $this->redirect(['invoice']);
                 } else {
                         throw new UserException('Error Code:  1003');
                 }

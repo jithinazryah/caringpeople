@@ -29,65 +29,65 @@ use Yii;
  */
 class ItemMaster extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public static function tableName() {
-        return 'item_master';
-    }
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'item_master';
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules() {
-        return [
-            [['SKU', 'item_name', 'item_type', 'tax_id', 'base_unit_id', 'retail_price', 'purchase_price'], 'required'],
-            [['SKU'], 'unique', 'targetAttribute' => ['SKU'], 'on' => 'create'],
-            [['item_type', 'tax_id', 'base_unit_id', 'status', 'CB', 'UB', 'hsn'], 'integer'],
-            [['MRP', 'retail_price', 'purchase_price', 'item_cost', 'whole_sale_price'], 'number'],
-            [['DOC', 'DOU'], 'safe'],
-            [['item_name'], 'string', 'max' => 30],
-            [['base_unit_id'], 'exist', 'skipOnError' => true, 'targetClass' => BaseUnit::className(), 'targetAttribute' => ['base_unit_id' => 'id']],
-            [['tax_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tax::className(), 'targetAttribute' => ['tax_id' => 'id']],
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['SKU', 'item_name', 'tax_id', 'base_unit_id', 'retail_price', 'purchase_price'], 'required'],
+                        [['SKU'], 'unique', 'targetAttribute' => ['SKU'], 'on' => 'create'],
+                        [['item_type', 'tax_id', 'base_unit_id', 'status', 'CB', 'UB', 'hsn'], 'integer'],
+                        [['MRP', 'retail_price', 'purchase_price', 'item_cost', 'whole_sale_price'], 'number'],
+                        [['DOC', 'DOU'], 'safe'],
+                        [['item_name'], 'string', 'max' => 30],
+                        [['base_unit_id'], 'exist', 'skipOnError' => true, 'targetClass' => BaseUnit::className(), 'targetAttribute' => ['base_unit_id' => 'id']],
+                        [['tax_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tax::className(), 'targetAttribute' => ['tax_id' => 'id']],
+                ];
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels() {
-        return [
-            'id' => 'ID',
-            'SKU' => 'SKU (Item Code)',
-            'item_name' => 'Item Name',
-            'item_type' => 'Item Type',
-            'tax_id' => 'Tax',
-            'base_unit_id' => 'Base Unit',
-            'MRP' => 'Mrp',
-            'retail_price' => 'Retail Price',
-            'purchase_price' => 'Purchase Price',
-            'item_cost' => 'Item Cost',
-            'whole_sale_price' => 'Whole Sale Price',
-            'status' => 'Status',
-            'CB' => 'Cb',
-            'UB' => 'Ub',
-            'DOC' => 'Doc',
-            'DOU' => 'Dou',
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'SKU' => 'SKU (Item Code)',
+                    'item_name' => 'Item Name',
+                    'item_type' => 'Item Type',
+                    'tax_id' => 'Tax',
+                    'base_unit_id' => 'Base Unit',
+                    'MRP' => 'Mrp',
+                    'retail_price' => 'Retail Price',
+                    'purchase_price' => 'Purchase Price',
+                    'item_cost' => 'Item Cost',
+                    'whole_sale_price' => 'Whole Sale Price',
+                    'status' => 'Status',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBaseUnit() {
-        return $this->hasOne(BaseUnit::className(), ['id' => 'base_unit_id']);
-    }
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getBaseUnit() {
+                return $this->hasOne(BaseUnit::className(), ['id' => 'base_unit_id']);
+        }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTax() {
-        return $this->hasOne(Tax::className(), ['id' => 'tax_id']);
-    }
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getTax() {
+                return $this->hasOne(Tax::className(), ['id' => 'tax_id']);
+        }
 
 }

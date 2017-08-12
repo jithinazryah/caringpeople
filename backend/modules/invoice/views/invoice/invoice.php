@@ -206,18 +206,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         ?>
                                                                                         <tr>
                                                                                                 <td class="sub">DISCOUNTS</td>
-                                                                                                <td><?= 'Rs ' . number_format((float) $discount_amount, 2, '.', '');
-                                                                ; ?></td>
+                                                                                                <td><?= 'Rs ' . number_format((float) $discount_amount, 2, '.', ''); ?></td>
+
                                                                                         </tr>
-                <?php } ?>
+                                                                                <?php } ?>
 
-
-        <?php } ?>
+                                                                                <input type="hidden" name="total_amount_<?= $value->id ?>" id="total_amount" value="<?= $total_amount - $amount_paid ?>">
+                                                                        <?php } ?>
                                                                 </table>
 
                                                                 <div class="row submit_btn">
                                                                         <input type="hidden" name="patient" value="<?= $model->patient_id; ?>">
-        <?= Html::submitButton('Pay', ['class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;margin-right: 15px;']) ?>
+                                                                        <input type="hidden" name="branch_id" value="<?= $model->branch_id; ?>">
+
+                                                                        <?= Html::submitButton('Pay', ['class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;margin-right: 15px;']) ?>
 
                                                                 </div>
 

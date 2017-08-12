@@ -83,7 +83,9 @@ class m170801_093944_create_staff_payment_table extends Migration {
                     'patient_id' => $this->integer(),
                     'service_id' => $this->integer(),
                     'type' => $this->integer(),
-                    'amount' => $this->string(200),
+                    'total_amount' => $this->decimal(10, 2),
+                    'amount' => $this->decimal(10, 2),
+                    'due_amount' => $this->decimal(10, 2),
                     'CB' => $this->integer(),
                     'DOC' => $this->date(),
                 ]);

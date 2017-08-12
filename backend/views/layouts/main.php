@@ -35,6 +35,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                 <meta name="description" content="Caring People Admin Panel" />
                 <meta name="author" content="" />
                 <title>Caring People</title>
+                <link rel="icon" href="<?= Yii::$app->homeUrl; ?>images/f-logo.png" sizes="40x40" />
                 <script src="<?= Yii::$app->homeUrl; ?>js/jquery-1.11.1.min.js"></script>
                 <script type="text/javascript">
                         var homeUrl = '<?= Yii::$app->homeUrl; ?>';
@@ -364,7 +365,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                         </a>
                                                         <ul>
                                                                 <li>
-                                                                        <?= Html::a('Invoice', ['/expenses/expense-type/index'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('Invoice', ['/invoice/invoice/invoice'], ['class' => 'title']) ?>
                                                                 </li>
                                                         </ul>
                                                 </li>
