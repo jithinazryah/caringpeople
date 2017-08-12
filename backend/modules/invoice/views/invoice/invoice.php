@@ -93,28 +93,34 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         foreach ($services as $value) {
                                                                                 $n++;
                                                                                 $service_name = common\models\MasterServiceTypes::findOne($value->service);
-                                                                                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $value->id])->all();
+                                                                                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $value->id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
 
-
+                                                                                ///////////////////////////////////////////added schedules//////////////////////////////
                                                                                 $added_schedules_count = 0;
                                                                                 $added_schedules_amount = 0;
+                                                                                $added_schedule_days = 0;
+                                                                                $price = 0;
                                                                                 foreach ($added_schedules as $added_schedules) {
                                                                                         $added_schedules_count++;
                                                                                         $added_schedules_amount += $added_schedules->price;
+                                                                                        $added_schedule_days += $added_schedules->schedules;
                                                                                 }
 
+                                                                                ///////////////////////////////////////////materials added//////////////////////////////
                                                                                 $materials_used_amount = 0;
                                                                                 $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $value->id])->all();
                                                                                 foreach ($materials_used as $materials_used) {
                                                                                         $materials_used_amount += $materials_used->due_amount;
                                                                                 }
 
+                                                                                ///////////////////////////////////////////discounts//////////////////////////////
                                                                                 $discount_amount = 0;
                                                                                 $dicounts = ServiceDiscounts::find()->where(['service_id' => $value->id])->all();
                                                                                 foreach ($dicounts as $dicounts) {
                                                                                         $discount_amount += $dicounts->discount_value;
                                                                                 }
 
+                                                                                ////////////////////////////////rowspan////////////////////////////////////////
                                                                                 $count = 1;
                                                                                 if ($added_schedules_count > 0) {
                                                                                         $count += 1;
@@ -123,10 +129,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 }if ($discount_amount > 0) {
                                                                                         $count += 1;
                                                                                 }
+
+                                                                                //////////////////////////////////total amount////////////////////////////////
+                                                                                $first_estimated_price = ServiceScheduleHistory::find()->select('price')->where(['service_id' => $value->id, 'type' => 1])->one();
                                                                                 $total_amount = $value->estimated_price + $added_schedules_amount + $materials_used_amount + $discount_amount;
                                                                                 $amount_paid = common\models\Invoice::find()->where(['service_id' => $value->id])->sum('amount');
                                                                                 if (empty($amount_paid))
                                                                                         $amount_paid = 0;
+
+
+
+                                                                                $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $discount_amount;
                                                                                 $due_amount = $total_amount - $amount_paid;
                                                                                 ?>
 
@@ -141,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 <tr>
                                                                                         <td rowspan="<?= $count ?>"><?= $n; ?></td>
                                                                                         <td><b>SERVICE FEE</b></td>
-                                                                                        <td><b><?= 'Rs. ' . $value->estimated_price; ?></b></td>
+                                                                                        <td><b><?= 'Rs. ' . $first_estimated_price->price; ?></b></td>
                                                                                         <td rowspan="<?= $count ?>"><?= 'Rs ' . $total_amount . ' /-' ?></td>
                                                                                         <td rowspan="<?= $count ?>"><?= 'Rs ' . $amount_paid . ' /-' ?></td>
                                                                                         <td rowspan="<?= $count ?>"><?= 'Rs ' . $due_amount . ' /-' ?></td>
@@ -165,8 +178,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         }
                                                                                         ?>
                                                                                         <tr >
-                                                                                                <td class="sub">ADDED <?= $added_schedules_count . ' ' . $count ?> <span style="color:red">( Extra Schedules )</span></td>
-                                                                                                <td><?= 'Rs. ' . $added_schedules_amount ?> </td>
+                                                                                                <td class="sub">ADDED <?= $added_schedule_days . ' ' . $count ?> <span style="color:red">( Extra Schedules )</span></td>
+                                                                                                <td><?= 'Rs. ' . number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
+
                                                                                         </tr>
                                                                                 <?php } ?>
 
@@ -178,7 +192,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         ?>
                                                                                         <tr >
                                                                                                 <td class="sub">MATERIALS USED</td>
-                                                                                                <td><?= 'Rs. ' . $materials_used_amount ?></td>
+                                                                                                <td><?= 'Rs. ' . number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
                                                                                         </tr>
                                                                                 <?php } ?>
 
@@ -192,17 +206,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         ?>
                                                                                         <tr>
                                                                                                 <td class="sub">DISCOUNTS</td>
-                                                                                                <td><?= 'Rs ' . $discount_amount; ?></td>
+                                                                                                <td><?= 'Rs ' . number_format((float) $discount_amount, 2, '.', '');
+                                                                ; ?></td>
                                                                                         </tr>
-                                                                                <?php } ?>
+                <?php } ?>
 
 
-                                                                        <?php } ?>
+        <?php } ?>
                                                                 </table>
 
                                                                 <div class="row submit_btn">
                                                                         <input type="hidden" name="patient" value="<?= $model->patient_id; ?>">
-                                                                        <?= Html::submitButton('Pay', ['class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;margin-right: 15px;']) ?>
+        <?= Html::submitButton('Pay', ['class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;margin-right: 15px;']) ?>
 
                                                                 </div>
 

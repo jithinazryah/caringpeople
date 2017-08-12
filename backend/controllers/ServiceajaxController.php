@@ -350,6 +350,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                                 $service_detail->due_amount = $service_detail->due_amount - $rate;
                                                 $service_detail->estimated_price;
                                                 $service_detail->update(FALSE);
+                                                SetValues::ServiceScheduleHistory($service_detail->id, 3, 1, $rate);
                                         }
                                 }
                         }
@@ -537,18 +538,13 @@ class ServiceajaxController extends \yii\web\Controller {
                         $service->save(FALSE);
 
 
-                        $history = new \common\models\ServiceScheduleHistory();
-                        $history->service_id = $service_id;
-                        $history->schedules = $add_days;
 
                         if ($_POST['change_price'] == 'on') {
                                 $price = $add_days * $service->rate_card_value;
                         } else {
                                 $price = 0;
                         }
-                        $history->price = $price;
-                        $history->date = date('Y-m-d');
-                        $history->save(FALSE);
+                        SetValues::ServiceScheduleHistory($service_id, 2, $add_days, $price);
                 }
         }
 

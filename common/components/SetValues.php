@@ -423,4 +423,14 @@ class SetValues extends Component {
                 }
         }
 
+        public function ServiceScheduleHistory($service_id, $type, $schedules, $price) {
+                $history = new \common\models\ServiceScheduleHistory();
+                $history->service_id = $service_id;
+                $history->type = $type;
+                $history->schedules = $schedules;
+                $history->price = $price;
+                $history->date = date('Y-m-d');
+                $history->save();
+        }
+
 }

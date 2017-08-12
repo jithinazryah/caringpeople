@@ -113,6 +113,7 @@ class ServiceController extends Controller {
                                 $model->due_amount = $model->estimated_price;
                                 $model->update();
                                 $this->ServiceSchedule($model);
+                                Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
                                 return $this->redirect(['update', 'id' => $model->id]);
                         }
                 }
@@ -153,6 +154,7 @@ class ServiceController extends Controller {
                         }
                         $discounts->load(Yii::$app->request->post());
                         $model->estimated_price = $model->estimated_price - $discounts->discount_value;
+                        $model->due_amount = $model->due_amount - $discounts->discount_value;
                         $patient_assessment->save();
                         $transaction = Yii::$app->db->beginTransaction();
 

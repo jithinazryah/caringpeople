@@ -156,6 +156,10 @@ class SalesInvoiceDetailsController extends Controller {
                                 try {
                                         if ($model_sales_master->save() && $this->AddSalesDetails($arr, $model_sales_master) && $this->UpdateSerialNumber($model_sales_master, $data, $due_date, $today)) {
                                                 $transaction->commit();
+                                                $service = \common\models\Service::findOne($model_sales_master->busines_partner_code);
+                                                $service->estimated_price = $service->estimated_price + $model_sales_master->due_amount;
+                                                $service->due_amount = $service->due_amount + $model_sales_master->due_amount;
+                                                $service->save();
                                         } else {
                                                 $transaction->rollBack();
                                         }

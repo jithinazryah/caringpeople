@@ -72,8 +72,9 @@ class m170801_093944_create_staff_payment_table extends Migration {
                 $this->createTable('service_schedule_history', [
                     'id' => $this->primaryKey(),
                     'service_id' => $this->integer(),
+                    'type' => $this->integer()->comment('1=service create,2=add schedule,3=cancelled schedule'),
                     'schedules' => $this->integer(),
-                    'price' => $this->string(200),
+                    'price' => $this->decimal(10, 2),
                     'date' => $this->date(),
                 ]);
                 $this->createTable('invoice', [

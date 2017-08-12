@@ -72,13 +72,9 @@ class InvoiceController extends Controller {
                                         if ($model->save()) {
                                                 $service = Service::findOne($model->service_id);
                                                 $service->due_amount = $service->due_amount - $model->amount;
-                                                if ($service->update()) {
-                                                        exit('if');
-                                                } else {
-                                                        var_dump($service->getErrors());
-                                                        exit;
-                                                }
-                                                // return $this->redirect(['invoice']);
+                                                $service->estimated_price = $service->estimated_price - $model->amount;
+                                                $service->update();
+                                                return $this->redirect(['invoice']);
                                         }
                                 }
                         }
