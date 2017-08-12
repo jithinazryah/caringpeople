@@ -77,7 +77,6 @@ class InvoiceController extends Controller {
                                         if ($model->save()) {
                                                 $service = Service::findOne($model->service_id);
                                                 $service->due_amount = $service->due_amount - $model->amount;
-                                                $service->estimated_price = $service->estimated_price - $model->amount;
                                                 $service->update();
                                                 Yii::$app->SetValues->Accounts($model->branch_id, 3, $model->id, 2, 'Patient Invoice', 0, $model->amount, $model->DOC);
                                         }
@@ -87,6 +86,11 @@ class InvoiceController extends Controller {
                 } else {
                         throw new UserException('Error Code:  1003');
                 }
+        }
+
+        public function actionInvoicebill() {
+                return $this->render('invoice_bill', [
+                ]);
         }
 
         /**
