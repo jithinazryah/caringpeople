@@ -440,14 +440,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         $hours = $_POST['hours'];
                         $days = $_POST['days'];
 
-                        if ($frequency == 1 && ($duty_type == 3 || $duty_type == 4 || $duty_type == 5)) {
-                                $schedule_count = $add_days;
-                        } else if ($duty_type == 1) {
-                                $schedule_count = $add_days;
-                        } else {
-                                $schedule_count = $hours * $add_days;
-                        }
-
+                        $schedule_count = $add_days;
                         $service = Service::findOne($service_id);
                         $sschedules_all_count = ServiceSchedule::find()->where(['service_id' => $service->id])->count();
                         if ($sschedules_all_count > 0) {
@@ -540,7 +533,7 @@ class ServiceajaxController extends \yii\web\Controller {
 
 
                         if ($_POST['change_price'] == 'on') {
-                                $price = $add_days * $service->rate_card_value;
+                                $price = $rate;
                         } else {
                                 $price = 0;
                         }
@@ -623,14 +616,13 @@ class ServiceajaxController extends \yii\web\Controller {
                         if (isset($service->rate_card_value)) {
                                 $rate = $days * $service->rate_card_value;
                         }
+                } else if ($service->duty_type == 3 || $service->duty_type == 4 || $service->duty_type == 5) {
+
+                        $rate = $days * $service->rate_card_value;
                 } else {
 
                         $total_hours = $service->hours * $days;
-                        if ($pricetype == 2) {
-                                if ($service->duty_type != 1) {
-                                        $total_hours = $days * $days;
-                                }
-                        }
+
                         if (isset($service->rate_card_value)) {
                                 $rate = $total_hours * $service->rate_card_value;
                         }

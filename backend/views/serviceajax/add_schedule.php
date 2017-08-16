@@ -104,7 +104,7 @@ use yii\helpers\ArrayHelper;
 
                                         <div class="row" style="margin-left: 0px;">
                                                 <div class="col-md-6">
-                                                        <label>How many more <?= $count ?> you wish to add?     </label>
+                                                        <label>How many more schedules you wish to add?     </label>
                                                 </div>
                                                 <div class="col-md-6">
                                                         <input type="text" name="no_of_days" id="no_of_days" required>
