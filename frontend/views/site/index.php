@@ -632,7 +632,7 @@
                                                                                                         <div class="mkdf-ptfs-item">
                                                                                                                 <div class="mkdf-ptfs-item-image">
                                                                                                                         <a href="<?= Yii::$app->homeUrl; ?>services/speech-therapy">
-                                                                                                                                <img width="800" height="600" src="<?= Yii::$app->homeUrl; ?>images/services/dietician.jpg" class="attachment-wellspring_mikado_landscape size-wellspring_mikado_landscape wp-post-image" alt="p" /> </a>
+                                                                                                                                <img width="800" height="600" src="<?= Yii::$app->homeUrl; ?>images/services/speech.jpg" class="attachment-wellspring_mikado_landscape size-wellspring_mikado_landscape wp-post-image" alt="p" /> </a>
                                                                                                                 </div>
                                                                                                                 <div class="mkdf-ptfs-item-content">
                                                                                                                         <div class="mkdf-ptfs-item-icon-holder">
