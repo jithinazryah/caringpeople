@@ -376,6 +376,33 @@
 
                                                                                         </ul>
                                                                                         <ul class="mkdf-portfolio-slider-list" data-columns="3" data-enable-pagination="yes">
+
+                                                                                                <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1327 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
+                                                                                                        <div class="mkdf-ptfs-item">
+                                                                                                                <div class="mkdf-ptfs-item-image">
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/physiotherapy">
+                                                                                                                                <img width="800" height="600" src="<?= Yii::$app->homeUrl; ?>images/services/Physiotherapy.jpg" class="attachment-wellspring_mikado_landscape size-wellspring_mikado_landscape wp-post-image" alt="p" /> </a>
+                                                                                                                </div>
+                                                                                                                <div class="mkdf-ptfs-item-content">
+                                                                                                                        <div class="mkdf-ptfs-item-icon-holder">
+                                                                                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="icon-i-pharmacy  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                                                                        </div>
+                                                                                                                        <h5 class="mkdf-ptfs-item-title">
+                                                                                                                                <a href="<?= Yii::$app->homeUrl; ?>services/physiotherapy">Physiotherapy</a>
+                                                                                                                        </h5>
+                                                                                                                        <div class="mkdf-ptfs-item-excerpt-holder">
+                                                                                                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy ...</p>
+                                                                                                                        </div>
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/physiotherapy" target="_self" class="read-more mkdf-btn mkdf-btn-medium mkdf-btn-solid mkdf-btn-hover-outline">
+
+                                                                                                                                <span class="mkdf-btn-text">Read More</span>
+                                                                                                                        </a>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </li>
+
+
+
                                                                                                 <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1327 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
                                                                                                         <div class="mkdf-ptfs-item">
                                                                                                                 <div class="mkdf-ptfs-item-image">
@@ -399,6 +426,33 @@
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </li>
+                                                                                                <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1327 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
+                                                                                                        <div class="mkdf-ptfs-item">
+                                                                                                                <div class="mkdf-ptfs-item-image">
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/air-ambulance">
+                                                                                                                                <img width="800" height="600" src="<?= Yii::$app->homeUrl; ?>images/services/air-ambulance.png" class="attachment-wellspring_mikado_landscape size-wellspring_mikado_landscape wp-post-image" alt="p" /> </a>
+                                                                                                                </div>
+                                                                                                                <div class="mkdf-ptfs-item-content">
+                                                                                                                        <div class="mkdf-ptfs-item-icon-holder">
+                                                                                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="fa fa-plane  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                                                                        </div>
+                                                                                                                        <h5 class="mkdf-ptfs-item-title">
+                                                                                                                                <a href="<?= Yii::$app->homeUrl; ?>services/pharmacy">Air Ambulance</a>
+                                                                                                                        </h5>
+                                                                                                                        <div class="mkdf-ptfs-item-excerpt-holder">
+                                                                                                                                <p>We offer Air Ambulance Service to any destination in India in exclusive association with a leading air ambulance/air charter company. </p>
+                                                                                                                        </div>
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/air-ambulance" target="_self" class="read-more mkdf-btn mkdf-btn-medium mkdf-btn-solid mkdf-btn-hover-outline">
+
+                                                                                                                                <span class="mkdf-btn-text">Read More</span>
+                                                                                                                        </a>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </li>
+
+
+                                                                                        </ul>
+                                                                                        <ul class="mkdf-portfolio-slider-list" data-columns="3" data-enable-pagination="yes">
                                                                                                 <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1338 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
                                                                                                         <div class="mkdf-ptfs-item">
                                                                                                                 <div class="mkdf-ptfs-item-image">
@@ -422,6 +476,8 @@
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </li>
+
+
                                                                                                 <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1332 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
                                                                                                         <div class="mkdf-ptfs-item">
                                                                                                                 <div class="mkdf-ptfs-item-image">
@@ -445,9 +501,6 @@
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </li>
-
-                                                                                        </ul>
-                                                                                        <ul class="mkdf-portfolio-slider-list" data-columns="3" data-enable-pagination="yes">
                                                                                                 <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1325 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
                                                                                                         <div class="mkdf-ptfs-item">
                                                                                                                 <div class="mkdf-ptfs-item-image">
@@ -471,6 +524,9 @@
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </li>
+
+                                                                                        </ul>
+                                                                                        <ul class="mkdf-portfolio-slider-list" data-columns="3" data-enable-pagination="yes">
                                                                                                 <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1332 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
                                                                                                         <div class="mkdf-ptfs-item">
                                                                                                                 <div class="mkdf-ptfs-item-image">
@@ -494,6 +550,109 @@
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </li>
+
+                                                                                                <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1332 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
+                                                                                                        <div class="mkdf-ptfs-item">
+                                                                                                                <div class="mkdf-ptfs-item-image">
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/ambulance">
+                                                                                                                                <img width="800" height="600" src="<?= Yii::$app->homeUrl; ?>images/services/ambulance.png" class="attachment-wellspring_mikado_landscape size-wellspring_mikado_landscape wp-post-image" alt="p" /> </a>
+                                                                                                                </div>
+                                                                                                                <div class="mkdf-ptfs-item-content">
+                                                                                                                        <div class="mkdf-ptfs-item-icon-holder">
+                                                                                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="fa fa-ambulance  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                                                                        </div>
+                                                                                                                        <h5 class="mkdf-ptfs-item-title">
+                                                                                                                                <a href="<?= Yii::$app->homeUrl; ?>services/other-services">Ambulance</a>
+                                                                                                                        </h5>
+                                                                                                                        <div class="mkdf-ptfs-item-excerpt-holder">
+                                                                                                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy ...</p>
+                                                                                                                        </div>
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/ambulance" target="_self" class="read-more mkdf-btn mkdf-btn-medium mkdf-btn-solid mkdf-btn-hover-outline">
+
+                                                                                                                                <span class="mkdf-btn-text">Read More</span>
+                                                                                                                        </a>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </li>
+                                                                                                <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1332 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
+                                                                                                        <div class="mkdf-ptfs-item">
+                                                                                                                <div class="mkdf-ptfs-item-image">
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/councelling-psychologist">
+                                                                                                                                <img width="800" height="600" src="<?= Yii::$app->homeUrl; ?>images/services/other-services.jpg" class="attachment-wellspring_mikado_landscape size-wellspring_mikado_landscape wp-post-image" alt="p" /> </a>
+                                                                                                                </div>
+                                                                                                                <div class="mkdf-ptfs-item-content">
+                                                                                                                        <div class="mkdf-ptfs-item-icon-holder">
+                                                                                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="fa fa-medkit  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                                                                        </div>
+                                                                                                                        <h5 class="mkdf-ptfs-item-title">
+                                                                                                                                <a href="<?= Yii::$app->homeUrl; ?>services/other-services">Counselling </a>
+                                                                                                                        </h5>
+                                                                                                                        <div class="mkdf-ptfs-item-excerpt-holder">
+                                                                                                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy  ....</p>
+                                                                                                                        </div>
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/councelling-psychologist" target="_self" class="read-more mkdf-btn mkdf-btn-medium mkdf-btn-solid mkdf-btn-hover-outline">
+
+                                                                                                                                <span class="mkdf-btn-text">Read More</span>
+                                                                                                                        </a>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </li>
+
+
+                                                                                        </ul>
+
+                                                                                        <ul class="mkdf-portfolio-slider-list" data-columns="3" data-enable-pagination="yes">
+
+                                                                                                <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1332 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
+                                                                                                        <div class="mkdf-ptfs-item">
+                                                                                                                <div class="mkdf-ptfs-item-image">
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/dietitian">
+                                                                                                                                <img width="800" height="600" src="<?= Yii::$app->homeUrl; ?>images/services/dietician.jpg" class="attachment-wellspring_mikado_landscape size-wellspring_mikado_landscape wp-post-image" alt="p" /> </a>
+                                                                                                                </div>
+                                                                                                                <div class="mkdf-ptfs-item-content">
+                                                                                                                        <div class="mkdf-ptfs-item-icon-holder">
+                                                                                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="fa fa-medkit  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                                                                        </div>
+                                                                                                                        <h5 class="mkdf-ptfs-item-title">
+                                                                                                                                <a href="<?= Yii::$app->homeUrl; ?>services/dietitian">Dietitian</a>
+                                                                                                                        </h5>
+                                                                                                                        <div class="mkdf-ptfs-item-excerpt-holder">
+                                                                                                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy  ....</p>
+                                                                                                                        </div>
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/dietitian" target="_self" class="read-more mkdf-btn mkdf-btn-medium mkdf-btn-solid mkdf-btn-hover-outline">
+
+                                                                                                                                <span class="mkdf-btn-text">Read More</span>
+                                                                                                                        </a>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </li>
+
+
+                                                                                                <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1332 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
+                                                                                                        <div class="mkdf-ptfs-item">
+                                                                                                                <div class="mkdf-ptfs-item-image">
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/speech-therapy">
+                                                                                                                                <img width="800" height="600" src="<?= Yii::$app->homeUrl; ?>images/services/dietician.jpg" class="attachment-wellspring_mikado_landscape size-wellspring_mikado_landscape wp-post-image" alt="p" /> </a>
+                                                                                                                </div>
+                                                                                                                <div class="mkdf-ptfs-item-content">
+                                                                                                                        <div class="mkdf-ptfs-item-icon-holder">
+                                                                                                                                <i style="color: rgb(19, 168, 176);font-size: 43px;" class="fa fa-medkit  attachment-thumbnail size-thumbnail" aria-hidden="true"></i>
+                                                                                                                        </div>
+                                                                                                                        <h5 class="mkdf-ptfs-item-title">
+                                                                                                                                <a href="<?= Yii::$app->homeUrl; ?>services/speech-therapy">Speech Therapy</a>
+                                                                                                                        </h5>
+                                                                                                                        <div class="mkdf-ptfs-item-excerpt-holder">
+                                                                                                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy  ....</p>
+                                                                                                                        </div>
+                                                                                                                        <a href="<?= Yii::$app->homeUrl; ?>services/speech-therapy" target="_self" class="read-more mkdf-btn mkdf-btn-medium mkdf-btn-solid mkdf-btn-hover-outline">
+
+                                                                                                                                <span class="mkdf-btn-text">Read More</span>
+                                                                                                                        </a>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </li>
+
+
                                                                                                 <li class="mkdf-ptfs-item-holder mkdf-ptfs-item-with-icon post-1332 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-recepies">
                                                                                                         <div class="mkdf-ptfs-item">
                                                                                                                 <div class="mkdf-ptfs-item-image">
@@ -519,6 +678,9 @@
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </li>
+
+
+
                                                                                         </ul>
                                                                                 </div>
                                                                         </div>

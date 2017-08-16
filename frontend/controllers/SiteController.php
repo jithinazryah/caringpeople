@@ -52,7 +52,7 @@ class SiteController extends Controller {
     /**
      * @inheritdoc
      */
-     public function actions() {
+    public function actions() {
         return [
 //            'error' => [
 //                'class' => 'yii\web\ErrorAction',
@@ -150,16 +150,27 @@ class SiteController extends Controller {
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionContacts() {
+     public function actionContacts() {
         if (isset($_POST['contact-send'])) {
+            
             $model = new ContactUs();
             $model->first_name = $fname = $_POST['first-name'];
+            
             $model->email = $email = $_POST['email'];
             $model->phone = $email = $_POST['phone'];
             $model->message = $message = $_POST['message'];
-            $model->location = $message = $_POST['Location'];
+            $model->location = $location = $_POST['Location'];
+            $model->Service = $_POST['services'];
+                
+            
+            if ($_POST['allow_contact'] == 'on') {
+                $model->allow_contact = 1;
+            } else {
+                $model->allow_contact = 0;
+            }
             $model->date = date('Y-m-d');
             if ($model->save()) {
+                
                 $this->sendContactMail($model);
                 $this->sendResponseMail($model);
             }
@@ -191,9 +202,14 @@ class SiteController extends Controller {
      * @return mixed
      */
     public function sendContactMail($model) {
+        if ($model->allow_contact == 1) {
+            $allow_contact = 'Yes';
+        } else {
+            $allow_contact = 'No';
+        }
 
         $to = 'info@caringpeople.in,shintomaradikunnel@gmail.com';
-        // $to = 'surumiabin@gmail.com,manuko27@gmail.com';
+     //   $to = 'surumiabin@gmail.com,manuko27@gmail.com';
 // subject
         $subject = 'Enquiry From Website';
 
@@ -219,6 +235,13 @@ class SiteController extends Controller {
 <th>:-</th>
 
 <td>" . $model->last_name . "</td>
+    </tr>
+
+<tr>
+<th>Services</th>
+<th>:-</th>
+
+<td>" . $model->Service . "</td>
     </tr>
 
     <tr>
@@ -247,6 +270,11 @@ class SiteController extends Controller {
 
 </tr>
 <tr>
+<th>Allow Contact</th>
+<th>:-</th>
+<td>" . $allow_contact . "</td>
+
+</tr>
 
 
 </table>
@@ -366,7 +394,7 @@ class SiteController extends Controller {
                     'model' => $model,
         ]);
     }
-    
+
     public function actionError() {
 
         return $this->render('error');

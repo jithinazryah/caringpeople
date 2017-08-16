@@ -1,4 +1,3 @@
-
 <div class="mkdf-content">
     <div class="mkdf-content-inner">
         <div class="mkdf-title mkdf-standard-type mkdf-preload-background mkdf-has-background mkdf-has-parallax-background mkdf-content-center-alignment mkdf-animation-no mkdf-title-image-not-responsive" style="color:#ffffff;;background-image:url(images/banner/4.png);;height:385px;;border-bottom: none" data-height="385" data-background-width=&quot;1920&quot;>
@@ -72,10 +71,22 @@
 
                                     </a>
                                 </div>
+                                <div class="mkdf-portfolio-single-media vc_col-md-4 vc_col-sm-6  vc_col-xs-6">
+                                    <a title="Image-4" data-rel="prettyPhoto[single_pretty_photo]" href="<?= Yii::$app->homeUrl; ?>images/gallery/5.jpg">
+
+                                        <div class="mkdf-portfolio-gallery-text-holder">
+                                            <div class="mkdf-portfolio-gallery-text-holder-inner">
+                                                <h4>Image-4</h4>
+                                            </div>
+                                        </div>
+
+                                        <img src="<?= Yii::$app->homeUrl; ?>images/gallery/5.jpg" alt="p" />
+
+                                    </a>
+                                </div>
+
                             </div>
                         </div>
-
-
 
                     </div>
                 </div>

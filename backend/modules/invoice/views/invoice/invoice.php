@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Manage Invoice</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
 
                                         <?php $form = ActiveForm::begin(); ?>
                                         <div class="invoice-form form-inline">

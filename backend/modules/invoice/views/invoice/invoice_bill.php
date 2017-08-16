@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 text-align: center;
                                                                 font-size: 17px;
                                                         } .bill span{
-                                                                background: #e4e4e4;
+                                                                background-color:  #e4e4e4;
                                                                 padding: 12px 80px 11px 80px;
                                                                 border-radius: 5px;
                                                         }
@@ -103,14 +103,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         <tr>
                                                                 <td>Patient Name</td>
-                                                                <td>P N AjayKumar</td>
+                                                                <?php
+                                                                $patient_name = '';
+                                                                $patient_id = '';
+                                                                if (isset($model->patient_id)) {
+                                                                        $patient = \common\models\PatientGeneral::findOne($model->patient_id);
+                                                                        $patient_name = $patient->first_name . ' ' . $patient->last_name;
+                                                                        $patient_id = $patient->patient_id;
+                                                                }
+                                                                ?>
+                                                                <td><?= $patient_name ?></td>
                                                                 <td>Date</td>
-                                                                <td>21/07/2017</td>
+                                                                <td><?= date('d-m-Y', strtotime($model->DOC)) ?></td>
                                                         </tr>
 
                                                         <tr>
                                                                 <td>Patient ID</td>
-                                                                <td>231</td>
+                                                                <td><?= $patient_id; ?></td>
                                                                 <td>Ref No</td>
                                                                 <td></td>
                                                         </tr>
@@ -119,6 +128,69 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                 <table class="table table-bordered table-striped main-tabl second" style="margin-top: 50px;">
+
+                                                        <tr class="heading">
+                                                                <td>Sl.No</td>
+                                                                <td></td>
+                                                                <td>Amount</td>
+                                                                <td>Amount</td>
+                                                        </tr>
+
+                                                        <?php
+                                                        $service = common\models\Service::findOne($model->service_id);
+                                                        $service_detail = common\models\MasterServiceTypes::findOne($service->service);
+                                                        $service_name = $service_detail->service_name;
+                                                        ?>
+                                                        <tr>
+                                                                <td class="inside-table-td">1</td>
+                                                                <td><?= $service_name ?> <br>
+                                                                        <?php
+                                                                        $from = date('d-m-Y', strtotime($service->from_date));
+                                                                        $to = date('d-m-Y', strtotime($service->to_date));
+                                                                        ?>
+                                                                        <label><?= $from ?> to <?= $to ?></label>
+                                                                </td>
+                                                                <td></td>
+                                                                <td>27000</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td>2</td>
+                                                                <td>Registration Fees</td>
+                                                                <td></td>
+                                                                <td>500</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td></td>
+                                                                <td colspan="2" style="text-align:center">Bill Total</td>
+                                                                <td>27500</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td></td>
+                                                                <td colspan="2" style="text-align:center">Discount</td>
+                                                                <td></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td colspan="3" style="text-align:center"><b>Grand Total</b></td>
+                                                                <td>27500</td>
+                                                        </tr>
 
                                                 </table>
 
