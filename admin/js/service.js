@@ -574,13 +574,27 @@ $("document").ready(function () {
                         url: homeUrl + 'serviceajax/viewschedule',
                         data: {schedule_id: schedule_id},
                         success: function (data) {
-                                $("#modal-pop-up").html(data);
-                                $('#modal-6').modal('show', {backdrop: 'static'});
+                                $("#modal-2-pop-up").html(data);
+                                $('#modal-2').modal('show', {backdrop: 'static'});
                         }
                 });
         });
 
 
+
+        $(document).on('submit', '#schedule-daily-rate-update', function (e) {
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/updateschedule',
+                        data: data,
+                        success: function (data) {
+                                $('#modal-2').modal('hide');
+                                location.reload();
+                        }
+                });
+        });
 
 
 

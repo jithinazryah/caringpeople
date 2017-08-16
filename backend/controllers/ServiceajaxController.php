@@ -309,7 +309,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         $schedule_id = $_POST['schedule_id'];
                         $status = $_POST['status'];
                         $schedule = ServiceSchedule::findOne($schedule_id);
-                        $rate = $this->renderPartial('_daily_rate', ['schedule_id' => $schedule->id, 'status' => $status]);
+                        $rate = $this->renderPartial('_daily_rate', ['schedule_id' => $schedule->id, 'status' => $status, 'schedule' => $schedule]);
                         echo $rate;
                 }
         }
@@ -645,6 +645,19 @@ class ServiceajaxController extends \yii\web\Controller {
                         $schedule = ServiceSchedule::findOne($_POST['schedule_id']);
                         $view = $this->renderPartial('view_schedule', ['schedule' => $schedule]);
                         echo $view;
+                }
+        }
+
+        public function actionUpdateschedule() {
+                if (Yii::$app->request->isAjax) {
+                        $schedule_detail = ServiceSchedule::findOne($_POST['schedule_id']);
+                        $schedule_detail->remarks_from_staff = $_POST['remarks_staff'];
+                        $schedule_detail->remarks_from_manager = $_POST['remarks_manager'];
+                        $schedule_detail->rate = $_POST['rate'];
+                        $schedule_detail->patient_rate = $_POST['rate_patient'];
+                        $schedule_detail->time_in = $_POST['time_in'];
+                        $schedule_detail->time_out = $_POST['time_out'];
+                        $schedule_detail->update();
                 }
         }
 

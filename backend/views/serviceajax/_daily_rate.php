@@ -37,14 +37,19 @@ use yii\helpers\ArrayHelper;
                                         <div class="col-md-12 col-sm-6 col-xs-12">
 
                                                 <textarea id="ckeditor" class="remarks_staff" name="remarks_staff">
-                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
-                                                        <br><br>
-                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
-                                                        <br><br>
-                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
-                                                        <br><br>
-                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
-
+                                                        <?php
+                                                        if (Yii::$app->user->identity->post_id == '1' && !empty($schedule->remarks_from_staff)) {
+                                                                echo $schedule->remarks_from_staff;
+                                                        } else {
+                                                                ?>
+                                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
+                                                                        <br><br>
+                                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
+                                                                        <br><br>
+                                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
+                                                                        <br><br>
+                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
+                                                        <?php } ?>
                                                 </textarea>
                                         </div>
                                 </div>
@@ -59,7 +64,11 @@ use yii\helpers\ArrayHelper;
                                 </div>
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
-                                                <textarea  class="fields" name="remarks_manager" id="page_body"></textarea>
+                                                <textarea  class="fields" name="remarks_manager" id="page_body"><?php
+                                                        if (Yii::$app->user->identity->post_id == '1') {
+                                                                echo $schedule->remarks_from_manager;
+                                                        }
+                                                        ?></textarea>
                                         </div>
                                 </div>
 
@@ -70,7 +79,7 @@ use yii\helpers\ArrayHelper;
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                        <input type="text" id="time_in" name="time_in"  class="fields">
+                                                        <input type="text" id="time_in" name="time_in"  class="fields" <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->time_in ?>" <?php } ?>>
                                                 </div>
 
 
@@ -79,7 +88,7 @@ use yii\helpers\ArrayHelper;
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                        <input type="text" id="time_out" name="time_out"  class="fields">
+                                                        <input type="text" id="time_out" name="time_out"  class="fields" <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->time_out ?>" <?php } ?>>
                                                 </div>
                                         </div>
                                 </div>
@@ -91,7 +100,7 @@ use yii\helpers\ArrayHelper;
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                        <input type="text" id="rate_patient" name="rate_patient"  class="fields">
+                                                        <input type="text" id="rate_patient" name="rate_patient"  class="fields" <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->patient_rate ?>" <?php } ?>>
                                                 </div>
 
 
@@ -100,7 +109,7 @@ use yii\helpers\ArrayHelper;
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                        <input type="text" id="rate" name="rate"  class="fields">
+                                                        <input type="text" id="rate" name="rate"  class="fields"  <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->rate ?>" <?php } ?>>
                                                 </div>
                                         </div>
                                 </div>
