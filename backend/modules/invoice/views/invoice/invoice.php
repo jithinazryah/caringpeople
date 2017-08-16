@@ -179,7 +179,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         }
                                                                                         ?>
                                                                                         <tr >
-                                                                                                <td class="sub">ADDED <?= $added_schedule_days . ' ' . $count ?> <span style="color:red">( Extra Schedules )</span></td>
+                                                                                                <td class="sub">ADDED <?= $added_schedule_days . ' SCHEDULES' ?> <span style="color:red">( Extra Schedules )</span></td>
                                                                                                 <td><?= 'Rs. ' . number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
 
                                                                                         </tr>

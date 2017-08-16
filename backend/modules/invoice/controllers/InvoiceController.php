@@ -79,10 +79,11 @@ class InvoiceController extends Controller {
                                                 $service->due_amount = $service->due_amount - $model->amount;
                                                 $service->update();
                                                 Yii::$app->SetValues->Accounts($model->branch_id, 3, $model->id, 2, 'Patient Invoice', 0, $model->amount, $model->DOC);
+                                                Yii::$app->getSession()->setFlash('success', 'Amount paided successfully');
                                         }
                                 }
                         }
-                        return $this->redirect(['invoice']);
+                        return $this->redirect(['index']);
                 } else {
                         throw new UserException('Error Code:  1003');
                 }

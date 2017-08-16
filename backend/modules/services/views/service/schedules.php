@@ -67,8 +67,12 @@ use common\models\StaffInfo;
 
 
                                         if (isset($value->status) && $value->status != 1) {
-                                                $class = 'completed';
-                                                $class1 = 'hide-class';
+                                                if (Yii::$app->user->identity->post_id == '1') {
+                                                        $class = 'completed-admin';
+                                                } else {
+                                                        $class = 'completed';
+                                                        $class1 = 'hide-class';
+                                                }
                                         }
                                         ?>
                                         <tr  id="<?= $value->id; ?>" style="text-align:center" class="<?= $class; ?>">
@@ -298,7 +302,10 @@ use common\models\StaffInfo;
         }.completed{
                 background-color: #f6eeee !important;
                 pointer-events: none;
-        }.hide-class{
+        }.completed-admin{
+                background-color: #f6eeee !important;
+        }
+        .hide-class{
                 display: none !important;
         }.view_schedule{
                 pointer-events: auto;
