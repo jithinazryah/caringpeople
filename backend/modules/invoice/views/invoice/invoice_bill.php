@@ -140,9 +140,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         $service = common\models\Service::findOne($model->service_id);
                                                         $service_detail = common\models\MasterServiceTypes::findOne($service->service);
                                                         $service_name = $service_detail->service_name;
+                                                        $first_estimated_price = ServiceScheduleHistory::find()->select('price')->where(['service_id' => $model->service_id, 'type' => 1])->one();
+                                                        $count = 1;
                                                         ?>
                                                         <tr>
-                                                                <td class="inside-table-td">1</td>
+                                                                <td class="inside-table-td"><?=
+                                                                        $count;
+                                                                        $count++
+                                                                        ?></td>
                                                                 <td><?= $service_name ?> <br>
                                                                         <?php
                                                                         $from = date('d-m-Y', strtotime($service->from_date));
@@ -151,45 +156,102 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <label><?= $from ?> to <?= $to ?></label>
                                                                 </td>
                                                                 <td></td>
-                                                                <td>27000</td>
+                                                                <td style="text-align:right"><?= $first_estimated_price->price ?></td>
                                                         </tr>
 
-                                                        <tr>
-                                                                <td>2</td>
-                                                                <td>Registration Fees</td>
-                                                                <td></td>
-                                                                <td>500</td>
-                                                        </tr>
+
+
+                                                        <?php
+                                                        ///////////////////////////////////////////materials added//////////////////////////////
+                                                        $materials_used_amount = 0;
+                                                        $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $model->service_id])->all();
+                                                        foreach ($materials_used as $materials_used) {
+                                                                $materials_used_amount += $materials_used->due_amount;
+                                                        }
+
+                                                        if ($materials_used_amount > 0) {
+                                                                ?>
+                                                                <tr>
+                                                                        <td><?=
+                                                                                $count;
+                                                                                $count++
+                                                                                ?></td>
+                                                                        <td>Materials Used</td>
+                                                                        <td></td>
+                                                                        <td style="text-align:right"><?= number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
+
+                                                                </tr>
+                                                        <?php } ?>
+
+
+                                                        <?php
+                                                        $added_schedules_count = 0;
+                                                        $added_schedules_amount = 0;
+                                                        $added_schedule_days = 0;
+                                                        $price = 0;
+                                                        $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
+                                                        foreach ($added_schedules as $added_schedules) {
+                                                                $added_schedules_count++;
+                                                                $added_schedules_amount += $added_schedules->price;
+                                                                $added_schedule_days += $added_schedules->schedules;
+                                                        }
+
+                                                        if ($added_schedules_count > 0 && $added_schedules_amount > 0) {
+                                                                ?>
+                                                                <tr>
+                                                                        <td><?=
+                                                                                $count;
+                                                                                $count++
+                                                                                ?></td>
+                                                                        <td class="sub"> Extra Schedules</td>
+                                                                        <td></td>
+                                                                        <td style="text-align:right"><?= number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
+
+                                                                </tr>
+                                                        <?php } ?>
+
+
+
 
                                                         <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                        </tr>
-
-                                                        <tr>
+                                                                <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount; ?>
                                                                 <td></td>
                                                                 <td colspan="2" style="text-align:center">Bill Total</td>
-                                                                <td>27500</td>
+                                                                <td style="text-align:right"><?= number_format((float) $total_amount, 2, '.', ''); ?></td>
                                                         </tr>
 
                                                         <tr>
+                                                                <?php
+                                                                $discount_amount = 0;
+                                                                $dicounts = ServiceDiscounts::find()->where(['service_id' => $model->service_id])->all();
+                                                                foreach ($dicounts as $dicounts) {
+                                                                        $discount_amount += $dicounts->discount_value;
+                                                                }
+                                                                ?>
                                                                 <td></td>
                                                                 <td colspan="2" style="text-align:center">Discount</td>
-                                                                <td></td>
+                                                                <td style="text-align:right"><?= number_format((float) $discount_amount, 2, '.', ''); ?></td>
                                                         </tr>
 
                                                         <tr>
+                                                                <?php $grand_total = $total_amount - $discount_amount ?>
                                                                 <td colspan="3" style="text-align:center"><b>Grand Total</b></td>
-                                                                <td>27500</td>
+                                                                <td style="text-align:right"><?= number_format((float) $grand_total, 2, '.', ''); ?></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
+                                                                <td style="text-align:right"><?= number_format((float) $model->amount, 2, '.', ''); ?></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                                <td colspan="3" style="text-align:center"><b>Total Amount Paid</b></td>
+                                                                <?php
+                                                                $amount_paid = common\models\Invoice::find()->where(['service_id' => $model->service_id])->sum('amount');
+                                                                if (empty($amount_paid))
+                                                                        $amount_paid = 0;
+                                                                ?>
+                                                                <td style="text-align:right"><?= number_format((float) $amount_paid, 2, '.', ''); ?></td>
                                                         </tr>
 
                                                 </table>
