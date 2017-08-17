@@ -22,6 +22,7 @@ AppAssetLogin::register($this);
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta name="description" content="Xenon Boostrap Admin Panel" />
                 <meta name="author" content="" />
+                <link rel="icon" href="<?= Yii::$app->homeUrl; ?>images/f-logo.png" sizes="40x40" />
                 <title><?= Html::encode($this->title) ?></title>
 
 

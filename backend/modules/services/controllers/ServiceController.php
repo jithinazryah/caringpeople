@@ -285,18 +285,42 @@ class ServiceController extends Controller {
          * @return mixed
          */
         public function actionDelete($id) {
-                $model = $this->findModel($id);
-                $schedule = ServiceSchedule::find()->where(['service_id' => $id])->count();
+                $service = $this->findModel($id);
+                $service_schedules = ServiceSchedule::findAll(['service_id' => $id]);
+                $service_discounts = ServiceDiscounts::findAll(['service_id' => $id]);
+                $service_schedule_history = \common\models\ServiceScheduleHistory::findAll(['service_id' => $id]);
 
-                if ($schedule == 0) {
-                        $delete = $this->findModel($id)->delete();
+
+                $transaction = Service::getDb()->beginTransaction();
+                try {
+                        if (!empty($service_schedules)) {
+                                foreach ($service_schedules as $value) {
+                                        $value->delete();
+                                }
+                        }
+                        if (!empty($service_discounts)) {
+                                foreach ($service_discounts as $value1) {
+                                        $value1->delete();
+                                }
+                        }
+
+                        if (!empty($service_schedule_history)) {
+                                foreach ($service_schedule_history as $value2) {
+                                        $value2->delete();
+                                }
+                        }
+                        $service->delete();
+
+                        // ...other DB operations...
+                        $transaction->commit();
+                } catch (\Exception $e) {
+                        $transaction->rollBack();
+                        throw $e;
+                } catch (\Throwable $e) {
+                        $transaction->rollBack();
+                        throw $e;
                 }
-
-
-                if ($delete == '1')
-                        Yii::$app->getSession()->setFlash('success', 'succuessfully deleted');
-                else
-                        Yii::$app->getSession()->setFlash('error', 'Oops! This  service cannot delete');
+                Yii::$app->getSession()->setFlash('success', 'Deleted succuessfully');
                 return $this->redirect(['index']);
         }
 
