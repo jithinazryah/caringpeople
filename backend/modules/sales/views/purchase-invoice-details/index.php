@@ -61,10 +61,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'attribute' => 'busines_partner_code',
                                                     'value' => function($data) {
                                                             if (isset($data->busines_partner_code)) {
-                                                                    //  return BusinessPartner::findOne(['id' => $data->busines_partner_code])->name;
+                                                                    return BusinessPartner::findOne(['id' => $data->busines_partner_code])->name;
                                                             }
                                                     },
-                                                    //  'filter' => ArrayHelper::map(BusinessPartner::find()->asArray()->all(), 'id', 'name'),
+                                                    'filter' => ArrayHelper::map(BusinessPartner::find()->where(['type' => 1])->asArray()->all(), 'id', 'name'),
                                                     'filterOptions' => array('id' => "sales_partner"),
                                                 ],
                                                 'order_amount',

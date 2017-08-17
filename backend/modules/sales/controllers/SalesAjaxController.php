@@ -67,6 +67,7 @@ class SalesAjaxController extends \yii\web\Controller {
                                                 } else {
                                                         $price = $item_datas->purchase_price;
                                                 }
+
                                                 $uom = \common\models\BaseUnit::findOne(['id' => $item_datas->base_unit_id])->value;
                                                 $tax = \common\models\Tax::findOne(['id' => $item_datas->tax_id]);
                                                 $arr_variable = array('item-type' => $item_datas->item_type, 'UOM' => $uom, 'tax-amount' => $tax->value, 'base_unit' => $item_datas->base_unit_id, 'tax_type' => $tax->type, 'next_row_html' => $next_row, 'next' => $next, 'item_rate' => $price, 'tax_id' => $tax->id, 'existing_stock' => $existing_stock);

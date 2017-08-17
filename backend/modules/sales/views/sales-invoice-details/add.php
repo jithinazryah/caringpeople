@@ -167,27 +167,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <tr class="filter" id="item-row-1">
 
                                                         <td>
+                                                                <?php
+                                                                $items = ItemMaster::find()->where(['status' => 1])->all();
+                                                                ?>
                                                                 <div class="form-group field-salesinvoicedetails-item_code has-success">
 
-                                                                        <div class="frmSearch auto-search auto-complete-item" id="auto-complete1" style="position: relative;" afterfunction="">
-                                                                                <div class="search-drop" style="text-align: left;" id="salesinvoicedetails-itemss-1">
-                                                                                        <input type="text" id="salesinvoicedetails-items-1" class="form-control selected-data-name salesinvoicedetails-items add-next" placeholder="Select Item" itemid="1" data_val="" autocomplete="off"/>
-                                                                                </div>
-                                                                                <input type="text" value="" placeholder="Comments" class="form-control salesinvoicedetails-item_comment bill-comment" id="salesinvoicedetails-item-comment-1" name="SalesInvoiceDetailsItemComment[1]" autocomplete="off" style="display:none;"/>
-                                                                                <div id="" class="suggesstion-box">
-                                                                                        <div class="row suggesstion-box-sub">
-                                                                                                <div class="col-md-12>">
-                                                                                                        <ul id="" class="search-resut-list">
-                                                                                                                <li style="text-align: center;height: 85px;margin-top: 9%;background-color: white;">
-                                                                                                                        <img style="width: 24%;" src="<?= Yii::$app->homeUrl; ?>images/loading_dots.gif" />
-                                                                                                                </li>
-                                                                                                        </ul>
-                                                                                                </div>
-                                                                                                <a href="" class="item-pop-up-link" id="item-1"><div class="col-md-12 new-link-box">+ Add New Item</div></a>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <input type="hidden" value="" placeholder="" class="form-control salesinvoicedetails-item_code hideen-value" id="salesinvoicedetails-item-code-1" name="SalesInvoiceDetailsItem[1]" readonly/>
-                                                                        </div>
+
+                                                                        <input type="hidden" value="" placeholder="" class="form-control salesinvoicedetails-item_code hideen-value" id="salesinvoicedetails-item-code-1" name="SalesInvoiceDetailsItem[1]" readonly/>
+
+                                                                        <select id="salesinvoicedetails-items-1" class="form-control selected-data-name salesinvoicedetails-items add-next" name="SalesInvoiceDetailsItem[1]" aria-invalid="false">
+                                                                                <option value="">-Choose a Item-</option>
+                                                                                <?php foreach ($items as $value) { ?>
+                                                                                        <option value="<?= $value->id ?>"><?= $value->item_name ?></option>
+                                                                                <?php }
+                                                                                ?>
+                                                                        </select>
                                                                 </div>
 
                                                         </td>
@@ -372,6 +366,14 @@ $this->params['breadcrumbs'][] = $this->title;
 <script src="<?= Yii::$app->homeUrl ?>js/inputmask/jquery.inputmask.bundle.js"></script>
 <script>
         $(document).ready(function () {
+                $(".salesinvoicedetails-items").select2({
+                        //placeholder: 'Select your country...',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
 
                 $("#auto-complete").select({
                         id: "auto-complete",

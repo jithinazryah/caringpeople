@@ -316,7 +316,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                                         <?= Html::a('Stock Report', ['/stock/stock-view/index'], ['class' => 'title']) ?>
                                                                                 </li>
                                                                                 <li>
-                                                                                        <?= Html::a('Stock Adjustment', ['stock/stock-adj-dtl/index'], ['class' => 'title']) ?>
+                                                                                        <?= Html::a('Stock Adjustment', ['/stock/stock-adj-dtl/index'], ['class' => 'title']) ?>
                                                                                 </li>
 
                                                                         </ul>

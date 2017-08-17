@@ -156,9 +156,6 @@ class SalesInvoiceDetailsController extends Controller {
                                 try {
                                         if ($model_sales_master->save() && $this->AddSalesDetails($arr, $model_sales_master) && $this->UpdateSerialNumber($model_sales_master, $data, $due_date, $today)) {
                                                 $transaction->commit();
-                                                $service = \common\models\Service::findOne($model_sales_master->busines_partner_code);
-                                                $service->due_amount = $service->due_amount + $model_sales_master->due_amount;
-                                                $service->save();
                                         } else {
                                                 $transaction->rollBack();
                                         }
@@ -506,11 +503,11 @@ class SalesInvoiceDetailsController extends Controller {
                         $arr[$i]['SalesInvoiceDetailsLineTotal'] = $val;
                         $i++;
                 }
-                $i = 0;
-                foreach ($data['SalesInvoiceDetailsItemComment'] as $val) {
-                        $arr[$i]['SalesInvoiceDetailsItemComment'] = $val;
-                        $i++;
-                }
+//                $i = 0;
+//                foreach ($data['SalesInvoiceDetailsItemComment'] as $val) {
+//                        $arr[$i]['SalesInvoiceDetailsItemComment'] = $val;
+//                        $i++;
+//                }
                 return $arr;
 //        $this->AddSalesDetails($arr, $model_sales_master);
         }
@@ -557,7 +554,7 @@ class SalesInvoiceDetailsController extends Controller {
                                 $aditional->tax_type = $tax->type;
                                 $aditional->tax_percentage = $tax->value;
                                 $aditional->line_total = $val['SalesInvoiceDetailsLineTotal'];
-                                $aditional->comments = $val['SalesInvoiceDetailsItemComment'];
+                                //  $aditional->comments = $val['SalesInvoiceDetailsItemComment'];
                                 $aditional->status = 1;
                                 $aditional->CB = Yii::$app->user->identity->id;
                                 $aditional->UB = Yii::$app->user->identity->id;

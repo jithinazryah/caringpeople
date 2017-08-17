@@ -350,11 +350,11 @@ class PurchaseInvoiceDetailsController extends Controller {
                         $arr[$i]['SalesInvoiceDetailsLineTotal'] = $val;
                         $i++;
                 }
-                $i = 0;
-                foreach ($data['SalesInvoiceDetailsItemComment'] as $val) {
-                        $arr[$i]['SalesInvoiceDetailsItemComment'] = $val;
-                        $i++;
-                }
+//                $i = 0;
+//                foreach ($data['SalesInvoiceDetailsItemComment'] as $val) {
+//                        $arr[$i]['SalesInvoiceDetailsItemComment'] = $val;
+//                        $i++;
+//                }
                 return $arr;
         }
 
@@ -400,7 +400,7 @@ class PurchaseInvoiceDetailsController extends Controller {
                                 $aditional->tax_type = $tax->type;
                                 $aditional->tax_percentage = $tax->value;
                                 $aditional->line_total = $val['SalesInvoiceDetailsLineTotal'];
-                                $aditional->comments = $val['SalesInvoiceDetailsItemComment'];
+                                //  $aditional->comments = $val['SalesInvoiceDetailsItemComment'];
 //            $aditional->line_total = $aditional->amount + $aditional->tax_amount - $aditional->discount_value;
                                 $aditional->status = 1;
                                 $aditional->CB = Yii::$app->user->identity->id;

@@ -52,6 +52,7 @@ class SalesInvoiceMaster extends \yii\db\ActiveRecord {
                         [['sales_invoice_number', 'ship_to_adress', 'reference', 'error_message'], 'string', 'max' => 50],
                         [['sales_invoice_number'], 'unique'],
                         [['payment_terms', 'delivery_terms'], 'string', 'max' => 30],
+                        [['busines_partner_code'], 'required']
                 ];
         }
 

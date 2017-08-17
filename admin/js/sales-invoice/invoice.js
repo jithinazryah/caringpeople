@@ -6,9 +6,6 @@
 //var globalJsonVar;
 
 $(document).ready(function () {
-//    $(function () {
-//        loadajax();
-//    });
 
         $(document).on('keydown', '.salesinvoicedetails-qty,.salesinvoicedetails-rate,.salesinvoicedetails-discount,.salesinvoicedetails-line_total,.salesinvoicedetails-item_comment,#round_of,#cash_amount,#card_amount,#payed_amount,#balance,#due-date,#salesinvoicemaster-reference,#invoice_dates,#salesinvoicemaster-sales_invoice_number,#salesinvoicemaster-salesman,#salesreturninvoicemaster-sales_invoice_number,#salesreturninvoicemaster-reference,#qty_total,#discount_sub_total,#tax_sub_total,#order_sub_total,#purchaseinvoicemaster-salesman,#purchaseinvoicemaster-reference', function (event) {
                 if (event.keyCode == 13) {
@@ -27,7 +24,8 @@ $(document).ready(function () {
 
                 }
         });
-        $(document).on('.salesinvoicedetails-items', function (e) {
+        //$(document).on('.salesinvoicedetails-items', function (e) {
+        $(document).on('keydown.autocomplete', '.salesinvoicedetails-items', function (e) {
 
 //    $(".salesinvoicedetails-items").autocomplete({
                 $(this).autocomplete({
@@ -59,22 +57,23 @@ $(document).ready(function () {
          * return base unit and tax depends on the item
          */
 
-        $(document).on('DOMSubtreeModified', '.salesinvoicedetails-items', function (e) {
-
+        // $(document).on('DOMSubtreeModified', '.salesinvoicedetails-items', function (e) {
+        $(document).on('change', '.salesinvoicedetails-items', function (e) {
                 if ($(this).text() != '') {
                         var flag = 0;
                         var count = 0;
                         var bill_type = $('#bill_type').val();
                         var current_row_id = $(this).attr('id').match(/\d+/); // 123456
                         var next_row_id = $('#next_item_id').val();
-                        var item_id = $(this).attr("data_val");
+                        var item_id = $(this).val();
                         var next = parseInt(next_row_id) + 1;
                         if (bill_type == 1 || bill_type == 4) {
                                 var method_name = 'get-autocomplte-itemss';
                                 var row_count = $('#next_item_id').val();
                                 if (row_count > 1) {
                                         for (i = 1; i <= row_count; i++) {
-                                                var item_val = $('#salesinvoicedetails-item-code-' + i).val();
+                                                var item_val = $('#salesinvoicedetails-items-' + i).val();
+
                                                 if (item_val == item_id) {
                                                         count = count + 1;
                                                 }
@@ -98,7 +97,7 @@ $(document).ready(function () {
                         } else {
                                 alert('This Item is already Choosed');
                                 $('#salesinvoicedetails-items-' + current_row_id).attr('data_val', '');
-                                $('#salesinvoicedetails-items-' + current_row_id).text('');
+//                                $('#salesinvoicedetails-items-' + current_row_id).text('');
                                 $('#salesinvoicedetails-items-' + current_row_id).val('');
                                 $('#salesinvoicedetails-item-code-' + current_row_id).val('');
                                 e.preventDefault();
@@ -120,7 +119,7 @@ $(document).ready(function () {
                 var qty = $('#salesinvoicedetails-qty-' + current_row_id).val();
                 var rate = $('#salesinvoicedetails-rate-' + current_row_id).val();
                 var bill_type = $('#bill_type').val();
-                if (qty != "" && rate != "" && item != "") {
+                if (qty != "" && rate != "") {
                         if (bill_type == 1 || bill_type == 4) {
                                 var data = $('#sales-qty-count-' + current_row_id).val();
                                 if (parseInt(qty) > parseInt(data)) {
@@ -144,7 +143,7 @@ $(document).ready(function () {
                 var tax_type = $('#tax-type-' + current_row_id).val();
                 var tax = $('#salesinvoicedetails-tax_percentage-' + current_row_id).val();
                 var percentage = $('#salesinvoicedetails-discount_percentage-' + current_row_id).val();
-                if (qty != "" && rate != "" && item != "") {
+                if (qty != "" && rate != "") {
                         var amount = qty * rate;
                         var discount_amount = (amount * percentage) / 100;
                         $('#salesinvoicedetails-discount_amount-' + current_row_id).val(discount_amount);
@@ -157,7 +156,7 @@ $(document).ready(function () {
                 var item = $('#salesinvoicedetails-item-code-' + current_row_id).val();
                 var qty = $('#salesinvoicedetails-qty-' + current_row_id).val();
                 var rate = $('#salesinvoicedetails-rate-' + current_row_id).val();
-                if (qty != "" && rate != "" && item != "") {
+                if (qty != "" && rate != "") {
                         lineTotalAmount(current_row_id);
                 }
 
@@ -167,7 +166,7 @@ $(document).ready(function () {
                 var item = $('#salesinvoicedetails-item-code-' + current_row_id).val();
                 var qty = $('#salesinvoicedetails-qty-' + current_row_id).val();
                 var rate = $('#salesinvoicedetails-rate-' + current_row_id).val();
-                if (qty != "" && rate != "" && item != "") {
+                if (qty != "" && rate != "") {
                         lineTotalAmount(current_row_id);
                 }
 
@@ -266,6 +265,12 @@ $(document).ready(function () {
                                 $('.salesinvoicedetails-qty').attr('type', 'number');
                                 $('.salesinvoicedetails-qty').attr('min', 1);
                                 $('#salesinvoicedetails-items-' + rowCount).removeClass("add-next");
+                                $('#salesinvoicedetails-items-' + next).select2({
+                                        allowClear: true
+                                }).on('select2-open', function ()
+                                {
+                                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                });
                                 $("#auto-complete" + next).select({
                                         id: "auto-complete" + next,
                                         method_name: "get-autocomplte-items",
@@ -334,6 +339,7 @@ function itemChange(item_id, current_row_id, next_row_id) {
                 url: homeUrl + 'sales/sales-ajax/item-details',
                 success: function (data) {
                         if (data != 1) {
+
                                 var res = $.parseJSON(data);
                                 console.log(res);
                                 $('#salesinvoicedetails-item-comment-' + current_row_id).css('display', 'block');
@@ -352,9 +358,6 @@ function itemChange(item_id, current_row_id, next_row_id) {
                                 $("#salesinvoicedetails-rate-" + current_row_id).val(res.result['item_rate']);
                                 var iddd = '#salesinvoicedetails-tax-' + current_row_id;
                                 $("" + iddd + " option[value='" + res.result['tax_id'] + "']").prop('selected', true);
-//            if (res.result['UOM'] != "" && res.result['base_unit'] != "") {
-//                Rate(res.result['base_unit'], current_row_id);
-//            }
                                 if ($('#salesinvoicedetails-qty-' + current_row_id).val() != "" && $("#salesinvoicedetails-rate-" + current_row_id).val() != "") {
                                         lineTotalAmount(current_row_id);
                                 }
@@ -364,6 +367,12 @@ function itemChange(item_id, current_row_id, next_row_id) {
                                         $('.salesinvoicedetails-qty').attr('type', 'number');
                                         $('.salesinvoicedetails-qty').attr('min', 1);
                                         $('#salesinvoicedetails-items-' + current_row_id).removeClass("add-next");
+                                        $('#salesinvoicedetails-items-' + next).select2({
+                                                allowClear: true
+                                        }).on('select2-open', function ()
+                                        {
+                                                $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                                        });
                                 }
                         } else {
                                 $('#salesinvoicedetails-items-' + current_row_id).attr('data_val', '');
@@ -407,7 +416,6 @@ function Rate(base_unit, current_row_id) {
 }
 
 function lineTotalAmount(current_row_id) {
-
         var tax_amount = 0;
         var discount_amount = 0;
         var qty = $('#salesinvoicedetails-qty-' + current_row_id).val();
@@ -418,7 +426,6 @@ function lineTotalAmount(current_row_id) {
         var discount_type = $('#salesinvoicedetails-discount-type-' + current_row_id).val();
 
         var amount = qty * rate;
-
         if (discount != "") {
 
                 if (discount_type == 0) {
