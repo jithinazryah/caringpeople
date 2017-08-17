@@ -91,12 +91,12 @@ class InvoiceController extends Controller {
 
         public function actionInvoicebill($id) {
                 $model = $this->findModel($id);
-                $this->renderPartial('invoice_bill', [
+                echo $this->renderPartial('invoice_bill', [
                     'model' => $model,
                 ]);
-                return $this->render('invoice_bill', [
-                            'model' => $model,
-                ]);
+                //    return $this->render('invoice_bill', [
+                //              'model' => $model,
+                //   ]);
         }
 
         /**

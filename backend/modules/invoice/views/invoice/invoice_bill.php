@@ -9,277 +9,330 @@ use common\models\ServiceScheduleHistory;
 use common\models\ServiceSchedule;
 use common\models\ServiceDiscounts;
 use common\models\SalesInvoiceMaster;
-
-/* @var $this yii\web\View */
-/* @var $searchModel common\models\InvoiceSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Invoice';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="invoice-index">
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!--<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>-->
+<div id="print">
+        <link rel="stylesheet" href="<?= Yii::$app->homeUrl ?>css/invoice.css">
+        <style type="text/css">
 
-        <div class="row">
-                <div class="col-md-12">
+                @media print {
+                        thead {display: table-header-group;}
+                        tfoot {display: table-footer-group}
+                        /*tfoot {position: absolute;bottom: 0px;}*/
+                        .main-tabl{width: 100%}
+                        .footer {position: fixed ; left: 0px; bottom: 20px; right: 0px; font-size:10px; }
+                        body h6,h1,h2,h3,h4,h5,p,b,tr,td,span,th,div{
+                                color:#525252 !important;
+                        }
+                        .header{
+                                font-size: 12.5px;
+                                display: inline-block;
+                                width: 100%;
+                        }
+                        .main-left{
+                                padding-top: 12px;
+                                float: left;
+                        }
+                        .main-right{
+                                float: right;
+                        }
+                        table.table{
+                                border-collapse: collapse;
+                                width:100%;
+                        }
+                        table td{
+                                text-align: center;
+                        }
+                        body {-webkit-print-color-adjust: exact;}
 
-                        <div class="panel panel-default">
-                                <div class="panel-heading">
-                                        <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+                }
+                @media screen{
+                        .main-tabl{
+                                width: 60%;
+                        }
+                        .table {
+                                width: 60% !important;
+                        }
+                }
+                .print{
+                        margin-top: 18px;
+                        margin-left: 315px;
+                }
+                footer {
+                        width: 100%;
+                        position: absolute;
+                        bottom: 0px;
+                }
+                .tax-declarations p{
+                        font-size: 12px;
+                        line-height: 18px;
+                }
+                .bill{
+                        text-align: center;
+                        font-size: 17px;
+                } .bill span{
+                        background-color:  #e4e4e4;
+                        padding: 12px 80px 11px 80px;
+                        border-radius: 5px;
+                }  .table {
+                        border-collapse: collapse;
+                        font-size: 12px;
+                        margin-top:20px !important;
+                        margin:auto;
+                }
 
-
-                                </div>
-
-                                <div class="panel-body">
-                                        <div id="print">
-
-                                                <style>
-                                                        .print{
-                                                                text-align: center;
-                                                                margin-top: 18px;
-                                                        }
-                                                        .main-tabl{
-                                                                margin: auto;
-                                                        }.company_address{
-                                                                text-align:center;
-                                                                font-size: 10px;
-                                                                font-weight: normal;
-                                                        }.bill{
-                                                                text-align: center;
-                                                                font-size: 17px;
-                                                        } .bill span{
-                                                                background-color:  #e4e4e4;
-                                                                padding: 12px 80px 11px 80px;
-                                                                border-radius: 5px;
-                                                        }
-
-                                                        @media screen {
-                                                                .second{
-                                                                        width: 50%;
-                                                                }                                                        }
-                                                        </style>
-
-                                                        <table border ="0"  class="main-tabl" border="0" >
-                                                        <thead>
-                                                                <tr>
-                                                                        <th style="width:100%">
-                                                                                <div class="header">
-                                                                                        <div class="main-left">
-                                                                                                <div>
-                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/logos/logo-1.png" height="100"/>
-                                                                                                </div>
-                                                                                                <div style="">
-                                                                                                        <table style="width:100%">
-                                                                                                                <tr><td  class="company_address">Door No.5, DD Vyapar Bhavan, K.P Vallon Road, Kavandthra Jn</td></tr>
-                                                                                                                <tr><td class="company_address">Kochi-20 | Tel:0484 4033505</td></tr>
-                                                                                                                <tr><td class="company_address">www.caringpeople.in , Email :info@caringpeople.in , Helpline No: 90 20 599 599</td></tr>
-                                                                                                        </table>
-                                                                                                </div>
-                                                                                        </div>
-
-                                                                                        <br/>
-                                                                                </div>
-
-                                                                        </th>
-                                                                </tr>
-
-                                                                <tr>
-                                                                        <td class="bill">
-                                                                                <div>
-                                                                                        <span>BILL</span>
-                                                                                </div>
-                                                                        </td>
-                                                                </tr>
-
-                                                        </thead>
-                                                </table>
-
-
-                                                <table class="table table-bordered table-striped main-tabl second" style="margin-top: 50px;">
-                                                        <tr>
-                                                                <td colspan="2"> To,</td>
-                                                                <td>Bill No</td>
-                                                                <td>CPC 109/17-18</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <td>Patient Name</td>
-                                                                <?php
-                                                                $patient_name = '';
-                                                                $patient_id = '';
-                                                                if (isset($model->patient_id)) {
-                                                                        $patient = \common\models\PatientGeneral::findOne($model->patient_id);
-                                                                        $patient_name = $patient->first_name . ' ' . $patient->last_name;
-                                                                        $patient_id = $patient->patient_id;
-                                                                }
-                                                                ?>
-                                                                <td><?= $patient_name ?></td>
-                                                                <td>Date</td>
-                                                                <td><?= date('d-m-Y', strtotime($model->DOC)) ?></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <td>Patient ID</td>
-                                                                <td><?= $patient_id; ?></td>
-                                                                <td>Ref No</td>
-                                                                <td></td>
-                                                        </tr>
-
-                                                </table>
-
-
-                                                <table class="table table-bordered table-striped main-tabl second" style="margin-top: 50px;">
-
-                                                        <tr class="heading">
-                                                                <td>Sl.No</td>
-                                                                <td></td>
-                                                                <td>Amount</td>
-                                                                <td>Amount</td>
-                                                        </tr>
-
-                                                        <?php
-                                                        $service = common\models\Service::findOne($model->service_id);
-                                                        $service_detail = common\models\MasterServiceTypes::findOne($service->service);
-                                                        $service_name = $service_detail->service_name;
-                                                        $first_estimated_price = ServiceScheduleHistory::find()->select('price')->where(['service_id' => $model->service_id, 'type' => 1])->one();
-                                                        $count = 1;
-                                                        ?>
-                                                        <tr>
-                                                                <td class="inside-table-td"><?=
-                                                                        $count;
-                                                                        $count++
-                                                                        ?></td>
-                                                                <td><?= $service_name ?> <br>
-                                                                        <?php
-                                                                        $from = date('d-m-Y', strtotime($service->from_date));
-                                                                        $to = date('d-m-Y', strtotime($service->to_date));
-                                                                        ?>
-                                                                        <label><?= $from ?> to <?= $to ?></label>
-                                                                </td>
-                                                                <td></td>
-                                                                <td style="text-align:right"><?= $first_estimated_price->price ?></td>
-                                                        </tr>
+                .table, .table td{
+                        border: 1px solid #eee;
+                } .print_btn{
+                        font-weight: bold !important;
+                        color: #fff;
+                        border-color: #80b636;
+                        cursor: pointer;
+                        border: 1px solid transparent;
+                        padding: 6px 12px;
+                        font-size: 13px;
+                        line-height: 1.42857143;
+                } .print_btn_color{
+                        background-color: #8dc63f;
+                } .close_btn_color{
+                        background-color: #b60d14;
+                }
 
 
 
-                                                        <?php
-                                                        ///////////////////////////////////////////materials added//////////////////////////////
-                                                        $materials_used_amount = 0;
-                                                        $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $model->service_id])->all();
-                                                        foreach ($materials_used as $materials_used) {
-                                                                $materials_used_amount += $materials_used->due_amount;
-                                                        }
+        </style>
+        <!--    </head>
+            <body >-->
+        <table border ="0"  class="main-tabl" border="0">
+                <thead>
+                        <tr>
+                                <th style="width:100%">
+                                        <div class="header">
+                                                <div class="">
+                                                        <div>
+                                                                <img src="<?= Yii::$app->homeUrl ?>images/logos/logo-1.png" height="100"/>
+                                                        </div>
+                                                        <div style="">
+                                                                <table style="width:100%">
+                                                                        <tr><td  class="company_address">Door No.5, DD Vyapar Bhavan, K.P Vallon Road, Kavandthra Jn</td></tr>
+                                                                        <tr><td class="company_address">Kochi-20 | Tel:0484 4033505</td></tr>
+                                                                        <tr><td class="company_address">www.caringpeople.in , Email :info@caringpeople.in , Helpline No: 90 20 599 599</td></tr>
+                                                                </table>
+                                                        </div>
+                                                </div>
 
-                                                        if ($materials_used_amount > 0) {
-                                                                ?>
-                                                                <tr>
-                                                                        <td><?=
-                                                                                $count;
-                                                                                $count++
-                                                                                ?></td>
-                                                                        <td>Materials Used</td>
-                                                                        <td></td>
-                                                                        <td style="text-align:right"><?= number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
-
-                                                                </tr>
-                                                        <?php } ?>
-
-
-                                                        <?php
-                                                        $added_schedules_count = 0;
-                                                        $added_schedules_amount = 0;
-                                                        $added_schedule_days = 0;
-                                                        $price = 0;
-                                                        $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
-                                                        foreach ($added_schedules as $added_schedules) {
-                                                                $added_schedules_count++;
-                                                                $added_schedules_amount += $added_schedules->price;
-                                                                $added_schedule_days += $added_schedules->schedules;
-                                                        }
-
-                                                        if ($added_schedules_count > 0 && $added_schedules_amount > 0) {
-                                                                ?>
-                                                                <tr>
-                                                                        <td><?=
-                                                                                $count;
-                                                                                $count++
-                                                                                ?></td>
-                                                                        <td class="sub"> Extra Schedules</td>
-                                                                        <td></td>
-                                                                        <td style="text-align:right"><?= number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
-
-                                                                </tr>
-                                                        <?php } ?>
-
-
-
-
-                                                        <tr>
-                                                                <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount; ?>
-                                                                <td></td>
-                                                                <td colspan="2" style="text-align:center">Bill Total</td>
-                                                                <td style="text-align:right"><?= number_format((float) $total_amount, 2, '.', ''); ?></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <?php
-                                                                $discount_amount = 0;
-                                                                $dicounts = ServiceDiscounts::find()->where(['service_id' => $model->service_id])->all();
-                                                                foreach ($dicounts as $dicounts) {
-                                                                        $discount_amount += $dicounts->discount_value;
-                                                                }
-                                                                ?>
-                                                                <td></td>
-                                                                <td colspan="2" style="text-align:center">Discount</td>
-                                                                <td style="text-align:right"><?= number_format((float) $discount_amount, 2, '.', ''); ?></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <?php $grand_total = $total_amount - $discount_amount ?>
-                                                                <td colspan="3" style="text-align:center"><b>Grand Total</b></td>
-                                                                <td style="text-align:right"><?= number_format((float) $grand_total, 2, '.', ''); ?></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                                                                <td style="text-align:right"><?= number_format((float) $model->amount, 2, '.', ''); ?></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <td colspan="3" style="text-align:center"><b>Total Amount Paid</b></td>
-                                                                <?php
-                                                                $amount_paid = common\models\Invoice::find()->where(['service_id' => $model->service_id])->sum('amount');
-                                                                if (empty($amount_paid))
-                                                                        $amount_paid = 0;
-                                                                ?>
-                                                                <td style="text-align:right"><?= number_format((float) $amount_paid, 2, '.', ''); ?></td>
-                                                        </tr>
-
-                                                </table>
-
-
-                                                <script>
-                                                        function printContent(el) {
-                                                                var restorepage = document.body.innerHTML;
-                                                                var printcontent = document.getElementById(el).innerHTML;
-                                                                document.body.innerHTML = printcontent;
-                                                                window.print();
-                                                                document.body.innerHTML = restorepage;
-                                                        }
-                                                </script>
-
-                                                <!--</html>-->
-
+                                                <br/>
                                         </div>
 
-                                        <div class="print">
-                                                <button onclick="printContent('print')" style="font-weight: bold !important;" class="btn btn-success">Print</button>
+                                </th>
+                        </tr>
+
+                        <tr>
+                                <td class="bill">
+                                        <div>
+                                                <span>BILL</span>
                                         </div>
-                                </div>
-                        </div>
-                </div>
-        </div>
+                                </td>
+                        </tr>
+
+                </thead>
+        </table>
+
+
+
+        <table class="table">
+                <tr>
+                        <td colspan="2"> To,</td>
+                        <td>Bill No</td>
+                        <td>CPC 109/17-18</td>
+                </tr>
+
+                <tr>
+                        <td>Patient Name</td>
+                        <?php
+                        $patient_name = '';
+                        $patient_id = '';
+                        if (isset($model->patient_id)) {
+                                $patient = \common\models\PatientGeneral::findOne($model->patient_id);
+                                $patient_name = $patient->first_name . ' ' . $patient->last_name;
+                                $patient_id = $patient->patient_id;
+                        }
+                        ?>
+                        <td><?= $patient_name ?></td>
+                        <td>Date</td>
+                        <td><?= date('d-m-Y', strtotime($model->DOC)) ?></td>
+                </tr>
+
+                <tr>
+                        <td>Patient ID</td>
+                        <td><?= $patient_id; ?></td>
+                        <td>Ref No</td>
+                        <td></td>
+                </tr>
+        </table>
+
+        <table class="table">
+                <tr class="heading">
+                        <td>Sl.No</td>
+                        <td></td>
+                        <td>Amount</td>
+                        <td>Amount</td>
+                </tr>
+
+                <?php
+                $service = common\models\Service::findOne($model->service_id);
+                $service_detail = common\models\MasterServiceTypes::findOne($service->service);
+                $service_name = $service_detail->service_name;
+                $first_estimated_price = ServiceScheduleHistory::find()->select('price')->where(['service_id' => $model->service_id, 'type' => 1])->one();
+                $count = 1;
+                ?>
+                <tr>
+                        <td class="inside-table-td"><?=
+                                $count;
+                                $count++
+                                ?></td>
+                        <td><?= $service_name ?> <br>
+                                <?php
+                                $from = date('d-m-Y', strtotime($service->from_date));
+                                $to = date('d-m-Y', strtotime($service->to_date));
+                                ?>
+                                <label><?= $from ?> to <?= $to ?></label>
+                        </td>
+                        <td></td>
+                        <td style="text-align:right"><?= $first_estimated_price->price ?></td>
+                </tr>
+
+
+
+                <?php
+                ///////////////////////////////////////////materials added//////////////////////////////
+                $materials_used_amount = 0;
+                $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $model->service_id])->all();
+                foreach ($materials_used as $materials_used) {
+                        $materials_used_amount += $materials_used->due_amount;
+                }
+
+                if ($materials_used_amount > 0) {
+                        ?>
+                        <tr>
+                                <td><?=
+                                        $count;
+                                        $count++
+                                        ?></td>
+                                <td>Materials Used</td>
+                                <td></td>
+                                <td style="text-align:right"><?= number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
+
+                        </tr>
+                <?php } ?>
+
+
+                <?php
+                $added_schedules_count = 0;
+                $added_schedules_amount = 0;
+                $added_schedule_days = 0;
+                $price = 0;
+                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
+                foreach ($added_schedules as $added_schedules) {
+                        $added_schedules_count++;
+                        $added_schedules_amount += $added_schedules->price;
+                        $added_schedule_days += $added_schedules->schedules;
+                }
+
+                if ($added_schedules_count > 0 && $added_schedules_amount > 0) {
+                        ?>
+                        <tr>
+                                <td><?=
+                                        $count;
+                                        $count++
+                                        ?></td>
+                                <td class="sub"> Extra Schedules</td>
+                                <td></td>
+                                <td style="text-align:right"><?= number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
+
+                        </tr>
+                <?php } ?>
+
+
+
+
+                <tr>
+                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount; ?>
+                        <td></td>
+                        <td colspan="2" style="text-align:center">Bill Total</td>
+                        <td style="text-align:right"><?= number_format((float) $total_amount, 2, '.', ''); ?></td>
+                </tr>
+
+                <tr>
+                        <?php
+                        $discount_amount = 0;
+                        $dicounts = ServiceDiscounts::find()->where(['service_id' => $model->service_id])->all();
+                        foreach ($dicounts as $dicounts) {
+                                $discount_amount += $dicounts->discount_value;
+                        }
+                        ?>
+                        <td></td>
+                        <td colspan="2" style="text-align:center">Discount</td>
+                        <td style="text-align:right"><?= number_format((float) $discount_amount, 2, '.', ''); ?></td>
+                </tr>
+
+                <tr>
+                        <?php $grand_total = $total_amount - $discount_amount ?>
+                        <td colspan="3" style="text-align:center"><b>Grand Total</b></td>
+                        <td style="text-align:right"><?= number_format((float) $grand_total, 2, '.', ''); ?></td>
+                </tr>
+
+                <tr>
+                        <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
+                        <td style="text-align:right"><?= number_format((float) $model->amount, 2, '.', ''); ?></td>
+                </tr>
+
+                <tr>
+                        <td colspan="3" style="text-align:center"><b>Total Amount Paid</b></td>
+                        <?php
+                        $amount_paid = common\models\Invoice::find()->where(['service_id' => $model->service_id])->sum('amount');
+                        if (empty($amount_paid))
+                                $amount_paid = 0;
+                        ?>
+                        <td style="text-align:right"><?= number_format((float) $amount_paid, 2, '.', ''); ?></td>
+                </tr>
+        </table>
+
+
+
+
 </div>
 
 
 
 
+<script>
+        function printContent(el) {
+                var restorepage = document.body.innerHTML;
+                var printcontent = document.getElementById(el).innerHTML;
+                document.body.innerHTML = printcontent;
+                window.print();
+                document.body.innerHTML = restorepage;
+        }
+</script>
+<div class="print">
+        <div class="print" style="float:left;">
+
+                <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
+                <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
+
+        </div>
+</div>
+<!--</body>
+
+</html>-->
