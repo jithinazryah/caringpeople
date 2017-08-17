@@ -15,7 +15,7 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model common\models\EstimatedProforma */
 
-$this->title = 'Used Purchased Materials';
+$this->title = 'Add Materials';
 $this->params['breadcrumbs'][] = ['label' => ' Pre-Funding', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <div class="form-group field-salesreturninvoicemaster-sales_invoice_number">
                                                                         <label class="control-label" for="salesreturninvoicemaster-sales_invoice_number">Invoice Number</label>
                                                                         <input type="text" id="salesreturninvoicemaster-sales_invoice_number" class="form-control salesreturninvoicemaster-sales_invoice_number" name="SalesInvoiceMaster[sales_invoice_number]" value="<?= $model_sales_master->sales_invoice_number ?>" readonly="true" maxlength="50" aria-invalid="false">
-                                                                        <div class="sales-invoive-no-change" id="sales-invoive-no-change" invoice-type="0" ><a href="" id="sales-invoive-no-text">Change Invoice Number</a></div>
+                                                                        <!--<div class="sales-invoive-no-change" id="sales-invoive-no-change" invoice-type="0" ><a href="" id="sales-invoive-no-text">Change Invoice Number</a></div>-->
                                                                         <div class="help-block"></div>
                                                                 </div>
                                                         </div>

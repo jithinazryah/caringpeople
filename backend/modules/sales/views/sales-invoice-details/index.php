@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $searchModel common\models\SalesInvoiceDetailsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Used Purchased Materials';
+$this->title = 'Used Materials';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sales-invoice-details-index">

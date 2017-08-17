@@ -27,51 +27,51 @@ use Yii;
  */
 class StockView extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public static function tableName() {
-        return 'stock_view';
-    }
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'stock_view';
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules() {
-        return [
-            [['item_id', 'status', 'CB', 'UB'], 'integer'],
-            [['mrp', 'retail_price', 'ws_price', 'available_qty', 'available_weight', 'average_cost'], 'number'],
-            [['DOC'], 'required'],
-            [['item_name', 'DOC', 'DOU'], 'safe'],
-            [['item_code'], 'string', 'max' => 11],
-            [['location_code'], 'string', 'max' => 15],
-            [['error_msg'], 'string', 'max' => 50],
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['item_id', 'status', 'CB', 'UB'], 'integer'],
+                        [['mrp', 'retail_price', 'ws_price', 'available_qty', 'available_weight', 'average_cost'], 'number'],
+                        [['DOC'], 'required'],
+                        [['item_name', 'DOC', 'DOU'], 'safe'],
+                        [['item_code'], 'string', 'max' => 250],
+                        [['location_code'], 'string', 'max' => 15],
+                        [['error_msg'], 'string', 'max' => 50],
+                ];
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels() {
-        return [
-            'id' => 'ID',
-            'item_id' => 'Item ID',
-            'item_code' => 'Item Code',
-            'item_name' => 'Item Name',
-            'mrp' => 'Mrp',
-            'retail_price' => 'Retail Price',
-            'ws_price' => 'Ws Price',
-            'location_code' => 'Location Code',
-            'available_qty' => 'Available Qty',
-            'available_weight' => 'Available Weight',
-            'average_cost' => 'Average Cost',
-            'error_msg' => 'Error Msg',
-            'status' => 'Status',
-            'CB' => 'Cb',
-            'UB' => 'Ub',
-            'DOC' => 'Doc',
-            'DOU' => 'Dou',
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'item_id' => 'Item ID',
+                    'item_code' => 'Item Code',
+                    'item_name' => 'Item Name',
+                    'mrp' => 'Mrp',
+                    'retail_price' => 'Retail Price',
+                    'ws_price' => 'Ws Price',
+                    'location_code' => 'Location Code',
+                    'available_qty' => 'Available Qty',
+                    'available_weight' => 'Available Weight',
+                    'average_cost' => 'Average Cost',
+                    'error_msg' => 'Error Msg',
+                    'status' => 'Status',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
 
 }

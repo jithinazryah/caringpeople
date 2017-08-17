@@ -66,7 +66,7 @@ use yii\grid\GridView;
 </div>
 
 <style>
-        .filters{
+        .discounts-table .filters{
                 display: none;
         }.discounts-table table{
                 text-align: center;

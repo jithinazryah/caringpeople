@@ -147,7 +147,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                         <li>
                                                                 <a href="dashboard-1.html">
                                                                         <i class="	fa fa-medkit"></i>
-                                                                        <span class="title">Client</span>
+                                                                        <span class="title">Patients</span>
                                                                 </a>
                                                                 <ul>
                                                                         <li>
@@ -180,9 +180,16 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                         <li>
                                                                                 <?= Html::a('Service', ['/services/service/index'], ['class' => 'title']) ?>
                                                                         </li>
+
+                                                                        <li>
+                                                                                <?= Html::a('Materials', ['/sales/sales-invoice-details/index'], ['class' => 'title']) ?>
+                                                                        </li>
+
                                                                         <li>
                                                                                 <?= Html::a('Sub Services', ['/masters/sub-services/index'], ['class' => 'title']) ?>
                                                                         </li>
+
+
                                                                         <?php
                                                                         if (Yii::$app->session['post']['rate_card'] == 1) {
                                                                                 ?>
@@ -198,6 +205,47 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                 </ul>
                                         <?php } ?>
 
+
+
+
+                                        <ul id="main-menu" class="main-menu">
+                                                <li>
+                                                        <a href="dashboard-1.html">
+                                                                <i class="linecons-money"></i>
+                                                                <span class="title">Patient Invoice</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Patient Invoice', ['/invoice/invoice/index'], ['class' => 'title']) ?>
+                                                                </li>
+                                                        </ul>
+                                                </li>
+
+                                        </ul>
+
+                                        <ul id="main-menu" class="main-menu">
+                                                <li>
+                                                        <a href="dashboard-1.html">
+                                                                <i class="fa fa-credit-card"></i>
+                                                                <span class="title">Satff Payroll</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Payroll ', ['/accounts/staff-payroll/create'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                                <li>
+                                                                        <?= Html::a('Payroll Report', ['/accounts/staff-payroll/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                                <li>
+                                                                        <?= Html::a('Account Head', ['/accounts/account-head/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
+
+                                        </ul>
 
 
                                         <?php
@@ -240,28 +288,62 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
 
 
                                         <ul id="main-menu" class="main-menu">
+                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                 <li>
                                                         <a href="dashboard-1.html">
-                                                                <i class="fa fa-credit-card"></i>
-                                                                <span class="title">Satff Payroll</span>
+                                                                <i class="fa fa-suitcase"></i>
+                                                                <span class="title">Inventory</span>
                                                         </a>
                                                         <ul>
                                                                 <li>
-                                                                        <?= Html::a('Payroll ', ['/accounts/staff-payroll/create'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('Inventory Master', ['/product/item-master/index'], ['class' => 'title']) ?>
                                                                 </li>
 
                                                                 <li>
-                                                                        <?= Html::a('Payroll Report', ['/accounts/staff-payroll/index'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('Purchase', ['/sales/purchase-invoice-details/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+
+
+                                                                <li>
+                                                                        <a href="#">
+                                                                                <i class="entypo-flow-parallel"></i>
+                                                                                <span class="title">Stock</span>
+                                                                        </a>
+                                                                        <ul>
+                                                                                <li>
+                                                                                        <?= Html::a('Stock Report', ['/stock/stock-view/index'], ['class' => 'title']) ?>
+                                                                                </li>
+                                                                                <li>
+                                                                                        <?= Html::a('Stock Adjustment', ['stock/stock-adj-dtl/index'], ['class' => 'title']) ?>
+                                                                                </li>
+
+                                                                        </ul>
                                                                 </li>
 
                                                                 <li>
-                                                                        <?= Html::a('Account Head', ['/accounts/account-head/index'], ['class' => 'title']) ?>
-                                                                </li>
+                                                                        <a href="#">
+                                                                                <i class="entypo-flow-parallel"></i>
+                                                                                <span class="title">Masters</span>
+                                                                        </a>
+                                                                        <ul>
+                                                                                <li>
+                                                                                        <?= Html::a('Suppliers', ['/masters/business-partner/index'], ['class' => 'title']) ?>
+                                                                                </li>
+                                                                                <li>
+                                                                                        <?= Html::a('Tax', ['/masters/tax/index'], ['class' => 'title']) ?>
+                                                                                </li>
 
+                                                                        </ul>
+                                                                </li>
                                                         </ul>
                                                 </li>
 
                                         </ul>
+
+
+
 
 
                                         <?php if (Yii::$app->session['post']['leave_approval'] == 1 || Yii::$app->session['post']['leave_application'] == 1 || Yii::$app->session['post']['admin'] == 1) { ?>
@@ -329,48 +411,9 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                 </ul>
                                         <?php } ?>
 
-                                        <ul id="main-menu" class="main-menu">
-                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                                                <li>
-                                                        <a href="dashboard-1.html">
-                                                                <i class="fa fa-suitcase"></i>
-                                                                <span class="title">Inventory</span>
-                                                        </a>
-                                                        <ul>
-                                                                <li>
-                                                                        <?= Html::a('Inventory Master', ['/product/item-master/index'], ['class' => 'title']) ?>
-                                                                </li>
-                                                                <li>
-                                                                        <?= Html::a('Purchase', ['/sales/purchase-invoice-details/index'], ['class' => 'title']) ?>
-                                                                </li>
 
-                                                                <li>
-                                                                        <?= Html::a('Materials', ['/sales/sales-invoice-details/index'], ['class' => 'title']) ?>
-                                                                </li>
 
-                                                                <li>
-                                                                        <?= Html::a('Stock', ['/stock/stock-view/index'], ['class' => 'title']) ?>
-                                                                </li>
-                                                        </ul>
-                                                </li>
 
-                                        </ul>
-
-                                        <ul id="main-menu" class="main-menu">
-                                                <li>
-                                                        <a href="dashboard-1.html">
-                                                                <i class="linecons-money"></i>
-                                                                <span class="title">Invoice</span>
-                                                        </a>
-                                                        <ul>
-                                                                <li>
-                                                                        <?= Html::a('Invoice', ['/invoice/invoice/index'], ['class' => 'title']) ?>
-                                                                </li>
-                                                        </ul>
-                                                </li>
-
-                                        </ul>
 
 
 
