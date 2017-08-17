@@ -142,7 +142,7 @@ class SalesInvoiceDetailsController extends Controller {
                 $model = new SalesInvoiceDetails();
                 $model_sales_master = new SalesInvoiceMaster();
                 $report_id = '';
-                if ($model->load(Yii::$app->request->post())) {
+                if ($model_sales_master->load(Yii::$app->request->post())) {
                         $payment_type = 0;
                         $data = Yii::$app->request->post();
                         if ($data['order_sub_total'] > 0) {
@@ -157,6 +157,7 @@ class SalesInvoiceDetailsController extends Controller {
                                         if ($model_sales_master->save() && $this->AddSalesDetails($arr, $model_sales_master) && $this->UpdateSerialNumber($model_sales_master, $data, $due_date, $today)) {
                                                 $transaction->commit();
                                         } else {
+
                                                 $transaction->rollBack();
                                         }
                                 } catch (Exception $e) {
@@ -180,7 +181,7 @@ class SalesInvoiceDetailsController extends Controller {
         public function SaveSalesMaster($model_sales_master, $data, $arr) {
                 $model_sales_master->sales_invoice_number = $data['SalesInvoiceMaster']['sales_invoice_number'];
                 $model_sales_master->sales_invoice_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $data['sales_invoice_date'])));
-                $model_sales_master->busines_partner_code = $data['SalesInvoiceDetails']['busines_partner_code'];
+                $model_sales_master->busines_partner_code = $data['SalesInvoiceMaster']['busines_partner_code'];
                 $model_sales_master->salesman = $data['SalesInvoiceMaster']['salesman'];
                 $model_sales_master->reference = $data['SalesInvoiceMaster']['reference'];
                 $model_sales_master->general_terms = $data['SalesInvoiceMaster']['general_terms'];

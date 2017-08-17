@@ -65,7 +65,7 @@ class SalesInvoiceMaster extends \yii\db\ActiveRecord {
                     'sales_invoice_number' => 'Sales Invoice Number',
                     'sales_invoice_date' => 'Date',
                     'order_type' => 'Order Type',
-                    'busines_partner_code' => 'Customer',
+                    'busines_partner_code' => 'Service',
                     'salesman' => 'Patient',
                     'payment_terms' => 'Payment Terms',
                     'delivery_terms' => 'Delivery Terms',

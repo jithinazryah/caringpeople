@@ -90,35 +90,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </div>
 
                                                         <div class='col-md-2 col-sm-6 col-xs-12' style="padding-left: 0px;">
-                                                                <div class="form-group">
-                                                                        <label class="control-label" for="purchaseinvoicedetails-busines_partner_code">Supplier</label>
-                                                                        <div class="frmSearch auto-search" id="auto-complete" >
-                                                                                <div class="search-drop">
-                                                                                        <span>
-                                                                                                <span class="selected-data-name partner_name" data_val="<?= $default_partner->id ?>"><?= $default_partner->name . ' - ' . $default_partner->business_partner_code ?></span>
-                                                                                                <span class="arrow-control"><i class="fa arrow" aria-hidden="true"></i></span>
-                                                                                        </span>
-                                                                                        <!--<input type="text" id="salesinvoicedetails-busines_partner_code" placeholder="Partner Name" />-->
-                                                                                </div>
-                                                                                <div id="" class="suggesstion-box">
-                                                                                        <div class="row suggesstion-box-sub">
-                                                                                                <div class="col-md-12 search-link-box">
-                                                                                                        <input type="text" id="" class="form-control serch-text" placeholder="Partner Name" />
-                                                                                                </div>
-                                                                                                <div class="col-md-12>">
-                                                                                                        <ul id="" class="search-resut-list">
-                                                                                                                <li style="text-align: center;height: 85px;margin-top: 9%;background-color: white;">
-                                                                                                                        <img style="width: 24%;" src="<?= Yii::$app->homeUrl; ?>images/loading_dots.gif" />
-                                                                                                                </li>
-                                                                                                        </ul>
-                                                                                                </div>
-                                                                                                <div class="col-md-12 new-link-box" id="" partner-type="1"><a href="" class="pop-up-link">+ Add New Partner</a></div>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <input type="hidden" value="<?= $default_partner->id ?>" placeholder="" class="form-control salesinvoicedetails-item_code hideen-value" id="salesinvoicedetails-busines_partner_code" name="PurchaseInvoiceDetails[busines_partner_code]" readonly/>
-                                                                        </div>
-                                                                        <div class="help-block"></div>
-                                                                </div>
+
+                                                                <?php
+                                                                $partner_datas = \common\models\BusinessPartner::find()->where(['type' => 1])->all();
+                                                                ?>
+                                                                <?=
+                                                                $form->field($model_purchase_master, 'busines_partner_code')->dropDownList(
+                                                                        ArrayHelper::map($partner_datas, 'id', 'name'), ['prompt' => '--Select--'])
+                                                                ?>
 
                                                         </div>
 
@@ -422,6 +401,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <script src="<?= Yii::$app->homeUrl ?>js/inputmask/jquery.inputmask.bundle.js"></script>
 <script>
         $(document).ready(function () {
+
+                $("#purchaseinvoicemaster-busines_partner_code").select2({
+                        //placeholder: 'Select your country...',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
 
 
                 $(".salesinvoicedetails-items").select2({

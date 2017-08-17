@@ -62,34 +62,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="sales-invoice-master-form form-inline">
 
                                                         <div class='col-md-3 col-sm-6 col-xs-12' style="padding-left: 0px;">
-                                                                <div class="form-group">
-                                                                        <label class="control-label" for="salesreturninvoicedetails-busines_partner_code">Service</label>
-                                                                        <div class="frmSearch auto-search" id="auto-complete" >
-                                                                                <div class="search-drop">
-                                                                                        <span>
-                                                                                                <span class="selected-data-name partner_name" data_val="<?= $default_partner->id ?>"><?= $default_partner->service_id . ' - ' . $default_partner->business_partner_code ?></span>
-                                                                                                <span class="arrow-control"><i class="fa arrow" aria-hidden="true"></i></span>
-                                                                                        </span>
-                                                                                </div>
-                                                                                <div id="" class="suggesstion-box">
-                                                                                        <div class="row suggesstion-box-sub">
-                                                                                                <div class="col-md-12 search-link-box">
-                                                                                                        <input type="text" id="" class="form-control serch-text" placeholder="Search Service" />
-                                                                                                </div>
-                                                                                                <div class="col-md-12>">
-                                                                                                        <ul id="" class="search-resut-list">
-                                                                                                                <li style="text-align: center;height: 85px;margin-top: 9%;background-color: white;">
-                                                                                                                        <img style="width: 24%;" src="<?= Yii::$app->homeUrl; ?>images/loading_dots.gif" />
-                                                                                                                </li>
-                                                                                                        </ul>
-                                                                                                </div>
 
-                                                                                        </div>
-                                                                                </div>
-                                                                                <input type="hidden" value="<?= $default_partner->id ?>" placeholder="" class="form-control salesinvoicedetails-item_code hideen-value" id="salesreturninvoicedetails-busines_partner_code" name="SalesInvoiceDetails[busines_partner_code]" readonly/>
-                                                                        </div>
-                                                                        <div class="help-block"></div>
-                                                                </div>
+
+                                                                <?php
+                                                                if (Yii::$app->user->identity->branch_id != '0') {
+                                                                        $partner_datas = \common\models\Service::find()->where(['branch_id' => Yii::$app->user->identity->branch_id])->andWhere(['<>', 'status', 0])->all();
+                                                                } else {
+                                                                        $partner_datas = \common\models\Service::find()->where(['<>', 'status', 0])->all();
+                                                                }
+                                                                ?>
+
+
+
+                                                                <?=
+                                                                $form->field($model_sales_master, 'busines_partner_code')->dropDownList(
+                                                                        ArrayHelper::map($partner_datas, 'id', 'service_id'), ['prompt' => '--Select--'])
+                                                                ?>
 
                                                         </div>
                                                         <div class='col-md-2 col-sm-6 col-xs-12' >
@@ -374,6 +362,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         // Adding Custom Scrollbar
                         $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
                 });
+
+
+
+                $("#salesinvoicemaster-busines_partner_code").select2({
+                        //placeholder: 'Select your country...',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+
 
                 $("#auto-complete").select({
                         id: "auto-complete",

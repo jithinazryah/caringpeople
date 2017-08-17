@@ -173,7 +173,7 @@ class PurchaseInvoiceDetailsController extends Controller {
         public function SavePurchaseMaster($model_purchase_master, $data, $arr) {
                 $model_purchase_master->sales_invoice_number = $data['PurchaseInvoiceMaster']['purchase_invoice_number'];
                 $model_purchase_master->sales_invoice_date = date("Y-m-d H:i:s", strtotime(str_replace('/', '-', $data['purchase_invoice_date'])));
-                $model_purchase_master->busines_partner_code = $data['PurchaseInvoiceDetails']['busines_partner_code'];
+                $model_purchase_master->busines_partner_code = $data['PurchaseInvoiceMaster']['busines_partner_code'];
                 $model_purchase_master->salesman = $data['PurchaseInvoiceMaster']['salesman'];
                 $model_purchase_master->reference = $data['PurchaseInvoiceMaster']['reference'];
                 $model_purchase_master->general_terms = $data['PurchaseInvoiceMaster']['general_terms'];
