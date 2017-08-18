@@ -52,6 +52,7 @@ class Service extends \yii\db\ActiveRecord {
                         [['staff_manager'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_manager' => 'id']],
                         [['patient_id', 'service', 'from_date', 'to_date', 'status'], 'required', 'on' => 'create'],
                         [['patient_id', 'service', 'from_date', 'to_date', 'status', 'days'], 'required', 'on' => 'create'],
+                        [['branch_id', 'duty_type'], 'required', 'on' => 'create'],
                         [['day_night_staff'], 'required', 'when' => function ($model) {
 
                         }, 'whenClient' => "function (attribute, value) {

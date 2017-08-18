@@ -515,15 +515,15 @@ $("document").ready(function () {
                 var schedule_id = $('#schedule_id').val();
                 var replace_or_new = $('#replace_or_new').val();
                 var type = $('#type').val();
+                var day_night_staff_type = $('#select-day-night-staff').val();
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'serviceajax/selectedstaff',
-                        data: {staff: staff, service_id: service_id, schedule_id: schedule_id, type: type, replace_or_new: replace_or_new},
+                        data: {staff: staff, service_id: service_id, schedule_id: schedule_id, type: type, replace_or_new: replace_or_new, day_night_staff_type: day_night_staff_type},
                         success: function (data) {
 
                                 opener.location.reload();
                                 window.top.close();
-
 
                         }
                 });

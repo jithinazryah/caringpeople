@@ -364,16 +364,34 @@ class ServiceajaxController extends \yii\web\Controller {
                         $type = $_POST['type'];
                         $staff = $_POST['staff'];
                         $replace_or_new = $_POST['replace_or_new'];
-
+                        $day_night_staff_type = $_POST['day_night_staff_type'];
                         if ($type == 1) {
                                 $service_id = $_POST['service_id'];
                                 if (isset($service_id)) {
                                         $schedules = ServiceSchedule::find()->where(['service_id' => $service_id])->andWhere(['status' => 1])->all();
-                                        foreach ($schedules as $value) {
-                                                if (isset($value->staff) && $value->staff != '')
-                                                        $this->StaffStatus($value->staff, 0);
-                                                $value->staff = $staff;
-                                                $value->update();
+                                        if (isset($day_night_staff_type) && $day_night_staff_type != '') {
+                                                $y = 0;
+                                                foreach ($schedules as $value) {
+                                                        $y++;
+                                                        if (isset($value->staff) && $value->staff != '')
+                                                                $this->StaffStatus($value->staff, 0);
+                                                        if ($day_night_staff_type == 1) {
+                                                                if ($y % 2 != 0)
+                                                                        $value->staff = $staff;
+                                                        } else {
+                                                                if ($y % 2 == 0)
+                                                                        $value->staff = $staff;
+                                                        }
+
+                                                        $value->update();
+                                                }
+                                        } else {
+                                                foreach ($schedules as $value) {
+                                                        if (isset($value->staff) && $value->staff != '')
+                                                                $this->StaffStatus($value->staff, 0);
+                                                        $value->staff = $staff;
+                                                        $value->update();
+                                                }
                                         }
                                         $this->StaffStatus($staff, 1);
                                         $service_detail = Service::findOne($service_id);
