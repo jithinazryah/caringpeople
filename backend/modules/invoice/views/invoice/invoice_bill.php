@@ -50,10 +50,14 @@ and open the template in the editor.
                                 border-collapse: collapse;
                                 width:100%;
                         }
-                        table td{
+                        .table td{
+                                font-size: 12px;
                                 text-align: center;
+                                padding-top: 5px;
+                                padding-bottom: 5px;
                         }
                         body {-webkit-print-color-adjust: exact;}
+
 
                 }
                 @media screen{
@@ -92,7 +96,7 @@ and open the template in the editor.
                 }
 
                 .table, .table td{
-                        border: 1px solid #eee;
+                        border: 1px solid #aea6a6;
                 } .print_btn{
                         font-weight: bold !important;
                         color: #fff;
@@ -106,6 +110,13 @@ and open the template in the editor.
                         background-color: #8dc63f;
                 } .close_btn_color{
                         background-color: #b60d14;
+                } .table2,.table2 td{
+                        border:none;
+                }.table3{
+                        width:30% !important;
+                }.table4{
+                        border:none  !important;
+                        float:left  !important;
                 }
 
 
@@ -209,7 +220,7 @@ and open the template in the editor.
                                 <label><?= $from ?> to <?= $to ?></label>
                         </td>
                         <td></td>
-                        <td style="text-align:right"><?= $first_estimated_price->price ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?= $first_estimated_price->price ?></td>
                 </tr>
 
 
@@ -231,7 +242,7 @@ and open the template in the editor.
                                         ?></td>
                                 <td>Materials Used</td>
                                 <td></td>
-                                <td style="text-align:right"><?= number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
 
                         </tr>
                 <?php } ?>
@@ -258,7 +269,7 @@ and open the template in the editor.
                                         ?></td>
                                 <td class="sub"> Extra Schedules</td>
                                 <td></td>
-                                <td style="text-align:right"><?= number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
 
                         </tr>
                 <?php } ?>
@@ -270,7 +281,7 @@ and open the template in the editor.
                         <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount; ?>
                         <td></td>
                         <td colspan="2" style="text-align:center">Bill Total</td>
-                        <td style="text-align:right"><?= number_format((float) $total_amount, 2, '.', ''); ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $total_amount, 2, '.', ''); ?></td>
                 </tr>
 
                 <tr>
@@ -283,13 +294,13 @@ and open the template in the editor.
                         ?>
                         <td></td>
                         <td colspan="2" style="text-align:center">Discount</td>
-                        <td style="text-align:right"><?= number_format((float) $discount_amount, 2, '.', ''); ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $discount_amount, 2, '.', ''); ?></td>
                 </tr>
 
                 <tr>
                         <?php $grand_total = $total_amount - $discount_amount ?>
                         <td colspan="3" style="text-align:center"><b>Grand Total</b></td>
-                        <td style="text-align:right"><?= number_format((float) $grand_total, 2, '.', ''); ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $grand_total, 2, '.', ''); ?></td>
                 </tr>
 
                 <tr>
@@ -308,6 +319,76 @@ and open the template in the editor.
                 </tr>
         </table>
 
+        <table class="table table2">
+                <tr>
+                        <td>
+                                Rupees
+                        </td>
+                        <td colspan="3">
+                                <p style="border-bottom: 1px dotted #000;"><?php echo Yii::$app->NumToWord->convert_number_to_words($amount_paid) . " Rupees Only"; ?></p>
+                        </td>
+                </tr>
+                <tr>
+                        <td>Bank Name:</td>
+                        <td><p style="border-bottom: 1px dotted #000;">SBI</p></td>
+                        <td>Cheque No:</td>
+                        <td><p style="border-bottom: 1px dotted #000;">12345</p></td>
+                </tr>
+
+<!--                <tr>
+                        <td >
+                                <table class="table" style="width:100%!important">
+                                        <tr>
+                                                <td>Bank</td>
+                                                <td>State BAnk Of India</td>
+                                        </tr>
+                                        <tr>
+                                                <td>Current Account No</td>
+                                                <td>36717793170</td>
+                                        </tr>
+                                        <tr>
+                                                <td>Branch</td>
+                                                <td>Chilavannur, Kadavanthra</td>
+                                        </tr>
+                                        <tr>
+                                                <td>IFSC Code</td>
+                                                <td>SBIN0016331</td>
+                                        </tr>
+                                </table>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                </tr>-->
+        </table>
+
+        <table class="table table4" style="border:none;float:left;">
+                <tr>
+                        <td style="border:none">
+                                <table class="table" style="width:36%!important">
+                                        <tr>
+                                                <td>Bank</td>
+                                                <td>State BAnk Of India</td>
+                                        </tr>
+                                        <tr>
+                                                <td>Current Account No</td>
+                                                <td>36717793170</td>
+                                        </tr>
+                                        <tr>
+                                                <td>Branch</td>
+                                                <td>Chilavannur, Kadavanthra</td>
+                                        </tr>
+                                        <tr>
+                                                <td>IFSC Code</td>
+                                                <td>SBIN0016331</td>
+                                        </tr>
+                                </table>
+                        </td>
+                </tr>
+        </table>
+
+
+
 
 
 
@@ -325,11 +406,20 @@ and open the template in the editor.
                 document.body.innerHTML = restorepage;
         }
 </script>
-<div class="print">
+<!--<div class="print">
         <div class="print" style="float:left;">
 
                 <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
                 <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
+
+        </div>
+</div>-->
+<div style="clear:both"></div>
+<div class="print">
+        <div class="print" style="float:left;">
+
+                <button onclick="printContent('print')"  >Print</button>
+                <button onclick="window.close();"  >Close</button>
 
         </div>
 </div>

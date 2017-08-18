@@ -22,43 +22,43 @@ class NumToWord extends Component {
          * default Upload image function
          */
 
-        public function ConvertNumberToWords($number,$currency='AED') {
+        public function convert_number_to_words($number, $currency = 'AED') {
                 $hyphen = ' ';
                 $conjunction = ' and ';
                 $separator = ' ';
                 $negative = 'negative ';
-                $decimal = ' and ';
+                $decimal = '  ';
                 $dictionary = array(
                     0 => 'zero',
-                    1 => 'one',
-                    2 => 'two',
-                    3 => 'three',
-                    4 => 'four',
-                    5 => 'five',
-                    6 => 'six',
-                    7 => 'seven',
-                    8 => 'eight',
-                    9 => 'nine',
-                    10 => 'ten',
-                    11 => 'eleven',
-                    12 => 'twelve',
-                    13 => 'thirteen',
-                    14 => 'fourteen',
-                    15 => 'fifteen',
-                    16 => 'sixteen',
-                    17 => 'seventeen',
-                    18 => 'eighteen',
-                    19 => 'nineteen',
-                    20 => 'twenty',
-                    30 => 'thirty',
-                    40 => 'fourty',
-                    50 => 'fifty',
-                    60 => 'sixty',
-                    70 => 'seventy',
-                    80 => 'eighty',
-                    90 => 'ninety',
-                    100 => 'hundred',
-                    1000 => 'thousand',
+                    1 => 'One',
+                    2 => 'Two',
+                    3 => 'Three',
+                    4 => 'Four',
+                    5 => 'Five',
+                    6 => 'Six',
+                    7 => 'Seven',
+                    8 => 'Eight',
+                    9 => 'Nine',
+                    10 => 'Ten',
+                    11 => 'Eleven',
+                    12 => 'Twelve',
+                    13 => 'Thirteen',
+                    14 => 'Fourteen',
+                    15 => 'Fifteen',
+                    16 => 'Sixteen',
+                    17 => 'Seventeen',
+                    18 => 'Eighteen',
+                    19 => 'Nineteen',
+                    20 => 'Twenty',
+                    30 => 'Thirty',
+                    40 => 'Fourty',
+                    50 => 'Fifty',
+                    60 => 'Sixty',
+                    70 => 'Seventy',
+                    80 => 'Eighty',
+                    90 => 'Ninety',
+                    100 => 'Hundred',
+                    1000 => 'Thousand',
                     //Instead of the following values I would like to have Indian counting system values
                     /*
                       1000000             => 'million',
@@ -86,7 +86,7 @@ class NumToWord extends Component {
                 }
 
                 if ($number < 0) {
-                        return $negative . $this->ConvertNumberToWords(abs($number));
+                        return $negative . $this->convert_number_to_words(abs($number));
                 }
 
                 $string = $fraction = null;
@@ -97,7 +97,7 @@ class NumToWord extends Component {
 
                 switch (true) {
                         case $number < 21:
-                                $string = $dictionary[$number];
+                                //   $string = $dictionary[$number];
                                 break;
                         case $number < 100:
                                 $tens = ((int) ($number / 10)) * 10;
@@ -112,17 +112,17 @@ class NumToWord extends Component {
                                 $remainder = $number % 100;
                                 $string = $dictionary[$hundreds] . ' ' . $dictionary[100];
                                 if ($remainder) {
-                                        $string .= $conjunction . $this->ConvertNumberToWords($remainder);
+                                        $string .= $conjunction . $this->convert_number_to_words($remainder);
                                 }
                                 break;
                         default:
                                 $baseUnit = 10 * pow(100, floor(log($number / 10, 100))); // Thanks to rici and Patashu
                                 $numBaseUnits = (int) ($number / $baseUnit);
                                 $remainder = $number % $baseUnit;
-                                $string = $this->ConvertNumberToWords($numBaseUnits) . ' ' . $dictionary[$baseUnit];
+                                $string = $this->convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
                                 if ($remainder) {
                                         $string .= $remainder < 100 ? $conjunction : $separator;
-                                        $string .= $this->ConvertNumberToWords($remainder);
+                                        $string .= $this->convert_number_to_words($remainder);
                                 }
                                 break;
                 }
@@ -133,12 +133,7 @@ class NumToWord extends Component {
                         foreach (str_split((string) $fraction) as $number) {
                                 $words[] = $dictionary[$number];
                         }
-                        if($currency == 'AED'){
-                                $string .= $this->ConvertNumberToWords($fraction) . " Fils";
-                        }else{
-                                $string .= $this->ConvertNumberToWords($fraction) . " Cent";
-                        }
-                        
+                        $string .= $this->convert_number_to_words($fraction);
                 }
 
                 return $string;
