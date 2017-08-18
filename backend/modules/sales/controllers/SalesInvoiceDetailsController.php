@@ -138,7 +138,7 @@ class SalesInvoiceDetailsController extends Controller {
                 }
         }
 
-        public function actionAdd() {
+        public function actionAdd($id = null) {
                 $model = new SalesInvoiceDetails();
                 $model_sales_master = new SalesInvoiceMaster();
                 $report_id = '';
@@ -175,6 +175,7 @@ class SalesInvoiceDetailsController extends Controller {
                             'model' => $model,
                             'model_sales_master' => $model_sales_master,
                             'report_id' => $report_id,
+                            'id' => $id
                 ]);
         }
 

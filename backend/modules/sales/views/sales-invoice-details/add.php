@@ -46,6 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Invoice</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?php if (isset($id) && $id != '') { ?>
+                                        <?= Html::a('<i class="fa-th-list"></i><span> Manage Services</span>', ['/services/service/index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?php } ?>
                                 <div class="modal fade" id="modal-6">
                                         <div class="modal-dialog" id="modal-pop-up">
 
@@ -70,6 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 } else {
                                                                         $partner_datas = \common\models\Service::find()->where(['<>', 'status', 0])->all();
                                                                 }
+                                                                if (isset($id) && $id != '')
+                                                                        $model_sales_master->busines_partner_code = $id;
                                                                 ?>
 
 
@@ -190,7 +195,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <!--                        <td>
                                                     <span id="sale-uom-1"></span>
                                                     <input type="hidden" value="" placeholder="UOM" class="form-control" id="sales-uom-1" name="sales-uom[1]" readonly/>
-                                                <?php // $form->field($model, 'item_name')->textInput(['placeholder' => 'UOM'])->label(false)          ?>
+                                                <?php // $form->field($model, 'item_name')->textInput(['placeholder' => 'UOM'])->label(false)             ?>
                                                 </td>-->
                                                 <td>
                                                         <div class="form-group field-salesinvoicedetails-rate has-success">
@@ -342,7 +347,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                         </div>
-                        <?php //Pjax::end();                    ?>
+                        <?php //Pjax::end();                       ?>
                 </div>
         </div>
 </div>

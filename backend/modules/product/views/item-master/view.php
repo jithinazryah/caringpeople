@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\models\AdminUsers;
 use common\models\Tax;
+use common\models\BaseUnit;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ItemMaster */
