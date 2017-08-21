@@ -375,6 +375,34 @@ $("document").ready(function () {
 
         });
 
+        $('.change-service-manager').click(function () {
+                var service_id = $(this).attr('id');
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/changemanager',
+                        data: {service_id: service_id},
+                        success: function (data) {
+                                $("#modal-pop-up").html(data);
+                                $('#modal-6').modal('show', {backdrop: 'static'});
+
+                        }
+                });
+        });
+
+        $(document).on('submit', '#change-staff-manager', function (e) {
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/updatemanager',
+                        data: data,
+                        success: function (data) {
+                                $('#modal-6').modal('hide');
+                                location.reload();
+                        }
+                });
+        });
+
         /********************************************************  Service  **********************************************/
 
 

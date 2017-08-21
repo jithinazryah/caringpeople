@@ -353,7 +353,10 @@ use yii\db\Expression;
 
 
                                         <?php if (isset($model->staff_manager) && $model->staff_manager != '') { ?>
-                                                <td class = "labell">Staff Manager</td><td class = "value"><?= $model->staffManager->staff_name; ?> </td>
+                                                <td class = "labell">Staff Manager</td><td class = "value"><?= $model->staffManager->staff_name; ?>
+                                                        <span><a style="color:red;cursor: pointer" id="<?= $model->id ?>" class="change-service-manager">  &nbsp;&nbsp; (Change Manager)</a></span>
+
+                                                </td>
                                                 <?php
                                                 $k++;
                                                 tradjust($k);

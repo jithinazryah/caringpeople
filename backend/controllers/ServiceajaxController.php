@@ -680,4 +680,24 @@ class ServiceajaxController extends \yii\web\Controller {
                 }
         }
 
+        public function actionChangemanager() {
+                if (Yii::$app->request->isAjax) {
+                        $service_id = $_POST['service_id'];
+                        $service = Service::findOne($service_id);
+                        $view = $this->renderPartial('change_manager', ['service' => $service]);
+                        echo $view;
+                }
+        }
+
+        public function actionUpdatemanager() {
+                if (Yii::$app->request->isAjax) {
+                        $service_id = $_POST['service_id'];
+                        $service = Service::findOne($service_id);
+                        $service->staff_manager = $_POST['service_staff_amanger'];
+                        $service->update();
+                        $service->service_staffs = $this->Servicestaffs($service_id);
+                        $service->update();
+                }
+        }
+
 }
