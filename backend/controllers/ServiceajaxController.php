@@ -348,7 +348,8 @@ class ServiceajaxController extends \yii\web\Controller {
                                                 $rate = $this->ChangePrice($service_detail, 1, 2);
                                                 $service_detail->estimated_price = $service_detail->estimated_price - $rate;
                                                 $service_detail->due_amount = $service_detail->due_amount - $rate;
-                                                $service_detail->estimated_price;
+                                                $service_detail->days = $service_detail->days - 1;
+                                                $service_detail->to_date = date('Y-m-d', strtotime($todate . ' - 1 days'));
                                                 $service_detail->update(FALSE);
                                                 SetValues::ServiceScheduleHistory($service_detail->id, 3, 1, $rate);
                                         }

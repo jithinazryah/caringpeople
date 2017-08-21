@@ -97,7 +97,7 @@ class NumToWord extends Component {
 
                 switch (true) {
                         case $number < 21:
-                                //   $string = $dictionary[$number];
+                                $string = $dictionary[$number];
                                 break;
                         case $number < 100:
                                 $tens = ((int) ($number / 10)) * 10;

@@ -117,6 +117,8 @@ and open the template in the editor.
                 }.table4{
                         border:none  !important;
                         float:left  !important;
+                }.bank-details td{
+                        border: 1px solid #aea6a6!important;
                 }
 
 
@@ -334,27 +336,51 @@ and open the template in the editor.
                         <td>Cheque No:</td>
                         <td><p style="border-bottom: 1px dotted #000;">12345</p></td>
                 </tr>
+                <tr>
+                        <td colspan="2" bgcolor="#eee">For Payment through RTGS/NEFT Mode</td>
+                        <!--<td></td>-->
+                </tr>
+
+                <tr class="bank-details">
+                        <td style="width:222px;">Bank</td>
+                        <td style="width:200px;">State BAnk Of India</td>
+                </tr>
+
+                <tr class="bank-details">
+                        <td>Current Account No</td>
+                        <td>36717793170</td>
+                </tr>
+                <tr class="bank-details">
+                        <td>Branch</td>
+                        <td>Chilavannur, Kadavanthra</td>
+                </tr>
+                <tr class="bank-details">
+                        <td>IFSC Code</td>
+                        <td>SBIN0016331</td>
+                </tr>
 
 <!--                <tr>
-                        <td >
-                                <table class="table" style="width:100%!important">
-                                        <tr>
-                                                <td>Bank</td>
-                                                <td>State BAnk Of India</td>
-                                        </tr>
-                                        <tr>
-                                                <td>Current Account No</td>
-                                                <td>36717793170</td>
-                                        </tr>
-                                        <tr>
-                                                <td>Branch</td>
-                                                <td>Chilavannur, Kadavanthra</td>
-                                        </tr>
-                                        <tr>
-                                                <td>IFSC Code</td>
-                                                <td>SBIN0016331</td>
-                                        </tr>
-                                </table>
+                        <td>
+                                <div>
+                                        <table class="table" style="width:100%!important">
+                                                <tr>
+                                                        <td>Bank</td>
+                                                        <td>State BAnk Of India</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Current Account No</td>
+                                                        <td>36717793170</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Branch</td>
+                                                        <td>Chilavannur, Kadavanthra</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>IFSC Code</td>
+                                                        <td>SBIN0016331</td>
+                                                </tr>
+                                        </table>
+                                </div>
                         </td>
                         <td></td>
                         <td></td>
@@ -362,30 +388,32 @@ and open the template in the editor.
                 </tr>-->
         </table>
 
-        <table class="table table4" style="border:none;float:left;">
+<!--        <table class="table table4" style="border:none;">
                 <tr>
                         <td style="border:none">
-                                <table class="table" style="width:36%!important">
-                                        <tr>
-                                                <td>Bank</td>
-                                                <td>State BAnk Of India</td>
-                                        </tr>
-                                        <tr>
-                                                <td>Current Account No</td>
-                                                <td>36717793170</td>
-                                        </tr>
-                                        <tr>
-                                                <td>Branch</td>
-                                                <td>Chilavannur, Kadavanthra</td>
-                                        </tr>
-                                        <tr>
-                                                <td>IFSC Code</td>
-                                                <td>SBIN0016331</td>
-                                        </tr>
-                                </table>
-                        </td>
+                                <div>
+                                        <table class="table" >
+                <tr>
+                        <td>Bank</td>
+                        <td>State BAnk Of India</td>
                 </tr>
-        </table>
+                <tr>
+                        <td>Current Account No</td>
+                        <td>36717793170</td>
+                </tr>
+                <tr>
+                        <td>Branch</td>
+                        <td>Chilavannur, Kadavanthra</td>
+                </tr>
+                <tr>
+                        <td>IFSC Code</td>
+                        <td>SBIN0016331</td>
+                                                                        </tr>
+                                                                </table>
+                                                        </div>
+                                                </td>
+                                        </tr>
+        </table>-->
 
 
 
@@ -395,7 +423,7 @@ and open the template in the editor.
 </div>
 
 
-
+<div class="clearfix" style="clear:both"></div>
 
 <script>
         function printContent(el) {
@@ -406,23 +434,17 @@ and open the template in the editor.
                 document.body.innerHTML = restorepage;
         }
 </script>
-<!--<div class="print">
+
+<div class="print">
         <div class="print" style="float:left;">
 
                 <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
                 <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
 
         </div>
-</div>-->
-<div style="clear:both"></div>
-<div class="print">
-        <div class="print" style="float:left;">
-
-                <button onclick="printContent('print')"  >Print</button>
-                <button onclick="window.close();"  >Close</button>
-
-        </div>
 </div>
+<div style="clear:both"></div>
+
 <!--</body>
 
 </html>-->

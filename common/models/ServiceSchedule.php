@@ -48,6 +48,7 @@ class ServiceSchedule extends \yii\db\ActiveRecord {
                         [['date', 'DOC', 'staff', 'rating'], 'required', 'on' => 'staffreport'],
                         [['date', 'DOC', 'patient_id', 'rating'], 'required', 'on' => 'patientreport'],
                         [['patient_id', 'rating', 'service_id'], 'required', 'on' => 'servicereport'],
+                        [['date', 'DOC', 'rating'], 'required', 'on' => 'oncallstaffreport'],
                 ];
         }
 
@@ -59,12 +60,12 @@ class ServiceSchedule extends \yii\db\ActiveRecord {
                     'id' => 'ID',
                     'service_id' => 'Service ID',
                     'patient_id' => 'Patient',
-                    'date' => ($this->scenario == 'staffreport' || $this->scenario == 'patientreport' ? 'Date From' : 'Date'),
+                    'date' => ($this->scenario == 'staffreport' || $this->scenario == 'patientreport' || $this->scenario == 'oncallstaffreport' ? 'Date From' : 'Date'),
                     'staff' => 'Staff',
                     'remarks_from_manager' => 'Remarks From Manager',
                     'remarks_from_staff' => 'Remarks From Staff',
                     'remarks_from_patient' => 'Remarks From Patient',
-                    'rating' => ($this->scenario == 'staffreport' || $this->scenario == 'patientreport' || $this->scenario == 'servicereport' ? 'Branch' : 'Rating'),
+                    'rating' => ($this->scenario == 'staffreport' || $this->scenario == 'patientreport' || $this->scenario == 'servicereport' || $this->scenario == 'oncallstaffreport' ? 'Branch' : 'Rating'),
                     'rate' => 'Rate',
                     'patient_rate' => 'Patient Rate',
                     'time_in' => 'Time In',

@@ -285,6 +285,51 @@ class AttendanceController extends Controller {
                 ]);
         }
 
+        /*
+         * on call staff report by destination wise
+         */
+
+        public function actionOncallstaff() {
+                $model = new ServiceSchedule();
+                $model->scenario = 'oncallstaffreport';
+                $designations = '';
+
+                if ($model->load(Yii::$app->request->post())) {
+                        $from = date('Y-m-d', strtotime($model->date));
+                        $to = date('Y-m-d', strtotime($model->DOC));
+                        $designations = \common\models\MasterDesignations::find()->all();
+                }
+                return $this->render('oncallstaff_report', [
+                            'model' => $model,
+                            'designations' => $designations,
+                ]);
+        }
+
+        public function actionViewdetails($from = null, $to = null, $type = null) {
+                $from = date('Y-m-d', strtotime($from));
+                $to = date('Y-m-d', strtotime($to));
+                $staffs = StaffInfo::find()->where(['designation' => $type])->all();
+
+                return $this->render('view_details', [
+                            'from' => $from,
+                            'to' => $to,
+                            'type' => $type,
+                            'staffs' => $staffs
+                ]);
+        }
+
+        public function actionStaffdetails($from = null, $to = null, $staff = null) {
+                $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->all();
+                $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
+                return $this->render('staff_details', [
+                            'schedules' => $schedules,
+                            'staff' => $staff,
+                            'staff_amount' => $staff_amount,
+                            'from' => $from,
+                            'to' => $to,
+                ]);
+        }
+
         /**
          * Displays a single Attendance model.
          * @param integer $id
