@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 <div class='col-md-3 col-sm-6 col-xs-12' >
                                                         <div class="form-group" >
-                                                                <?= Html::submitButton($model->isNewRecord ? 'Submit' : 'Search', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
+                                                                <?= Html::submitButton($model->isNewRecord ? 'Submit' : 'Search', ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
                                                         </div>
                                                 </div>
                                         </div>
@@ -216,9 +216,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <?php } ?>
                                                                 </table>
 
-                                                                <div class="row submit_btn">
+                                                                <div class="row " style="margin-top: 40px;    margin-left: 5px;">
                                                                         <input type="hidden" name="patient" value="<?= $model->patient_id; ?>">
                                                                         <input type="hidden" name="branch_id" value="<?= $model->branch_id; ?>">
+
+
+                                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                                                <?php $banks = \common\models\AccountHead::find()->where(['status' => 1])->all(); ?>   <?= $form1->field($model, 'payment_type')->dropDownList(ArrayHelper::map($banks, 'id', 'bank_name'), ['class' => 'form-control']) ?>
+                                                                        </div>
+
+                                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                                                <?= $form->field($model, 'reference_no')->textInput() ?>
+                                                                        </div>
 
                                                                         <?= Html::submitButton('Pay', ['class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;margin-right: 15px;']) ?>
 

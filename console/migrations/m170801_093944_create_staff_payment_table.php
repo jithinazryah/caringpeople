@@ -86,6 +86,8 @@ class m170801_093944_create_staff_payment_table extends Migration {
                     'total_amount' => $this->decimal(10, 2),
                     'amount' => $this->decimal(10, 2),
                     'due_amount' => $this->decimal(10, 2),
+                    'payment_type' => $this->integer(),
+                    'reference_no' => $this->string(200),
                     'CB' => $this->integer(),
                     'DOC' => $this->date(),
                 ]);

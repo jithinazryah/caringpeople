@@ -66,6 +66,7 @@ class InvoiceController extends Controller {
                                 $k++;
                                 $model = new Invoice();
                                 if (isset($_POST['amount_paid_' . $values->id]) && $_POST['amount_paid_' . $values->id] > 0) {
+                                        $model->load(\Yii::$app->request->post());
                                         $model->patient_id = $_POST['patient'];
                                         $model->branch_id = $_POST['branch_id'];
                                         $model->service_id = $values->id;
@@ -73,13 +74,18 @@ class InvoiceController extends Controller {
                                         $model->amount = $_POST['amount_paid_' . $values->id];
                                         $model->due_amount = $model->total_amount - $model->amount;
                                         $model->CB = Yii::$app->user->identity->id;
+                                        $model->payment_type = $model->payment_type;
+                                        $model->reference_no = $model->reference_no;
                                         $model->DOC = date('Y-m-d');
                                         if ($model->save()) {
                                                 $service = Service::findOne($model->service_id);
                                                 $service->due_amount = $service->due_amount - $model->amount;
                                                 $service->update();
-                                                Yii::$app->SetValues->Accounts($model->branch_id, 3, $model->id, 2, 'Patient Invoice', 0, $model->amount, $model->DOC);
+                                                Yii::$app->SetValues->Accounts($model->branch_id, 3, $model->id, 2, 'Patient Invoice', $model->payment_type, $model->amount, $model->DOC);
                                                 Yii::$app->getSession()->setFlash('success', 'Amount paided successfully');
+                                        } else {
+                                                var_dump($model->getErrors());
+                                                exit;
                                         }
                                 }
                         }
