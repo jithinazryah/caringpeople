@@ -107,6 +107,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         $added_schedule_days += $added_schedules->schedules;
                                                                                 }
 
+                                                                                ///////////////////////////////////////////cancelled schedules//////////////////////////////
+                                                                                $cancelled_schedules_count = 0;
+                                                                                $cancelled_schedules_amount = 0;
+                                                                                $cancelled_schedule_days = 0;
+                                                                                $cancelled_schedules = ServiceScheduleHistory::find()->where(['service_id' => $value->id, 'type' => 3])->andWhere(['>', 'price', 0])->all();
+
+                                                                                foreach ($cancelled_schedules as $cancelled_schedules) {
+                                                                                        $cancelled_schedules_count++;
+                                                                                        $cancelled_schedules_amount += $cancelled_schedules->price;
+                                                                                        $cancelled_schedule_days += $cancelled_schedules->schedules;
+                                                                                }
+
                                                                                 ///////////////////////////////////////////materials added//////////////////////////////
                                                                                 $materials_used_amount = 0;
                                                                                 $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $value->id])->all();
@@ -129,18 +141,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         $count += 1;
                                                                                 }if ($discount_amount > 0) {
                                                                                         $count += 1;
+                                                                                }if ($cancelled_schedules_amount > 0) {
+                                                                                        $count += 1;
                                                                                 }
 
                                                                                 //////////////////////////////////total amount////////////////////////////////
                                                                                 $first_estimated_price = ServiceScheduleHistory::find()->select('price')->where(['service_id' => $value->id, 'type' => 1])->one();
-                                                                                $total_amount = $value->estimated_price + $added_schedules_amount + $materials_used_amount + $discount_amount;
+                                                                                $total_amount = $value->estimated_price + $added_schedules_amount + $materials_used_amount - $discount_amount - $cancelled_schedules_amount;
                                                                                 $amount_paid = common\models\Invoice::find()->where(['service_id' => $value->id])->sum('amount');
                                                                                 if (empty($amount_paid))
                                                                                         $amount_paid = 0;
 
 
 
-                                                                                $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $discount_amount;
+                                                                                $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $discount_amount - $cancelled_schedules_amount;
                                                                                 $due_amount = $total_amount - $amount_paid;
                                                                                 ?>
 
@@ -181,6 +195,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <tr >
                                                                                                 <td class="sub">ADDED <?= $added_schedule_days . ' SCHEDULES' ?> <span style="color:red">( Extra Schedules )</span></td>
                                                                                                 <td><?= 'Rs. ' . number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
+
+                                                                                        </tr>
+                                                                                <?php } ?>
+
+                                                                                <!-----------------------------------cancelled schedules------------------------------------->
+                                                                                <?php
+                                                                                if ($cancelled_schedules_count > 0 && $cancelled_schedules_amount > 0) {
+                                                                                        $count = '';
+                                                                                        ?>
+                                                                                        <tr>
+                                                                                                <td class="sub">CANCELLED <?= $cancelled_schedule_days . ' SCHEDULES' ?></td>
+                                                                                                <td><?= 'Rs. ' . number_format((float) $cancelled_schedules_amount, 2, '.', ''); ?> </td>
 
                                                                                         </tr>
                                                                                 <?php } ?>

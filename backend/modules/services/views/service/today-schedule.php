@@ -251,15 +251,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                         <td class="sas">
 
-                                                                                                                <textarea class="form-control remarks_staff" name="remarks_from_patient" id="<?= $value->id ?>">
-                                                                                                                        <?php
-                                                                                                                        if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
-                                                                                                                                echo $value->remarks_from_staff;
-                                                                                                                        } else {
-                                                                                                                                ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
-                                                                                                                        <?php } ?>
-                                                                                                                </textarea>
+                                                                                                                <button class="btn btn-gray" style="margin: 15px 0px 0px 30px;float: left;"><a id="<?= $value->id ?>" class="remarks_Staff"><?php if (!isset($value->remarks_from_staff) && $value->remarks_from_staff == '') { ?> Add Remarks<?php } else { ?> View Remarks<?php } ?></a></button>
                                                                                                         </td>
 
                                                                                                 </tr>

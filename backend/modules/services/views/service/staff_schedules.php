@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $class = 'completed';
                                 $class1 = 'hide-class';
                                 ?>
-                                <tr  id="<?= $value->id; ?>" style="text-align:center">
+                                <tr  id="<?= $value->id; ?>" style="text-align:center;height: 60px;">
                                         <td><?= $p; ?></td>
 
                                         <td><?php
@@ -62,21 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <td class="sas">
 
-                                                <textarea class="form-control remarks_staff" name="remarks_from_patient" id="<?= $value->id ?>">
-                                                        <?php
-                                                        if (isset($value->remarks_from_staff) && $value->remarks_from_staff != '') {
-                                                                echo $value->remarks_from_staff;
-                                                        } else {
-                                                                ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
-                                                        <?php } ?>
-                                                </textarea>
+                                                <button class="btn btn-gray" style="margin: 15px 0px 0px 30px;float: left;"><a id="<?= $value->id ?>" class="remarks_Staff"><?php if (!isset($value->remarks_from_staff) && $value->remarks_from_staff == '') { ?> Add Remarks<?php } else { ?> View Remarks<?php } ?></a></button>
                                         </td>
 
                                 </tr>
@@ -88,15 +74,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-<script src="<?= Yii::$app->homeUrl; ?>js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript">
-        CKEDITOR.addCss('h3{font-weight:bold;}');
-        CKEDITOR.addCss('h3{text-decoration:underline;}');
-        CKEDITOR.replaceClass = 'remarks_staff';
 
 
 
+<script>
+        $(document).ready(function () {
+                $('.remarks_staff').change(function () {
+                        alert();
+                });
+        });
 </script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -113,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <style>
         .cke_contents{
-                height:100px !important;
+                height:210px !important;
         }
         .form-control{
                 border: none;

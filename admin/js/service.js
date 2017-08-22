@@ -624,6 +624,34 @@ $("document").ready(function () {
                 });
         });
 
+        $(document).on('click', '.remarks_Staff', function (e) {
+                var schedule_id = $(this).attr('id');
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/staffremarks',
+                        data: {schedule_id: schedule_id},
+                        success: function (data) {
+                                $("#modal-2-pop-up").html(data);
+                                $('#modal-2').modal('show', {backdrop: 'static'});
+                        }
+                });
+        });
+
+        $(document).on('submit', '#staff-remarks', function (e) {
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/updatestaffremarks',
+                        data: data,
+                        success: function (data) {
+                                $('#modal-2').modal('hide');
+                                location.reload();
+                        }
+                });
+        });
+
+
 
 
 

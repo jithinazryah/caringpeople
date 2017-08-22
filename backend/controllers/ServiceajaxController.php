@@ -700,4 +700,19 @@ class ServiceajaxController extends \yii\web\Controller {
                 }
         }
 
+        public function actionStaffremarks() {
+                $schedule_id = $_POST['schedule_id'];
+                $staff_remarks = $this->renderPartial('staff_remarks', ['schedule_id' => $schedule_id]);
+                echo $staff_remarks;
+        }
+
+        public function actionUpdatestaffremarks() {
+                if (Yii::$app->request->isAjax) {
+                        $schedule_id = $_POST['service_id'];
+                        $schedule = ServiceSchedule::findOne($schedule_id);
+                        $schedule->remarks_from_staff = $_POST['remarks_staff'];
+                        $schedule->update();
+                }
+        }
+
 }
