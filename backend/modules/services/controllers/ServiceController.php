@@ -331,4 +331,16 @@ class ServiceController extends Controller {
                 }
         }
 
+        public function actionTodayschedules() {
+                $user = Yii::$app->user->identity->id;
+                if (Yii::$app->session['post']['id'] != '1') {
+                        $services = Service::find()->where(['status' => 1])->andWhere(new Expression('FIND_IN_SET(:staffs, service_staffs)'))->addParams([':staffs' => Yii::$app->user->identity->id])->orWhere(['staff_manager' => Yii::$app->user->identity->id])->all();
+                } else {
+                        $services = Service::find()->where(['status' => 1])->all();
+                }
+                return $this->render('today-schedule', [
+                            'services' => $services
+                ]);
+        }
+
 }

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Service</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
                                 <?php if (!$model->isNewRecord) { ?>
                                         <?= Html::a('<i class="fa-plus"></i><span> Add Materials</span>', ['/sales/sales-invoice-details/add', 'id' => $model->id], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
-                                        <?= Html::a('<i class="fa-print"></i><span> Generate Estimate</span>', ['/sales/sales-invoice-details/add', 'id' => $model->id], ['class' => 'btn btn-secondary  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
+
                                 <?php } ?>
                                 <?=
                                 $this->render('_menus', [
