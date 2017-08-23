@@ -106,7 +106,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 foreach ($designations as $value) {
                                                                                         $k++;
                                                                                         $staffs = StaffInfo::find()->where(['branch_id' => $model->rating])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $value->id])->all();
-                                                                                        //  $staffs = StaffInfo::find()->where(['designation' => $value->id, 'branch_id' => $model->rating])->all();
                                                                                         $amount = 0;
                                                                                         foreach ($staffs as $values) {
                                                                                                 $staff_schedules = \common\models\ServiceSchedule::find()->where(['staff' => $values->id])->andWhere(['>=', 'date', date('Y-m-d', strtotime($model->date))])->andWhere(['<=', 'date', date('Y-m-d', strtotime($model->DOC))])->all();

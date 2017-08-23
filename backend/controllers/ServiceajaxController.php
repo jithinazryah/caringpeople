@@ -684,7 +684,7 @@ class ServiceajaxController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
                         $service_id = $_POST['service_id'];
                         $service = Service::findOne($service_id);
-                        $view = $this->renderPartial('change_manager', ['service' => $service]);
+                        $view = $this->renderPartial('service_update', ['service' => $service]);
                         echo $view;
                 }
         }

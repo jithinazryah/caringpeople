@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
 
         <div class="modal-header bg-blue">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title" id="largeModalLabel" style="color: #b60d14;">Change Staff Manager</h4>
+                <h4 class="modal-title" id="largeModalLabel" style="color: #b60d14;">Edit Service</h4>
         </div>
 
         <div class="modal-body">

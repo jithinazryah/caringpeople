@@ -192,8 +192,10 @@ use yii\db\Expression;
                 <div id="service-detail-view">
                         <div class="row serv_head">
                                 <h4>Service Details</h4>
+                                <p style="float:right;cursor: pointer;margin-top: 10px;" id="<?= $model->id ?>" class="change-service-manager"><i style="font-size:20px;color:#000;" class="fa fa-pencil-square-o" aria-hidden="true"></i> <span style="color:red">EDIT</span></p>
                         </div>
                         <table class="table table-bordered table-striped">
+
                                 <tr>
                                         <td class="labell">Patient </td><td class="value"> <?= $model->patient->first_name ?></td>
                                         <?php
