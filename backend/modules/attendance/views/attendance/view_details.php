@@ -49,15 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                         <div class = "table-responsive">
-                                                                <?php
-                                                                foreach ($staffs as $value) {
-                                                                        $staff_schedules = \common\models\ServiceSchedule::find()->where(['staff' => $value->id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
-                                                                        $amount = 0;
-                                                                        foreach ($staff_schedules as $staff_schedules) {
-                                                                                $amount += $staff_schedules->rate;
-                                                                        }
-                                                                }
-                                                                ?>
+
                                                                 <table class = "table table-striped">
                                                                         <thead>
                                                                         <th>NO</th>
@@ -90,8 +82,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 </tr>
                                                                                                 <?php
                                                                                         }
+                                                                                        $total_amount += $amount;
                                                                                 }
                                                                                 ?>
+
+                                                                                <tr>
+                                                                                        <td colspan="2"><?= $total_amount ?></td>
+                                                                                </tr>
 
                                                                         </tbody>
                                                                 </table>

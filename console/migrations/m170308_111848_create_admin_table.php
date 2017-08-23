@@ -63,6 +63,86 @@ class m170308_111848_create_admin_table extends Migration {
                     'DOU' => $this->timestamp(),
                 ]);
 
+                $this->createTable('{{%base_unit}}', [
+                    'id' => $this->primaryKey(),
+                    'name' => $this->string(30)->notNull(),
+                    'value' => $this->decimal(10, 2)->Null(),
+                    'status' => $this->smallInteger()->notNull()->defaultValue(0),
+                    'CB' => $this->integer()->notNull(),
+                    'UB' => $this->integer()->notNull(),
+                    'DOC' => $this->dateTime(),
+                    'DOU' => $this->timestamp(),
+                        ], $tableOptions);
+                $this->alterColumn('{{%base_unit}}', 'id', $this->integer() . ' NOT NULL AUTO_INCREMENT');
+
+
+                $this->createTable('{{%tax}}', [
+                    'id' => $this->primaryKey(),
+                    'name' => $this->string(10, 2)->notNull(),
+                    'type' => $this->integer()->Null(),
+                    'value' => $this->decimal()->Null(),
+                    'status' => $this->smallInteger()->notNull()->defaultValue(0),
+                    'CB' => $this->integer()->notNull(),
+                    'UB' => $this->integer()->notNull(),
+                    'DOC' => $this->dateTime(),
+                    'DOU' => $this->timestamp(),
+                        ], $tableOptions);
+                $this->alterColumn('{{%tax}}', 'id', $this->integer() . ' NOT NULL AUTO_INCREMENT');
+
+                $this->createTable('{{%serial_number}}', [
+                    'id' => $this->primaryKey(),
+                    'transaction' => $this->integer()->Null(),
+                    'prefix' => $this->integer()->Null(),
+                    'sequence_no' => $this->integer()->Null(),
+                    'status' => $this->smallInteger()->notNull()->defaultValue(0),
+                    'CB' => $this->integer()->notNull(),
+                    'UB' => $this->integer()->notNull(),
+                    'DOC' => $this->dateTime(),
+                    'DOU' => $this->timestamp(),
+                        ], $tableOptions);
+                $this->alterColumn('{{%serial_number}}', 'id', $this->integer() . ' NOT NULL AUTO_INCREMENT');
+
+                $this->createTable('{{%item_master}}', [
+                    'id' => $this->primaryKey(),
+                    'SKU' => $this->string(30)->notNull(),
+                    'item_name' => $this->string(30)->notNull(),
+                    'item_type' => $this->integer()->notNull(),
+                    'tax_id' => $this->integer()->notNull(),
+                    'base_unit_id' => $this->integer()->notNull(),
+                    'MRP' => $this->decimal(10, 2)->Null(),
+                    'retail_price' => $this->decimal(10, 2)->Null(),
+                    'purchase_prce' => $this->decimal(10, 2)->Null(),
+                    'item_cost' => $this->decimal(10, 2)->Null(),
+                    'status' => $this->smallInteger()->notNull()->defaultValue(0),
+                    'CB' => $this->integer()->notNull(),
+                    'UB' => $this->integer()->notNull(),
+                    'DOC' => $this->dateTime(),
+                    'DOU' => $this->timestamp(),
+                        ], $tableOptions);
+                $this->alterColumn('{{%item_master}}', 'id', $this->integer() . ' NOT NULL AUTO_INCREMENT');
+
+                $this->createIndex('tax', 'item_master', 'tax_id', false);
+                $this->createIndex('base', 'item_master', 'base_unit_id', false);
+                $this->addForeignKey("tax", "item_master", "tax_id", "tax", "id", "RESTRICT", "RESTRICT");
+                $this->addForeignKey("base", "item_master", "base_unit_id", "base_unit", "id", "RESTRICT", "RESTRICT");
+
+
+                $this->createTable('{{%business_partner}}', [
+                    'id' => $this->primaryKey(),
+                    'type' => $this->integer()->notNull(),
+                    'name' => $this->string(30)->notNull(),
+                    'phone' => $this->integer()->notNull(),
+                    'email' => $this->string(100),
+                    'city' => $this->integer()->Null(),
+                    'status' => $this->smallInteger()->notNull()->defaultValue(0),
+                    'CB' => $this->integer()->notNull(),
+                    'UB' => $this->integer()->notNull(),
+                    'DOC' => $this->dateTime(),
+                    'DOU' => $this->timestamp(),
+                        ], $tableOptions);
+                $this->alterColumn('{{%business_partner}}', 'id', $this->integer() . ' NOT NULL AUTO_INCREMENT');
+                $this->createIndex('city-id', 'business_partner', 'city', $unique = false);
+                $this->addForeignKey("city", "business_partner", "city", "city", "id", "RESTRICT", "RESTRICT");
 
 
 

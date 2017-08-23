@@ -12,6 +12,7 @@ use common\models\StaffInfo;
 use common\models\AttendanceEntry;
 use yii\helpers\ArrayHelper;
 use common\models\ServiceSchedule;
+use yii\db\Expression;
 
 /**
  * AttendanceController implements the CRUD actions for Attendance model.
@@ -305,11 +306,11 @@ class AttendanceController extends Controller {
                 ]);
         }
 
-        public function actionViewdetails($from = null, $to = null, $type = null) {
+        public function actionViewdetails($from = null, $to = null, $type = null, $branch_id = null) {
                 $from = date('Y-m-d', strtotime($from));
                 $to = date('Y-m-d', strtotime($to));
-                $staffs = StaffInfo::find()->where(['designation' => $type])->all();
-
+                //   $staffs = StaffInfo::find()->where(['designation' => $type, 'branch_id' => $branch_id])->all();
+                $staffs = StaffInfo::find()->where(['branch_id' => $branch_id])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $type])->all();
                 return $this->render('view_details', [
                             'from' => $from,
                             'to' => $to,
@@ -319,7 +320,7 @@ class AttendanceController extends Controller {
         }
 
         public function actionStaffdetails($from = null, $to = null, $staff = null) {
-                $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->all();
+                $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->orderBy(['date' => SORT_ASC])->all();
                 $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
                 return $this->render('staff_details', [
                             'schedules' => $schedules,
