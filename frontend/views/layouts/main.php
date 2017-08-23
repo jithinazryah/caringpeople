@@ -8,7 +8,6 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
 ?>
@@ -28,9 +27,6 @@ AppAsset::register($this);
                 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/jquery-migrate.min.js'></script>
-                <script type="text/javascript">
-                        var homeUrl = '<?= Yii::$app->homeUrl; ?>';
-                </script>
                 <style type="text/css">
                         img.wp-smiley,
                         img.emoji {
@@ -203,12 +199,12 @@ AppAsset::register($this);
 
 
                         <div class="help-box">
-                                <h5 class="title align-left title-big">IT REALLY IS AS SIMPLE AS A B C…</h5>
+                                <h5 class="title align-left title-big">IT REALLY IS AS SIMPLE AS A B Câ€¦</h5>
                                 <div class="style-selector-wrapper">
                                         <!--<h5 class="title">Choose Layout</h5>-->
                                         <!--                                        <a class="btn-gray active" href="index.php">Wide</a> <a class="btn-gray" href="http://codelayers.net/templates/hasta/construction/boxed/index.php">Boxed</a>
                                                                                 <div class="clearfix"></div>-->
-                                        <!--                    <h5 class="title align-left">IT REALLY IS AS SIMPLE AS A B C…</h5>-->
+                                        <!--                    <h5 class="title align-left">IT REALLY IS AS SIMPLE AS A B Câ€¦</h5>-->
                                         <div class="scrol-box">
                                                 <ol class="alpha-list bg-pattrens-list">
                                                         <li><span>A</span><p>Phone us and have a chat about the type of Care and Support you would require. We are happy to give advice and to talkto you through the many options available to you.</p></li>
@@ -311,23 +307,19 @@ AppAsset::register($this);
                                                                                         <div class="mkdf-tab-container" id="Register" data-icon-pack="linear_icons" data-icon-html="&lt;i class=&quot;mkdf-icon-linear-icon lnr lnr-smile &quot; &gt;&lt;/i&gt;">
                                                                                                 <div data-original-height="10" class="vc_empty_space" style="height: 10px"><span class="vc_empty_space_inner"></span></div>
                                                                                                 <div id="logbox">
-                                                                                                        <!--<form class=" animate" id="signup" method="post" action="">-->
-                                                                                                        <?php
-                                                                                                        $model = new \common\models\PatientGeneral();
-                                                                                                        $form = ActiveForm::begin(['class' => 'animate', 'id' => 'signup']);
-                                                                                                        ?>
-                                                                                                        <div class="container register-field">
-                                                                                                                <!--<h1>create an account</h1>-->
-                                                                                                                <?= $form->field($model, 'patient_id')->textInput(['maxlength' => true, 'class' => 'input pass', 'placeholder' => 'Enter Your Patient Id'])->label(FALSE) ?>
-                                                                                                                <?= $form->field($model, 'contact_number')->textInput(['maxlength' => true, 'class' => 'input pass', 'placeholder' => 'Enter Your Contact Number'])->label(FALSE) ?>
-                                                                                                                <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'class' => 'input pass', 'placeholder' => 'Enter Your Email'])->label(FALSE) ?>
-                                                                                                                <?= Html::submitButton('Sign me up!', ['class' => 'inputButton']) ?>
-                                                                                                                <div class="text-center">
-                                                                                                                        already have an account? <a href="#" id="login_id">login</a>
+                                                                                                        <form class=" animate" id="signup" method="post" action="">
+                                                                                                                <div class="container register-field">
+                                                                                                                        <!--<h1>create an account</h1>-->
+                                                                                                                        <input name="user[name]" type="text" placeholder="What's your username?" pattern="^[\w]{3,16}$" autofocus="autofocus" required="required" class="input pass"/>
+                                                                                                                        <input name="user[password]" type="password" placeholder="Choose a password" required="required" class="input pass"/>
+                                                                                                                        <input name="user[password2]" type="password" placeholder="Confirm password" required="required" class="input pass"/>
+                                                                                                                        <input name="user[email]" type="email" placeholder="Email address" class="input pass"/>
+                                                                                                                        <input type="submit" value="Sign me up!" class="inputButton"/>
+                                                                                                                        <div class="text-center">
+                                                                                                                                already have an account? <a href="#" id="login_id">login</a>
+                                                                                                                        </div>
                                                                                                                 </div>
-                                                                                                        </div>
-                                                                                                        <?php ActiveForm::end(); ?>
-                                                                                                        <!--</form>-->
+                                                                                                        </form>
                                                                                                 </div>
                                                                                         </div>
 
@@ -453,7 +445,7 @@ AppAsset::register($this);
                                 </div>
 
                                 <header class="mkdf-page-header">
-                                        <?php $action = Yii::$app->controller->action->id; // controller action id    ?>
+                                        <?php $action = Yii::$app->controller->action->id; // controller action id ?>
                                         <div class="mkdf-menu-area">
                                                 <div class="mkdf-grid">
                                                         <div class="mkdf-vertical-align-containers">
@@ -494,7 +486,7 @@ AppAsset::register($this);
                                                                                                                                 <li id="nav-menu-item-600" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Physiotherapy </span></span><span class="plus"></span></span>', ['services/physiotherapy'], ['class' => '']) ?></li>
 
 
-<!--<li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => ''])                                                                                                                ?></li>-->
+<!--<li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => ''])                                                    ?></li>-->
                                                                                                                                 <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Health Check-up</span></span><span class="plus"></span></span>', ['services/health-check-up'], ['class' => '']) ?></li>
                                                                                                                                 <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Air Ambulance</span></span><span class="plus"></span></span>', ['services/air-ambulance'], ['class' => '']) ?></li>
                                                                                                                                 <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Ambulance</span></span><span class="plus"></span></span>', ['services/ambulance'], ['class' => '']) ?></li>
@@ -507,11 +499,11 @@ AppAsset::register($this);
                                                                                                                                 <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Speech Therapy</span></span><span class="plus"></span></span>', ['services/speech-therapy'], ['class' => '']) ?></li>
                                                                                                                                 <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Other Services</span></span><span class="plus"></span></span>', ['services/other-services'], ['class' => '']) ?></li>
                                                                                                                                 <!--
-                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Software(Use it If Needed)</span></span><span class="plus"></span></span>', ['services/software'], ['class' => ''])                                                                                                      ?></li>
-                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Your Welfare</span></span><span class="plus"></span></span>', ['services/welfare'], ['class' => ''])                                                                                                      ?></li>
-                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Meals On Wheels</span></span><span class="plus"></span></span>', ['services/meals-on-wheels'], ['class' => ''])                                                                                                      ?></li>
-                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Handyman Service</span></span><span class="plus"></span></span>', ['services/handyman-service'], ['class' => ''])                                                                                                      ?></li>
-                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Mobile Hairdressing Service</span></span><span class="plus"></span></span>', ['services/mobile-hairdressing-service'], ['class' => ''])                                                                                                      ?></li>-->
+                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Software(Use it If Needed)</span></span><span class="plus"></span></span>', ['services/software'], ['class' => ''])                                          ?></li>
+                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Your Welfare</span></span><span class="plus"></span></span>', ['services/welfare'], ['class' => ''])                                          ?></li>
+                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Meals On Wheels</span></span><span class="plus"></span></span>', ['services/meals-on-wheels'], ['class' => ''])                                          ?></li>
+                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Handyman Service</span></span><span class="plus"></span></span>', ['services/handyman-service'], ['class' => ''])                                          ?></li>
+                                                                                                                                                                                                <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Mobile Hairdressing Service</span></span><span class="plus"></span></span>', ['services/mobile-hairdressing-service'], ['class' => ''])                                          ?></li>-->
                                                                                                                         </ul>
                                                                                                                 </div>
                                                                                                         </div>
@@ -582,7 +574,7 @@ AppAsset::register($this);
 
                                                                                                                                         <li id="nav-menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Physiotherapy</span></span><span class="plus"></span></span>', ['services/physiotherapy'], ['class' => '']) ?></li>
 
-<!--<li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => ''])                                                                                                               ?></li>-->
+<!--<li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => ''])                                                   ?></li>-->
                                                                                                                                         <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Health Check-up</span></span><span class="plus"></span></span>', ['services/health-check-up'], ['class' => '']) ?></li>
                                                                                                                                         <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Air Ambulance</span></span><span class="plus"></span></span>', ['services/air-ambulance'], ['class' => '']) ?></li>
                                                                                                                                         <li id="nav-menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Ambulance</span></span><span class="plus"></span></span>', ['services/ambulance'], ['class' => '']) ?></li>
@@ -596,11 +588,11 @@ AppAsset::register($this);
 
                                                                                                                                         <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Other Services</span></span><span class="plus"></span></span>', ['services/other-services'], ['class' => '']) ?></li>
 
-<!--                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Software (Use it if needed)</span></span><span class="plus"></span></span>', ['services/software'], ['class' => ''])                                                                                                    ?></li>
-                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Your welfare</span></span><span class="plus"></span></span>', ['services/welfare'], ['class' => ''])                                                                                                    ?></li>
-                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text"> Meals on Wheels</span></span><span class="plus"></span></span>', ['services/meals-on-wheels'], ['class' => '']                                                                                                     ?></li>
-                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Handyman Service</span></span><span class="plus"></span></span>', ['services/handyman-service'], ['class' => ''                                                                                                      ?></li>
-                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Mobile Hairdressing Service</span></span><span class="plus"></span></span>', ['services/mobile-hairdressing-service'], ['class' => ')                                                                                                      ?></li>-->
+<!--                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Software (Use it if needed)</span></span><span class="plus"></span></span>', ['services/software'], ['class' => ''])                                        ?></li>
+                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Your welfare</span></span><span class="plus"></span></span>', ['services/welfare'], ['class' => ''])                                        ?></li>
+                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text"> Meals on Wheels</span></span><span class="plus"></span></span>', ['services/meals-on-wheels'], ['class' => '']                                         ?></li>
+                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Handyman Service</span></span><span class="plus"></span></span>', ['services/handyman-service'], ['class' => ''                                          ?></li>
+                                                                    <li id="nav-menu-item-607" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Mobile Hairdressing Service</span></span><span class="plus"></span></span>', ['services/mobile-hairdressing-service'], ['class' => ')                                          ?></li>-->
 
                                                                                                                                 </ul>
                                                                                                                         </div>
@@ -671,7 +663,7 @@ AppAsset::register($this);
                                                                                         <li id="mobile-menu-item-602" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Physiotherapy</span></span><span class="plus"></span></span>', ['services/physiotherapy'], ['class' => '']) ?></li>
 
 
-<!--<li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => ''])                                                                                                              ?></li>-->
+<!--<li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Equipment Hire or Purchase</span></span><span class="plus"></span></span>', ['services/equipment-hire'], ['class' => ''])                                                  ?></li>-->
                                                                                         <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Health Check-up</span></span><span class="plus"></span></span>', ['services/health-check-up'], ['class' => '']) ?></li>
                                                                                         <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Air Ambulance</span></span><span class="plus"></span></span>', ['services/air-ambulance'], ['class' => '']) ?></li>
                                                                                         <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Ambulance</span></span><span class="plus"></span></span>', ['services/ambulance'], ['class' => '']) ?></li>
@@ -684,11 +676,11 @@ AppAsset::register($this);
                                                                                         <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Speech Therapy</span></span><span class="plus"></span></span>', ['services/speech-therapy'], ['class' => '']) ?></li>
                                                                                         <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Other Services</span></span><span class="plus"></span></span>', ['services/other-services'], ['class' => '']) ?></li>
 
-<!--                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Software (Use it if needed)</span></span><span class="plus"></span></span>', ['services/software'], ['class'  ''])                                                                                                    ?></li>
-                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Your welfare</span></span><span class="plus"></span></span>', ['services/welfare'], ['class'> ''])                                                                                                    ?></li>
-                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Meals on Wheels</span></span><span class="plus"></span></span>', ['services/meals-on-wheels'], ['class=> ''])                                                                                                    ?></li>
-                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Handyman Service</span></span><span class="plus"></span></span>', ['services/handyman-service'], ['clas => ''])                                                                                                    ?></li>
-                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Mobile Hairdressing Service</span></span><span class="plus"></span></span>', ['services/mobile-hairdressing-service'], ['cla' => ''])                                                                                                    ?></li>-->
+<!--                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Software (Use it if needed)</span></span><span class="plus"></span></span>', ['services/software'], ['class'  ''])                                        ?></li>
+                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Your welfare</span></span><span class="plus"></span></span>', ['services/welfare'], ['class'> ''])                                        ?></li>
+                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Meals on Wheels</span></span><span class="plus"></span></span>', ['services/meals-on-wheels'], ['class=> ''])                                        ?></li>
+                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Handyman Service</span></span><span class="plus"></span></span>', ['services/handyman-service'], ['clas => ''])                                        ?></li>
+                                            <li id="mobile-menu-item-608" class="menu-item menu-item-type-post_type menu-item-object-page"><?php // Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Mobile Hairdressing Service</span></span><span class="plus"></span></span>', ['services/mobile-hairdressing-service'], ['cla' => ''])                                        ?></li>-->
                                                                                 </ul>
                                                                         </li>
                                                                         <li id="mobile-menu-item-2022" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children  has_sub"><?= Html::a('<span class="item_outer"><span class="item_inner"><span class="item_text">Testimonials</span></span><span class="mobile_arrow"></span></span>', ['site/testimonial'], ['class' => '']) ?></li>
@@ -882,7 +874,7 @@ AppAsset::register($this);
                                                                                                 <div class="mkdf-column">
                                                                                                         <div class="mkdf-column-inner">
                                                                                                                 <div id="text-4" class="widget mkdf-footer-bottom-left widget_text">
-                                                                                                                        <div class="textwidget">Copyrights 2017 © <span style="color:#8f8f8f;">Caringpeople</span></div>
+                                                                                                                        <div class="textwidget">Copyrights 2017 Â© <span style="color:#8f8f8f;">Caringpeople</span></div>
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </div>
@@ -1107,10 +1099,10 @@ AppAsset::register($this);
                                 });
                         });</script>
 
-<!--                <script>
+                <script>
                         function checkPosition() {
                                 if (window.matchMedia('(max-width: 767px)').matches) {
-
+                                        alert('aSg');
                                         jQuery(".btn-close").click(function () {
                                                 if (jQuery(".btn-close").hasClass('out')) {
                                                         jQuery(".btn-close").addClass('in').removeClass('out');
@@ -1124,27 +1116,7 @@ AppAsset::register($this);
                                         }
                                 }
                         }
-                </script>-->
-
-<!--                <script>
-                        jQuery(document).ready(function ($) {
-                                $('#signup').submit(function (e) {
-                                        alert();
-                                        e.preventDefault();
-                                        $.ajax({
-                                                type: 'POST',
-                                                cache: false,
-                                                data: {patient_id: $('#patientgeneral-patient_id').val()},
-                                                url: homeUrl + 'ajax/signup',
-                                                success: function (data) {
-                                                        $("#service-patient_id").html(data);
-                                                        hideLoader();
-                                                }
-                                        });
-
-                                });
-                        });
-                </script>-->
+                </script>
 
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/ui/core.min.js'></script>
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/jquery/ui/widget.min.js'></script>
@@ -1247,7 +1219,6 @@ AppAsset::register($this);
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-content/themes/wellspring/assets/js/blog.min.js'></script>
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/comment-reply.min.js'></script>
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>wp-includes/js/wp-embed.min.js'></script>
-<!--                <script type='text/javascript' src='<?= Yii::$app->homeUrl; ?>js/custom.js'></script>-->
         </body>
 
 </html>
