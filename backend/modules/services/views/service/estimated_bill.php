@@ -60,7 +60,6 @@ and open the template in the editor.
                               margin-left: 10mm; margin-right: 10mm;
                         }
 
-
                 }
                 @media screen{
                         .main-tabl{
@@ -121,6 +120,8 @@ and open the template in the editor.
                         float:left  !important;
                 }.bank-details td{
                         border: 1px solid #aea6a6!important;
+                }.table6 td{
+                        border: none!important;
                 }
 
 
@@ -155,7 +156,7 @@ and open the template in the editor.
                         <tr>
                                 <td class="bill">
                                         <div>
-                                                <span>BILL</span>
+                                                <span>ESTIMATED PRO FORMA</span>
                                         </div>
                                 </td>
                         </tr>
@@ -166,11 +167,7 @@ and open the template in the editor.
 
 
         <table class="table">
-                <tr>
-                        <td colspan="2"> To,</td>
-                        <td>Bill No</td>
-                        <td>CPC 109/17-18</td>
-                </tr>
+
 
                 <tr>
                         <td>Patient Name</td>
@@ -183,17 +180,14 @@ and open the template in the editor.
                                 $patient_id = $patient->patient_id;
                         }
                         ?>
-                        <td><?= $patient_name ?></td>
+                        <td><b><?= $patient_name ?></b></td>
                         <td>Date</td>
-                        <td><?= date('d-m-Y', strtotime($model->DOC)) ?></td>
+                        <td><b><?= date('d-m-Y') ?></b></td>
+                        <td>Patient ID</td>
+                        <td><b><?= $patient_id; ?></b></td>
                 </tr>
 
-                <tr>
-                        <td>Patient ID</td>
-                        <td><?= $patient_id; ?></td>
-                        <td>Ref No</td>
-                        <td></td>
-                </tr>
+
         </table>
 
         <table class="table">
@@ -205,10 +199,10 @@ and open the template in the editor.
                 </tr>
 
                 <?php
-                $service = common\models\Service::findOne($model->service_id);
+                $service = $model;
                 $service_detail = common\models\MasterServiceTypes::findOne($service->service);
                 $service_name = $service_detail->service_name;
-                $first_estimated_price = ServiceScheduleHistory::find()->select('price')->where(['service_id' => $model->service_id, 'type' => 1])->one();
+                $first_estimated_price = ServiceScheduleHistory::find()->select('price')->where(['service_id' => $model->id, 'type' => 1])->one();
                 $count = 1;
                 ?>
                 <tr>
@@ -232,7 +226,8 @@ and open the template in the editor.
                 <?php
                 ///////////////////////////////////////////materials added//////////////////////////////
                 $materials_used_amount = 0;
-                $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $model->service_id])->all();
+                $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $model->id])->all();
+
                 foreach ($materials_used as $materials_used) {
                         $materials_used_amount += $materials_used->due_amount;
                 }
@@ -240,16 +235,60 @@ and open the template in the editor.
                 if ($materials_used_amount > 0) {
                         ?>
                         <tr>
-                                <td><?=
+                                <td class="inside-table-td"><?=
                                         $count;
                                         $count++
                                         ?></td>
-                                <td>Materials Used</td>
-                                <td></td>
-                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
+                                <td>
+                                        <table class="table6" style="width:50%;margin:auto">
+                                                <tr>
+                                                        <td colspan="2"><b>Materials Used</b></td>
+                                                </tr>
+                                                <?php
+                                                $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $model->id])->all();
+                                                foreach ($materials_used as $materials_used) {
+                                                        $materials_used_details = common\models\SalesInvoiceDetails::find()->where(['sales_invoice_master_id' => $materials_used->id])->all();
+                                                        foreach ($materials_used_details as $materials_used_details) {
+                                                                ?>
+                                                                <tr>
+                                                                        <td><?= $materials_used_details->item_name ?></td>
+                                                                </tr>
+                                                                <?php
+                                                        }
+                                                }
+                                                ?>
 
+
+                                        </table>
+                                </td>
+                                <td>
+                                        <table class="table6" style="width:50%;margin:auto">
+                                                <tr>
+                                                        <td colspan="2"></td>
+                                                </tr>
+                                                <?php
+                                                $materials_used = SalesInvoiceMaster::find()->where(['busines_partner_code' => $model->id])->all();
+                                                foreach ($materials_used as $materials_used) {
+                                                        $materials_used_details = common\models\SalesInvoiceDetails::find()->where(['sales_invoice_master_id' => $materials_used->id])->all();
+                                                        foreach ($materials_used_details as $materials_used_details) {
+                                                                ?>
+                                                                <tr>
+                                                                        <td><?= $materials_used_details->net_amount ?></td>
+                                                                </tr>
+                                                                <?php
+                                                        }
+                                                }
+                                                ?>
+
+
+                                        </table>
+                                </td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
                         </tr>
+
+
                 <?php } ?>
+
 
 
 
@@ -258,7 +297,7 @@ and open the template in the editor.
                 $added_schedules_amount = 0;
                 $added_schedule_days = 0;
                 $price = 0;
-                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
+                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
                 foreach ($added_schedules as $added_schedules) {
                         $added_schedules_count++;
                         $added_schedules_amount += $added_schedules->price;
@@ -292,7 +331,7 @@ and open the template in the editor.
                 <tr>
                         <?php
                         $discount_amount = 0;
-                        $dicounts = ServiceDiscounts::find()->where(['service_id' => $model->service_id])->all();
+                        $dicounts = ServiceDiscounts::find()->where(['service_id' => $model->id])->all();
                         foreach ($dicounts as $dicounts) {
                                 $discount_amount += $dicounts->discount_value;
                         }
@@ -308,20 +347,12 @@ and open the template in the editor.
                         <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $grand_total, 2, '.', ''); ?></td>
                 </tr>
 
-                <tr>
+<!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?= number_format((float) $model->amount, 2, '.', ''); ?></td>
-                </tr>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                     ?></td>
+                </tr>-->
 
-                <tr>
-                        <td colspan="3" style="text-align:center"><b>Total Amount Paid</b></td>
-                        <?php
-                        $amount_paid = common\models\Invoice::find()->where(['service_id' => $model->service_id])->sum('amount');
-                        if (empty($amount_paid))
-                                $amount_paid = 0;
-                        ?>
-                        <td style="text-align:right"><?= number_format((float) $amount_paid, 2, '.', ''); ?></td>
-                </tr>
+
         </table>
 
         <table class="table table2">
@@ -330,14 +361,14 @@ and open the template in the editor.
                                 Rupees
                         </td>
                         <td colspan="3">
-                                <p style="border-bottom: 1px dotted #000;"><?php echo Yii::$app->NumToWord->convert_number_to_words($amount_paid) . " Rupees Only"; ?></p>
+                                <p style="border-bottom: 1px dotted #000;"><?php echo Yii::$app->NumToWord->convert_number_to_words($grand_total) . " Rupees Only"; ?></p>
                         </td>
                 </tr>
                 <tr>
                         <td>Bank Name:</td>
-                        <td><p style="border-bottom: 1px dotted #000;"><?= $model->payment_type ?></p></td>
+                        <td><p style="border-bottom: 1px dotted #000;"></p></td>
                         <td>Cheque No:</td>
-                        <td><p style="border-bottom: 1px dotted #000;"><?= $model->reference_no ?></p></td>
+                        <td><p style="border-bottom: 1px dotted #000;"></p></td>
                 </tr>
                 <tr>
                         <td colspan="2" bgcolor="#eee">For Payment through RTGS/NEFT Mode</td>

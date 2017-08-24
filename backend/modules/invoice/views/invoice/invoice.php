@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <td style="width:10%">Total Amount</td>
                                                                                         <td style="width:10%">Amount Paid</td>
                                                                                         <td style="width:10%">Due Amount</td>
-                                                                                        <td style="width:10%">Amount Pay</td>
+                                                                                        <td style="width:10%">Amount Received</td>
                                                                                 </tr>
                                                                         </thead>
                                                                         <?php

@@ -192,8 +192,13 @@ use yii\db\Expression;
                 <div id="service-detail-view">
                         <div class="row serv_head">
                                 <h4>Service Details</h4>
-                                <p style="float:right;cursor: pointer;margin-top: 10px;" id="<?= $model->id ?>" class="change-service-manager"><i style="font-size:20px;color:#000;" class="fa fa-pencil-square-o" aria-hidden="true"></i> <span style="color:red">EDIT</span></p>
+                                 <!--<p style="float:right;cursor: pointer;margin-top: 10px;" id="<?= $model->id ?>" class="change-service-manager"><i style="font-size:20px;color:#000;" class="fa fa-pencil-square-o" aria-hidden="true"></i> <span style="color:red">EDIT</span></p>-->
                         </div>
+                        <div class="row">
+                                <a class="change-service-manager" id="<?= $model->id ?>" title="Edit Service"  style="float:right;cursor: pointer;" target="_blank"><i class="fa fa-edit" style="font-size:30px;color:red"></i></a>
+
+                        </div>
+
                         <table class="table table-bordered table-striped">
 
                                 <tr>
@@ -219,7 +224,7 @@ use yii\db\Expression;
                                         }
                                         ?>
 
-                                        <?php if (isset($model->gender_preference) && $model->gender_preference != '') { ?>
+                                        <?php if (isset($model->gender_preference)) { ?>
                                                 <td class = "labell">Staff Preference </td><td class = "value"><?php
                                                         if ($model->gender_preference == 0) {
                                                                 echo 'Male Staff';

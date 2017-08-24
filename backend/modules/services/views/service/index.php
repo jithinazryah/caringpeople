@@ -42,7 +42,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                         <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> Create Service</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                        <?= Html::a("<i class='fa fa-book'></i><span> Today's Schedules</span>", ['todayschedules'], ['target' => '_blank', 'class' => 'btn btn-info  btn-icon btn-icon-standalone', 'style' => 'float:right']) ?>
+                                        <?= Html::a("<i class='fa fa-book'></i><span> Today's Schedules</span>", ['todayschedules'], ['target' => '_blank', 'class' => 'btn btn-info  btn-icon btn-icon-standalone', 'style' => 'float:right', 'id' => 'today_schedule']) ?>
                                         <?php
                                         $gridColumns = [
                                                 ['class' => 'yii\grid\SerialColumn'],

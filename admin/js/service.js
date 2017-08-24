@@ -377,6 +377,7 @@ $("document").ready(function () {
 
         $('.change-service-manager').click(function () {
                 var service_id = $(this).attr('id');
+                showLoader();
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'serviceajax/changemanager',
@@ -384,6 +385,7 @@ $("document").ready(function () {
                         success: function (data) {
                                 $("#modal-pop-up").html(data);
                                 $('#modal-6').modal('show', {backdrop: 'static'});
+                                hideLoader();
 
                         }
                 });
@@ -476,33 +478,50 @@ $("document").ready(function () {
 
         $('.status-update').change(function () {
 
+                var flag = 0;
+                var flag1 = 0;
                 var status = $(this).val();
                 var idd_atr = $(this).attr('id');
                 var schedule_id = idd_atr.split('_');
                 var date = $('#schedule_date-' + schedule_id[1]).val();
                 var staf = $('#staff_on_duty_' + schedule_id[1]).attr('val');
-                if (staf && staf != '') {
-                        if (date && date != '') {
-                                showLoader();
-                                $.ajax({
-                                        type: 'POST',
-                                        url: homeUrl + 'serviceajax/statusupdate',
-                                        data: {schedule_id: schedule_id, status: status},
-                                        success: function (data) {
-                                                hideLoader();
-                                                $("#modal-2-pop-up").html(data);
-                                                $('#modal-2').modal('show', {backdrop: 'static'});
+                if (status == 2) {
 
-                                        }
-                                });
+                        if (staf && staf != '') {
+                                flag = 0;
                         } else {
+                                flag = 1;
+                        }
+                }
+                if (date && date != '') {
+                        flag1 = 0;
+                } else {
+                        flag1 = 2;
+                }
+                if (flag == 0 && flag1 == 0) {
+                        showLoader();
+                        $.ajax({
+                                type: 'POST',
+                                url: homeUrl + 'serviceajax/statusupdate',
+                                data: {schedule_id: schedule_id, status: status},
+                                success: function (data) {
+                                        hideLoader();
+                                        $("#modal-2-pop-up").html(data);
+                                        $('#modal-2').modal('show', {backdrop: 'static'});
+
+                                }
+                        });
+                } else {
+                        if (flag1 == 2) {
                                 $('#' + idd_atr + ' option[value=1]').prop("selected", "selected");
                                 alert('Please select a date for this schedule');
+                        } else if (flag == 1) {
+                                $('#' + idd_atr + ' option[value=1]').prop("selected", "selected");
+                                alert('Please assign a staff for this schedule');
                         }
-                } else {
-                        $('#' + idd_atr + ' option[value=1]').prop("selected", "selected");
-                        alert('Please assign a staff for this schedule');
                 }
+
+
         });
 
 
@@ -652,6 +671,20 @@ $("document").ready(function () {
         });
 
 
+        $(document).on('click', '.remove-staff', function (e) {
+                var schedule_id = $(this).attr('id');
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'serviceajax/removestaff',
+                        data: {schedule_id: schedule_id},
+                        success: function (data) {
+                                location.reload();
+
+                        }
+                });
+        });
+
+
 
 
 
@@ -681,6 +714,37 @@ $("document").ready(function () {
 
         /********************************************************  Service Discounts **********************************************/
 
+
+
+        $('#today_schedule').click(function (e) {
+                $.ajax({
+                        url: homeUrl + 'serviceajax/userbranch',
+                        'async': false,
+                        'type': "POST",
+                        'global': false,
+                        'dataType': 'html',
+                        data: {id: 1},
+                        beforeSend: function () {
+
+                        }
+                })
+                        .done(function (data) {
+
+                                if (data != '0') {
+
+                                        return true;
+
+                                } else {
+                                        $('#modal-5').modal('show');
+                                        e.preventDefault();
+                                        hideLoader();
+                                        return false;
+                                }
+
+
+                        });
+
+        });
 
 
 });

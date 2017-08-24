@@ -333,13 +333,29 @@ class ServiceController extends Controller {
 
         public function actionTodayschedules() {
                 $user = Yii::$app->user->identity->id;
-                if (Yii::$app->session['post']['id'] != '1') {
-                        $services = Service::find()->where(['status' => 1])->andWhere(new Expression('FIND_IN_SET(:staffs, service_staffs)'))->addParams([':staffs' => Yii::$app->user->identity->id])->orWhere(['staff_manager' => Yii::$app->user->identity->id])->all();
+                if (isset($_POST['branch'])) {
+                        $branch = $_POST['branch'];
+                        if ($branch == 0) {
+                                $services = Service::find()->where(['status' => 1])->all();
+                        } else {
+                                $services = Service::find()->where(['status' => 1, 'branch_id' => $branch])->all();
+                        }
                 } else {
-                        $services = Service::find()->where(['status' => 1])->all();
+                        if (Yii::$app->session['post']['id'] == 1) {
+                                $services = Service::find()->where(['status' => 1, 'branch_id' => Yii::$app->user->identity->branch_id])->all();
+                        } else {
+                                $services = Service::find()->where(['status' => 1])->andWhere(new Expression('FIND_IN_SET(:staffs, service_staffs)'))->addParams([':staffs' => Yii::$app->user->identity->id])->orWhere(['staff_manager' => Yii::$app->user->identity->id])->all();
+                        }
                 }
                 return $this->render('today-schedule', [
                             'services' => $services
+                ]);
+        }
+
+        public function actionEstimatedBill($id) {
+                $model = $this->findModel($id);
+                echo $this->renderPartial('estimated_bill', [
+                    'model' => $model,
                 ]);
         }
 

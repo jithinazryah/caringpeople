@@ -100,9 +100,6 @@ class InvoiceController extends Controller {
                 echo $this->renderPartial('invoice_bill', [
                     'model' => $model,
                 ]);
-                //    return $this->render('invoice_bill', [
-                //              'model' => $model,
-                //   ]);
         }
 
         /**

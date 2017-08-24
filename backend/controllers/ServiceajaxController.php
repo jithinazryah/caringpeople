@@ -334,25 +334,39 @@ class ServiceajaxController extends \yii\web\Controller {
                                 $schedule_detail->status = $status;
                                 $schedule_detail->update();
 
-                                if (isset($schedule_detail->staff) && $schedule_detail->staff != '') {
-                                        if ($status == 2 || $status == 4) { /* if status completed or cancelled */
-                                                $taff_exists = ServiceSchedule::find()->where(['staff' => $schedule_detail->staff, 'status' => 1])->exists();
-                                                if ($taff_exists != '1') {
-                                                        $this->StaffStatus($schedule_detail->staff, 0);
-                                                        $service_detail->service_staffs = $this->Servicestaffs($schedule_detail->service_id);
-                                                        $service_detail->update(FALSE);
-                                                }
-                                        }
-                                        if ($status == 3 || $status == 4) { /* status is interupted or cancelled */
 
-                                                $rate = $this->ChangePrice($service_detail, 1, 2);
-                                                $service_detail->estimated_price = $service_detail->estimated_price - $rate;
-                                                $service_detail->due_amount = $service_detail->due_amount - $rate;
-                                                $service_detail->days = $service_detail->days - 1;
-                                                $service_detail->to_date = date('Y-m-d', strtotime($todate . ' - 1 days'));
+                                if ($status == 2 || $status == 4) { /* if status completed or cancelled */
+                                        $this->CheckRateAdded($schedule_detail->id, $schedule_detail->service_id, $schedule_detail->rate, $schedule_detail->patient_rate);
+                                        $taff_exists = ServiceSchedule::find()->where(['staff' => $schedule_detail->staff, 'status' => 1])->exists();
+                                        if ($taff_exists != '1') {
+                                                $this->StaffStatus($schedule_detail->staff, 0);
+                                                $service_detail->service_staffs = $this->Servicestaffs($schedule_detail->service_id);
                                                 $service_detail->update(FALSE);
-                                                SetValues::ServiceScheduleHistory($service_detail->id, 3, 1, $rate);
                                         }
+                                }
+                                if ($status == 3 || $status == 4) { /* status is interupted or cancelled */
+
+                                        $rate = $this->ChangePrice($service_detail, 1, 2);
+                                        $service_detail->estimated_price = $service_detail->estimated_price - $rate;
+                                        $service_detail->due_amount = $service_detail->due_amount - $rate;
+                                        //   $service_detail->days = $service_detail->days - 1;
+                                        //   $service_detail->to_date = date('Y-m-d', strtotime($todate . ' - 1 days'));
+                                        $service_detail->update(FALSE);
+                                        SetValues::ServiceScheduleHistory($service_detail->id, 3, 1, $rate);
+                                }
+                        }
+                }
+        }
+
+        public function CheckRateAdded($id, $service_id, $staff_rate, $patient_rate) {
+                if (isset($service_id) && isset($staff_rate)) {
+                        $schedules = ServiceSchedule::find()->where(['>', 'rate', 0])->andWhere(['<>', 'id', $id])->andWhere(['service_id' => $service_id])->exists();
+                        if ($schedules != 1) {
+                                $all_schedules = ServiceSchedule::find()->where(['service_id' => $service_id])->andWhere(['<>', 'id', $id])->all();
+                                foreach ($all_schedules as $value) {
+                                        $value->rate = $staff_rate;
+                                        $value->patient_rate = $patient_rate;
+                                        $value->update();
                                 }
                         }
                 }
@@ -693,6 +707,7 @@ class ServiceajaxController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
                         $service_id = $_POST['service_id'];
                         $service = Service::findOne($service_id);
+                        $service->gender_preference = $_POST['service-staff-prefernce'];
                         $service->staff_manager = $_POST['service_staff_amanger'];
                         $service->update();
                         $service->service_staffs = $this->Servicestaffs($service_id);
@@ -712,6 +727,33 @@ class ServiceajaxController extends \yii\web\Controller {
                         $schedule = ServiceSchedule::findOne($schedule_id);
                         $schedule->remarks_from_staff = $_POST['remarks_staff'];
                         $schedule->update();
+                }
+        }
+
+        public function actionRemovestaff() {
+                if (Yii::$app->request->isAjax) {
+                        $schhedule_id = $_POST['schedule_id'];
+                        $schedule = ServiceSchedule::findOne($schhedule_id);
+                        $old_staff = $schedule->staff;
+                        $schedule->staff = '';
+                        if ($schedule->update()) {
+                                $old_staff_exists = ServiceSchedule::find()->where(['staff' => $old_staff])->exists();
+                                if ($old_staff_exists != '1') {
+                                        $this->StaffStatus($old_staff, 0);
+                                }
+                        }
+                }
+        }
+
+        public function actionUserbranch() {
+                if (Yii::$app->request->isAjax) {
+                        $user = Yii::$app->user->identity->id;
+                        $user_branch_id = Yii::$app->user->identity->branch_id;
+                        if ($user_branch_id == 0) {
+                                echo '0';
+                        } else {
+                                echo '1';
+                        }
                 }
         }
 

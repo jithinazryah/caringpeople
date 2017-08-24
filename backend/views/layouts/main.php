@@ -14,9 +14,10 @@ use yii\helpers\ArrayHelper;
 use common\models\NotificationViewStatus;
 use common\models\PendingFollowups;
 use yii\db\Expression;
+use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
-Yii::$app->Followups->PendingFollowups();
+//Yii::$app->Followups->PendingFollowups();
 $pending_followups = PendingFollowups::find()->where(new Expression('FIND_IN_SET(:assigned_to, assigned_to)'))->addParams([':assigned_to' => Yii::$app->user->identity->id])->andWhere(['status' => 0])->orderBy(['date' => SORT_DESC])->all();
 
 $new_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii::$app->user->identity->id, 'view_status' => 0])->orderBy(['id' => SORT_DESC])->all();
@@ -131,6 +132,23 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                                 <?= Html::a('Staffs', ['/staff/staff-info/index'], ['class' => 'title']) ?>
                                                                         </li>
 
+                                                                        <li>
+                                                                                <a href="#">
+                                                                                        <i class="entypo-flow-parallel"></i>
+                                                                                        <span class="title">Staff Payroll</span>
+                                                                                </a>
+                                                                                <ul>
+                                                                                        <li>
+                                                                                                <?= Html::a('Payroll ', ['/accounts/staff-payroll/create'], ['class' => 'title']) ?>
+                                                                                        </li>
+
+                                                                                        <li>
+                                                                                                <?= Html::a('Payroll Report', ['/accounts/staff-payroll/index'], ['class' => 'title']) ?>
+                                                                                        </li>
+
+                                                                                </ul>
+                                                                        </li>
+
 
                                                                 </ul>
                                                         </li>
@@ -209,43 +227,49 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
 
 
                                         <ul id="main-menu" class="main-menu">
+                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                 <li>
                                                         <a href="dashboard-1.html">
-                                                                <i class="linecons-money"></i>
-                                                                <span class="title">Patient Invoice</span>
+                                                                <i class="fa fa-inr"></i>
+                                                                <span class="title">Finance</span>
                                                         </a>
                                                         <ul>
                                                                 <li>
-                                                                        <?= Html::a('Patient Invoice', ['/invoice/invoice/index'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('Invoice', ['/invoice/invoice/index'], ['class' => 'title']) ?>
                                                                 </li>
+
+
+
+                                                                <li>
+                                                                        <?= Html::a('Expenses', ['/expenses/expenses/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+
+
+                                                                <li>
+                                                                        <a href="#">
+                                                                                <i class="entypo-flow-parallel"></i>
+                                                                                <span class="title">Masters</span>
+                                                                        </a>
+                                                                        <ul>
+                                                                                <li>
+                                                                                        <?= Html::a('Expense Type', ['/expenses/expense-type/index'], ['class' => 'title']) ?>
+                                                                                </li>
+
+                                                                                <li>
+                                                                                        <?= Html::a('Account Head', ['/accounts/account-head/index'], ['class' => 'title']) ?>
+                                                                                </li>
+
+                                                                        </ul>
+                                                                </li>
+
+
                                                         </ul>
                                                 </li>
 
                                         </ul>
 
-                                        <ul id="main-menu" class="main-menu">
-                                                <li>
-                                                        <a href="dashboard-1.html">
-                                                                <i class="fa fa-credit-card"></i>
-                                                                <span class="title">Satff Payroll</span>
-                                                        </a>
-                                                        <ul>
-                                                                <li>
-                                                                        <?= Html::a('Payroll ', ['/accounts/staff-payroll/create'], ['class' => 'title']) ?>
-                                                                </li>
-
-                                                                <li>
-                                                                        <?= Html::a('Payroll Report', ['/accounts/staff-payroll/index'], ['class' => 'title']) ?>
-                                                                </li>
-
-                                                                <li>
-                                                                        <?= Html::a('Account Head', ['/accounts/account-head/index'], ['class' => 'title']) ?>
-                                                                </li>
-
-                                                        </ul>
-                                                </li>
-
-                                        </ul>
 
 
                                         <?php
@@ -263,6 +287,29 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                         <li>
                                                                                 <?= Html::a('Attendance ', ['/attendance/attendance/index'], ['class' => 'title']) ?>
                                                                         </li>
+
+
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                        <?php } ?>
+
+
+
+                                        <?php
+                                        if (Yii::$app->session['post']['attendance'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li>
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa-book"></i>
+                                                                        <span class="title">Reports</span>
+                                                                </a>
+                                                                <ul>
+
 
                                                                         <li>
                                                                                 <?= Html::a('Office Staff Attendance Report ', ['/attendance/attendance/report'], ['class' => 'title']) ?>
@@ -421,32 +468,6 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
 
 
 
-
-
-                                        <?php
-                                        if (Yii::$app->session['post']['expenses'] == 1) {
-                                                ?>
-
-                                                <ul id="main-menu" class="main-menu">
-                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
-                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-                                                        <li>
-                                                                <a href="dashboard-1.html">
-                                                                        <i class="fa fa-inr"></i>
-                                                                        <span class="title">Expenses</span>
-                                                                </a>
-                                                                <ul>
-                                                                        <li>
-                                                                                <?= Html::a('Expense Type', ['/expenses/expense-type/index'], ['class' => 'title']) ?>
-                                                                        </li>
-                                                                        <li>
-                                                                                <?= Html::a('Expenses', ['/expenses/expenses/index'], ['class' => 'title']) ?>
-                                                                        </li>
-                                                                </ul>
-                                                        </li>
-
-                                                </ul>
-                                        <?php } ?>
 
                                         <?php
                                         if (Yii::$app->session['post']['id'] == 1) {
@@ -716,7 +737,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                                         foreach ($limit_notifications as $new_notification) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                <!--													<a href="<?= $new_notification->notifiaction_type_id == 1 ? '/update-service/' . $new_notification->id : '' ?>">
+                                                        <!--													<a href="<?= $new_notification->notifiaction_type_id == 1 ? '/update-service/' . $new_notification->id : '' ?>">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -776,7 +797,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                                         foreach ($pending_followups as $pending_followup) {
                                                                                                 ?>
                                                                                                 <li class="active notification-success">
-                <!--													<a href="<?= $new_notification->notifiaction_type_id == 1 ? '/update-service/' . $new_notification->id : '' ?>">
+                                                        <!--													<a href="<?= $new_notification->notifiaction_type_id == 1 ? '/update-service/' . $new_notification->id : '' ?>">
                                                                                                                 <i class="fa-envelope"></i>
 
                                                                                                                 <span class="line">
@@ -1229,6 +1250,48 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
 <div class="modal fade" id="modal-4" data-backdrop="static">
         <div class="modal-dialog" id="modal-4-pop-up">
 
+        </div>
+</div>
+
+
+<div class="modal fade" id="modal-5" data-backdrop="static">
+        <div class="modal-dialog" id="modal-5-pop-up">
+                <?php $form = ActiveForm::begin(['action' => 'services/service/todayschedules']); ?>
+                <div class="modal-content">
+                        <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Choose Branch</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                                <div class="row">
+                                        <div class="col-md-6">
+                                                <label>Select Branch</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <?php $branch = \common\models\Branch::Branch(); ?>
+                                                <select name="branch" id="branch" class="form-control" required="">
+
+                                                        <option value="0">All</option>
+                                                        <?php foreach ($branch as $value) { ?>
+                                                                <option value="<?= $value->id ?>"><?= $value->branch_name ?></option>
+                                                        <?php }
+                                                        ?>
+                                                </select>
+                                        </div>
+
+                                </div>
+
+                        </div>
+
+
+                        <div class="modal-footer">
+
+                                <?= Html::submitButton($model->isNewRecord ? 'Submit' : 'Submit', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                        </div>
+                </div>
+                <?php ActiveForm::end(); ?>
         </div>
 </div>
 <?php $this->endPage() ?>

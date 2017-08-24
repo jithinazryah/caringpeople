@@ -120,7 +120,7 @@ use common\models\StaffInfo;
                                                         ?>
 
                                                         <input type="text" val='<?= $value->staff ?>' value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $value->service_id; ?>_<?= $stat ?>  <?= $class ?>" id="staff_on_duty_<?= $value->id ?>" readonly="true">
-                                                        <?php if ($staff_on_duty != '') { ?>  <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>&&replace=1" id="<?= $value->id; ?>" type="1"  class="staff-allotment <?= $class1 ?>">Replace staff</a><?php } else { ?>
+                                                        <?php if ($staff_on_duty != '') { ?>  <a id="<?= $value->id ?>" title="Remove Staff" style="cursor:pointer" class="remove-staff"><i class="fa fa-times absent" aria-hidden="true" style="color:red"></i></a><a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>&&replace=1" id="<?= $value->id; ?>" type="1"  class="staff-allotment <?= $class1 ?>">Replace staff</a><?php } else { ?>
                                                                 <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $value->id; ?>&&replace=0" id="<?= $value->id; ?>" type="2" class="staff-allotment">Add staff</a>
                                                         <?php } ?>
                                                 </td>
@@ -311,6 +311,12 @@ use common\models\StaffInfo;
                 pointer-events: auto;
                 cursor: pointer;
                 color: #000!important;
+        }
+        .remove-staff{
+                float: right;
+                top: -30px;
+                right: 10px;
+                position: relative;
         }
 
 </style>
