@@ -168,6 +168,13 @@ and open the template in the editor.
 
         <table class="table">
 
+                <tr>
+                        <td>Date</td>
+                        <td><b><?= date('d-m-Y') ?></b></td>
+                        <td>No</td>
+                        <td><b><?= $model->id ?></b></td>
+                </tr>
+
 
                 <tr>
                         <td>Patient Name</td>
@@ -181,8 +188,6 @@ and open the template in the editor.
                         }
                         ?>
                         <td><b><?= $patient_name ?></b></td>
-                        <td>Date</td>
-                        <td><b><?= date('d-m-Y') ?></b></td>
                         <td>Patient ID</td>
                         <td><b><?= $patient_id; ?></b></td>
                 </tr>
@@ -218,7 +223,7 @@ and open the template in the editor.
                                 <label><?= $from ?> to <?= $to ?></label>
                         </td>
                         <td></td>
-                        <td style="text-align:right;padding-right: 15px;"><?=  number_format((float) $first_estimated_price->price, 2, '.', ',');?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $first_estimated_price->price, 2, '.', ','); ?></td>
                 </tr>
 
 
@@ -349,7 +354,7 @@ and open the template in the editor.
 
 <!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                     ?></td>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                        ?></td>
                 </tr>-->
 
 

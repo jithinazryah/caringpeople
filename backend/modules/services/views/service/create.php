@@ -26,8 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php if (!$model->isNewRecord) { ?>
                                         <?= Html::a('<i class="fa-plus"></i><span> Add Materials</span>', ['/sales/sales-invoice-details/add', 'id' => $model->id], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
                                         <?= Html::a('<i class="fa-print"></i><span> Generate Estimate</span>', ['estimated-bill', 'id' => $model->id], ['class' => 'btn btn-success  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;', 'target' => '_blank']) ?>
+                                        <div class="row" style="margin-left: -6px;margin-right: 0px;">
 
-                                <?php } ?>
+                                                <?=
+                                                $this->render('_patient_details', [
+                                                    'model' => $model,
+                                                ])
+                                                ?>
+
+                                        </div>
+                                <?php }
+                                ?>
                                 <?=
                                 $this->render('_menus', [
                                     'model' => $model,

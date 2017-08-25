@@ -190,217 +190,218 @@ use yii\db\Expression;
                 $k = 0;
                 ?>
                 <div id="service-detail-view">
-                        <div class="row serv_head">
-                                <h4>Service Details</h4>
-                                 <!--<p style="float:right;cursor: pointer;margin-top: 10px;" id="<?= $model->id ?>" class="change-service-manager"><i style="font-size:20px;color:#000;" class="fa fa-pencil-square-o" aria-hidden="true"></i> <span style="color:red">EDIT</span></p>-->
-                        </div>
+                        <!--                        <div class="row serv_head">
+                                                        <h4>Service Details</h4>
+                                                         <p style="float:right;cursor: pointer;margin-top: 10px;" id="<?= $model->id ?>" class="change-service-manager"><i style="font-size:20px;color:#000;" class="fa fa-pencil-square-o" aria-hidden="true"></i> <span style="color:red">EDIT</span></p>
+                                                </div>-->
                         <div class="row">
                                 <a class="change-service-manager" id="<?= $model->id ?>" title="Edit Service"  style="float:right;cursor: pointer;" target="_blank"><i class="fa fa-edit" style="font-size:30px;color:red"></i></a>
 
                         </div>
 
-                        <table class="table table-bordered table-striped">
+                        <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
 
-                                <tr>
-                                        <td class="labell">Patient </td><td class="value"> <?= $model->patient->first_name ?></td>
-                                        <?php
-                                        $k++;
-                                        tradjust($k);
-                                        ?>
-
-
-                                        <td class="labell">Service</td><td class="value"><?= $model->service0->service_name ?></td>
-                                        <?php
-                                        $k++;
-                                        tradjust($k);
-                                        ?>
-
-
-                                        <?php if (isset($model->sub_service) && $model->sub_service != 0) { ?>
-                                                <td class = "labell">Sub Service </td><td class = "value"><?= $model->subservice->sub_service ?> </td>
+                                        <tr>
+                                                <td class="labell">Patient </td><td class="value"> <?= $model->patient->first_name ?></td>
                                                 <?php
                                                 $k++;
                                                 tradjust($k);
-                                        }
-                                        ?>
+                                                ?>
 
-                                        <?php if (isset($model->gender_preference)) { ?>
-                                                <td class = "labell">Staff Preference </td><td class = "value"><?php
-                                                        if ($model->gender_preference == 0) {
-                                                                echo 'Male Staff';
-                                                        } else if ($model->gender_preference == 1) {
-                                                                echo 'Female Staff';
-                                                        } else {
-                                                                echo 'Any';
-                                                        }
-                                                        ?> </td>
 
+                                                <td class="labell">Service</td><td class="value"><?= $model->service0->service_name ?></td>
                                                 <?php
                                                 $k++;
                                                 tradjust($k);
-                                        }
-                                        ?>
-
-                                        <?php if (isset($model->duty_type) && $model->duty_type != '') { ?>
-                                                <td class = "labell">Duty Type </td><td class = "value"><?php
-                                                        if ($model->duty_type == 1) {
-                                                                echo 'Hourly';
-                                                        } else if ($model->duty_type == 2) {
-                                                                echo 'Visit';
-                                                        } else if ($model->duty_type == 3) {
-                                                                echo 'Day';
-                                                        } else if ($model->duty_type == 4) {
-                                                                echo 'Night';
-                                                        } else if ($model->duty_type == 5) {
-                                                                echo 'Day & Night';
-                                                        }
-                                                        ?> </td>
-                                                <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
-
-                                        <?php if (isset($model->day_night_staff) && $model->day_night_staff != '') { ?>
-                                                <td class = "labell">Staff for day & night </td><td class = "value"><?php
-                                                        if ($model->day_night_staff == 1) {
-                                                                echo 'Same Staff';
-                                                        } else if ($model->day_night_staff == 2) {
-                                                                echo 'Different Staff';
-                                                        }
-                                                        ?> </td>
-
-                                                <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
-
-                                        <?php if (isset($model->frequency) && $model->frequency != '') { ?>
-                                                <td class = "labell">Frequency </td><td class = "value"><?php
-                                                        if ($model->frequency == 1) {
-                                                                echo 'Daily';
-                                                        } else if ($model->frequency == 2) {
-                                                                echo 'Weekly';
-                                                        } else if ($model->frequency == 3) {
-                                                                echo 'Monthly';
-                                                        }
-                                                        ?> </td>
-
-                                                <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
+                                                ?>
 
 
-
-                                        <?php
-                                        if (isset($model->hours) && $model->hours != '') {
-
-                                                if ($model->duty_type == 1) { /* if duty type= hourly */
-                                                        $label = 'Hours';
-                                                } else if ($model->duty_type == 2) { /* if duty type= visit */
-                                                        $label = "No.of visits";
-                                                } else if ($model->duty_type == 5) { /* if duty type= day & night */
-                                                        $label = "Days";
-                                                } else if ($model->duty_type == 3) { /* if duty type= day & night */
-                                                        $label = "Days";
-                                                } else if ($model->duty_type == 4) { /* if duty type= day & night */
-                                                        $label = "Days";
-                                                } else {
-                                                        $label = 'Hours';
+                                                <?php if (isset($model->sub_service) && $model->sub_service != 0) { ?>
+                                                        <td class = "labell">Sub Service </td><td class = "value"><?= $model->subservice->sub_service ?> </td>
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
                                                 }
                                                 ?>
-                                                <td class = "labell"><?= $label ?> </td><td class = "value"><?= $model->hours ?> </td>
-                                                <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
 
+                                                <?php if (isset($model->gender_preference)) { ?>
+                                                        <td class = "labell">Staff Preference </td><td class = "value"><?php
+                                                                if ($model->gender_preference == 0) {
+                                                                        echo 'Male Staff';
+                                                                } else if ($model->gender_preference == 1) {
+                                                                        echo 'Female Staff';
+                                                                } else {
+                                                                        echo 'Any';
+                                                                }
+                                                                ?> </td>
 
-                                        <?php
-                                        if (isset($model->days) && $model->days != '') {
-                                                if ($model->frequency == 1) { /* if frequency= daily */
-                                                        $days = "No of days";
-                                                } else if ($model->frequency == 2) { /* if frequency= weekly */
-                                                        $days = "No of weeks";
-                                                } else if ($model->frequency == 3) { /* if frequency= monthly */
-                                                        $days = "No of months";
-                                                } else {
-                                                        $days = 'Days';
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
                                                 }
                                                 ?>
-                                                <td class = "labell"><?= $days ?></td><td class="value"><?= $model->days ?> </td>
+
+                                                <?php if (isset($model->duty_type) && $model->duty_type != '') { ?>
+                                                        <td class = "labell">Duty Type </td><td class = "value"><?php
+                                                                if ($model->duty_type == 1) {
+                                                                        echo 'Hourly';
+                                                                } else if ($model->duty_type == 2) {
+                                                                        echo 'Visit';
+                                                                } else if ($model->duty_type == 3) {
+                                                                        echo 'Day';
+                                                                } else if ($model->duty_type == 4) {
+                                                                        echo 'Night';
+                                                                } else if ($model->duty_type == 5) {
+                                                                        echo 'Day & Night';
+                                                                }
+                                                                ?> </td>
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
+
+                                                <?php if (isset($model->day_night_staff) && $model->day_night_staff != '') { ?>
+                                                        <td class = "labell">Staff for day & night </td><td class = "value"><?php
+                                                                if ($model->day_night_staff == 1) {
+                                                                        echo 'Same Staff';
+                                                                } else if ($model->day_night_staff == 2) {
+                                                                        echo 'Different Staff';
+                                                                }
+                                                                ?> </td>
+
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
+
+                                                <?php if (isset($model->frequency) && $model->frequency != '') { ?>
+                                                        <td class = "labell">Frequency </td><td class = "value"><?php
+                                                                if ($model->frequency == 1) {
+                                                                        echo 'Daily';
+                                                                } else if ($model->frequency == 2) {
+                                                                        echo 'Weekly';
+                                                                } else if ($model->frequency == 3) {
+                                                                        echo 'Monthly';
+                                                                }
+                                                                ?> </td>
+
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
+
+
 
                                                 <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
+                                                if (isset($model->hours) && $model->hours != '') {
 
-
-                                        <?php if (isset($model->from_date) && $model->from_date != '') { ?>
-                                                <td class = "labell">Period From </td><td class = "value"><?= date('d-m-Y', strtotime($model->from_date)) ?> </td>
-                                                <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
-
-
-                                        <?php if (isset($model->to_date) && $model->to_date != '') { ?>
-                                                <td class = "labell">Period To </td><td class = "value"><?= date('d-m-Y', strtotime($model->to_date)) ?> </td>
-                                                <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
-
-
-                                        <?php if (isset($model->staff_manager) && $model->staff_manager != '') { ?>
-                                                <td class = "labell">Staff Manager</td><td class = "value"><?= $model->staffManager->staff_name; ?>
-                                                        <span><a style="color:red;cursor: pointer" id="<?= $model->id ?>" class="change-service-manager">  &nbsp;&nbsp; (Change Manager)</a></span>
-
-                                                </td>
-                                                <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
-
-                                        <?php if (isset($model->estimated_price) && $model->estimated_price != '') { ?>
-                                                <td class = "labell">Estimated Price</td><td class = "value"><?= $model->estimated_price ?> </td>
-                                                <?php
-                                                $k++;
-                                                tradjust($k);
-                                        }
-                                        ?>
-                                        <td class = "labell">Status</td><td class = "value"><span class="service-status-text"><?php
-                                                        if ($model->status == 2) {
-                                                                echo 'Closed';
+                                                        if ($model->duty_type == 1) { /* if duty type= hourly */
+                                                                $label = 'Hours';
+                                                        } else if ($model->duty_type == 2) { /* if duty type= visit */
+                                                                $label = "No.of visits";
+                                                        } else if ($model->duty_type == 5) { /* if duty type= day & night */
+                                                                $label = "Days";
+                                                        } else if ($model->duty_type == 3) { /* if duty type= day & night */
+                                                                $label = "Days";
+                                                        } else if ($model->duty_type == 4) { /* if duty type= day & night */
+                                                                $label = "Days";
                                                         } else {
-                                                                echo 'Opened';
+                                                                $label = 'Hours';
                                                         }
-                                                        ?>  </span></td>
-
-                                        <?php
-                                        $k++;
-                                        tradjust($k);
-                                        ?>
-
-                                </tr>
-
+                                                        ?>
+                                                        <td class = "labell"><?= $label ?> </td><td class = "value"><?= $model->hours ?> </td>
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
 
 
+                                                <?php
+                                                if (isset($model->days) && $model->days != '') {
+                                                        if ($model->frequency == 1) { /* if frequency= daily */
+                                                                $days = "No of days";
+                                                        } else if ($model->frequency == 2) { /* if frequency= weekly */
+                                                                $days = "No of weeks";
+                                                        } else if ($model->frequency == 3) { /* if frequency= monthly */
+                                                                $days = "No of months";
+                                                        } else {
+                                                                $days = 'Days';
+                                                        }
+                                                        ?>
+                                                        <td class = "labell"><?= $days ?></td><td class="value"><?= $model->days ?> </td>
 
-                        </table>
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
+
+
+                                                <?php if (isset($model->from_date) && $model->from_date != '') { ?>
+                                                        <td class = "labell">Period From </td><td class = "value"><?= date('d-m-Y', strtotime($model->from_date)) ?> </td>
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
+
+
+                                                <?php if (isset($model->to_date) && $model->to_date != '') { ?>
+                                                        <td class = "labell">Period To </td><td class = "value"><?= date('d-m-Y', strtotime($model->to_date)) ?> </td>
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
+
+
+                                                <?php if (isset($model->staff_manager) && $model->staff_manager != '') { ?>
+                                                        <td class = "labell">Staff Manager</td><td class = "value"><?= $model->staffManager->staff_name; ?>
+
+                                                        </td>
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
+
+                                                <?php if (isset($model->estimated_price) && $model->estimated_price != '') { ?>
+                                                        <td class = "labell">Estimated Price</td><td class = "value"><?= $model->estimated_price ?> </td>
+                                                        <?php
+                                                        $k++;
+                                                        tradjust($k);
+                                                }
+                                                ?>
+                                                <td class = "labell">Status</td><td class = "value"><span class="service-status-text"><?php
+                                                                if ($model->status == 2) {
+                                                                        echo 'Closed';
+                                                                } else {
+                                                                        echo 'Opened';
+                                                                }
+                                                                ?>  </span></td>
+
+                                                <?php
+                                                $k++;
+                                                tradjust($k);
+                                                ?>
+
+                                        </tr>
+
+
+
+
+                                </table>
+                        </div>
                         <?php if ($model->status != 2) { ?>
                                 <div class="row status" >
                                         <div class="col-md-12" >
                                                 <p style="float: right;">
-                                                        <a class="btn btn-secondary popover-secondary service_stat" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Close this service only if there is no pending schedule !!" data-original-title="Confirm Before closing"><input type="checkbox" class="cbr service_status" value="<?= $model->id; ?>"><span>&nbsp;Check here to close this service</span></a>
+                                                        <a class="btn btn-secondary popover-secondary service_stat" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Pending schedules will be marked as Cancelled, if you close this service!!" data-original-title="Confirm Before closing"><input type="checkbox" class="cbr service_status" value="<?= $model->id; ?>"><span>&nbsp;Check here to close this service</span></a>
                                                 <p>
                                         </div>
                                 </div>

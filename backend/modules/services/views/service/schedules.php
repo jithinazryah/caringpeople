@@ -30,7 +30,7 @@ use common\models\StaffInfo;
 
         <div class="row">
 
-                <?=
+                <?php
                 $this->render('_patient_details', [
                     'model' => $model,
                 ])

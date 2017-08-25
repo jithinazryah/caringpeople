@@ -362,14 +362,11 @@ $("document").ready(function () {
                         url: homeUrl + 'serviceajax/servicestatus',
                         data: {service_id: service_id},
                         success: function (data) {
-                                if (data == '1') {
-                                        $('.service-status-text').text('Closed');
-                                        $(".service_stat").css({"pointer-events": "none"});
-                                        alert('Status updated successfully');
-                                } else if (data == '2') {
-                                        $('.service_stat .cbr-replaced').removeClass("cbr-checked");
-                                        alert('This service has pending schedules. You cannot close this service!');
-                                }
+
+                                $('.service-status-text').text('Closed');
+                                $(".service_stat").css({"pointer-events": "none"});
+                                alert('Status updated successfully');
+
                         }
                 });
 

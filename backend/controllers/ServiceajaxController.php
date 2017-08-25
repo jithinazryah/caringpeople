@@ -234,14 +234,24 @@ class ServiceajaxController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
                         $service_id = $_POST['service_id'];
                         if (isset($service_id)) {
-                                $scheduls_exists = ServiceSchedule::find()->where(['status' => 1, 'service_id' => $service_id])->count();
-                                if ($scheduls_exists == 0) {
-                                        $service = Service::findOne($service_id);
-                                        $service->status = 2;
-                                        if ($service->update())
-                                                echo'1';
+                                $service_detail = Service::findOne($service_id);
+                                $scheduls_exists = ServiceSchedule::find()->where(['status' => 1, 'service_id' => $service_id])->all();
+                                if (count($scheduls_exists) > 0) {
+                                        foreach ($scheduls_exists as $value) {
+                                                $value->status = 4; /* mark the schedule as cancelled */
+                                                $value->rate = '0';
+                                                $value->save();
+                                                $rate = $this->ChangePrice($service_detail, 1, 2);
+                                                $service_detail->estimated_price = $service_detail->estimated_price - $rate;
+                                                $service_detail->due_amount = $service_detail->due_amount - $rate;
+                                                $service_detail->update();
+                                                SetValues::ServiceScheduleHistory($service_id, 4, 1, $rate);
+                                        }
+                                        $service_detail->status = 2;
+                                        $service_detail->update();
                                 } else {
-                                        echo '2';
+                                        $service_detail->status = 2;
+                                        $service->update();
                                 }
                         }
                 }
