@@ -27,6 +27,7 @@ use common\models\PatientEnquiryHospitalSecond;
 use common\models\PatientEnquiryHospitalDetails;
 use common\models\Remarks;
 use common\models\PatientAssessment;
+use yii\db\Expression;
 
 /**
  * PatientInformationController implements the CRUD actions for PatientInformation model.
@@ -56,6 +57,16 @@ class PatientInformationController extends Controller {
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
+                if (Yii::$app->session['post']['id'] == '6') {
+                        $assigned_services = \common\models\Service::find()->where(new Expression('FIND_IN_SET(:service_staffs, service_staffs)'))->addParams([':service_staffs' => Yii::$app->user->identity->id])->andWhere(['status' => 1])->all();
+
+                        $patient = array();
+                        foreach ($assigned_services as $value) {
+                                $patient[] = $value->patient_id;
+                        }
+
+                        $dataProvider->query->andWhere(['IN', 'patient_general.id', $patient]);
                 }
                 return $this->render('index', [
                             'searchModel' => $searchModel,

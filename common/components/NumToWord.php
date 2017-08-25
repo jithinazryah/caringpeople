@@ -139,4 +139,23 @@ class NumToWord extends Component {
                 return $string;
         }
 
+        public function NumberFormat($grandtotal) {
+                $s = explode('.', $grandtotal);
+                $amount = $s[0];
+                if (isset($s[1])) {
+                        $decimal = $s[1];
+                } else {
+                        $decimal = '00';
+                } if ($amount != '') {
+                        $total = $english_format_number = number_format($amount);
+                        if ($decimal != 0) {
+                                $grandtotal = $total . '.' . $decimal;
+                        } else {
+                                $grandtotal = $total . '.00';
+                        } return $grandtotal;
+                } else {
+                        return;
+                }
+        }
+
 }

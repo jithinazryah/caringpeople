@@ -79,6 +79,9 @@ return [
         'invoice' => [
             'class' => 'backend\modules\invoice\Module',
         ],
+        'reports' => [
+            'class' => 'backend\modules\reports\Module',
+        ],
     ],
     'components' => [
         'request' => [

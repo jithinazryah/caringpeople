@@ -7,6 +7,11 @@ use yii\helpers\ArrayHelper;
 use kartik\export\ExportMenu;
 
 $branch = Branch::branch();
+if (Yii::$app->session['post']['id'] == '6') {
+        $fil = array('1' => 'Active');
+} else {
+        $fil = array('1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit');
+}
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\PatientEnquiryGeneralFirstSearch */
@@ -47,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                 </div>
                                         <?php endif; ?>
-                                        <?php // $this->render('advanced_search', ['model' => $searchModel])  ?>
+                                        <?php // $this->render('advanced_search', ['model' => $searchModel])   ?>
                                         <a class="advanced-search" style="font-size: 17px;color:#0e62c7;cursor: pointer;">Advanced Search</a>
                                         <hr class="appoint_history" style="margin-top:5px;"/>
 
@@ -99,8 +104,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         } elseif ($model->status == '3') {
                                                                 return 'Close';
                                                         }
+                                                        // $fil = "'1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit'";
                                                 },
-                                                'filter' => [1 => 'Active', 2 => 'Pending', 3 => 'Close', 4 => 'Home/Hospital Visit'],
+                                                'filter' => $fil,
                                             ],
                                                 [
                                                 'attribute' => 'branch_id',
