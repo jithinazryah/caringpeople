@@ -37,6 +37,9 @@ class InvoiceController extends Controller {
         public function actionIndex() {
                 $searchModel = new InvoiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                if (Yii::$app->user->identity->branch_id != '0') {
+                        $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
 
                 return $this->render('index', [
                             'searchModel' => $searchModel,
@@ -83,9 +86,6 @@ class InvoiceController extends Controller {
                                                 $service->update();
                                                 Yii::$app->SetValues->Accounts($model->branch_id, 3, $model->id, 2, 'Patient Invoice', $model->payment_type, $model->amount, $model->DOC);
                                                 Yii::$app->getSession()->setFlash('success', 'Amount paided successfully');
-                                        } else {
-                                                var_dump($model->getErrors());
-                                                exit;
                                         }
                                 }
                         }

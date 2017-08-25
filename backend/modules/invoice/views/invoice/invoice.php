@@ -111,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 $cancelled_schedules_count = 0;
                                                                                 $cancelled_schedules_amount = 0;
                                                                                 $cancelled_schedule_days = 0;
-                                                                                $cancelled_schedules = ServiceScheduleHistory::find()->where(['service_id' => $value->id, 'type' => 3])->andWhere(['>', 'price', 0])->all();
+                                                                                $cancelled_schedules = ServiceScheduleHistory::find()->where(['service_id' => $value->id, 'type' => 3])->andWhere(['>', 'price', 0])->orWhere(['type'=>4])->all();
 
                                                                                 foreach ($cancelled_schedules as $cancelled_schedules) {
                                                                                         $cancelled_schedules_count++;

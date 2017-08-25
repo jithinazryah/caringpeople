@@ -129,6 +129,16 @@ use yii\helpers\ArrayHelper;
                                                 </div>
                                         </div>
                                 <?php } ?>
+                                
+                                <?php if($status!=2){ ?>
+                                
+                                <div class="row" style="margin: 0;">
+                                                
+                                                <div class="col-md-6">
+                                                        <input type="checkbox" name="change_price" id="chnage_price">  Change in estimated price
+                                                </div>
+                                        </div>
+                                <?php } ?>
 
 
                                 <input type="submit" name="submitf" id="submitf" class="btn btn-primary" style="float: right;margin-top: 10px;">

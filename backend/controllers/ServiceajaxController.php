@@ -345,14 +345,17 @@ class ServiceajaxController extends \yii\web\Controller {
                                         }
                                 }
                                 if ($status == 3 || $status == 4) { /* status is interupted or cancelled */
-
-                                        $rate = $this->ChangePrice($service_detail, 1, 2);
+                                        if ($_POST['change_price'] == 'on') {
+                                                $rate = $this->ChangePrice($service_detail, 1, 2);
+                                        } else {
+                                                $rate = 0;
+                                        }
                                         $service_detail->estimated_price = $service_detail->estimated_price - $rate;
                                         $service_detail->due_amount = $service_detail->due_amount - $rate;
                                         //   $service_detail->days = $service_detail->days - 1;
                                         //   $service_detail->to_date = date('Y-m-d', strtotime($todate . ' - 1 days'));
                                         $service_detail->update(FALSE);
-                                        SetValues::ServiceScheduleHistory($service_detail->id, 3, 1, $rate);
+                                        SetValues::ServiceScheduleHistory($service_detail->id, $status, 1, $rate);
                                 }
                         }
                 }

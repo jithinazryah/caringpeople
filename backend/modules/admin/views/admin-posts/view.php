@@ -80,6 +80,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'attribute' => 'expenses',
                                                             'value' => $model->expenses == 1 ? 'Yes' : 'No',
                                                         ],
+                                                        [
+                                                            'attribute' => 'staff_payroll',
+                                                            'value' => $model->staff_payroll == 1 ? 'Yes' : 'No',
+                                                        ],
+                                                        [
+                                                            'attribute' => 'invoice',
+                                                            'value' => $model->invoice == 1 ? 'Yes' : 'No',
+                                                        ],
+                                                        [
+                                                            'attribute' => 'account_head',
+                                                            'value' => $model->account_head == 1 ? 'Yes' : 'No',
+                                                        ],
+                                                        [
+                                                            'attribute' => 'reports',
+                                                            'value' => $model->reports == 1 ? 'Yes' : 'No',
+                                                        ],
+                                                        [
+                                                            'attribute' => 'inventory',
+                                                            'value' => $model->inventory == 1 ? 'Yes' : 'No',
+                                                        ],
                                                     //'enquiry',
                                                     //'users',
                                                     //'employees',

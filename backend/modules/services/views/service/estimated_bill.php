@@ -69,7 +69,7 @@ and open the template in the editor.
                                 width: 60% !important;
                         }
                 }
-                .print{
+                .print1{
                         margin-top: 18px;
                         margin-left: 315px;
                 }
@@ -218,7 +218,7 @@ and open the template in the editor.
                                 <label><?= $from ?> to <?= $to ?></label>
                         </td>
                         <td></td>
-                        <td style="text-align:right;padding-right: 15px;"><?= $first_estimated_price->price ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?=  number_format((float) $first_estimated_price->price, 2, '.', ',');?></td>
                 </tr>
 
 
@@ -283,7 +283,7 @@ and open the template in the editor.
 
                                         </table>
                                 </td>
-                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $materials_used_amount, 2, '.', ''); ?></td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $materials_used_amount, 2, '.', ','); ?></td>
                         </tr>
 
 
@@ -313,7 +313,7 @@ and open the template in the editor.
                                         ?></td>
                                 <td class="sub"> Extra Schedules</td>
                                 <td></td>
-                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $added_schedules_amount, 2, '.', ''); ?> </td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $added_schedules_amount, 2, '.', ','); ?> </td>
 
                         </tr>
                 <?php } ?>
@@ -325,7 +325,7 @@ and open the template in the editor.
                         <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount; ?>
                         <td></td>
                         <td colspan="2" style="text-align:center">Bill Total</td>
-                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $total_amount, 2, '.', ''); ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $total_amount, 2, '.', ','); ?></td>
                 </tr>
 
                 <tr>
@@ -338,13 +338,13 @@ and open the template in the editor.
                         ?>
                         <td></td>
                         <td colspan="2" style="text-align:center">Discount</td>
-                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $discount_amount, 2, '.', ''); ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $discount_amount, 2, '.', ','); ?></td>
                 </tr>
 
                 <tr>
                         <?php $grand_total = $total_amount - $discount_amount ?>
                         <td colspan="3" style="text-align:center"><b>Grand Total</b></td>
-                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $grand_total, 2, '.', ''); ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><b><?= number_format((float) $grand_total, 2, '.', ','); ?></b></td>
                 </tr>
 
 <!--                <tr>
@@ -364,7 +364,7 @@ and open the template in the editor.
                                 <p style="border-bottom: 1px dotted #000;"><?php echo Yii::$app->NumToWord->convert_number_to_words($grand_total) . " Rupees Only"; ?></p>
                         </td>
                 </tr>
-                <tr>
+                <tr style="visibility:hidden">
                         <td>Bank Name:</td>
                         <td><p style="border-bottom: 1px dotted #000;"></p></td>
                         <td>Cheque No:</td>
@@ -469,8 +469,8 @@ and open the template in the editor.
         }
 </script>
 
-<div class="print">
-        <div class="print" style="float:left;">
+<div class="print1">
+        <div class="print1" style="float:left;">
 
                 <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
                 <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
