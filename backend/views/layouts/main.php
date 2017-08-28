@@ -333,26 +333,26 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
 
 
                                                                         <li>
-                                                                                <?= Html::a('Office Staff Attendance Report ', ['/attendance/attendance/report'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Office Staff Attendance Report ', ['/reports/reports/report'], ['class' => 'title']) ?>
                                                                         </li>
 
                                                                         <li>
-                                                                                <?= Html::a('Other Staff Attendance Report ', ['/attendance/attendance/staffattendance'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Other Staff Attendance Report ', ['/reports/reports/staffattendance'], ['class' => 'title']) ?>
                                                                         </li>
 
                                                                         <li>
-                                                                                <?= Html::a('Patient Report ', ['/attendance/attendance/patientreport'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Patient Report ', ['/reports/reports/patientreport'], ['class' => 'title']) ?>
                                                                         </li>
 
                                                                         <li>
-                                                                                <?= Html::a('Service-wise Report ', ['/attendance/attendance/servicereport'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Service-wise Report ', ['/reports/reports/servicereport'], ['class' => 'title']) ?>
                                                                         </li>
 
                                                                         <li>
-                                                                                <?= Html::a('Staff Report ', ['/attendance/attendance/oncallstaff'], ['class' => 'title']) ?>
+                                                                                <?= Html::a('Staff Report ', ['/reports/reports/oncallstaff'], ['class' => 'title']) ?>
                                                                         </li>
-                                                                        
-                                                                         <li>
+
+                                                                        <li>
                                                                                 <?= Html::a('Patient Report ', ['/reports/reports/report-patient'], ['class' => 'title']) ?>
                                                                         </li>
 

@@ -86,9 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 }
                                                                                 ?>
 
-                                                                                <tr>
-                                                                                        <td colspan="2"><?= $total_amount ?></td>
-                                                                                </tr>
+
 
                                                                         </tbody>
                                                                 </table>

@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'header' => 'Debit',
                                                             'value' => function($model) {
                                                                     if ($model->type == 1) {
-                                                                            return $model->amount;
+                                                                            return Yii::$app->NumToWord->NumberFormat($model->amount);
                                                                     } else {
                                                                             return '';
                                                                     }
@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'header' => 'Credit',
                                                             'value' => function($model) {
                                                                     if ($model->type == 2) {
-                                                                            return $model->amount;
+                                                                            return Yii::$app->NumToWord->NumberFormat($model->amount);
                                                                     } else {
                                                                             return '';
                                                                     }

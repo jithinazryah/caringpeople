@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                         <?php $staff = StaffInfo::findOne($value->id); ?>
                                                                                                         <td><?= $staff->staff_name; ?></td>
                                                                                                         <td><?= $amount ?></td>
-                                                                                                        <td><button class="btn btn-info"><a target="_blank" href="<?= Yii::$app->homeUrl ?>attendance/attendance/staffdetails?from=<?= $from ?>&to=<?= $to ?>&staff=<?= $value->id ?>" style="color: #FFF">View Details</a></button></td>
+                                                                                                        <td><button class="btn btn-info"><a target="_blank" href="<?= Yii::$app->homeUrl ?>reports/reports/staffdetails?from=<?= $from ?>&to=<?= $to ?>&staff=<?= $value->id ?>" style="color: #FFF">View Details</a></button></td>
                                                                                                 </tr>
                                                                                                 <?php
                                                                                         }
@@ -86,9 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 }
                                                                                 ?>
 
-                                                                                <tr>
-                                                                                        <td colspan="2"><?= $total_amount ?></td>
-                                                                                </tr>
+
 
                                                                         </tbody>
                                                                 </table>

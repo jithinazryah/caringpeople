@@ -104,10 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </tr>
                                                                                 <?php } ?>
 
-        <!--                                                                                <tr>
-                                                                                                <td colspan="4" style="text-align: center"><b>Total</b></td>
-                                                                                                <td><b><?= 'Rs. ' . $total_amount . ' /-' ?></b></td>
-                                                                                        </tr>-->
+
 
                                                                         </tbody>
                                                                 </table>
