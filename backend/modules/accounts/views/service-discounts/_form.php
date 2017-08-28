@@ -20,7 +20,7 @@ use yii\grid\GridView;
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'discount_value')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'total_amount')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'total_amount')->textInput(['maxlength' => true, 'readonly' => true]) ?>
 
         </div>
 
@@ -32,7 +32,7 @@ use yii\grid\GridView;
 
         <?php ActiveForm::end(); ?>
 
-        <label class="previous-discounts">Previosly Added Discounts</label>
+        <label class="previous-discounts">Previously Added Discounts</label>
         <?php
         $searchModel = new \common\models\ServiceDiscountsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

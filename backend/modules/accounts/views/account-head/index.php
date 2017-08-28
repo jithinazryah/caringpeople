@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                                 <div class="panel-body">
                                         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-8 col-sm-6 col-xs-12">
                                                 <?=
                                                 GridView::widget([
                                                     'dataProvider' => $dataProvider,
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 ]);
                                                 ?>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12 small-forms">
+                                        <div class="col-md-4 col-sm-6 col-xs-12 small-forms">
                                                 <div class="header-small-forms">
                                                         <?php if ($model->isNewRecord) { ?>
                                                                 <h4>Add Account Head</h4>

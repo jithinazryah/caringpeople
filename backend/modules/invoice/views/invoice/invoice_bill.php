@@ -216,7 +216,31 @@ and open the template in the editor.
                                 $count;
                                 $count++
                                 ?></td>
-                        <td><?= $service_name ?> <br>
+                        <td>
+                                        <?php
+                $added_schedules_count = 0;
+                $added_schedules_amount = 0;
+                $added_schedule_days = 0;
+                $price = 0;
+                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
+                foreach ($added_schedules as $added_schedules) {
+                        $added_schedules_count++;
+                        $added_schedules_amount += $added_schedules->price;
+                        $added_schedule_days += $added_schedules->schedules;
+                }
+
+                $cancelled_schedules_amount = 0;
+                $cancelled_schedule_days = 0;
+                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
+                foreach ($cancelled_schedules as $cancelled_schedules) {
+                        $cancelled_schedules_count++;
+                        $cancelled_schedules_amount += $cancelled_schedules->price;
+                        $cancelled_schedule_days += $cancelled_schedules->schedules;
+                }
+$service_price=$first_estimated_price->price+$added_schedules_amount-$cancelled_schedules_amount;
+               
+                        ?>
+                                        <?= $service_name ?> <br>
                                 <?php
                                 $from = date('d-m-Y', strtotime($service->from_date));
                                 $to = date('d-m-Y', strtotime($service->to_date));
@@ -224,7 +248,7 @@ and open the template in the editor.
                                 <label><?= $from ?> to <?= $to ?></label>
                         </td>
                         <td></td>
-                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $first_estimated_price->price, 2, '.', ','); ?></td>
+                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $service_price, 2, '.', ','); ?></td>
                 </tr>
 
 
@@ -253,40 +277,9 @@ and open the template in the editor.
 
 
 
-                <?php
-                $added_schedules_count = 0;
-                $added_schedules_amount = 0;
-                $added_schedule_days = 0;
-                $price = 0;
-                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
-                foreach ($added_schedules as $added_schedules) {
-                        $added_schedules_count++;
-                        $added_schedules_amount += $added_schedules->price;
-                        $added_schedule_days += $added_schedules->schedules;
-                }
-
-                $cancelled_schedules_amount = 0;
-                $cancelled_schedule_days = 0;
-                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
-                foreach ($cancelled_schedules as $cancelled_schedules) {
-                        $cancelled_schedules_count++;
-                        $cancelled_schedules_amount += $cancelled_schedules->price;
-                        $cancelled_schedule_days += $cancelled_schedules->schedules;
-                }
-
-                if ($added_schedules_count > 0 && $added_schedules_amount > 0) {
-                        ?>
-                        <tr>
-                                <td><?=
-                                        $count;
-                                        $count++
-                                        ?></td>
-                                <td class="sub"> Extra Schedules</td>
-                                <td></td>
-                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $added_schedules_amount, 2, '.', ','); ?> </td>
-
-                        </tr>
-                <?php } ?>
+                
+                        
+                
 
 
 
@@ -334,7 +327,7 @@ and open the template in the editor.
                                 Rupees
                         </td>
                         <td colspan="3">
-                                <p style="border-bottom: 1px dotted #000;"><?php echo Yii::$app->NumToWord->convert_number_to_words($amount_paid) . " Rupees Only"; ?></p>
+                                <p style="border-bottom: 1px dotted #000;"><?php echo Yii::$app->NumToWord->convert_number_to_words($model->amount) . " Rupees Only"; ?></p>
                         </td>
                 </tr>
                 <tr>

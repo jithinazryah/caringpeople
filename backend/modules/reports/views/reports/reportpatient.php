@@ -12,6 +12,7 @@ use common\models\ServiceSchedule;
 $this->title = 'Patient Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="row">
 
@@ -82,40 +83,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div style="clear:both"></div>
 
                                                 <!-------------------------------------------------REPORT----------------------------------------------------------------------------->
-                                                <?php if (!empty($report) && $report != '') { ?>
+                                                <?php if (!empty($patients) && $patients != '') { ?>
 
-                                                        <p class="counts1">
-                                                                Patient : <span><?php
-                                                                        if (isset($model->patient_id) && $model->patient_id != '') {
-                                                                                $patient_detail = \common\models\PatientGeneral::findOne($model->patient_id);
-                                                                                echo $patient_detail->first_name;
-                                                                        }
-                                                                        ?></span>
-                                                        </p>
+                                                        
+                                                
 
                                                         <div class="row" style="margin:10px 0px 0px 0px;">
 
                                                                 <?php
                                                                 $from = date('Y-m-d', strtotime($model->date));
                                                                 $to = date('Y-m-d', strtotime($model->DOC));
-                                                                $m = 0;
-                                                                foreach ($patient_services as $patient_services) {
-                                                                        $m++;
-                                                                        $schedule = Service::findOne($patient_services->service_id);
-                                                                        $total_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
-                                                                        $total_completed_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
-                                                                        ?>
-                                                                        <div class="col-md-4 col-sm-6 col-xs-12 left_padd service_detail">
-                                                                                <span class="counts">
-                                                                                        Service    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label class="label-1"> : </label> &nbsp;<span> <?= $schedule->service_id; ?><br></span>
-                                                                                        Total Schedules &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <label> : </label> &nbsp;<span> <?= $total_schedules; ?>  <br></span>
-                                                                                        Completed Schedules  <label> : </label> &nbsp;<span><?= $total_completed_schedules ?> <br>
-                                                                                        </span>
-
-                                                                                </span>
-
-                                                                        </div>
-                                                                <?php } ?>
+                                                                ?>
 
                                                         </div>
 
@@ -124,14 +102,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                                         <thead>
                                                                         <th>NO</th>
-                                                                        <th>DATE</th>
-                                                                        <th>SERVICE</th>
-                                                                        <th>STAFF</th>
-                                                                        <th>REMARKS</th>
-                                                                        <th>TIME IN</th>
-                                                                        <th>TIME OUT</th>
-                                                                        <th>RATE</th>
-                                                                        <th>STATUS</th>
+                                                                        <th>PATIENT</th>
+                                                                        <th>AMOUNT</th>
+                                                                        <th></th>
 
 
                                                                         </thead>
@@ -139,77 +112,29 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <tbody>
                                                                                 <?php
                                                                                 $k = 0;
-                                                                                foreach ($report as $value) {
+                                                                                foreach ($patients as $patients) {
+                                                                                    $services= ServiceSchedule::find()->where(['patient_id'=>$patients->id])->andWhere(['>=','date',$from])->andWhere(['<=','date',$to])->groupBy(['service_id'])->all();
+                                                                                    $due_amount=0;
+                                                                                    foreach ($services as $value) {
+                                                                                        $service_detail= Service::findOne($value->service_id);
+                                                                                    
+                                                                                        $due_amount+=$service_detail->due_amount; 
+                                                                                    }  
+                                                                                    if($due_amount>0){
                                                                                         $k++;
                                                                                         ?>
                                                                                         <tr>
                                                                                                 <td><?= $k; ?></td>
+                                                                                                <td><?= $patients->first_name; ?></td>
+                                                                                                <td><?php echo Yii::$app->NumToWord->NumberFormat($due_amount)?></td>
+                                                                                                <td><button class="btn btn-info"><a target="_blank" href="<?= Yii::$app->homeUrl ?>reports/reports/servicedetails?from=<?= $from ?>&to=<?= $to ?>&patient=<?= $patients->id ?>" style="color: #FFF">View Details</a></button></td>
 
-                                                                                                <td><?= date('d-m-Y', strtotime($value->date)) ?></td>
+                                                                                              
 
-                                                                                                <?php $service = Service::findOne($value->service_id) ?>
-                                                                                                <td><?= $service->service_id ?></td>
 
-                                                                                                <td><?php
-                                                                                                        if (isset($value->staff) && $value->staff != '') {
-                                                                                                                $staff = StaffInfo::findOne($value->staff);
-                                                                                                                echo $staff->staff_name;
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                        <?php
-                                                                                                        if (isset($value->remarks_from_manager) && $value->remarks_from_manager != '') {
-                                                                                                                echo $value->remarks_from_manager;
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                        <?php
-                                                                                                        if (isset($value->time_in) && $value->time_in != '') {
-                                                                                                                echo $value->time_in;
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                        <?php
-                                                                                                        if (isset($value->time_out) && $value->time_out != '') {
-                                                                                                                echo $value->time_out;
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                </td>
-
-                                                                                                <td>
-                                                                                                        <?php
-                                                                                                        if (isset($value->patient_rate) && $value->patient_rate != '') {
-                                                                                                                echo $value->patient_rate;
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                </td>
-
-                                                                                                <td><?php if ($value->status == 2) { ?>
-                                                                                                                <i class="fa fa-check present" aria-hidden="true"></i>
-                                                                                                                <?php
-                                                                                                        } else {
-                                                                                                                if ($value->status == 1) {
-                                                                                                                        $status = 'Pending';
-                                                                                                                } else if ($value->status == 3) {
-                                                                                                                        $status = 'Interrupted';
-                                                                                                                } else if ($value->status == 4) {
-                                                                                                                        $status = 'Cancelled';
-                                                                                                                } else {
-                                                                                                                        $status = '';
-                                                                                                                }
-                                                                                                                ?>
-                                                                                                                <a title="<?= $status ?>"><i class="fa fa-times absent" aria-hidden="true"></i></a>
-                                                                                                        <?php } ?>
-                                                                                                </td>
-
+                                                                                                
                                                                                         </tr>
-                                                                                <?php } ?>
+                                                                                <?php }} ?>
 
                                                                         </tbody>
                                                                 </table>
@@ -217,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         <?php
                                                 } else {
-                                                        if (isset($model->patient_id) && $model->patient_id != '') {
+                                                        if (isset($model->rating) && $model->rating != '') {
                                                                 echo '<p class="no-result">No results found !!</p>';
                                                         }
                                                 }

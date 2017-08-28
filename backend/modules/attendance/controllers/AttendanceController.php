@@ -212,7 +212,7 @@ class AttendanceController extends Controller {
                         $from = date('Y-m-d', strtotime($model->date));
                         $to = date('Y-m-d', strtotime($model->DOC));
                         $staff = $model->staff;
-                        $report = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->orderBy(['date' => SORT_ASC])->all();
+                        $report = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>','status',4])->orderBy(['date' => SORT_ASC])->all();
                         $total_attendance = ServiceSchedule::find()->where(['staff' => $staff, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
                         $total_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->sum('rate');
                 }

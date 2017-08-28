@@ -13,6 +13,7 @@ use common\models\Service;
 class ServiceSearch extends Service {
 
         public $staffName;
+        public $pending_schedules;
 
         /**
          * @inheritdoc
@@ -20,7 +21,7 @@ class ServiceSearch extends Service {
         public function rules() {
                 return [
                         [['id', 'patient_id', 'service', 'staff_manager', 'status', 'branch_id', 'CB', 'UB'], 'integer'],
-                        [['from_date', 'to_date', 'estimated_price', 'service_id', 'DOC', 'DOU', 'duty_type'], 'safe'],
+                        [['from_date', 'to_date', 'estimated_price', 'service_id', 'DOC', 'DOU', 'duty_type', 'pending_schedules'], 'safe'],
                         [['staffName'], 'safe']
                 ];
         }
@@ -50,6 +51,13 @@ class ServiceSearch extends Service {
                     'sort' => ['defaultOrder' => ['id' => SORT_DESC,
                         ]]
                 ]);
+
+
+
+//                $dataProvider->sort->attributes['pending_schedules'] = [
+//                    'asc' => ['pending_schedules' => SORT_ASC],
+//                    'desc' => ['pending_schedules' => SORT_DESC],
+//                ];
 
                 $this->load($params);
 

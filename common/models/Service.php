@@ -128,4 +128,10 @@ class Service extends \yii\db\ActiveRecord {
                 return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
         }
 
+        public static function PendingSchedules($id) {
+                $pending_schedules = 0;
+                $pending_schedules = ServiceSchedule::find()->where(['service_id' => $id, 'status' => 1])->count();
+                return $pending_schedules;
+        }
+
 }
