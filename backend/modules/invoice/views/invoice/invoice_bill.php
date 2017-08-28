@@ -169,7 +169,15 @@ and open the template in the editor.
                 <tr>
                         <td colspan="2"> To,</td>
                         <td>Bill No</td>
-                        <td>CPC 109/17-18</td>
+                        <?php
+                        $bill_no = '';
+                        $branch = Branch::findOne($model->branch_id);
+                        $date = date('m-d', strtotime($model->DOC));
+                        if (!empty($branch)) {
+                                $bill_no = $branch->branch_code . '  ' . $model->id . '/' . $date;
+                        }
+                        ?>
+                        <td><?= $bill_no ?></td>
                 </tr>
 
                 <tr>
@@ -217,30 +225,29 @@ and open the template in the editor.
                                 $count++
                                 ?></td>
                         <td>
-                                        <?php
-                $added_schedules_count = 0;
-                $added_schedules_amount = 0;
-                $added_schedule_days = 0;
-                $price = 0;
-                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
-                foreach ($added_schedules as $added_schedules) {
-                        $added_schedules_count++;
-                        $added_schedules_amount += $added_schedules->price;
-                        $added_schedule_days += $added_schedules->schedules;
-                }
+                                <?php
+                                $added_schedules_count = 0;
+                                $added_schedules_amount = 0;
+                                $added_schedule_days = 0;
+                                $price = 0;
+                                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
+                                foreach ($added_schedules as $added_schedules) {
+                                        $added_schedules_count++;
+                                        $added_schedules_amount += $added_schedules->price;
+                                        $added_schedule_days += $added_schedules->schedules;
+                                }
 
-                $cancelled_schedules_amount = 0;
-                $cancelled_schedule_days = 0;
-                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
-                foreach ($cancelled_schedules as $cancelled_schedules) {
-                        $cancelled_schedules_count++;
-                        $cancelled_schedules_amount += $cancelled_schedules->price;
-                        $cancelled_schedule_days += $cancelled_schedules->schedules;
-                }
-$service_price=$first_estimated_price->price+$added_schedules_amount-$cancelled_schedules_amount;
-               
-                        ?>
-                                        <?= $service_name ?> <br>
+                                $cancelled_schedules_amount = 0;
+                                $cancelled_schedule_days = 0;
+                                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
+                                foreach ($cancelled_schedules as $cancelled_schedules) {
+                                        $cancelled_schedules_count++;
+                                        $cancelled_schedules_amount += $cancelled_schedules->price;
+                                        $cancelled_schedule_days += $cancelled_schedules->schedules;
+                                }
+                                $service_price = $first_estimated_price->price + $added_schedules_amount - $cancelled_schedules_amount;
+                                ?>
+                                <?= $service_name ?> <br>
                                 <?php
                                 $from = date('d-m-Y', strtotime($service->from_date));
                                 $to = date('d-m-Y', strtotime($service->to_date));
@@ -277,9 +284,9 @@ $service_price=$first_estimated_price->price+$added_schedules_amount-$cancelled_
 
 
 
-                
-                        
-                
+
+
+
 
 
 
