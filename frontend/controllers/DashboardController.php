@@ -168,4 +168,9 @@ class DashboardController extends Controller {
                 $image->saveAs($paths . '/' . $type . '.' . $extension);
         }
 
+        public function actionNotifications() {
+
+                return $this->render('notifications');
+        }
+
 }

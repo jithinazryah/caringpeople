@@ -172,9 +172,11 @@ $("document").ready(function () {
                 if ($(this).prop("checked") == true) {
                         $('#addFollowups').hide();
                         $('#repeated-types').show();
+                        $('#repeated-fields').show();
                 } else if ($(this).prop("checked") == false) {
                         $('#addFollowups').show();
                         $('#repeated-types').hide();
+                        $('#repeated-fields').hide();
                         $('.option3').hide();
                         $('.option1').hide();
                         $('.option2').hide();

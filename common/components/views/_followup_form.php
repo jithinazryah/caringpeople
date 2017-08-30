@@ -94,12 +94,21 @@ if ($type == 5) {
 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'attachments')->fileInput(['maxlength' => true]) ?>
 
 </div>
+<?php if ($type == 5) { ?>
 
-<div class='col-md-6 col-sm-6 col-xs-12 left_padd'>          <?= $form_followup->field($model, 'related_staffs')->dropDownList($related_staff, ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'create-related_staffs', 'multiple' => 'multiple']) ?>
+        <div class="row">
+                <div class='col-md-8 col-sm-6 col-xs-12 left_padd'>          <?= $form_followup->field($model, 'related_staffs')->dropDownList($related_staff, ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'create-related_staffs', 'multiple' => 'multiple']) ?>
 
-</div>
+                </div>
 
-<div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'followup_notes')->textArea(['rows' => 1]) ?>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>          <?= $form_followup->field($model, 'releated_notification_patient')->checkbox(); ?>
+
+
+                </div>
+        </div>
+<?php } ?>
+
+<div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'followup_notes')->textArea(['rows' => 2, 'style' => 'border: 1px solid #eee;']) ?>
 
 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form_followup->field($model, 'repeated')->checkBox(['id' => 'repeated_followups']); ?>
 
@@ -244,6 +253,8 @@ if ($type == 5) {
 <style>
         .left_padd{
                 min-height: 100px;
+        }#repeatedfollowups-followup_notes:focus{
+                border:1px solid #eee!important;
         }
 </style>
 

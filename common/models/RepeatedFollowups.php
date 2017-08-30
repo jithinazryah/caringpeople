@@ -71,7 +71,7 @@ class RepeatedFollowups extends \yii\db\ActiveRecord {
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
-                    'releated_notification_patient' => 'releated_notification_patient',
+                    'releated_notification_patient' => 'Notification to patient',
                 ];
         }
 

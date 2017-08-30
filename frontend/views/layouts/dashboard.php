@@ -11,6 +11,7 @@ use yii\widgets\Breadcrumbs;
 
 DashboardAsset::register($this);
 $notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date' => date('Y-m-d'), 'patient_id' => Yii::$app->session['patient_id']])->all();
+$services = \common\models\Service::find()->where(['status' => 1, 'patient_id' => Yii::$app->session['patient_id']])->all();
 ?>
 <?php $this->beginPage() ?>
 <html lang="en">
@@ -123,13 +124,22 @@ $notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date'
                                                 <li class="dropdown hover-line hover-line-notify">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notifications">
                                                                 <i class="fa-bell-o"></i>
-                                                                <span class="badge badge-purple" id="notify-count"><?= count($notifications); ?></span>
+                                                                <?php
+                                                                $follow_count = 0;
+                                                                foreach ($services as $services1) {
+                                                                        $followups1 = \common\models\Followups::find()->where(['status' => 0, 'type_id' => $services1->id])->andWhere(['like', 'followup_date', date('Y-m-d')])->all();
+                                                                        $follow_count += count($followups1);
+                                                                }
+                                                                $total_count = count($notifications) + $follow_count;
+                                                                ?>
+                                                                <span class="badge badge-purple" id="notify-count"><?= $total_count; ?></span>
                                                         </a>
                                                         <ul class="dropdown-menu notifications">
                                                                 <li class="top">
                                                                         <p class="small">
 
-                                                                                You have <strong id="notify-counts"><?= count($notifications); ?></strong> new notifications.
+
+                                                                                You have <strong id="notify-counts"><?= $total_count; ?></strong> new notifications.
                                                                         </p>
                                                                 </li>
 
@@ -153,13 +163,34 @@ $notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date'
                                                                                         </li>
                                                                                         <?php
                                                                                 }
+                                                                                foreach ($services as $services) {
+                                                                                        $followups = \common\models\Followups::find()->where(['status' => 0, 'type_id' => $services->id])->andWhere(['like', 'followup_date', date('Y-m-d')])->all();
+                                                                                        foreach ($followups as $followup) {
+                                                                                                ?>
+                                                                                                <li class="active notification-success" id="notify-<?= $value->id ?>">
+                                                                                                        <?php $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $followup->id); ?>
+                                                                                                        <a>
+                                                                                                                <span class="line notification-line" style="width: 85%;padding-left: 0;cursor: pointer;" id="<?= $followup->id ?>">
+                                                                                                                        <strong style="line-height: 20px;">Pending Followup</strong>
+                                                                                                                </span>
+
+                                                                                                                <span class="line small time" style="padding-left: 0;">
+                                                                                                                        <?= $followup->followup_notes ?><br>
+                                                                                                                        Date : <?= date('d-m-Y', strtotime($followup->followup_date)); ?>
+                                                                                                                </span>
+                                                                                                                <!--<input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Ignore">-->
+                                                                                                        </a>
+                                                                                                </li>
+                                                                                                <?php
+                                                                                        }
+                                                                                }
                                                                                 ?>
                                                                                 <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 2px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div>
                                                                         </ul>
                                                                 </li>
 
                                                                 <li class="external">
-                                                                        <?= Html::a('<span style="color: #03A9F4;">View all notifications</span> <i class="fa-link-ext"></i>', ['/appointment/notification']) ?>
+                                                                        <?= Html::a('<span style="color: #03A9F4;">View all notifications</span> <i class="fa-link-ext"></i>', ['/dashboard/notifications']) ?>
                                                                 </li>
                                                         </ul>
                                                 </li>
@@ -217,8 +248,7 @@ $notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date'
 
                                                 <li class="dropdown user-profile">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                                <?php
-                                                                ?>
+                                                                <?php ?>
                                                                 <img src="<?= Yii::$app->homeUrl; ?>images/Men.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
 
                                                                 <span>
@@ -402,3 +432,11 @@ $notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date'
         </div>
 </html>
 <?php $this->endPage() ?>
+
+
+
+<style>
+        #yii-debug-toolbar{
+                display: none !important;
+        }
+</style>
