@@ -13,6 +13,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use common\models\ContactUs;
+use common\models\PatientGeneral;
+use common\models\User;
+use yii\base\UserException;
 
 /**
  * Site controller
@@ -29,7 +32,7 @@ class SiteController extends Controller {
                         'only' => ['logout', 'signup'],
                         'rules' => [
                                 [
-                                'actions' => ['signup'],
+                                'actions' => ['signup', 'login', 'sign-up', 'verification', 'register', 'forgot', 'new-password',],
                                 'allow' => true,
                                 'roles' => ['?'],
                             ],
@@ -80,18 +83,24 @@ class SiteController extends Controller {
          * @return mixed
          */
         public function actionLogin() {
-                if (!Yii::$app->user->isGuest) {
-                        return $this->goHome();
-                }
+
+
 
                 $model = new LoginForm();
-                if ($model->load(Yii::$app->request->post()) && $model->login()) {
-                        return $this->goBack();
-                } else {
-                        return $this->render('login', [
-                                    'model' => $model,
-                        ]);
+                if ($model->load(Yii::$app->request->post())) {
+                        if ($model->login()) {
+                                $user = User::find()->where(['username' => $model->username])->one();
+                                $patient = PatientGeneral::find()->where(['patient_id' => $user->patient_id])->one();
+                                Yii::$app->session['patient_id'] = $patient->id;
+
+                                return $this->redirect('../dashboard/index');
+                        } else {
+                                Yii::$app->getSession()->setFlash('error', 'Invalid Username or Password');
+                        }
                 }
+                return $this->render('login', [
+                            'model' => $model,
+                ]);
         }
 
         /**
@@ -185,7 +194,7 @@ class SiteController extends Controller {
          */
         public function sendResponseMail($model) {
                 $path = 'http://' . Yii::$app->request->serverName . '/images/caring_peopl.jpg';
-                // echo $path;exit;
+// echo $path;exit;
                 $message = Yii::$app->mailer->compose('response-mail') // a view rendering result becomes the message body here
                         ->setFrom('info@caringpeople.in')
                         ->setTo($model->email)
@@ -209,7 +218,7 @@ class SiteController extends Controller {
                 }
 
                 $to = 'info@caringpeople.in,shintomaradikunnel@gmail.com';
-                //   $to = 'surumiabin@gmail.com,manuko27@gmail.com';
+//   $to = 'surumiabin@gmail.com,manuko27@gmail.com';
 // subject
                 $subject = 'Enquiry From Website';
 
@@ -333,19 +342,146 @@ class SiteController extends Controller {
          *
          * @return mixed
          */
-        public function actionSignup() {
-                $model = new SignupForm();
-                if ($model->load(Yii::$app->request->post())) {
-                        if ($user = $model->signup()) {
-                                if (Yii::$app->getUser()->login($user)) {
-                                        return $this->goHome();
+        public function actionSignUp() {
+                if (isset($_POST['sign_up'])) {
+                        $patient_id = $_POST['patient_id'];
+                        $patient_registered = User::find()->where(['patient_id' => $patient_id, 'status' => 1])->exists();
+                        if ($patient_registered != 1) {
+                                $check = PatientGeneral::find()->where(['patient_id' => $patient_id, 'status' => 1])->exists();
+                                if ($check == 1) {
+                                        $patient_details = PatientGeneral::find()->where(['contact_number' => $_POST['contact_no']])->orWhere(['email' => $_POST['contact_no']])->andWhere(['patient_id' => $patient_id])->exists();
+                                        if ($patient_details == 1) {
+                                                $verify_sent = User::find()->where(['patient_id' => $patient_id, 'status' => 0])->one();
+                                                if (!empty($verify_sent)) {
+                                                        $model = $verify_sent;
+                                                } else {
+                                                        $model = new \common\models\User();
+                                                }
+                                                $model->patient_id = $patient_id;
+                                                $model->status = 0;
+                                                $patient_details = PatientGeneral::find()->where(['patient_id' => $patient_id])->one();
+                                                $model->email = $patient_details->email;
+                                                $model->email_verification = 0;
+                                                $model->verification_link = date('Y-m-d H:i:s');
+                                                $model->save();
+                                                $val = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $model->id);
+                                                $message = $this->renderPartial('email-verify-mail', ['id' => $val]);
+                                                echo $message;
+                                                exit;
+                                                Yii::$app->SetValues->Email($patient_details->email, 'Email Verification', $message);
+                                                Yii::$app->getSession()->setFlash('success', 'Thank you for registering with us.. A mail has been sent to your email id !!');
+                                                return $this->render('signup', [
+                                                ]);
+                                        }
                                 }
                         }
+                        if ($patient_registered == 1) {
+                                Yii::$app->getSession()->setFlash('error', 'This Patient is already registered');
+                        } else {
+                                Yii::$app->getSession()->setFlash('error', 'Invalid Patient ID or Contact Number/Email');
+                        }
+                        return $this->render('signup', [
+                        ]);
                 }
+        }
 
-                return $this->render('signup', [
-                            'model' => $model,
-                ]);
+        public function actionVerification($token) {
+                if (isset($token)) {
+                        $val = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $token);
+                        $val_detail = User::findOne($val);
+                        $link_sent_time = $val_detail->verification_link;
+                        $current_time = date('Y-m-d H:i:s');
+                        $time_differnce = round((strtotime($current_time) - strtotime($link_sent_time)) / (60 * 60));
+                        if ($time_differnce < 4) {
+                                if ($val_detail->email_verification == 0) {
+                                        return $this->render('register', ['patient_id' => $val
+                                        ]);
+                                }
+                        }
+                        Yii::$app->getSession()->setFlash('error', 'Your verification time is expired. Please signup again!');
+                        return $this->render('signup', [
+                        ]);
+                } else {
+                        throw new UserException('Error Code:  2001');
+                }
+        }
+
+        public function actionRegister() {
+                if (isset($_POST['register'])) {
+                        $user = User::findOne($_POST['patient_id']);
+                        $user->username = $_POST['uname'];
+                        $user->password_hash = Yii::$app->security->generatePasswordHash($_POST['password']);
+                        $user->email_verification = 1;
+                        $user->status = 1;
+                        $user->save();
+                        Yii::$app->getSession()->setFlash('success', 'Registered Successfully. Please login!');
+                        $model = new LoginForm();
+                        return $this->render('login', ['model' => $model]);
+                }
+        }
+
+        public function actionForgot() {
+
+                $model = new User();
+                if ($model->load(Yii::$app->request->post())) {
+                        $check_exists = User::find()->where("username = '" . $username . "' OR email = '" . $username . "'")->one();
+
+                        if (!empty($check_exists)) {
+                                $token_value = $this->tokenGenerator();
+                                $token = $check_exists->id . '_' . $token_value;
+                                $val = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $token);
+                                $token_model = new \common\models\ForgotPasswordTokens();
+                                $token_model->user_id = $check_exists->id;
+                                $token_model->token = $token_value;
+                                $token_model->save();
+                                $mesage = $this->renderPartial('forgot-mail', ['model' => $check_exists, 'val' => $val]);
+                                echo $mesage;
+                                exit;
+                                Yii::$app->SetValues->Email($check_exists->email, 'Password Reset', $message);
+                                Yii::$app->getSession()->setFlash('success', 'A mail has been sent');
+                        } else {
+                                Yii::$app->getSession()->setFlash('error', 'Invalid username');
+                        }
+                        return $this->render('forgot-password', [
+                                    'model' => $model,
+                        ]);
+                } else {
+                        return $this->render('forgot-password', [
+                                    'model' => $model,
+                        ]);
+                }
+        }
+
+        public function tokenGenerator() {
+
+                $length = rand(1, 1000);
+                $chars = array_merge(range(0, 9));
+                shuffle($chars);
+                $token = implode(array_slice($chars, 0, $length));
+                return $token;
+        }
+
+        public function actionNewPassword($token) {
+                $data = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $token);
+                $values = explode('_', $data);
+                $token_exist = \common\models\ForgotPasswordTokens::find()->where("user_id = " . $values[0] . " AND token = " . $values[1])->one();
+                if (!empty($token_exist)) {
+                        $model = User::find()->where("id = " . $token_exist->user_id)->one();
+                        if (Yii::$app->request->post()) {
+                                if (Yii::$app->request->post('new-password') == Yii::$app->request->post('confirm-password')) {
+                                        Yii::$app->getSession()->setFlash('success', 'password changed successfully');
+                                        $model->password_hash = Yii::$app->security->generatePasswordHash(Yii::$app->request->post('confirm-password'));
+                                        $model->update();
+                                        $token_exist->delete();
+                                } else {
+                                        Yii::$app->getSession()->setFlash('error', 'password mismatch  ');
+                                }
+                        }
+                        return $this->render('new-password', [
+                        ]);
+                } else {
+                        return $this->redirect('login');
+                }
         }
 
         /**
