@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 
 DashboardAsset::register($this);
+$notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date' => date('Y-m-d')])->all();
 ?>
 <?php $this->beginPage() ?>
 <html lang="en">
@@ -127,7 +128,7 @@ DashboardAsset::register($this);
                                                         <ul class="dropdown-menu notifications">
                                                                 <li class="top">
                                                                         <p class="small">
-                                                                                <!--                                        <a href="#" class="pull-right">Mark all Read</a>-->
+
                                                                                 You have <strong id="notify-counts">1</strong> new notifications.
                                                                         </p>
                                                                 </li>

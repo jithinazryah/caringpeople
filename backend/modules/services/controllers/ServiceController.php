@@ -44,16 +44,19 @@ class ServiceController extends Controller {
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-                if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
-                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
-                } else {
-                        $dataProvider->query->andWhere(['<>', 'status', 2]);
-                }
+
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }if (Yii::$app->session['post']['id'] != '1') {
                         $dataProvider->query->andWhere(new Expression('FIND_IN_SET(:staffs, service_staffs)'))->addParams([':staffs' => Yii::$app->user->identity->id])->orWhere(['staff_manager' => Yii::$app->user->identity->id]);
                 }
+
+                if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+                }
+
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,

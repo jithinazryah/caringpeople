@@ -240,11 +240,11 @@ class ReportsController extends Controller {
                         $to = date('Y-m-d', strtotime($model->DOC));
                         if (isset($model->service_id)) {
                                 if ($model->service_id != 0) {
-                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->orderBy(['date' => SORT_ASC])->all();
-                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
+                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->orderBy(['date' => SORT_ASC])->all();
+                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->all();
                                 } else {
-                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->orderBy(['date' => SORT_ASC])->all();
-                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
+                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->orderBy(['date' => SORT_ASC])->all();
+                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->all();
                                 }
                         }
                 }
@@ -307,12 +307,14 @@ class ReportsController extends Controller {
         }
 
         public function actionViewdetails($from = null, $to = null, $type = null, $branch_id = null) {
+
                 $from = date('Y-m-d', strtotime($from));
                 $to = date('Y-m-d', strtotime($to));
-                //   $staffs = StaffInfo::find()->where(['designation' => $type, 'branch_id' => $branch_id])->all();
-                $staffs = StaffInfo::find()->where(['branch_id' => $branch_id])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $type])->all();
+
+                $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $type])->andWhere(['branch_id' => $branch_id])->all();
                 if ($type == 0) {
-                        $staffs = StaffInfo::find()->where(['branch_id' => $branch_id])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->all();
+                        $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->andWhere(['branch_id' => $branch_id])->all();
+                        //   $staffs = StaffInfo::find()->where(['branch_id' => $branch_id])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->all();
                 }
                 return $this->render('view_details', [
                             'from' => $from,
