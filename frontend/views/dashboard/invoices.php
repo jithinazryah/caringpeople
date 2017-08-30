@@ -66,7 +66,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             ],
                                                             'urlCreator' => function ($action, $model) {
                                                                     if ($action === 'print') {
-                                                                            $url = Url::to(['dashboard/invoicebill', 'id' => $model->id]);
+                                                                            $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $model->id);
+                                                                            $url = Url::to(['dashboard/invoicebill', 'id' => $id]);
                                                                             return $url;
                                                                     }
                                                             }

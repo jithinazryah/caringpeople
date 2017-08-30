@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <tbody>
                                                                                 <?php
                                                                                 $k = 0;
-                                                                                $staffs = StaffInfo::find()->where(['branch_id' => $model->rating])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->all();
+                                                                                $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->andWhere(['branch_id' => $model->rating])->all();
                                                                                 $k++;
                                                                                 foreach ($staffs as $values) {
                                                                                         $staff_schedules = \common\models\ServiceSchedule::find()->where(['staff' => $values->id])->andWhere(['>=', 'date', date('Y-m-d', strtotime($model->date))])->andWhere(['<=', 'date', date('Y-m-d', strtotime($model->DOC))])->all();

@@ -74,6 +74,7 @@ class DashboardController extends Controller {
         }
 
         public function actionInvoicebill($id) {
+                $id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $id);
                 $model = \common\models\Invoice::findOne($id);
                 echo $this->renderPartial('invoice_bill', [
                     'model' => $model,

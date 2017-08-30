@@ -10,7 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 
 DashboardAsset::register($this);
-$notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date' => date('Y-m-d')])->all();
+$notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date' => date('Y-m-d'), 'patient_id' => Yii::$app->session['patient_id']])->all();
 ?>
 <?php $this->beginPage() ?>
 <html lang="en">
@@ -123,35 +123,36 @@ $notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date'
                                                 <li class="dropdown hover-line hover-line-notify">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notifications">
                                                                 <i class="fa-bell-o"></i>
-                                                                <span class="badge badge-purple" id="notify-count"><?= $notification_count ?></span>
+                                                                <span class="badge badge-purple" id="notify-count"><?= count($notifications); ?></span>
                                                         </a>
                                                         <ul class="dropdown-menu notifications">
                                                                 <li class="top">
                                                                         <p class="small">
 
-                                                                                You have <strong id="notify-counts">1</strong> new notifications.
+                                                                                You have <strong id="notify-counts"><?= count($notifications); ?></strong> new notifications.
                                                                         </p>
                                                                 </li>
 
                                                                 <li>
                                                                         <ul class="dropdown-menu-list list-unstyled ps-scrollbar ps-container dropdown-menu-list-notify">
                                                                                 <?php
-                                                                                /* foreach ($notifications as $value) {
-                                                                                  ?>
-                                                                                  <li class="active notification-success" id="notify-<?= $value->id ?>">
-                                                                                  <a>
-                                                                                  <span class="line notification-line" style="width: 85%;padding-left: 0;cursor: pointer;" id="<?= $value->appointment_id ?>">
-                                                                                  <strong style="line-height: 20px;"><?= $value->content ?></strong>
-                                                                                  </span>
+                                                                                foreach ($notifications as $value) {
+                                                                                        ?>
+                                                                                        <li class="active notification-success" id="notify-<?= $value->id ?>">
+                                                                                                <?php $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $value->id); ?>
+                                                                                                <a target="_blank" href="<?= Yii::$app->homeUrl ?>dashboard/invoicebill?id=<?= $id ?>">
+                                                                                                        <span class="line notification-line" style="width: 85%;padding-left: 0;cursor: pointer;" id="<?= $value->id ?>">
+                                                                                                                <strong style="line-height: 20px;">Payment (Rs. <?= $value->amount ?>) due date is on <?= date('d-m-Y', strtotime($value->due_date)) ?></strong>
+                                                                                                        </span>
 
-                                                                                  <span class="line small time" style="padding-left: 0;">
-                                                                                  <?= $value->date ?>
-                                                                                  </span>
-                                                                                  <input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Ignore">
-                                                                                  </a>
-                                                                                  </li>
-                                                                                  <?php
-                                                                                  } */
+                                                                                                        <span class="line small time" style="padding-left: 0;">
+
+                                                                                                        </span>
+                                                                                                        <!--<input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Ignore">-->
+                                                                                                </a>
+                                                                                        </li>
+                                                                                        <?php
+                                                                                }
                                                                                 ?>
                                                                                 <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 2px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div>
                                                                         </ul>
