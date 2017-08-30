@@ -361,6 +361,7 @@ class SiteController extends Controller {
                                                 $model->status = 0;
                                                 $patient_details = PatientGeneral::find()->where(['patient_id' => $patient_id])->one();
                                                 $model->email = $patient_details->email;
+                                                $model->branch_id = $patient_details->branch_id;
                                                 $model->email_verification = 0;
                                                 $model->verification_link = date('Y-m-d H:i:s');
                                                 $model->save();
@@ -409,14 +410,21 @@ class SiteController extends Controller {
         public function actionRegister() {
                 if (isset($_POST['register'])) {
                         $user = User::findOne($_POST['patient_id']);
-                        $user->username = $_POST['uname'];
-                        $user->password_hash = Yii::$app->security->generatePasswordHash($_POST['password']);
-                        $user->email_verification = 1;
-                        $user->status = 1;
-                        $user->save();
-                        Yii::$app->getSession()->setFlash('success', 'Registered Successfully. Please login!');
-                        $model = new LoginForm();
-                        return $this->render('login', ['model' => $model]);
+                        $user_name_Exists = User::find()->where(['username' => $_POST['uname']])->exists();
+                        if ($user_name_Exists != 1) {
+                                $user->username = $_POST['uname'];
+                                $user->password_hash = Yii::$app->security->generatePasswordHash($_POST['password']);
+                                $user->email_verification = 1;
+                                $user->status = 1;
+                                $user->save();
+                                Yii::$app->getSession()->setFlash('success', 'Registered Successfully. Please login!');
+                                $model = new LoginForm();
+                                return $this->render('login', ['model' => $model]);
+                        } else {
+                                Yii::$app->getSession()->setFlash('error', 'This username already exists!');
+                                return $this->render('register', ['patient_id' => $_POST['patient_id']
+                                ]);
+                        }
                 }
         }
 
@@ -424,6 +432,7 @@ class SiteController extends Controller {
 
                 $model = new User();
                 if ($model->load(Yii::$app->request->post())) {
+                        $username = $_POST['User']['username'];
                         $check_exists = User::find()->where("username = '" . $username . "' OR email = '" . $username . "'")->one();
 
                         if (!empty($check_exists)) {
@@ -434,8 +443,8 @@ class SiteController extends Controller {
                                 $token_model->user_id = $check_exists->id;
                                 $token_model->token = $token_value;
                                 $token_model->save();
-                                $mesage = $this->renderPartial('forgot-mail', ['model' => $check_exists, 'val' => $val]);
-                                echo $mesage;
+                                $message = $this->renderPartial('forgot-mail', ['model' => $check_exists, 'val' => $val]);
+                                echo $message;
                                 exit;
                                 Yii::$app->SetValues->Email($check_exists->email, 'Password Reset', $message);
                                 Yii::$app->getSession()->setFlash('success', 'A mail has been sent');
@@ -473,6 +482,7 @@ class SiteController extends Controller {
                                         $model->password_hash = Yii::$app->security->generatePasswordHash(Yii::$app->request->post('confirm-password'));
                                         $model->update();
                                         $token_exist->delete();
+                                        return $this->redirect('login');
                                 } else {
                                         Yii::$app->getSession()->setFlash('error', 'password mismatch  ');
                                 }

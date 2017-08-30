@@ -9,6 +9,7 @@ use common\models\ServiceScheduleHistory;
 use common\models\ServiceSchedule;
 use common\models\ServiceDiscounts;
 use common\models\SalesInvoiceMaster;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\InvoiceSearch */
@@ -246,13 +247,48 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <input type="hidden" name="patient" value="<?= $model->patient_id; ?>">
                                                                         <input type="hidden" name="branch_id" value="<?= $model->branch_id; ?>">
 
+                                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                                                <?= $form->field($model, 'status')->dropDownList(['' => '--Select--', '1' => 'Paid', '2' => 'Unpaid']); ?>
+                                                                        </div>
 
-                                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd unpaid'>
+
+                                                                                <?php
+                                                                                echo DatePicker::widget([
+                                                                                    'model' => $model,
+                                                                                    'form' => $form,
+                                                                                    'type' => DatePicker::TYPE_INPUT,
+                                                                                    'attribute' => 'due_date',
+                                                                                    'pluginOptions' => [
+                                                                                        'autoclose' => true,
+                                                                                        'format' => 'dd-mm-yyyy',
+                                                                                    ]
+                                                                                ]);
+                                                                                ?>
+                                                                        </div>
+
+                                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd paid'>
                                                                                 <?php $banks = \common\models\AccountHead::find()->where(['status' => 1])->all(); ?>   <?= $form1->field($model, 'payment_type')->dropDownList(ArrayHelper::map($banks, 'id', 'bank_name'), ['class' => 'form-control']) ?>
                                                                         </div>
 
-                                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd paid'>
                                                                                 <?= $form->field($model, 'reference_no')->textInput() ?>
+                                                                        </div>
+
+                                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd paid'>
+
+                                                                                <?php
+                                                                                echo DatePicker::widget([
+                                                                                    'model' => $model,
+                                                                                    'form' => $form,
+                                                                                    'type' => DatePicker::TYPE_INPUT,
+                                                                                    'attribute' => 'payment_date',
+                                                                                    'pluginOptions' => [
+                                                                                        'autoclose' => true,
+                                                                                        'format' => 'dd-mm-yyyy',
+                                                                                    ]
+                                                                                ]);
+                                                                                ?>
                                                                         </div>
 
                                                                         <?= Html::submitButton('Pay', ['class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;margin-right: 15px;']) ?>
@@ -325,3 +361,24 @@ $this->params['breadcrumbs'][] = $this->title;
         }
 
 </style>
+
+<script>
+        $(document).ready(function () {
+                $('.paid').hide();
+                $('.unpaid').hide();
+                $('#invoice-status').change(function () {
+                        if ($(this).val() == '1') {
+                                $('.paid').show();
+                        } else {
+                                $('.paid').hide();
+                        }
+
+                        if ($(this).val() == '2') {
+                                $('.unpaid').show();
+                        } else {
+                                $('.unpaid').hide();
+                        }
+                });
+
+        });
+</script>

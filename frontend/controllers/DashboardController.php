@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 class DashboardController extends Controller {
 
@@ -59,11 +60,11 @@ class DashboardController extends Controller {
                 ]);
         }
 
-        public function actionInvoices($id) {
-                $id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $id);
+        public function actionInvoices() {
+
                 $searchModel = new \common\models\InvoiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['service_id' => $id]);
+                $dataProvider->query->andWhere(['patient_id' => Yii::$app->session['patient_id']]);
 
 
                 return $this->render('invoices', [
@@ -107,6 +108,63 @@ class DashboardController extends Controller {
                             'dataProvider' => $dataProvider,
                             'title' => $title,
                 ]);
+        }
+
+        public function actionEditProfile() {
+
+                $model = \common\models\PatientGeneral::findOne(Yii::$app->session['patient_id']);
+                $before_update_patient_details = \common\models\PatientGeneral::findOne(Yii::$app->session['patient_id']);
+                if ($model->load(Yii::$app->request->post())) {
+
+                        $model->dob = date('Y-m-d', strtotime($_POST['PatientGeneral']['dob']));
+                        $model->weight = $_POST['PatientGeneral']['weight'];
+                        $model->save();
+                        $patient_datas = array('patient_image');
+                        $this->Imageupload($model, $before_update_patient_details, $patient_datas, $model->id);
+
+                        Yii::$app->getSession()->setFlash('success', 'Profile updated successfully');
+                }
+                return $this->render('edit-profile', ['model' => $model]
+                );
+        }
+
+        public function Imageupload($model, $data = null, $images, $id) {
+
+                foreach ($images as $value) {
+
+                        $image = UploadedFile:: getInstance($model, $value);
+
+                        $this->image($model, $data, $image, $value, $id);
+                }
+        }
+
+        /* to save extension in database */
+
+        public function image($model, $data = null, $image, $type, $id) {
+
+                if (!empty($image)) {
+
+                        $model->$type = $image->extension;
+                        if (!empty($data)) {
+                                $this->upload($model, $image, $type, $model->$type, $id, $data->$type);
+                        } else {
+                                $this->upload($model, $image, $type, $model->$type, $id);
+                        }
+                } else {
+                        if (!empty($data))
+                                $model->$type = $data->$type;
+                }
+                $model->update();
+        }
+
+        public function Upload($model, $image, $type, $extension, $id, $exists_type = null) {
+                $paths = ['patient', $id];
+                $file = Yii::getAlias(Yii::$app->params ['uploadPath']) . '/patient/' . $id . '/' .
+                        $type . '.' . $exists_type;
+                if (file_exists($file))
+                        unlink($file);
+                $paths = Yii::$app->UploadFile->CheckPath($paths);
+                $image->saveAs($paths . '/' . $type . '.' . $extension);
         }
 
 }

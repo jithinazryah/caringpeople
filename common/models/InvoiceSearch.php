@@ -18,7 +18,7 @@ class InvoiceSearch extends Invoice {
         public function rules() {
                 return [
                         [['id', 'branch_id', 'patient_id', 'service_id', 'type', 'CB'], 'integer'],
-                        [['amount', 'DOC'], 'safe'],
+                        [['amount', 'DOC', 'status'], 'safe'],
                 ];
         }
 
@@ -67,7 +67,8 @@ class InvoiceSearch extends Invoice {
                     'DOC' => $this->DOC,
                 ]);
 
-                $query->andFilterWhere(['like', 'amount', $this->amount]);
+                $query->andFilterWhere(['like', 'amount', $this->amount])
+                        ->andFilterWhere(['like', 'status', $this->status]);
 
                 return $dataProvider;
         }

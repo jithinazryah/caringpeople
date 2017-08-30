@@ -80,7 +80,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                         // 'CB',
                                                         // 'DOC',
                                                         ['class' => 'yii\grid\ActionColumn',
-                                                            'template' => '{view}{invoice}',
+                                                            'template' => '{view}',
                                                             'buttons' => [
                                                                 //view button
                                                                 'view' => function ($url, $model) {
@@ -90,24 +90,11 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                                                     'target' => '_blank',
                                                                         ]);
                                                                 },
-                                                                'invoice' => function ($url, $model) {
-                                                                        return Html::a('<span class="fa fa-inr" style="padding-top: 0px;font-size: 18px;"></span>', $url, [
-                                                                                    'title' => Yii::t('app', 'View Invoice'),
-                                                                                    'class' => 'add-remarks',
-                                                                                    'id' => $model->id,
-                                                                                    'target' => '_blank',
-                                                                        ]);
-                                                                },
                                                             ],
                                                             'urlCreator' => function ($action, $model) {
                                                                     if ($action === 'view') {
                                                                             $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $model->id);
                                                                             $url = Url::to(['dashboard/view-schedules', 'id' => $id]);
-                                                                            return $url;
-                                                                    }
-                                                                    if ($action === 'invoice') {
-                                                                            $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $model->id);
-                                                                            $url = Url::to(['dashboard/invoices', 'id' => $id]);
                                                                             return $url;
                                                                     }
                                                             }

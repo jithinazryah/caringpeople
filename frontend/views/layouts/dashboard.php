@@ -45,11 +45,11 @@ DashboardAsset::register($this);
                                         <header class="logo-env">
                                                 <!-- logo -->
                                                 <div class="logo">
-                                                        <a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-expanded">
+                                                        <a href="<?= Yii::$app->homeUrl; ?>dashboard/index" class="logo-expanded">
                                                                 <?php echo Html::img('@web/admin/images/logos/logo-1.png', $options = ['width' => '150px']) ?>
                                                         </a>
 
-                                                        <a href="<?= Yii::$app->homeUrl; ?>site/index" class="logo-collapsed">
+                                                        <a href="<?= Yii::$app->homeUrl; ?>dashboard/index" class="logo-collapsed">
                                                                 <img src="<?= Yii::$app->homeUrl; ?>admin/images/logos/logo-collapsed.png" width="40" alt="" />
                                                         </a>
                                                 </div>
@@ -80,6 +80,19 @@ DashboardAsset::register($this);
                                                         <ul>
                                                                 <li>
                                                                         <?= Html::a('Services', ['/dashboard/index'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
+
+                                                <li>
+                                                        <a href="">
+                                                                <i class="fa fa-inr"></i>
+                                                                <span class="title">Invoices</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Invoices', ['/dashboard/invoices'], ['class' => 'title']) ?>
                                                                 </li>
 
                                                         </ul>
@@ -197,7 +210,7 @@ DashboardAsset::register($this);
                                         <ul class="user-info-menu right-links list-inline list-unstyled">
 
                                                 <li>
-                                                        <a href="<?= Yii::$app->homeUrl; ?>site/home"><i class="fa-home"></i> Home</a>
+                                                        <a href="<?= Yii::$app->homeUrl; ?>dashboard/index"><i class="fa-home"></i> Home</a>
                                                 </li>
 
                                                 <li class="dropdown user-profile">
@@ -216,6 +229,10 @@ DashboardAsset::register($this);
 
                                                                 <li>
                                                                         <?= Html::a('<i class="fa-wrench"></i>Change Password', ['/dashboard/change-password'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                                <li>
+                                                                        <?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/dashboard/edit-profile'], ['class' => 'title']) ?>
                                                                 </li>
 
                                                                 <?php
