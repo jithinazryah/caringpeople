@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $searchModel common\models\ServiceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Services';
+$this->title = 'Schedules';
 $this->params['breadcrumbs'][] = $this->title;
 $designations = \common\models\MasterDesignations::designationlist();
 ?>
@@ -26,6 +26,18 @@ $designations = \common\models\MasterDesignations::designationlist();
 
                                 </div>
                                 <div class="panel-body">
+
+                                        <div class="row" style="margin-left: -6px;margin-right: 0px;">
+
+                                                <?=
+                                                $this->render('_service_details', [
+                                                    'service' => $service,
+                                                ])
+                                                ?>
+
+                                        </div>
+
+
                                         <div class="table-responsive">
                                                 <button class="btn btn-white" id="search-option" style="float: right;">
                                                         <i class="linecons-search"></i>

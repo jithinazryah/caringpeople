@@ -28,6 +28,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                                 </div>
                                 <div class="panel-body">
                                         <div class="table-responsive">
+
+                                                <button class="btn btn-white" id="search-option" style="float: right;margin-left: 10px;">
+                                                        <i class="linecons-search"></i>
+                                                        <span>Search</span>
+                                                </button>
+
                                                 <?php if ($title != 'Closed Services') { ?>
 
                                                         <a href="<?= Yii::$app->homeUrl ?>dashboard/closed-services"><button class="btn btn-warning" id="search-option" style="float: right;">View Closed Services</button></a>
@@ -44,8 +50,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                     'filterModel' => $searchModel,
                                                     'columns' => [
                                                             ['class' => 'yii\grid\SerialColumn'],
-                                                        'service_id',
                                                             [
+                                                            'attribute' => 'service_id',
+                                                            'header' => 'Service ID',
+                                                        ],
+                                                        // 'service_id',
+                                                        [
                                                             'attribute' => 'service',
                                                             'value' => 'service0.service_name',
                                                             'filter' => ArrayHelper::map(common\models\MasterServiceTypes::find()->where(['status' => '1'])->orderBy(['service_name' => SORT_ASC])->asArray()->all(), 'id', 'service_name'),
@@ -112,3 +122,11 @@ $designations = \common\models\MasterDesignations::designationlist();
         </div>
 </div>
 
+<script>
+        $(document).ready(function () {
+                $(".filters").slideToggle();
+                $("#search-option").click(function () {
+                        $(".filters").slideToggle();
+                });
+        });
+</script>

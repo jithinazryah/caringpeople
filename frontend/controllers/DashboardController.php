@@ -32,6 +32,7 @@ class DashboardController extends Controller {
                 return $this->render('view-schedules', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
+                            'service' => $id,
                 ]);
         }
 
