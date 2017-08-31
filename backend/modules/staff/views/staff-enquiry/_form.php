@@ -106,7 +106,7 @@ use common\models\MasterDesignations;
         <?php } ?>
 
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?php // $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true])             ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?php // $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true])                ?></div>
         <div style="clear:both"></div>
 
         <div id = "p_attach">
@@ -131,7 +131,7 @@ use common\models\MasterDesignations;
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
                                         <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
-                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
+                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"><div class="upload-div"> + Add New</div></a>
 
                                 </div>
                         </div>
@@ -193,6 +193,11 @@ use common\models\MasterDesignations;
         }
         a{
                 color: #3c4ba1;
+        } .upload-div{
+                width: 100px;
+                height: 38px;
+                float: right;
+                padding: 9px;
         }
 </style>
 

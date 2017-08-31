@@ -10,7 +10,7 @@ use common\models\StaffInfo;
 use common\models\AttendanceEntry;
 use yii\db\Expression;
 
-$this->title = 'OncallStaff Report';
+$this->title = 'Staff Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

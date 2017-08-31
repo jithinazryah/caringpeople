@@ -453,7 +453,7 @@ class AjaxController extends \yii\web\Controller {
                                 <div class='form-group field-staffperviousemployer-salary'>
                                 <label class='control-label' >Attachment Name</label>
                               $option
-                                  <a class='add-option-dropdown add-new' id='atachment_$rand-5' style='margin-top:0px;'> + Add New</a>
+                                  <a class='add-option-dropdown add-new' id='atachment_$rand-5' style='margin-top:0px;'> <div class='upload-div'>+ Add New</div></a>
                                 </div>
                                 </div>
                                 <a id='remAttach' class='btn btn-icon btn-red remAttach' style='margin-top: 15px;'><i class='fa-remove'></i></a>
