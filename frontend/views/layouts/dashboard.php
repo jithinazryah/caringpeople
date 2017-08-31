@@ -205,27 +205,6 @@ $notifications = array_merge($notification, $notification1);
                                                                                         </li>
                                                                                         <?php
                                                                                 }
-                                                                                /* foreach ($services as $services) {
-                                                                                  $followups = \common\models\Followups::find()->where(['status' => 0, 'type_id' => $services->id])->andWhere(['like', 'followup_date', date('Y-m-d')])->all();
-                                                                                  foreach ($followups as $followup) {
-                                                                                  ?>
-                                                                                  <li class="active notification-success" id="notify-<?= $value->id ?>">
-                                                                                  <?php $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $followup->id); ?>
-                                                                                  <a>
-                                                                                  <span class="line notification-line" style="width: 85%;padding-left: 0;cursor: pointer;" id="<?= $followup->id ?>">
-                                                                                  <strong style="line-height: 20px;">Pending Followup</strong>
-                                                                                  </span>
-
-                                                                                  <span class="line small time" style="padding-left: 0;">
-                                                                                  <?= $followup->followup_notes ?><br>
-                                                                                  Date : <?= date('d-m-Y', strtotime($followup->followup_date)); ?>
-                                                                                  </span>
-                                                                                  <!--<input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Ignore">-->
-                                                                                  </a>
-                                                                                  </li>
-                                                                                  <?php
-                                                                                  }
-                                                                                  } */
                                                                                 ?>
                                                                                 <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 2px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div>
                                                                         </ul>
@@ -394,7 +373,6 @@ $notifications = array_merge($notification, $notification1);
 
 
                                                         $('#main-menu>li>ul').css('display', '');
-                                                        //$('sidebar-menu >main-menu>expanded>ul').style("expanded");
                                                 }
                                         }))
                                                 if ($(window).width() < 900) {
@@ -402,7 +380,6 @@ $notifications = array_merge($notification, $notification1);
                                                         $("#side-menuss").removeClass("collapsed");
                                                 } else {
 
-                                                        //   $("#side-menuss").addClass('collapsed');
                                                 }
                                         ;
                                 });</script>
