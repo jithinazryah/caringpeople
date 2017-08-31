@@ -10,8 +10,11 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 
 DashboardAsset::register($this);
-$notifications = common\models\Invoice::find()->where(['status' => 2, 'due_date' => date('Y-m-d'), 'patient_id' => Yii::$app->session['patient_id']])->all();
+$last_date = date('Y-m-d', strtotime(date('Y-m-d') . ' -20  days'));
+$notification = common\models\Invoice::find()->where(['>=', 'due_date', $last_date])->andWhere(['<=', 'due_date', date('Y-m-d')])->andWhere(['status' => 2, 'patient_id' => Yii::$app->session['patient_id'], 'view' => 0])->orderBy(['id' => SORT_DESC])->limit(10)->all();
+$notification1 = common\models\Invoice::find()->where(['<', 'due_date', date('Y-m-d')])->andWhere(['status' => 2, 'patient_id' => Yii::$app->session['patient_id'], 'view' => 2])->orderBy(['id' => SORT_DESC])->limit(10)->all();
 $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' => Yii::$app->session['patient_id']])->all();
+$notifications = array_merge($notification, $notification1);
 ?>
 <?php $this->beginPage() ?>
 <html lang="en">
@@ -94,8 +97,53 @@ $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' =
                                                         </a>
                                                         <ul>
                                                                 <li>
-                                                                        <?= Html::a('Invoices', ['/dashboard/invoices'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('New Invoices', ['/dashboard/invoices'], ['class' => 'title']) ?>
                                                                 </li>
+
+                                                                <li>
+                                                                        <?= Html::a('Pending Invoices', ['/dashboard/invoices'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
+
+                                                <li>
+                                                        <a href="">
+                                                                <i class="fa fa-book"></i>
+                                                                <span class="title">Tasks</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('My Tasks', ['/dashboard/invoices'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                        </ul>
+                                                </li>
+
+
+                                                <li>
+                                                        <a href="">
+                                                                <i class="fa fa-gear"></i>
+                                                                <span class="title">Settings</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Change Password', ['/dashboard/change-password'], ['class' => 'title']) ?>
+                                                                </li>
+
+                                                                <li>
+                                                                        <?= Html::a('Edit Profile', ['/dashboard/edit-profile'], ['class' => 'title']) ?>
+                                                                </li>
+                                                                <?php
+                                                                echo '<li>'
+                                                                . Html::beginForm(['/site/logout'], 'post') . '<a>'
+                                                                . Html::submitButton(
+                                                                        ' Logout', ['class' => 'title', 'style' => 'background-color: #d0d0d0;border: none;color: #000;padding-left: 0px !important;']
+                                                                ) . '</a>'
+                                                                . Html::endForm()
+                                                                . '</li>';
+                                                                ?>
+
 
                                                         </ul>
                                                 </li>
@@ -124,22 +172,15 @@ $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' =
                                                 <li class="dropdown hover-line hover-line-notify">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notifications">
                                                                 <i class="fa-bell-o"></i>
-                                                                <?php
-                                                                $follow_count = 0;
-                                                                foreach ($services as $services1) {
-                                                                        $followups1 = \common\models\Followups::find()->where(['status' => 0, 'type_id' => $services1->id])->andWhere(['like', 'followup_date', date('Y-m-d')])->all();
-                                                                        $follow_count += count($followups1);
-                                                                }
-                                                                $total_count = count($notifications) + $follow_count;
-                                                                ?>
-                                                                <span class="badge badge-purple" id="notify-count"><?= $total_count; ?></span>
+
+                                                                <span class="badge badge-purple" id="notify-count"><?= count($notifications); ?></span>
                                                         </a>
                                                         <ul class="dropdown-menu notifications">
                                                                 <li class="top">
                                                                         <p class="small">
 
 
-                                                                                You have <strong id="notify-counts"><?= $total_count; ?></strong> new notifications.
+                                                                                You have <strong id="notify-counts"><?= count($notifications); ?></strong> new notifications.
                                                                         </p>
                                                                 </li>
 
@@ -150,40 +191,41 @@ $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' =
                                                                                         ?>
                                                                                         <li class="active notification-success" id="notify-<?= $value->id ?>">
                                                                                                 <?php $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $value->id); ?>
-                                                                                                <a target="_blank" href="<?= Yii::$app->homeUrl ?>dashboard/invoicebill?id=<?= $id ?>">
+                                                                                                <a>
                                                                                                         <span class="line notification-line" style="width: 85%;padding-left: 0;cursor: pointer;" id="<?= $value->id ?>">
+
                                                                                                                 <strong style="line-height: 20px;">Payment (Rs. <?= $value->amount ?>) due date is on <?= date('d-m-Y', strtotime($value->due_date)) ?></strong>
                                                                                                         </span>
 
                                                                                                         <span class="line small time" style="padding-left: 0;">
 
                                                                                                         </span>
-                                                                                                        <!--<input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Ignore">-->
+                                                                                                        <input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Ignore">
                                                                                                 </a>
                                                                                         </li>
                                                                                         <?php
                                                                                 }
-                                                                                foreach ($services as $services) {
-                                                                                        $followups = \common\models\Followups::find()->where(['status' => 0, 'type_id' => $services->id])->andWhere(['like', 'followup_date', date('Y-m-d')])->all();
-                                                                                        foreach ($followups as $followup) {
-                                                                                                ?>
-                                                                                                <li class="active notification-success" id="notify-<?= $value->id ?>">
-                                                                                                        <?php $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $followup->id); ?>
-                                                                                                        <a>
-                                                                                                                <span class="line notification-line" style="width: 85%;padding-left: 0;cursor: pointer;" id="<?= $followup->id ?>">
-                                                                                                                        <strong style="line-height: 20px;">Pending Followup</strong>
-                                                                                                                </span>
+                                                                                /* foreach ($services as $services) {
+                                                                                  $followups = \common\models\Followups::find()->where(['status' => 0, 'type_id' => $services->id])->andWhere(['like', 'followup_date', date('Y-m-d')])->all();
+                                                                                  foreach ($followups as $followup) {
+                                                                                  ?>
+                                                                                  <li class="active notification-success" id="notify-<?= $value->id ?>">
+                                                                                  <?php $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $followup->id); ?>
+                                                                                  <a>
+                                                                                  <span class="line notification-line" style="width: 85%;padding-left: 0;cursor: pointer;" id="<?= $followup->id ?>">
+                                                                                  <strong style="line-height: 20px;">Pending Followup</strong>
+                                                                                  </span>
 
-                                                                                                                <span class="line small time" style="padding-left: 0;">
-                                                                                                                        <?= $followup->followup_notes ?><br>
-                                                                                                                        Date : <?= date('d-m-Y', strtotime($followup->followup_date)); ?>
-                                                                                                                </span>
-                                                                                                                <!--<input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Ignore">-->
-                                                                                                        </a>
-                                                                                                </li>
-                                                                                                <?php
-                                                                                        }
-                                                                                }
+                                                                                  <span class="line small time" style="padding-left: 0;">
+                                                                                  <?= $followup->followup_notes ?><br>
+                                                                                  Date : <?= date('d-m-Y', strtotime($followup->followup_date)); ?>
+                                                                                  </span>
+                                                                                  <!--<input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Ignore">-->
+                                                                                  </a>
+                                                                                  </li>
+                                                                                  <?php
+                                                                                  }
+                                                                                  } */
                                                                                 ?>
                                                                                 <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 2px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div>
                                                                         </ul>
@@ -198,42 +240,54 @@ $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' =
                                                 <li class="dropdown hover-line hover-line-task">
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="My Tasks">
                                                                 <i class="fa-envelope-o"></i>
-                                                                <span class="badge badge-green" id="my-task-count"><?= $my_tasks_count ?></span>
+                                                                <?php
+                                                                $follow_count = 0;
+                                                                foreach ($services as $services1) {
+                                                                        $last_date_time = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' -20  days'));
+                                                                        $followups1 = \common\models\Followups::find()->where(['>=', 'followup_date', $last_date_time])->andWhere(['<=', 'followup_date', date('Y-m-d H:i:s')])->andWhere(['status' => 0, 'type_id' => $services1->id, 'view' => 0, 'releated_notification_patient' => 1])->orderBy(['id' => SORT_DESC])->limit(10)->all();
+                                                                        $follow_count += count($followups1);
+                                                                }
+                                                                ?>
+                                                                <span class="badge badge-green" id="my-task-count"><?= $follow_count ?></span>
                                                         </a>
                                                         <ul class="dropdown-menu my-task" style="width: 370px;">
                                                                 <li class="top">
                                                                         <p class="small">
-                                                                                <!--                                        <a href="#" class="pull-right">Mark all Read</a>-->
-                                                                                You have <strong id="tasks-counts"><?= $my_tasks_count ?></strong> new tasks.
+
+                                                                                You have <strong id="tasks-counts"><?= $follow_count ?></strong> new tasks.
                                                                         </p>
                                                                 </li>
 
                                                                 <li>
                                                                         <ul class="dropdown-menu-list list-unstyled ps-scrollbar ps-container dropdown-menu-list-task">
-                                                                                <?php /*
-                                                                                  foreach ($my_tasks as $value) {
-                                                                                  ?>
-                                                                                  <li class="active task-success" id="mytasks-<?= $value->id ?>">
-                                                                                  <a href="#">
-                                                                                  <span class="line" style="width: 85%;padding-left: 0;">
-                                                                                  <strong style="line-height: 20px;"><?= $value->follow_up_msg ?></strong>
-                                                                                  </span>
+                                                                                <?php
+                                                                                foreach ($services as $services1) {
+                                                                                        $last_date_time = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' -20  days'));
+                                                                                        $followups1 = \common\models\Followups::find()->where(['>=', 'followup_date', $last_date_time])->andWhere(['<=', 'followup_date', date('Y-m-d H:i:s')])->andWhere(['status' => 0, 'type_id' => $services1->id, 'view' => 0, 'releated_notification_patient' => 1])->orderBy(['id' => SORT_DESC])->limit(10)->all();
+                                                                                        foreach ($followups1 as $value) {
+                                                                                                ?>
+                                                                                                <li class="active task-success" id="mytasks-<?= $value->id ?>">
+                                                                                                        <a href="#">
+                                                                                                                <span class="line notification-line1" style="width: 85%;padding-left: 0;" id="<?= $value->id ?>">
+                                                                                                                        <strong style="line-height: 20px;"><?= $value->followup_notes ?></strong>
+                                                                                                                </span>
 
-                                                                                  <span class="line small time" style="padding-left: 0;">
-                                                                                  <?= $value->date ?>
-                                                                                  </span>
-                                                                                  <input type="checkbox" checked="" class="iswitch iswitch-blue close-task" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Close">
-                                                                                  </a>
-                                                                                  </li>
-                                                                                  <?php
-                                                                                  } */
+                                                                                                                <span class="line small time" style="padding-left: 0;">
+                                                                                                                        <?= $value->followup_date ?>
+                                                                                                                </span>
+                                                                                                                <input type="checkbox" checked="" class="iswitch iswitch-blue close-task" data-id= "<?= $value->id ?>" style="margin-top: -35px;float: right;" title="Close">
+                                                                                                        </a>
+                                                                                                </li>
+                                                                                                <?php
+                                                                                        }
+                                                                                }
                                                                                 ?>
                                                                                 <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 2px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div>
                                                                         </ul>
                                                                 </li>
 
                                                                 <li class="external">
-                                                                        <?= Html::a('<span style="color: #03A9F4;">View all Tasks</span> <i class="fa-link-ext"></i>', ['/task/task']) ?>
+                                                                        <?= Html::a('<span style="color: #03A9F4;">View all Tasks</span> <i class="fa-link-ext"></i>', ['/dashboard/tasks']) ?>
                                                                 </li>
                                                         </ul>
                                                 </li>
@@ -340,7 +394,6 @@ $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' =
 
 
                                                         $('#main-menu>li>ul').css('display', '');
-
                                                         //$('sidebar-menu >main-menu>expanded>ul').style("expanded");
                                                 }
                                         }))
@@ -352,23 +405,18 @@ $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' =
                                                         //   $("#side-menuss").addClass('collapsed');
                                                 }
                                         ;
-
                                 });</script>
                         <script type="text/javascript">
                                 function toggleSampleChatWindow()
                                 {
                                         var $chat_win = jQuery("#sample-chat-window");
-
                                         $chat_win.toggleClass('open');
-
                                         if ($chat_win.hasClass('open'))
                                         {
                                                 var $messages = $chat_win.find('.ps-scrollbar');
-
                                                 if ($.isFunction($.fn.perfectScrollbar))
                                                 {
                                                         $messages.perfectScrollbar('destroy');
-
                                                         setTimeout(function () {
                                                                 $messages.perfectScrollbar();
                                                                 $chat_win.find('.form-control').focus();
@@ -389,11 +437,92 @@ $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' =
                                         $(".mobile-chat-toggle").on('click', function (ev)
                                         {
                                                 ev.preventDefault();
-
                                                 $(".footer-sticked-chat").toggleClass('mobile-is-visible');
+                                        });
+                                        $('.disable-notification').on('change', function (e) {
+                                                var idd = $(this).attr('data-id');
+                                                var count = $('#notify-count').text();
+                                                $.ajax({
+                                                        type: 'POST',
+                                                        cache: false,
+                                                        async: false,
+                                                        data: {id: idd},
+                                                        url: '<?= Yii::$app->homeUrl; ?>dashboard/update-notification',
+                                                        success: function (data) {
+                                                                $(".hover-line-notify").addClass("open");
+                                                                var res = $.parseJSON(data);
+                                                                $('#notify-' + idd).fadeOut(750, function () {
+                                                                        $(this).remove();
+                                                                });
+                                                                $('#notify-count').text(count - 1);
+                                                                $('#notify-counts').text(count - 1);
+                                                                if (data != 1) {
+                                                                        var next_row = '<li class="active notification-success" id="notify-' + res.result["id"] + '" >\n\
+                                <a>\n\
+                                                    <span class="line notification-line" style="width: 85%;padding-left: 0;cursor:pointer" id ="' + res.result["id"] + '" >\n\
+                                                        <strong style="line-height: 20px;">Payment (Rs.' + res.result["amount"] + ') due date is on ' + res.result["date"] + '</strong>\n\
+                                                    </span>\n\
+                                                    <span class="line small time" style="padding-left: 0;">\n\
+                                                    </span>\n\
+                                                    <input type="checkbox" checked="" class="iswitch iswitch-secondary disable-notification" data-id= "' + res.result["id"] + '" style="margin-top: -35px;float: right;" title="Ignore">\n\
+                                                </a>\n\
+                                </li>';
+                                                                        $(".dropdown-menu-list-notify").append(next_row);
+                                                                }
+                                                                e.preventDefault();
+                                                        }
+                                                });
                                         });
 
 
+
+                                        $('.close-task').on('change', function (e) {
+                                                var idd = $(this).attr('data-id');
+                                                var count = $('#my-task-count').text();
+                                                $.ajax({
+                                                        type: 'POST',
+                                                        cache: false,
+                                                        async: false,
+                                                        data: {id: idd},
+                                                        url: '<?= Yii::$app->homeUrl; ?>dashboard/update-task',
+                                                        success: function (data) {
+                                                                var res = $.parseJSON(data);
+                                                                $('#mytasks-' + idd).fadeOut(750, function () {
+                                                                        $(this).remove();
+                                                                });
+                                                                $('#tasks-counts').text(count - 1);
+                                                                $('#my-task-count').text(count - 1);
+                                                                $(".hover-line-task").addClass("open");
+                                                                if (data != 1) {
+                                                                        var next_row = '<li class="active notification-success" id="tasks-' + res.result["id"] + '" >\n\
+                                            <a href="#">\n\
+                                                                <span class="line" style="width: 85%;padding-left: 0;">\n\
+                                                                    <strong style="line-height: 20px;">' + res.result["content"] + '</strong>\n\
+                                                                </span>\n\
+                                                                <span class="line small time" style="padding-left: 0;">' + res.result["date"] + '\n\
+                                                                </span>\n\
+                                                                <input type="checkbox" checked="" class="iswitch iswitch-blue close-task" data-id= "' + res.result["id"] + '" style="margin-top: -35px;float: right;" title="Closed">\n\
+                                                            </a>\n\
+                                            </li>';
+                                                                        $(".dropdown-menu-list-task").append(next_row);
+                                                                }
+                                                                e.preventDefault();
+                                                        }
+                                                });
+                                        });
+
+                                });
+
+                                $('.notification-line').on('click', function (e) {
+                                        var idd = $(this).attr('id');
+
+                                        window.location.href = '<?= Yii::$app->homeUrl; ?>dashboard/invoicebillview?id=' + idd;
+                                });
+
+                                $('.notification-line1').on('click', function (e) {
+                                        var idd = $(this).attr('id');
+                                        alert(idd);
+                                        window.location.href = '<?= Yii::$app->homeUrl; ?>dashboard/tasks?id=' + idd;
                                 });
                         </script>
 

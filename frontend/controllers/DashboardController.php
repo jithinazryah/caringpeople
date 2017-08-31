@@ -77,6 +77,19 @@ class DashboardController extends Controller {
         public function actionInvoicebill($id) {
                 $id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $id);
                 $model = \common\models\Invoice::findOne($id);
+                $model->view = 1;
+                $model->save();
+                echo $this->renderPartial('invoice_bill', [
+                    'model' => $model,
+                ]);
+        }
+
+        public function actionInvoicebillview($id) {
+                //  $id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $id);
+                $invoice = \common\models\Invoice::findOne($id);
+                $invoice->view = 1;
+                $invoice->save();
+                $model = \common\models\Invoice::findOne($id);
                 echo $this->renderPartial('invoice_bill', [
                     'model' => $model,
                 ]);
@@ -117,13 +130,11 @@ class DashboardController extends Controller {
                 $model = \common\models\PatientGeneral::findOne(Yii::$app->session['patient_id']);
                 $before_update_patient_details = \common\models\PatientGeneral::findOne(Yii::$app->session['patient_id']);
                 if ($model->load(Yii::$app->request->post())) {
-
                         $model->dob = date('Y-m-d', strtotime($_POST['PatientGeneral']['dob']));
                         $model->weight = $_POST['PatientGeneral']['weight'];
                         $model->save();
                         $patient_datas = array('patient_image');
                         $this->Imageupload($model, $before_update_patient_details, $patient_datas, $model->id);
-
                         Yii::$app->getSession()->setFlash('success', 'Profile updated successfully');
                 }
                 return $this->render('edit-profile', ['model' => $model]
@@ -133,9 +144,7 @@ class DashboardController extends Controller {
         public function Imageupload($model, $data = null, $images, $id) {
 
                 foreach ($images as $value) {
-
                         $image = UploadedFile:: getInstance($model, $value);
-
                         $this->image($model, $data, $image, $value, $id);
                 }
         }
@@ -161,8 +170,7 @@ class DashboardController extends Controller {
 
         public function Upload($model, $image, $type, $extension, $id, $exists_type = null) {
                 $paths = ['patient', $id];
-                $file = Yii::getAlias(Yii::$app->params ['uploadPath']) . '/patient/' . $id . '/' .
-                        $type . '.' . $exists_type;
+                $file = Yii::getAlias(Yii::$app->params ['uploadPath']) . '/patient/' . $id . '/' . $type . '.' . $exists_type;
                 if (file_exists($file))
                         unlink($file);
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
@@ -171,7 +179,71 @@ class DashboardController extends Controller {
 
         public function actionNotifications() {
 
+
                 return $this->render('notifications');
+        }
+
+        public function actionUpdateNotification() {
+                if (Yii::$app->request->isAjax) {
+                        $id = $_POST['id'];
+                        $notification = \common\models\Invoice::findOne(['id' => $id]);
+                        $notification->view = 2;
+                        $notification->save();
+                        $last_date = date('Y-m-d', strtotime(date('Y-m-d') . ' -20  days'));
+                        $notifications = \common\models\Invoice::find()->where(['>=', 'due_date', $last_date])->andWhere(['<=', 'due_date', date('Y-m-d')])->andWhere(['status' => 2, 'patient_id' => Yii::$app->session['patient_id'], 'view' => 0])->orderBy(['id' => SORT_DESC])->limit(10)->all();
+                        $count = count($notifications);
+
+                        $i = 0;
+                        if ($count >= 1) {
+                                foreach ($notifications as $value) {
+                                        $i++;
+                                        if ($i == $count) {
+                                                $arr_variable = array('id' => $value->id, 'amount' => $value->amount, 'date' => date('d-m-Y', strtotime($value->due_date)));
+                                                $data['result'] = $arr_variable;
+                                                echo json_encode($data);
+                                        }
+                                }
+                        } else {
+                                echo 1;
+                                exit;
+                        }
+                }
+        }
+
+        public function actionUpdateTask() {
+                if (Yii::$app->request->isAjax) {
+                        $id = $_POST['id'];
+                        $task = \common\models\Followups::findOne(['id' => $id]);
+                        $task->view = 2;
+                        $task->save();
+                        $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' => Yii::$app->session['patient_id']])->all();
+                        $service = array();
+                        foreach ($services as $services) {
+                                $service[] = $services->id;
+                        }
+                        $last_date_time = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' -20  days'));
+                        $tasks = \common\models\Followups::find()->where(['>=', 'followup_date', $last_date_time])->andWhere(['<=', 'followup_date', date('Y-m-d H:i:s')])->andWhere(['status' => 0, 'view' => 0, 'releated_notification_patient' => 1])->andWhere(['IN', 'type_id', $service])->orderBy(['id' => SORT_DESC])->limit(10)->all();
+                        $count = count($tasks);
+                        $i = 0;
+                        if ($count >= 10) {
+                                foreach ($tasks as $value) {
+                                        $i++;
+                                        if ($i == $count) {
+                                                $arr_variable = array('id' => $value->id, 'content' => $value->followup_notes, 'date' => $value->followup_date);
+                                                $data['result'] = $arr_variable;
+                                                echo json_encode($data);
+                                        }
+                                }
+                        } else {
+                                echo 1;
+                                exit;
+                        }
+                }
+        }
+
+        public function actionTasks($id = null) {
+
+                return $this->render('tasks');
         }
 
 }

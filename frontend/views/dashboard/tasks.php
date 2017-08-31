@@ -6,8 +6,8 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Employee */
 
-$this->title = 'Notifications ';
-$this->params['breadcrumbs'][] = ['label' => 'Employees', 'url' => ['index']];
+$this->title = 'Tasks ';
+$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->staff_name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
@@ -27,22 +27,24 @@ $this->params['breadcrumbs'][] = 'Update';
                                                 <table class="table mail-table">
                                                         <tbody>
                                                                 <?php
-                                                                $notification = \common\models\Invoice::find()->where(['status' => 2, 'patient_id' => Yii::$app->session['patient_id'], 'view' => 0])->orderBy(['id' => SORT_DESC])->limit(10)->all();
-                                                                $notification1 = common\models\Invoice::find()->where(['<', 'due_date', date('Y-m-d')])->andWhere(['status' => 2, 'patient_id' => Yii::$app->session['patient_id'], 'view' => 2])->orderBy(['id' => SORT_DESC])->limit(10)->all();
-                                                                $notifications = array_merge($notification, $notification1);
-                                                                foreach ($notifications as $notifications) {
+                                                                $services = \common\models\Service::find()->where(['status' => 1, 'patient_id' => Yii::$app->session['patient_id']])->all();
+                                                                $service = array();
+                                                                foreach ($services as $services) {
+                                                                        $service[] = $services->id;
+                                                                }
+                                                                $last_date_time = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' -20  days'));
+                                                                $tasks = \common\models\Followups::find()->where(['>=', 'followup_date', $last_date_time])->andWhere(['<=', 'followup_date', date('Y-m-d H:i:s')])->andWhere(['status' => 0, 'view' => 0, 'releated_notification_patient' => 1])->andWhere(['IN', 'type_id', $service])->orderBy(['id' => SORT_DESC])->all();
+
+                                                                foreach ($tasks as $notifications) {
                                                                         ?>
 
                                                                         <tr class="unread">
                                                                                 <td class="col-subject ">
-                                                                                        <?php
-                                                                                        $id = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $notifications->id);
-                                                                                        echo Html::a('Payment (Rs. ' . $notifications->amount . ') pending', ['dashboard/invoicebill?id=' . $id], ['class' => ''])
-                                                                                        ?>
+                                                                                        <?= $notifications->followup_notes ?>
                                                                                 </td>
 
                                                                                 <td class="col-time">
-                                                                                        <?= date('d-m-Y', strtotime($notifications->due_date)) ?>
+                                                                                        <?= date('d-m-Y', strtotime($notifications->followup_date)) ?>
                                                                                 </td>
                                                                         </tr>
 
