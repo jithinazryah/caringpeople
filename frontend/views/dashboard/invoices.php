@@ -52,6 +52,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'attribute' => 'DOC',
                                                             'header' => 'Date',
                                                         ],
+                                                            [
+                                                            'attribute' => 'status',
+                                                            'format' => 'html',
+                                                            'value' => function($model) {
+                                                                    if ($model->status == 1) {
+                                                                            return '<span class="paid">Paid</span>';
+                                                                    } else if ($model->status == 2) {
+                                                                            return '<span class="unpaid">Unpaid</span>';
+                                                                    } else {
+                                                                            return '';
+                                                                    }
+                                                            },
+                                                            'filter' => ['1' => 'Paid', '2' => 'Unpaid']
+                                                        ],
                                                             ['class' => 'yii\grid\ActionColumn',
                                                             'template' => '{print}',
                                                             'buttons' => [
@@ -83,5 +97,12 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
+<style>
+        .paid{
+                color: green;
+        } .unpaid{
+                color: red;
+        }
+</style>
 
 

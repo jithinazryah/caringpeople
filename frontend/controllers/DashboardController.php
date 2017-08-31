@@ -61,12 +61,20 @@ class DashboardController extends Controller {
                 ]);
         }
 
-        public function actionInvoices() {
+        public function actionInvoices($id = null) {
+
 
                 $searchModel = new \common\models\InvoiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['patient_id' => Yii::$app->session['patient_id']]);
-
+                if (!empty($id)) {
+                        if ($id == 1) {
+                                $last_date = date('Y-m-d', strtotime(date('Y-m-d') . ' -10  days'));
+                                $dataProvider->query->andWhere(['>=', 'DOC', $last_date]);
+                        } else if ($id == 2) {
+                                $dataProvider->query->andWhere(['status' => 2]);
+                        }
+                }
 
                 return $this->render('invoices', [
                             'searchModel' => $searchModel,

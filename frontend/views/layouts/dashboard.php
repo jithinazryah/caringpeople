@@ -97,11 +97,11 @@ $notifications = array_merge($notification, $notification1);
                                                         </a>
                                                         <ul>
                                                                 <li>
-                                                                        <?= Html::a('New Invoices', ['/dashboard/invoices'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('New Invoices', ['/dashboard/invoices', 'id' => 1], ['class' => 'title']) ?>
                                                                 </li>
 
                                                                 <li>
-                                                                        <?= Html::a('Pending Invoices', ['/dashboard/invoices'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('Pending Invoices', ['/dashboard/invoices', 'id' => 2], ['class' => 'title']) ?>
                                                                 </li>
 
                                                         </ul>
