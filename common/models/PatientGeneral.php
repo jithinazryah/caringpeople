@@ -91,4 +91,16 @@ class PatientGeneral extends \yii\db\ActiveRecord {
                 return $this->hasOne(PatientGuardianDetails::className(), ['patient_id' => 'id']);
         }
 
+        public static function Total($from, $to, $id) {
+                $services = ServiceSchedule::find()->where(['patient_id' => $id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->groupBy(['service_id'])->all();
+                $due_amount = 0;
+                foreach ($services as $value) {
+                        $service_detail = Service::findOne($value->service_id);
+
+                        $due_amount += $service_detail->due_amount;
+                }
+                $due_amount = Yii::$app->NumToWord->NumberFormat($due_amount);
+                return $due_amount;
+        }
+
 }

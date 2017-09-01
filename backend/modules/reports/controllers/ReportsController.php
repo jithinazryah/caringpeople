@@ -307,21 +307,9 @@ class ReportsController extends Controller {
                 ]);
         }
 
-        public function actionViewdetails2($from = null, $to = null, $type = null, $branch_id = null) {
-
-                $from = date('Y-m-d', strtotime($from));
-                $to = date('Y-m-d', strtotime($to));
-                $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $type])->andWhere(['branch_id' => $branch_id])->all();
-                if ($type == 0) {
-                        $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->andWhere(['branch_id' => $branch_id])->all();
-                }
-                return $this->render('view_details_1', [
-                            'from' => $from,
-                            'to' => $to,
-                            'type' => $type,
-                            'staffs' => $staffs
-                ]);
-        }
+        /*
+         * staff details
+         */
 
         public function actionViewdetails($from = null, $to = null, $type = null, $branch_id = null) {
 
@@ -346,6 +334,10 @@ class ReportsController extends Controller {
                 ]);
         }
 
+        /*
+         * staff per day details
+         */
+
         public function actionStaffdetails($from = null, $to = null, $staff = null) {
                 $searchModel = new \common\models\ServiceScheduleSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -363,23 +355,7 @@ class ReportsController extends Controller {
                 ]);
         }
 
-        public function actionStaffdetails2($from = null, $to = null, $staff = null) {
-                $searchModel = new \common\models\ServiceScheduleSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->andWhere(['staff' => $staff])->orderBy(['date' => SORT_ASC]);
-
-                $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->orderBy(['date' => SORT_ASC])->all();
-                $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
-                return $this->render('staff_details', [
-                            'schedules' => $schedules,
-                            'staff' => $staff,
-                            'staff_amount' => $staff_amount,
-                            'from' => $from,
-                            'to' => $to,
-                ]);
-        }
-
-        public function actionReportPatient() {
+        public function actionReportPatient2() {
                 $model = new ServiceSchedule();
                 $model->scenario = 'oncallstaffreport';
                 $patients = '';
@@ -388,15 +364,46 @@ class ReportsController extends Controller {
 
                         $from = date('Y-m-d', strtotime($model->date));
                         $to = date('Y-m-d', strtotime($model->DOC));
-                        $patients = \common\models\PatientGeneral::find()->where(['status' => 1, 'branch_id' => $model->rating])->all();
+                        $patients = \common\models\PatientGeneral::find()->where(['status' => 1, 'branch_id' => $model->rating])->orderBy(['first_name' => SORT_ASC])->all();
+                }
+
+                return $this->render('reportpatient_1', [
+                            'model' => $model,
+                            'patients' => $patients,
+                ]);
+        }
+
+        /*
+         * Patient report
+         */
+
+        public function actionReportPatient() {
+                $model = new ServiceSchedule();
+                $model->scenario = 'oncallstaffreport';
+                $searchModel = '';
+                $dataProvider = '';
+
+                if ($model->load(Yii::$app->request->get())) {
+                        $searchModel = new \common\models\PatientGeneralSearch();
+                        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                        $dataProvider->query->andWhere(['status' => 1, 'branch_id' => $model->rating]);
+                        $dataProvider->query->orderBy(['first_name' => SORT_ASC]);
+                        $dataProvider->pagination = ['pageSize' => 50];
+                } else {
+                        //  $dataProvider->query->andWhere(['status' => 1, 'patient_general.id' => 0]);
                 }
 
 
                 return $this->render('reportpatient', [
                             'model' => $model,
-                            'patients' => $patients,
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
                 ]);
         }
+
+        /*
+         * patient service details
+         */
 
         public function actionServicedetails($from = null, $to = null, $patient = null) {
                 $services = ServiceSchedule::find()->where(['patient_id' => $patient])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->groupBy(['service_id'])->all();

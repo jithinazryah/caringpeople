@@ -30,11 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                 <div class="attendance-form form-inline">
-                                                        <?php
-                                                        $form = ActiveForm::begin([
-                                                                    'method' => 'get',
-                                                        ]);
-                                                        ?>
+                                                        <?php $form = ActiveForm::begin(); ?>
                                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                                 <?=
                                                                 DatePicker::widget([

@@ -8,12 +8,11 @@ use common\models\Branch;
 use common\models\StaffInfo;
 use common\models\Service;
 use common\models\ServiceSchedule;
-use kartik\export\ExportMenu;
-use yii\helpers\Url;
 
 $this->title = 'Patient Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="row">
 
@@ -30,11 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                 <div class="attendance-form form-inline">
-                                                        <?php
-                                                        $form = ActiveForm::begin([
-                                                                    'method' => 'get',
-                                                        ]);
-                                                        ?>
+                                                        <?php $form = ActiveForm::begin(); ?>
                                                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                                                 <?=
                                                                 DatePicker::widget([
@@ -88,10 +83,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div style="clear:both"></div>
 
                                                 <!-------------------------------------------------REPORT----------------------------------------------------------------------------->
-                                                <?php if (!empty($dataProvider) && $dataProvider != '') { ?>
+                                                <?php if (!empty($patients) && $patients != '') { ?>
 
-
-
+                                                        
+                                                
 
                                                         <div class="row" style="margin:10px 0px 0px 0px;">
 
@@ -104,53 +99,52 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                         <div class = "table-responsive">
-                                                                <?php
-                                                                $gridColumns = [
-                                                                        ['class' => 'yii\grid\SerialColumn'],
-                                                                    'first_name',
-                                                                        [
-                                                                        'header' => 'Amount',
-                                                                        'value' => function($model) use ($from, $to) {
-                                                                                return $model->total($from, $to, $model->id);
-                                                                        },
-                                                                        'filter' => '',
-                                                                    ],
-                                                                        ['class' => 'yii\grid\ActionColumn',
-                                                                        'template' => '{print}',
-                                                                        'buttons' => [
-                                                                            //view button
-                                                                            'print' => function ($url, $model) {
-                                                                                    return Html::a('View Details', $url, [
-                                                                                                'title' => Yii::t('app', 'print'),
-                                                                                                'class' => 'btn btn-info',
-                                                                                                'target' => '_blank',
-                                                                                                'style' => 'color:#fff',
-                                                                                    ]);
-                                                                            },
-                                                                        ],
-                                                                        'urlCreator' => function($action, $model) use ($from, $to) {
-                                                                                if ($action === 'print') {
-                                                                                        $url = Url::to(['reports/servicedetails', 'from' => $from, 'to' => $to, 'patient' => $model->id]);
-                                                                                        return $url;
-                                                                                }
-                                                                        }
-                                                                    ],
-                                                                ];
-                                                                if (Yii::$app->user->identity->post_id == '1') {
-                                                                        echo ExportMenu::widget([
-                                                                            'dataProvider' => $dataProvider,
-                                                                            'columns' => $gridColumns,
-                                                                        ]);
-                                                                }
-                                                                echo \kartik\grid\GridView::widget([
-                                                                    'dataProvider' => $dataProvider,
-                                                                    'filterModel' => $searchModel,
-                                                                    'columns' => $gridColumns,
-                                                                ]);
-                                                                ?>
+                                                                <table id="example-1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                                        <thead>
+                                                                        <th>NO</th>
+                                                                        <th>PATIENT</th>
+                                                                        <th>AMOUNT</th>
+                                                                        <th></th>
+
+
+                                                                        </thead>
+
+                                                                        <tbody>
+                                                                                <?php
+                                                                                $k = 0;
+                                                                                foreach ($patients as $patients) {
+                                                                                    $services= ServiceSchedule::find()->where(['patient_id'=>$patients->id])->andWhere(['>=','date',$from])->andWhere(['<=','date',$to])->groupBy(['service_id'])->all();
+                                                                                    $due_amount=0;
+                                                                                    foreach ($services as $value) {
+                                                                                        $service_detail= Service::findOne($value->service_id);
+                                                                                    
+                                                                                        $due_amount+=$service_detail->due_amount; 
+                                                                                    }  
+                                                                                    if($due_amount>0){
+                                                                                        $k++;
+                                                                                        ?>
+                                                                                        <tr>
+                                                                                                <td><?= $k; ?></td>
+                                                                                                <td><?= $patients->first_name; ?></td>
+                                                                                                <td><?php echo Yii::$app->NumToWord->NumberFormat($due_amount)?></td>
+                                                                                                <td><button class="btn btn-info"><a target="_blank" href="<?= Yii::$app->homeUrl ?>reports/reports/servicedetails?from=<?= $from ?>&to=<?= $to ?>&patient=<?= $patients->id ?>" style="color: #FFF">View Details</a></button></td>
+
+                                                                                              
+
+
+                                                                                                
+                                                                                        </tr>
+                                                                                <?php }} ?>
+
+                                                                        </tbody>
+                                                                </table>
                                                         </div>
 
                                                         <?php
+                                                } else {
+                                                        if (isset($model->rating) && $model->rating != '') {
+                                                                echo '<p class="no-result">No results found !!</p>';
+                                                        }
                                                 }
                                                 ?>
 

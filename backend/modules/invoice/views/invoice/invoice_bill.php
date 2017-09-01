@@ -155,7 +155,7 @@ and open the template in the editor.
                         <tr>
                                 <td class="bill">
                                         <div>
-                                                <span>BILL</span>
+                                                <span>RECEIPT</span>
                                         </div>
                                 </td>
                         </tr>
