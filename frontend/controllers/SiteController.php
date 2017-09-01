@@ -417,9 +417,9 @@ class SiteController extends Controller {
                                 $user->email_verification = 1;
                                 $user->status = 1;
                                 $user->save();
-                                Yii::$app->getSession()->setFlash('success', 'Registered Successfully. Please login!');
-                                $model = new LoginForm();
-                                return $this->render('login', ['model' => $model]);
+                                if (Yii::$app->getUser()->login($user)) {
+                                        return $this->redirect('../dashboard/index');
+                                }
                         } else {
                                 Yii::$app->getSession()->setFlash('error', 'This username already exists!');
                                 return $this->render('register', ['patient_id' => $_POST['patient_id']

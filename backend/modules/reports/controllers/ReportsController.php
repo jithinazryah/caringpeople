@@ -13,6 +13,7 @@ use common\models\AttendanceEntry;
 use yii\helpers\ArrayHelper;
 use common\models\ServiceSchedule;
 use yii\db\Expression;
+use yii\data\ActiveDataProvider;
 
 /**
  * AttendanceController implements the CRUD actions for Attendance model.
@@ -306,17 +307,15 @@ class ReportsController extends Controller {
                 ]);
         }
 
-        public function actionViewdetails($from = null, $to = null, $type = null, $branch_id = null) {
+        public function actionViewdetails2($from = null, $to = null, $type = null, $branch_id = null) {
 
                 $from = date('Y-m-d', strtotime($from));
                 $to = date('Y-m-d', strtotime($to));
-
                 $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $type])->andWhere(['branch_id' => $branch_id])->all();
                 if ($type == 0) {
                         $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->andWhere(['branch_id' => $branch_id])->all();
-                        //   $staffs = StaffInfo::find()->where(['branch_id' => $branch_id])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->all();
                 }
-                return $this->render('view_details', [
+                return $this->render('view_details_1', [
                             'from' => $from,
                             'to' => $to,
                             'type' => $type,
@@ -324,7 +323,51 @@ class ReportsController extends Controller {
                 ]);
         }
 
+        public function actionViewdetails($from = null, $to = null, $type = null, $branch_id = null) {
+
+                $from = date('Y-m-d', strtotime($from));
+                $to = date('Y-m-d', strtotime($to));
+
+                $searchModel = new \common\models\StaffInfoSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                if ($type == 0) {
+                        $dataProvider->query->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->andWhere(['branch_id' => $branch_id]);
+                } else {
+                        $dataProvider->query->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $type])->andWhere(['branch_id' => $branch_id]);
+                }
+                $dataProvider->query->orderBy(['staff_name' => SORT_ASC]);
+                $dataProvider->pagination = ['pageSize' => 50];
+                return $this->render('view_details', [
+                            'from' => $from,
+                            'to' => $to,
+                            'type' => $type,
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
+                ]);
+        }
+
         public function actionStaffdetails($from = null, $to = null, $staff = null) {
+                $searchModel = new \common\models\ServiceScheduleSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->andWhere(['staff' => $staff])->orderBy(['date' => SORT_ASC]);
+
+                //  $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->orderBy(['date' => SORT_ASC])->all();
+                $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
+                return $this->render('staff_details', [
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
+                            'staff' => $staff,
+                            'staff_amount' => $staff_amount,
+                            'from' => $from,
+                            'to' => $to,
+                ]);
+        }
+
+        public function actionStaffdetails2($from = null, $to = null, $staff = null) {
+                $searchModel = new \common\models\ServiceScheduleSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->andWhere(['staff' => $staff])->orderBy(['date' => SORT_ASC]);
+
                 $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->orderBy(['date' => SORT_ASC])->all();
                 $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
                 return $this->render('staff_details', [

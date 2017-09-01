@@ -8,6 +8,8 @@ use common\models\Branch;
 use common\models\MasterAttendanceType;
 use common\models\StaffInfo;
 use common\models\AttendanceEntry;
+use kartik\export\ExportMenu;
+use yii\helpers\Url;
 
 $this->title = 'Staff Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
@@ -28,95 +30,81 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="attendance-create">
 
                                                 <!-------------------------------------------------REPORT----------------------------------------------------------------------------->
-                                                <?php if (!empty($schedules) && $schedules != '') { ?>
-
-                                                        <div class="row">
-                                                                <div class="col-md-6 col-sm-6 col-xs-12 left_padd counts1" >
-
-                                                                        <div class="col-md-6">
-                                                                                <p>Staff Name:
-                                                                                        <span><?php
-                                                                                                if (isset($staff) && $staff != '') {
-                                                                                                        $staff_details = StaffInfo::findOne($staff);
-                                                                                                        echo $staff_details->staff_name;
-                                                                                                }
-                                                                                                ?>
-                                                                                        </span>
-                                                                                </p>
-
-                                                                                <br>
-                                                                                <p> Total Amount : <span><?= 'Rs. ' . $staff_amount . ' /-' ?></span></p>
-
-                                                                                <label style="font-size:12px;margin-top:15px;color: #000;margin-left: 15px;">( <?= date('d-m-Y', strtotime($from)); ?> to <?= date('d-m-Y', strtotime($to)); ?> )</label>
-                                                                        </div>
-                                                                </div>
 
 
+                                                <div class="row">
+                                                        <div class="col-md-6 col-sm-6 col-xs-12 left_padd counts1" >
 
-
-                                                        </div>
-
-
-                                                        <div class = "table-responsive">
-
-                                                                <table class = "table table-striped">
-                                                                        <thead>
-                                                                        <th>NO</th>
-                                                                        <th>DATE</th>
-                                                                        <th>SERVICE</th>
-                                                                        <th>PATIENT NAME</th>
-                                                                        <th>RATE</th>
-
-
-
-                                                                        </thead>
-
-                                                                        <tbody>
-                                                                                <?php
-                                                                                $k = 0;
-                                                                                $total_amount = 0;
-                                                                                foreach ($schedules as $value) {
-                                                                                        $k++;
-                                                                                        $total_amount += $value->rate;
+                                                                <div class="col-md-6">
+                                                                        <p>Staff Name:
+                                                                                <span><?php
+                                                                                        if (isset($staff) && $staff != '') {
+                                                                                                $staff_details = StaffInfo::findOne($staff);
+                                                                                                echo $staff_details->staff_name;
+                                                                                        }
                                                                                         ?>
-                                                                                        <tr>
-                                                                                                <td><?= $k; ?></td>
-                                                                                                <td><?= date('d-m-Y', strtotime($value->date)) ?></td>
-                                                                                                <?php $service = common\models\Service::findOne($value->service_id) ?>
-                                                                                                <td><?= $service->service_id ?></td>
-                                                                                                <td><?php
-                                                                                                        if (isset($value->patient_id) && $value->patient_id != '') {
-                                                                                                                $patient = common\models\PatientGeneral::findOne($value->patient_id);
-                                                                                                                echo $patient->first_name;
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                </td>
+                                                                                </span>
+                                                                        </p>
 
-                                                                                                <td>
-                                                                                                        <?php
-                                                                                                        if (isset($value->rate) && $value->rate != '') {
-                                                                                                                echo $value->rate;
-                                                                                                        }
-                                                                                                        ?>
-                                                                                                </td>
+                                                                        <br>
+                                                                        <p> Total Amount : <span><?= 'Rs. ' . $staff_amount . ' /-' ?></span></p>
 
-
-                                                                                        </tr>
-                                                                                <?php } ?>
-
-
-
-                                                                        </tbody>
-                                                                </table>
+                                                                        <label style="font-size:12px;margin-top:15px;color: #000;margin-left: 15px;">( <?= date('d-m-Y', strtotime($from)); ?> to <?= date('d-m-Y', strtotime($to)); ?> )</label>
+                                                                </div>
                                                         </div>
+
+
+
+
+                                                </div>
+
+
+                                                <div class = "table-responsive">
 
                                                         <?php
-                                                } else {
-                                                        if (isset($model->staff) && $model->staff != '') {
-                                                                echo '<p class="no-result">No results found !!</p>';
+                                                        $gridColumns = [
+                                                                ['class' => 'yii\grid\SerialColumn'],
+                                                                [
+                                                                'attribute' => 'date',
+                                                                'filter' => '',
+                                                            ],
+                                                                [
+                                                                'attribute' => 'service_id',
+                                                                'value' => function($model) {
+                                                                        return $model->service->service_id;
+                                                                },
+                                                                'filter' => '',
+                                                            ],
+                                                                [
+                                                                'attribute' => 'patient_id',
+                                                                'value' => function($model) {
+                                                                        if (isset($model->patient_id)) {
+                                                                                $patient = \common\models\PatientGeneral::findOne($model->patient_id);
+                                                                                return $patient->first_name;
+                                                                        }
+                                                                },
+                                                                'filter' => '',
+                                                            ],
+                                                                [
+                                                                'attribute' => 'rate',
+                                                                'filter' => '',
+                                                            ],
+                                                        ];
+                                                        if (Yii::$app->user->identity->post_id == '1') {
+                                                                echo ExportMenu::widget([
+                                                                    'dataProvider' => $dataProvider,
+                                                                    'columns' => $gridColumns,
+                                                                ]);
                                                         }
-                                                }
-                                                ?>
+                                                        echo \kartik\grid\GridView::widget([
+                                                            'dataProvider' => $dataProvider,
+                                                            'filterModel' => $searchModel,
+                                                            'columns' => $gridColumns,
+                                                        ]);
+                                                        ?>
+                                                </div>
+
+
 
 
 

@@ -312,6 +312,17 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 return $skills;
         }
 
+        public static function Total($staff_id, $from, $to) {
+
+                $staff_schedules = \common\models\ServiceSchedule::find()->where(['staff' => $staff_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
+                $amount = 0;
+                foreach ($staff_schedules as $staff_schedules) {
+                        $amount += $staff_schedules->rate;
+                }
+
+                return $amount;
+        }
+
         public function getIdPost() {
                 return $this->id . "-" . $this->post->id;
         }

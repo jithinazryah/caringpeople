@@ -3,11 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use kartik\date\DatePicker;
 use common\models\Branch;
-use common\models\MasterAttendanceType;
 use common\models\StaffInfo;
-use common\models\AttendanceEntry;
+use kartik\export\ExportMenu;
+use yii\helpers\Url;
 
 $this->title = 'Staffs Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
@@ -28,77 +27,77 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="attendance-create">
 
                                                 <!-------------------------------------------------REPORT----------------------------------------------------------------------------->
-                                                <?php if (!empty($staffs) && $staffs != '') { ?>
-
-
-                                                        <div class="counts1" >
-                                                                <p style="font-size:14px;margin:0;text-transform: uppercase">
-                                                                        <span><?php
-                                                                                if (isset($type) && $type != '') {
-                                                                                        $type_details = common\models\MasterDesignations::findOne($type);
-                                                                                        echo $type_details->title . '  Details';
-                                                                                }
-                                                                                ?></span>
-                                                                        <br>
-                                                                        <label style="font-size:12px;margin-top:5px;">( <?= date('d-m-Y', strtotime($from)); ?> to <?= date('d-m-Y', strtotime($to)); ?> )</label>
-                                                                </p>
-                                                        </div>
 
 
 
-
-
-                                                        <div class = "table-responsive">
-
-                                                                <table class = "table table-striped">
-                                                                        <thead>
-                                                                        <th>NO</th>
-                                                                        <th>STAFF</th>
-                                                                        <th>AMOUNT</th>
-                                                                        <th></th>
-
-
-                                                                        </thead>
-
-                                                                        <tbody>
-                                                                                <?php
-                                                                                $l = 0;
-                                                                                foreach ($staffs as $value) {
-
-                                                                                        $staff_schedules = \common\models\ServiceSchedule::find()->where(['staff' => $value->id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
-                                                                                        $amount = 0;
-                                                                                        foreach ($staff_schedules as $staff_schedules) {
-                                                                                                $amount += $staff_schedules->rate;
-                                                                                        }
-                                                                                        if ($amount > 0) {
-                                                                                                $l++;
-                                                                                                ?>
-                                                                                                <tr>
-                                                                                                        <td><?= $l; ?></td>
-                                                                                                        <?php $staff = StaffInfo::findOne($value->id); ?>
-                                                                                                        <td><?= $staff->staff_name; ?></td>
-                                                                                                        <td><?= $amount ?></td>
-                                                                                                        <td><button class="btn btn-info"><a target="_blank" href="<?= Yii::$app->homeUrl ?>reports/reports/staffdetails?from=<?= $from ?>&to=<?= $to ?>&staff=<?= $value->id ?>" style="color: #FFF">View Details</a></button></td>
-                                                                                                </tr>
-                                                                                                <?php
-                                                                                        }
-                                                                                        $total_amount += $amount;
-                                                                                }
-                                                                                ?>
+                                                <div class="counts1" >
+                                                        <p style="font-size:14px;margin:0;text-transform: uppercase">
+                                                                <span><?php
+                                                                        if (isset($type) && $type != '') {
+                                                                                $type_details = common\models\MasterDesignations::findOne($type);
+                                                                                echo $type_details->title . '  Details';
+                                                                        }
+                                                                        ?></span>
+                                                                <br>
+                                                                <label style="font-size:12px;margin-top:5px;">( <?= date('d-m-Y', strtotime($from)); ?> to <?= date('d-m-Y', strtotime($to)); ?> )</label>
+                                                        </p>
+                                                </div>
 
 
 
-                                                                        </tbody>
-                                                                </table>
-                                                        </div>
+
+
+                                                <div class = "table-responsive">
 
                                                         <?php
-                                                } else {
-                                                        if (isset($model->staff) && $model->staff != '') {
-                                                                echo '<p class="no-result">No results found !!</p>';
+                                                        $gridColumns = [
+                                                                ['class' => 'yii\grid\SerialColumn'],
+                                                            'staff_name',
+                                                                [
+                                                                'header' => 'Amount',
+                                                                'attribute' => 'staff_id',
+                                                                'value' => function($model) use ($from, $to) {
+                                                                        return $model->total($model->id, $from, $to);
+                                                                },
+                                                                'filter' => '',
+                                                            ],
+                                                                ['class' => 'yii\grid\ActionColumn',
+                                                                'template' => '{print}',
+                                                                'buttons' => [
+                                                                    //view button
+                                                                    'print' => function ($url, $model) {
+                                                                            return Html::a('View Details', $url, [
+                                                                                        'title' => Yii::t('app', 'print'),
+                                                                                        'class' => 'btn btn-info',
+                                                                                        'target' => '_blank',
+                                                                                        'style' => 'color:#fff',
+                                                                            ]);
+                                                                    },
+                                                                ],
+                                                                'urlCreator' => function($action, $model) use ($from, $to) {
+                                                                        if ($action === 'print') {
+                                                                                $url = Url::to(['reports/staffdetails', 'from' => $from, 'to' => $to, 'staff' => $model->id]);
+                                                                                return $url;
+                                                                        }
+                                                                }
+                                                            ],
+                                                        ];
+                                                        if (Yii::$app->user->identity->post_id == '1') {
+                                                                echo ExportMenu::widget([
+                                                                    'dataProvider' => $dataProvider,
+                                                                    'columns' => $gridColumns,
+                                                                ]);
                                                         }
-                                                }
-                                                ?>
+                                                        echo \kartik\grid\GridView::widget([
+                                                            'dataProvider' => $dataProvider,
+                                                            'filterModel' => $searchModel,
+                                                            'columns' => $gridColumns,
+                                                        ]);
+                                                        ?>
+                                                </div>
+
+
+
 
 
 
