@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Service;
 use yii\base\UserException;
+use kartik\mpdf\Pdf;
 
 /**
  * InvoiceController implements the CRUD actions for Invoice model.
@@ -106,6 +107,19 @@ class InvoiceController extends Controller {
                 echo $this->renderPartial('invoice_bill', [
                     'model' => $model,
                 ]);
+        }
+
+        public function actionPrint($id = null) {
+                $model = $this->findModel($id);
+                $pdf = new Pdf([
+                    'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                    'content' => $this->renderPartial('invoice_bill_print', [
+                        'model' => $model,
+                    ]),
+                    'cssInline' => '.table{margin-top:20px;font-family: sans-serif;} ',
+                    'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/other.css',
+                ]);
+                return $pdf->render();
         }
 
         public function actionRefund($id = null) {

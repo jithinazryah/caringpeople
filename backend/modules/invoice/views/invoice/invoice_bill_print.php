@@ -21,118 +21,10 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title></title>-->
-<a href="<?= Yii::$app->homeUrl ?>invoice/invoice/refund?id=<?= $model->id ?>"><button type="submit" class="print_btn print_btn_color" style="margin-top: 18px; height: 36px; width:100px;float: right">Refund</button></a>
-
 <div id="print">
-        <link rel="stylesheet" href="<?= Yii::$app->homeUrl ?>css/invoice.css">
-        <style type="text/css">
-                @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
-                @media print {
-                        thead {display: table-header-group;}
-                        tfoot {display: table-footer-group}
-                        .main-tabl{width: 100%}
-                        .footer {position: fixed ; left: 0px; bottom: 20px; right: 0px; font-size:10px; }
-                        body h6,h1,h2,h3,h4,h5,p,b,tr,td,span,th,div{
-                                color:#525252 !important;
-                        }
-                        .header{
-                                font-size: 12.5px;
-                                display: inline-block;
-                                width: 100%;
-                        }
-                        .main-left{
-                                padding-top: 12px;
-                                float: left;
-                        }
-                        .main-right{
-                                float: right;
-                        }
-                        table.table{
-                                border-collapse: collapse;
-                                width:100%;
-                        }
-                        .table td{
-                                font-size: 12px;
-                                text-align: center;
-                                padding-top: 5px;
-                                padding-bottom: 5px;
-                        }
-                        body {-webkit-print-color-adjust: exact;
-                              margin-left: 10mm; margin-right: 10mm;
-                        }
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-
-                }
-                @media screen{
-                        .main-tabl{
-                                width: 60%;
-                        }
-                        .table {
-                                width: 60% !important;
-                        }
-                }
-                .print{
-                        margin-top: 18px;
-                        margin-left: 315px;
-                }
-                footer {
-                        width: 100%;
-                        position: absolute;
-                        bottom: 0px;
-                }
-                .tax-declarations p{
-                        font-size: 12px;
-                        line-height: 18px;
-                }
-                .bill{
-                        text-align: center;
-                        font-size: 17px;
-                } .bill span{
-                        background-color:  #e4e4e4;
-                        padding: 12px 80px 11px 80px;
-                        border-radius: 5px;
-                }  .table {
-                        border-collapse: collapse;
-                        font-size: 12px;
-                        margin-top:20px !important;
-                        margin:auto;
-                }
-
-                .table, .table td{
-                        border: 1px solid #aea6a6;
-                } .print_btn{
-                        font-weight: bold !important;
-                        color: #fff;
-                        border-color: #80b636;
-                        cursor: pointer;
-                        border: 1px solid transparent;
-                        padding: 6px 12px;
-                        font-size: 13px;
-                        line-height: 1.42857143;
-                } .print_btn_color{
-                        background-color: #8dc63f;
-                } .close_btn_color{
-                        background-color: #b60d14;
-                } .table2,.table2 td{
-                        border:none;
-                }.table3{
-                        width:30% !important;
-                }.table4{
-                        border:none  !important;
-                        float:left  !important;
-                }.bank-details td{
-                        border: 1px solid #aea6a6!important;
-                }
-
-
-
-        </style>
-        <!--    </head>
-            <body >-->
-
-
-
-        <table border ="0"  class="main-tabl" border="0">
+        <table border ="0"  class="main-tabl " border="0">
                 <thead>
                         <tr>
                                 <th style="width:100%">
@@ -412,61 +304,9 @@ and open the template in the editor.
                                 ?></td>
                 </tr>
 
-<!--                <tr>
-                        <td>
-                                <div>
-                                        <table class="table" style="width:100%!important">
-                                                <tr>
-                                                        <td>Bank</td>
-                                                        <td>State BAnk Of India</td>
-                                                </tr>
-                                                <tr>
-                                                        <td>Current Account No</td>
-                                                        <td>36717793170</td>
-                                                </tr>
-                                                <tr>
-                                                        <td>Branch</td>
-                                                        <td>Chilavannur, Kadavanthra</td>
-                                                </tr>
-                                                <tr>
-                                                        <td>IFSC Code</td>
-                                                        <td>SBIN0016331</td>
-                                                </tr>
-                                        </table>
-                                </div>
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                </tr>-->
+
         </table>
 
-<!--        <table class="table table4" style="border:none;">
-                <tr>
-                        <td style="border:none">
-                                <div>
-                                        <table class="table" >
-                <tr>
-                        <td>Bank</td>
-                        <td>State BAnk Of India</td>
-                </tr>
-                <tr>
-                        <td>Current Account No</td>
-                        <td>36717793170</td>
-                </tr>
-                <tr>
-                        <td>Branch</td>
-                        <td>Chilavannur, Kadavanthra</td>
-                </tr>
-                <tr>
-                        <td>IFSC Code</td>
-                        <td>SBIN0016331</td>
-                                                                        </tr>
-                                                                </table>
-                                                        </div>
-                                                </td>
-                                        </tr>
-        </table>-->
 
 
 
@@ -478,25 +318,7 @@ and open the template in the editor.
 
 <div class="clearfix" style="clear:both"></div>
 
-<script>
-        function printContent(el) {
-                var restorepage = document.body.innerHTML;
-                var printcontent = document.getElementById(el).innerHTML;
-                document.body.innerHTML = printcontent;
-                window.print();
-                document.body.innerHTML = restorepage;
-        }
-</script>
 
-<div class="print">
-        <div class="print" style="float:left;">
-
-                <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
-                <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
-                <a href="<?= Yii::$app->homeUrl ?>invoice/invoice/print?id=<?= $model->id ?>"><button  class="print_btn close_btn_color">Save as PDF</button></a>
-
-        </div>
-</div>
 <div style="clear:both"></div>
 
 <!--</body>
