@@ -41,6 +41,12 @@ class InvoiceController extends Controller {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
 
+                if (!empty(Yii::$app->request->queryParams['InvoiceSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['InvoiceSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['status' => 1]);
+                }
+
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
@@ -99,6 +105,29 @@ class InvoiceController extends Controller {
                 $model = $this->findModel($id);
                 echo $this->renderPartial('invoice_bill', [
                     'model' => $model,
+                ]);
+        }
+
+        public function actionRefund($id = null) {
+                $refund = $this->findModel($id);
+                $model = new Invoice;
+                $model->attributes = $refund->attributes;
+                if ($model->load(Yii::$app->request->post())) {
+                        if ($model->refund_amount < $model->amount) {
+                                $model->view = 1;
+                                $model->status = 3;
+                                $model->save();
+                                Yii::$app->SetValues->Accounts($model->branch_id, 3, $model->id, 1, 'Patient Invoice Refund', $model->payment_type, $model->refund_amount, $model->DOC);
+                        } else {
+                                $model->addError('refund_amount', 'Refund amount should be less than or equal to amount paid');
+                                return $this->render('refund', [
+                                            'model' => $model,
+                                ]);
+                        }
+                }
+
+                return $this->render('refund', [
+                            'model' => $model,
                 ]);
         }
 

@@ -43,7 +43,7 @@ class ServiceController extends Controller {
                 $searchModel = new ServiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-                
+
 
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
@@ -55,6 +55,7 @@ class ServiceController extends Controller {
                         $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
                 } else {
                         $dataProvider->query->andWhere(['<>', 'status', 2]);
+                        $dataProvider->query->andWhere(['<>', 'status', 3]);
                 }
 
                 return $this->render('index', [
@@ -113,11 +114,11 @@ class ServiceController extends Controller {
                                         $type = 'rate_per_day_night';
                                 }
                                 $model->rate_card_value = $ratecard->$type;
-                                $registration=0;
-                                if($model->registration_fees==1){
-                                    $registration=1000;
+                                $registration = 0;
+                                if ($model->registration_fees == 1) {
+                                        $registration = 1000;
                                 }
-                                $model->due_amount = $model->estimated_price+$registration;
+                                $model->due_amount = $model->estimated_price + $registration;
                                 $model->update();
                                 $this->ServiceSchedule($model);
                                 Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
@@ -138,7 +139,7 @@ class ServiceController extends Controller {
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
                 //$service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
-                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'),'date'=>SORT_ASC])->all();
+                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'), 'date' => SORT_ASC])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
                 $discounts = new ServiceDiscounts();
                 if (empty($patient_assessment)) {
@@ -339,7 +340,7 @@ class ServiceController extends Controller {
                 }
         }
 
-       public function actionTodayschedules() {
+        public function actionTodayschedules() {
                 $user = Yii::$app->user->identity->id;
                 if (isset($_POST['branch'])) {
                         $branch = $_POST['branch'];
@@ -361,7 +362,8 @@ class ServiceController extends Controller {
                             'services' => $services
                 ]);
         }
-       public function actionEstimatedBill($id) {
+
+        public function actionEstimatedBill($id) {
                 $model = $this->findModel($id);
                 echo $this->renderPartial('estimated_bill', [
                     'model' => $model,

@@ -118,7 +118,8 @@ class SetValues extends Component {
                 $model->reference_id = $service->id;
                 $model->history_type = $master_history_type;
                 $model->content = $this->GetContent($master_history_type, $master_history_type_model, $service_data, $schedule_days, $schedule_id, $old_staff); /* to get content of history based on the activity */
-                $model->date = $service->DOU;
+                $model->date = date('Y-m-d');
+                $model->CB = Yii::$app->user->identity->id;
                 if ($model->save())
                         return $model->id;
                 else

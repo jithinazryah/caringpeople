@@ -42,13 +42,13 @@ use yii\helpers\ArrayHelper;
                                                                 echo $schedule->remarks_from_staff;
                                                         } else {
                                                                 ?>
-                                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
-                                                                        <br><br>
-                                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
-                                                                        <br><br>
-                                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
-                                                                        <br><br>
-                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
+                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
+                                                                                                                                                                                                                                                                <br><br>
+                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Medication Advice </h3>
+                                                                                                                                                                                                                                                                <br><br>
+                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Lab test advice  </h3>
+                                                                                                                                                                                                                                                                <br><br>
+                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Prescription   </h3>
                                                         <?php } ?>
                                                 </textarea>
                                         </div>
@@ -95,12 +95,25 @@ use yii\helpers\ArrayHelper;
 
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
+                                                <?php
+                                                $patient_rate = 0;
+                                                $previous_rate = \common\models\ServiceSchedule::find()->where(['<', 'id', $schedule_id])->andWhere(['service_id' => $service_schedule->service_id])->orderBy(['id' => SORT_DESC])->limit(1)->one();
+                                                if (Yii::$app->user->identity->post_id == '1') {
+                                                        if (isset($schedule->patient_rate) && $schedule->patient_rate != 0) {
+                                                                $patient_rate = $schedule->patient_rate;
+                                                        } else {
+                                                                $patient_rate = $previous_rate->patient_rate;
+                                                        }
+                                                } else {
+                                                        $patient_rate = $previous_rate->patient_rate;
+                                                }
+                                                ?>
                                                 <div class="col-md-3">
                                                         <label>Daily Rate Patient:</label>
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                        <input type="text" id="rate_patient" name="rate_patient"  class="fields" <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->patient_rate ?>" <?php } ?>>
+                                                        <input type="text" id="rate_patient" name="rate_patient"  class="fields" value="<?= $patient_rate ?>" >
                                                 </div>
 
 
@@ -108,8 +121,21 @@ use yii\helpers\ArrayHelper;
                                                         <label>Daily Rate Staff:</label>
                                                 </div>
 
+                                                <?php
+                                                $rate = 0;
+                                                if (Yii::$app->user->identity->post_id == '1') {
+                                                        if (isset($schedule->rate) && $schedule->rate != 0) {
+                                                                $rate = $schedule->rate;
+                                                        } else {
+                                                                $rate = $previous_rate->rate;
+                                                        }
+                                                } else {
+                                                        $rate = $previous_rate->rate;
+                                                }
+                                                ?>
+
                                                 <div class="col-md-3">
-                                                        <input type="text" id="rate" name="rate"  class="fields"  <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->rate ?>" <?php } ?>>
+                                                        <input type="text" id="rate" name="rate"  class="fields"  value="<?= $rate ?>">
                                                 </div>
                                         </div>
                                 </div>
@@ -129,11 +155,11 @@ use yii\helpers\ArrayHelper;
                                                 </div>
                                         </div>
                                 <?php } ?>
-                                
-                                <?php if($status!=2){ ?>
-                                
-                                <div class="row" style="margin: 0;">
-                                                
+
+                                <?php if ($status != 2) { ?>
+
+                                        <div class="row" style="margin: 0;">
+
                                                 <div class="col-md-6">
                                                         <input type="checkbox" name="change_price" id="chnage_price">  Change in estimated price
                                                 </div>

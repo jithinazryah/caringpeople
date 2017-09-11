@@ -43,10 +43,10 @@ class Service extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker'], 'integer'],
+                        [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker', 'registration_fees'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
                         [['frequency', 'hours', 'days', 'rate_card_value'], 'string', 'max' => 255],
-                        [['estimated_price', 'due_amount'], 'number'],
+                        [['estimated_price', 'due_amount', 'registration_fees_amount'], 'number'],
                         [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
                         [['service'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service' => 'id']],
                         [['staff_manager'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_manager' => 'id']],
@@ -91,6 +91,8 @@ class Service extends \yii\db\ActiveRecord {
                     'service_staffs' => 'service_staffs',
                     'co_worker' => 'Co-Worker',
                     'due_amount' => 'Due amount',
+                    'registration_fees' => 'Registration Fees',
+                    'registration_fees_amount' => 'Amount',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',

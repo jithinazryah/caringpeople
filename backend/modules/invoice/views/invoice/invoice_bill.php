@@ -199,12 +199,14 @@ and open the template in the editor.
                         <td>Date</td>
                         <td><?= date('d-m-Y', strtotime($model->DOC)) ?></td>
                 </tr>
-
+                <?php
+                $service = common\models\Service::findOne($model->service_id);
+                ?>
                 <tr>
                         <td>Patient ID</td>
                         <td><?= $patient_id; ?></td>
                         <td>Ref No</td>
-                        <td></td>
+                        <td><?= $service->service_id ?></td>
                 </tr>
         </table>
 
@@ -290,7 +292,7 @@ and open the template in the editor.
                 <?php
                 $registration_fees = 0;
                 if ($service->registration_fees == 1) {
-                        $registration_fees = 1000;
+                        $registration_fees = $service->registration_fees_amount;
                         ?>
                         <tr>
                                 <td><?=
@@ -299,7 +301,7 @@ and open the template in the editor.
                                         ?></td>
                                 <td class="sub"> Registration Fees</td>
                                 <td></td>
-                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) 1000, 2, '.', ','); ?> </td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $registration_fees, 2, '.', ','); ?> </td>
 
                         </tr>
                 <?php } ?>

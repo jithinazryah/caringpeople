@@ -347,7 +347,7 @@ class ServiceajaxController extends \yii\web\Controller {
 
 
                                 if ($status == 2 || $status == 4) { /* if status completed or cancelled */
-                                        $this->CheckRateAdded($schedule_detail->id, $schedule_detail->service_id, $schedule_detail->rate, $schedule_detail->patient_rate);
+                                        //   $this->CheckRateAdded($schedule_detail->id, $schedule_detail->service_id, $schedule_detail->rate, $schedule_detail->patient_rate);
                                         $taff_exists = ServiceSchedule::find()->where(['staff' => $schedule_detail->staff, 'status' => 1])->exists();
                                         if ($taff_exists != '1') {
                                                 $this->StaffStatus($schedule_detail->staff, 0);

@@ -83,9 +83,15 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 [
                                                 'attribute' => 'status',
                                                 'value' => function($model, $key, $index, $column) {
-                                                        return $model->status == 2 ? 'Closed' : 'Opened';
+                                                        if ($model->status == 1) {
+                                                                return 'Opened';
+                                                        } else if ($model->status == 2) {
+                                                                return 'Closed';
+                                                        } else if ($model->status == 3) {
+                                                                return 'Advanced';
+                                                        }
                                                 },
-                                                'filter' => [1 => 'Opened', 2 => 'Closed'],
+                                                'filter' => [1 => 'Opened', 2 => 'Closed', 3 => 'Advanced'],
                                             ],
                                                 [
                                                 'attribute' => 'pending_schedules',

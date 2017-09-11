@@ -69,7 +69,7 @@ class ReportController extends \yii\web\Controller {
                 }
         }
 
-       /*
+        /*
          * show services on patient change :-service report
          */
 
@@ -82,6 +82,18 @@ class ReportController extends \yii\web\Controller {
                                 $options .= "<option value='" . $services->id . "'>" . $services->service_id . "</option>";
                         }
                         echo $options;
+                }
+        }
+
+        public function actionReferenceno() {
+                if (Yii::$app->request->isAjax) {
+                        $reference_no = $_POST['reference_no'];
+                        $exists = \common\models\Invoice::find()->where(['reference_no' => $reference_no])->exists();
+                        if ($exists == 1) {
+                                echo '1';
+                        } else {
+                                echo '0';
+                        }
                 }
         }
 

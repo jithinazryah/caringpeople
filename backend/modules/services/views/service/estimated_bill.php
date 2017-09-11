@@ -326,7 +326,7 @@ and open the template in the editor.
                 <?php
                 $registration_fees = 0;
                 if ($model->registration_fees == 1) {
-                        $registration_fees = 1000;
+                        $registration_fees = $model->registration_fees_amount;
                         ?>
                         <tr>
                                 <td><?=
@@ -335,7 +335,7 @@ and open the template in the editor.
                                         ?></td>
                                 <td class="sub"> Registration Fees</td>
                                 <td></td>
-                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) 1000, 2, '.', ','); ?> </td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $registration_fees, 2, '.', ','); ?> </td>
 
                         </tr>
                 <?php } ?>
@@ -368,7 +368,7 @@ and open the template in the editor.
 
 <!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                          ?></td>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                            ?></td>
                 </tr>-->
 
 
