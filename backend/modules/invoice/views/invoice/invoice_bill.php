@@ -128,6 +128,10 @@ and open the template in the editor.
         </style>
         <!--    </head>
             <body >-->
+
+        <a href="<?= Yii::$app->homeUrl ?>invoice/invoice/refund?id=<?= $model->id ?>"><button type="submit" class="print_btn print_btn_color" style="margin-top: 18px; height: 36px; width:100px;float: right">Refund</button></a>
+
+
         <table border ="0"  class="main-tabl" border="0">
                 <thead>
                         <tr>
@@ -225,30 +229,29 @@ and open the template in the editor.
                                 $count++
                                 ?></td>
                         <td>
-                                        <?php
-                $added_schedules_count = 0;
-                $added_schedules_amount = 0;
-                $added_schedule_days = 0;
-                $price = 0;
-                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
-                foreach ($added_schedules as $added_schedules) {
-                        $added_schedules_count++;
-                        $added_schedules_amount += $added_schedules->price;
-                        $added_schedule_days += $added_schedules->schedules;
-                }
+                                <?php
+                                $added_schedules_count = 0;
+                                $added_schedules_amount = 0;
+                                $added_schedule_days = 0;
+                                $price = 0;
+                                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
+                                foreach ($added_schedules as $added_schedules) {
+                                        $added_schedules_count++;
+                                        $added_schedules_amount += $added_schedules->price;
+                                        $added_schedule_days += $added_schedules->schedules;
+                                }
 
-                $cancelled_schedules_amount = 0;
-                $cancelled_schedule_days = 0;
-                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
-                foreach ($cancelled_schedules as $cancelled_schedules) {
-                        $cancelled_schedules_count++;
-                        $cancelled_schedules_amount += $cancelled_schedules->price;
-                        $cancelled_schedule_days += $cancelled_schedules->schedules;
-                }
-$service_price=$first_estimated_price->price+$added_schedules_amount-$cancelled_schedules_amount;
-               
-                        ?>
-                                        <?= $service_name ?> <br>
+                                $cancelled_schedules_amount = 0;
+                                $cancelled_schedule_days = 0;
+                                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
+                                foreach ($cancelled_schedules as $cancelled_schedules) {
+                                        $cancelled_schedules_count++;
+                                        $cancelled_schedules_amount += $cancelled_schedules->price;
+                                        $cancelled_schedule_days += $cancelled_schedules->schedules;
+                                }
+                                $service_price = $first_estimated_price->price + $added_schedules_amount - $cancelled_schedules_amount;
+                                ?>
+                                <?= $service_name ?> <br>
                                 <?php
                                 $from = date('d-m-Y', strtotime($service->from_date));
                                 $to = date('d-m-Y', strtotime($service->to_date));
@@ -284,31 +287,31 @@ $service_price=$first_estimated_price->price+$added_schedules_amount-$cancelled_
                 <?php } ?>
 
 
-<?php
-$registration_fees=0;
-if($service->registration_fees==1){
-    $registration_fees=1000;
-    ?>
-        <tr>
-            <td><?=
-                $count;
-                $count++
-                ?></td>
-            <td class="sub"> Registration Fees</td>
-            <td></td>
-            <td style="text-align:right;padding-right: 15px;"><?= number_format((float) 1000, 2, '.', ','); ?> </td>
+                <?php
+                $registration_fees = 0;
+                if ($service->registration_fees == 1) {
+                        $registration_fees = 1000;
+                        ?>
+                        <tr>
+                                <td><?=
+                                        $count;
+                                        $count++
+                                        ?></td>
+                                <td class="sub"> Registration Fees</td>
+                                <td></td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) 1000, 2, '.', ','); ?> </td>
 
-        </tr>
-<?php } ?>
-                
-                        
-                
+                        </tr>
+                <?php } ?>
+
+
+
 
 
 
 
                 <tr>
-                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $cancelled_schedules_amount+$registration_fees; ?>
+                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $cancelled_schedules_amount + $registration_fees; ?>
                         <td></td>
                         <td colspan="2" style="text-align:center">Bill Total</td>
                         <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $total_amount, 2, '.', ','); ?></td>
@@ -370,23 +373,41 @@ if($service->registration_fees==1){
                         <td colspan="2" bgcolor="#eee">For Payment through RTGS/NEFT Mode</td>
                         <!--<td></td>-->
                 </tr>
-
+                <?php
+                $branch = Branch::findOne($model->branch_id);
+                ?>
                 <tr class="bank-details">
                         <td style="width:222px;">Bank</td>
-                        <td style="width:200px;">State BAnk Of India</td>
+                        <td style="width:200px;"><?php
+                                if (isset($branch->bank_name)) {
+                                        echo $branch->bank_name;
+                                }
+                                ?></td>
                 </tr>
 
                 <tr class="bank-details">
                         <td>Current Account No</td>
-                        <td>36717793170</td>
+                        <td><?php
+                                if (isset($branch->bank_account)) {
+                                        echo $branch->bank_account;
+                                }
+                                ?></td>
                 </tr>
                 <tr class="bank-details">
                         <td>Branch</td>
-                        <td>Chilavannur, Kadavanthra</td>
+                        <td><?php
+                                if (isset($branch->bank_branch)) {
+                                        echo $branch->bank_branch;
+                                }
+                                ?></td>
                 </tr>
                 <tr class="bank-details">
                         <td>IFSC Code</td>
-                        <td>SBIN0016331</td>
+                        <td><?php
+                                if (isset($branch->bank_ifsc)) {
+                                        echo $branch->bank_ifsc;
+                                }
+                                ?></td>
                 </tr>
 
 <!--                <tr>
