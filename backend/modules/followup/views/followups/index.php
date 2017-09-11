@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             },
                                                             'filter' => [0 => 'Active', 1 => 'Closed'],
                                                         ],
-//
+//                                                            
                                                         ['class' => 'yii\grid\ActionColumn',
                                                             'template' => '{status}',
                                                             'visibleButtons' => [

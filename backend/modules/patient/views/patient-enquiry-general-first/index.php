@@ -12,7 +12,6 @@ if (Yii::$app->session['post']['id'] == '6') {
 } else {
         $fil = array('1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit');
 }
-
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\PatientEnquiryGeneralFirstSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -52,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                 </div>
                                         <?php endif; ?>
-                                        <?php // $this->render('advanced_search', ['model' => $searchModel])   ?>
+                                        <?php // $this->render('advanced_search', ['model' => $searchModel])  ?>
                                         <a class="advanced-search" style="font-size: 17px;color:#0e62c7;cursor: pointer;">Advanced Search</a>
                                         <hr class="appoint_history" style="margin-top:5px;"/>
 
@@ -80,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'value' => function($model, $key, $index, $column) {
                                                         return $model->service($model->id);
                                                 },
-                                                'filter' => ArrayHelper::map(common\models\MasterServiceTypes::find()->where(['status' => 1])->asArray()->all(), 'id', 'service_name'),
+                                                'filter' => [1 => 'Doctor Visit', 2 => 'Nursing Care', 3 => 'Physiotherapy', 5 => 'Caregiver', 4 => 'Helath Checkup', 6 => 'Lab', 7 => 'Equipment', 8 => 'Other', 9 => 'General Enquiry', 10 => 'Wrong Number '],
                                             ],
                                                 [
                                                 'attribute' => 'whatsapp_reply',
@@ -104,7 +103,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         } elseif ($model->status == '3') {
                                                                 return 'Close';
                                                         }
-                                                        // $fil = "'1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit'";
                                                 },
                                                 'filter' => $fil,
                                             ],

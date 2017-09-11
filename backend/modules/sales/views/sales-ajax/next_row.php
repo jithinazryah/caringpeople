@@ -42,7 +42,7 @@
         <td>
                 <div class="form-group field-salesinvoicedetails-rate has-success">
                         <input type="number" id="salesinvoicedetails-rate-<?= $next ?>" class="form-control salesinvoicedetails-rate" name="SalesInvoiceDetailsRate[<?= $next ?>]" placeholder="RATE" step="0.01" aria-invalid="false" autocomplete="off" >
-                                    <!--<input type="text" id="salesinvoicedetails-rate-<?php // $next       ?>" class="form-control salesinvoicedetails-rate" name="SalesInvoiceDetailsRate[<?php // $next       ?>]" placeholder="RATE" aria-invalid="false" autocomplete="off">-->
+                                    <!--<input type="text" id="salesinvoicedetails-rate-<?php // $next      ?>" class="form-control salesinvoicedetails-rate" name="SalesInvoiceDetailsRate[<?php // $next      ?>]" placeholder="RATE" aria-invalid="false" autocomplete="off">-->
 
                         <div class="help-block"></div>
                 </div>

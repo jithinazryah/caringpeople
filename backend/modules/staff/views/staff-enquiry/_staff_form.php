@@ -127,8 +127,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 </div>
 
-
-
 <script>
         var submitted = false;
         $('#add-staff-enq').submit(function () {
@@ -144,3 +142,6 @@ $this->params['breadcrumbs'][] = $this->title;
         });
 
 </script>
+
+
+

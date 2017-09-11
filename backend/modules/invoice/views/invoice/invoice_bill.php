@@ -225,29 +225,30 @@ and open the template in the editor.
                                 $count++
                                 ?></td>
                         <td>
-                                <?php
-                                $added_schedules_count = 0;
-                                $added_schedules_amount = 0;
-                                $added_schedule_days = 0;
-                                $price = 0;
-                                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
-                                foreach ($added_schedules as $added_schedules) {
-                                        $added_schedules_count++;
-                                        $added_schedules_amount += $added_schedules->price;
-                                        $added_schedule_days += $added_schedules->schedules;
-                                }
+                                        <?php
+                $added_schedules_count = 0;
+                $added_schedules_amount = 0;
+                $added_schedule_days = 0;
+                $price = 0;
+                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
+                foreach ($added_schedules as $added_schedules) {
+                        $added_schedules_count++;
+                        $added_schedules_amount += $added_schedules->price;
+                        $added_schedule_days += $added_schedules->schedules;
+                }
 
-                                $cancelled_schedules_amount = 0;
-                                $cancelled_schedule_days = 0;
-                                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
-                                foreach ($cancelled_schedules as $cancelled_schedules) {
-                                        $cancelled_schedules_count++;
-                                        $cancelled_schedules_amount += $cancelled_schedules->price;
-                                        $cancelled_schedule_days += $cancelled_schedules->schedules;
-                                }
-                                $service_price = $first_estimated_price->price + $added_schedules_amount - $cancelled_schedules_amount;
-                                ?>
-                                <?= $service_name ?> <br>
+                $cancelled_schedules_amount = 0;
+                $cancelled_schedule_days = 0;
+                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
+                foreach ($cancelled_schedules as $cancelled_schedules) {
+                        $cancelled_schedules_count++;
+                        $cancelled_schedules_amount += $cancelled_schedules->price;
+                        $cancelled_schedule_days += $cancelled_schedules->schedules;
+                }
+$service_price=$first_estimated_price->price+$added_schedules_amount-$cancelled_schedules_amount;
+               
+                        ?>
+                                        <?= $service_name ?> <br>
                                 <?php
                                 $from = date('d-m-Y', strtotime($service->from_date));
                                 $to = date('d-m-Y', strtotime($service->to_date));
@@ -283,16 +284,31 @@ and open the template in the editor.
                 <?php } ?>
 
 
+<?php
+$registration_fees=0;
+if($service->registration_fees==1){
+    $registration_fees=1000;
+    ?>
+        <tr>
+            <td><?=
+                $count;
+                $count++
+                ?></td>
+            <td class="sub"> Registration Fees</td>
+            <td></td>
+            <td style="text-align:right;padding-right: 15px;"><?= number_format((float) 1000, 2, '.', ','); ?> </td>
 
-
-
-
+        </tr>
+<?php } ?>
+                
+                        
+                
 
 
 
 
                 <tr>
-                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $cancelled_schedules_amount; ?>
+                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $cancelled_schedules_amount+$registration_fees; ?>
                         <td></td>
                         <td colspan="2" style="text-align:center">Bill Total</td>
                         <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $total_amount, 2, '.', ','); ?></td>

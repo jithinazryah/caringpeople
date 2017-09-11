@@ -56,6 +56,7 @@ class PatientInformationController extends Controller {
     public function actionIndex() {
         $searchModel = new PatientGeneralSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['<>','patient_general.id',3000]);
         if (Yii::$app->user->identity->branch_id != '0') {
             $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
         }

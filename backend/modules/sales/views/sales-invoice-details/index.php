@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             'attribute' => 'busines_partner_code',
                                                             'value' => function($data) {
                                                                     if (isset($data->busines_partner_code)) {
-                                                                            return common\models\Service::findOne(['id' => $data->busines_partner_code])->service_id;
+                                                                            //   return BusinessPartner::findOne(['id' => $data->busines_partner_code])->name;
                                                                     }
                                                             },
                                                             // 'filter' => ArrayHelper::map(BusinessPartner::find()->asArray()->all(), 'id', 'name'),

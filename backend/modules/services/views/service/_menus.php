@@ -21,7 +21,7 @@ use yii\helpers\Html;
 
 
 
-<ul class="nav nav-tabs" id="myTab">
+<ul class="nav nav-tabs">
         <li class="active">
                 <a href="#home-3" data-toggle="tab"><span class="visible-xs"><i class="fa-envelope-o hidden-xs"></i></span>
                         <i class="fa-envelope-o"></i><span class="hidden-xs span-font-size">Start A Service</span></a>
@@ -30,7 +30,7 @@ use yii\helpers\Html;
         if (!$model->isNewRecord) {
                 ?>
 
-                <li>
+                 <li>
                         <a href="#home-7" data-toggle="tab"><span class="visible-xs"><i class="fa fa-minus-circle hidden-xs"></i></span>
                                 <i class="fa fa-minus-circle"></i><span class="hidden-xs span-font-size">Discounts</span></a>
                 </li>
@@ -45,7 +45,7 @@ use yii\helpers\Html;
                                 <i class="fa fa-book"></i><span class="hidden-xs span-font-size">Assessment</span></a>
                 </li>
 
-
+                
 
 
                 <li>

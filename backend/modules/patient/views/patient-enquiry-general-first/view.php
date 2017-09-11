@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 }
                                                                                 ?>
                                                                         </td>
-                                                                        <td class="labell"><?= $model->getAttributeLabel('referral_source'); ?></td><td class="value"><?php
+                                                                         <td class="labell"><?= $model->getAttributeLabel('referral_source'); ?></td><td class="value"><?php
                                                                                 if (isset($model->referral_source)) {
                                                                                         $referal_source = common\models\ReferralSource::findOne($model->referral_source);
                                                                                         if ($model->referral_source == '5') {
@@ -308,10 +308,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 <tr>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.required_person_name'); ?> </td><td class="value"><?php
-                                                                if (isset($model->patientGeneralInfo->required_person_name) && $model->patientGeneralInfo->required_person_name != '') {
-                                                                        echo $model->patientGeneralInfo->required_person_name;
-                                                                }
-                                                                ?>
+                                                                                if (isset($model->patientGeneralInfo->required_person_name) && $model->patientGeneralInfo->required_person_name != '') {
+                                                                                        echo $model->patientGeneralInfo->required_person_name;
+                                                                                }
+                                                                                ?>
                                                                         </td>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.patient_gender'); ?> </td><td class="value"><?php
                                                                                 if (isset($model->patientGeneralInfo->patient_gender) && $model->patientGeneralInfo->patient_gender != '') {
@@ -321,7 +321,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'Female';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                 </tr>
 
@@ -330,13 +330,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 if (isset($model->patientGeneralInfo->patient_age) && $model->patientGeneralInfo->patient_age != '') {
                                                                                         echo $model->patientGeneralInfo->patient_age;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.patient_dob'); ?> </td><td class="value"><?php
                                                                                 if (isset($model->patientGeneralInfo->patient_dob) && $model->patientGeneralInfo->patient_dob != '') {
                                                                                         echo $model->patientGeneralInfo->patient_dob;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -346,7 +346,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 if (isset($model->patientGeneralInfo->patient_weight) && $model->patientGeneralInfo->patient_weight != '') {
                                                                                         echo $model->patientGeneralInfo->patient_weight;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.relationship'); ?> </td><td class="value"><?php
                                                                                 if (isset($model->patientGeneralInfo->relationship) && $model->patientGeneralInfo->relationship != '') {
@@ -362,7 +362,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 }
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -372,13 +372,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 if (isset($model->patientGeneralInfo->person_address) && $model->patientGeneralInfo->person_address != '') {
                                                                                         echo $model->patientGeneralInfo->person_address;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.person_city'); ?> </td><td class="value"><?php
                                                                                 if (isset($model->patientGeneralInfo->person_city) && $model->patientGeneralInfo->person_city != '') {
                                                                                         echo $model->patientGeneralInfo->person_city;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -388,13 +388,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 if (isset($model->patientGeneralInfo->person_address) && $model->patientGeneralInfo->person_address != '') {
                                                                                         echo $model->patientGeneralInfo->person_address;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalInfo.person_city'); ?> </td><td class="value"><?php
                                                                                 if (isset($model->patientGeneralInfo->person_city) && $model->patientGeneralInfo->person_city != '') {
                                                                                         echo $model->patientGeneralInfo->person_city;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -404,7 +404,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 if (isset($model->patientGeneralInfo->person_postal_code) && $model->patientGeneralInfo->person_postal_code != '') {
                                                                                         echo $model->patientGeneralInfo->person_postal_code;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                 </tr>
 
@@ -422,30 +422,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 ?>
                                                                                 <tr>
                                                                                         <td class="labell">Hospital Name</td><td class="value"><?php
-                                                                if (isset($value->hospital_name)) {
-                                                                        $hospital_name = common\models\ContactSubcategory::findOne($value->hospital_name);
-                                                                        echo $hospital_name->sub_category;
-                                                                }
-                                                                                ?></td>
+                                                                                                if (isset($value->hospital_name)) {
+                                                                                                        $hospital_name = common\models\ContactSubcategory::findOne($value->hospital_name);
+                                                                                                        echo $hospital_name->sub_category;
+                                                                                                }
+                                                                                                ?></td>
                                                                                         <td class="labell">Doctor</td><td class="value"><?php
-                                                                                if (isset($value->consultant_doctor)) {
-                                                                                        $doctor = \common\models\ContactDirectory::findOne($value->consultant_doctor);
-                                                                                        echo $doctor->name;
-                                                                                }
-                                                                                ?></td>
+                                                                                                if (isset($value->consultant_doctor)) {
+                                                                                                        $doctor = \common\models\ContactDirectory::findOne($value->consultant_doctor);
+                                                                                                        echo $doctor->name;
+                                                                                                }
+                                                                                                ?></td>
                                                                                 </tr>
 
                                                                                 <tr>
                                                                                         <td class="labell">Department</td><td class="value"><?php
-                                                                                if (isset($value->department)) {
-                                                                                        echo $value->department;
-                                                                                }
-                                                                                ?></td>
+                                                                                                if (isset($value->department)) {
+                                                                                                        echo $value->department;
+                                                                                                }
+                                                                                                ?></td>
                                                                                         <td class="labell">Hospital Room No</td><td class="value"><?php
-                                                                                if (isset($value->hospital_room_no)) {
-                                                                                        echo $value->hospital_room_no;
-                                                                                }
-                                                                                ?></td>
+                                                                                                if (isset($value->hospital_room_no)) {
+                                                                                                        echo $value->hospital_room_no;
+                                                                                                }
+                                                                                                ?></td>
                                                                                 </tr>
                                                                                 <?php
                                                                         }
@@ -461,26 +461,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 <tr>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.diabetic'); ?> </td><td class="value"><?php
-                                                                if (isset($model->patientGeneralInfo->diabetic) && $model->patientGeneralInfo->diabetic != '') {
-                                                                        if ($model->patientGeneralInfo->diabetic == '0') {
-                                                                                echo 'No';
-                                                                        } else if ($model->patientGeneralInfo->diabetic == '1') {
-                                                                                echo 'Yes';
-                                                                        } else if ($model->patientGeneralInfo->diabetic == '2') {
-                                                                                echo 'Yes,Insulin';
-                                                                        } else if ($model->patientGeneralInfo->diabetic == '3') {
-                                                                                echo 'Yes, On Tablet';
-                                                                        } else if ($model->patientGeneralInfo->diabetic == '4') {
-                                                                                echo 'Dont Know';
-                                                                        }
-                                                                }
-                                                                ?>
+                                                                                if (isset($model->patientGeneralInfo->diabetic) && $model->patientGeneralInfo->diabetic != '') {
+                                                                                        if ($model->patientGeneralInfo->diabetic == '0') {
+                                                                                                echo 'No';
+                                                                                        } else if ($model->patientGeneralInfo->diabetic == '1') {
+                                                                                                echo 'Yes';
+                                                                                        } else if ($model->patientGeneralInfo->diabetic == '2') {
+                                                                                                echo 'Yes,Insulin';
+                                                                                        } else if ($model->patientGeneralInfo->diabetic == '3') {
+                                                                                                echo 'Yes, On Tablet';
+                                                                                        } else if ($model->patientGeneralInfo->diabetic == '4') {
+                                                                                                echo 'Dont Know';
+                                                                                        }
+                                                                                }
+                                                                                ?>
                                                                         </td>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.hypertension'); ?> </td><td class="value"><?php
                                                                                 if (isset($model->patientGeneralInfo->hypertension) && $model->patientGeneralInfo->hypertension != '') {
                                                                                         echo $model->patientGeneralInfo->hypertension;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -504,7 +504,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'NA';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.urine'); ?> </td><td class="value"><?php
@@ -519,7 +519,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'NA';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -539,7 +539,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'SOS';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.tracheostomy'); ?> </td><td class="value"><?php
@@ -550,7 +550,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'Yes';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                 </tr>
 
@@ -563,7 +563,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'Yes';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.family_support'); ?> </td><td class="value"><?php
@@ -576,7 +576,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'None';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -586,7 +586,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 if (isset($model->patientGeneralInfo->family_support_note) && $model->patientGeneralInfo->family_support_note != '') {
                                                                                         echo $model->patientGeneralInfo->family_support_note;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.care_currently_provided'); ?> </td><td class="value"><?php
@@ -605,7 +605,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'Not Told';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
 
@@ -615,7 +615,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 if (isset($model->patientGeneralInfo->details_of_current_care) && $model->patientGeneralInfo->details_of_current_care != '') {
                                                                                         echo $model->patientGeneralInfo->details_of_current_care;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientHospitalMedical.difficulty_in_movement'); ?> </td><td class="value"><?php
                                                                                 if (isset($model->patientGeneralInfo->difficulty_in_movement) && $model->patientGeneralInfo->difficulty_in_movement != '') {
@@ -631,7 +631,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'Others';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -654,7 +654,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'Semi Bedridden';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientAssessment.patient_conscious'); ?> </td><td class="value"><?php
@@ -667,7 +667,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 echo 'Semi Conscious';
                                                                                         }
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
                                                                 </tr>
 
@@ -687,7 +687,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         }
                                                                                         echo $procedure;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>
@@ -719,14 +719,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         }
                                                                                         echo $suggested;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                         <td class="labell"><?= $model->getAttributeLabel('patientAssessment.other_notes'); ?> </td><td class="value"><?php
                                                                                 if (isset($model->patientAssessment->other_notes) && $model->patientAssessment->other_notes != '') {
                                                                                         echo $model->patientAssessment->other_notes;
                                                                                 }
-                                                                ?>
+                                                                                ?>
                                                                         </td>
 
                                                                 </tr>

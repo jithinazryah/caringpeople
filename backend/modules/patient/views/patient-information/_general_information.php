@@ -46,7 +46,16 @@ use common\models\Branch;
 
 
                 <div class="row">
+   
 
+                      <?php
+ $branch= Branch::Branch();
+                        //if (Yii::$app->user->identity->branch_id == '0') {
+                                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
+                                ?>
+                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                                </div>
+                        <?php //} ?>
 
 
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
@@ -122,14 +131,7 @@ use common\models\Branch;
 
                         </div>
 
-                        <?php
-                        if (Yii::$app->user->identity->branch_id == '0') {
-                                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
-                                ?>
-                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
-                                </div>
-                        <?php } ?>
-
+                        
 
 
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
@@ -327,3 +329,22 @@ use common\models\Branch;
 
         </div>
 </div>
+
+
+<script>
+$(document).ready(function(){
+   $('#patientgeneral-branch_id').change(function(){
+     var branch=$(this).val();
+     $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {branch: branch},
+                        url: homeUrl + 'ajax/patientid',
+                        success: function (data) {
+                            
+                              $('#patientgeneral-patient_id').val(data);
+                        }
+                });
+   });
+});
+</script>

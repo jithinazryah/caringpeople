@@ -51,6 +51,8 @@ class StaffInfoController extends Controller {
 
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                $dataProvider->query->andWhere(['<>','id',3000]);
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }

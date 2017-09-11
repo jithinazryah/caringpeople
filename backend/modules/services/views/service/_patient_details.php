@@ -35,9 +35,9 @@ use yii\helpers\Html;
                                                         <div class="col-md-6">
                                                                 <span><?php
                                                                         if (isset($model->patient->gender)) {
-                                                                                if ($model->patient->gender == 0) {
+                                                                                if ($model->patient->gender== 0) {
                                                                                         echo 'Male';
-                                                                                } else if ($model->patient->gender == 1) {
+                                                                                } else if ($model->patient->gender== 1) {
                                                                                         echo 'Female';
                                                                                 }
                                                                         }

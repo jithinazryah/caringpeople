@@ -4,10 +4,10 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\RateCard */
+/* @var $model common\models\StaffExperienceList */
 
-$this->title = 'Create Rate Card';
-$this->params['breadcrumbs'][] = ['label' => 'Rate Cards', 'url' => ['index']];
+$this->title = 'Create Staff Experience List';
+$this->params['breadcrumbs'][] = ['label' => 'Staff Experience Lists', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Rate Card</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="panel-body"><div class="rate-card-create">
+                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Staff Experience List</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div class="panel-body"><div class="staff-experience-list-create">
                                                 <?= $this->render('_form', [
                                                 'model' => $model,
                                                 ]) ?>

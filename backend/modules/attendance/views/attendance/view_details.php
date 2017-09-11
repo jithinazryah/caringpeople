@@ -9,7 +9,7 @@ use common\models\MasterAttendanceType;
 use common\models\StaffInfo;
 use common\models\AttendanceEntry;
 
-$this->title = 'Staffs Report';
+$this->title = 'Staff Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                         <div class = "table-responsive">
-
+                                                            
                                                                 <table class = "table table-striped">
                                                                         <thead>
                                                                         <th>NO</th>
@@ -82,11 +82,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 </tr>
                                                                                                 <?php
                                                                                         }
-                                                                                        $total_amount += $amount;
+                                                                                     $total_amount += $amount;
                                                                                 }
                                                                                 ?>
-
-
+                                                                                
 
                                                                         </tbody>
                                                                 </table>

@@ -10,7 +10,7 @@ use common\models\StaffInfo;
 use common\models\AttendanceEntry;
 use yii\db\Expression;
 
-$this->title = 'OncallStaff Report';
+$this->title = 'Staff Report';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -102,56 +102,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <tbody>
                                                                                 <?php
                                                                                 $k = 0;
-                                                                                $staffs = StaffInfo::find()->where(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => 1])->orWhere(new Expression('FIND_IN_SET(:designations, designation)'))->addParams([':designations' => 2])->andWhere(['branch_id' => $model->rating])->all();
-                                                                                $k++;
-                                                                                foreach ($staffs as $values) {
-                                                                                        $staff_schedules = \common\models\ServiceSchedule::find()->where(['staff' => $values->id])->andWhere(['>=', 'date', date('Y-m-d', strtotime($model->date))])->andWhere(['<=', 'date', date('Y-m-d', strtotime($model->DOC))])->all();
-                                                                                        foreach ($staff_schedules as $staff_schedules) {
-                                                                                                $amount += $staff_schedules->rate;
-                                                                                        }
-                                                                                }
-                                                                                $total_amount += $amount;
-                                                                                ?>
-                                                                                <tr>
-                                                                                        <td><?= $k; ?></td>
-                                                                                        <td><?= 'Caregiver Staff' ?></td>
-                                                                                        <td><?= 'Rs. ' . $amount . '/-'; ?></td>
-                                                                                        <td> <?php if ($amount > 0) { ?><button class="btn btn-info"><a target="_blank" href="<?= Yii::$app->homeUrl ?>attendance/attendance/viewdetails?from=<?= $model->date ?>&to=<?= $model->DOC ?>&type=<?= 0 ?>&branch_id=<?= $model->rating ?>" style="color: #FFF">View Details</a></button><?php } ?></td>
-
-
-                                                                                </tr>
-
-                                                                                <?php
                                                                                 $total_amount = 0;
                                                                                 foreach ($designations as $value) {
-
-                                                                                        if ($value->id != 1 && $value->id != 2) {
-
-                                                                                                $k++;
-                                                                                                $staffs = StaffInfo::find()->where(['branch_id' => $model->rating])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $value->id])->all();
-                                                                                                $amount = 0;
-                                                                                                foreach ($staffs as $values) {
-                                                                                                        $staff_schedules = \common\models\ServiceSchedule::find()->where(['staff' => $values->id])->andWhere(['>=', 'date', date('Y-m-d', strtotime($model->date))])->andWhere(['<=', 'date', date('Y-m-d', strtotime($model->DOC))])->all();
-                                                                                                        foreach ($staff_schedules as $staff_schedules) {
-                                                                                                                $amount += $staff_schedules->rate;
-                                                                                                        }
+                                                                                        $k++;
+                                                                                         $staffs = StaffInfo::find()->where(['branch_id' => $model->rating])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $value->id])->all();
+                                                                                        $amount = 0;
+                                                                                        foreach ($staffs as $values) {
+                                                                                                $staff_schedules = \common\models\ServiceSchedule::find()->where(['staff' => $values->id])->andWhere(['>=', 'date', date('Y-m-d', strtotime($model->date))])->andWhere(['<=', 'date', date('Y-m-d', strtotime($model->DOC))])->all();
+                                                                                                foreach ($staff_schedules as $staff_schedules) {
+                                                                                                        $amount += $staff_schedules->rate;
                                                                                                 }
-                                                                                                $total_amount += $amount;
-                                                                                                ?>
-                                                                                                <tr>
-                                                                                                        <td><?= $k; ?></td>
-                                                                                                        <td><?= $value->title; ?></td>
-                                                                                                        <td><?= 'Rs. ' . $amount . '/-'; ?></td>
-                                                                                                        <td> <?php if ($amount > 0) { ?><button class="btn btn-info"><a target="_blank" href="<?= Yii::$app->homeUrl ?>attendance/attendance/viewdetails?from=<?= $model->date ?>&to=<?= $model->DOC ?>&type=<?= $value->id ?>&branch_id=<?= $model->rating ?>" style="color: #FFF">View Details</a></button><?php } ?></td>
-
-                                                                                                </tr>
-                                                                                                <?php
                                                                                         }
-                                                                                }
-                                                                                ?>
+                                                                                        $total_amount += $amount;
+                                                                                        ?>
+                                                                                        <tr>
+                                                                                                <td><?= $k; ?></td>
+                                                                                                <td><?= $value->title; ?></td>
+                                                                                                <td><?= 'Rs. ' . $amount . '/-'; ?></td>
+                                                                                                <td> <?php if ($amount > 0) { ?><button class="btn btn-info"><a target="_blank" href="<?= Yii::$app->homeUrl ?>attendance/attendance/viewdetails?from=<?= $model->date ?>&to=<?= $model->DOC ?>&type=<?= $value->id ?>&branch_id=<?= $model->rating ?>" style="color: #FFF">View Details</a></button><?php } ?></td>
+
+                                                                                        </tr>
+                                                                                <?php } ?>
 
                                                                                 <tr>
-                                                                                        <td colspan="2" style="text-align: center;"><b>Total</b></td>
+                                                                                        <td colspan="2" style="    text-align: center;"><b>Total</b></td>
                                                                                         <td><b><?= 'Rs. ' . $total_amount . ' /-' ?></b></td>
                                                                                         <td></td>
                                                                                 </tr>

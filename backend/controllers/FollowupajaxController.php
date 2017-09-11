@@ -35,27 +35,24 @@ class FollowupajaxController extends \yii\web\Controller {
 
                                 $file = UploadedFile::getInstance($followups, 'attachments');
 
-                                if ($followups->repeated == 0) { /* not repeated followups */
+                                if ($followups->repeated == 0) {
                                         $followups_one = new Followups();
                                         $this->Adddata($followups_one, $followups);
                                         $followups_one->save(false);
                                         $this->upload($followups_one, $file, $followups_one->id, 1);
                                         $repeated = 0;
-                                        $this->HistoryAndNotifications($followups_one, $followups_one->assigned_to);
                                 } else {
-                                        if ($followups->repeated_type != 1) { /* if it is repeated and it is not on specific date */
+                                        if ($followups->repeated_type != 1) {
                                                 if ($_POST['create']['specific-days'] != '' || $_POST['create']['specific-dates-month'] != '') {
-                                                        if ($followups->repeated_type == 2) { /* specific days */
+                                                        if ($followups->repeated_type == 2) {
                                                                 $followups->repeated_days = implode(',', $_POST['create']['specific-days']);
-                                                        } else if ($followups->repeated_type == 3) {/* specific days in month */
+                                                        } else if ($followups->repeated_type == 3) {
                                                                 $followups->repeated_days = implode(',', $_POST['create']['specific-dates-month']);
                                                         }
-                                                } else if ($followups->repeated_type == 4) { /* everyday */
-                                                        $followups->repeated_type = 4;
+                                                        $followups->save(false);
+                                                        $this->upload($followups, $file, $followups->id, 2);
                                                 }
-                                                $followups->save(false);
-                                                $this->upload($followups, $file, $followups->id, 2);
-                                        } else { /* specific dates */
+                                        } else {
 
                                                 foreach ($_POST['date']['remind_days1'] as $val) {
                                                         if ($val != '') {
@@ -216,30 +213,6 @@ class FollowupajaxController extends \yii\web\Controller {
                                 $data_update->attachments = '';
                                 $data_update->update();
                         }
-                }
-        }
-
-        public function HistoryAndNotifications($followup, $staff) {
-                if ($followup->type == 5) {
-                        $history_id = Yii::$app->SetValues->ServiceHistory($followup, 5); /* 5 implies masterservice history type id 5 for  followup for service */
-                        Yii::$app->SetValues->Notifications($history_id, $followup->id, $followup, 2, $staff); /* 2 => notification_type_id in case of followup , old staff id is for send notification */
-                        return true;
-                } elseif ($followup->type == 2) {
-                        $history_id = Yii::$app->SetValues->ServiceHistory($followup, 6); /* 6 implies masterservice history type id 6 for  patient  followup */
-                        Yii::$app->SetValues->Notifications($history_id, $followup->id, $followup, 2, $staff); /* 2 => notification_type_id in case of followup , old staff id is for send notification */
-                        return true;
-                } elseif ($followup->type == 1) {
-                        $history_id = Yii::$app->SetValues->ServiceHistory($followup, 7); /* 7 implies masterservice history type id 7 for  patient enquiry followup */
-                        Yii::$app->SetValues->Notifications($history_id, $followup->id, $followup, 2, $staff); /* 2 => notification_type_id in case of followup , old staff id is for send notification */
-                        return true;
-                } elseif ($followup->type == 3) {
-                        $history_id = Yii::$app->SetValues->ServiceHistory($followup, 8); /* 8 implies masterservice history type id 7 for  staff enquiry followup */
-                        Yii::$app->SetValues->Notifications($history_id, $followup->id, $followup, 2, $staff); /* 2 => notification_type_id in case of followup , old staff id is for send notification */
-                        return true;
-                } elseif ($followup->type == 4) {
-                        $history_id = Yii::$app->SetValues->ServiceHistory($followup, 9); /* 9 implies masterservice history type id 9 for  staff  followup */
-                        Yii::$app->SetValues->Notifications($history_id, $followup->id, $followup, 2, $staff); /* 2 => notification_type_id in case of followup , old staff id is for send notification */
-                        return true;
                 }
         }
 

@@ -35,8 +35,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <?php //Pjax::begin();        ?>
                         <div class="panel-body">
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Stock</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <div class="modal fade" id="modal-6">
+                                        <div class="modal-dialog" id="modal-pop-up">
 
-                                <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                        </div>
+                                </div>
+                                <?php
+                                $form = ActiveForm::begin();
+                                ?>
+                                <?php $items = ArrayHelper::map(ItemMaster::findAll(['status' => 1]), 'id', 'item_name'); ?>
+                                <div class="panel-body">
+
+                                       <?php if (Yii::$app->session->hasFlash('error')): ?>
 
                                         <div class="alert alert-danger">
                                                 <button type="button" class="close" data-dismiss="alert">
@@ -56,19 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <?= Yii::$app->session->getFlash('success') ?>
                                         </div>
                                 <?php endif; ?>
-
-
-                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Stock</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <div class="modal fade" id="modal-6">
-                                        <div class="modal-dialog" id="modal-pop-up">
-
-                                        </div>
-                                </div>
-                                <?php
-                                $form = ActiveForm::begin();
-                                ?>
-                                <?php $items = ArrayHelper::map(ItemMaster::findAll(['status' => 1]), 'id', 'item_name'); ?>
-                                <div class="panel-body">
 
                                         <input type="hidden" id="stockinvoicemaster-amount" class="form-control" name="StockInvoiceMaster[amount]" readonly="" aria-invalid="false">
 

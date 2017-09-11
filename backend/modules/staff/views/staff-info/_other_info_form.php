@@ -181,7 +181,7 @@ use kartik\date\DatePicker;
 
         <div class="row">
                 <div class="col-md-6">
-                        <a id="addScnt_1" class="btn btn-blue btn-icon btn-icon-standalone addScnt" ><i class="fa-plus"></i><span> Add More</span></a>
+                        <a id="addScnt_1" class="btn btn-blue btn-icon btn-icon-standalone addScnt" ><i class="fa-plus"></i><span> Add More Employer Details</span></a>
                 </div>
         </div>
 

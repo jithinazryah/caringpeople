@@ -235,6 +235,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         $service_id = $_POST['service_id'];
                         if (isset($service_id)) {
                                 $service_detail = Service::findOne($service_id);
+
                                 $scheduls_exists = ServiceSchedule::find()->where(['status' => 1, 'service_id' => $service_id])->all();
                                 if (count($scheduls_exists) > 0) {
                                         foreach ($scheduls_exists as $value) {
@@ -251,7 +252,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                         $service_detail->update();
                                 } else {
                                         $service_detail->status = 2;
-                                        $service->update();
+                                        $service_detail->update();
                                 }
                         }
                 }

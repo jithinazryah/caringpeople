@@ -43,7 +43,7 @@ class ServiceController extends Controller {
                 $searchModel = new ServiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-
+                
 
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
@@ -113,7 +113,11 @@ class ServiceController extends Controller {
                                         $type = 'rate_per_day_night';
                                 }
                                 $model->rate_card_value = $ratecard->$type;
-                                $model->due_amount = $model->estimated_price;
+                                $registration=0;
+                                if($model->registration_fees==1){
+                                    $registration=1000;
+                                }
+                                $model->due_amount = $model->estimated_price+$registration;
                                 $model->update();
                                 $this->ServiceSchedule($model);
                                 Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
@@ -133,7 +137,8 @@ class ServiceController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
-                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'), 'date' => SORT_ASC])->all();
+                //$service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
+                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'),'date'=>SORT_ASC])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
                 $discounts = new ServiceDiscounts();
                 if (empty($patient_assessment)) {
@@ -160,7 +165,6 @@ class ServiceController extends Controller {
                         $model->due_amount = $model->due_amount - $discounts->discount_value;
                         $patient_assessment->save();
                         $transaction = Yii::$app->db->beginTransaction();
-
                         try {
                                 if ($model->update()) {
                                         $discounts->service_id = $model->id;
@@ -170,6 +174,7 @@ class ServiceController extends Controller {
                                 }
                         } catch (Exception $ex) {
                                 $transaction->rollBack();
+                                throw new UserException('Error Code:  1050');
                         }
 
                         return $this->redirect(['index']);
@@ -178,7 +183,7 @@ class ServiceController extends Controller {
                             'model' => $model,
                             'service_schedule' => $service_schedule,
                             'patient_assessment' => $patient_assessment,
-                            'discounts' => $discounts,
+                            'discounts' => $discounts
                 ]);
         }
 
@@ -334,10 +339,11 @@ class ServiceController extends Controller {
                 }
         }
 
-        public function actionTodayschedules() {
+       public function actionTodayschedules() {
                 $user = Yii::$app->user->identity->id;
                 if (isset($_POST['branch'])) {
                         $branch = $_POST['branch'];
+
                         if ($branch == 0) {
                                 $services = Service::find()->where(['status' => 1])->all();
                         } else {
@@ -350,12 +356,12 @@ class ServiceController extends Controller {
                                 $services = Service::find()->where(['status' => 1])->andWhere(new Expression('FIND_IN_SET(:staffs, service_staffs)'))->addParams([':staffs' => Yii::$app->user->identity->id])->orWhere(['staff_manager' => Yii::$app->user->identity->id])->all();
                         }
                 }
+
                 return $this->render('today-schedule', [
                             'services' => $services
                 ]);
         }
-
-        public function actionEstimatedBill($id) {
+       public function actionEstimatedBill($id) {
                 $model = $this->findModel($id);
                 echo $this->renderPartial('estimated_bill', [
                     'model' => $model,

@@ -6,5 +6,5 @@ use yii\grid\GridView;
 ?>
 
 <div class="patient-enquiry-general-first-form form-inline">
-        <?= FollowupsWidget::widget(['type_id' => $patient_info->id, 'type' => $type]); ?>
+        <?= FollowupsWidget::widget(['type_id' => $patient_info->id, 'type' => $type, 'form_followup' => $form_followup]); ?>
 </div>

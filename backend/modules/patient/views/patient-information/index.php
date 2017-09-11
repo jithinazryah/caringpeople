@@ -27,9 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-
-
-                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                       <?php if (Yii::$app->session->hasFlash('error')): ?>
                                                 <div class="alert alert-danger" role="alert">
                                                         <?= Yii::$app->session->getFlash('error') ?>
                                                 </div>

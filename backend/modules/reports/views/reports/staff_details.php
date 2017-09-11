@@ -36,6 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <div class="col-md-6 col-sm-6 col-xs-12 left_padd counts1" >
 
                                                                 <div class="col-md-6">
+
+                                                                         <p>Staff Id:
+                                                                                <span><?php
+                                                                                        if (isset($staff) && $staff != '') {
+                                                                                                $staff_details = StaffInfo::findOne($staff);
+                                                                                                echo $staff_details->staff_id;
+                                                                                        }
+                                                                                        ?>
+                                                                                </span>
+                                                                        </p>
+
                                                                         <p>Staff Name:
                                                                                 <span><?php
                                                                                         if (isset($staff) && $staff != '') {

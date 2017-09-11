@@ -314,7 +314,8 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
-        public function actionPatientenquiryremove() {
+     
+          public function actionPatientenquiryremove() {
 
                 $id = $_POST['id'];
                 $name = $_POST['name'];
@@ -453,7 +454,7 @@ class AjaxController extends \yii\web\Controller {
                                 <div class='form-group field-staffperviousemployer-salary'>
                                 <label class='control-label' >Attachment Name</label>
                               $option
-                                  <a class='add-option-dropdown add-new' id='atachment_$rand-5' style='margin-top:0px;'> <div class='upload-div'>+ Add New</div></a>
+                                  <a class='add-option-dropdown add-new' id='atachment_$rand-5' style='margin-top:0px;'> + Add New</a>
                                 </div>
                                 </div>
                                 <a id='remAttach' class='btn btn-icon btn-red remAttach' style='margin-top: 15px;'><i class='fa-remove'></i></a>
@@ -564,6 +565,32 @@ class AjaxController extends \yii\web\Controller {
                         </span><br/>';
                         echo $family;
                 }
+        }
+
+
+ public function actionPatientid(){
+            $id= PatientGeneral::find()->max('id');
+            $id=$id+1;
+            if($_POST['branch']==1){
+                $branch='CPCU';
+            } else{
+                $branch='CPBU';
+            }
+            
+          echo  $patient_id=   $branch . '-' . date('d') . date('m') . date('y') . '-' . $id;
+        }
+
+  public function actionStaffid(){
+            
+            $id= \common\models\StaffInfo::find()->max('id');
+            $id=$id+1;
+            if($_POST['branch']==1){
+                $branch='CPCS';
+            } else{
+                $branch='CPBS';
+            }
+            
+          echo  $patient_id=   $branch . '-' . date('d') . date('m') . date('y') . '-' . $id;
         }
 
 }

@@ -19,7 +19,7 @@ use common\models\ReferralSource;
         <h4 class="h4-labels">Enquiry Details</h4>
         <hr class="enquiry-hr"/>
 
-        <?php
+         <?php
         if (Yii::$app->user->identity->branch_id == '0') {
                 $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
                 ?>
@@ -161,7 +161,7 @@ use common\models\ReferralSource;
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'priority')->dropDownList(['' => '--Select--', '1' => 'Hot', '2' => 'Warm', '3' => 'Cold']) ?>
 
         </div>
-
+        
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'status')->dropDownList(['1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'quotation_details')->textarea(['rows' => 2]) ?>
@@ -246,10 +246,9 @@ use common\models\ReferralSource;
                 </div>
 
         <?php } ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'terms_conditions', ['template' => "<label class='cbr-inline top'>{input}<a href='javascript:;' target='_blank' href='#' class='terms' id='1' style='color: #3c4ba1;text-decoration: underline;'>I agree to the terms and conditions</a></label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;', 'label' => '']) ?>
+ <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'terms_conditions', ['template' => "<label class='cbr-inline top'>{input}<a href='javascript:;' target='_blank' href='#' class='terms' id='1' style='color: #3c4ba1;text-decoration: underline;'>I agree to the terms and conditions</a></label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;', 'label' => '']) ?>
 
         </div>
-
 </div>
 <div class='col-md-12 col-sm-6 col-xs-12' >
         <div class="form-group" >

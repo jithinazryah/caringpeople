@@ -22,7 +22,6 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
                         $model->type_id = $cat_type;
                         ?>
                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display: none;">    <?= $form->field($model, 'type_id')->dropDownList(['' => '--Select--', '1' => 'Patient Enquiry', '2' => 'Patient', '3' => 'Staff Enquiry', '4' => 'Staff', '5' => 'Service']) ?>
-
                         </div><div class='col-md-6 col-sm-6 col-xs-12 left_padd' style="margin-left: 20px;">    <?= $form->field($model, 'sub_type')->textInput(['maxlength' => true]) ?>
 
                         </div>

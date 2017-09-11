@@ -101,9 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         $attende_id[] = $attende->id;
                                                                                 }
 
-
                                                                                 $employees = common\models\StaffInfo::find()->where(['branch_id' => $selected_branch])->orWhere(['branch_id' => '0'])->andWhere(['<>', 'post_id', 5])->andWhere(['<>', 'post_id', 1])->all();
-
                                                                                 $k = 0;
                                                                                 foreach ($employees as $employee) {
                                                                                         $k++;

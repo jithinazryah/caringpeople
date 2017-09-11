@@ -61,7 +61,7 @@ use common\models\StaffLeave;
                 ?>
 
                 <?php $form = ActiveForm::begin(); ?>
-                <div class="table-responsive">
+                <div class="table-responsive" style="width:100% !important">
                         <table class="table table-striped">
                                 <thead>
                                         <tr>

@@ -76,9 +76,6 @@ class InvoiceController extends Controller {
                                         $model->total_amount = $_POST['total_amount_' . $values->id];
                                         $model->amount = $_POST['amount_paid_' . $values->id];
                                         $model->due_amount = $model->total_amount - $model->amount;
-                                        $model->status = $model->status;
-                                        $model->due_date = date('Y-m-d', strtotime($model->due_date));
-                                        $model->payment_date = date('Y-m-d', strtotime($model->payment_date));
                                         $model->CB = Yii::$app->user->identity->id;
                                         $model->payment_type = $model->payment_type;
                                         $model->reference_no = $model->reference_no;

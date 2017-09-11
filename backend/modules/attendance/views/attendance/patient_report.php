@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     'pluginOptions' => [
                                                                         'autoclose' => true,
                                                                         'format' => 'dd-mm-yyyy',
-                                                                    //   "endDate" => (string) date('d/m/Y'),
+                                                                     //   "endDate" => (string) date('d/m/Y'),
                                                                     ]
                                                                 ]);
                                                                 ?>
@@ -134,8 +134,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 foreach ($patient_services as $patient_services) {
                                                                         $m++;
                                                                         $schedule = Service::findOne($patient_services->service_id);
-                                                                        $total_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
+                                                                        $total_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>','status',4])->count();
                                                                         $total_completed_schedules = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
+                                                                        $total_rate = $total_schedules * $schedule->rate_card_value;
+                                                                        $total_schedules_rate = ServiceSchedule::find()->where(['service_id' => $patient_services->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
                                                                         ?>
                                                                         <div class="col-md-4 col-sm-6 col-xs-12 left_padd service_detail">
                                                                                 <span class="counts">
@@ -183,11 +185,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                                 <td><?= $service->service_id ?></td>
 
                                                                                                 <td><?php
-                                                                                                        if (isset($value->staff) && $value->staff != '') {
-                                                                                                                $staff = StaffInfo::findOne($value->staff);
-                                                                                                                echo $staff->staff_name;
-                                                                                                        }
-                                                                                                        ?>
+                                                                                if (isset($value->staff) && $value->staff != '') {
+                                                                                        $staff = StaffInfo::findOne($value->staff);
+                                                                                        echo $staff->staff_name;
+                                                                                }
+                                                                                                ?>
                                                                                                 </td>
 
                                                                                                 <td>
