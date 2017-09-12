@@ -55,8 +55,7 @@ $("document").ready(function () {
                         data: formData,
                         async: false,
                         success: function (data) {
-
-                                if (data) {
+                                if (data != 0) {
                                         var rowCount = $('.followups-table table tr').length;
                                         var count = rowCount - 1;
                                         var res = $.parseJSON(data);
@@ -71,6 +70,8 @@ $("document").ready(function () {
                                                                   <td>Active</td>\n\
                                                                   <td><input type="checkbox" class="iswitch iswitch-secondary followup-status" id="' + res.id + '"></td></tr>');
 
+                                } else {
+                                        alert('Followup added successfully');
                                 }
                                 $('#add-followup')[0].reset();
                                 $("#create-assigned_to").select2("val", "");

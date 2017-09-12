@@ -42,7 +42,7 @@ class ReportController extends Controller {
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
                         "From: info@caringpeople.in";
-                mail('sabitha393@gmail.com', 'Report', $message, $headers);
+                mail('info@caringpeople.in', 'Report', $message, $headers);
         }
 
 }

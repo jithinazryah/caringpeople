@@ -67,6 +67,7 @@ class DashboardController extends Controller {
                 $searchModel = new \common\models\InvoiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['patient_id' => Yii::$app->session['patient_id']]);
+                $dataProvider->query->andWhere(['<>', 'status', 3]);
                 if (!empty($id)) {
                         if ($id == 1) {
                                 $last_date = date('Y-m-d', strtotime(date('Y-m-d') . ' -10  days'));

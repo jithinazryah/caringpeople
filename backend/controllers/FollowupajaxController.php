@@ -67,6 +67,8 @@ class FollowupajaxController extends \yii\web\Controller {
                                 }
                                 if ($repeated == 0) {
                                         return \yii\helpers\Json::encode($followups_one);
+                                } else {
+                                        echo '0';
                                 }
                         }
                 }

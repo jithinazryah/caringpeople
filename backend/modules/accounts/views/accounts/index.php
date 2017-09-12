@@ -65,6 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             return 'Purchase';
                                                                     } else if ($model->reference_type == 3) {
                                                                             return 'Patient Bill';
+                                                                    } else if ($model->reference_type == 4) {
+                                                                            return 'Patient Bill (Refund)';
                                                                     }
                                                             },
                                                             'filter' => [1 => 'Staff Payroll', 2 => 'Purchase', 3 => 'Patient Bill'],

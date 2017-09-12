@@ -131,7 +131,7 @@ class InvoiceController extends Controller {
                                 $model->view = 1;
                                 $model->status = 3;
                                 $model->save();
-                                Yii::$app->SetValues->Accounts($model->branch_id, 3, $model->id, 1, 'Patient Invoice Refund', $model->payment_type, $model->refund_amount, $model->DOC);
+                                Yii::$app->SetValues->Accounts($model->branch_id, 4, $model->id, 1, 'Patient Invoice Refund', $model->payment_type, $model->refund_amount, date('Y-m-d'));
                         } else {
                                 $model->addError('refund_amount', 'Refund amount should be less than or equal to amount paid');
                                 return $this->render('refund', [
