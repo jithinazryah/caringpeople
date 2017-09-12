@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
                                                         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form->field($model, 'type')->textInput() ?>
 
                                                         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'amount')->textInput(['maxlength' => true, 'readonly' => true]) ?>
-
+                                                                <?php $model->refund_amount = ''; ?>
                                                         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'refund_amount')->textInput() ?>
                                                                 <p id="amount-error" style="color:red">Refund amount should be less than or equal to amount paid</p>
                                                         </div>
