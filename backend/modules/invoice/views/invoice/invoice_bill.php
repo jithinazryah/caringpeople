@@ -141,11 +141,17 @@ and open the template in the editor.
                                                         <div>
                                                                 <img src="<?= Yii::$app->homeUrl ?>images/logos/logo-1.png" height="100"/>
                                                         </div>
+                                                        <?php
+                                                        $branch = Branch::findOne($model->branch_id);
+                                                        ?>
                                                         <div style="">
                                                                 <table style="width:100%">
-                                                                        <tr><td  class="company_address">Door No.5, DD Vyapar Bhavan, K.P Vallon Road, Kavandthra Jn</td></tr>
+                                                                        <tr>
+                                                                                <td class="company_address"> <?= $branch->address ?></td>
+                                                                        </tr>
+<!--                                                                        <tr><td  class="company_address">Door No.5, DD Vyapar Bhavan, K.P Vallon Road, Kavandthra Jn</td></tr>
                                                                         <tr><td class="company_address">Kochi-20 | Tel:0484 4033505</td></tr>
-                                                                        <tr><td class="company_address">www.caringpeople.in , Email :info@caringpeople.in , Helpline No: 90 20 599 599</td></tr>
+                                                                        <tr><td class="company_address">www.caringpeople.in , Email :info@caringpeople.in , Helpline No: 90 20 599 599</td></tr>-->
                                                                 </table>
                                                         </div>
                                                 </div>

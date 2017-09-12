@@ -138,11 +138,15 @@ and open the template in the editor.
                                                         <div>
                                                                 <img src="<?= Yii::$app->homeUrl ?>images/logos/logo-1.png" height="100"/>
                                                         </div>
+
                                                         <div style="">
                                                                 <table style="width:100%">
-                                                                        <tr><td  class="company_address">Door No.5, DD Vyapar Bhavan, K.P Vallon Road, Kavandthra Jn</td></tr>
-                                                                        <tr><td class="company_address">Kochi-20 | Tel:0484 4033505</td></tr>
-                                                                        <tr><td class="company_address">www.caringpeople.in , Email :info@caringpeople.in , Helpline No: 90 20 599 599</td></tr>
+                                                                        <?php
+                                                                        $branch_detail = Branch::findOne($model->branch_id);
+                                                                        ?>
+                                                                        <tr>
+                                                                                <td class="company_address"> <?= $branch_detail->address ?></td>
+                                                                        </tr>
                                                                 </table>
                                                         </div>
                                                 </div>
@@ -368,7 +372,7 @@ and open the template in the editor.
 
 <!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                               ?></td>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                                   ?></td>
                 </tr>-->
 
 

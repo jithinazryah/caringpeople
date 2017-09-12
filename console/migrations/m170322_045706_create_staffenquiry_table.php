@@ -14,6 +14,7 @@ class m170322_045706_create_staffenquiry_table extends Migration {
                 $this->createTable('staff_enquiry', [
                     'id' => $this->primaryKey(),
                     'branch_id' => $this->integer(),
+                    'enquiry_id' => $this->integer(),
                     'name' => $this->string(200),
                     'gender' => $this->integer()->comment('0=Male,1=Female'),
                     'phone_number' => $this->string(200),

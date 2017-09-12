@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use common\models\Branch;
 
-$branch = Branch::find()->where(['status' => 1])->all();
+$branch = Branch::Branch();
 
 /* @var $this yii\web\View */
 /* @var $model common\models\SubServices */

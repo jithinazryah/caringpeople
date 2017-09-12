@@ -14,6 +14,7 @@ class m170601_053015_create_staff_family_table extends Migration {
                 $this->createTable('staff_enquiry_family_details', [
                     'id' => $this->primaryKey(),
                     'enquiry_id' => $this->integer(),
+                    'staff_id' => $this->integer(),
                     'name' => $this->string(250),
                     'relationship' => $this->string(250),
                     'job' => $this->string(250),
