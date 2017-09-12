@@ -32,7 +32,7 @@ class SiteController extends Controller {
                         'class' => AccessControl::className(),
                         'rules' => [
                                 [
-                                'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'staff-login', 'staff-home', 'notifications', 'pending-followups'],
+                                'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'staff-login', 'staff-home', 'notifications', 'pending-followups', 'report'],
                                 'allow' => true,
                             ],
                                 [
@@ -318,10 +318,30 @@ class SiteController extends Controller {
 
         public function actionReport() {
 
-                $message = $this->renderPartial('report');
-                echo $message;
-                exit;
-                //   Yii::$app->SetValues->Email($check_exists->email, 'Password Reset', $message);
+                $users = \common\models\History::find()->select('CB')->where(['date' => date('Y-m-d')])->groupBy('CB')->all();
+                $message .= "
+                             <html>
+                               <body>
+                                   <div class='mail-body' style='margin: auto;width: 50%;border: 1px solid #9e9e9e;'>
+                                   <div style='margin-left: 40px;'>
+                                   <p><b>REPORT</b></p>
+                                  <table>";
+
+                foreach ($users as $value) {
+                        $staff = StaffInfo::findOne($value->CB);
+                        $message .= "<tr><td colspan='2'><p><b>$staff->staff_name</b></p></td></tr>";
+                        $works = \common\models\History::find()->where(['CB' => $value->CB, 'date' => date('Y-m-d')])->all();
+                        $k = 0;
+                        foreach ($works as $works) {
+                                $k++;
+                                $message .= "<tr><td>$k.</td><td><p>$works->content</p></td></tr>";
+                        }
+                }
+
+                $meassge .= "</div>
+                </div><table></body></html>";
+
+                Yii::$app->SetValues->Email('sabitha393@gmail.com', 'Todays Report', $message);
         }
 
 }
