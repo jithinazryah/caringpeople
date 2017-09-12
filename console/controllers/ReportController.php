@@ -12,6 +12,7 @@ use yii\db\Expression;
 class ReportController extends Controller {
 
         public function actionIndex() {
+                $server = Yii::$app->request->serverName;
                 $message = "";
                 $users = \common\models\History::find()->select('CB')->where(['date' => date('Y-m-d')])->groupBy('CB')->all();
                 $message .= "
@@ -19,6 +20,7 @@ class ReportController extends Controller {
                                <body>
                                    <div class='mail-body' style='margin: auto;width: 50%;border: 1px solid #9e9e9e;'>
                                    <div style='margin-left: 40px;'>
+                                     <img src='$server/admin/images/logos/logo-1.png'  style='width:200px'>
                                    <p><b>REPORT</b></p>
                                   <table>";
 
@@ -32,6 +34,7 @@ class ReportController extends Controller {
                                 $message .= "<tr><td>$k.</td><td><p>$works->content</p></td></tr>";
                         }
                 }
+
 
                 $message .= "</div>
                 </div><table></body></html>";

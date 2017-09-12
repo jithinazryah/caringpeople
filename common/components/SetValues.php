@@ -441,4 +441,14 @@ class SetValues extends Component {
                 //mail($to, $subject, $message, $headers);
         }
 
+        public function History($id, $content) {
+
+                $history = new History();
+                $history->reference_id = $id;
+                $history->content = $content;
+                $history->date = date('Y-m-d');
+                $history->CB = Yii::$app->user->identity->id;
+                $history->save();
+        }
+
 }
