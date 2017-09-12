@@ -319,8 +319,7 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 foreach ($staff_schedules as $staff_schedules) {
                         $amount += $staff_schedules->rate;
                 }
-
-                return $amount;
+                return Yii::$app->NumToWord->NumberFormat($amount);
         }
 
         public function getIdPost() {
