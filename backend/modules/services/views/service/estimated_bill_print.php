@@ -23,110 +23,7 @@ and open the template in the editor.
         <title></title>-->
 <div id="print">
         <link rel="stylesheet" href="<?= Yii::$app->homeUrl ?>css/invoice.css">
-        <style type="text/css">
 
-                @media print {
-                        thead {display: table-header-group;}
-                        tfoot {display: table-footer-group}
-                        /*tfoot {position: absolute;bottom: 0px;}*/
-                        .main-tabl{width: 100%}
-                        .footer {position: fixed ; left: 0px; bottom: 20px; right: 0px; font-size:10px; }
-                        body h6,h1,h2,h3,h4,h5,p,b,tr,td,span,th,div{
-                                color:#525252 !important;
-                        }
-                        .header{
-                                font-size: 12.5px;
-                                display: inline-block;
-                                width: 100%;
-                        }
-                        .main-left{
-                                padding-top: 12px;
-                                float: left;
-                        }
-                        .main-right{
-                                float: right;
-                        }
-                        table.table{
-                                border-collapse: collapse;
-                                width:100%;
-                        }
-                        .table td{
-                                font-size: 12px;
-                                text-align: center;
-                                padding-top: 5px;
-                                padding-bottom: 5px;
-                        }
-                        body {-webkit-print-color-adjust: exact;
-                              margin-left: 10mm; margin-right: 10mm;
-                        }
-
-                }
-                @media screen{
-                        .main-tabl{
-                                width: 60%;
-                        }
-                        .table {
-                                width: 60% !important;
-                        }
-                }
-                .print1{
-                        margin-top: 18px;
-                        margin-left: 315px;
-                }
-                footer {
-                        width: 100%;
-                        position: absolute;
-                        bottom: 0px;
-                }
-                .tax-declarations p{
-                        font-size: 12px;
-                        line-height: 18px;
-                }
-                .bill{
-                        text-align: center;
-                        font-size: 17px;
-                } .bill span{
-                        background-color:  #e4e4e4;
-                        padding: 12px 80px 11px 80px;
-                        border-radius: 5px;
-                }  .table {
-                        border-collapse: collapse;
-                        font-size: 12px;
-                        margin-top:20px !important;
-                        margin:auto;
-                }
-
-                .table, .table td{
-                        border: 1px solid #aea6a6;
-                } .print_btn{
-                        font-weight: bold !important;
-                        color: #fff;
-                        border-color: #80b636;
-                        cursor: pointer;
-                        border: 1px solid transparent;
-                        padding: 6px 12px;
-                        font-size: 13px;
-                        line-height: 1.42857143;
-                } .print_btn_color{
-                        background-color: #8dc63f;
-                } .close_btn_color{
-                        background-color: #b60d14;
-                } .table2,.table2 td{
-                        border:none;
-                }.table3{
-                        width:30% !important;
-                }.table4{
-                        border:none  !important;
-                        float:left  !important;
-                }.bank-details td{
-                        border: 1px solid #aea6a6!important;
-                }.table6 td{
-                        border: none!important;
-                }
-
-
-
-        </style>
         <!--    </head>
             <body >-->
         <table border ="0"  class="main-tabl" border="0">
@@ -368,7 +265,7 @@ and open the template in the editor.
 
 <!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                               ?></td>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                              ?></td>
                 </tr>-->
 
 
@@ -507,15 +404,7 @@ and open the template in the editor.
         }
 </script>
 
-<div class="print1">
-        <div class="print1" style="float:left;">
 
-                <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
-                <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
-                <a href="<?= Yii::$app->homeUrl ?>services/service/print?id=<?= $model->id ?>"><button  class="print_btn print_btn_color">Save as PDF</button></a>
-
-        </div>
-</div>
 <div style="clear:both"></div>
 
 <!--</body>

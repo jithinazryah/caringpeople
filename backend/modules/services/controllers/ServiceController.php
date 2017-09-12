@@ -15,6 +15,7 @@ use common\models\PatientAssessment;
 use common\models\ServiceDiscounts;
 use yii\db\Expression;
 use yii\base\UserException;
+use kartik\mpdf\Pdf;
 
 /**
  * ServiceController implements the CRUD actions for Service model.
@@ -368,6 +369,20 @@ class ServiceController extends Controller {
                 echo $this->renderPartial('estimated_bill', [
                     'model' => $model,
                 ]);
+        }
+
+        public function actionPrint($id = null) {
+
+                $model = $this->findModel($id);
+                $pdf = new Pdf([
+                    'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                    'content' => $this->renderPartial('estimated_bill_print', [
+                        'model' => $model,
+                    ]),
+                    'cssInline' => '.table{margin-top:20px;font-family: sans-serif;} ',
+                    'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/other.css',
+                ]);
+                return $pdf->render();
         }
 
 }

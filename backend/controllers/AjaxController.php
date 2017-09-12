@@ -314,8 +314,7 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
-     
-          public function actionPatientenquiryremove() {
+        public function actionPatientenquiryremove() {
 
                 $id = $_POST['id'];
                 $name = $_POST['name'];
@@ -567,30 +566,35 @@ class AjaxController extends \yii\web\Controller {
                 }
         }
 
+        public function actionPatientid() {
+                $id = PatientGeneral::find()->max('id');
+                $id = $id + 1;
+                if ($_POST['branch'] == 1) {
+                        $branch = 'CPCU';
+                        $val = \common\models\Settings::findOne(1);
+                        $id = $val->auto_number;
+                } else {
+                        $branch = 'CPBU';
+                        $val = \common\models\Settings::findOne(2);
+                        $id = $val->auto_number;
+                }
 
- public function actionPatientid(){
-            $id= PatientGeneral::find()->max('id');
-            $id=$id+1;
-            if($_POST['branch']==1){
-                $branch='CPCU';
-            } else{
-                $branch='CPBU';
-            }
-            
-          echo  $patient_id=   $branch . '-' . date('d') . date('m') . date('y') . '-' . $id;
+                echo $patient_id = $branch . '-' . date('d') . date('m') . date('y') . '-' . $id;
         }
 
-  public function actionStaffid(){
-            
-            $id= \common\models\StaffInfo::find()->max('id');
-            $id=$id+1;
-            if($_POST['branch']==1){
-                $branch='CPCS';
-            } else{
-                $branch='CPBS';
-            }
-            
-          echo  $patient_id=   $branch . '-' . date('d') . date('m') . date('y') . '-' . $id;
+        public function actionStaffid() {
+
+                if ($_POST['branch'] == 1) {
+                        $branch = 'CPCS';
+                        $val = \common\models\Settings::findOne(3);
+                        $id = $val->auto_number;
+                } else {
+                        $branch = 'CPBS';
+                        $val = \common\models\Settings::findOne(4);
+                        $id = $val->auto_number;
+                }
+
+                echo $patient_id = $branch . '-' . date('d') . date('m') . date('y') . '-' . $id;
         }
 
 }

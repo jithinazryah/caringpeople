@@ -307,6 +307,14 @@ and open the template in the editor.
 
         </table>
 
+        <table class="main-tabl">
+                <tr>
+                        <td>
+                                <p class="message" style="font-size:10px;font-style: italic">**This is a computer generated copy stamp or seal is not required.<p>
+                        </td>
+                </tr>
+        </table>
+
 
 
 

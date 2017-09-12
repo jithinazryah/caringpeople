@@ -93,8 +93,8 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                         [['religion'], 'exist', 'skipOnError' => true, 'targetClass' => Religion::className(), 'targetAttribute' => ['religion' => 'id']],
                         [['staff_name', 'blood_group', 'pan_or_adhar_no', 'permanent_address', 'pincode', 'contact_no', 'email', 'present_address', 'present_pincode', 'present_contact_no', 'present_email', 'licence_no', 'place', 'staff_id', 'staff_manager'], 'string', 'max' => 200],
                         [['branch_id'], 'required', 'on' => 'create'],
-                        [['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'create'],
-                        [['username'], 'unique', 'message' => 'Username must be unique.', 'on' => 'update'],
+                        [['username', 'staff_id'], 'unique', 'message' => 'Already exists.', 'on' => 'create'],
+                        [['username', 'staff_id'], 'unique', 'message' => 'Already exists.', 'on' => 'update'],
                         [['username', 'password'], 'required', 'on' => 'login'],
                         [['password'], 'validatePassword', 'on' => 'login'],
                 ];

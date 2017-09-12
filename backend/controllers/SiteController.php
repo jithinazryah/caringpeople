@@ -317,7 +317,11 @@ class SiteController extends Controller {
         }
 
         public function actionReport() {
-                
+
+                $message = $this->renderPartial('report');
+                echo $message;
+                exit;
+                //   Yii::$app->SetValues->Email($check_exists->email, 'Password Reset', $message);
         }
 
 }

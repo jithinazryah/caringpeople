@@ -441,6 +441,14 @@ and open the template in the editor.
                 </tr>-->
         </table>
 
+        <table class="main-tabl">
+                <tr>
+                        <td>
+                                <p class="message" style="font-size:10px;font-style: italic">**This is a computer generated copy stamp or seal is not required.<p>
+                        </td>
+                </tr>
+        </table>
+
 <!--        <table class="table table4" style="border:none;">
                 <tr>
                         <td style="border:none">
@@ -493,7 +501,7 @@ and open the template in the editor.
 
                 <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
                 <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
-                <a href="<?= Yii::$app->homeUrl ?>invoice/invoice/print?id=<?= $model->id ?>"><button  class="print_btn close_btn_color">Save as PDF</button></a>
+                <a href="<?= Yii::$app->homeUrl ?>invoice/invoice/print?id=<?= $model->id ?>"><button  class="print_btn print_btn_color">Save as PDF</button></a>
 
         </div>
 </div>

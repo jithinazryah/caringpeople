@@ -52,7 +52,7 @@ class StaffInfoController extends Controller {
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-                $dataProvider->query->andWhere(['<>','id',3000]);
+                $dataProvider->query->andWhere(['<>', 'id', 3000]);
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
@@ -268,6 +268,7 @@ class StaffInfoController extends Controller {
                                 $staff_edu->staff_id = $model->id;
                                 $staff_edu->save(false);
                                 $other_info->update();
+                                $this->AutoNumber($model);
                                 $this->AddContactDirectory($model);
                                 $this->AddData($model, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third, $staff_salary);
                                 $this->AddLanguage($model, $staff_interview_first, $staff_interview_third);
@@ -292,6 +293,16 @@ class StaffInfoController extends Controller {
                             'staff_family' => $staff_family,
                             'staff_salary' => $staff_salary
                 ]);
+        }
+
+        public function AutoNumber($model) {
+                if ($model->branch_id == 1) {
+                        $val = \common\models\Settings::findOne(3);
+                } else {
+                        $val = \common\models\Settings::findOne(4);
+                }
+                $val->auto_number = $val->auto_number + 1;
+                $val->save(FALSE);
         }
 
         /*
