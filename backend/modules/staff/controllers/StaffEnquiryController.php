@@ -299,13 +299,15 @@ class StaffEnquiryController extends Controller {
 
                         foreach ($arr as $key => $value) {
                                 $add_previous = StaffPerviousEmployer::findOne($key);
-                                $add_previous->hospital_address = $value['hospitaladdress'];
-                                $add_previous->designation = $value['designation'];
-                                $add_previous->length_of_service = $value['length'];
-                                $add_previous->service_from = date('Y-m-d', strtotime($value['from']));
-                                $add_previous->service_to = date('Y-m-d', strtotime($value['to']));
-                                $add_previous->salary = $value['salary'];
-                                $add_previous->update();
+                                if (!empty($add_previous)) {
+                                        $add_previous->hospital_address = $value['hospitaladdress'];
+                                        $add_previous->designation = $value['designation'];
+                                        $add_previous->length_of_service = $value['length'];
+                                        $add_previous->service_from = date('Y-m-d', strtotime($value['from']));
+                                        $add_previous->service_to = date('Y-m-d', strtotime($value['to']));
+                                        $add_previous->salary = $value['salary'];
+                                        $add_previous->update();
+                                }
                         }
                 }
 
@@ -447,11 +449,13 @@ class StaffEnquiryController extends Controller {
 
                         foreach ($arrfu as $key => $value) {
                                 $add_family = \common\models\StaffEnquiryFamilyDetails::findOne($key);
-                                $add_family->name = $value['name'];
-                                $add_family->relationship = $value['relationship'];
-                                $add_family->job = $value['job'];
-                                $add_family->mobile_no = $value['mobile_no'];
-                                $add_family->update();
+                                if (!empty($add_family)) {
+                                        $add_family->name = $value['name'];
+                                        $add_family->relationship = $value['relationship'];
+                                        $add_family->job = $value['job'];
+                                        $add_family->mobile_no = $value['mobile_no'];
+                                        $add_family->update();
+                                }
                         }
                 }
 

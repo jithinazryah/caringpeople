@@ -14,14 +14,17 @@ class ServiceSearch extends Service {
 
         public $staffName;
         public $pending_schedules;
+        public $compare; //compare value
+        public $compareOp; //compare operator, for example [>,<,>=,<=]
 
         /**
          * @inheritdoc
          */
+
         public function rules() {
                 return [
                         [['id', 'patient_id', 'service', 'staff_manager', 'status', 'branch_id', 'CB', 'UB'], 'integer'],
-                        [['from_date', 'to_date', 'estimated_price', 'service_id', 'DOC', 'DOU', 'duty_type', 'pending_schedules', 'days'], 'safe'],
+                        [['from_date', 'to_date', 'estimated_price', 'service_id', 'DOC', 'DOU', 'duty_type', 'pending_schedules', 'days', 'due_amount', 'compare', 'compareOp'], 'safe'],
                         [['staffName'], 'safe']
                 ];
         }
@@ -44,7 +47,6 @@ class ServiceSearch extends Service {
         public function search($params) {
                 $query = Service::find();
 
-                // add conditions that should always apply here
 
                 $dataProvider = new ActiveDataProvider([
                     'query' => $query,
@@ -53,14 +55,19 @@ class ServiceSearch extends Service {
                 ]);
 
 
-
-//                $dataProvider->sort->attributes['pending_schedules'] = [
-//                    'asc' => ['pending_schedules' => SORT_ASC],
-//                    'desc' => ['pending_schedules' => SORT_DESC],
-//                ];
-
                 $this->load($params);
 
+
+                if (!isset($params["Service"]["compareOp"])) {
+                        $operator = '';
+                } else {
+                        $operator = $params["Service"]["compareOp"];
+                }
+                if (!isset($params["Service"]["compare"])) {
+                        $val = '';
+                } else {
+                        $val = $params["Service"]["compare"];
+                }
                 if (!$this->validate()) {
                         // uncomment the following line if you do not want to return any records when validation fails
                         // $query->where('0=1');
@@ -86,6 +93,7 @@ class ServiceSearch extends Service {
 
 
                 $query->andFilterWhere(['like', 'estimated_price', $this->estimated_price])
+                        ->andFilterWhere([$operator, 'due_amount', $val])
                         ->andFilterWhere(['like', 'days', $this->days])
                         ->andFilterWhere(['like', 'service_id', $this->service_id]);
 

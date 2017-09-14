@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use common\models\StaffInfo;
 use yii\helpers\ArrayHelper;
 use kartik\export\ExportMenu;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ServiceSearch */
@@ -39,7 +40,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                         <?= Yii::$app->session->getFlash('success') ?>
                                                 </div>
                                         <?php endif; ?>
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> Create Service</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?= Html::a("<i class='fa fa-book'></i><span> Today's Schedules</span>", ['todayschedules'], ['target' => '_blank', 'class' => 'btn btn-info  btn-icon btn-icon-standalone', 'style' => 'float:right', 'id' => 'today_schedule']) ?>
@@ -94,6 +95,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 'filter' => [1 => 'Opened', 2 => 'Closed', 3 => 'Advanced'],
                                             ],
                                                 [
+                                                'attribute' => 'due_amount',
+                                                'header' => 'Due Amount',
+                                                'filter' => Html::dropDownList('Service[compareOp]', $model->compareOp, array('>' => '>', '<' => '<', '>=' => '>=', '<=' => '<=', '=' => '='), array('style' => 'width:50px;height: 25px;', 'id' => 'grid-id')) .
+                                                Html::textInput('Service[compare]', $model->compare, array('style' => 'width:100px;margin-left: 10px;height: 25px;'))
+                                            ],
+                                                [
                                                 'attribute' => 'pending_schedules',
                                                 'label' => Yii::t('app', 'Pending Schedules'),
                                                 'format' => 'raw',
@@ -112,13 +119,25 @@ $designations = \common\models\MasterDesignations::designationlist();
                                             // 'UB',
                                             // 'DOC',
                                             // 'DOU',
-                                            ['class' => 'yii\grid\ActionColumn',
-                                                'template' => '{update}{delete}',
-                                                'visibleButtons' => [
-                                                    'delete' => function ($model, $key, $index) {
-                                                            return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                            [
+                                                'class' => 'yii\grid\ActionColumn',
+                                                'template' => ' {update} {delete} {estimated}  {invoice}', // the default buttons + your custom button
+                                                'buttons' => [
+                                                    'estimated' => function($url, $model, $key) {     // render your custom button
+                                                            return Html::a('<span class="fa fa-print" style="padding-top: 0px;"></span>', ['service/estimated-bill', 'id' => $model->id], [
+                                                                        'title' => Yii::t('app', 'Estimated Proforma'),
+                                                                        'class' => 'actions',
+                                                                        'target' => '_blank',
+                                                            ]);
                                                     },
-                                                ],
+                                                    'invoice' => function($url, $model, $key) {     // render your custom button
+                                                            return Html::a('<span class="fa fa-inr" style="padding-top: 0px;"></span>', ['/invoice/invoice/index', 'id' => $model->id], [
+                                                                        'title' => Yii::t('app', 'Invoices'),
+                                                                        'class' => 'actions',
+                                                                        'target' => '_blank',
+                                                            ]);
+                                                    },
+                                                ]
                                             ],
                                         ];
                                         if (Yii::$app->user->identity->post_id == '1') {
@@ -127,6 +146,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                     'columns' => $gridColumns,
                                                 ]);
                                         }
+
                                         echo \kartik\grid\GridView::widget([
                                             'dataProvider' => $dataProvider,
                                             'filterModel' => $searchModel,
@@ -165,6 +185,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                 {
                         // Adding Custom Scrollbar
                         $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+
+
+                $('#grid-id').change(function (e) {
+                        e.preventDefault();
+                        return false;
                 });
         });
 </script>

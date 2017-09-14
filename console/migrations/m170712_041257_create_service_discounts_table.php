@@ -18,6 +18,7 @@ class m170712_041257_create_service_discounts_table extends Migration {
                     'discount_type' => $this->integer()->comment('1=percentage,2=fixed'),
                     'discount_value' => $this->string(200),
                     'total_amount' => $this->string(200),
+                    'date' => $this->date(),
                 ]);
                 $this->addForeignKey("fk_discount_service_id", "service_discounts", "service_id", "service", "id", "RESTRICT", "RESTRICT");
         }

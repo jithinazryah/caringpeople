@@ -117,8 +117,10 @@ class ServiceController extends Controller {
                                 $model->rate_card_value = $ratecard->$type;
                                 $registration = 0;
                                 if ($model->registration_fees == 1) {
-                                        $registration = 1000;
+                                        $registration = $model->registration_fees_amount;
                                 }
+
+
                                 $model->due_amount = $model->estimated_price + $registration;
                                 $model->update();
                                 $this->ServiceSchedule($model);

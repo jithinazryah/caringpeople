@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 <?php
                                                                 if (Yii::$app->user->identity->branch_id != '0') {
-                                                                        $partner_datas = \common\models\Service::find()->where(['<>', 'status', 2])->andWhere(['branch_ids' => Yii::$app->user->identity->branch_id])->all();
+                                                                        $partner_datas = \common\models\Service::find()->where(['<>', 'status', 2])->andWhere(['branch_id' => Yii::$app->user->identity->branch_id])->all();
                                                                 } else {
                                                                         $partner_datas = \common\models\Service::find()->where(['<>', 'status', 2])->all();
                                                                 }

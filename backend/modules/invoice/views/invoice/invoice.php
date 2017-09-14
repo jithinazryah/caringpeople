@@ -408,27 +408,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 $('#w1').submit(function (e) {
                         var reference_no = $('#invoice-reference_no').val();
-                        $.ajax({
-                                url: homeUrl + 'report/referenceno',
-                                'async': false,
-                                'type': "POST",
-                                'global': false,
-                                data: {reference_no: reference_no},
-                                beforeSend: function () {
-                                        showLoader();
-                                }
-                        })
-                                .done(function (data) {
-                                        if (data == 0) {
-                                                return true;
-
-                                        } else {
-                                                $('.error').show();
-                                                e.preventDefault();
-                                                hideLoader();
-                                                return false;
+                        if (reference_no) {
+                                $.ajax({
+                                        url: homeUrl + 'report/referenceno',
+                                        'async': false,
+                                        'type': "POST",
+                                        'global': false,
+                                        data: {reference_no: reference_no},
+                                        beforeSend: function () {
+                                                showLoader();
                                         }
-                                });
+                                })
+                                        .done(function (data) {
+                                                if (data == 0) {
+                                                        return true;
+
+                                                } else {
+                                                        $('.error').show();
+                                                        e.preventDefault();
+                                                        hideLoader();
+                                                        return false;
+                                                }
+                                        });
+                        }
 
                 });
 

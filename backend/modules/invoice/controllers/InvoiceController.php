@@ -35,11 +35,14 @@ class InvoiceController extends Controller {
          * Lists all Invoice models.
          * @return mixed
          */
-        public function actionIndex() {
+        public function actionIndex($id = null) {
                 $searchModel = new InvoiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
+                }
+                if (!empty($id)) {
+                        $dataProvider->query->andWhere(['service_id' => $id]);
                 }
 
                 if (!empty(Yii::$app->request->queryParams['InvoiceSearch']['status'])) {
