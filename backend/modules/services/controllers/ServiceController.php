@@ -241,6 +241,7 @@ class ServiceController extends Controller {
                                         }
                                         $day_schedule->patient_id = $model->patient_id;
                                         $day_schedule->status = 1;
+                                        $day_schedule->day_night = 1;
                                         $day_schedule->rate = 0;
 
                                         $night_schedule->service_id = $model->id;
@@ -249,9 +250,10 @@ class ServiceController extends Controller {
                                         }
                                         $night_schedule->patient_id = $model->patient_id;
                                         $night_schedule->status = 1;
+                                        $night_schedule->day_night = 2;
                                         $night_schedule->rate = 0;
-                                        $night_schedule->save(false);
                                         $day_schedule->save(false);
+                                        $night_schedule->save(false);
                                 }
                         } else {
                                 for ($x = 0; $x < $schedule_count; $x++) {

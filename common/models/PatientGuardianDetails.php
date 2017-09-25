@@ -45,7 +45,8 @@ class PatientGuardianDetails extends \yii\db\ActiveRecord {
                     //[['id'], 'required'],
                         [['id', 'patient_id', 'gender', 'pincode', 'contact_number'], 'integer'],
                         [['permanent_address'], 'string'],
-                        [['first_name', 'last_name', 'id_card_or_passport_no', 'religion', 'nationality', 'occupatiion', 'landmark', 'email', 'adhar_card_no', 'passport', 'driving_license', 'pan_card', 'voters_id'], 'string', 'max' => 100],
+                        [['first_name', 'last_name', 'id_card_or_passport_no', 'religion', 'nationality', 'occupatiion', 'landmark', 'email', 'adhar_card_no', 'passport', 'driving_license', 'pan_card', 'voters_id', 'police_station_name', 'police_station_email', 'panchayath_name', 'ward_no', 'contact_person_name', 'contact_person_mobile_no', 'diagnosis'], 'string', 'max' => 100],
+                        [['police_station_email', 'email'], 'email'],
                 ];
         }
 
@@ -74,6 +75,13 @@ class PatientGuardianDetails extends \yii\db\ActiveRecord {
                     'pan_card' => 'Pan Card',
                     'voters_id' => 'Voters ID',
                     'guardian_profile_image' => 'Guardian Image',
+                    'police_station_name' => 'Police Station Name',
+                    'police_station_email' => 'Police Station Email',
+                    'panchayath_name' => 'Panchayath / Munciplaity Name',
+                    'ward_no' => 'Ward No',
+                    'contact_person_name' => 'Contact Person Name',
+                    'contact_person_mobile_no' => 'Contact Person Mobile No',
+                    'diagnosis' => 'Diagnosis',
                 ];
         }
 

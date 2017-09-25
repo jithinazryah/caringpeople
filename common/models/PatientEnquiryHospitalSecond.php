@@ -42,7 +42,7 @@ class PatientEnquiryHospitalSecond extends \yii\db\ActiveRecord {
                 return [
                         [['diabetic', 'feeding', 'urine', 'oxygen', 'care_currently_provided'], 'required'],
                         [['enquiry_id', 'family_support', 'care_currently_provided', 'difficulty_in_movement'], 'integer'],
-                        [['family_support_note', 'details_of_current_care', 'difficulty_in_movement_other'], 'string'],
+                        [['family_support_note', 'details_of_current_care', 'difficulty_in_movement_other', 'diagnosis'], 'string'],
                         [['date_of_discharge'], 'safe'],
                         [['diabetic', 'diabetic_note', 'hypertension', 'feeding', 'urine', 'oxygen', 'tracheostomy', 'iv_line', 'care_currently_provided_others'], 'string', 'max' => 200],
                 ];
@@ -71,6 +71,7 @@ class PatientEnquiryHospitalSecond extends \yii\db\ActiveRecord {
                     'details_of_current_care' => 'Details Of Current Care',
                     'difficulty_in_movement' => 'Difficulty In Movement',
                     'difficulty_in_movement_other' => 'Difficulty In Movement Other',
+                    'diagnosis' => 'Diagnosis',
                 ];
         }
 

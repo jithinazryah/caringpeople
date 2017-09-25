@@ -28,7 +28,7 @@ use common\models\StaffInfo;
 
         </div>
 
-        
+
 
         <div class="table-responsive">
 
@@ -36,9 +36,9 @@ use common\models\StaffInfo;
                         <thead>
                                 <tr>
                                         <th style="width:10px;">No</th>
+                                        <?php if ($model->duty_type == 5) { ?>  <th style="width:10px;">Duty</th><?php } ?>
                                         <th>Date</th>
                                         <th>Staff on duty</th>
-
                                         <th>Remarks from patient</th>
                                         <th>Staff Rating</th>
                                         <th>Status</th>
@@ -51,6 +51,8 @@ use common\models\StaffInfo;
                         <tbody>
                                 <?php
                                 $p = 0;
+
+
                                 foreach ($service_schedule as $value) {
                                         $p++;
 
@@ -68,7 +70,21 @@ use common\models\StaffInfo;
                                         }
                                         ?>
                                         <tr  id="<?= $value->id; ?>" style="text-align:center" class="<?= $class; ?>">
-                                                <td><?= $p; ?></td>
+                                                <td>
+                                                        <?= $p ?>
+                                                </td>
+
+                                                <?php if ($model->duty_type == 5) { ?>
+                                                        <td><span>
+                                                                        <?php
+                                                                        if ($value->day_night == 1) {
+                                                                                echo 'Day';
+                                                                        } else {
+                                                                                echo 'Night';
+                                                                        }
+                                                                        ?>
+                                                                </span> </td>
+                                                <?php } ?>
 
                                                 <td><?php
                                                         if (isset($value->date) && $value->date != '' && $value->date != '1970-01-01') {

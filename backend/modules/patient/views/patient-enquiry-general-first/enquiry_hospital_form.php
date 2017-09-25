@@ -43,7 +43,7 @@ use kartik\select2\Select2;
 
         </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital, 'patient_weight')->textInput() ?>
 
-        </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd'>  <?= $form->field($patient_hospital, 'relationship')->dropDownList(['' => '--Select--', '0' => 'Spouse', '1' => 'parent', '2' => 'Grandparent', '3' => 'Others']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>  <?= $form->field($patient_hospital, 'relationship')->dropDownList(['' => '--Select--', '0' => 'Spouse', '1' => 'parent', '2' => 'Grandparent', '3' => 'Others']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="relationship_others">    <?= $form->field($patient_hospital, 'relationship_others')->textInput(['maxlength' => true]) ?>
 
@@ -94,14 +94,14 @@ use kartik\select2\Select2;
                                 $doctorlis = \common\models\ContactDirectory::find()->where(['subcategory_type' => $data->hospital_name, 'designation' => 13])->all();
                                 ?>
                                 <span>
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-patientenquiryhospitaldetails-hospital_name">
                                                         <label class="control-label">Hospital Name</label>
                                                         <?= Html::dropDownList('updatee[' . $data->id . '][hospital_name][]', $selected, ArrayHelper::map($hospital_name, 'id', 'sub_category'), ['class' => 'form-control hospital', 'prompt' => '--Select--', 'id' => 'hospital_' . $rand_1]); ?>
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
                                                         <label class="control-label" for="">Consultant Doctor</label>
                                                         <?= Html::dropDownList('updatee[' . $data->id . '][consultant_doctor][]', $doctor, ArrayHelper::map($doctorlis, 'id', 'name'), ['class' => 'form-control doctor', 'prompt' => '--Select--', 'id' => 'doctor']); ?>
@@ -109,7 +109,7 @@ use kartik\select2\Select2;
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                 <div class="form-group field-patientenquiryhospitaldetails-department">
                                                         <label class="control-label">Department</label>
                                                         <input type="text" class="form-control" name="updatee[<?= $data->id; ?>][department][]" value="<?= $data->department; ?>" id="department_<?= $rand_1 ?>">
@@ -123,9 +123,9 @@ use kartik\select2\Select2;
                                                 </div>
                                         </div>
 
-                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                                <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" style="margin-top:15px;"><i class="fa-remove"></i></a>
-                                        </div>
+
+                                        <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" style="margin-top:15px;"><i class="fa-remove"></i></a>
+
                                         <div style="clear:both"></div>
                                 </span>
                                 <hr style="border-top: 1px solid #979898 !important;">
@@ -151,7 +151,7 @@ use kartik\select2\Select2;
                                 $hospital_name = [];
                         }
                         ?>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-hospital_name">
                                         <label class="control-label">Hospital Name</label>
 
@@ -161,7 +161,7 @@ use kartik\select2\Select2;
                                 </div>
 
                         </div>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
                                         <label class="control-label" for="">Consultant Doctor</label>
                                         <select name="addhospital[consultant_doctor][]" class="form-control doctor" id="doctor_4"></select>
@@ -169,7 +169,7 @@ use kartik\select2\Select2;
 
                                 </div>
                         </div>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-patientenquiryhospitaldetails-department">
                                         <label class="control-label">Department</label>
                                         <input type="text" class="form-control" name="addhospital[department][]" id="department_4">
@@ -245,6 +245,8 @@ use kartik\select2\Select2;
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_hospital_second, 'difficulty_in_movement')->dropDownList(['' => '--Select--', '1' => 'No difficulty', '2' => 'Assistance required', '3' => 'Wheelchair', '4' => 'Bedridden', '5' => 'Other']) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd' id="difficulty_in_movement_other">    <?= $form->field($patient_hospital_second, 'difficulty_in_movement_other')->textarea(['rows' => 1]) ?>
+
+        </div><div class='col-md-8 col-sm-6 col-xs-12 left_padd' id="difficulty_in_movement_other">    <?= $form->field($patient_hospital_second, 'diagnosis')->textarea(['rows' => 1]) ?>
 
         </div>
 

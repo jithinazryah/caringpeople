@@ -46,15 +46,15 @@ use common\models\Branch;
 
 
                 <div class="row">
-   
 
-                      <?php
- $branch= Branch::Branch();
+
+                        <?php
+                        $branch = Branch::Branch();
                         //if (Yii::$app->user->identity->branch_id == '0') {
-                                $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
-                                ?>
-                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
-                                </div>
+                        $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
+                        ?>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'branch_id')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                        </div>
                         <?php //} ?>
 
 
@@ -131,7 +131,7 @@ use common\models\Branch;
 
                         </div>
 
-                        
+
 
 
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
@@ -260,6 +260,27 @@ use common\models\Branch;
                         ?>
                 </div>
 
+
+                <div style="clear:both"></div>
+                <h4 class="h4-labels">Other Details</h4>
+                <hr class="enquiry-hr"/>
+
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'police_station_name')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'police_station_email')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'panchayath_name')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'ward_no')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_person_name')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_person_mobile_no')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'diagnosis')->textarea(['rows' => 2]) ?>
+
+                </div>
+
                 <div style="clear:both"></div>
                 <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_general, 'terms_conditions', ['template' => "<label class='cbr-inline top'>{input}<a href='javascript:;' target='_blank' href='#' class='terms' id='2'>I agree to the terms and conditions</a></label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;', 'label' => '']) ?>
 
@@ -332,19 +353,19 @@ use common\models\Branch;
 
 
 <script>
-$(document).ready(function(){
-   $('#patientgeneral-branch_id').change(function(){
-     var branch=$(this).val();
-     $.ajax({
-                        type: 'POST',
-                        cache: false,
-                        data: {branch: branch},
-                        url: homeUrl + 'ajax/patientid',
-                        success: function (data) {
-                            
-                              $('#patientgeneral-patient_id').val(data);
-                        }
+        $(document).ready(function () {
+                $('#patientgeneral-branch_id').change(function () {
+                        var branch = $(this).val();
+                        $.ajax({
+                                type: 'POST',
+                                cache: false,
+                                data: {branch: branch},
+                                url: homeUrl + 'ajax/patientid',
+                                success: function (data) {
+
+                                        $('#patientgeneral-patient_id').val(data);
+                                }
+                        });
                 });
-   });
-});
+        });
 </script>

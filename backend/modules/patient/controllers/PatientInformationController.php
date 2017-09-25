@@ -147,6 +147,7 @@ class PatientInformationController extends Controller {
                                 $enquiry_data->patient_id = $patient_general->id;
                                 $enquiry_data->update();
                                 $guardian_details = $this->SaveGuardianDetials($guardian_details, $enquiry_data, $patient_general, $guardian_contact_details);
+                                $guardian_details->diagnosis = $patient_hospital_second->diagnosis;
                                 $guardian_details->save();
                         }
                         $chronic_imformation->patient_id = $patient_general->id;

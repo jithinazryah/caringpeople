@@ -185,7 +185,7 @@ class AjaxController extends \yii\web\Controller {
 
                                 $data = "<span>
 <hr style='border-top: 1px solid #979898 !important;'>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-hospital_name'>
                                         <label class='control-label'>Hospital Name</label>
                                         $options
@@ -194,14 +194,14 @@ class AjaxController extends \yii\web\Controller {
 
                         </div>
 
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-consultant_doctor'>
                                         <label class='control-label' for=''>Consultant Doctor</label>
                                          <select name='addhospital[consultant_doctor][]' class='form-control' id='doctor_$count'></select>
                                                  <a class='add-option-dropdown add-new' id='doctor_$count-1' style='margin-top:0px;'> + Add New</a>
                                 </div>
                         </div>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-patientenquiryhospitaldetails-department'>
                                         <label class='control-label'>Department</label>
                                         <input type='text' class='form-control' name='addhospital[department][]' id='department_$count'>
