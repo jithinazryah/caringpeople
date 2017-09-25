@@ -136,12 +136,24 @@ class PatientInformationController extends Controller {
                 $patient_general = $this->SavePatientDatas($patient_general, $enquiry_patient_details, $enquiry_data, $id);
                 $patient_hospital_second = PatientEnquiryHospitalSecond::find()->where(['enquiry_id' => $id])->one();
                 $patient_assessment = PatientAssessment::find()->where(['patient_enquiry_id' => $id])->one();
-
                 $hospital_details = PatientEnquiryHospitalDetails::findAll(['enquiry_id' => $id]);
+                if ($enquiry_data->branch_id == 1) {
+                        $branch = 'CPCU';
+                        $settings = \common\models\Settings::findOne(1);
+                        $code = $settings->auto_number;
+                } else {
+                        $branch = 'CPBU';
+                        $settings = \common\models\Settings::findOne(2);
+                        $code = $settings->auto_number;
+                }
+                $codes = $branch . '-' . date('d') . date('m') . date('y') . '-' . $code;
+                $settings->auto_number = $settings->auto_number + 1;
+                $settings->save(FALSE);
 
 
                 $transaction = PatientGeneral::getDb()->beginTransaction();
                 try {
+                        $patient_general->patient_id = $codes;
                         if ($patient_general->save(false)) {
                                 $enquiry_data->status = 3;
                                 $enquiry_data->patient_id = $patient_general->id;

@@ -111,4 +111,10 @@ class Branch extends \yii\db\ActiveRecord {
                 return $branch;
         }
 
+        public static function Allbranch() {
+
+                $branch = Branch::find()->where(['status' => 1])->all();
+                return $branch;
+        }
+
 }

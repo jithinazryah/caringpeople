@@ -52,7 +52,6 @@ class StaffInfoController extends Controller {
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-                $dataProvider->query->andWhere(['<>', 'id', 3000]);
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
@@ -138,7 +137,21 @@ class StaffInfoController extends Controller {
                 $staff_salary = new StaffSalary();
                 $model = \common\models\StaffEnquiry::findOne($id);
 
+                if ($model->branch_id == 1) {
+                        $branch = 'CPCS';
+                        $settings = \common\models\Settings::findOne(3);
+                        $code = $settings->auto_number;
+                } else {
+                        $branch = 'CPBS';
+                        $settings = \common\models\Settings::findOne(4);
+                        $code = $settings->auto_number;
+                }
+                $codes = $branch . '-' . date('d') . date('m') . date('y') . '-' . $code;
+                $settings->auto_number = $settings->auto_number + 1;
+                $settings->save(FALSE);
+
                 $staff_info->staff_enquiry_id = $id;
+                $staff_info->staff_id = $codes;
                 $staff_info->staff_name = $model->name;
                 $staff_info->gender = $model->gender;
                 $staff_info->contact_no = $model->phone_number;

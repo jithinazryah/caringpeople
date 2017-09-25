@@ -28,3 +28,15 @@ use yii\widgets\ActiveForm;
         <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<script src="<?= Yii::$app->homeUrl; ?>js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+
+        CKEDITOR.replace('ckeditor',
+                {
+                        toolbar: 'Basic', /* this does the magic */
+                        height: '100px',
+
+                });
+</script>

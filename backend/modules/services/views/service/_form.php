@@ -112,7 +112,7 @@ use yii\db\Expression;
                                 if (!$model->isNewRecord) {
                                         $model->from_date = date('d-m-Y', strtotime($model->from_date));
                                 } else {
-                                        $model->from_date = '';
+                                        $model->from_date = date('d-m-Y');
                                 }
                                 echo DatePicker::widget([
                                     'model' => $model,
@@ -189,6 +189,10 @@ use yii\db\Expression;
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd registration_fees_amount' style="<?= $style ?>">
                                 <?= $form->field($model, 'registration_fees_amount')->textInput(['maxlength' => true]) ?>
 
+                        </div>
+
+                        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'client_notes')->textarea(['rows' => 2]) ?>
                         </div>
 
                 </div>
@@ -437,6 +441,18 @@ use yii\db\Expression;
                                         </tr>
 
 
+                                        <?php if (isset($model->client_notes)) { ?>
+                                                <tr>
+                                                        <td class = "labell" colspan="6">Client Notes :</td>
+
+                                                </tr>
+                                                <tr>
+
+                                                        <td colspan="6">
+                                                                <?= $model->client_notes ?>
+                                                        </td>
+                                                </tr>
+                                        <?php } ?>
 
 
                                 </table>

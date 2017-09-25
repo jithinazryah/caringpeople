@@ -48,7 +48,8 @@ class ServiceController extends Controller {
 
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
-                }if (Yii::$app->session['post']['id'] != '1') {
+                }
+                if (Yii::$app->session['post']['id'] != '1' && Yii::$app->session['post']['id'] != '13') {
                         $dataProvider->query->andWhere(new Expression('FIND_IN_SET(:staffs, service_staffs)'))->addParams([':staffs' => Yii::$app->user->identity->id])->orWhere(['staff_manager' => Yii::$app->user->identity->id]);
                 }
 

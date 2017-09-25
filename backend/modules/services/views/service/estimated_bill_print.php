@@ -265,7 +265,7 @@ and open the template in the editor.
 
 <!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                              ?></td>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                                   ?></td>
                 </tr>-->
 
 
@@ -280,12 +280,14 @@ and open the template in the editor.
                                 <p style="border-bottom: 1px dotted #000;"><?php echo Yii::$app->NumToWord->convert_number_to_words($grand_total) . " Rupees Only"; ?></p>
                         </td>
                 </tr>
-                <tr style="visibility:hidden">
-                        <td>Bank Name:</td>
-                        <td><p style="border-bottom: 1px dotted #000;"></p></td>
-                        <td>Cheque No:</td>
-                        <td><p style="border-bottom: 1px dotted #000;"></p></td>
+
+
+
+                <tr>
+                        <td style="font-style:italic">*Notes:</td>
+                        <td colspan="3"><?= $model->client_notes ?></td>
                 </tr>
+
                 <tr>
                         <td colspan="2" bgcolor="#eee">For Payment through RTGS/NEFT Mode</td>
                         <!--<td></td>-->

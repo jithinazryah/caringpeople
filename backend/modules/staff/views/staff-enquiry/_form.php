@@ -18,7 +18,7 @@ use common\models\MasterDesignations;
 
 <div class="staff-info-form form-inline">
 
-<?php if (!$model->isNewRecord) { ?>
+        <?php if (!$model->isNewRecord) { ?>
                 <div class="row">
                         <div class="col-md-8">
                                 <h4 class="h4-labels"></h4>
@@ -107,7 +107,7 @@ use common\models\MasterDesignations;
         <?php } ?>
 
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?php // $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true])       ?></div>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?php // $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true])            ?></div>
         <div style="clear:both"></div>
 
         <div id = "p_attach">
@@ -201,7 +201,7 @@ use common\models\MasterDesignations;
         <div class="form-group" >
                 <?= Html::submitButton($staff_enquiry->isNewRecord ? 'Create' : 'Update', ['class' => $staff_enquiry->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
                 <?php
-                if (!$staff_enquiry->isNewRecord && $staff_enquiry->proceed != 1) {
+                if ((!$staff_enquiry->isNewRecord) && $staff_enquiry->proceed != 1) {
                         echo Html::submitButton('Proceed to Staff', ['name' => 'proceed', 'class' => 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:125px;']);
                 }
                 ?>

@@ -122,6 +122,17 @@ $designations = \common\models\MasterDesignations::designationlist();
                                             [
                                                 'class' => 'yii\grid\ActionColumn',
                                                 'template' => ' {update} {delete} {estimated}  {invoice}', // the default buttons + your custom button
+                                                'visibleButtons' => [
+                                                    'delete' => function ($model, $key, $index) {
+                                                            return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                    },
+                                                    'estimated' => function ($model, $key, $index) {
+                                                            return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                    },
+                                                    'invoice' => function ($model, $key, $index) {
+                                                            return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                    }
+                                                ],
                                                 'buttons' => [
                                                     'estimated' => function($url, $model, $key) {     // render your custom button
                                                             return Html::a('<span class="fa fa-print" style="padding-top: 0px;"></span>', ['service/estimated-bill', 'id' => $model->id], [

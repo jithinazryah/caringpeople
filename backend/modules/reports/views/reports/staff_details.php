@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 <div class="col-md-6">
 
-                                                                         <p>Staff Id:
+                                                                        <p>Staff Id:
                                                                                 <span><?php
                                                                                         if (isset($staff) && $staff != '') {
                                                                                                 $staff_details = StaffInfo::findOne($staff);
@@ -77,6 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 ['class' => 'yii\grid\SerialColumn'],
                                                                 [
                                                                 'attribute' => 'date',
+                                                                'value' => function($data) {
+                                                                        if (isset($data->date))
+                                                                                return date('d-m-Y', strtotime($data->date));
+                                                                },
                                                                 'filter' => '',
                                                             ],
                                                                 [

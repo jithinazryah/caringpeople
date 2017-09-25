@@ -128,6 +128,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         ['class' => 'yii\grid\SerialColumn'],
                                                                         [
                                                                         'attribute' => 'date',
+                                                                        'value' => function($data) {
+                                                                                if (isset($data->date))
+                                                                                        return date('d-m-Y', strtotime($data->date));
+                                                                        },
                                                                         'filter' => '',
                                                                     ],
                                                                         [
@@ -306,13 +310,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 ?>
                                                         </div>
 
-        <?php
-} else {
-        if (isset($model->staff) && $model->staff != '') {
-                echo '<p class="no-result">No results found !!</p>';
-        }
-}
-?>
+                                                        <?php
+                                                } else {
+                                                        if (isset($model->staff) && $model->staff != '') {
+                                                                echo '<p class="no-result">No results found !!</p>';
+                                                        }
+                                                }
+                                                ?>
 
 
 

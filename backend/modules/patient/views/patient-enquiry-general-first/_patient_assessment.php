@@ -155,8 +155,12 @@ use common\models\StaffExperienceList;
                 } else {
                         ?>
                         <?= Html::submitButton($patient_assessment->isNewRecord ? 'Create' : 'Update', ['class' => $patient_assessment->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
-                        <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
-                <?php } ?>
+                        <?php if (!$patient_info->isNewRecord && $patient_info->status != 3) { ?>
+                                <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
+                                <?php
+                        }
+                }
+                ?>
         </div>
 </div>
 

@@ -14,12 +14,12 @@ use common\models\MasterDesignations;
 /* @var $model common\models\StaffInfo */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php $posts = \common\models\AdminPosts::find()->orderBy(['post_name' => SORT_ASC])->all(); ?>
+
 
 <div class="staff-info-form form-inline">
-    
-        
-     <div class="row">
+
+
+        <div class="row">
                 <div class="col-md-8">
                         <h4 class="h4-labels"></h4>
 
@@ -48,16 +48,18 @@ use common\models\MasterDesignations;
 
 
         </div>
-    
 
- <?php
-    $branch= Branch::Branch();
-       // if (Yii::$app->user->identity->branch_id == '0') {
-                $branches = Branch::find()->where(['status' => '1'])->all();
-                ?>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
-                </div>
-        <?php //} ?>
+
+        <?php
+        if (Yii::$app->user->identity->branch_id == '0') {
+                $branch = Branch::Allbranch();
+        } else {
+                $branch = Branch::Branch();
+        }
+        ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+        </div>
+
 
 
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'staff_id')->textInput(['maxlength' => true]) ?>
@@ -80,7 +82,13 @@ use common\models\MasterDesignations;
 
         <?php } ?>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd' >
-
+                <?php
+                if (Yii::$app->session['post']['id'] == '1') {
+                        $posts = \common\models\AdminPosts::find()->orderBy(['post_name' => SORT_ASC])->all();
+                } else {
+                        $posts = \common\models\AdminPosts::find()->where(['id' => 5])->orderBy(['post_name' => SORT_ASC])->all();
+                }
+                ?>
                 <?= $form->field($model, 'post_id')->dropDownList(ArrayHelper::map($posts, 'id', 'post_name'), ['prompt' => '--Select--']) ?>
 
 
@@ -118,7 +126,7 @@ use common\models\MasterDesignations;
                             'name' => 'StaffInfo[dob]',
                             'type' => DatePicker::TYPE_INPUT,
                             'value' => $model->dob,
-                            'id'=>'dob',
+                            'id' => 'dob',
                             'pluginOptions' => [
                                 'autoclose' => true,
                                 'format' => 'dd-mm-yyyy',
@@ -129,7 +137,7 @@ use common\models\MasterDesignations;
 
                 </div>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'age')->textInput(['maxlength' => true,'id'=>'age']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'age')->textInput(['maxlength' => true, 'id' => 'age']) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>  <?php $religion = Religion::find()->where(['status' => '1'])->orderBy(['religion' => SORT_ASC])->all(); ?>  <?= $form->field($model, 'religion')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control religion-change']) ?>
 
@@ -187,7 +195,7 @@ use common\models\MasterDesignations;
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'licence_no')->textInput(['maxlength' => true]) ?>
 
         </div>
-        
+
         <div style="clear: both"></div>
 
         <h4 style="color:#000;font-style: italic;">Educational Qualification</h4>
@@ -204,7 +212,7 @@ use common\models\MasterDesignations;
 
         </div> <div style="clear:both"></div>
 
-      <div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="margin-top: 20px;font-size: 17px;color:#000;"> <span >HSE </span></div>
+        <div class='col-md-1 col-sm-6 col-xs-12 left_padd' style="margin-top: 20px;font-size: 17px;color:#000;"> <span >HSE </span></div>
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_edu, 'hse_institution')->textInput(['maxlength' => true]) ?>
 
@@ -258,7 +266,7 @@ use common\models\MasterDesignations;
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
-                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--','id' => 'atachment_' . $rand]); ?>
+                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
                                         <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
 
                                 </div>
@@ -334,20 +342,20 @@ use common\models\MasterDesignations;
 
 
 <script>
-$(document).ready(function(){
-   $('#staffinfo-branch_id').change(function(){
-     var branch=$(this).val();
-     $.ajax({
-                        type: 'POST',
-                        cache: false,
-                        data: {branch: branch},
-                        url: homeUrl + 'ajax/staffid',
-                        success: function (data) {
-                            
-                              $('#staffinfo-staff_id').val(data);
-                        }
+        $(document).ready(function () {
+                $('#staffinfo-branch_id').change(function () {
+                        var branch = $(this).val();
+                        $.ajax({
+                                type: 'POST',
+                                cache: false,
+                                data: {branch: branch},
+                                url: homeUrl + 'ajax/staffid',
+                                success: function (data) {
+
+                                        $('#staffinfo-staff_id').val(data);
+                                }
+                        });
                 });
-   });
-});
+        });
 </script>
 
