@@ -42,10 +42,10 @@ class TermsAndConditionsController extends Controller {
                 }
 
                 return $this->render('index', [
-			    'searchModel' => $searchModel,
-			    'dataProvider' => $dataProvider,
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
                             'model' => $model,
-		]);
+                ]);
         }
 
         /**
@@ -84,17 +84,14 @@ class TermsAndConditionsController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
-                $searchModel = new TermsAndConditionsSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
                         return $this->redirect(['index']);
                 } else {
-                        return $this->render('index', [
-			    'searchModel' => $searchModel,
-			    'dataProvider' => $dataProvider,
-                            'model' => $model,
-		]);
+                        return $this->render('update', [
+                                    'model' => $model,
+                        ]);
                 }
         }
 

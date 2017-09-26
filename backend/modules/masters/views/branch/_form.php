@@ -60,7 +60,9 @@ use common\models\City;
         <h4 class="h4-labels">Bank Details</h4>
         <hr class="enquiry-hr"/>
 
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'bank_name')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'account_holder')->textInput(['maxlength' => true]) ?>
+
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'bank_name')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'bank_account')->textInput(['maxlength' => true]) ?>
 

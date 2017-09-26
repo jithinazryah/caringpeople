@@ -1256,7 +1256,7 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                 <h4 class="modal-title" style="font-weight: bold">Terms and Conditions</h4>
                         </div>
 
-                        <div class="modal-body">
+                        <div class="modal-body" style="height:535px;overflow-y: auto">
                                 Loading...
                         </div>
 

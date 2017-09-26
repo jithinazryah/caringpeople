@@ -138,15 +138,17 @@ and open the template in the editor.
                                                         <div>
                                                                 <img src="<?= Yii::$app->homeUrl ?>images/logos/logo-1.png" height="100"/>
                                                         </div>
-
                                                         <div style="">
+                                                                <?php
+                                                                $branch = Branch::findOne($model->branch_id);
+                                                                ?>
                                                                 <table style="width:100%">
-                                                                        <?php
-                                                                        $branch_detail = Branch::findOne($model->branch_id);
-                                                                        ?>
                                                                         <tr>
-                                                                                <td class="company_address"> <?= $branch_detail->address ?></td>
+                                                                                <td class="company_address"> <?= $branch->address ?></td>
                                                                         </tr>
+<!--                                                                        <tr><td  class="company_address">Door No.5, DD Vyapar Bhavan, K.P Vallon Road, Kavandthra Jn</td></tr>
+                                                                        <tr><td class="company_address">Kochi-20 | Tel:0484 4033505</td></tr>
+                                                                        <tr><td class="company_address">www.caringpeople.in , Email :info@caringpeople.in , Helpline No: 90 20 599 599</td></tr>-->
                                                                 </table>
                                                         </div>
                                                 </div>
@@ -372,7 +374,7 @@ and open the template in the editor.
 
 <!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                                                  ?></td>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                             ?></td>
                 </tr>-->
 
 
@@ -388,7 +390,12 @@ and open the template in the editor.
                         </td>
                 </tr>
 
-
+                <tr style="visibility:hidden">
+                        <td>Bank Name:</td>
+                        <td><p style="border-bottom: 1px dotted #000;"></p></td>
+                        <td>Cheque No:</td>
+                        <td><p style="border-bottom: 1px dotted #000;"></p></td>
+                </tr>
 
                 <tr>
                         <td style="font-style:italic">*Notes:</td>
@@ -403,6 +410,16 @@ and open the template in the editor.
                 <?php
                 $branch = Branch::findOne($model->branch_id);
                 ?>
+
+                <tr class="bank-details">
+                        <td style="width:222px;">Account Holder</td>
+                        <td style="width:200px;"><?php
+                                if (isset($branch->account_holder)) {
+                                        echo $branch->account_holder;
+                                }
+                                ?></td>
+                </tr>
+
                 <tr class="bank-details">
                         <td style="width:222px;">Bank</td>
                         <td style="width:200px;"><?php
@@ -437,16 +454,71 @@ and open the template in the editor.
                                 ?></td>
                 </tr>
 
-
+<!--                <tr>
+                        <td>
+                                <div>
+                                        <table class="table" style="width:100%!important">
+                                                <tr>
+                                                        <td>Bank</td>
+                                                        <td>State BAnk Of India</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Current Account No</td>
+                                                        <td>36717793170</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Branch</td>
+                                                        <td>Chilavannur, Kadavanthra</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>IFSC Code</td>
+                                                        <td>SBIN0016331</td>
+                                                </tr>
+                                        </table>
+                                </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                </tr>-->
         </table>
 
+<!--        <table class="table table4" style="border:none;">
+                <tr>
+                        <td style="border:none">
+                                <div>
+                                        <table class="table" >
+                <tr>
+                        <td>Bank</td>
+                        <td>State BAnk Of India</td>
+                </tr>
+                <tr>
+                        <td>Current Account No</td>
+                        <td>36717793170</td>
+                </tr>
+                <tr>
+                        <td>Branch</td>
+                        <td>Chilavannur, Kadavanthra</td>
+                </tr>
+                <tr>
+                        <td>IFSC Code</td>
+                        <td>SBIN0016331</td>
+                                                                        </tr>
+                                                                </table>
+                                                        </div>
+                                                </td>
+                                        </tr>
+        </table>-->
 
 
 
-
-
-
-
+        <table class="main-tabl">
+                <tr>
+                        <td>
+                                <p class="message" style="font-size:10px;font-style: italic">**This is a computer generated copy stamp or seal is not required.<p>
+                        </td>
+                </tr>
+        </table>
 
 
 </div>
@@ -470,7 +542,6 @@ and open the template in the editor.
                 <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
                 <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
                 <a href="<?= Yii::$app->homeUrl ?>services/service/print?id=<?= $model->id ?>"><button  class="print_btn print_btn_color">Save as PDF</button></a>
-
         </div>
 </div>
 <div style="clear:both"></div>

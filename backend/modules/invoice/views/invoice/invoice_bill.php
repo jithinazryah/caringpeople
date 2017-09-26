@@ -384,6 +384,16 @@ and open the template in the editor.
                 <?php
                 $branch = Branch::findOne($model->branch_id);
                 ?>
+
+                <tr class="bank-details">
+                        <td style="width:222px;">Account Holder</td>
+                        <td style="width:200px;"><?php
+                                if (isset($branch->account_holder)) {
+                                        echo $branch->account_holder;
+                                }
+                                ?></td>
+                </tr>
+
                 <tr class="bank-details">
                         <td style="width:222px;">Bank</td>
                         <td style="width:200px;"><?php

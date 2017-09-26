@@ -725,6 +725,7 @@ class ServiceajaxController extends \yii\web\Controller {
                         $service = Service::findOne($service_id);
                         $service->gender_preference = $_POST['service-staff-prefernce'];
                         $service->staff_manager = $_POST['service_staff_amanger'];
+                        $service->client_notes = $_POST['client_notes'];
                         $service->update();
                         $service->service_staffs = $this->Servicestaffs($service_id);
                         $service->update();

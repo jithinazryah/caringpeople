@@ -36,7 +36,7 @@ use common\models\StaffInfo;
                         <thead>
                                 <tr>
                                         <th style="width:10px;">No</th>
-                                        <?php if ($model->duty_type == 5) { ?>  <th style="width:10px;">Duty</th><?php } ?>
+                                        <?php if ($model->duty_type == 5 && $model->day_night_staff == 2) { ?>  <th style="width:10px;">Duty</th><?php } ?>
                                         <th>Date</th>
                                         <th>Staff on duty</th>
                                         <th>Remarks from patient</th>
@@ -74,12 +74,12 @@ use common\models\StaffInfo;
                                                         <?= $p ?>
                                                 </td>
 
-                                                <?php if ($model->duty_type == 5) { ?>
+                                                <?php if ($model->duty_type == 5 && $model->day_night_staff == 2) { ?>
                                                         <td><span>
                                                                         <?php
                                                                         if ($value->day_night == 1) {
-                                                                                echo 'Day';
-                                                                        } else {
+                                                                                echo '<span> Day </span>';
+                                                                        } else if ($value->day_night == 2) {
                                                                                 echo 'Night';
                                                                         }
                                                                         ?>

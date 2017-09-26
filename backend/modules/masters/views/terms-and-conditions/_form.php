@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'type')->dropDownList(['' => '--Select--', '1' => 'Patient Enquiry', '2' => 'Patient', '3' => 'Staff Enquiry', '4' => 'Staff']) ?>
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'note')->textarea(['rows' => 2]) ?>
+        </div><div class='col-md-12 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'note')->textarea(['rows' => 2]) ?>
 
         </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($model, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
 
@@ -33,10 +33,10 @@ use yii\widgets\ActiveForm;
 <script src="<?= Yii::$app->homeUrl; ?>js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 
-        CKEDITOR.replace('ckeditor',
+        CKEDITOR.replace('termsandconditions-note',
                 {
                         toolbar: 'Basic', /* this does the magic */
-                        height: '100px',
+                        //       height: '100px',
 
                 });
 </script>
