@@ -296,7 +296,7 @@ use common\models\StaffInfo;
                 cursor: pointer;
         }
         table td{
-                padding: 0 !important;
+                padding: 3px !important;
         }
         table td .sorting_1{
                 text-align: center !important;

@@ -20,13 +20,15 @@ use yii\data\ActiveDataProvider;
  */
 class ReportsController extends Controller {
 
-        public function init() {
-
-                if (Yii::$app->user->isGuest)
+        public function beforeAction($action) {
+                if (!parent::beforeAction($action)) {
+                        return false;
+                }
+                if (Yii::$app->user->isGuest) {
                         $this->redirect(['/site/index']);
-
-                if (Yii::$app->session['post']['attendance'] != 1)
-                        $this->redirect(['/site/home']);
+                        return false;
+                }
+                return true;
         }
 
         /**
