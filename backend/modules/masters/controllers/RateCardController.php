@@ -14,6 +14,17 @@ use yii\filters\VerbFilter;
  */
 class RateCardController extends Controller {
 
+        public function beforeAction($action) {
+                if (!parent::beforeAction($action)) {
+                        return false;
+                }
+                if (Yii::$app->user->isGuest) {
+                        $this->redirect(['/site/index']);
+                        return false;
+                }
+                return true;
+        }
+
         /**
          * @inheritdoc
          */
@@ -80,7 +91,7 @@ class RateCardController extends Controller {
          * @param integer $id
          * @return mixed
          */
-         public function actionUpdate($id) {
+        public function actionUpdate($id) {
                 $model = $this->findModel($id);
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate()) {

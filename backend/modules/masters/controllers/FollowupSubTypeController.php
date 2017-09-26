@@ -14,6 +14,17 @@ use yii\filters\VerbFilter;
  */
 class FollowupSubTypeController extends Controller {
 
+        public function beforeAction($action) {
+                if (!parent::beforeAction($action)) {
+                        return false;
+                }
+                if (Yii::$app->user->isGuest) {
+                        $this->redirect(['/site/index']);
+                        return false;
+                }
+                return true;
+        }
+
         /**
          * @inheritdoc
          */
@@ -42,10 +53,10 @@ class FollowupSubTypeController extends Controller {
                 }
 
                 return $this->render('index', [
-			    'searchModel' => $searchModel,
-			    'dataProvider' => $dataProvider,
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
                             'model' => $model,
-		]);
+                ]);
         }
 
         /**
@@ -91,10 +102,10 @@ class FollowupSubTypeController extends Controller {
                         return $this->redirect(['index']);
                 } else {
                         return $this->render('index', [
-			    'searchModel' => $searchModel,
-			    'dataProvider' => $dataProvider,
-                            'model' => $model,
-		]);
+                                    'searchModel' => $searchModel,
+                                    'dataProvider' => $dataProvider,
+                                    'model' => $model,
+                        ]);
                 }
         }
 
