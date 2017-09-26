@@ -33,7 +33,7 @@ use common\models\StaffExperienceList;
         }
         ?>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'skills_staffs']) ?>
-<a class="add-option-dropdown add-new" id="skills_staffs-4" type="<?= $type ?>" style="margin-top:0px;"> + Add New</a>
+                <a class="add-option-dropdown add-new" id="skills_staffs-4" type="<?= $type ?>" style="margin-top:0px;"> + Add New</a>
         </div>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>
 
@@ -359,6 +359,9 @@ use common\models\StaffExperienceList;
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'alt_contact_verified_by')->textInput(['maxlength' => true,]) ?>
 
         </div>
+
+
+
 
 
 

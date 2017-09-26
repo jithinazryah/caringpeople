@@ -41,7 +41,7 @@ class StaffOtherInfo extends \yii\db\ActiveRecord {
                 return [
                         [['staff_id'], 'integer'],
                         [['current_from', 'current_to'], 'safe'],
-                        [['hospital_address', 'designation', 'length_of_service', 'emergency_contact_name', 'relationship', 'phone', 'mobile', 'alt_emergency_contact_name', 'alt_relationship', 'alt_phone', 'alt_mobile', 'salary'], 'string', 'max' => 200],
+                        [['hospital_address', 'designation', 'length_of_service', 'emergency_contact_name', 'relationship', 'phone', 'mobile', 'alt_emergency_contact_name', 'alt_relationship', 'alt_phone', 'alt_mobile', 'salary', 'guardian_name', 'guardian_phone', 'guardian_email', 'alt_guardian_name', 'alt_guardian_phone', 'alt_guardian_email'], 'string', 'max' => 200],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
                 ];
         }
@@ -67,6 +67,12 @@ class StaffOtherInfo extends \yii\db\ActiveRecord {
                     'alt_phone' => 'Phone',
                     'alt_mobile' => 'Mobile',
                     'salary' => 'Salary',
+                    'guardian_name' => 'Guardian Name',
+                    'guardian_phone' => 'Guardian Phone',
+                    'guardian_email' => 'Guardian Email',
+                    'alt_guardian_name' => 'Guardian Name 1',
+                    'alt_guardian_phone' => 'Guardian Phone 1',
+                    'alt_guardian_email' => 'Guardian Email 1',
                 ];
         }
 
