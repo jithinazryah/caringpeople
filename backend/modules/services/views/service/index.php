@@ -44,6 +44,25 @@ $designations = \common\models\MasterDesignations::designationlist();
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> Create Service</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?= Html::a("<i class='fa fa-book'></i><span> Today's Schedules</span>", ['todayschedules'], ['target' => '_blank', 'class' => 'btn btn-info  btn-icon btn-icon-standalone', 'style' => 'float:right', 'id' => 'today_schedule']) ?>
+
+
+                                        <div style="float: right">
+                                                <?php
+                                                $_SESSION['page_size'] = $pagesize;
+                                                ?>
+                                                <?= Html::beginForm() ?>
+
+                                                <label style="float: left">Show
+                                                        <?= Html::dropDownList('size', $pagesize, ['20' => '20', '50' => '50', '100' => '100'], ['class' => 'page-size-dropdwn', 'id' => 'size']); ?>
+                                                        Entries
+                                                </label>
+                                                <input type="hidden" name="page-hidden" value="<?= $pagesize ?>">
+
+                                                <?= Html::endForm() ?>
+
+                                        </div>
+
+
                                         <?php
                                         $gridColumns = [
                                                 ['class' => 'yii\grid\SerialColumn'],
@@ -90,6 +109,8 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                                 return 'Closed';
                                                         } else if ($model->status == 3) {
                                                                 return 'Advanced';
+                                                        } else if ($model->status == 4) {
+                                                                return 'Pending';
                                                         }
                                                 },
                                                 'filter' => [1 => 'Opened', 2 => 'Closed', 3 => 'Advanced'],
@@ -97,7 +118,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 [
                                                 'attribute' => 'due_amount',
                                                 'header' => 'Due Amount',
-                                                'filter' => Html::dropDownList('Service[compareOp]', $model->compareOp, array('>' => '>', '<' => '<', '>=' => '>=', '<=' => '<=', '=' => '='), array('style' => 'width:50px;height: 25px;', 'id' => 'grid-id')) .
+                                                'filter' => Html::dropDownList('Service[compareOp]', $model->compareOp, array('>' => '>', '<' => '<', '>=' => '>=', '<=' => '<=', '=' => '='), array('style' => 'width:35px;height: 25px;', 'id' => 'grid-id')) .
                                                 Html::textInput('Service[compare]', $model->compare, array('style' => 'width:100px;margin-left: 10px;height: 25px;'))
                                             ],
                                                 [
@@ -203,6 +224,13 @@ $designations = \common\models\MasterDesignations::designationlist();
                         e.preventDefault();
                         return false;
                 });
+
+                $('#size').change(function () {
+                        //var d = $('#size :selected').val();
+                        this.form.submit();
+
+                });
+
         });
 </script>
 
@@ -211,6 +239,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                 width: 17%;
         }.amount_paid{
                 background-color: #ddefdd !important;
+        }.page-size-dropdwn{
+                height: 30px !important;
+                line-height: 30px;
+                font-size: 13px;
+                display: inline-block;
+                padding: 0px 0px 0px 7px;
         }
 </style>
 
