@@ -58,6 +58,7 @@ use common\models\StaffInfo;
 
                                         $class = '';
                                         $class1 = '';
+                                        $event = '';
 
 
                                         if (isset($value->status) && $value->status != 1) {
@@ -68,8 +69,11 @@ use common\models\StaffInfo;
                                                         $class1 = 'hide-class';
                                                 }
                                         }
+                                        if ($model->status == 2) {
+                                                $event = 'pointer-events:none !important';
+                                        }
                                         ?>
-                                        <tr  id="<?= $value->id; ?>" style="text-align:center" class="<?= $class; ?>">
+                                        <tr  id="<?= $value->id; ?>" style="text-align:center; <?= $event ?>" class="<?= $class; ?>">
                                                 <td>
                                                         <?= $p ?>
                                                 </td>
@@ -225,7 +229,7 @@ use common\models\StaffInfo;
 
                                                 <td>
                                                         <?php if (isset($value->status) && $value->status != 1) { ?>
-                                                                <a title="View Schedule Details" class="view_schedule" id="<?= $value->id ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                                <a title="View Schedule Details" class="view_schedule"  id="<?= $value->id ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                         <?php } ?>
                                                 </td>
 

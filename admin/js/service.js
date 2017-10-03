@@ -356,14 +356,17 @@ $("document").ready(function () {
         }
 
         $('.service_status').change(function () {
+                var type = $(this).attr('statustype');
                 var service_id = $(this).val();
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'serviceajax/servicestatus',
-                        data: {service_id: service_id},
+                        data: {service_id: service_id, type: type},
                         success: function (data) {
-
-                                $('.service-status-text').text('Closed');
+                                if (type == 1)
+                                        $('.service-status-text').text('Closed');
+                                else
+                                        $('.service-status-text').text('Opened');
                                 $(".service_stat").css({"pointer-events": "none"});
                                 alert('Status updated successfully');
 
