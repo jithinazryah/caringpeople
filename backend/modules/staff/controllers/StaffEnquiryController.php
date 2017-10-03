@@ -84,7 +84,7 @@ class StaffEnquiryController extends Controller {
                 }
 
 
-
+                $dataProvider->pagination = ['pagesize' => 50];
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,

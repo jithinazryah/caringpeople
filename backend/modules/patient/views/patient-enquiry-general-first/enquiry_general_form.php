@@ -103,15 +103,15 @@ use common\models\ReferralSource;
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="referral_source_others">    <?= $form->field($patient_info, 'referral_source_others')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'address')->textarea(['rows' => 1]) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'address')->textarea(['rows' => 6]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'city')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'zip_pc')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'email')->textInput(['class' => 'form-control',]); ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'email')->textInput(['class' => 'form-control',]); ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'email1')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'email1')->textInput(['maxlength' => true]) ?>
 
         </div><div style="clear:both"></div>
 
@@ -260,7 +260,7 @@ use common\models\ReferralSource;
                         <?= Html::submitButton($patient_info->isNewRecord ? 'Create' : 'Update', ['class' => $patient_info->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
                         <?php if (!$patient_info->isNewRecord && $patient_info->status != 3) { ?>
                                 <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
-                        <?php
+                                <?php
                         }
                 }
                 ?>

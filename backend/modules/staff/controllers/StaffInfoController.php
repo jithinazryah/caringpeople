@@ -71,7 +71,7 @@ class StaffInfoController extends Controller {
                 } else {
                         $dataProvider->query->andWhere(['<>', 'status', 2]);
                 }
-
+                $dataProvider->pagination = ['pagesize' => 50];
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,

@@ -82,6 +82,17 @@ class InvoiceController extends Controller {
                 ]);
         }
 
+        public function actionServiceInvoiceView($branch, $patient) {
+                $model = new Invoice;
+                $model->branch_id = $branch;
+                $model->patient_id = $patient;
+                $services = Service::find()->where(['patient_id' => $patient])->andWhere(['>', 'due_amount', 0])->all();
+                return $this->render('invoice', [
+                            'model' => $model,
+                            'services' => $services
+                ]);
+        }
+
         public function actionPayment() {
                 if (isset($_POST['patient'])) {
                         $services = Service::find()->where(['patient_id' => $_POST['patient']])->andWhere(['>', 'due_amount', 0])->all();

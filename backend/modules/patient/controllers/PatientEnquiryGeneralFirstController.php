@@ -68,7 +68,7 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 } else {
                         $dataProvider->query->andWhere(['<>', 'status', 3]);
                 }
-
+                $dataProvider->pagination = ['pagesize' => 50];
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,

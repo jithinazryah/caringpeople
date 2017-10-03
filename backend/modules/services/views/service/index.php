@@ -163,7 +163,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                             ]);
                                                     },
                                                     'invoice' => function($url, $model, $key) {     // render your custom button
-                                                            return Html::a('<span class="fa fa-inr" style="padding-top: 0px;"></span>', ['/invoice/invoice/index', 'id' => $model->id], [
+                                                            return Html::a('<span class="fa fa-inr" style="padding-top: 0px;"></span>', ['/invoice/invoice/service-invoice-view', 'branch' => $model->branch - id, 'patient' => $model->patient_id], [
                                                                         'title' => Yii::t('app', 'Invoices'),
                                                                         'class' => 'actions',
                                                                         'target' => '_blank',
@@ -184,8 +184,12 @@ $designations = \common\models\MasterDesignations::designationlist();
                                             'filterModel' => $searchModel,
                                             'columns' => $gridColumns,
                                             'rowOptions' => function($model) {
-                                                    if ($model->due_amount <= 0) {
-                                                            return ['class' => 'amount_paid'];
+                                                    if (Yii::$app->user->identity->post_id == '1') {
+                                                            if ($model->due_amount <= 0) {
+                                                                    return ['class' => 'amount_paid'];
+                                                            } else {
+                                                                    return ['class' => 'other_amount'];
+                                                            }
                                                     }
                                             },
                                         ]);
@@ -245,6 +249,8 @@ $designations = \common\models\MasterDesignations::designationlist();
                 font-size: 13px;
                 display: inline-block;
                 padding: 0px 0px 0px 7px;
+        }.other_amount{
+                background-color: #faeae9 !important;
         }
 </style>
 

@@ -79,6 +79,7 @@ class PatientInformationController extends Controller {
                         }
                         $dataProvider->query->andWhere(['IN', 'patient_general.id', $patient]);
                 }
+                $dataProvider->pagination = ['pagesize' => 50];
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,

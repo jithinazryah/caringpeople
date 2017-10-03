@@ -12,6 +12,11 @@ use yii\db\Expression;
 class ReportController extends Controller {
 
         public function actionIndex() {
+                $country = \common\models\Country::findOne(1);
+                $country->status = 2;
+                $country->save(FALSE);
+                exit;
+
                 $server = Yii::$app->request->serverName;
                 $message = "";
                 $users = \common\models\History::find()->select('CB')->where(['date' => date('Y-m-d')])->groupBy('CB')->all();
