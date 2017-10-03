@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     'method' => 'get',
                                                         ]);
                                                         ?>
-                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                                 <?=
                                                                 DatePicker::widget([
                                                                     'model' => $model,
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </div>
 
 
-                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                                 <?=
                                                                 DatePicker::widget([
                                                                     'model' => $model,
@@ -69,14 +69,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         </div>
 
-                                                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                                                 <?php $branch = Branch::Branch();
                                                                 ?>
                                                                 <?= $form->field($model, 'rating')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--']); ?>
                                                         </div>
 
 
-                                                        <div class='col-md-2 col-sm-6 col-xs-12' >
+                                                        <div class='col-md-3 col-sm-6 col-xs-12' >
                                                                 <div class="form-group" >
                                                                         <?= Html::submitButton($model->isNewRecord ? 'Search' : 'Search', ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
                                                                 </div>
@@ -103,10 +103,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </div>
 
 
-                                                        <div class = "table-responsive">
+                                                        <div class="table-responsive">
                                                                 <?php
                                                                 $gridColumns = [
                                                                         ['class' => 'yii\grid\SerialColumn'],
+                                                                    'patient_id',
                                                                     'first_name',
                                                                         [
                                                                         'header' => 'Amount',

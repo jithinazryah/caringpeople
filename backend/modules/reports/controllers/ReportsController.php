@@ -403,10 +403,23 @@ class ReportsController extends Controller {
                         $searchModel = new \common\models\PatientGeneralSearch();
                         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                         $dataProvider->query->andWhere(['status' => 1, 'branch_id' => $model->rating]);
+
+                        $patients = \common\models\PatientGeneral::find()->where(['status' => 1, 'branch_id' => $model->rating])->all();
+                        $patient_lists = array();
+                        foreach ($patients as $patients) {
+                                $services = ServiceSchedule::find()->where(['patient_id' => $patients->id])->andWhere(['>=', 'date', date('Y-m-d', strtotime($model->date))])->andWhere(['<=', 'date', date('Y-m-d', strtotime($model->DOC))])->groupBy(['service_id'])->all();
+                                $due_amount = 0;
+                                foreach ($services as $value) {
+                                        $service_detail = \common\models\Service::findOne($value->service_id);
+                                        $due_amount += $service_detail->due_amount;
+                                }
+                                if ($due_amount > 0) {
+                                        $patient_lists[] = $patients->id;
+                                }
+                        }
+                        $dataProvider->query->andWhere(['IN', 'patient_general.id', $patient_lists]);
                         $dataProvider->query->orderBy(['first_name' => SORT_ASC]);
-                        $dataProvider->pagination = ['pageSize' => 50];
-                } else {
-                        //  $dataProvider->query->andWhere(['status' => 1, 'patient_general.id' => 0]);
+                        $dataProvider->pagination = FALSE;
                 }
 
 
@@ -419,11 +432,18 @@ class ReportsController extends Controller {
 
         public function actionServicedetails($from = null, $to = null, $patient = null) {
                 $services = ServiceSchedule::find()->where(['patient_id' => $patient])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->groupBy(['service_id'])->all();
+                $searchModel = new \common\models\ServiceScheduleSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->andWhere(['patient_id' => $patient])->orderBy(['date' => SORT_ASC]);
+                $dataProvider->pagination = FALSE;
+
                 return $this->render('service-details', [
                             'from' => $from,
                             'to' => $to,
                             'patient_id' => $patient,
                             'services' => $services,
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
                 ]);
         }
 
