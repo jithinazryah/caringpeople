@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
 use common\models\ServiceSchedule;
 use yii\db\Expression;
 use yii\data\ActiveDataProvider;
+use kartik\mpdf\Pdf;
 
 /**
  * AttendanceController implements the CRUD actions for Attendance model.
@@ -310,12 +311,34 @@ class ReportsController extends Controller {
                 if ($model->load(Yii::$app->request->post())) {
                         $from = date('Y-m-d', strtotime($model->date));
                         $to = date('Y-m-d', strtotime($model->DOC));
+                        $branch = $model->rating;
+
                         $designations = \common\models\MasterDesignations::find()->all();
                 }
                 return $this->render('oncallstaff_report', [
                             'model' => $model,
                             'designations' => $designations,
+                            'from' => $from,
+                            'to' => $to,
+                            'branch' => $branch
                 ]);
+        }
+
+        public function actionStaffprint($from, $to, $branch) {
+                $model = new ServiceSchedule();
+                $designations = \common\models\MasterDesignations::find()->all();
+                $pdf = new Pdf([
+                    'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                    'content' => $this->renderPartial('oncallstaff_report_print', [
+                        'model' => $model,
+                        'designations' => $designations,
+                        'from' => $from,
+                        'to' => $to,
+                        'branch' => $branch
+                    ]),
+                    'cssInline' => 'td {padding-bottom: 1em;} ',
+                ]);
+                return $pdf->render();
         }
 
         public function actionViewdetails($from = null, $to = null, $type = null, $branch_id = null) {
@@ -342,7 +365,7 @@ class ReportsController extends Controller {
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['IN', 'id', $staff_lists]);
                 $dataProvider->query->orderBy(['staff_name' => SORT_ASC]);
-                $dataProvider->pagination = ['pageSize' => 50];
+                $dataProvider->pagination = FALSE;
 
                 return $this->render('view_details', [
                             'from' => $from,
@@ -359,25 +382,10 @@ class ReportsController extends Controller {
                 $dataProvider->query->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->andWhere(['staff' => $staff])->orderBy(['date' => SORT_ASC]);
 
                 $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
+                $dataProvider->pagination = FALSE;
                 return $this->render('staff_details', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
-                            'staff' => $staff,
-                            'staff_amount' => $staff_amount,
-                            'from' => $from,
-                            'to' => $to,
-                ]);
-        }
-
-        public function actionStaffdetails2($from = null, $to = null, $staff = null) {
-                $searchModel = new \common\models\ServiceScheduleSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->andWhere(['staff' => $staff])->orderBy(['date' => SORT_ASC]);
-
-                $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->orderBy(['date' => SORT_ASC])->all();
-                $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
-                return $this->render('staff_details', [
-                            'schedules' => $schedules,
                             'staff' => $staff,
                             'staff_amount' => $staff_amount,
                             'from' => $from,

@@ -46,7 +46,7 @@ table.table tr.filters{
         font-size: 13px;
 }
 .table.table-bordered>thead>tr>td, .table.table-bordered>tbody>tr>td, .table.table-bordered>tfood>tr>td, .table.table-bordered>thead>tr>th, .table.table-bordered>tbody>tr>th, .table.table-bordered>tfood>tr>th{
-        border-color: #eaeaea;
+        border-color: #cdc1c1;
 }
 .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td{
         border: 1px solid #a7a7a7;
