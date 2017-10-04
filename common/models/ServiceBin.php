@@ -36,65 +36,95 @@ use Yii;
  * @property string $DOC
  * @property string $DOU
  */
-class ServiceBin extends \yii\db\ActiveRecord
-{
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'service_bin';
-    }
+class ServiceBin extends \yii\db\ActiveRecord {
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['branch_id', 'patient_id', 'service', 'sub_service', 'gender_preference', 'duty_type', 'day_night_staff', 'staff_manager', 'co_worker', 'registration_fees', 'status', 'CB', 'UB'], 'integer'],
-            [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
-            [['estimated_price', 'registration_fees_amount', 'due_amount'], 'number'],
-            [['client_notes'], 'string'],
-            [['service_id', 'frequency', 'hours', 'days', 'rate_card_value'], 'string', 'max' => 200],
-            [['service_staffs'], 'string', 'max' => 255],
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public static function tableName() {
+                return 'service_bin';
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'branch_id' => 'Branch ID',
-            'service_id' => 'Service ID',
-            'patient_id' => 'Patient ID',
-            'service' => 'Service',
-            'sub_service' => 'Sub Service',
-            'gender_preference' => 'Gender Preference',
-            'duty_type' => 'Duty Type',
-            'day_night_staff' => 'Day Night Staff',
-            'frequency' => 'Frequency',
-            'hours' => 'Hours',
-            'days' => 'Days',
-            'staff_manager' => 'Staff Manager',
-            'from_date' => 'From Date',
-            'to_date' => 'To Date',
-            'estimated_price' => 'Estimated Price',
-            'service_staffs' => 'Service Staffs',
-            'co_worker' => 'Co Worker',
-            'rate_card_value' => 'Rate Card Value',
-            'registration_fees' => 'Registration Fees',
-            'registration_fees_amount' => 'Registration Fees Amount',
-            'due_amount' => 'Due Amount',
-            'client_notes' => 'Client Notes',
-            'status' => 'Status',
-            'CB' => 'Cb',
-            'UB' => 'Ub',
-            'DOC' => 'Doc',
-            'DOU' => 'Dou',
-        ];
-    }
+        /**
+         * @inheritdoc
+         */
+        public function rules() {
+                return [
+                        [['branch_id', 'patient_id', 'service', 'sub_service', 'gender_preference', 'duty_type', 'day_night_staff', 'staff_manager', 'co_worker', 'registration_fees', 'status', 'CB', 'UB'], 'integer'],
+                        [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
+                        [['estimated_price', 'registration_fees_amount', 'due_amount'], 'number'],
+                        [['client_notes'], 'string'],
+                        [['service_id', 'frequency', 'hours', 'days', 'rate_card_value'], 'string', 'max' => 200],
+                        [['service_staffs'], 'string', 'max' => 255],
+                ];
+        }
+
+        /**
+         * @inheritdoc
+         */
+        public function attributeLabels() {
+                return [
+                    'id' => 'ID',
+                    'branch_id' => 'Branch',
+                    'service_id' => 'Service ID',
+                    'patient_id' => 'Patient ID',
+                    'service' => 'Service',
+                    'sub_service' => 'Sub Service',
+                    'gender_preference' => 'Gender Preference',
+                    'duty_type' => 'Duty Type',
+                    'day_night_staff' => 'Day Night Staff',
+                    'frequency' => 'Frequency',
+                    'hours' => 'Hours',
+                    'days' => 'Days',
+                    'staff_manager' => 'Staff Manager',
+                    'from_date' => 'From Date',
+                    'to_date' => 'To Date',
+                    'estimated_price' => 'Estimated Price',
+                    'service_staffs' => 'Service Staffs',
+                    'co_worker' => 'Co Worker',
+                    'rate_card_value' => 'Rate Card Value',
+                    'registration_fees' => 'Registration Fees',
+                    'registration_fees_amount' => 'Registration Fees Amount',
+                    'due_amount' => 'Due Amount',
+                    'client_notes' => 'Client Notes',
+                    'status' => 'Status',
+                    'CB' => 'Cb',
+                    'UB' => 'Ub',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                ];
+        }
+
+        public function getPatient() {
+                return $this->hasOne(PatientGeneral::className(), ['id' => 'patient_id']);
+        }
+
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getService0() {
+                return $this->hasOne(MasterServiceTypes::className(), ['id' => 'service']);
+        }
+
+        public function getSubservice() {
+                return $this->hasOne(SubServices::className(), ['id' => 'sub_service']);
+        }
+
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getStaffManager() {
+                return $this->hasOne(StaffInfo::className(), ['id' => 'staff_manager']);
+        }
+
+        public function getBranch() {
+                return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+        }
+
+        public static function PendingSchedules($id) {
+                $pending_schedules = 0;
+                $pending_schedules = ServiceSchedule::find()->where(['service_id' => $id, 'status' => 1])->count();
+                return $pending_schedules;
+        }
+
 }

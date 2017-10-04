@@ -229,6 +229,23 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                         <?php } ?>
 
 
+                                        <ul id="main-menu" class="main-menu">
+                                                <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                <li>
+                                                        <a href="dashboard-1.html">
+                                                                <i class="fa fa-recycle"></i>
+                                                                <span class="title">Recycle</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('Recycle', ['/services/service-bin/index'], ['class' => 'title']) ?>
+                                                                </li>
+                                                        </ul>
+                                                </li>
+                                        </ul>
+
+
                                         <?php
                                         if (Yii::$app->session['post']['invoice'] == 1 || Yii::$app->session['post']['account_head'] == 1 || Yii::$app->session['post']['expenses'] == 1) {
                                                 ?>

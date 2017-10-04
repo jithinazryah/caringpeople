@@ -303,11 +303,30 @@ class ServiceController extends Controller {
          * @return mixed
          */
         public function actionDelete($id) {
+                $service_bin = new \common\models\ServiceBin;
                 $service = $this->findModel($id);
                 $service_schedules = ServiceSchedule::findAll(['service_id' => $id]);
                 $service_discounts = ServiceDiscounts::findAll(['service_id' => $id]);
                 $service_schedule_history = \common\models\ServiceScheduleHistory::findAll(['service_id' => $id]);
 
+                $service_bin->attributes = $service->attributes;
+                $service_bin->save();
+                if (!empty($service_schedules)) {
+                        foreach ($service_schedules as $service_scheduless) {
+                                $service_schedule_bin = new \common\models\ServiceScheduleBin;
+                                $service_schedule_bin->attributes = $service_scheduless->attributes;
+                                $service_schedule_bin->service_id = $service_bin->id;
+                                $service_schedule_bin->save();
+                        }
+                }
+                if (!empty($service_discounts)) {
+                        foreach ($service_discounts as $service_discountss) {
+                                $service_discounts_bin = new \common\models\ServiceDiscountsBin;
+                                $service_discounts_bin->attributes = $service_discountss->attributes;
+                                $service_discounts_bin->service_id = $service_bin->id;
+                                $service_discounts_bin->save();
+                        }
+                }
 
                 $transaction = Service::getDb()->beginTransaction();
                 try {
