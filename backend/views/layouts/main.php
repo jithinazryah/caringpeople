@@ -1342,4 +1342,66 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                 <?php ActiveForm::end(); ?>
         </div>
 </div>
+
+
+<div class="modal fade" id="modal-8" data-backdrop="static">
+        <div class="modal-dialog" id="modal-8-pop-up">
+
+                <div class="modal-content add-more-schedules">
+                        <div class="modal-header bg-blue">
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                <h4 class="modal-title" id="largeModalLabel" style="color: #b60d14;">Previous Schedules</h4>
+                        </div>
+                        <div class="modal-body">
+                                <?php $form1 = ActiveForm::begin(['action' => 'services/service/todayschedules']); ?>
+                                <div class="row">
+
+                                        <div class="col-md-6">
+                                                <label>Select Date</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <input type="date" name="date" id="date" class="form-control" required="" value="<?php echo date("Y-m-d"); ?>">
+                                        </div>
+
+                                        <?php
+                                        $branch = \common\models\Branch::Branch();
+                                        $user = Yii::$app->user->identity->branch_id;
+                                        if ($user == 0) {
+                                                ?>
+                                                <div class="col-md-6">
+                                                        <label>Select Branch</label>
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                        <select name="branch" id="branch" class="form-control" required="">
+
+                                                                <option value="0">All</option>
+                                                                <?php foreach ($branch as $value) { ?>
+                                                                        <option value="<?= $value->id ?>"><?= $value->branch_name ?></option>
+                                                                <?php }
+                                                                ?>
+                                                        </select>
+                                                <?php } else { ?>
+                                                        <input type="text" name="branch" value="<?= $user ?>" style="display:none">
+                                                <?php } ?>
+                                        </div>
+
+                                </div>
+
+                                <div class="row">
+                                        <input type="submit" name="submitf" id="submitf" class="btn btn-primary" style="float: right;margin-top: 10px;">
+                                </div>
+                                <?php ActiveForm::end(); ?>
+
+                        </div>
+
+
+                </div>
+
+        </div>
+</div>
+
+
+
+
 <?php $this->endPage() ?>

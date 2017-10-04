@@ -747,6 +747,12 @@ $("document").ready(function () {
         });
 
 
+        $('#previous_schedule').click(function (e) {
+                $('#modal-8').modal('show');
+                e.preventDefault();
+        });
+
+
 });
 
 function FrequencyChange() {

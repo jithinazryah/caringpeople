@@ -393,9 +393,14 @@ class ServiceController extends Controller {
                                 $services = Service::find()->where(['status' => 1])->andWhere(new Expression('FIND_IN_SET(:staffs, service_staffs)'))->addParams([':staffs' => Yii::$app->user->identity->id])->orWhere(['staff_manager' => Yii::$app->user->identity->id])->all();
                         }
                 }
+                if (isset($_POST['date']))
+                        $date = date('Y-m-d', strtotime($_POST['date']));
+                else
+                        $date = date('Y-m-d');
 
                 return $this->render('today-schedule', [
-                            'services' => $services
+                            'services' => $services,
+                            'date_now' => $date,
                 ]);
         }
 
