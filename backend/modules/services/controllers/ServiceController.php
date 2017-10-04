@@ -52,8 +52,21 @@ class ServiceController extends Controller {
          * @return mixed
          */
         public function actionIndex() {
+
+                $check_exists = explode('?', Yii::$app->request->url);
+                if (empty($check_exists[1]))
+                        Yii::$app->session->remove('new_size');
+
+                if (isset($_POST['size'])) {
+                        $pagesize = $_POST['size'];
+                        \Yii::$app->session->set('new_size', $pagesize);
+                } else {
+                        $pagesize = Yii::$app->session->get('new_size');
+                }
+
                 $searchModel = new ServiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->pagination->pageSize = $pagesize;
 
 
 
@@ -74,6 +87,7 @@ class ServiceController extends Controller {
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
+                            'pagesize' => $pagesize,
                 ]);
         }
 
@@ -131,12 +145,11 @@ class ServiceController extends Controller {
                                 if ($model->registration_fees == 1) {
                                         $registration = $model->registration_fees_amount;
                                 }
-
-
                                 $model->due_amount = $model->estimated_price + $registration;
+                                $model->proforma_sent = 1;
                                 $model->update();
-                                $this->ServiceSchedule($model);
-                                Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
+//                                $this->ServiceSchedule($model);
+//                                Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
                                 return $this->redirect(['update', 'id' => $model->id]);
                         }
                 }
@@ -153,7 +166,7 @@ class ServiceController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
-                //$service_schedule = ServiceSchedule::findAll(['service_id' => $id]);
+                $previous_estimated_price = $model->estimated_price;
                 $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'), 'date' => SORT_ASC])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
                 $discounts = new ServiceDiscounts();
@@ -169,6 +182,7 @@ class ServiceController extends Controller {
                 }
 
                 if (Yii::$app->request->post()) {
+                        $model->load(Yii::$app->request->post());
                         $patient_assessment->load(Yii::$app->request->post());
                         if (isset($_POST['patient_medical_procedures']) && $_POST['patient_medical_procedures'] != '') {
                                 $patient_assessment->patient_medical_procedures = implode(',', $_POST['patient_medical_procedures']);
@@ -177,8 +191,14 @@ class ServiceController extends Controller {
                                 $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
                         }
                         $discounts->load(Yii::$app->request->post());
-                        $model->estimated_price = $model->estimated_price - $discounts->discount_value;
-                        $model->due_amount = $model->due_amount - $discounts->discount_value;
+                        if ($previous_estimated_price != $model->estimated_price) {
+                                $total_due = $this->CalculateAmount($model);
+                                $model->estimated_price = $total_due - $model->registration_fees_amount;
+                                $model->due_amount = $total_due;
+                        } else {
+                                $model->estimated_price = $model->estimated_price - $discounts->discount_value;
+                                $model->due_amount = $model->due_amount - $discounts->discount_value;
+                        }
                         $patient_assessment->save();
                         $transaction = Yii::$app->db->beginTransaction();
                         try {
@@ -193,6 +213,7 @@ class ServiceController extends Controller {
                                 throw new UserException('Error Code:  1050');
                         }
 
+
                         return $this->redirect(['index']);
                 }
                 return $this->render('create', [
@@ -201,6 +222,20 @@ class ServiceController extends Controller {
                             'patient_assessment' => $patient_assessment,
                             'discounts' => $discounts
                 ]);
+        }
+
+        public function CalculateAmount($model) {
+
+                $price = $model->estimated_price;
+                $discounts = ServiceDiscounts::find()->where(['service_id' => $model->id])->all();
+                $total_discount = 0;
+                if (!empty($discounts)) {
+                        foreach ($discounts as $value) {
+                                $total_discount += $value->discount_value;
+                        }
+                }
+                $total_due = $price - $total_discount + $model->registration_fees_amount;
+                return $total_due;
         }
 
         public function ServiceType($service_type_id) {
@@ -310,6 +345,7 @@ class ServiceController extends Controller {
                 $service_schedule_history = \common\models\ServiceScheduleHistory::findAll(['service_id' => $id]);
 
                 $service_bin->attributes = $service->attributes;
+                $service_bin->service_table_id = $service->id;
                 $service_bin->save();
                 if (!empty($service_schedules)) {
                         foreach ($service_schedules as $service_scheduless) {
@@ -423,6 +459,16 @@ class ServiceController extends Controller {
                     'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/other.css',
                 ]);
                 return $pdf->render();
+        }
+
+        public function actionConfirmService() {
+                if (Yii::$app->request->isAjax) {
+                        $model = Service::findOne($_POST['service_id']);
+                        $model->proforma_sent = 2;
+                        $model->save();
+                        $this->ServiceSchedule($model);
+                        Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
+                }
         }
 
 }

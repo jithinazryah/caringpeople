@@ -62,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                     'model' => $model,
                                                                                     'staff_edu' => $staff_edu,
                                                                                     'form' => $form,
+                                                                                    'staff_interview_first' => $staff_interview_first,
                                                                                 ])
                                                                                 ?>
 

@@ -752,6 +752,22 @@ $("document").ready(function () {
                 e.preventDefault();
         });
 
+        $('.schedule_generate').change(function (e) {
+                var service_id = $(this).val();
+                e.preventDefault();
+                $.ajax({
+                        type: 'POST',
+                        url: homeUrl + 'services/service/confirm-service',
+                        data: {service_id: service_id},
+                        success: function (data) {
+                                location.reload();
+
+                        }
+                });
+        });
+
+
+
 
 });
 

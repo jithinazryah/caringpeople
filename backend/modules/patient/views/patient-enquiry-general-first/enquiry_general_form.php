@@ -115,103 +115,179 @@ use common\models\ReferralSource;
 
         </div><div style="clear:both"></div>
 
-        <h4 class="h4-labels">Service Details</h4>
-        <hr class="enquiry-hr"/>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                <?php
-                if (!$patient_info_second->isNewRecord && $patient_info_second->required_service != '') {
 
-                        $patient_info_second->required_service = explode(',', $patient_info_second->required_service);
-                }
-                ?>
-                <?= $form->field($patient_info_second, 'required_service')->dropDownList(['1' => 'Doctor Visit', '2' => 'Nursing Care', '3' => 'Physiotherapy', '4' => 'Helath Checkup', '5' => 'Caregiver', '6' => 'Lab', '7' => 'Equipment', '8' => 'Other', '9' => 'General Enquiry', '10' => 'Wrong Number '], ['multiple' => 'multiple']) ?>
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id='required_other_service'>    <?= $form->field($patient_info_second, 'required_service_other')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'service_required')->dropDownList(['' => '--Select--', '1' => 'Immediately', '2' => 'Couple Weeks', '3' => 'Month', '4' => 'Unsure', '5' => 'Other']) ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="service_required">    <?= $form->field($patient_info_second, 'service_required_other')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                <?php
-                if (!$patient_info_second->isNewRecord) {
-                        $patient_info_second->expected_date_of_service = date('d-m-Y', strtotime($patient_info_second->expected_date_of_service));
-                } else {
-                        $patient_info_second->expected_date_of_service = date('d-m-Y');
-                }
-                echo DatePicker::widget([
-                    'model' => $patient_info_second,
-                    'form' => $form,
-                    'type' => DatePicker::TYPE_INPUT,
-                    'attribute' => 'expected_date_of_service',
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'dd-mm-yyyy',
-                    ]
-                ]);
-                ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'how_long_service_required')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'whatsapp_reply')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id='whatsapp_number'>    <?= $form->field($patient_info_second, 'whatsapp_number')->textInput(['maxlength' => true]) ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id='whatsapp_note'>    <?= $form->field($patient_info_second, 'whatsapp_note')->textarea(['rows' => 1]) ?>
-
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'priority')->dropDownList(['' => '--Select--', '1' => 'Hot', '2' => 'Warm', '3' => 'Cold']) ?>
+        <div class="row" style="margin:0;float: right">
+                <a class="btn btn-blue btn-icon btn-icon-standalone" id="enquirer_1" style="<?php if (isset($patient_info_second->caller_name_1) && $patient_info_second->caller_name_1 != '') { ?> display:none; <?php } else { ?> display:show; <?php } ?>"><i class="fa-plus"></i><span>Add New Enquirer</span></a>
 
         </div>
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'status')->dropDownList(['1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit']) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'quotation_details')->textarea(['rows' => 2]) ?>
-
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'notes')->textarea(['rows' => 2]) ?>
-
-        </div>
-
-        <div style="clear:both"></div>
-
-        <div id = "p_attach">
-                <input type = "hidden" id = "delete_port_vals" name = "delete_port_vals" value = "">
-                <h4 style = "color:#000;font-style: italic;">Attachments</h4>
-                <hr class = "enquiry-hr"/>
-
-
-                <span>
-                        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                <div class = "form-group field-staffperviousemployer-hospital_address">
-                                        <label class = "control-label">Attachment</label>
-                                        <input type = "file" name = "creates[file][]">
-
-                                </div>
-                        </div>
-                        <?php
-                        $rand = rand();
-                        $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
-                        ?>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                <div class="form-group field-staffperviousemployer-designation">
-                                        <label class="control-label" for="">Attachment Name</label>
-                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
-                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
-
-                                </div>
-                        </div>
-
-
-                        <div style="clear:both"></div>
+        <div class="row enquirer_1" style="margin: 0;<?php if (isset($patient_info_second->caller_name_1) && $patient_info_second->caller_name_1 != '') { ?> display:show; <?php } else { ?> display:none; <?php } ?>">
+                <span class="inquiry">
+                        <h4 class="h4-labels" style="position: relative;">Enquirer Details 1<a id="close_1" class="btn btn-icon btn-red remove-enquirer"><i class="fa-remove"></i></a></h4>
+                        <hr class="enquiry-hr"/>
                 </span>
-                <br/>
-        </div>
 
-        <div class="row">
-                <div class="col-md-6">
-                        <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" ><i class="fa-plus"></i><span> Add More</span></a>
+                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'caller_name_1')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'caller_gender_1')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'mobile_number_alt_1')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'mobile_number_alt_2')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'mobile_number_alt_3')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'address_1')->textarea(['rows' => 6]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'city_1')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'zip_pc_1')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'email_1')->textInput(['class' => 'form-control',]); ?>
+
+                </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'email_2')->textInput(['maxlength' => true]) ?>
+
+                </div><div style="clear:both"></div>
+
+                <div class="row" style="margin:0;float: right">
+                        <a class="btn btn-blue btn-icon btn-icon-standalone" id="enquirer_2" style="<?php if (isset($patient_info_second->caller_name_2) && $patient_info_second->caller_name_2 != '') { ?> display:none; <?php } else { ?> display:show; <?php } ?>"><i class="fa-plus"></i><span>Add New Enquirer</span></a>
+
                 </div>
+
+        </div>
+
+        <div class="row enquirer_2" style="margin: 0;<?php if (isset($patient_info_second->caller_name_2) && $patient_info_second->caller_name_2 != '') { ?> display:show; <?php } else { ?> display:none; <?php } ?>">
+
+                <span class="inquiry">
+                        <h4 class="h4-labels" style="position: relative;">Enquirer Details 2<a id="close_2" class="btn btn-icon btn-red remove-enquirer"><i class="fa-remove"></i></a></h4>
+                        <hr class="enquiry-hr"/>
+                </span>
+
+
+                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'caller_name_2')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'caller_gender_2')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'mobile_number_alt_4')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'mobile_number_alt_5')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'mobile_number_alt_6')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'address_2')->textarea(['rows' => 6]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'city_2')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'zip_pc_2')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'email_3')->textInput(['class' => 'form-control',]); ?>
+
+                </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'email_4')->textInput(['maxlength' => true]) ?>
+
+                </div><div style="clear:both"></div>
+                <a id="enquirer_2">Add New</a>
+
         </div>
 
 
+        <div style="margin-top:35px;">
+                <h4 class="h4-labels">Service Details</h4>
+                <hr class="enquiry-hr"/>
+                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                        <?php
+                        if (!$patient_info_second->isNewRecord && $patient_info_second->required_service != '') {
+
+                                $patient_info_second->required_service = explode(',', $patient_info_second->required_service);
+                        }
+                        ?>
+                        <?= $form->field($patient_info_second, 'required_service')->dropDownList(['1' => 'Doctor Visit', '2' => 'Nursing Care', '3' => 'Physiotherapy', '4' => 'Helath Checkup', '5' => 'Caregiver', '6' => 'Lab', '7' => 'Equipment', '8' => 'Other', '9' => 'General Enquiry', '10' => 'Wrong Number '], ['multiple' => 'multiple']) ?>
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id='required_other_service'>    <?= $form->field($patient_info_second, 'required_service_other')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'service_required')->dropDownList(['' => '--Select--', '1' => 'Immediately', '2' => 'Couple Weeks', '3' => 'Month', '4' => 'Unsure', '5' => 'Other']) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="service_required">    <?= $form->field($patient_info_second, 'service_required_other')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <?php
+                        if (!$patient_info_second->isNewRecord) {
+                                $patient_info_second->expected_date_of_service = date('d-m-Y', strtotime($patient_info_second->expected_date_of_service));
+                        } else {
+                                $patient_info_second->expected_date_of_service = date('d-m-Y');
+                        }
+                        echo DatePicker::widget([
+                            'model' => $patient_info_second,
+                            'form' => $form,
+                            'type' => DatePicker::TYPE_INPUT,
+                            'attribute' => 'expected_date_of_service',
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => 'dd-mm-yyyy',
+                            ]
+                        ]);
+                        ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'how_long_service_required')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'whatsapp_reply')->dropDownList(['' => '--Select--', '1' => 'Yes', '0' => 'No']) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id='whatsapp_number'>    <?= $form->field($patient_info_second, 'whatsapp_number')->textInput(['maxlength' => true]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id='whatsapp_note'>    <?= $form->field($patient_info_second, 'whatsapp_note')->textarea(['rows' => 1]) ?>
+
+                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'priority')->dropDownList(['' => '--Select--', '1' => 'Hot', '2' => 'Warm', '3' => 'Cold']) ?>
+
+                </div>
+
+                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($patient_info, 'status')->dropDownList(['1' => 'Active', '2' => 'Pending', '3' => 'Close', '4' => 'Home/Hospital Visit']) ?>
+
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'quotation_details')->textarea(['rows' => 2]) ?>
+
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($patient_info_second, 'notes')->textarea(['rows' => 2]) ?>
+
+                </div>
+
+                <div style="clear:both"></div>
+
+                <div id = "p_attach">
+                        <input type = "hidden" id = "delete_port_vals" name = "delete_port_vals" value = "">
+                        <h4 style = "color:#000;font-style: italic;">Attachments</h4>
+                        <hr class = "enquiry-hr"/>
+
+
+                        <span>
+                                <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class = "form-group field-staffperviousemployer-hospital_address">
+                                                <label class = "control-label">Attachment</label>
+                                                <input type = "file" name = "creates[file][]">
+
+                                        </div>
+                                </div>
+                                <?php
+                                $rand = rand();
+                                $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
+                                ?>
+                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                        <div class="form-group field-staffperviousemployer-designation">
+                                                <label class="control-label" for="">Attachment Name</label>
+                                                <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
+                                                <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
+
+                                        </div>
+                                </div>
+
+
+                                <div style="clear:both"></div>
+                        </span>
+                        <br/>
+                </div>
+
+                <div class="row">
+                        <div class="col-md-6">
+                                <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" ><i class="fa-plus"></i><span> Add More</span></a>
+                        </div>
+                </div>
+
+        </div>
         <div style="clear:both"></div>
 
 
@@ -271,6 +347,11 @@ use common\models\ReferralSource;
 <style>
         .form-inline .control-label{
                 min-height: 35px;
+        }.remove-enquirer{
+                position: absolute;
+                right: 0px;
+                margin-bottom: 0px;
+                top: -10px;
         }
 </style>
 

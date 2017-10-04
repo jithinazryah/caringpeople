@@ -48,6 +48,8 @@ class PatientEnquiryGeneralSecond extends \yii\db\ActiveRecord {
                         [['whatsapp_note', 'quotation_details', 'notes'], 'string'],
                         [['address', 'email1', 'whatsapp_number', 'required_service_other', 'service_required', 'service_required_other', 'how_long_service_required'], 'string', 'max' => 200],
                         [['city', 'zip_pc', 'email'], 'string', 'max' => 100],
+                        [['caller_name_1', 'caller_gender_1', 'mobile_number_alt_1', 'mobile_number_alt_2', 'mobile_number_alt_3', 'address_1', 'city_1', 'zip_pc_1', 'email_1', 'email_2', 'caller_name_2',
+                    'caller_gender_2', 'mobile_number_alt_4', 'mobile_number_alt_5', 'mobile_number_alt_6', 'address_2', 'city_2', 'zip_pc_2', 'email_3', 'email_4'], 'string', 'max' => 250],
                 ];
         }
 
@@ -75,7 +77,26 @@ class PatientEnquiryGeneralSecond extends \yii\db\ActiveRecord {
                     'visit_type' => 'Visit Type',
                     'quotation_details' => 'Quotation Details',
                     'notes' => 'Notes',
-                    'priority' => 'Priority',
+                    'caller_name_1' => 'Caller Name',
+                    'caller_gender_1' => 'Caller Gender',
+                    'mobile_number_alt_1' => 'Mobile Number',
+                    'mobile_number_alt_2' => 'Mobile Number 1',
+                    'mobile_number_alt_3' => 'Mobile Number 2',
+                    'address_1' => 'Address',
+                    'city_1' => 'City',
+                    'zip_pc_1' => 'Zip /Pc',
+                    'email_1' => 'Email',
+                    'email_2' => 'Alternate Email',
+                    'caller_name_2' => 'Caller Name',
+                    'caller_gender_2' => 'Caller Gender',
+                    'mobile_number_alt_4' => 'Mobile Number',
+                    'mobile_number_alt_5' => 'Mobile Number 1',
+                    'mobile_number_alt_6' => 'Mobile Number 2',
+                    'address_2' => 'Address',
+                    'city_2' => 'City',
+                    'zip_pc_2' => 'Zip/Pc',
+                    'email_3' => 'Email',
+                    'email_4' => 'Alternate Email',
                 ];
         }
 

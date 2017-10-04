@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Service</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
- <?php if (!$model->isNewRecord) { ?>
+                                <?php if (!$model->isNewRecord) { ?>
                                         <?= Html::a('<i class="fa-plus"></i><span> Add Materials</span>', ['/sales/sales-invoice-details/add', 'id' => $model->id], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;', 'target' => '_blank']) ?>
                                         <?= Html::a('<i class="fa-print"></i><span> Generate Estimate</span>', ['estimated-bill', 'id' => $model->id], ['class' => 'btn btn-success  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;', 'target' => '_blank']) ?>
-                                        
-<div class="row" style="margin-left: -6px;margin-right: 0px;">
+
+                                        <div class="row" style="margin-left: -6px;margin-right: 0px;">
 
                                                 <?=
                                                 $this->render('_patient_details', [
@@ -48,14 +48,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 <div class="tab-pane active" id="home-3">
 
-                                                        <?=
-                                                        $this->render('_form', [
-                                                            'model' => $model,
-                                                        ])
+                                                        <?php
+                                                        if ($model->proforma_sent == 2) {
+                                                                echo $this->render('_form', [
+                                                                    'model' => $model,
+                                                                ]);
+                                                        } else {
+                                                                echo $this->render('update', [
+                                                                    'model' => $model,
+                                                                ]);
+                                                        }
                                                         ?>
 
                                                 </div>
                                                 <?php if (!$model->isNewRecord) { ?>
+
                                                         <div class="tab-pane" id="home-5">
 
                                                                 <?php

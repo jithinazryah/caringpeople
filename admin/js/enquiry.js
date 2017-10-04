@@ -512,4 +512,48 @@ $("document").ready(function () {
 
 
 
+        $('#enquirer_1').click(function () {
+                $('.enquirer_1').toggle();
+                $('#enquirer_1').hide();
+
+        });
+
+        $('#enquirer_2').click(function () {
+                $('.enquirer_2').toggle();
+                $('#enquirer_2').hide();
+        });
+
+        $('#close_1').click(function () {
+                $('#patientenquirygeneralsecond-caller_name_1').val('');
+                $('#patientenquirygeneralsecond-caller_gender_1').val('');
+                $('#patientenquirygeneralsecond-mobile_number_alt_1').val('');
+                $('#patientenquirygeneralsecond-mobile_number_alt_2').val('');
+                $('#patientenquirygeneralsecond-mobile_number_alt_3').val('');
+                $('#patientenquirygeneralsecond-address_1').val('');
+                $('#patientenquirygeneralsecond-city_1').val('');
+                $('#patientenquirygeneralsecond-zip_pc_1').val('');
+                $('#patientenquirygeneralsecond-email_1').val('');
+                $('#patientenquirygeneralsecond-email_2').val('');
+
+                $('.enquirer_1').hide();
+                $('#enquirer_1').show();
+        });
+
+        $('#close_2').click(function () {
+
+                $('#patientenquirygeneralsecond-caller_name_2').val('');
+                $('#patientenquirygeneralsecond-caller_gender_2').val('');
+                $('#patientenquirygeneralsecond-mobile_number_alt_4').val('');
+                $('#patientenquirygeneralsecond-mobile_number_alt_5').val('');
+                $('#patientenquirygeneralsecond-mobile_number_alt_6').val('');
+                $('#patientenquirygeneralsecond-address_2').val('');
+                $('#patientenquirygeneralsecond-city_2').val('');
+                $('#patientenquirygeneralsecond-zip_pc_2').val('');
+                $('#patientenquirygeneralsecond-email_3').val('');
+                $('#patientenquirygeneralsecond-email_4').val('');
+                $('.enquirer_2').hide();
+                $('#enquirer_2').show();
+        });
+
+
 });

@@ -100,6 +100,7 @@ class ServiceBinController extends Controller {
                 $transaction = \common\models\Service::getDb()->beginTransaction();
                 try {
                         $service->attributes = $service_bin->attributes;
+                        $service->id = $service_bin->service_table_id;
                         $service->service_id = $service_bin->service_id;
                         $service->save();
                         $service_bin->delete();

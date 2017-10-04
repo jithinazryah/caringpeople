@@ -43,7 +43,7 @@ class Service extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker', 'registration_fees'], 'integer'],
+                        [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker', 'registration_fees', 'proforma_sent'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
                         [['frequency', 'hours', 'days', 'rate_card_value'], 'string', 'max' => 255],
                         [['client_notes'], 'string'],
@@ -100,6 +100,7 @@ class Service extends \yii\db\ActiveRecord {
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
                     'status' => 'Status',
+                    'proforma_sent' => 'Sent Proforma',
                 ];
         }
 
