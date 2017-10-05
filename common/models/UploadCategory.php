@@ -30,7 +30,7 @@ class UploadCategory extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['id', 'category_type', 'status', 'CB', 'UB'], 'integer'],
+                        [['id', 'category_type', 'status', 'CB', 'UB', 'type'], 'integer'],
                         [['DOC', 'DOU'], 'safe'],
                         [['sub_category'], 'string', 'max' => 200],
                 ];
@@ -49,6 +49,7 @@ class UploadCategory extends \yii\db\ActiveRecord {
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
+                    'type' => 'Type',
                 ];
         }
 

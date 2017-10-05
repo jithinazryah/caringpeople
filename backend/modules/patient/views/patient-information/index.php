@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-                                       <?php if (Yii::$app->session->hasFlash('error')): ?>
+                                        <?php if (Yii::$app->session->hasFlash('error')): ?>
                                                 <div class="alert alert-danger" role="alert">
                                                         <?= Yii::$app->session->getFlash('error') ?>
                                                 </div>
@@ -107,12 +107,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                             // 'DOC',
                                             // 'DOU',
                                             ['class' => 'yii\grid\ActionColumn',
-                                                'template' => '{view}{update}{delete}',
+                                                'template' => '{view}{update}{delete}{missing}',
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id != '1' ? false : true;
                                                     }
                                                 ],
+                                                'buttons' => [
+                                                    'missing' => function($url, $model, $key) {     // render your custom button
+                                                            return Html::a('<span class="fa fa-file-image-o" style="padding-top: 0px;"></span>', ['#'], [
+                                                                        'title' => Yii::t('app', 'Missing Fileds/ Files'),
+                                                                        'class' => 'actions missing-files',
+                                                                        'type' => '1',
+                                                                        'target' => '_blank',
+                                                                        'id' => $model->id
+                                                            ]);
+                                                    },
+                                                ]
                                             ],
                                         ];
 

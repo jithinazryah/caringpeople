@@ -34,7 +34,7 @@ class DropdownController extends \yii\web\Controller {
                 } else if ($type == 4) { /* add staff skills */
                         $form = $this->renderPartial('_skills', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 } else if ($type == 5) { /* add upload category */
-                        $form = $this->renderPartial('_upload_category', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                        $form = $this->renderPartial('_upload_category', ['type' => $type, 'field_id' => $_POST['field_id'], 'cat_type' => $_POST['cat_type']]);
                 } else if ($type == 6) { /* add contact directory category */
                         $form = $this->renderPartial('_contact_category', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 } else if ($type == 7) { /* add contact directory sub category */

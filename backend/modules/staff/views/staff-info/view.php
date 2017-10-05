@@ -1083,6 +1083,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         }
                                                 </script>
 
+
+
+
                                                 <!--</html>-->
                                                 <div class="print">
                                                         <button onclick="printContent('pdf')" style="font-weight: bold !important;" class="btn btn-success">Print</button>

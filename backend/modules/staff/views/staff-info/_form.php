@@ -262,13 +262,13 @@ use common\models\MasterDesignations;
                         </div>
                         <?php
                         $rand = rand();
-                        $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
+                        $uploads_type = common\models\UploadCategory::find()->where(['status' => 1, 'type' => 2])->all();
                         ?>
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
                                         <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
-                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
+                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;" type='2'> + Add New</a>
 
                                 </div>
                         </div>
@@ -281,7 +281,7 @@ use common\models\MasterDesignations;
 
         <div class="row">
                 <div class="col-md-6">
-                        <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" ><i class="fa-plus"></i><span> Add More</span></a>
+                        <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" type="2"><i class="fa-plus"></i><span> Add More</span></a>
                 </div>
         </div>
 

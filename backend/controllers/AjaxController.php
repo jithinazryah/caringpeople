@@ -339,25 +339,15 @@ class AjaxController extends \yii\web\Controller {
 
                 $id = $_POST['id'];
                 $name = $_POST['name'];
-                $type = $_POST['type'];
 
-                $root_path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient';
+                $root_path = Yii::$app->basePath . '/../uploads/patient';
                 $path = $root_path . '/' . $id . '/' . $name;
+
 
                 if (file_exists($path)) {
 
                         if (unlink($path)) {
-                                if ($type == 'guardian_profile_image') {
-                                        $data_update = PatientGuardianDetails::find()->where(['patient_id' => $id])->one();
-                                        $data_update->guardian_profile_image = '';
-                                } else if ($type == 'passport') {
-                                        $data_update = PatientGuardianDetails::find()->where(['patient_id' => $id])->one();
-                                        $data_update->passport = '';
-                                } else if ($type == 'patient_image') {
-                                        $data_update = PatientGeneral::find()->where(['id' => $id])->one();
-                                        $data_update->patient_image = '';
-                                }
-                                $data_update->update();
+
                         }
                 }
         }
@@ -440,9 +430,11 @@ class AjaxController extends \yii\web\Controller {
 
         public function actionAttachment() {
                 $rand = rand();
-                $uploads_type = UploadCategory::find()->where(['status' => 1])->all();
+                $type = $_POST['type'];
+                $uploads_type = UploadCategory::find()->where(['status' => 1, 'type' => $type])->all();
                 $option = Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]);
                 $vers = "<span>
+                        <div class='row' style='margin:0'>
                                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-staffperviousemployer-hospital_address'>
                                 <label class='control-label'>Attachment</label>
@@ -453,11 +445,12 @@ class AjaxController extends \yii\web\Controller {
                                 <div class='form-group field-staffperviousemployer-salary'>
                                 <label class='control-label' >Attachment Name</label>
                               $option
-                                  <a class='add-option-dropdown add-new' id='atachment_$rand-5' style='margin-top:0px;'> + Add New</a>
+                                  <a class='add-option-dropdown add-new' id='atachment_$rand-5' style='margin-top:0px;' type=$type> + Add New</a>
                                 </div>
                                 </div>
                                 <a id='remAttach' class='btn btn-icon btn-red remAttach' style='margin-top: 15px;'><i class='fa-remove'></i></a>
                                 <div style='claer:both'></div><br/>
+                        </div>
                                 </span><br/>";
                 echo $vers;
         }
@@ -595,6 +588,14 @@ class AjaxController extends \yii\web\Controller {
                 }
 
                 echo $patient_id = $branch . '-' . date('d') . date('m') . date('y') . '-' . $id;
+        }
+
+        public function actionChecking() {
+                if (Yii::$app->request->isAjax) {
+                        $type = $_POST['type'];
+                        $view = $this->renderPartial('checking', ['id' => $_POST['id'], 'type' => $type]);
+                        echo $view;
+                }
         }
 
 }

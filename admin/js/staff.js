@@ -188,11 +188,12 @@ $("document").ready(function () {
         var i = $('#p_attach span').size() + 1;
 
         $('#addAttach').on('click', function () {
+                var type = $(this).attr('type');
 
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {type: 1},
+                        data: {type: type},
                         url: homeUrl + 'ajax/attachment',
                         success: function (data) {
                                 $(data).appendTo(scntDiv);

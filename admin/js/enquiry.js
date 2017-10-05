@@ -509,6 +509,20 @@ $("document").ready(function () {
                 });
         });
 
+        $('.patient-img-remove').on('click', function (e) {
+                var data = $(this).attr('id');
+                var datas = data.split("-");
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {id: datas[0], name: datas[1]},
+                        url: homeUrl + 'ajax/patientremove',
+                        success: function (data) {
+                                $('#ss_' + datas[2]).remove();
+                        }
+                });
+        });
+
 
 
 
@@ -553,6 +567,25 @@ $("document").ready(function () {
                 $('#patientenquirygeneralsecond-email_4').val('');
                 $('.enquirer_2').hide();
                 $('#enquirer_2').show();
+        });
+
+
+
+        $('.missing-files').click(function (e) {
+                e.preventDefault();
+                var id = $(this).attr('id');
+                var type = $(this).attr('type');
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {id: id, type: type},
+                        url: homeUrl + 'ajax/checking',
+                        success: function (data) {
+                                $("#modal-pop-up").html(data);
+                                $('#modal-6').modal('show', {backdrop: 'static'});
+                        }
+                });
+
         });
 
 

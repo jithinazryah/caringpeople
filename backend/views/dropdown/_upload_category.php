@@ -18,8 +18,12 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
         <div class="modal-body">
 
                 <div class="row">
+                        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'  style="display:none">
+                                <?php $model->type = $cat_type ?>
+                                <?= $form->field($model, 'type')->textInput(['maxlength' => true])->label(FALSE) ?>
+                        </div>
 
-                        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'  style="margin-left: 20px;">    
+                        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'  style="margin-left: 20px;">
                                 <label class="control-label" for="uploadcategory-sub_category">Category</label>
                                 <?= $form->field($model, 'sub_category')->textInput(['maxlength' => true])->label(FALSE) ?>
 

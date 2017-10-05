@@ -295,10 +295,7 @@ class PatientInformationController extends Controller {
                                         $this->AddPatientAssessment($patient_assessment);
 
                                         $this->AddContactDirectory($patient_general);
-                                        $guardian_datas = array('passport', 'guardian_profile_image');
-                                        $this->Imageupload($guardian_details, $before_update_guardian_details, $guardian_datas, $patient_general->id);
-                                        $patient_datas = array('patient_image');
-                                        $this->Imageupload($patient_general, $before_update_patient_details, $patient_datas, $patient_general->id);
+                                        $this->Imageupload($patient_general);
 
                                         return $this->redirect(['index']);
                                 }
@@ -523,10 +520,7 @@ class PatientInformationController extends Controller {
                                         $present_condition->foleys_last_change_date = date('Y-m-d', strtotime(Yii::$app->request->post()['PatientPresentCondition']['foleys_last_change_date']));
                                         $bystander_details->load(Yii::$app->request->post());
                                         if ($patient_general->validate() && $guardian_details->validate() && $patient_general->save() && $guardian_details->save() && $chronic_imformation->validate() && $chronic_imformation->save() && $bystander_details->validate()) {
-                                                $guardian_datas = array('passport', 'guardian_profile_image');
-                                                $this->Imageupload($guardian_details, $before_update_guardian_details, $guardian_datas, $id);
-                                                $patient_datas = array('patient_image');
-                                                $this->Imageupload($patient_general, $before_update_patient_details, $patient_datas, $id);
+                                                $this->Imageupload($patient_general);
                                                 $present_condition->save();
                                                 $bystander_details->save();
                                                 $this->AddPresentMedication($patient_general);
@@ -575,33 +569,49 @@ class PatientInformationController extends Controller {
          * to upload image
          *  */
 
-        public function Imageupload($model, $data = null, $images, $id) {
+        public function Imageupload($model) {
 
-                foreach ($images as $value) {
+                if (isset($_POST['creates']) && $_POST['creates'] != '') {
 
-                        $image = UploadedFile:: getInstance($model, $value);
+                        $arrs = [];
+                        $i = 0;
 
-                        $this->image($model, $data, $image, $value, $id);
-                }
-        }
-
-        /* to save extension in database */
-
-        public function image($model, $data = null, $image, $type, $id) {
-
-                if (!empty($image)) {
-
-                        $model->$type = $image->extension;
-                        if (!empty($data)) {
-                                $this->upload($model, $image, $type, $model->$type, $id, $data->$type);
-                        } else {
-                                $this->upload($model, $image, $type, $model->$type, $id);
+                        foreach ($_FILES['creates'] ['name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $arrs[$i]['name'] = $value;
+                                        $i++;
+                                }
                         }
-                } else {
-                        if (!empty($data))
-                                $model->$type = $data->$type;
+                        $i = 0;
+                        foreach ($_FILES['creates'] ['tmp_name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $arrs[$i]['tmp_name'] = $value;
+                                        $i++;
+                                }
+                        }
+                        $i = 0;
+
+                        foreach ($_FILES['creates'] ['name'] as $row => $innerArray) {
+                                $i = 0;
+                                foreach ($innerArray as $innerRow => $value) {
+                                        $ext = pathinfo($value, PATHINFO_EXTENSION);
+                                        $arrs[$i]['extension'] = $ext;
+                                        $i++;
+                                }
+                        }
+                        $i = 0;
+                        foreach ($_POST['creates']['file_name'] as $val) {
+                                $file_name = \common\models\UploadCategory::findOne($val);
+                                $arrs[$i]['file_name'] = $file_name->sub_category;
+                                $i++;
+                        }
+
+                        foreach ($arrs as $val) {
+                                $this->Upload($model->id, $val['name'], $val['tmp_name'], $val['file_name'], $val['extension']);
+                        }
                 }
-                $model->update();
         }
 
         /*
@@ -609,14 +619,30 @@ class PatientInformationController extends Controller {
          * if
          */
 
-        public function Upload($model, $image, $type, $extension, $id, $exists_type = null) {
+        public function Upload($id, $name, $Tmpfilename, $filename, $extension) {
                 $paths = ['patient', $id];
-                $file = Yii::getAlias(Yii::$app->params ['uploadPath']) . '/patient/' . $id . '/' .
-                        $type . '.' . $exists_type;
-                if (file_exists($file))
-                        unlink($file);
                 $paths = Yii::$app->UploadFile->CheckPath($paths);
-                $image->saveAs($paths . '/' . $type . '.' . $extension);
+                $target_dir = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient/' . $id . "/";
+                $this->CheckExists($filename, $id);
+                if (empty($filename))
+                        $filename = 'attachment' . rand();
+
+                move_uploaded_file($Tmpfilename, $target_dir . $filename . "." . $extension);
+        }
+
+        public function CheckExists($filename, $id) {
+                $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient/' . $id;
+                if (count(glob("{$path}/*")) > 0) {
+                        foreach (glob("{$path}/*") as $file) {
+                                $arry = explode('/', $file);
+                                $img_nmee = end($arry);
+                                $img_nam = explode('.', $img_nmee);
+                        }
+                        if ($img_nam[0] == $filename) {
+                                $file = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient/' . $id . "/" . $filename . "." . $img_nam[1];
+                                unlink($file);
+                        }
+                }
         }
 
         /**

@@ -103,22 +103,6 @@ class StaffInfoSearch extends StaffInfo {
         public function getGridColumns() {
                 return [
                         ['class' => 'yii\grid\SerialColumn'],
-//                                                    [
-//                                                    'attribute' => 'profile_image_type',
-//                                                    'format' => 'html',
-//                                                    'value' => function($data) {
-//                                                            $staff_uploads = StaffInfoUploads::findOne(['staff_id' => $data->id]);
-//                                                            if (isset($staff_uploads->profile_image_type) && $staff_uploads->profile_image_type != '') {
-//                                                                    return Html::img(Yii::$app->homeUrl . '../uploads/staff/' . $data->id . '/profile_image_type.' . $staff_uploads->profile_image_type, ['width' => '100']);
-//                                                            } elseif ($data->gender == '0') {
-//                                                                    return Html::img(Yii::$app->homeUrl . '/images/themes/photo.png', ['width' => '100']);
-//                                                            } else if ($data->gender == '1') {
-//                                                                    return Html::img(Yii::$app->homeUrl . '/images/themes/female.png', ['width' => '100']);
-//                                                            } else {
-//                                                                    return Html::img(Yii::$app->homeUrl . 'images/themes/no-image.gif', ['width' => '100']);
-//                                                            }
-//                                                    },
-//                                                ],
                     'staff_id',
                     'staff_name',
                         [
@@ -168,12 +152,23 @@ class StaffInfoSearch extends StaffInfo {
                     ],
                     'average_point',
                         ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view}{update}{delete}',
+                        'template' => '{view}{update}{delete}{missing}',
                         'visibleButtons' => [
                             'delete' => function ($model, $key, $index) {
                                     return Yii::$app->user->identity->post_id != '1' ? false : true;
                             }
                         ],
+                        'buttons' => [
+                            'missing' => function($url, $model, $key) {     // render your custom button
+                                    return Html::a('<span class="fa fa-file-image-o" style="padding-top: 0px;"></span>', ['#'], [
+                                                'title' => Yii::t('app', 'Missing Fileds/ Files'),
+                                                'class' => 'actions missing-files',
+                                                'type' => '2',
+                                                'target' => '_blank',
+                                                'id' => $model->id
+                                    ]);
+                            },
+                        ]
                     ],
                 ];
         }

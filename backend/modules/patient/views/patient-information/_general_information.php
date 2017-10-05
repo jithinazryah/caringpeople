@@ -18,31 +18,31 @@ use common\models\Branch;
 
 
         <div class="row">
-
-
                 <div class="row">
                         <div class="col-md-8">
-                                <h4 class="h4-labels">Patient Details</h4>
-                                <hr class="enquiry-hr"/>
+                                <h4 class="h4-labels"></h4>
+
                         </div>
                         <?php
-                        if ($patient_general->patient_image != '') {
-                                $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
-                                ?>
+                        $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient/' . $patient_general->id;
+                        if (count(glob("{$path}/*")) > 0) {
+                                foreach (glob("{$path}/*") as $file) {
+                                        $arry = explode('/', $file);
+                                        $img_nmee = end($arry);
+                                        $img_nam = explode('.', $img_nmee);
+                                        if ($img_nam[0] == 'Patient Image') {
+                                                ?>
+                                                <div class="col-md-4 disp-image" id="patient_image">
+                                                        <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $img_nmee ?>"/>
+                                                </div>
 
-                                <div class="col-md-4 disp-image" id="patient_image">
-                                        <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/patient_image.' . $patient_general->patient_image; ?> "/>
-                                        <a title="Delete Patient Image"><i class="fa fa-remove img-removes" style="cursor: pointer;float: right" id="<?= $patient_general->id . "-" . 'patient_image.' . $patient_general->patient_image . "-patient_image" ?>"></i></a>
-                                </div>
-
-
-                        <?php }
+                                                <?php
+                                        }
+                                }
+                        }
                         ?>
+
                 </div>
-
-
-
-
 
 
                 <div class="row">
@@ -223,42 +223,7 @@ use common\models\Branch;
 
 
                 </div>
-                <?php if ($model->guardian_profile_image != '') { ?>
-                        <div class = "col-md-3" id = "guardian_profile_image">
 
-                                <?php
-                                $paths = Yii::getAlias(Yii::$app->params['uploadPath']);
-                                //echo Yii::getAlias(@paths . '/staff/' . $model->id . '/profile_image_type.' . $model->profile_image_type;
-                                ?>
-                                <label>Guardian Image</label>
-                                <img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/guardian_profile_image.' . $model->guardian_profile_image; ?> " style="width:100px;height: 100px;"/>
-                                <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;left: 220px;top: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . 'guardian_profile_image.' . $model->guardian_profile_image . "-guardian_profile_image" ?>"></i></a>
-
-
-
-                        </div>
-                <?php } ?>
-
-                <div class="col-md-3" id="passport">
-                        <?php
-                        if (!$model->isNewRecord) {
-
-                                $images = array('passport');
-                                $i = 0;
-
-                                foreach ($images as $value) {
-                                        if ($model->$value != '') {
-                                                $i++;
-                                                ?>
-                                                <span style="font-size: 12px;"><?= $model->getAttributeLabel($value); ?></span>
-                                                <a href="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?>" target="_blank"><img src="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . $value . '.' . $model->$value; ?> " style="width:100px;height: 100px;"/></a>
-                                                <a title="Delete"><i class="fa fa-remove img-removes" style="position: absolute;margin-left: 5px;cursor: pointer" id="<?= $patient_general->id . "-" . $value . '.' . $model->$value . "-" . $value ?>"></i></a>
-                                                <?php
-                                        }
-                                }
-                        }
-                        ?>
-                </div>
 
 
                 <div style="clear:both"></div>
@@ -288,13 +253,84 @@ use common\models\Branch;
 
         </div>
 
+        <div style = "clear:both"></div>
+
+        <div id = "p_attach">
+                <input type = "hidden" id = "delete_port_vals" name = "delete_port_vals" value = "">
+                <h4 style = "color:#000;font-style: italic;">Attachments</h4>
+                <hr class = "enquiry-hr"/>
 
 
-        <?php /* if ($model->passport != '' || $model->driving_license != '' || $model->pan_card != '' || $model->voters_id != '') { ?>
-          <!--                <div class="row">
-          <label style="    color: #148eaf;font-size: 19px;margin-left: 14px;">Uploaded Files</label>
-          </div>-->
-          <?php } */ ?>
+                <span>
+                        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class = "form-group field-staffperviousemployer-hospital_address">
+                                        <label class = "control-label">Attachment</label>
+                                        <input type = "file" name = "creates[file][]">
+
+                                </div>
+                        </div>
+                        <?php
+                        $rand = rand();
+                        $uploads_type = common\models\UploadCategory::find()->where(['status' => 1, 'type' => 1])->all();
+                        ?>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-staffperviousemployer-designation">
+                                        <label class="control-label" for="">Attachment Name</label>
+                                        <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
+                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;" type='1'> + Add New</a>
+
+                                </div>
+                        </div>
+
+
+                        <div style="clear:both"></div>
+                </span>
+                <br/>
+        </div>
+
+        <div class="row">
+                <div class="col-md-6">
+                        <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" type="1"><i class="fa-plus"></i><span> Add More</span></a>
+                </div>
+        </div>
+
+
+
+
+        <div style="clear:both"></div>
+
+
+        <?php if (!$model->isNewRecord) { ?>
+                <br/>
+
+                <div class="row">
+                        <?php
+                        $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient/' . $patient_general->id;
+
+                        if (count(glob("{$path}/*")) > 0) {
+                                echo "<hr class='appoint_history'/> <h4 class='sub-heading'>Uploaded Files</h4>";
+
+                                $z = 0;
+                                foreach (glob("{$path}/*") as $file) {
+                                        $z++;
+                                        $arry = explode('/', $file);
+                                        $img_nmee = end($arry);
+                                        $img_nmees = explode('.', $img_nmee);
+                                        ?>
+
+                                        <div class = "col-md-2 img-box" id="ss_<?= $z; ?>">
+                                                <a href="<?= Yii::$app->homeUrl . '../uploads/patient/' . $patient_general->id . '/' . end($arry) ?>" target="_blank"><?= end($arry); ?></a>
+                                                <a  title="Delete" class="patient-img-remove" id="<?= $patient_general->id . "-" . $img_nmee . "-" . $z; ?>" style="cursor:pointer"><i class="fa fa-remove" style="position: absolute;left: 165px;top: 3px;"></i></a>
+                                        </div>
+
+
+                                        <?php
+                                }
+                        }
+                        ?>
+                </div>
+
+        <?php } ?>
 
 
 

@@ -376,7 +376,7 @@ class ReportsController extends Controller {
                 ]);
         }
 
-        public function actionStaffdetails($from = null, $to = null, $staff = null) {
+        public function actionStaffdetails1($from = null, $to = null, $staff = null) {
                 $searchModel = new \common\models\ServiceScheduleSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->andWhere(['staff' => $staff])->orderBy(['date' => SORT_ASC]);
@@ -392,6 +392,26 @@ class ReportsController extends Controller {
                             'to' => $to,
                 ]);
         }
+
+        /*
+         * Staff Detailed Report in the particular range
+         */
+
+        public function actionStaffdetails($from = null, $to = null, $staff = null) {
+                $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->all();
+                $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
+
+                return $this->render('staff_details', [
+                            'staff' => $staff,
+                            'staff_amount' => $staff_amount,
+                            'from' => $from,
+                            'to' => $to,
+                ]);
+        }
+
+        /*
+         * Patient Report
+         */
 
         public function actionReportPatient() {
                 $model = new ServiceSchedule();
