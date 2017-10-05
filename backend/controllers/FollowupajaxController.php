@@ -218,4 +218,23 @@ class FollowupajaxController extends \yii\web\Controller {
                 }
         }
 
+        public function actionCheckingDuty() {
+                if (Yii::$app->request->isAjax) {
+                        $assigned_to = $_POST['assigned_to'];
+                        $staff = StaffInfo::findOne($assigned_to);
+                        $the_date = date('Y-m-d', strtotime($_POST['date']));
+                        $followups = Followups::find()
+                                ->where('followup_date LIKE :query')
+                                ->addParams([':query' => $the_date . '%'])
+                                ->andWhere(['assigned_to' => $assigned_to, 'status' => 0])
+                                ->all();
+                        if (count($followups) > 0) {
+                                $rate = $this->renderPartial('tasks_assigned', ['followups' => $followups, 'staff' => $staff->staff_name, 'date' => $the_date]);
+                                echo $rate;
+                        } else {
+                                echo '0';
+                        }
+                }
+        }
+
 }

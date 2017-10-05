@@ -226,6 +226,7 @@ $("document").ready(function () {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
         $(document).on('change', '.create-assignedto', function () {
+                alert();
                 var str = $("#" + $(this).attr('id') + " option:selected").text();
                 if (str.indexOf('Patient') > -1)
                 {
@@ -233,5 +234,22 @@ $("document").ready(function () {
                 } else {
                         $('#assigned_to_type').val('2');
                 }
+        });
+
+        $('#create-assigned_to').change(function () {
+                var assigned_to = $(this).val();
+                var date = $('#Followup_date').val();
+                $.ajax({
+                        type: 'POST',
+                        cache: false,
+                        data: {assigned_to: assigned_to, date: date},
+                        url: homeUrl + 'followupajax/checking-duty',
+                        success: function (data) {
+                                if (data != '0') {
+                                        $("#modal-pop-up").html(data);
+                                        $('#modal-6').modal('show', {backdrop: 'static'});
+                                }
+                        }
+                });
         });
 });
