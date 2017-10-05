@@ -409,6 +409,23 @@ class ReportsController extends Controller {
                 ]);
         }
 
+        public function actionStaffdetailsprint($from, $to, $staff) {
+                $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
+
+                $pdf = new Pdf([
+                    'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                    'content' => $this->renderPartial('staff_details_print', [
+                        'staff' => $staff,
+                        'staff_amount' => $staff_amount,
+                        'from' => $from,
+                        'to' => $to,
+                        'type' => '1',
+                    ]),
+                    'cssInline' => 'td {padding-bottom: 1em;}} ',
+                ]);
+                return $pdf->render();
+        }
+
         /*
          * Patient Report
          */

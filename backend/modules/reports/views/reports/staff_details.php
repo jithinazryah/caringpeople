@@ -68,56 +68,63 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                 </div>
+                                                <?php if ($type != 1) { ?>
+                                                        <a target="_blank" href="<?= Yii::$app->homeUrl ?>reports/reports/staffdetailsprint?from=<?= $from ?>&&to=<?= $to ?>&&staff=<?= $staff ?>"><button  class="print_btn print_btn_color"><i class="fa fa-print"></i>  Save as PDF</button></a>
+                                                <?php } ?>
 
 
-                                                <div class = "table-responsive">
 
+                                                <table class="table table-bordered table-striped" style="margin-top:20px;">
+                                                        <tr>
+                                                                <th style="width:100px!important;">#</th>
+                                                                <th>Date</th>
+                                                                <th>Service ID</th>
+                                                                <th>Patient</th>
+                                                                <th>Rate</th>
+                                                        </tr>
                                                         <?php
-                                                        $gridColumns = [
-                                                                ['class' => 'yii\grid\SerialColumn'],
-                                                                [
-                                                                'attribute' => 'date',
-                                                                'value' => function($data) {
-                                                                        if (isset($data->date))
-                                                                                return date('d-m-Y', strtotime($data->date));
-                                                                },
-                                                                'filter' => '',
-                                                            ],
-                                                                [
-                                                                'attribute' => 'service_id',
-                                                                'value' => function($model) {
-                                                                        return $model->service->service_id;
-                                                                },
-                                                                'filter' => '',
-                                                            ],
-                                                                [
-                                                                'attribute' => 'patient_id',
-                                                                'value' => function($model) {
-                                                                        if (isset($model->patient_id)) {
-                                                                                $patient = \common\models\PatientGeneral::findOne($model->patient_id);
-                                                                                return $patient->first_name;
-                                                                        }
-                                                                },
-                                                                'filter' => '',
-                                                            ],
-                                                                [
-                                                                'attribute' => 'rate',
-                                                                'filter' => '',
-                                                            ],
-                                                        ];
-                                                        if (Yii::$app->user->identity->post_id == '1') {
-                                                                echo ExportMenu::widget([
-                                                                    'dataProvider' => $dataProvider,
-                                                                    'columns' => $gridColumns,
-                                                                ]);
-                                                        }
-                                                        echo \kartik\grid\GridView::widget([
-                                                            'dataProvider' => $dataProvider,
-                                                            'filterModel' => $searchModel,
-                                                            'columns' => $gridColumns,
-                                                        ]);
-                                                        ?>
-                                                </div>
+                                                        $from = date('Y-m-d', strtotime($from . ' - 1 days'));
+                                                        $date = $from;
+                                                        $end_date = $to;
+                                                        $f = 0;
+                                                        while (strtotime($date) < strtotime($end_date)) {
+                                                                $f++;
+
+                                                                $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+                                                                $details = \common\models\ServiceSchedule::find()->where(['date' => $date, 'staff' => $staff])->one();
+                                                                $service_details = \common\models\Service::findOne($details->service_id);
+                                                                $patient = \common\models\PatientGeneral::findOne($details->patient_id);
+                                                                ?>
+                                                                <tr>
+                                                                        <td><?= $f ?></td>
+                                                                        <td><?= date('d-m-Y', strtotime($date)) ?></td>
+                                                                        <td><?php
+                                                                                if (isset($service_details->service_id)) {
+                                                                                        echo $service_details->service_id;
+                                                                                } else {
+                                                                                        echo '-';
+                                                                                }
+                                                                                ?></td>
+                                                                        <td><?php
+                                                                                if (isset($patient->first_name)) {
+                                                                                        echo $patient->first_name;
+                                                                                } else {
+                                                                                        echo '-';
+                                                                                }
+                                                                                ?></td>
+                                                                        <td><?php
+                                                                                if (isset($details->rate)) {
+                                                                                        echo $details->rate;
+                                                                                } else {
+                                                                                        echo '-';
+                                                                                }
+                                                                                ?>
+
+                                                                        </td>
+                                                                </tr>
+                                                        <?php } ?>
+
+                                                </table>
 
 
 
@@ -131,26 +138,27 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 </div>
 
+<?php if ($type != 1) { ?>
+        <style>
 
-<style>
+                table td{
+                        text-align:center;
 
-        .present{
-                color: green;
-        }
-        .absent{
-                color: red;
-        }.counts p{
-                float: right;
-                line-height: 25px;
-                color: #000;
-        }.counts span,.counts1 span{
-                font-weight: bold;
-                color: #000;
-        }.counts1 p{
-                margin-left: 20px;
-                color: #000;
-        }.no-result{
-                text-align: center;
-                font-style: italic;
-        }
-</style>
+                }
+                table th{
+                        text-align:center;
+                        width:230px !important;
+                }.print_btn{
+                        font-weight: bold !important;
+                        color: #fff;
+                        border-color: #80b636;
+                        cursor: pointer;
+                        border: 1px solid transparent;
+                        padding: 6px 12px;
+                        font-size: 13px;
+                        line-height: 1.42857143;
+                } .print_btn_color{
+                        background-color: #8dc63f;
+                }
+        </style>
+<?php } ?>
