@@ -133,6 +133,28 @@ class DropdownController extends \yii\web\Controller {
                                 if ($remarks->type == '2' || $remarks->type == '4')
                                         $rates = SetValues::Rating($remarks->type_id, $remarks->type);
 
+                                if ($remarks->type == 5) { /* if remark is added from copy then add a copy to the staff and patient in that service */
+                                        $service_staff = \common\models\ServiceSchedule::find()->select('staff')->distinct()->where(['service_id' => $remarks->type_id])->all();
+                                        $patient = \common\models\Service::findOne($remarks->type_id);
+
+                                        if (!empty($service_staff)) {
+                                                foreach ($service_staff as $value) {
+                                                        $remark = new Remarks();
+                                                        $remark->attributes = $remarks->attributes;
+                                                        $remark->type = 4;
+                                                        $remark->type_id = $value->staff;
+                                                        $remark->status = 1;
+                                                        $remark->save();
+                                                }
+                                        }
+                                        $patient_remark = new Remarks();
+                                        $patient_remark->attributes = $remarks->attributes;
+                                        $patient_remark->type = 2;
+                                        $patient_remark->type_id = $patient->patient_id;
+                                        $patient_remark->status = 1;
+                                        $patient_remark->save();
+                                }
+
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);
 
