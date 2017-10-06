@@ -359,4 +359,13 @@ class StaffInfo extends ActiveRecord implements IdentityInterface {
                 return $staffs;
         }
 
+        public static function Check($id) {
+
+                $not_uploaded = \common\components\SetValues::Check($id, 2);
+                if (count($not_uploaded) > 0)
+                        return '1';
+                else
+                        return '0';
+        }
+
 }

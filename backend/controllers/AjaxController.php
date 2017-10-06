@@ -590,12 +590,113 @@ class AjaxController extends \yii\web\Controller {
                 echo $patient_id = $branch . '-' . date('d') . date('m') . date('y') . '-' . $id;
         }
 
+        /*
+         * Missing fields checking
+         */
+
         public function actionChecking() {
                 if (Yii::$app->request->isAjax) {
                         $type = $_POST['type'];
-                        $view = $this->renderPartial('checking', ['id' => $_POST['id'], 'type' => $type]);
+                        $id = $_POST['id'];
+                        $uploaded = array();
+                        $not_uploaded = array();
+                        if ($type == 1) { /* patient */
+                                $model = PatientGeneral::findOne($id);
+                                $patient_guardian = PatientGuardianDetails::find()->where(['patient_id' => $model->id])->one();
+                                $files = array("patient_id-1" => "Patient Id", "first_name-2" => "Guardian Name", "email-1" => "Email", "contact_number-1" => "Contact Number", "police_station_name-2" => "Police Station Name", 'police_station_email-2' => 'Police Station Email', 'panchayath_name-2' => 'Panchayth Name', 'ward_no-2' => 'Ward No', 'contact_person_name-2' => 'Contact Person Name', 'contact_person_mobile_no-2' => 'Contact Person Mobile no');
+                                $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/patient/' . $model->id;
+                                $patient_uploads = array('Patient Image', 'Guardian Image', 'Diagnosis Report', 'Patient ID Proof', 'Guardian ID Proof');
+                        } else if ($type == 2) { /* staff */
+                                $staff = \common\models\StaffInfo::findOne($id);
+                                $staff_details_first = \common\models\StaffEnquiryInterviewFirst::find()->where(['staff_id' => $staff->id])->one();
+                                $staff_details_second = \common\models\StaffEnquiryInterviewThird::find()->where(['staff_id' => $staff->id])->one();
+                                $staff_other_info = \common\models\StaffOtherInfo::find()->where(['staff_id' => $staff->id])->one();
+                                $staff_family = \common\models\StaffEnquiryFamilyDetails::find()->where(['staff_id' => $staff->id])->all();
+                                $files = array("present_contact_no-3" => "Staff Contact Number", "alternate_number_1-4" => "Staff Alternate Number 1", "alternate_number_2-4" => "Staff Alternate Number 2", "permanent_address-3" => "Permanent Address", "present_address-3" => "Present Address", 'emergency_contact_name-5' => 'Emeregency Contact Name', 'phone-5' => 'Emeregency Contact Phone', 'mobile-5' => 'Emeregency Contact Mobile', 'alt_emergency_contact_name-5' => 'Alternate Emeregency Contact Name', 'alt_phone-5' => 'Alternate Emeregency Contact Phone', 'alt_mobile-5' => 'Alternate Emeregency Contact Mobile', "police_station_name-4" => "Police Station Name", "panchayat-4" => "Panchayat", "bank_ac_no-6" => "Bank A/c Details");
+                                $path = Yii::getAlias(Yii::$app->params['uploadPath']) . '/staff/' . $staff->id;
+                                $patient_uploads = array('Profile Image', 'Voter ID', 'Aadhar Card');
+                        }
+
+
+                        /*
+                         * checking fields
+                         */
+                        foreach ($files as $x => $x_value) {
+                                if (!empty($x)) {
+                                        $values = explode('-', $x);
+                                        $field = $values[0];
+                                        $table = $values[1];
+                                        if ($table == 1) {
+                                                $check = $model;
+                                        } else if ($table == 2) {
+                                                $check = $patient_guardian;
+                                        } else if ($table == 3) {
+                                                $check = $staff;
+                                        } else if ($table == 4) {
+                                                $check = $staff_details_first;
+                                        } else if ($table == 5) {
+                                                $check = $staff_other_info;
+                                        } else if ($table == 6) {
+                                                $check = $staff_details_second;
+                                        }
+
+                                        if (isset($check->$field) && $check->$field != '') {
+
+                                                $uploaded[] = $x_value;
+                                        } else {
+
+                                                $not_uploaded[] = $x_value;
+                                        }
+                                }
+                        }
+
+                        if ($type == 2) {
+                                if (count($staff_family) == 0)
+                                        $not_uploaded[] = 'Family Details';
+                        }
+
+                        $not_uploaded = $this->FileCheck($patient_uploads, $path, $not_uploaded, $uploaded);
+                        $view = $this->renderPartial('checking', ['not_uploaded' => $not_uploaded, 'type' => $type]);
                         echo $view;
                 }
+        }
+
+        /*
+         * checking files
+         */
+
+        public function FileCheck($patient_uploads, $path, $not_uploaded, $uploaded) {
+                $s = 0;
+                foreach ($patient_uploads as $patient_uploads) {
+                        $s++;
+                        $h = 0;
+                        if (count(glob("{$path}/*")) > 0) {
+                                foreach (glob("{$path}/*") as $file) {
+                                        $h++;
+                                        $arry = explode('/', $file);
+                                        $img_nmee = end($arry);
+                                        $img_nam = explode('.', $img_nmee);
+
+                                        if ($img_nam[0] != $patient_uploads) {
+
+                                                if (!in_array($patient_uploads, $not_uploaded)) {
+                                                        if (!in_array($patient_uploads, $uploaded)) {
+                                                                $not_uploaded[] = $patient_uploads;
+                                                        }
+                                                }
+                                        } else {
+
+                                                $uploaded[] = $patient_uploads;
+                                                if (($key = array_search($patient_uploads, $not_uploaded)) !== false) {
+                                                        unset($not_uploaded[$key]);
+                                                }
+                                        }
+                                }
+                        } else {
+                                $not_uploaded[] = $patient_uploads;
+                        }
+                }
+                return $not_uploaded;
         }
 
 }

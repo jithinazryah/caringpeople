@@ -288,7 +288,7 @@ class PatientInformationController extends Controller {
                                         $patient_assessment->patient_id = $patient_general->id;
                                         $patient_assessment->save();
 
-                                        Yii::$app->SetValues->History($patient_general->id, $patient_general->first_name . ' ' . $patient_general->last_name . ' is added');
+                                        Yii::$app->SetValues->History($patient_general->id, 'New Patient' . $patient_general->first_name . ' ' . $patient_general->last_name . ' is added');
                                         $this->AutoNumber($patient_general);
                                         $this->AddPresentMedication($patient_general);
                                         $this->AddBystanderDetails(Yii::$app->request->post(), $bystander_details);

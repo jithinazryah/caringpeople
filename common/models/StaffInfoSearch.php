@@ -160,13 +160,16 @@ class StaffInfoSearch extends StaffInfo {
                         ],
                         'buttons' => [
                             'missing' => function($url, $model, $key) {     // render your custom button
-                                    return Html::a('<span class="fa fa-file-image-o" style="padding-top: 0px;"></span>', ['#'], [
-                                                'title' => Yii::t('app', 'Missing Fileds/ Files'),
-                                                'class' => 'actions missing-files',
-                                                'type' => '2',
-                                                'target' => '_blank',
-                                                'id' => $model->id
-                                    ]);
+                                    $checking = $model->check($model->id);
+                                    if ($checking == 1) {
+                                            return Html::a('<span class="fa fa-file-image-o" style="padding-top: 0px;"></span>', ['#'], [
+                                                        'title' => Yii::t('app', 'Missing Fileds/ Files'),
+                                                        'class' => 'actions missing-files',
+                                                        'type' => '2',
+                                                        'target' => '_blank',
+                                                        'id' => $model->id
+                                            ]);
+                                    }
                             },
                         ]
                     ],

@@ -14,17 +14,23 @@ class ReportController extends Controller {
         public function actionIndex() {
 
 
-                $server = Yii::$app->request->serverName;
+
+
+
+
                 $message = "";
+                $date_format_today = date('d-m-Y');
                 $users = \common\models\History::find()->select('CB')->where(['date' => date('Y-m-d')])->groupBy('CB')->all();
+
                 $message .= "
                              <html>
                                <body>
                                    <div class='mail-body' style='margin: auto;width: 50%;border: 1px solid #9e9e9e;'>
                                    <div style='margin-left: 40px;'>
-                                     <img src='$server/admin/images/logos/logo-1.png'  style='width:200px'>
-                                   <p><b>REPORT</b></p>
-                                  <table>";
+                                     <img src='http://caringpeople.in/admin/images/logos/logo-1.png'  style='width:200px'>
+                                  ";
+
+                $message .= "<p>Report ($date_format_today)</p><table>";
 
                 foreach ($users as $value) {
                         $staff = \common\models\StaffInfo::findOne($value->CB);
@@ -37,14 +43,13 @@ class ReportController extends Controller {
                         }
                 }
 
-
                 $message .= "</div>
                 </div><table></body></html>";
-
+                $to = 'sabitha393@gmail.com';
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
                         "From: info@caringpeople.in";
-                mail('info@caringpeople.in', 'Report', $message, $headers);
+                mail($to, 'Report', $message, $headers);
         }
 
 }

@@ -138,10 +138,16 @@ class FollowupajaxController extends \yii\web\Controller {
                         // $followup_id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $_POST['followup_id']);
                         $type = $_POST['type'];
                         $followup_id = $_POST['followup_id'];
-                        if ($type == '1')
+                        if ($type == '1') {
                                 $followup = Followups::find()->where(['id' => $followup_id])->one();
-                        else
+                                $assigned_from = StaffInfo::findOne($followup->assigned_from);
+                                if (isset($assigned_from->email)) {
+                                        $message = $this->renderPartial('tasks_completed', ['followups' => $followups]);
+                                        Yii::$app->SetValues->Email($followup->assigned_from, 'Taskl Completed', $message);
+                                }
+                        } else {
                                 $followup = \common\models\RepeatedFollowups::find()->where(['id' => $followup_id])->one();
+                        }
                         $followup->status = 1;
                         if ($followup->save()) {
                                 $return_val = 1;
