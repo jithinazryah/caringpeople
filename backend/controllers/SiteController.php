@@ -99,14 +99,34 @@ class SiteController extends Controller {
         public function actionHome() {
 
                 if (isset(Yii::$app->user->identity->id)) {
+                        $patients = \common\models\PatientGeneral::find()->where(['status' => 1])->count();
+                        $staffs = StaffInfo::find()->where(['status' => 1])->count();
+                        $services = \common\models\Service::find()->where(['status' => 1])->count();
 
-
+                        $tasks = Followups::find()->where('followup_date LIKE :query')->addParams([':query' => $the_date . '%'])->andWhere(['assigned_to' => Yii::$app->user->identity->id, 'status' => 0])->all();
+                        if (!empty($tasks)) {
+                                $tasks = Followups::find()->where(['status' => 0])->andWhere(['assigned_to' => Yii::$app->user->identity->id, 'status' => 0])->orderBy('followup_date')->limit(5)->all();
+                        }
 
                         if (Yii::$app->user->isGuest) {
 
                                 return $this->redirect(array('site/index'));
                         }
-                        return $this->render('index');
+                        if (Yii::$app->user->identity->post_id == 1) {
+                                return $this->render('index', [
+                                            'staffs' => $staffs,
+                                            'patients' => $patients,
+                                            'services' => $services,
+                                            'tasks' => $tasks,
+                                ]);
+                        } else {
+                                return $this->render('dashboard', [
+                                            'staffs' => $staffs,
+                                            'patients' => $patients,
+                                            'services' => $services,
+                                            'tasks' => $tasks,
+                                ]);
+                        }
                 } else {
                         throw new \yii\web\HttpException(2000, 'Session Expired.');
                 }
