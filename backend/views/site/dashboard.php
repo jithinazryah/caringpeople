@@ -68,12 +68,12 @@ use yii\db\Expression;
         </div>
 
 
-        <div class="col-sm-12">
+        <div class="col-sm-6">
 
 
 
                 <!-- Tweets -->
-                <div class="xe-widget xe-status-update" data-auto-switch="5" style="background-color:#99bbd6">
+                <div class="xe-widget xe-status-update" data-auto-switch="5">
                         <div class="xe-header">
                                 <div class="xe-icon">
                                         <i class="fa fa-tasks"></i>
@@ -94,14 +94,19 @@ use yii\db\Expression;
 
                                         <?php
                                         $e = 0;
-                                        foreach ($tasks as $value) {
-                                                $e++;
-                                                ?>
-                                                <li class="<?= $e == 1 ? 'active' : '' ?>">
-                                                        <span class="status-date"><?= date('d F Y H:i:s', strtotime($value->followup_date)) ?></span>
-                                                        <p><?= $value->followup_notes; ?></p>
-                                                </li>
-                                        <?php }
+                                        if (!empty($tasks)) {
+                                                foreach ($tasks as $value) {
+                                                        $e++;
+                                                        ?>
+                                                        <li class="<?= $e == 1 ? 'active' : '' ?>">
+                                                                <span class="status-date"><?= date('d F Y H:i:s', strtotime($value->followup_date)) ?></span>
+                                                                <p><?= substr($value->followup_notes, 0, 100); ?></p>
+                                                        </li>
+                                                        <?php
+                                                }
+                                        } else {
+                                                echo '<li>No tasks Assigned</li>';
+                                        }
                                         ?>
                                 </ul>
 
@@ -110,6 +115,56 @@ use yii\db\Expression;
                                 <a href="<?= Yii::$app->homeUrl ?>followup/followups/index">
                                         <i class="fa-retweet"></i>
                                         My Tasks
+                                </a>
+                        </div>
+                </div>
+
+        </div>
+
+
+
+        <div class="col-sm-6">
+
+                <div class="xe-widget xe-status-update xe-status-update-google-plus" data-auto-switch="0">
+                        <div class="xe-header">
+                                <div class="xe-icon">
+                                        <i class="fa-google-plus"></i>
+                                </div>
+                                <div class="xe-nav">
+                                        <a href="#" class="xe-prev">
+                                                <i class="fa-angle-left"></i>
+                                        </a>
+                                        <a href="#" class="xe-next">
+                                                <i class="fa-angle-right"></i>
+                                        </a>
+                                </div>
+                        </div>
+                        <div class="xe-body">
+
+                                <ul class="list-unstyled">
+                                        <?php
+                                        $e = 0;
+                                        if (!empty($pending_tasks)) {
+                                                foreach ($pending_tasks as $value) {
+                                                        $e++;
+                                                        ?>
+                                                        <li class="<?= $e == 1 ? 'active' : '' ?>">
+                                                                <span class="status-date"><?= date('d F Y H:i:s', strtotime($value->followup_date)) ?></span>
+                                                                <p><?= substr($value->followup_notes, 0, 100); ?></p>
+                                                        </li>
+                                                        <?php
+                                                }
+                                        } else {
+                                                echo '<li>No Pending Tasks</li>';
+                                        }
+                                        ?>
+                                </ul>
+
+                        </div>
+                        <div class="xe-footer">
+                                <a href="<?= Yii::$app->homeUrl ?>followup/followups/index">+3
+                                        <i class="linecons-thumbs-up"></i>
+                                        +1 this post
                                 </a>
                         </div>
                 </div>

@@ -285,23 +285,27 @@ if (empty($staff_payroll_paid)) {
                         <div class="xe-body">
 
                                 <ul class="list-unstyled">
-                                        <li class="active">
-                                                <span class="status-date">21 May</span>
-                                                <p>Build your own Fake Twitter Post now! Check it out @ simitator.com #laborator #envato</p>
-                                        </li>
-                                        <li>
-                                                <span class="status-date">18 April</span>
-                                                <p> Micro-finance clean water sustainable future Oxfam protect. Enabler meaningful work change-makers.</p>
-                                        </li>
-                                        <li>
-                                                <span class="status-date">08 March</span>
-                                                <p>Fight against malnutrition Aga Khan Bloomberg, economic independence inspire breakthroughs benefit civil.</p>
-                                        </li>
+                                        <?php
+                                        $e = 0;
+                                        if (!empty($pending_tasks)) {
+                                                foreach ($pending_tasks as $value) {
+                                                        $e++;
+                                                        ?>
+                                                        <li class="<?= $e == 1 ? 'active' : '' ?>">
+                                                                <span class="status-date"><?= date('d F Y H:i:s', strtotime($value->followup_date)) ?></span>
+                                                                <p><?= substr($value->followup_notes, 0, 100); ?></p>
+                                                        </li>
+                                                        <?php
+                                                }
+                                        } else {
+                                                echo '<li>No Pending Tasks</li>';
+                                        }
+                                        ?>
                                 </ul>
 
                         </div>
                         <div class="xe-footer">
-                                <a href="#">
+                                <a href="<?= Yii::$app->homeUrl ?>followup/followups/index">+3
                                         <i class="linecons-thumbs-up"></i>
                                         +1 this post
                                 </a>
@@ -314,105 +318,138 @@ if (empty($staff_payroll_paid)) {
 
         <div class="row row-style" style="margin:0">
                 <div class="col-sm-6">
+                        <?php
+                        if (Yii::$app->user->identity->branch_id != '0') {
+                                $services = \common\models\Service::find()->where(['status' => 1, 'branch_id' => Yii::$app->user->identity->branch_id])->limit(5)->orderBy(['id' => SORT_DESC])->all();
+                        } else {
+                                $services = \common\models\Service::find()->where(['status' => 1])->limit(5)->orderBy(['id' => SORT_DESC])->all();
+                        }
+                        ?>
 
-                        <div class="panel panel-default" style="height: 400px;">
+                        <div class="panel panel-default" style="height: 450px;">
                                 <div class="panel-heading">
-                                        Recent Materials Invoice
+                                        Services
                                 </div>
-                                <div>
-                                        <?= Html::a('<i class="fa-th-list"></i><span> Add Materials</span>', ['sales/sales-invoice-details/add'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top: 8px;']) ?>
-                                </div>
+
                                 <div style="min-height: 210px;" class="table-responsive">
                                         <table class="table" >
                                                 <thead>
                                                         <tr style="text-align: center;">
-                                                                <th width="">Invoice Number</th>
-                                                                <th width="">Date</th>
-                                                                <th width="">Customer</th>
-                                                                <th width="">Amount</th>
+                                                                <th>#</th>
+                                                                <th width="">Service ID</th>
+                                                                <th width="">Patient ID</th>
+                                                                <th width="">Service</th>
+                                                                <th width="">Duty Type</th>
                                                         </tr>
                                                 </thead>
                                                 <tbody>
                                                         <?php
-                                                        if (!empty($sales_masters)) {
-                                                                foreach ($sales_masters as $sales_master) {
+                                                        if (!empty($services)) {
+                                                                $f = 0;
+                                                                foreach ($services as $services) {
+                                                                        $f++;
                                                                         ?>
-                                                                        <tr style="text-align:left;" class='sales-clickable-row' id="clickable-row-<?= $sales_master->id ?>">
-                                                                                <td><?= $sales_master->sales_invoice_number ?> </td>
-                                                                                <td><?= $sales_master->sales_invoice_date ?></td>
-                                                                                <td>
-                                                                                        <?php
-                                                                                        if (isset($sales_master->busines_partner_code)) {
-                                                                                                echo BusinessPartner::findOne(['id' => $sales_master->busines_partner_code])->name;
+                                                                        <tr style="text-align:left;" >
+                                                                                <td><?= $f ?></td>
+                                                                                <td><?= $services->service_id ?> </td>
+                                                                                <td><?= $services->patient->first_name ?></td>
+                                                                                <td><?= $services->service0->service_name ?></td>
+                                                                                <td><?php
+                                                                                        if ($services->duty_type == '1') {
+                                                                                                echo 'Hourly';
+                                                                                        } else if ($services->duty_type == '2') {
+                                                                                                echo 'Visit';
+                                                                                        } else if ($services->duty_type == '3') {
+                                                                                                echo 'Day';
+                                                                                        } else if ($services->duty_type == '4') {
+                                                                                                echo 'Night';
+                                                                                        } else if ($services->duty_type == '5') {
+                                                                                                echo 'Day & Night';
                                                                                         }
-                                                                                        ?>
-                                                                                </td>
-                                                                                <td><?= $sales_master->order_amount ?></td>
+                                                                                        ?></td>
                                                                         </tr>
                                                                         <?php
                                                                 }
                                                         } else {
-                                                                echo '<tr><td colspan="4" style="text-align:center">No Recent Materials Sale</td></tr>';
+                                                                echo '<tr><td colspan="4" style="text-align:center">No Services</td></tr>';
                                                         }
                                                         ?>
                                                 </tbody>
                                         </table>
                                 </div>
                                 <div>
-                                        <?= Html::a('<i class="fa-share"></i><span> View More</span>', ['sales/sales-invoice-details/index'], ['class' => 'btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right', 'style' => 'margin-top: 8px;float:right;']) ?>
+                                        <?= Html::a('<i class="fa-share"></i><span> View More</span>', ['services/service/index'], ['class' => 'btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right', 'style' => 'margin-top: 8px;float:right;']) ?>
                                 </div>
                         </div>
 
                 </div>
                 <div class="col-sm-6">
 
-                        <div class="panel panel-default" style="height: 400px;">
+                        <div class="panel panel-default" style="height: 450px;">
                                 <div class="panel-heading">
-                                        Recent Purchase Invoice
+                                        Today Schedules
                                 </div>
-                                <div>
-                                        <?= Html::a('<i class="fa-th-list"></i><span> New Purchase</span>', ['sales/purchase-invoice-details/add'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top: 8px;']) ?>
-                                </div>
+
+                                <?php
+                                if (Yii::$app->user->identity->branch_id != '0') {
+                                        $services = \common\models\Service::find()->where(['status' => 1, 'branch_id' => Yii::$app->user->identity->branch_id])->limit(5)->orderBy(['id' => SORT_DESC])->all();
+                                } else {
+                                        $services = \common\models\Service::find()->where(['status' => 1])->limit(5)->orderBy(['id' => SORT_DESC])->all();
+                                }
+                                ?>
                                 <div  style="min-height: 210px;" class="table-responsive">
                                         <table class="table">
                                                 <thead>
                                                         <tr style="text-align: center;">
-                                                                <th width="">Invoice Number</th>
+                                                                <th width="">#</th>
+                                                                <th width="">Service ID</th>
                                                                 <th width="">Date</th>
-                                                                <th width="">Customer</th>
-                                                                <th width="">Amount</th>
+                                                                <th width="">Staff</th>
                                                         </tr>
                                                 </thead>
                                                 <tbody>
                                                         <?php
-                                                        if (!empty($purchase_masters)) {
-                                                                foreach ($purchase_masters as $purchase_master) {
-                                                                        ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<a href="<?= Yii::$app->homeUrl; ?>sales/purchase-invoice-details/view?id=<?= $purchase_master->id ?>">-->
-                                                                        <tr style="text-align:left;" class='purchase-clickable-row' id="clickable-row-<?= $purchase_master->id ?>">
-                                                                                <td><?= $purchase_master->sales_invoice_number ?> </td>
-                                                                                <td><?= $purchase_master->sales_invoice_date ?></td>
-                                                                                <td>
-                                                                                        <?php
-                                                                                        if (isset($purchase_master->busines_partner_code)) {
-                                                                                                echo BusinessPartner::findOne(['id' => $purchase_master->busines_partner_code])->name;
+                                                        if (!empty($services)) {
+                                                                $s = 0;
+                                                                foreach ($services as $services) {
+                                                                        $schedules = \common\models\ServiceSchedule::find()->where(['service_id' => $services->id])->all();
+
+                                                                        foreach ($schedules as $schedules) {
+                                                                                if ($schedules->date == date('Y-m-d')) {
+                                                                                        $s++;
+                                                                                        if ($s <= 5) {
+                                                                                                ?>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<a href="<?= Yii::$app->homeUrl; ?>sales/purchase-invoice-details/view?id=<?= $purchase_master->id ?>">-->
+                                                                                                <tr style="text-align:left;">
+                                                                                                        <td><?= $s ?> </td>
+                                                                                                        <?php
+                                                                                                        $service = \common\models\Service::findOne($schedules->service_id);
+                                                                                                        ?>
+                                                                                                        <td><?= $service->service_id ?></td>
+                                                                                                        <td>
+                                                                                                                <?=
+                                                                                                                date('d-m-Y', strtotime($schedules->date));
+                                                                                                                ?>
+                                                                                                        </td>
+                                                                                                        <?php $staff = \common\models\StaffInfo::findOne($schedules->staff) ?>
+                                                                                                        <td><?= $staff->staff_name;
+                                                                                                        ?></td>
+                                                                                                </tr>
+                                                                                                <!--</a>-->
+                                                                                                <?php
                                                                                         }
-                                                                                        ?>
-                                                                                </td>
-                                                                                <td><?= $purchase_master->order_amount ?></td>
-                                                                        </tr>
-                                                                        <!--</a>-->
-                                                                        <?php
+                                                                                }
+                                                                        }
                                                                 }
                                                         } else {
-                                                                echo '<tr><td colspan="4" style="text-align:center">No Recent Purchase</td></tr>';
+                                                                echo '<tr><td colspan="4" style="text-align:center">No Schedules Today</td></tr>';
                                                         }
                                                         ?>
                                                 </tbody>
                                         </table>
                                 </div>
                                 <div>
-                                        <?= Html::a('<i class="fa-share"></i><span> View More</span>', ['sales/purchase-invoice-details/index'], ['class' => 'btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right', 'style' => 'margin-top: 8px;float:right;']) ?>
+                                        <?= Html::a('<i class="fa-share"></i><span> View More</span>', ['services/service/index'], ['class' => 'btn btn-blue btn-icon btn-icon-standalone btn-icon-standalone-right', 'style' => 'margin-top: 8px;float:right;']) ?>
                                 </div>
                         </div>
 

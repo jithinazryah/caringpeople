@@ -104,9 +104,8 @@ class SiteController extends Controller {
                         $services = \common\models\Service::find()->where(['status' => 1])->count();
 
                         $tasks = Followups::find()->where('followup_date LIKE :query')->addParams([':query' => $the_date . '%'])->andWhere(['assigned_to' => Yii::$app->user->identity->id, 'status' => 0])->all();
-                        if (!empty($tasks)) {
-                                $tasks = Followups::find()->where(['status' => 0])->andWhere(['assigned_to' => Yii::$app->user->identity->id, 'status' => 0])->orderBy('followup_date')->limit(5)->all();
-                        }
+                        $pending_tasks = Followups::find()->where(['status' => 0])->andWhere(['assigned_to' => Yii::$app->user->identity->id, 'status' => 0])->orderBy('followup_date')->all();
+
 
                         if (Yii::$app->user->isGuest) {
 
@@ -118,6 +117,7 @@ class SiteController extends Controller {
                                             'patients' => $patients,
                                             'services' => $services,
                                             'tasks' => $tasks,
+                                            'pending_tasks' => $pending_tasks,
                                 ]);
                         } else {
                                 return $this->render('dashboard', [
@@ -125,6 +125,7 @@ class SiteController extends Controller {
                                             'patients' => $patients,
                                             'services' => $services,
                                             'tasks' => $tasks,
+                                            'pending_tasks' => $pending_tasks,
                                 ]);
                         }
                 } else {
