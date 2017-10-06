@@ -1353,7 +1353,10 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                 <h4 class="modal-title" id="largeModalLabel" style="color: #b60d14;">Previous Schedules</h4>
                         </div>
                         <div class="modal-body">
-                                <?php $form1 = ActiveForm::begin(['action' => 'services/service/todayschedules']); ?>
+                                <?php
+                                $act = Yii::$app->homeUrl . 'services/service/todayschedules';
+                                $form1 = ActiveForm::begin(['action' => $act]);
+                                ?>
                                 <div class="row">
 
                                         <div class="col-md-6">

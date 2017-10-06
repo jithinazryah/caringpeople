@@ -73,7 +73,7 @@ use yii\db\Expression;
 
 
                 <!-- Tweets -->
-                <div class="xe-widget xe-status-update" data-auto-switch="5">
+                <div class="xe-widget xe-status-update" data-auto-switch="5" style="background-color:#99bbd6">
                         <div class="xe-header">
                                 <div class="xe-icon">
                                         <i class="fa fa-tasks"></i>
