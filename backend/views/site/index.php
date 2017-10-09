@@ -12,7 +12,9 @@ use yii\helpers\Html;
 <?php
 $sales_masters = \common\models\SalesInvoiceMaster::find()->where(['status' => 1])->orderBy(['id' => SORT_DESC])->limit(5)->all();
 $purchase_masters = \common\models\PurchaseInvoiceMaster::find()->where(['status' => 1])->orderBy(['id' => SORT_DESC])->limit(5)->all();
+
 $sale_max = \common\models\SalesInvoiceMaster::find()->orderBy(['sales_invoice_date' => SORT_DESC])->one();
+
 if (!empty($sale_max)) {
         $sale_date = date("Y-m-d", strtotime($sale_max->sales_invoice_date));
         $sale_amounts = (new \yii\db\Query())
@@ -36,21 +38,27 @@ if (!empty($purchase_max)) {
         $purchase_amounts[0] = array('purchase_order_amount' => 0, 'purchase_amount_payed' => 0, 'purchase_due_amount' => 0);
         $purchase_date = date("Y-m-d");
 }
-$invoices = \common\models\Invoice::find()->where(['DOC' => date('Y-m-d'), 'status' => 1])->sum('amount');
-$invoice_date = date('d-m-Y');
-if (empty($invoices)) {
-        $date_range_from = date('Y-m-01');
-        $date_range_to = date('Y-m-31');
-        $invoices = \common\models\Invoice::find()->where(['status' => 1])->andWhere(['>=', 'DOC', $date_range_from])->andWhere(['<=', 'DOC', $date_range_to])->sum('amount');
-        $invoice_date = 'On ' . date("F");
+
+if (Yii::$app->user->identity->branch_id != '0') {
+        $invoices = \common\models\Invoice::find()->where(['branch_id' => Yii::$app->user->identity->branch_id, 'status' => 1])->orderBy(['DOC' => SORT_DESC])->one();
+        $invoice_paid_date = date("d-M-Y", strtotime($invoices->DOC));
+        $invoices = \common\models\Invoice::find()->where(['DOC' => $invoices->DOC, 'status' => 1, 'branch_id' => Yii::$app->user->identity->branch_id,])->sum('amount');
+} else {
+        $invoices = \common\models\Invoice::find()->where(['status' => 1])->orderBy(['DOC' => SORT_DESC])->one();
+        $invoice_paid_date = date("d-M-Y", strtotime($invoices->DOC));
+        $invoices = \common\models\Invoice::find()->where(['DOC' => $invoices->DOC, 'status' => 1])->sum('amount');
 }
 
-$staff_payroll_paid = common\models\StaffPayroll::find()->where(['payment_date' => date('Y-m-d')])->sum('amount');
-if (empty($staff_payroll_paid)) {
-        $date_range_from = date('Y-m-01');
-        $date_range_to = date('Y-m-31');
-        $invoices = \common\models\StaffPayroll::find()->where(['>=', 'payment_date', $date_range_from])->andWhere(['<=', 'payment_date', $date_range_to])->sum('amount');
-        $invoice_date = 'On ' . date("F");
+
+
+if (Yii::$app->user->identity->branch_id != '0') {
+        $invoices_unpaid = \common\models\Invoice::find()->where(['branch_id' => Yii::$app->user->identity->branch_id, 'status' => 2])->orderBy(['DOC' => SORT_DESC])->one();
+        $invoices_unpaid_date = date("d-M-Y", strtotime($invoices_unpaid->DOC));
+        $over_due_amount = \common\models\Invoice::find()->where(['DOC' => $invoices_unpaid->DOC, 'status' => 2, 'branch_id' => Yii::$app->user->identity->branch_id,])->sum('amount');
+} else {
+        $invoices_unpaid = \common\models\Invoice::find()->where(['status' => 2])->orderBy(['DOC' => SORT_DESC])->one();
+        $invoices_unpaid_date = date("d-M-Y", strtotime($invoices_unpaid->DOC));
+        $over_due_amount = \common\models\Invoice::find()->where(['DOC' => $invoices_unpaid->DOC, 'status' => 2])->sum('amount');
 }
 ?>
 
@@ -114,6 +122,57 @@ if (empty($staff_payroll_paid)) {
 
         </div>
 
+
+        <div class="col-sm-3">
+
+                <div class="xe-widget xe-counter-block xe-counter-block-blue"  >
+                        <div class="xe-upper">
+
+                                <div class="xe-icon">
+                                        <i class="fa fa-money"></i>
+                                </div>
+                                <div class="xe-label">
+                                        <strong class="num"><?= sprintf('%0.2f', $invoices) ?></strong>
+                                        <span>Total Invoice Amount</span>
+                                </div>
+
+                        </div>
+                        <div class="xe-lower">
+                                <div class="border"></div>
+
+                                <span></span>
+                                <strong><?= $invoice_paid_date ?></strong>
+                        </div>
+                </div>
+
+        </div>
+
+        <div class="col-sm-3">
+                <a href="<?= Yii::$app->homeUrl ?>services/service/index">
+                        <div class="xe-widget xe-counter-block xe-counter-block-red">
+                                <div class="xe-upper">
+
+                                        <div class="xe-icon">
+                                                <i class="fa-life-ring"></i>
+                                        </div>
+                                        <div class="xe-label">
+                                                <strong class="num"><?= sprintf('%0.2f', $over_due_amount) ?></strong>
+                                                <span> Over Due Amount</span>
+                                        </div>
+
+                                </div>
+                                <div class="xe-lower">
+                                        <div class="border"></div>
+
+                                        <span></span>
+                                        <a href="<?= Yii::$app->homeUrl ?>invoice/invoice/index"><strong>View</strong></a>
+                                </div>
+                        </div>
+                </a>
+
+        </div>
+
+
         <div class="col-sm-3">
 
                 <div class="xe-widget xe-counter-block">
@@ -160,54 +219,9 @@ if (empty($staff_payroll_paid)) {
 
         </div>
 
-        <div class="col-sm-3">
 
-                <div class="xe-widget xe-counter-block xe-counter-block-blue"  >
-                        <div class="xe-upper">
 
-                                <div class="xe-icon">
-                                        <i class="fa fa-money"></i>
-                                </div>
-                                <div class="xe-label">
-                                        <strong class="num"><?= $invoices ?></strong>
-                                        <span>Total Invoice Amount</span>
-                                </div>
 
-                        </div>
-                        <div class="xe-lower">
-                                <div class="border"></div>
-
-                                <span></span>
-                                <strong><?= $invoice_date ?></strong>
-                        </div>
-                </div>
-
-        </div>
-
-        <div class="col-sm-3">
-                <a href="<?= Yii::$app->homeUrl ?>services/service/index">
-                        <div class="xe-widget xe-counter-block xe-counter-block-orange">
-                                <div class="xe-upper">
-
-                                        <div class="xe-icon">
-                                                <i class="fa-life-ring"></i>
-                                        </div>
-                                        <div class="xe-label">
-                                                <strong class="num"><?= sprintf('%0.2f', $staff_payroll_paid) ?></strong>
-                                                <span> Staff Paid Salary</span>
-                                        </div>
-
-                                </div>
-                                <div class="xe-lower">
-                                        <div class="border"></div>
-
-                                        <span></span>
-                                        <a href="<?= Yii::$app->homeUrl ?>services/service/index"><strong>View</strong></a>
-                                </div>
-                        </div>
-                </a>
-
-        </div>
 
 
 
@@ -419,7 +433,7 @@ if (empty($staff_payroll_paid)) {
                                                                                         $s++;
                                                                                         if ($s <= 5) {
                                                                                                 ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<a href="<?= Yii::$app->homeUrl; ?>sales/purchase-invoice-details/view?id=<?= $purchase_master->id ?>">-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<a href="<?= Yii::$app->homeUrl; ?>sales/purchase-invoice-details/view?id=<?= $purchase_master->id ?>">-->
                                                                                                 <tr style="text-align:left;">
                                                                                                         <td><?= $s ?> </td>
                                                                                                         <?php
