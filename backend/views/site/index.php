@@ -248,7 +248,7 @@ if (empty($staff_payroll_paid)) {
                                                         <?php
                                                 }
                                         } else {
-                                                echo '<li>No tasks Assigned</li>';
+                                                echo '<li class="active">No tasks Assigned</li>';
                                         }
                                         ?>
                                 </ul>
@@ -271,7 +271,7 @@ if (empty($staff_payroll_paid)) {
                 <div class="xe-widget xe-status-update xe-status-update-google-plus" data-auto-switch="0">
                         <div class="xe-header">
                                 <div class="xe-icon">
-                                        <i class="fa-google-plus"></i>
+                                        <i class="fa fa-exclamation-triangle"></i>
                                 </div>
                                 <div class="xe-nav">
                                         <a href="#" class="xe-prev">
@@ -298,16 +298,16 @@ if (empty($staff_payroll_paid)) {
                                                         <?php
                                                 }
                                         } else {
-                                                echo '<li>No Pending Tasks</li>';
+                                                echo '<li class="active">No Pending Tasks</li>';
                                         }
                                         ?>
                                 </ul>
 
                         </div>
                         <div class="xe-footer">
-                                <a href="<?= Yii::$app->homeUrl ?>followup/followups/index">+3
-                                        <i class="linecons-thumbs-up"></i>
-                                        +1 this post
+                                <a href="<?= Yii::$app->homeUrl ?>followup/followups/index">
+                                        <i class="fa-retweet"></i>
+                                        My Pending Tasks
                                 </a>
                         </div>
                 </div>
@@ -392,9 +392,9 @@ if (empty($staff_payroll_paid)) {
 
                                 <?php
                                 if (Yii::$app->user->identity->branch_id != '0') {
-                                        $services = \common\models\Service::find()->where(['status' => 1, 'branch_id' => Yii::$app->user->identity->branch_id])->limit(5)->orderBy(['id' => SORT_DESC])->all();
+                                        $services = \common\models\Service::find()->where(['status' => 1, 'branch_id' => Yii::$app->user->identity->branch_id])->limit(10)->orderBy(['id' => SORT_DESC])->all();
                                 } else {
-                                        $services = \common\models\Service::find()->where(['status' => 1])->limit(5)->orderBy(['id' => SORT_DESC])->all();
+                                        $services = \common\models\Service::find()->where(['status' => 1])->limit(10)->orderBy(['id' => SORT_DESC])->all();
                                 }
                                 ?>
                                 <div  style="min-height: 210px;" class="table-responsive">
@@ -419,7 +419,7 @@ if (empty($staff_payroll_paid)) {
                                                                                         $s++;
                                                                                         if ($s <= 5) {
                                                                                                 ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<a href="<?= Yii::$app->homeUrl; ?>sales/purchase-invoice-details/view?id=<?= $purchase_master->id ?>">-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<a href="<?= Yii::$app->homeUrl; ?>sales/purchase-invoice-details/view?id=<?= $purchase_master->id ?>">-->
                                                                                                 <tr style="text-align:left;">
                                                                                                         <td><?= $s ?> </td>
                                                                                                         <?php
