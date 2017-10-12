@@ -299,7 +299,7 @@ class StaffInfoController extends Controller {
                                 $this->AddFamily($model);
                                 $this->Imageupload($model);
 
-
+                                Yii::$app->SetValues->History($model->id, 'New Staff ' . $model->staff_name . ' is added');
                                 $this->AddOtherInfo($model, Yii::$app->request->post(), $other_info);
                                 $this->sendMail($model);
                                 Yii::$app->getSession()->setFlash('success', 'General Information Added Successfully');

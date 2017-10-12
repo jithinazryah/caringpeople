@@ -133,7 +133,7 @@ class DropdownController extends \yii\web\Controller {
                                 if ($remarks->type == '2' || $remarks->type == '4')
                                         $rates = SetValues::Rating($remarks->type_id, $remarks->type);
 
-                                if ($remarks->type == 5) { /* if remark is added from copy then add a copy to the staff and patient in that service */
+                                if ($remarks->type == 5) { /* if remark is added from service then add a copy to the staff and patient in that service */
                                         $service_staff = \common\models\ServiceSchedule::find()->select('staff')->distinct()->where(['service_id' => $remarks->type_id])->all();
                                         $patient = \common\models\Service::findOne($remarks->type_id);
 
@@ -154,6 +154,8 @@ class DropdownController extends \yii\web\Controller {
                                         $patient_remark->status = 1;
                                         $patient_remark->save();
                                 }
+                                $this->AddHistory($remarks);
+
 
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);
@@ -163,6 +165,27 @@ class DropdownController extends \yii\web\Controller {
                                 return \yii\helpers\Json::encode($remarks);
                         }
                 }
+        }
+
+        public function AddHistory($remarks) {
+                if ($remarks->type == 1) {
+                        $patient_enquiry = \common\models\PatientEnquiryHospitalFirst::find()->where(['enquiry_id' => $remarks->type_id])->one();
+                        $name = $patient_enquiry->required_person_name . ' (Patient Enquiry)';
+                } else if ($remarks->type == 2) {
+                        $patient = \common\models\PatientGeneral::findOne($remarks->type_id);
+                        $name = $patient->first_name . ' (Patient)';
+                } else if ($remarks->type == 3) {
+                        $staff_enquiry = \common\models\StaffEnquiry::findOne($remarks->type_id);
+                        $name = $staff_enquiry->name . ' (Staff Enquiry)';
+                } else if ($remarks->type == 4) {
+                        $staff = \common\models\StaffInfo::findOne($remarks->type_id);
+                        $name = $staff->staff_name . ' (Staff)';
+                } else if ($remarks->type == 5) {
+                        $service = \common\models\Service::findOne($remarks->type_id);
+                        $name = $service->service_id . ' (Service ID)';
+                }
+
+                SetValues::History($remarks->id, 'A Remark is added to ' . $name);
         }
 
         /*

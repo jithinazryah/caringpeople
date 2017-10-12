@@ -82,34 +82,32 @@ use common\models\MasterDesignations;
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'place')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                 <?php $designation = MasterDesignations::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>   <?= $form->field($staff_enquiry, 'designation')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
                 <?php //$form->field($staff_enquiry, 'designation')->dropDownList(['' => '--Select--', '1' => 'Registered Nurse', '2' => 'Care Assistant', '3' => 'Doctor visit at home', '4' => 'OP Clinic', '5' => 'DV + OP', '6' => 'Physio', '7' => 'Psychologist', '8' => 'Dietician', '9' => 'Receptionist', '10' => 'Office Staff', '11' => 'Accountant'])  ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'address')->textarea(['rows' => 1]) ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'address')->textarea(['rows' => 1]) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'notes')->textarea(['rows' => 1]) ?>
+        </div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'notes')->textarea(['rows' => 4]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' id="agreement_copy_other">    <?= $form->field($staff_enquiry, 'agreement_copy_other')->textInput(['maxlength' => true]) ?>
 
         </div>
 
-        <div style="clear: both"></div>
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'status')->dropDownList(['1' => 'Active', '2' => 'Closed']) ?>
+
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'status')->dropDownList(['1' => 'Active', '2' => 'Closed']) ?>
 
         </div><?php
         if (Yii::$app->user->identity->branch_id == '0') {
                 $branches = Branch::find()->where(['status' => '1'])->andWhere(['<>', 'id', '0'])->all();
                 ?>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($staff_enquiry, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
+                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($staff_enquiry, 'branch_id')->dropDownList(ArrayHelper::map($branches, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
                 </div>
         <?php } ?>
 
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'><?php // $form->field($staff_enquiry, 'attachments[]')->fileInput(['multiple' => true])            ?></div>
-        <div style="clear:both"></div>
-
+        <div class="clearfix"></div>
         <div id = "p_attach">
                 <input type = "hidden" id = "delete_port_vals" name = "delete_port_vals" value = "">
                 <h4 style = "color:#000;font-style: italic;">Attachments</h4>
@@ -117,7 +115,7 @@ use common\models\MasterDesignations;
 
 
                 <span>
-                        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class = "form-group field-staffperviousemployer-hospital_address">
                                         <label class = "control-label">Attachment</label>
                                         <input type = "file" name = "creates[file][]">
@@ -128,11 +126,11 @@ use common\models\MasterDesignations;
                         $rand = rand();
                         $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
                         ?>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
                                         <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
-                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
+                                        <div class="div-add-new"><a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a></div>
 
                                 </div>
                         </div>
@@ -140,7 +138,7 @@ use common\models\MasterDesignations;
 
                         <div style="clear:both"></div>
                 </span>
-                <br/>
+
         </div>
 
 
@@ -197,7 +195,7 @@ use common\models\MasterDesignations;
         }
 </style>
 
-<div class='col-md-12 col-sm-6 col-xs-12' >
+<div class='row' style="margin-left: 0">
         <div class="form-group" >
                 <?= Html::submitButton($staff_enquiry->isNewRecord ? 'Create' : 'Update', ['class' => $staff_enquiry->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button']) ?>
                 <?php

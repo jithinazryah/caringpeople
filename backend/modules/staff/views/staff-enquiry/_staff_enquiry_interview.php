@@ -84,7 +84,7 @@ use kartik\date\DatePicker;
                                         <?php $relations = \common\models\MasterRelationships::find()->where(['status' => 1])->all(); ?>
                                         <?= Html::dropDownList('createfamily[relationship][]', null, ArrayHelper::map($relations, 'id', 'title'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'family_relationships_1']);
                                         ?>
-                                        <a class="add-option-dropdown add-new" id="family_relationships_1-10" style="margin-top:0px;"> + Add New</a>
+                                        <div class="div-add-new"><a class="add-option-dropdown add-new" id="family_relationships_1-10" style="margin-top:0px;"> + Add New</a></div>
 
                                 </div>
                         </div>
@@ -113,10 +113,10 @@ use kartik\date\DatePicker;
 
         <h4 style="color:#000;font-style: italic;">Bank Details</h4>
         <hr class = "enquiry-hr"/>
-        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'> <?= $form->field($staff_interview_third, 'bank_ac_no')->textInput(['maxlength' => true])
+        <div class = 'col-md-3 col-sm-6 col-xs-12 left_padd'> <?= $form->field($staff_interview_third, 'bank_ac_no')->textInput(['maxlength' => true])
                                         ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($staff_interview_third, 'bank_ac_hodername')->textInput(['maxlength' => true]) ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>   <?= $form->field($staff_interview_third, 'bank_ac_hodername')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'bank_name')->textInput(['maxlength' => true]) ?>
 
@@ -132,13 +132,13 @@ use kartik\date\DatePicker;
 
 
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'document_required')->textarea(['rows' => 1]) ?>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'document_required')->textarea(['rows' => 1]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'document_received')->textarea(['rows' => 1]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'interest_level')->dropDownList(['' => '--Select--', '1' => 'High', '2' => 'No Interest', '3' => 'Medium']) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                 <?php
                 if (!$staff_interview_third->isNewRecord) {
                         $staff_interview_third->expected_date_of_joining = date('d-m-Y', strtotime($staff_interview_third->expected_date_of_joining));
@@ -158,7 +158,7 @@ use kartik\date\DatePicker;
                 ?>
 
 
-        </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'form_filled', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'form_filled', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
 
         </div><div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_third, 'interview_notes')->textarea(['rows' => 1]) ?>
 

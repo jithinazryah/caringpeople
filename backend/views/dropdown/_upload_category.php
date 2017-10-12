@@ -31,7 +31,7 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
                         <input type="hidden" name="type" id="type" value="<?= $type; ?>">
                         <input type="hidden" name="field_id" id="field_id" value="<?= $field_id; ?>">
                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success submit-btn']) ?>
+                                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success pop-submit-btn']) ?>
 
                         </div>
                 </div>
@@ -47,16 +47,3 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
 
 <?php ActiveForm::end(); ?>
 
-<style>
-        #pop-form .form-control{
-                border:1px solid #eee;
-        }
-        #pop-form .form-control:focus{
-                border:1px solid #eee!important;
-
-        }.pop-heading{
-                color: #b60d14;
-        }.submit-btn{
-                margin-top: 20px;
-        }
-</style>

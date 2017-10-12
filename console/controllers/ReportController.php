@@ -12,15 +12,10 @@ use yii\db\Expression;
 class ReportController extends Controller {
 
         public function actionIndex() {
-
-
-
-
-
-
                 $message = "";
-                $date_format_today = date('d-m-Y');
-                $users = \common\models\History::find()->select('CB')->where(['date' => date('Y-m-d')])->groupBy('CB')->all();
+                $date_format_today = date('Y-m-d', strtotime("-1 days"));
+                $date_today = date('d-m-Y', strtotime("-1 days"));
+                $users = \common\models\History::find()->select('CB')->where(['date' => $date_format_today])->groupBy('CB')->all();
 
                 $message .= "
                              <html>
@@ -30,22 +25,26 @@ class ReportController extends Controller {
                                      <img src='http://caringpeople.in/admin/images/logos/logo-1.png'  style='width:200px'>
                                   ";
 
-                $message .= "<p>Report ($date_format_today)</p><table>";
-
+                $message .= "<p>Report ($date_today)</p><table>";
+                $k = 0;
                 foreach ($users as $value) {
                         $staff = \common\models\StaffInfo::findOne($value->CB);
                         $message .= "<tr><td colspan='2'><p><b>$staff->staff_name</b></p></td></tr>";
-                        $works = \common\models\History::find()->where(['CB' => $value->CB, 'date' => date('Y-m-d')])->all();
-                        $k = 0;
+                        $works = \common\models\History::find()->where(['CB' => $value->CB, 'date' => $date_format_today])->all();
+
                         foreach ($works as $works) {
                                 $k++;
                                 $message .= "<tr><td>$k.</td><td><p>$works->content</p></td></tr>";
                         }
                 }
 
+                if ($k == 0) {
+                        $message .= "<tr><td></td><td><p>No updatioons!!!</p></td></tr>";
+                }
+
                 $message .= "</div>
                 </div><table></body></html>";
-                $to = 'sabitha393@gmail.com';
+                $to = 'info@caringpeople.in,sabitha393@gmail.com,shintomaradikunnel@gmail.com';
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
                         "From: info@caringpeople.in";

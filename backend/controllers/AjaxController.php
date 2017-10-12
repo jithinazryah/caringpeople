@@ -435,17 +435,17 @@ class AjaxController extends \yii\web\Controller {
                 $option = Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]);
                 $vers = "<span>
                         <div class='row' style='margin:0'>
-                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-staffperviousemployer-hospital_address'>
                                 <label class='control-label'>Attachment</label>
                                 <input type='file'  name='creates[file][]'>
                                 </div>
                                 </div>
-                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class='form-group field-staffperviousemployer-salary'>
                                 <label class='control-label' >Attachment Name</label>
                               $option
-                                  <a class='add-option-dropdown add-new' id='atachment_$rand-5' style='margin-top:0px;' type=$type> + Add New</a>
+                                 <div class='div-add-new'> <a class='add-option-dropdown add-new' id='atachment_$rand-5' style='margin-top:0px;' type=$type> + Add New</a></div>
                                 </div>
                                 </div>
                                 <a id='remAttach' class='btn btn-icon btn-red remAttach' style='margin-top: 15px;'><i class='fa-remove'></i></a>
@@ -535,7 +535,7 @@ class AjaxController extends \yii\web\Controller {
                                      <div class="form-group field-staffenquiryinterviewfirst-relation">
                                         <label class="control-label">Relationship</label>
                                         ' . $options . '
-                                                 <a class="add-option-dropdown add-new" id="family_relationships_' . $k . '-10" style="margin-top:0px;"> + Add New</a>
+                                                 <div class="div-add-new"><a class="add-option-dropdown add-new" id="family_relationships_' . $k . '-10" style="margin-top:0px;"> + Add New</a></div>
                         </div>
                         </div>
                         <div class = "col-md-3 col-sm-6 col-xs-12 left_padd">
@@ -552,7 +552,7 @@ class AjaxController extends \yii\web\Controller {
                         </div>
                         <div class = "col-md-1 col-sm-6 col-xs-12 left_padd">
                         <a id = "remFamily" class = "btn btn-icon btn-red remFamily" style = "margin-top: 15px;"><i class = "fa-remove"></i></a>
-                        </div>\
+                        </div>
                         <div style = "claer:both"></div><br/>
                         </span><br/>';
                         echo $family;
