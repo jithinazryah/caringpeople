@@ -22,7 +22,7 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'  style="display:none">    <?= $form->field($model, 'category_id')->textInput(['maxlength' => true]) ?>
 
                         </div>
-                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'  style="margin-left: 20px;">    <?= $form->field($model, 'sub_category')->textInput(['maxlength' => true]) ?>
+                        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'  style="margin-left: 20px;">    <?= $form->field($model, 'sub_category')->textInput(['maxlength' => true]) ?>
 
                         </div>
                         <input type="hidden" name="type" id="type" value="<?= $type; ?>">
