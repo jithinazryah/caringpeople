@@ -9,10 +9,10 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
 
 
 
-<div class="modal-content">
+<div class="modal-content" id="pop-form">
         <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Add Remarks Category</h4>
+                <h4 class="modal-title  pop-heading">Add Remarks Category</h4>
         </div>
 
         <div class="modal-body">
@@ -28,18 +28,11 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
                         </div>
                         <input type="hidden" name="type" id="type" value="<?= $type; ?>">
                         <input type="hidden" name="field_id" id="field_id" value="<?= $field_id; ?>">
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success pop-submit-btn']) ?>
+
+                        </div>
                 </div>
-
-
-
-
-
-        </div>
-
-
-        <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 </div>
 
