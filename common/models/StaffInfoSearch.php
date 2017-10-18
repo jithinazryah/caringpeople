@@ -151,6 +151,17 @@ class StaffInfoSearch extends StaffInfo {
                         'filter' => [1 => 'Opened', 2 => 'Closed', 3 => 'Terminated', 4 => 'Resigned', 5 => 'Without Resignation'],
                     ],
                     'average_point',
+                        [
+                        'attribute' => 'working_status',
+                        'value' => function($model) {
+                                if ($model->working_status == 0) {
+                                        return 'Bench';
+                                } else if ($model->working_status == 1) {
+                                        return 'On Duty';
+                                }
+                        },
+                        'filter' => [0 => 'Bench', 1 => 'On Duty'],
+                    ],
                         ['class' => 'yii\grid\ActionColumn',
                         'template' => '{view}{update}{delete}{missing}',
                         'visibleButtons' => [

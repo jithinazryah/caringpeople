@@ -163,7 +163,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                             ]);
                                                     },
                                                     'invoice' => function($url, $model, $key) {     // render your custom button
-                                                            return Html::a('<span class="fa fa-inr" style="padding-top: 0px;"></span>', ['/invoice/invoice/service-invoice-view', 'branch' => $model->branch - id, 'patient' => $model->patient_id], [
+                                                            return Html::a('<span class="fa fa-inr" style="padding-top: 0px;"></span>', ['/invoice/invoice/service-invoice-view', 'branch' => $model->branch_id, 'patient' => $model->patient_id], [
                                                                         'title' => Yii::t('app', 'Invoices'),
                                                                         'class' => 'actions',
                                                                         'target' => '_blank',
