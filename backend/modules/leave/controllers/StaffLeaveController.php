@@ -79,16 +79,19 @@ class StaffLeaveController extends Controller {
                 $model = new StaffLeave();
                 $searchModel = new StaffLeaveSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-                $dataProvider->query->andWhere(['employee_id' => Yii::$app->user->identity->id]);
+                if (Yii::$app->session['post']['id'] != 1) {
+                        $dataProvider->query->andWhere(['employee_id' => Yii::$app->user->identity->id]);
+                }
+                $dataProvider->query->orderBy(['id' => SORT_DESC]);
+                $dataProvider->pagination = ['pagesize' => 10];
 
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
 
-                        $model->employee_id = Yii::$app->user->identity->id;
+
                         //$model->info_table_id = Yii::$app->user->identity->staff_info_id;
                         $model->commencing_date = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffLeave']['commencing_date']));
                         $model->ending_date = date('Y-m-d', strtotime(Yii::$app->request->post()['StaffLeave']['ending_date']));
-                        $model->status = 1;
                         $model->no_of_days = (date("j", strtotime($model->ending_date)) - date("j", strtotime($model->commencing_date))) + 1;
                         $check = StaffLeave::findOne(['employee_id' => Yii::$app->user->identity->id, 'commencing_date' => $model->commencing_date]);
                         if (empty($check)) {
@@ -116,6 +119,7 @@ class StaffLeaveController extends Controller {
 
                         for ($i = 1; $i <= $days; $i++) {
                                 $model_new = new StaffLeave();
+                                $model_new->branch_id = $model->branch_id;
                                 $model_new->employee_id = $model->employee_id;
                                 //$model_new->info_table_id = $model->info_table_id;
                                 $model_new->no_of_days = $model->no_of_days;
@@ -184,6 +188,7 @@ class StaffLeaveController extends Controller {
                         $leave_id = $_POST['leave_id'];
                         $leave_model = StaffLeave::find()->where(['id' => $leave_id])->one();
                         $leave_model->status = 2;
+                        $leave_model->approved_by = Yii::$app->user->identity->id;
                         $leave_model->update();
                 }
         }

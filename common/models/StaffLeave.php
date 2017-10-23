@@ -36,7 +36,7 @@ class StaffLeave extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['employee_id', 'info_table_id', 'no_of_days', 'leave_type', 'status', 'CB'], 'integer'],
+                        [['employee_id', 'info_table_id', 'no_of_days', 'leave_type', 'status', 'CB', 'branch_id', 'approved_by'], 'integer'],
                         [['commencing_date', 'ending_date', 'DOC'], 'safe'],
                         [['purpose'], 'string'],
                         [['employee_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['employee_id' => 'id']],
@@ -51,15 +51,18 @@ class StaffLeave extends \yii\db\ActiveRecord {
         public function attributeLabels() {
                 return [
                     'id' => 'ID',
-                    'employee_id' => 'Employee ID',
+                    'branch_id' => 'Branch',
+                    'employee_id' => 'Staff',
                     'no_of_days' => 'No Of Days',
                     'leave_type' => 'Leave Type',
                     'commencing_date' => ($this->scenario == 'report' ? 'Date From' : 'Commencing Date'),
                     'ending_date' => ($this->scenario == 'report' ? 'Date To' : 'Ending Date'),
                     'purpose' => 'Purpose',
                     'status' => ($this->scenario == 'report' ? 'Branch' : 'Status'),
+                    'approved_by' => 'Approved By',
                     'CB' => 'Cb',
                     'DOC' => 'Doc',
+                    'admin_comment' => 'Comment'
                 ];
         }
 

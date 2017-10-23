@@ -97,4 +97,16 @@ class ReportController extends \yii\web\Controller {
                 }
         }
 
+        public function actionListStaffs() {
+                if (Yii::$app->request->isAjax) {
+                        $branch = $_POST['branch'];
+                        $staffs = StaffInfo::find()->where(['branch_id' => $branch, 'status' => 1])->andWhere(['<>', 'post_id', '1'])->orderBy(['staff_name' => SORT_ASC])->all();
+                        $options = '<option value="">-Select-</option>';
+                        foreach ($staffs as $staffs) {
+                                $options .= "<option value='" . $staffs->id . "'>" . $staffs->staff_name . "</option>";
+                        }
+                        echo $options;
+                }
+        }
+
 }
