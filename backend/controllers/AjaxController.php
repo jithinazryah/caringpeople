@@ -419,7 +419,7 @@ class AjaxController extends \yii\web\Controller {
                 $patient = $_POST['patient'];
                 $patient_manager = PatientGeneral::findOne($patient);
 
-                $mangers = \common\models\StaffInfo::find()->where(['branch_id' => $branch, 'status' => 1, 'post_id' => 6])->orWhere(['post_id' => 1])->orderBy(['staff_name' => SORT_ASC])->all();
+                $mangers = \common\models\StaffInfo::find()->where(['branch_id' => $branch, 'status' => 1, 'post_id' => 6])->orWhere(['post_id' => 1])->orWhere(['post_id' => 10])->orderBy(['staff_name' => SORT_ASC])->all();
 
                 $options = '<option value="">-Select-</option>';
                 foreach ($mangers as $mangers) {

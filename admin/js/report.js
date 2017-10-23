@@ -111,18 +111,13 @@ $("document").ready(function () {
         });
 
         $('#staffpayroll-branch_id').change(function () {
-                var branch = $(this).val();
-                showLoader();
-                $.ajax({
-                        type: 'POST',
-                        cache: false,
-                        data: {branch: branch},
-                        url: homeUrl + 'report/staffs',
-                        success: function (data) {
-                                $('#staffpayroll-staff_id').html(data);
-                                hideLoader();
-                        }
-                });
+                ListStaffs();
+        });
+        $('#staffpayroll-date_from').change(function () {
+                ListStaffs();
+        });
+        $('#staffpayroll-date_to').change(function () {
+                ListStaffs();
         });
 
 
@@ -133,3 +128,18 @@ $("document").ready(function () {
 
 });
 
+function ListStaffs() {
+        var branch = $('#staffpayroll-branch_id').val();
+        var date_from = $('#staffpayroll-date_from').val();
+        var date_to = $('#staffpayroll-date_to').val();
+        $.ajax({
+                type: 'POST',
+                cache: false,
+                data: {branch: branch, date_from: date_from, date_to: date_to},
+                url: homeUrl + 'accounts/staff-payroll/staffs',
+                success: function (data) {
+
+                        $('#staffpayroll-staff_id').html(data);
+                }
+        });
+}

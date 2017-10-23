@@ -73,7 +73,7 @@ class ServiceController extends Controller {
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
-                if (Yii::$app->session['post']['id'] != '1' && Yii::$app->session['post']['id'] != '13') {
+                if (Yii::$app->session['post']['id'] != '1' && Yii::$app->session['post']['id'] != '13' && Yii::$app->session['post']['id'] != '10') {
                         $dataProvider->query->andWhere(new Expression('FIND_IN_SET(:staffs, service_staffs)'))->addParams([':staffs' => Yii::$app->user->identity->id])->orWhere(['staff_manager' => Yii::$app->user->identity->id]);
                 }
 
@@ -149,7 +149,7 @@ class ServiceController extends Controller {
                                 $model->proforma_sent = 1;
                                 $model->update();
 //                                $this->ServiceSchedule($model);
-//                                Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
+                                Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
                                 return $this->redirect(['update', 'id' => $model->id]);
                         }
                 }
@@ -467,7 +467,7 @@ class ServiceController extends Controller {
                         $model->proforma_sent = 2;
                         $model->save();
                         $this->ServiceSchedule($model);
-                        Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
+                        //  Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
                 }
         }
 

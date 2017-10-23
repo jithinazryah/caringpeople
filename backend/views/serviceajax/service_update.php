@@ -63,7 +63,7 @@ use yii\helpers\ArrayHelper;
                                                                 <td><label><b>Staff Manager </b></label>  </td>
                                                                 <td>:</td>
                                                                 <td>
-                                                                        <?php $mangers = \common\models\StaffInfo::find()->where(['branch_id' => $service->branch_id, 'status' => 1, 'post_id' => 6])->orWhere(['post_id' => 1])->orderBy(['staff_name' => SORT_ASC])->all(); ?>
+                                                                        <?php $mangers = \common\models\StaffInfo::find()->where(['branch_id' => $service->branch_id, 'status' => 1, 'post_id' => 6])->orWhere(['post_id' => 1])->orWhere(['post_id' => 10])->orderBy(['staff_name' => SORT_ASC])->all(); ?>
 
                                                                         <select name="service_staff_amanger" id="service-staff-amanger" class="form-control" >
                                                                                 <?php

@@ -42,20 +42,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'filter' => ArrayHelper::map($staffs, 'id', 'staff_name'),
                                                     'filterOptions' => array('id' => "staff_name_search"),
                                                 ],
-                                                    ['attribute' => 'selected_month',
-                                                    'value' => function($model) {
-                                                            if ($model->selected_month == 7) {
-                                                                    return 'July';
-                                                            } else if ($model->selected_month == 8) {
-                                                                    return 'August';
-                                                            }
-                                                    },
-                                                    'filter' => [1 => 'January', 2 => 'Februaruy', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'],
-                                                ],
                                                     [
-                                                    'attribute' => 'year',
-                                                    'filter' => $year,
-                                                    'filterOptions' => array('id' => "year_search"),
+                                                    'header' => 'Date',
+                                                    'attribute' => 'date_from',
+                                                    'value' => function($model) {
+                                                            return date('d-m-Y', strtotime($model->date_from)) . ' - ' . date('d-m-Y', strtotime($model->date_to));
+                                                    }
                                                 ],
                                                     [
                                                     'attribute' => 'type',
@@ -92,14 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
                 });
 
-                $("#year").select2({
-                        placeholder: '',
-                        allowClear: true
-                }).on('select2-open', function ()
-                {
-                        // Adding Custom Scrollbar
-                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-                });
+
         });
 </script>
 

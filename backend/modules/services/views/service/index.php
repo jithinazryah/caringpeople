@@ -145,13 +145,13 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                 'template' => ' {update} {delete} {estimated}  {invoice}', // the default buttons + your custom button
                                                 'visibleButtons' => [
                                                     'delete' => function ($model, $key, $index) {
-                                                            return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                            return Yii::$app->user->identity->post_id == '1' ? true : false;
                                                     },
                                                     'estimated' => function ($model, $key, $index) {
-                                                            return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                            return Yii::$app->user->identity->post_id == '1' || Yii::$app->user->identity->post_id == '10' ? true : false;
                                                     },
                                                     'invoice' => function ($model, $key, $index) {
-                                                            return Yii::$app->user->identity->post_id != '1' ? false : true;
+                                                            return Yii::$app->user->identity->post_id == '1' || Yii::$app->user->identity->post_id == '10' ? true : false;
                                                     }
                                                 ],
                                                 'buttons' => [

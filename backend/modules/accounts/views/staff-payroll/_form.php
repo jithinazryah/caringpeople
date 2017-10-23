@@ -18,12 +18,46 @@ Branch::Branch();
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>          <?= $form->field($model, 'month')->textInput(['maxlength' => true, 'class' => 'date-picker form-control']) ?>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>          <?php
+                if (isset($model->date_from)) {
+                        $model->date_from = date('d-m-Y', strtotime($model->date_from));
+                } else {
+                        $model->date_from = date('d-m-Y');
+                }
+                echo DatePicker::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'type' => DatePicker::TYPE_INPUT,
+                    'attribute' => 'date_from',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'dd-mm-yyyy',
+                    ]
+                ]);
+                ?>
+
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>          <?php
+                if (isset($model->date_to)) {
+                        $model->date_to = date('d-m-Y', strtotime($model->date_to));
+                } else {
+                        $model->date_to = date('d-m-Y');
+                }
+                echo DatePicker::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'type' => DatePicker::TYPE_INPUT,
+                    'attribute' => 'date_to',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'dd-mm-yyyy',
+                    ]
+                ]);
+                ?>
 
         </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?php $branch = Branch::branch(); ?>   <?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map($branch, 'id', 'branch_name'), ['prompt' => '--Select--']) ?>
 
         </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?php
-                if (isset($model->branch_id)) {
+                if (!$model->isNewRecord) {
                         $staff = common\models\StaffInfo::find()->where(['branch_id' => $model->branch_id, 'status' => 1, 'post_id' => 5])->orderBy(['staff_name' => SORT_ASC])->all();
                 } else {
                         $staff = [];
@@ -48,7 +82,7 @@ Branch::Branch();
         <!----------------------------------------------------------On submit of first form-------------------------------------->
 
         <?php
-        if (isset($model->month)) {
+        if (isset($model->date_from) && isset($model->branch_id)) {
                 //------------------------------------------------show previous payment Details---------------------------------------//
 
                 if (!empty($paided_details) && $paided_details != '') {
@@ -72,7 +106,11 @@ Branch::Branch();
                                                         ?>
                                                         <tr>
                                                                 <td><?= $k; ?></td>
-                                                                <td><?= date("F-Y", mktime(0, 0, 0, $paided_details->month, 15)); ?></td>
+                                                                <?php
+                                                                $from = date('d-m-Y', strtotime($paided_details->date_from));
+                                                                $to = date('d-m-Y', strtotime($paided_details->date_to));
+                                                                ?>
+                                                                <td><?= $from . ' - ' . $to ?></td>
                                                                 <td><?php
                                                                         if ($paided_details->type = 1) {
                                                                                 echo 'Advance';
@@ -124,7 +162,8 @@ Branch::Branch();
 
                 <?php if ($due_amount > 0) { ?>
                         <div class="row payment">
-                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form1->field($model, 'month')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form1->field($model, 'date_from')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+                                </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form1->field($model, 'date_to')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form1->field($model, 'staff_id')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form1->field($model, 'branch_id')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                 </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form1->field($model, 'type')->dropDownList(['' => '--Select--', '1' => 'Advance', '2' => 'Full Payment']) ?>
@@ -165,26 +204,7 @@ Branch::Branch();
 
 
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script>
-        $(function () {
-                $('.date-picker').datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        yearRange: "c-5:c+100",
-                        showButtonPanel: true,
-                        dateFormat: 'mm-yy',
-                        onClose: function (dateText, inst) {
-                                var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                                $(this).datepicker('setDate', new Date(year, month, 1));
-                        }
-                });
 
-
-        });
-</script>
 
 
 
@@ -209,3 +229,5 @@ Branch::Branch();
         }
 
 </style>
+
+

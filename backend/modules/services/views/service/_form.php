@@ -152,7 +152,7 @@ use yii\db\Expression;
 
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                                 <?php
-                                $staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 6, 'branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
+                                $staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 6])->orWhere(['post_id' => '10'])->andWhere(['branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
                                 ?>
                                 <?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($staff_managers, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']) ?>
                         </div>

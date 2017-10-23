@@ -85,16 +85,17 @@ class StaffPayrollController extends Controller {
 
                 if (isset($_POST['get_amount'])) {
                         $model->load(Yii::$app->request->post());
-                        $current_date = date('Y-m-d', strtotime('25-' . $model->month));
-                        $prev_month = date('Y-m-d', strtotime($current_date . '-1 month'));
-                        $prev_date = date('Y-m-d', strtotime($prev_month . ' + 1 days'));
-                        $service_schedule_amount = ServiceSchedule::find()->where(['staff' => $model->staff_id])->andWhere(['>=', 'date', $prev_date])->andWhere(['<=', 'date', $current_date])->sum('rate');
-                        $paid_amount = StaffPayroll::find()->where(['staff_id' => $model->staff_id, 'month' => $model->month])->sum('amount');
-                        $paided_details = StaffPayroll::find()->where(['staff_id' => $model->staff_id, 'month' => $model->month])->all();
+                        $model->date_from = date('Y-m-d', strtotime($model->date_from));
+                        $model->date_to = date('Y-m-d', strtotime($model->date_to));
+                        $service_schedule_amount = ServiceSchedule::find()->where(['staff' => $model->staff_id])->andWhere(['>=', 'date', $model->date_from])->andWhere(['<=', 'date', $model->date_to])->sum('rate');
+                        $paid_amount = StaffPayroll::find()->where(['staff_id' => $model->staff_id, 'date_from' => $model->date_from])->sum('amount');
+                        $paided_details = StaffPayroll::find()->where(['staff_id' => $model->staff_id, 'date_from' => $model->date_from])->all();
                         $model->scenario = 'cash-payment';
                 } else if (isset($_POST['submit_amount'])) {
 
                         $model->load(Yii::$app->request->post());
+                        $model->date_from = date('Y-m-d', strtotime($model->date_from));
+                        $model->date_to = date('Y-m-d', strtotime($model->date_to));
                         Yii::$app->SetValues->Attributes($model);
                         if (isset($model->month)) {
                                 $month_year = explode('-', $model->month);
@@ -165,6 +166,23 @@ class StaffPayrollController extends Controller {
                 } else {
                         throw new NotFoundHttpException('The requested page does not exist.');
                 }
+        }
+
+        public function actionStaffs() {
+
+                $branch = $_POST['branch'];
+                $date_from = date('Y-m-d', strtotime($_POST['date_from']));
+                $date_to = date('Y-m-d', strtotime($_POST['date_to']));
+                $service_staffs = ServiceSchedule::find()->where('1=1')->andWhere(['>=', 'date', $date_from])->andWhere(['<=', 'date', $date_to])->groupBy('staff')->all();
+                $staffs = array();
+                $options = '<option value="">--Select--</option>';
+                foreach ($service_staffs as $value) {
+                        if (isset($value->staff))
+                                $staff_detail = \common\models\StaffInfo::findOne($value->staff);
+                        if ($staff_detail->branch_id == $branch)
+                                $options .= "<option value='" . $staff_detail->id . "'>" . $staff_detail->staff_name . "</option>";
+                }
+                echo $options;
         }
 
 }
