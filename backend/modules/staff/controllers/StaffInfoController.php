@@ -929,4 +929,16 @@ class StaffInfoController extends Controller {
                 }
         }
 
+        public function actionLeave($id) {
+                $staff_previous_leaves = \common\models\StaffLeave::find()->where(['status' => 2, 'employee_id' => $id])->andWhere(['<=', 'commencing_date', date('Y-m-d')])->all();
+                $upcoming_leaves = \common\models\StaffLeave::find()->where(['employee_id' => $id])->andWhere(['>=', 'commencing_date', date('Y-m-d')])->all();
+                $today = \common\models\StaffLeave::find()->where(['status' => 2, 'employee_id' => $id])->andWhere(['=', 'commencing_date', date('Y-m-d')])->exists();
+                return $this->render('staff_leave', [
+                            'staff_previous_leaves' => $staff_previous_leaves,
+                            'upcoming_leaves' => $upcoming_leaves,
+                            'today' => $today,
+                            'staff' => $id,
+                ]);
+        }
+
 }

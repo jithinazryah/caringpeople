@@ -63,3 +63,8 @@
         }
 
 }
+@media (min-width: 992px){
+        .mkdf-vertical-align-containers .mkdf-position-right {
+                float:none;
+        }
+}

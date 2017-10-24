@@ -163,7 +163,7 @@ class StaffInfoSearch extends StaffInfo {
                         'filter' => [0 => 'Bench', 1 => 'On Duty'],
                     ],
                         ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view}{update}{delete}{missing}',
+                        'template' => '{view}{update}{delete}{missing}{leave}',
                         'visibleButtons' => [
                             'delete' => function ($model, $key, $index) {
                                     return Yii::$app->user->identity->post_id != '1' ? false : true;
@@ -181,6 +181,15 @@ class StaffInfoSearch extends StaffInfo {
                                                         'id' => $model->id
                                             ]);
                                     }
+                            },
+                            'leave' => function($url, $model, $key) {     // render your custom button
+                                    return Html::a('<span class="fa fa-minus-circle" style="padding-top: 0px;"></span>', ['/staff/staff-info/leave', 'id' => $model->id], [
+                                                'title' => Yii::t('app', 'Leave'),
+                                                'class' => 'actions staff-leave',
+                                                'type' => '2',
+                                                'target' => '_blank',
+                                                'id' => $model->id
+                                    ]);
                             },
                         ]
                     ],
@@ -225,20 +234,6 @@ class StaffInfoSearch extends StaffInfo {
                             'delete' => function ($model, $key, $index) {
                                     return Yii::$app->user->identity->post_id != '1' ? false : true;
                             }
-                        ],
-                        'buttons' => [
-                            'followup' => function ($url, $model) {
-
-                                    $url = Yii::$app->homeUrl . 'followup/followups/followups?type_id=' . $model->id . '&type=4';
-                                    return Html::a(
-                                                    '<span><i class="fa fa-tasks" aria-hidden="true"></i></span>', $url, [
-                                                'data-pjax' => '0',
-                                                'id' => $model->id,
-                                                'title' => 'Add Followups',
-                                                'target' => '_blank',
-                                                    ]
-                                    );
-                            },
                         ],
                     ],
                 ];
