@@ -69,7 +69,7 @@ class StaffInfoController extends Controller {
                 if (!empty(Yii::$app->request->queryParams['StaffInfoSearch']['status'])) {
                         $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffInfoSearch']['status']]);
                 } else {
-                        $dataProvider->query->andWhere(['<>', 'status', 2]);
+                        $dataProvider->query->andWhere(['status' => 1]);
                 }
                 $dataProvider->pagination = ['pagesize' => 50];
                 return $this->render('index', [
