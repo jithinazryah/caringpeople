@@ -237,27 +237,23 @@ class ServiceajaxController extends \yii\web\Controller {
                         if (isset($service_id)) {
                                 $service_detail = Service::findOne($service_id);
                                 if ($type == 1) {
-                                        $scheduls_exists = ServiceSchedule::find()->where(['status' => 1, 'service_id' => $service_id])->all();
-                                        if (count($scheduls_exists) > 0) {
-                                                foreach ($scheduls_exists as $value) {
-                                                        $value->status = 4; /* mark the schedule as cancelled */
-                                                        $value->rate = '0';
-                                                        $value->save();
-                                                        $rate = $this->ChangePrice($service_detail, 1, 2);
-                                                        $service_detail->estimated_price = $service_detail->estimated_price - $rate;
-                                                        $service_detail->due_amount = $service_detail->due_amount - $rate;
-                                                        $service_detail->update();
-                                                        SetValues::ServiceScheduleHistory($service_id, 4, 1, $rate);
+                                        $scheduls_exists = ServiceSchedule::find()->where(['status' => 1, 'service_id' => $service_id])->count();
+                                        if ($scheduls_exists == 0) {
+                                                if ($service_detail->due_amount <= 0) {
+                                                        $service = Service::findOne($service_id);
+                                                        $service->status = 2;
+                                                        if ($service->update())
+                                                                echo'1';
+                                                } else {
+                                                        echo '4';
                                                 }
-                                                $service_detail->status = 2;
-                                                $service_detail->update();
                                         } else {
-                                                $service_detail->status = 2;
-                                                $service_detail->update();
+                                                echo '2';
                                         }
                                 } else {
                                         $service_detail->status = 1;
                                         $service_detail->update();
+                                        echo '3';
                                 }
                         }
                 }
@@ -721,25 +717,6 @@ class ServiceajaxController extends \yii\web\Controller {
                         $service->gender_preference = $_POST['service-staff-prefernce'];
                         $service->staff_manager = $_POST['service_staff_amanger'];
                         $service->client_notes = $_POST['client_notes'];
-                        $service->status = $_POST['status'];
-                        if ($service->status == 2) {
-                                $scheduls_exists = ServiceSchedule::find()->where(['status' => 1, 'service_id' => $service_id])->all();
-                                if (count($scheduls_exists) > 0) {
-                                        foreach ($scheduls_exists as $value) {
-                                                $value->status = 4; /* mark the schedule as cancelled */
-                                                $value->rate = '0';
-                                                $value->save();
-                                                $rate = $this->ChangePrice($service, 1, 2);
-                                                $service->estimated_price = $service->estimated_price - $rate;
-                                                $service->due_amount = $service->due_amount - $rate;
-                                                SetValues::ServiceScheduleHistory($service_id, 4, 1, $rate);
-                                        }
-                                        $service->status = 2;
-                                } else {
-                                        $service->status = 2;
-                                }
-                        }
-
                         $service->update();
                         $service->service_staffs = $this->Servicestaffs($service_id);
                         $service->update();

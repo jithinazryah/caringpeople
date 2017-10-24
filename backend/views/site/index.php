@@ -1,6 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+
+$sstart_date = date('Y') . '-' . date('m') . '-01';
+$eend_date = date('Y') . '-' . date('m') . '-31';
 ?>
 <link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/fonts/meteocons/css/meteocons.css">
 
@@ -55,10 +58,18 @@ if (Yii::$app->user->identity->branch_id != '0') {
         $invoices_unpaid = \common\models\Invoice::find()->where(['branch_id' => Yii::$app->user->identity->branch_id, 'status' => 2])->orderBy(['DOC' => SORT_DESC])->one();
         $invoices_unpaid_date = date("d-M-Y", strtotime($invoices_unpaid->DOC));
         $over_due_amount = \common\models\Invoice::find()->where(['DOC' => $invoices_unpaid->DOC, 'status' => 2, 'branch_id' => Yii::$app->user->identity->branch_id,])->sum('amount');
+        $total_enquiries = common\models\PatientEnquiryGeneralFirst::find()->where(['branch_id' => Yii::$app->user->identity->branch_id])->andWhere(['>=', 'DOC', $sstart_date])->andWhere(['<=', 'DOC', $eend_date])->count();
+        $converted_enquiries = common\models\PatientEnquiryGeneralFirst::find()->where(['branch_id' => Yii::$app->user->identity->branch_id, 'proceed' => 1])->andWhere(['>=', 'DOC', $sstart_date])->andWhere(['<=', 'DOC', $eend_date])->count();
+        $dropped_enquiries = common\models\PatientEnquiryGeneralFirst::find()->where(['branch_id' => Yii::$app->user->identity->branch_id, 'status' => 3])->andWhere(['>=', 'DOC', $sstart_date])->andWhere(['<=', 'DOC', $eend_date])->count();
+        $pending_enquiries = $total_enquiries - $converted_enquiries - $dropped_enquiries;
 } else {
         $invoices_unpaid = \common\models\Invoice::find()->where(['status' => 2])->orderBy(['DOC' => SORT_DESC])->one();
         $invoices_unpaid_date = date("d-M-Y", strtotime($invoices_unpaid->DOC));
         $over_due_amount = \common\models\Invoice::find()->where(['DOC' => $invoices_unpaid->DOC, 'status' => 2])->sum('amount');
+        $total_enquiries = common\models\PatientEnquiryGeneralFirst::find()->where(['>=', 'DOC', $sstart_date])->andWhere(['<=', 'DOC', $eend_date])->count();
+        $converted_enquiries = common\models\PatientEnquiryGeneralFirst::find()->where(['proceed' => 1])->andWhere(['>=', 'DOC', $sstart_date])->andWhere(['<=', 'DOC', $eend_date])->count();
+        $dropped_enquiries = common\models\PatientEnquiryGeneralFirst::find()->where(['status' => 3, 'proceed' => 0])->andWhere(['>=', 'DOC', $sstart_date])->andWhere(['<=', 'DOC', $eend_date])->count();
+        $pending_enquiries = $total_enquiries - $converted_enquiries - $dropped_enquiries;
 }
 ?>
 
@@ -119,6 +130,71 @@ if (Yii::$app->user->identity->branch_id != '0') {
                                 </div>
                         </div>
                 </a>
+
+        </div>
+
+
+
+
+
+        <div class="col-sm-3">
+
+                <div class="xe-widget xe-counter xe-counter-blue" >
+                        <div class="xe-icon">
+                                <i class="linecons-mail"></i>
+                        </div>
+                        <div class="xe-label">
+                                <strong class="num"><?= $total_enquiries ?></strong>
+                                <span>Patient Enquiries</span>
+                                <span> (<?= date('F') ?>)</span>
+                        </div>
+                </div>
+
+        </div>
+
+        <div class="col-sm-3">
+
+                <div class="xe-widget xe-counter" >
+                        <div class="xe-icon">
+                                <i class="fa fa-check-square-o"></i>
+                        </div>
+                        <div class="xe-label">
+                                <strong class="num"><?= $converted_enquiries ?></strong>
+                                <span>Converted Enquiries</span>
+                                <span> (<?= date('F') ?>)</span>
+                        </div>
+                </div>
+
+        </div>
+
+        <div class="col-sm-3">
+
+                <div class="xe-widget xe-counter xe-counter-red">
+                        <div class="xe-icon">
+                                <i class="fa fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="xe-label">
+                                <strong class="num"><?= $pending_enquiries ?></strong>
+                                <span>Pending Enquiries</span>
+                                <span> (<?= date('F') ?>)</span>
+                        </div>
+                </div>
+
+        </div>
+
+        <div class="col-sm-3">
+
+                <div class="xe-widget xe-counter xe-counter-info">
+                        <div class="xe-icon">
+                                <i class="fa fa-times-circle"></i>
+                        </div>
+                        <div class="xe-label">
+                                <strong class="num"><?= $dropped_enquiries ?></strong>
+                                <span>Dropped Enquiries</span>
+                                <span> (<?= date('F') ?>)</span>
+                        </div>
+                </div>
+
 
         </div>
 
@@ -433,7 +509,7 @@ if (Yii::$app->user->identity->branch_id != '0') {
                                                                                         $s++;
                                                                                         if ($s <= 5) {
                                                                                                 ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<a href="<?= Yii::$app->homeUrl; ?>sales/purchase-invoice-details/view?id=<?= $purchase_master->id ?>">-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<a href="<?= Yii::$app->homeUrl; ?>sales/purchase-invoice-details/view?id=<?= $purchase_master->id ?>">-->
                                                                                                 <tr style="text-align:left;">
                                                                                                         <td><?= $s ?> </td>
                                                                                                         <?php

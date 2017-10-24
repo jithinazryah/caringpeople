@@ -473,7 +473,7 @@ use yii\db\Expression;
                                 <div class="row status" >
                                         <div class="col-md-12" >
                                                 <p style="float: right;">
-                                                        <a class="btn btn-secondary popover-secondary service_stat" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Pending schedules will be marked as Cancelled, if you close this service!!" data-original-title="Confirm Before closing"><input type="checkbox" class="cbr service_status" value="<?= $model->id; ?>" statustype="1"><span>&nbsp;Check here to close this service</span></a>
+                                                        <a class="btn btn-secondary popover-secondary service_stat" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Close this service only if there is no pending schedules and no balance payment !!" data-original-title="Confirm Before closing"><input type="checkbox" class="cbr service_status" value="<?= $model->id; ?>" statustype="1"><span>&nbsp;Check here to close this service</span></a>
                                                 <p>
                                         </div>
                                 </div>

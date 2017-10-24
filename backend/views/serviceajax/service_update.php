@@ -90,31 +90,6 @@ use yii\helpers\ArrayHelper;
                                                         </tr>
 
 
-                                                        <tr>
-                                                                <td><label><b>Status </b></label> </td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                        <select name="status" class="form-control">
-                                                                                <option>--Select--</option>
-                                                                                <option value="1" <?php
-                                                                                if ($service->status == 1) {
-                                                                                        echo 'selected';
-                                                                                }
-                                                                                ?>>Opened</option>
-                                                                                <option value="2" <?php
-                                                                                if ($service->status == 2) {
-                                                                                        echo 'selected';
-                                                                                }
-                                                                                ?>>Closed</option>
-                                                                                <option value="3" <?php
-                                                                                if ($service->status == 3) {
-                                                                                        echo 'selected';
-                                                                                }
-                                                                                ?>>Advanced</option>
-                                                                        </select>
-
-                                                                </td>
-                                                        </tr>
 
                                                         <tr>
                                                                 <td colspan="3">
