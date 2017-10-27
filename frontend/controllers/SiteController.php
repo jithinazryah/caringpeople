@@ -135,6 +135,7 @@ class SiteController extends Controller {
                         }
                 }
                 return $this->render('contact');
+                //  return $this->renderPartial('contact')
         }
 
         /**

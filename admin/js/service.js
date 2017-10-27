@@ -377,6 +377,10 @@ $("document").ready(function () {
                                 } else if (data == '4') {
                                         $('.service_stat .cbr-replaced').removeClass("cbr-checked");
                                         alert('This service has balnce paymemt. You cannot close this service!');
+                                } else if (data == '5') {
+                                        $('.service-status-text').text('Closed');
+                                        $(".service_stat_stop").css({"pointer-events": "none"});
+                                        alert('Service closed successfully');
                                 }
 
                         }

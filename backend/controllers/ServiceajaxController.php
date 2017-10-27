@@ -250,6 +250,26 @@ class ServiceajaxController extends \yii\web\Controller {
                                         } else {
                                                 echo '2';
                                         }
+                                } else if ($type == 4) {
+                                        $scheduls_exists = ServiceSchedule::find()->where(['status' => 1, 'service_id' => $service_id])->all();
+                                        if (count($scheduls_exists) > 0) {
+                                                foreach ($scheduls_exists as $value) {
+                                                        $value->status = 4; /* mark the schedule as cancelled */
+                                                        $value->rate = '0';
+                                                        $value->save();
+                                                        $rate = $this->ChangePrice($service_detail, 1, 2);
+                                                        $service_detail->estimated_price = $service_detail->estimated_price - $rate;
+                                                        $service_detail->due_amount = $service_detail->due_amount - $rate;
+                                                        $service_detail->update();
+                                                        SetValues::ServiceScheduleHistory($service_id, 4, 1, $rate);
+                                                }
+                                                $service_detail->status = 2;
+                                                $service_detail->update();
+                                        } else {
+                                                $service_detail->status = 2;
+                                                $service_detail->update();
+                                        }
+                                        echo '5';
                                 } else {
                                         $service_detail->status = 1;
                                         $service_detail->update();

@@ -477,6 +477,14 @@ use yii\db\Expression;
                                                 <p>
                                         </div>
                                 </div>
+
+                                <div class="row status" >
+                                        <div class="col-md-12" >
+                                                <p style="float: right;">
+                                                        <a class="btn btn-secondary popover-secondary service_stat_stop" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Pending schedules will be marked as cancelled !!" data-original-title="Confirm Before stop"><input type="checkbox" class="cbr service_status" value="<?= $model->id; ?>" statustype="4"><span>&nbsp;Check here to stop this service</span></a>
+                                                <p>
+                                        </div>
+                                </div>
                         <?php }
                         ?>
                 </div>

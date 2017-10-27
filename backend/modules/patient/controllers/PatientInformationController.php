@@ -570,12 +570,10 @@ class PatientInformationController extends Controller {
          *  */
 
         public function Imageupload($model) {
-
                 if (isset($_POST['creates']) && $_POST['creates'] != '') {
 
                         $arrs = [];
                         $i = 0;
-
                         foreach ($_FILES['creates'] ['name'] as $row => $innerArray) {
                                 $i = 0;
                                 foreach ($innerArray as $innerRow => $value) {
