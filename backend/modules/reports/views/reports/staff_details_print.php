@@ -67,41 +67,68 @@ $this->params['breadcrumbs'][] = $this->title;
         $end_date = $to;
         $f = 0;
         while (strtotime($date) < strtotime($end_date)) {
-                $f++;
+
 
                 $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
-                $details = \common\models\ServiceSchedule::find()->where(['date' => $date, 'staff' => $staff])->one();
-                $service_details = \common\models\Service::findOne($details->service_id);
-                $patient = \common\models\PatientGeneral::findOne($details->patient_id);
-                ?>
-                <tr>
-                        <td><?= $f ?></td>
-                        <td><?= date('d-m-Y', strtotime($date)) ?></td>
-                        <td><?php
-                                if (isset($service_details->service_id)) {
-                                        echo $service_details->service_id;
-                                } else {
-                                        echo '-';
-                                }
-                                ?></td>
-                        <td><?php
-                                if (isset($patient->first_name)) {
-                                        echo $patient->first_name;
-                                } else {
-                                        echo '-';
-                                }
-                                ?></td>
-                        <td><?php
-                                if (isset($details->rate)) {
-                                        echo $details->rate;
-                                } else {
-                                        echo '-';
-                                }
-                                ?>
+                $details = \common\models\ServiceSchedule::find()->where(['date' => $date, 'staff' => $staff])->all();
+                if (count($details) > 0) {
+                        foreach ($details as $details) {
+                                $f++;
 
-                        </td>
-                </tr>
-        <?php } ?>
+                                $service_details = \common\models\Service::findOne($details->service_id);
+                                $patient = \common\models\PatientGeneral::findOne($details->patient_id);
+                                ?>
+                                <tr>
+                                        <td><?= $f ?></td>
+                                        <td><?= date('d-m-Y', strtotime($date)) ?></td>
+                                        <td><?php
+                                                if (isset($service_details->service_id)) {
+                                                        echo $service_details->service_id;
+                                                } else {
+                                                        echo '-';
+                                                }
+                                                ?></td>
+                                        <td><?php
+                                                if (isset($patient->first_name)) {
+                                                        echo $patient->first_name;
+                                                } else {
+                                                        echo '-';
+                                                }
+                                                ?></td>
+                                        <td><?php
+                                                if (isset($details->rate)) {
+                                                        echo $details->rate;
+                                                } else {
+                                                        echo '-';
+                                                }
+                                                ?>
+
+                                        </td>
+                                </tr>
+                                <?php
+                        }
+                } else {
+                        $f++;
+                        ?>
+                        <tr>
+                                <td><?= $f ?></td>
+                                <td><?= date('d-m-Y', strtotime($date)) ?></td>
+                                <td><?php
+                                        echo '-';
+                                        ?></td>
+                                <td><?php
+                                        echo '-';
+                                        ?></td>
+                                <td><?php
+                                        echo '-';
+                                        ?>
+
+                                </td>
+                        </tr>
+                        <?php
+                }
+        }
+        ?>
 
 </table>
 

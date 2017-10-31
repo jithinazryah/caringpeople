@@ -281,6 +281,43 @@
 
                                 <!---------------------------------------------------------------header-end---------------------------------------------->
 
+                                <div class="vc_row wpb_row vc_row-fluid mkdf-section vc_custom_1453373235263 mkdf-content-aligment-left mkdf-grid-section" style="">
+                                        <div class="clearfix mkdf-section-inner">
+                                                <div class="mkdf-section-inner-margin clearfix">
+                                                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                                                                <div class="vc_column-inner ">
+                                                                        <div class="wpb_wrapper">
+                                                                                <div class="mkdf-section-title-holder">
+                                                                                        <h2 class="mkdf-section-title mkdf-section-title-large" style="text-align: left">
+                                                                                                Our Name is our Guarantee</h2>
+                                                                                        <h3 class="mkdf-item-title">
+                                                                                                <a href="#" >
+
+                                                                                                </a>
+                                                                                        </h3>
+                                                                                </div>
+                                                                                <div data-mkdf-parallax-speed="1" class="vc_row wpb_row vc_inner vc_row-fluid mkdf-section mkdf-content-aligment-right" style="">
+                                                                                        <div class="mkdf-full-section-inner">
+                                                                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-12 vc_col-md-12">
+                                                                                                        <div class="vc_column-inner ">
+                                                                                                                <div class="wpb_wrapper">
+                                                                                                                        <div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left">
+                                                                                                                                <p style="text-align: left" class="mkdf-section-subtitle">Living in your own surroundings where you feel loved and comfortable is always the best choice when it comes to difficult moments like being unwell. Home care is the right kind of support what people in need always wish for. Caring People Home care offers the best quality care and support at home. Our aim is to enable our needy clients to continue living in their own households with dignity, individuality and with control over their lives, irrespective of the level of support required. Caring People will always work with you to plan a service package that will aid you or your loved one to live a life to the full at home.</p>
+                                                                                                                        </div>
+                                                                                                                        <div data-original-height="33" class="vc_empty_space" style="height: 33px"><span class="vc_empty_space_inner"></span></div>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </div>
+
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
 
                                 <!---------------------------------service-test------------------>
 

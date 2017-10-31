@@ -132,16 +132,6 @@ use common\models\Branch;
                         </div>
 
 
-
-
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                <?= $form->field($patient_general, 'patient_image')->fileInput() ?>
-
-                        </div>
-
-
-
-
                 </div>
 
 
@@ -201,29 +191,123 @@ use common\models\Branch;
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
                 </div>
-
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($model, 'passport')->fileInput() ?>
-
-                </div>
-                <!--		<div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                <?= $form->field($model, 'driving_license')->fileInput() ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                <?= $form->field($model, 'pan_card')->fileInput() ?>
-
-                </div>
-                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                <?= $form->field($model, 'voters_id')->fileInput() ?>
-
-                                </div>-->
-                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($model, 'guardian_profile_image')->fileInput() ?>
-
+                <div class="row" style="margin:0;float: right">
+                        <a class="btn btn-blue btn-icon btn-icon-standalone" id="enquirer_1" style="<?php if (isset($patient_info_second->caller_name_1) && $patient_info_second->caller_name_1 != '') { ?> display:none; <?php } else { ?> display:show; <?php } ?>"><i class="fa-plus"></i><span>Add New Guardian</span></a>
 
                 </div>
 
+
+                <div style="clear:both"></div>
+                <div class="row enquirer_1" style="margin: 0;<?php if (isset($model->first_name_1) && $model->first_name_1 != '') { ?> display:show; <?php } else { ?> display:none; <?php } ?>">
+                        <span class="inquiry">
+                                <h4 class="h4-labels" style="position: relative;">Guardian Details 1<a id="close_1" class="btn btn-icon btn-red remove-enquirer"><i class="fa-remove"></i></a></h4>
+                                <hr class="enquiry-hr"/>
+                        </span>
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'first_name_1')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'last_name_1')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'gender_1')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+
+                        </div>
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+
+                                <?php $religion = Religion::find()->where(['status' => '1'])->orderBy(['religion' => SORT_ASC])->all(); ?>
+                                <?= $form->field($model, 'religion_1')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?php $nationality = Nationality::find()->where(['status' => '1'])->orderBy(['nationality' => SORT_ASC])->all(); ?>
+                                <?= $form->field($model, 'nationality_1')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+
+                        </div>
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'occupatiion_1')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'permanent_address_1')->textarea(['rows' => 1]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'pincode_1')->textInput() ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'landmark_1')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_number_1')->textInput() ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email_1')->textInput(['maxlength' => true]) ?>
+
+                        </div><div style="clear:both"></div>
+
+                        <div class="row" style="margin:0;float: right">
+                                <a class="btn btn-blue btn-icon btn-icon-standalone" id="enquirer_2" style="<?php if (isset($model->first_name_2) && $model->first_name_2 != '') { ?> display:none; <?php } else { ?> display:show; <?php } ?>"><i class="fa-plus"></i><span>Add New Guardian</span></a>
+
+                        </div>
+
+
+                </div>
+
+
+                <div class="row enquirer_2" style="margin: 0;<?php if (isset($model->first_name_2) && $model->first_name_2 != '') { ?> display:show; <?php } else { ?> display:none; <?php } ?>">
+
+                        <span class="inquiry">
+                                <h4 class="h4-labels" style="position: relative;">Guardian Details 2<a id="close_2" class="btn btn-icon btn-red remove-enquirer"><i class="fa-remove"></i></a></h4>
+                                <hr class="enquiry-hr"/>
+                        </span>
+
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'first_name_2')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'last_name_2')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?= $form->field($model, 'gender_2')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+
+                        </div>
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+
+                                <?php $religion = Religion::find()->where(['status' => '1'])->orderBy(['religion' => SORT_ASC])->all(); ?>
+                                <?= $form->field($model, 'religion_2')->dropDownList(ArrayHelper::map($religion, 'id', 'religion'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <?php $nationality = Nationality::find()->where(['status' => '1'])->orderBy(['nationality' => SORT_ASC])->all(); ?>
+                                <?= $form->field($model, 'nationality_2')->dropDownList(ArrayHelper::map($nationality, 'id', 'nationality'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+
+                        </div>
+
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'occupatiion_2')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'permanent_address_2')->textarea(['rows' => 1]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'pincode_2')->textInput() ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'landmark_2')->textInput(['maxlength' => true]) ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'contact_number_2')->textInput() ?>
+
+                        </div>
+                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email_2')->textInput(['maxlength' => true]) ?>
+
+                        </div><div style="clear:both"></div>
+
+                </div>
 
 
                 <div style="clear:both"></div>
@@ -405,3 +489,11 @@ use common\models\Branch;
                 });
         });
 </script>
+<style>
+        .remove-enquirer{
+                position: absolute;
+                right: 0px;
+                margin-bottom: 0px;
+                top: -10px;
+        }
+</style>

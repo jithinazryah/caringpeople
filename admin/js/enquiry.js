@@ -549,6 +549,18 @@ $("document").ready(function () {
                 $('#patientenquirygeneralsecond-email_1').val('');
                 $('#patientenquirygeneralsecond-email_2').val('');
 
+                $('#patientguardiandetails-first_name_1').val('');
+                $('#patientguardiandetails-last_name_1').val('');
+                $('#patientguardiandetails-gender_1').val('');
+                $('#patientguardiandetails-religion_1').val('');
+                $('#patientguardiandetails-nationality_1').val('');
+                $('#patientguardiandetails-occupatiion_1').val('');
+                $('#patientguardiandetails-permanent_address_1').val('');
+                $('#patientguardiandetails-pincode_1').val('');
+                $('#patientguardiandetails-landmark_1').val('');
+                $('#patientguardiandetails-contact_number_1').val('');
+                $('#patientguardiandetails-email_1').val('');
+
                 $('.enquirer_1').hide();
                 $('#enquirer_1').show();
         });
@@ -565,6 +577,19 @@ $("document").ready(function () {
                 $('#patientenquirygeneralsecond-zip_pc_2').val('');
                 $('#patientenquirygeneralsecond-email_3').val('');
                 $('#patientenquirygeneralsecond-email_4').val('');
+
+                $('#patientguardiandetails-first_name_2').val('');
+                $('#patientguardiandetails-last_name_2').val('');
+                $('#patientguardiandetails-gender_2').val('');
+                $('#patientguardiandetails-religion_2').val('');
+                $('#patientguardiandetails-nationality_2').val('');
+                $('#patientguardiandetails-occupatiion_2').val('');
+                $('#patientguardiandetails-permanent_address_2').val('');
+                $('#patientguardiandetails-pincode_2').val('');
+                $('#patientguardiandetails-landmark_2').val('');
+                $('#patientguardiandetails-contact_number_2').val('');
+                $('#patientguardiandetails-email_2').val('');
+
                 $('.enquirer_2').hide();
                 $('#enquirer_2').show();
         });

@@ -43,9 +43,11 @@ class PatientGuardianDetails extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                     //[['id'], 'required'],
-                        [['id', 'patient_id', 'gender', 'pincode', 'contact_number'], 'integer'],
-                        [['permanent_address'], 'string'],
+                        [['id', 'patient_id', 'gender', 'pincode', 'contact_number', 'gender_1', 'gender_2'], 'integer'],
+                        [['permanent_address', 'permanent_address_1', 'permanent_address_2', 'contact_number_1', 'contact_number_2'], 'string'],
                         [['first_name', 'last_name', 'id_card_or_passport_no', 'religion', 'nationality', 'occupatiion', 'landmark', 'email', 'adhar_card_no', 'passport', 'driving_license', 'pan_card', 'voters_id', 'police_station_name', 'police_station_email', 'panchayath_name', 'ward_no', 'contact_person_name', 'contact_person_mobile_no', 'diagnosis'], 'string', 'max' => 100],
+                        [['first_name_1', 'last_name_1', 'religion_1', 'nationality_1', 'occupatiion_1', 'landmark_1', 'email_1', 'pincode_1'], 'string'],
+                        [['first_name_2', 'last_name_2', 'religion_2', 'nationality_2', 'occupatiion_2', 'landmark_2', 'email_2', 'pincode_2'], 'string'],
                         [['police_station_email', 'email'], 'email'],
                 ];
         }
@@ -82,6 +84,28 @@ class PatientGuardianDetails extends \yii\db\ActiveRecord {
                     'contact_person_name' => 'Contact Person Name',
                     'contact_person_mobile_no' => 'Contact Person Mobile No',
                     'diagnosis' => 'Diagnosis',
+                    'first_name_1' => 'First Name',
+                    'last_name_1' => 'Last Name',
+                    'gender_1' => 'Gender',
+                    'religion_1' => 'Religion',
+                    'nationality_1' => 'Nationality',
+                    'occupatiion_1' => 'Occupatiion',
+                    'permanent_address_1' => 'Permanent Address',
+                    'pincode_1' => 'Pincode',
+                    'landmark_1' => 'Landmark',
+                    'contact_number_1' => 'Contact Number',
+                    'email_1' => 'Email',
+                    'first_name_2' => 'First Name',
+                    'last_name_2' => 'Last Name',
+                    'gender_2' => 'Gender',
+                    'religion_2' => 'Religion',
+                    'nationality_2' => 'Nationality',
+                    'occupatiion_2' => 'Occupatiion',
+                    'permanent_address_2' => 'Permanent Address',
+                    'pincode_2' => 'Pincode',
+                    'landmark_2' => 'Landmark',
+                    'contact_number_2' => 'Contact Number',
+                    'email_2' => 'Email',
                 ];
         }
 

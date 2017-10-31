@@ -347,6 +347,20 @@ class PatientInformationController extends Controller {
                 $guardian_details->pincode = $guardian_contact_details->zip_pc;
                 $guardian_details->contact_number = $enquiry_data->mobile_number;
                 $guardian_details->email = $guardian_contact_details->email;
+
+                $guardian_details->first_name_1 = $guardian_contact_details->caller_name_1;
+                $guardian_details->gender_1 = $guardian_contact_details->caller_gender_1;
+                $guardian_details->permanent_address_1 = $guardian_contact_details->address_1;
+                $guardian_details->pincode_1 = $guardian_contact_details->zip_pc_1;
+                $guardian_details->contact_number_1 = $guardian_contact_details->mobile_number_alt_1;
+                $guardian_details->email_1 = $guardian_contact_details->email_1;
+
+                $guardian_details->first_name_2 = $guardian_contact_details->caller_name_2;
+                $guardian_details->gender_2 = $guardian_contact_details->caller_gender_2;
+                $guardian_details->permanent_address_2 = $guardian_contact_details->address_2;
+                $guardian_details->pincode_2 = $guardian_contact_details->zip_pc_2;
+                $guardian_details->contact_number_2 = $guardian_contact_details->mobile_number_alt_4;
+                $guardian_details->email_2 = $guardian_contact_details->email_3;
                 return $guardian_details;
         }
 
