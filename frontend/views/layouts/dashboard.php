@@ -107,18 +107,18 @@ $notifications = array_merge($notification, $notification1);
                                                         </ul>
                                                 </li>
 
-                                                <li>
-                                                        <a href="">
-                                                                <i class="fa fa-book"></i>
-                                                                <span class="title">Tasks</span>
-                                                        </a>
-                                                        <ul>
-                                                                <li>
-                                                                        <?= Html::a('My Tasks', ['/dashboard/invoices'], ['class' => 'title']) ?>
-                                                                </li>
+                                                <!--                                                <li>
+                                                                                                        <a href="">
+                                                                                                                <i class="fa fa-book"></i>
+                                                                                                                <span class="title">Tasks</span>
+                                                                                                        </a>
+                                                                                                        <ul>
+                                                                                                                <li>
+                                                <?= Html::a('My Tasks', ['/dashboard/invoices'], ['class' => 'title']) ?>
+                                                                                                                </li>
 
-                                                        </ul>
-                                                </li>
+                                                                                                        </ul>
+                                                                                                </li>-->
 
 
                                                 <li>

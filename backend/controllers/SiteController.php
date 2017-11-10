@@ -76,7 +76,7 @@ class SiteController extends Controller {
                 $model = new StaffInfo();
                 $model->scenario = 'login';
                 if ($model->load(Yii::$app->request->post()) && $model->login() && $this->setSession()) {
-                        // $this->followupMail();
+                        Yii::$app->SetValues->LogIn(1, Yii::$app->user->identity->id, Yii::$app->user->identity->branch_id);
                         return $this->redirect(array('site/home'));
                 } else {
                         return $this->render('login', [
@@ -160,6 +160,7 @@ class SiteController extends Controller {
          * @return string
          */
         public function actionLogout() {
+                Yii::$app->SetValues->LogOut(1, Yii::$app->user->identity->id);
                 Yii::$app->user->logout();
 
                 return $this->goHome();

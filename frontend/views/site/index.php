@@ -288,8 +288,10 @@
                                                                 <div class="vc_column-inner ">
                                                                         <div class="wpb_wrapper">
                                                                                 <div class="mkdf-section-title-holder">
-                                                                                        <h2 class="mkdf-section-title mkdf-section-title-large" style="text-align: left">
-                                                                                                Our Name is our Guarantee</h2>
+                                                                                        <h2 class="mkdf-section-title mkdf-section-title-large" style="text-align: center">
+                                                                                                The Care You Need</h2>
+
+                                                                                        <h4 style="font-weight: 18px;text-align: center">IN THE PLACE YOU LOVE – YOUR OWN HOME</h4>
                                                                                         <h3 class="mkdf-item-title">
                                                                                                 <a href="#" >
 
@@ -302,7 +304,13 @@
                                                                                                         <div class="vc_column-inner ">
                                                                                                                 <div class="wpb_wrapper">
                                                                                                                         <div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left">
-                                                                                                                                <p style="text-align: left" class="mkdf-section-subtitle">Living in your own surroundings where you feel loved and comfortable is always the best choice when it comes to difficult moments like being unwell. Home care is the right kind of support what people in need always wish for. Caring People Home care offers the best quality care and support at home. Our aim is to enable our needy clients to continue living in their own households with dignity, individuality and with control over their lives, irrespective of the level of support required. Caring People will always work with you to plan a service package that will aid you or your loved one to live a life to the full at home.</p>
+                                                                                                                                <p style="text-align: left" class="mkdf-section-subtitle">
+                                                                                                                                        Living in your own surroundings where you feel loved and comfortable is always the best choice when it comes to difficult moments like being unwell. Home care is the right kind of support what people in need always wish for. Caring People's Homecare offers the best quality care and support at home.
+
+                                                                                                                                        We believe each one is unique with one’s own individual preferences and wishes. Because everyone is different, our service is completely custom-made. Ultimately you decide what type of care you need and we are here to help you.
+
+                                                                                                                                        We build a bespoke care package perfect for your care needs. No matter how many hours of care you want, short term or long term, our services are matched to your exact requirements. If your needs change, our care adapts.
+                                                                                                                                </p>
                                                                                                                         </div>
                                                                                                                         <div data-original-height="33" class="vc_empty_space" style="height: 33px"><span class="vc_empty_space_inner"></span></div>
                                                                                                                 </div>
@@ -1043,42 +1051,42 @@
 
                                 <!---------------------------------------------about-section------------------------------------>
 
-                                <div class="vc_row wpb_row vc_row-fluid mkdf-section vc_custom_1453373235263 mkdf-content-aligment-left mkdf-grid-section" style="">
-                                        <div class="clearfix mkdf-section-inner">
-                                                <div class="mkdf-section-inner-margin clearfix">
-                                                        <div class="wpb_column vc_column_container vc_col-sm-12">
-                                                                <div class="vc_column-inner ">
-                                                                        <div class="wpb_wrapper">
-                                                                                <div class="mkdf-section-title-holder">
-                                                                                        <h2 class="mkdf-section-title mkdf-section-title-large" style="text-align: left">
-                                                                                                Our Name is our Guarantee</h2>
-                                                                                        <h3 class="mkdf-item-title">
-                                                                                                <!--<a href="#" >-->
+                                <!--                                <div class="vc_row wpb_row vc_row-fluid mkdf-section vc_custom_1453373235263 mkdf-content-aligment-left mkdf-grid-section" style="">
+                                                                        <div class="clearfix mkdf-section-inner">
+                                                                                <div class="mkdf-section-inner-margin clearfix">
+                                                                                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                                                                                                <div class="vc_column-inner ">
+                                                                                                        <div class="wpb_wrapper">
+                                                                                                                <div class="mkdf-section-title-holder">
+                                                                                                                        <h2 class="mkdf-section-title mkdf-section-title-large" style="text-align: left">
+                                                                                                                                Our Name is our Guarantee</h2>
+                                                                                                                        <h3 class="mkdf-item-title">
+                                                                                                                                <a href="#" >
 
-                                                                                                <!--</a>-->
-                                                                                        </h3>
-                                                                                </div>
-                                                                                <div data-mkdf-parallax-speed="1" class="vc_row wpb_row vc_inner vc_row-fluid mkdf-section mkdf-content-aligment-right" style="">
-                                                                                        <div class="mkdf-full-section-inner">
-                                                                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-12 vc_col-md-12">
-                                                                                                        <div class="vc_column-inner ">
-                                                                                                                <div class="wpb_wrapper">
-                                                                                                                        <div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left">
-                                                                                                                                <p style="text-align: left" class="mkdf-section-subtitle">Living in your own surroundings where you feel loved and comfortable is always the best choice when it comes to difficult moments like being unwell. Home care is the right kind of support what people in need always wish for. Caring People Home care offers the best quality care and support at home. Our aim is to enable our needy clients to continue living in their own households with dignity, individuality and with control over their lives, irrespective of the level of support required. Caring People will always work with you to plan a service package that will aid you or your loved one to live a life to the full at home.</p>
+                                                                                                                                </a>
+                                                                                                                        </h3>
+                                                                                                                </div>
+                                                                                                                <div data-mkdf-parallax-speed="1" class="vc_row wpb_row vc_inner vc_row-fluid mkdf-section mkdf-content-aligment-right" style="">
+                                                                                                                        <div class="mkdf-full-section-inner">
+                                                                                                                                <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-12 vc_col-md-12">
+                                                                                                                                        <div class="vc_column-inner ">
+                                                                                                                                                <div class="wpb_wrapper">
+                                                                                                                                                        <div class="mkdf-section-subtitle-holder mkdf-section-subtitle-left">
+                                                                                                                                                                <p style="text-align: left" class="mkdf-section-subtitle">Living in your own surroundings where you feel loved and comfortable is always the best choice when it comes to difficult moments like being unwell. Home care is the right kind of support what people in need always wish for. Caring People Home care offers the best quality care and support at home. Our aim is to enable our needy clients to continue living in their own households with dignity, individuality and with control over their lives, irrespective of the level of support required. Caring People will always work with you to plan a service package that will aid you or your loved one to live a life to the full at home.</p>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div data-original-height="33" class="vc_empty_space" style="height: 33px"><span class="vc_empty_space_inner"></span></div>
+                                                                                                                                                </div>
+                                                                                                                                        </div>
+                                                                                                                                </div>
+
                                                                                                                         </div>
-                                                                                                                        <div data-original-height="33" class="vc_empty_space" style="height: 33px"><span class="vc_empty_space_inner"></span></div>
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </div>
-
                                                                                         </div>
                                                                                 </div>
                                                                         </div>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
+                                                                </div>-->
 
                                 <!---------------------------------------------about-section-end------------------------------------>
 

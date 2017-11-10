@@ -92,7 +92,7 @@ class SiteController extends Controller {
                                 $user = User::find()->where(['username' => $model->username])->one();
                                 $patient = PatientGeneral::find()->where(['patient_id' => $user->patient_id])->one();
                                 Yii::$app->session['patient_id'] = $patient->id;
-
+                                Yii::$app->SetValues->LogIn(2, $patient->id, Yii::$app->user->identity->branch_id);
                                 return $this->redirect('../dashboard/index');
                         } else {
                                 Yii::$app->getSession()->setFlash('error', 'Invalid Username or Password');
@@ -109,6 +109,7 @@ class SiteController extends Controller {
          * @return mixed
          */
         public function actionLogout() {
+                Yii::$app->SetValues->LogOut(2, Yii::$app->session['patient_id']);
                 Yii::$app->user->logout();
 
                 return $this->goHome();
@@ -419,6 +420,8 @@ class SiteController extends Controller {
                                 $user->status = 1;
                                 $user->save();
                                 if (Yii::$app->getUser()->login($user)) {
+                                        $patient = PatientGeneral::find()->where(['patient_id' => $user->patient_id])->one();
+                                        Yii::$app->session['patient_id'] = $patient->id;
                                         return $this->redirect('../dashboard/index');
                                 }
                         } else {

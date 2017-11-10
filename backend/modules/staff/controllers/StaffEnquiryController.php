@@ -151,6 +151,7 @@ class StaffEnquiryController extends Controller {
                                 $this->AddData($staff_enquiry, $other_info, $staff_edu, $staff_interview_first, $staff_interview_second, $staff_interview_third);
                                 $this->AddLanguage($staff_interview_first, $staff_interview_third);
                                 $this->AddFamily($staff_enquiry);
+                                $this->AddContactDirectory($staff_enquiry);
                                 $this->AddOtherInfo($staff_enquiry, Yii::$app->request->post(), $other_info);
                                 $this->Imageupload($staff_enquiry);
                                 Yii::$app->getSession()->setFlash('success', 'Data Added Successfully');

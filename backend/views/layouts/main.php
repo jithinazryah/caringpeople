@@ -538,6 +538,29 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                 </ul>
                                         <?php } ?>
 
+
+
+                                        <?php
+                                        if (Yii::$app->session['post']['id'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
+                                                        <!-- add class "multiple-expanded" to allow multiple submenus to open -->
+                                                        <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
+                                                        <li>
+                                                                <a href="dashboard-1.html">
+                                                                        <i class="fa fa-sign-in"></i>
+                                                                        <span class="title">Login History</span>
+                                                                </a>
+                                                                <ul>
+                                                                        <li>
+                                                                                <?= Html::a('Login History', ['/admin/login-history/index'], ['class' => 'title']) ?>
+                                                                        </li>
+                                                                </ul>
+                                                        </li>
+
+                                                </ul>
+                                        <?php } ?>
+
                                         <?php
                                         if (Yii::$app->session['post']['masters'] == 1) {
                                                 ?>

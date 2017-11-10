@@ -183,6 +183,8 @@ class ServiceController extends Controller {
 
                 if (Yii::$app->request->post()) {
                         $model->load(Yii::$app->request->post());
+                        $model->from_date = date('Y-m-d', strtotime($model->from_date));
+                        $model->to_date = date('Y-m-d', strtotime($model->to_date));
                         $patient_assessment->load(Yii::$app->request->post());
                         if (isset($_POST['patient_medical_procedures']) && $_POST['patient_medical_procedures'] != '') {
                                 $patient_assessment->patient_medical_procedures = implode(',', $_POST['patient_medical_procedures']);

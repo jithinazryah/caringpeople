@@ -541,4 +541,28 @@ class SetValues extends Component {
                 return $not_uploaded;
         }
 
+        public function LogIn($type_id, $user_id, $branch_id) {
+
+                $log_history = new \common\models\LoginHistory;
+                $log_history->type = $type_id;
+                if ($type_id == 1)
+                        $log_history->staff_id = $user_id;
+                else
+                        $log_history->patient_id = $user_id;
+                $log_history->logged_in = date('Y-m-d H:i:s');
+                $log_history->branch_id = $branch_id;
+                $log_history->save();
+        }
+
+        public function LogOut($type_id, $user_id) {
+                if ($type_id == 1)
+                        $log_history = \common\models\LoginHistory::find()->where(['staff_id' => $user_id])->orderBy('id DESC')->limit(1)->one();
+                else
+                        $log_history = \common\models\LoginHistory::find()->where(['patient_id' => $user_id])->orderBy('id DESC')->limit(1)->one();
+                if (!empty($log_history)) {
+                        $log_history->logged_out = date('Y-m-d H:i:s');
+                        $log_history->save();
+                }
+        }
+
 }

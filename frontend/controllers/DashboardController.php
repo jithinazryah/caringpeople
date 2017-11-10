@@ -36,6 +36,14 @@ class DashboardController extends Controller {
                 ]);
         }
 
+        public function actionView($id) {
+                $id = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $id);
+                $model = \common\models\Service::findOne($id);
+                echo $this->renderPartial('estimated_bill', [
+                    'model' => $model,
+                ]);
+        }
+
         public function actionChangePassword() {
 
                 $id = Yii::$app->user->identity->id;

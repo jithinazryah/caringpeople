@@ -470,6 +470,7 @@ use yii\db\Expression;
                                         </div>
                                 </div>
                         <?php } else if ($model->status != 2) { ?>
+
                                 <div class="row status" >
                                         <div class="col-md-12" >
                                                 <p style="float: right;">

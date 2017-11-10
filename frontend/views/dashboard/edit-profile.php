@@ -14,6 +14,15 @@ $this->params['breadcrumbs'][] = ['label' => 'Admin Posts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<style>
+        .patient-detail-view{
+                margin-left: 0px;
+                color: #000;
+                line-height: 50px;
+        } .patient-detail-view .row label{
+                font-weight: bold;
+        }
+</style>
 <div class="row">
         <div class="col-md-12">
 
@@ -60,102 +69,113 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
-                                                        <div class="row">
+                                                        <div class="row patient-detail-view">
+                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                        <div class="row ">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Patient Name</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->first_name . ' ' . $model->last_name; ?></span>
+                                                                                </div>
+                                                                        </div>
 
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Age</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->age; ?></span>
+                                                                                </div>
+                                                                        </div>
 
-                                                                </div>
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Weight</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->weight; ?></span>
+                                                                                </div>
+                                                                        </div>
 
-                                                                </div>
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'gender')->dropDownList(['' => '--Select--', '0' => 'Male', '1' => 'Female']) ?>
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Present Address</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->present_address; ?></span>
+                                                                                </div>
+                                                                        </div>
 
-                                                                </div>
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'age')->textInput(['maxlength' => true]) ?>
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Landmark</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->landmark; ?></span>
+                                                                                </div>
+                                                                        </div>
 
-                                                                </div>
-                                                        </div>
-
-                                                        <div class="row">
-
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?php
-                                                                        if (!$model->isNewRecord) {
-                                                                                $model->dob = date('d-m-Y', strtotime($model->dob));
-                                                                        }
-                                                                        ?>
-                                                                        <?=
-                                                                        DatePicker::widget([
-                                                                            'model' => $model,
-                                                                            'form' => $form,
-                                                                            'type' => DatePicker::TYPE_INPUT,
-                                                                            'attribute' => 'dob',
-                                                                            'pluginOptions' => [
-                                                                                'autoclose' => true,
-                                                                                'format' => 'dd-mm-yyyy',
-                                                                            ]
-                                                                        ]);
-                                                                        ?>
-
-                                                                </div>
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'weight')->textInput() ?>
-
-                                                                </div>
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'blood_group')->textInput(['maxlength' => true]) ?>
-
-                                                                </div>
-
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'present_address')->textarea(['rows' => 1]) ?>
-
-                                                                </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'pin_code')->textInput() ?>
-
-                                                                </div>
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'landmark')->textInput(['maxlength' => true]) ?>
-
-                                                                </div>
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'contact_number')->textInput() ?>
-
-                                                                </div>
-                                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Email</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->email; ?></span>
+                                                                                </div>
+                                                                        </div>
                                                                 </div>
 
-                                                        </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Gender</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?php
+                                                                                                if ($model->gender == 1) {
+                                                                                                        echo 'Male';
+                                                                                                } else if ($model->gender == 1) {
+                                                                                                        echo 'Female';
+                                                                                                }
+                                                                                                ?></span>
+                                                                                </div>
+                                                                        </div>
 
-                                                        <div class="row">
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">DOB</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= date('d-m-Y', strtotime($model->dob)); ?></span>
+                                                                                </div>
+                                                                        </div>
 
-                                                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                                                                        <?= $form->field($model, 'patient_image')->fileInput() ?>
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Blood Group</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->blood_group; ?></span>
+                                                                                </div>
+                                                                        </div>
 
-                                                                </div>
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Pin Code</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->pin_code; ?></span>
+                                                                                </div>
+                                                                        </div>
 
-
-                                                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd' style="display:none">
-
-                                                                        <?= $form->field($model, 'branch_id')->textInput() ?>
-
-                                                                </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                                <div class="col-md-12">
-                                                                        <div class="form-group" style="float: left;">
-                                                                                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px;margin-left: 20px;']) ?>
+                                                                        <div class="row">
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <label for="patient_name">Contact Number</label>
+                                                                                </div>
+                                                                                <div class="col-md-6 col-sm-6 col-xs 12">
+                                                                                        <span><?= $model->contact_number; ?></span>
+                                                                                </div>
                                                                         </div>
                                                                 </div>
                                                         </div>
