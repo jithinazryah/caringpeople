@@ -12,6 +12,27 @@ class DashboardController extends Controller {
         public $layout = '@app/views/layouts/dashboard';
 
         public function actionIndex() {
+
+                $services = \common\models\Service::find()->where(['patient_id' => Yii::$app->session['patient_id']])->count();
+                $live_services = \common\models\Service::find()->where(['patient_id' => Yii::$app->session['patient_id'], 'status' => 1])->count();
+                $closed_services = \common\models\Service::find()->where(['patient_id' => Yii::$app->session['patient_id'], 'status' => 2])->count();
+                $due_amount = \common\models\Service::find()->where(['patient_id' => Yii::$app->session['patient_id']])->sum('due_amount');
+                $searchModel = new \common\models\ServiceSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->query->andWhere(['patient_id' => Yii::$app->session['patient_id']]);
+                $dataProvider->query->andWhere(['status' => 1]);
+                return $this->render('home', [
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
+                            'title' => $title,
+                            'services' => $services,
+                            'live_services' => $live_services,
+                            'closed_services' => $closed_services,
+                            'due_amount' => $due_amount,
+                ]);
+        }
+
+        public function actionServices() {
                 $searchModel = new \common\models\ServiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['patient_id' => Yii::$app->session['patient_id']]);

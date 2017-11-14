@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
                                 <input type="hidden" name="service_id" id="service_id" value="<?= $schedule_id ?>">
 
                                 <div class="row">
-                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
 
                                                 <textarea id="ckeditor1" name="remarks_staff">
 
@@ -31,13 +31,13 @@ use yii\helpers\ArrayHelper;
                                                                 echo $schedule->remarks_from_staff;
                                                         } else {
                                                                 ?>
-                                                                                                                <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
-                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
-                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
-                                                                                                                                                                                        <br><br>
-                                                                                                                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
+                                                                                                                                <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
+                                                                                                                                                                                                        <br><br>
+                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
+                                                                                                                                                                                                        <br><br>
+                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
+                                                                                                                                                                                                        <br><br>
+                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
                                                                 <?php
                                                         }
                                                         ?>
@@ -74,12 +74,12 @@ use yii\helpers\ArrayHelper;
 
 
 <style>
-        .fields{
-                width:100%;
-        }
-        .row{
-                margin-bottom: 10px;
-        }
+        /*        .fields{
+                        width:100%;
+                }
+                .row{
+                        margin-bottom: 10px;
+                }*/
 
 </style>
 

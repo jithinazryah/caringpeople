@@ -11,19 +11,19 @@ $this->title = 'Staff Leave';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
-	.ta5 {
-		border: 2px solid rgba(64, 187, 234, 0.28);
-		border-radius: 10px;
-		height: 60px;
-		width: 230px;
-		margin-left: 154px;
-	}
-	textarea::placeholder {
-		padding: 5px 0px 0px 5px;
-	}
-	textarea{
-		padding: 5px 0px 0px 5px;
-	}
+        .ta5 {
+                border: 2px solid rgba(64, 187, 234, 0.28);
+                border-radius: 10px;
+                height: 60px;
+                width: 230px;
+                margin-left: 154px;
+        }
+        textarea::placeholder {
+                padding: 5px 0px 0px 5px;
+        }
+        textarea{
+                padding: 5px 0px 0px 5px;
+        }
 </style>
 <div class="staff-leave-index">
 
@@ -37,107 +37,130 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-					<?php
-					if (!empty($pending_leave)) {
-						foreach ($pending_leave as $value) {
-							?>
+                                        <a class="leave-application btn btn-success  btn-icon btn-icon-standalone" href="<?= Yii::$app->homeUrl ?>leave/staff-leave/leave" style="float:right"><i class="glyphicon glyphicon-pencil"></i><span> Apply Leave</span></a>
 
-							<div class = "col-sm-6 col-md-6 <?= $value->id ?>">
-								<blockquote class="blockquote blockquote-info">
-									<p>
-										<span style="float: right;color: #7c38bc;font-size: 12px;">
-											Leave Applied By: <?= $value->employee->username; ?>
-										</span>
-										<br>
-										<span style="float: right;color: #7c38bc;font-size: 12px;">
-											Applied On: <?= date("j", strtotime($value->commencing_date)) . ' ' . date("F", strtotime($value->commencing_date)) . ' ' . date("Y", strtotime($value->commencing_date)); ?>
-										</span>
-										<br>
-										<span style="float: right">
-											<?php if ($value->status == 1) { ?>
-												<input type="checkbox" value="<?= $value->id ?>" class="iswitch iswitch-secondary leave_approved " title="Mrak it if this task is closed" style="float:right;"> <?php } ?>
-										</span>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]);     ?>
 
-
-
-
-									</p>
-									<br>
-
-
-									<p style="font-size: 12px;margin-top: 3px;">
-										<span style="float: left">Leave Type: <?= $value->leaveType->type; ?></span>
-
-										<?php if ($value->admin_comment != "") { ?>
-											<textarea style="float: right" class="ta5 commnt" placeholder="Comment.........." id="<?= $value->id ?>"><?= $value->admin_comment ?></textarea>
-										<?php } else { ?>
-											<textarea style="float: right" class="ta5 commnt" placeholder="Comment.........." id="<?= $value->id ?>"></textarea>
-										<?php } ?>
-									</p>
-									<br>
-									<p style="text-align:left;font-size: 12px;margin-top: 3px;">
-										<span>No Of Days: <?= $value->no_of_days; ?></span>
-									</p>
-									<p style="text-align:left;font-size: 12px;margin-top: 3px;">
-										<span>Commencing Date: <?= $value->commencing_date; ?></span>
-									</p>
-									<p style="text-align:left;font-size: 12px;margin-top: 3px;">
-										<span>End Date: <?= $value->ending_date; ?></span>
-									</p>
-									<p style="text-align:left;font-size: 12px;margin-top: 3px;">
-										<span>Leave Purpose: <?= $value->purpose; ?></span>
-									</p>
-
-
-
-								</blockquote>
-							</div>
-							<?php
-						}
-					}
-					?>
-				</div>
-			</div>
-		</div>
-	</div>
+                                        <?php // Html::a('<i class="fa-th-list"></i><span>Apply</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone'])   ?>
+                                        <?=
+                                        GridView::widget([
+                                            'dataProvider' => $dataProvider,
+                                            'filterModel' => $searchModel,
+                                            'columns' => [
+                                                    ['class' => 'yii\grid\SerialColumn'],
+                                                //'id',
+                                                //'employee_id',
+                                                [
+                                                    'attribute' => 'employee_id',
+                                                    'value' => function($model) {
+                                                            $approved = common\models\StaffInfo::findOne($model->employee_id);
+                                                            return $approved->staff_name;
+                                                    }
+                                                ],
+                                                    [
+                                                    'attribute' => 'leave_type',
+                                                    'value' => function($model) {
+                                                            return $model->leaveType->type;
+                                                    }
+                                                ],
+                                                'commencing_date',
+                                                'ending_date',
+                                                    [
+                                                    'attribute' => 'admin_comment',
+                                                    'value' => function($model) {
+                                                            if (isset($model->admin_comment)) {
+                                                                    return $model->admin_comment;
+                                                            } else {
+                                                                    return '';
+                                                            }
+                                                    },
+                                                ],
+                                                    [
+                                                    'attribute' => 'status',
+                                                    'value' => function($model) {
+                                                            if ($model->status == 1)
+                                                                    return "Pending";
+                                                            elseif ($model->status == 2)
+                                                                    return "Approved";
+                                                            elseif ($model->status == 3)
+                                                                    return "Declined";
+                                                            else
+                                                                    return "";
+                                                    },
+                                                    'filter' => [1 => 'Pending', 2 => 'Approved', 3 => 'Declined'],
+                                                ],
+                                                    ['attribute' => 'approved_by',
+                                                    'value' => function($model) {
+                                                            if (isset($model->approved_by)) {
+                                                                    $staff_details = common\models\StaffInfo::findOne($model->approved_by);
+                                                                    return $staff_details->staff_name;
+                                                            } else {
+                                                                    return '';
+                                                            }
+                                                    }
+                                                ],
+                                                    ['class' => 'yii\grid\ActionColumn',
+                                                    'template' => '{approve}',
+                                                    'visibleButtons' => [
+                                                        'approve' => function ($model, $key, $index) {
+                                                                return $model->status != '2' ? true : false;
+                                                        }
+                                                    ],
+                                                    'buttons' => [
+                                                        'approve' => function ($url, $model) {
+                                                                return Html::a('<i class="fa fa-check" aria-hidden="true"></i>', $url, [
+                                                                            'title' => Yii::t('app', 'Click here to approve'),
+                                                                            'class' => 'approve',
+                                                                            'id' => $model->id,
+                                                                ]);
+                                                        },
+                                                    ],
+                                                ],
+                                            //'ending_date',
+                                            // 'purpose:ntext',
+                                            // 'status',
+                                            // 'CB',
+                                            // 'DOC',
+                                            ],
+                                        ]);
+                                        ?>
+                                </div>
+                        </div>
+                </div>
+        </div>
 </div>
 
+
+
 <script>
-	$(document).ready(function () {
-		/*
-		 * to approve leave
-		 */
+        $(document).ready(function () {
+                $(document).on('click', '.approve', function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                                type: 'POST',
+                                cache: false,
+                                data: {id: $(this).attr('id')},
+                                url: homeUrl + 'leave/staff-leave/approval',
+                                success: function (data) {
+                                        $("#modal-pop-up").html(data);
+                                        $('#modal-6').modal('show', {backdrop: 'static'});
+                                }
+                        });
+                });
 
-		$('.leave_approved').change(function () {
-			var leave_id = $(this).val();
-			$.ajax({
-				type: 'POST',
-				cache: false,
-				data: {leave_id: leave_id},
-				url: homeUrl + 'leave/staff-leave/leave-status',
-				success: function (data) {
-					$('.' + leave_id).hide(1000);
-
-				}
-			});
-
-		});
-		$(".commnt").focusout(function () {
-			var id = $(this).attr('id');
-			var comment = $(this).val();
-			$.ajax({
-				type: 'POST',
-				cache: false,
-				data: {leave_id: id, comment: comment},
-				url: homeUrl + 'leave/staff-leave/admin-comment',
-				success: function (data) {
-
-
-				}
-			});
-		});
-	});
+                $(document).on('submit', '#leave-approval-submit', function (e) {
+                        e.preventDefault();
+                        var data = $(this).serialize();
+                        $.ajax({
+                                type: 'POST',
+                                url: homeUrl + 'leave/staff-leave/approve',
+                                data: data,
+                                success: function (data) {
+                                        $('#modal-6').modal('hide');
+                                        location.reload();
+                                }
+                        });
+                });
+        });
 </script>
-
-
 

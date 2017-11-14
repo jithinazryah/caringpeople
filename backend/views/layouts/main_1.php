@@ -112,13 +112,13 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
-
-                                                <?php
-                                                if (Yii::$app->session['post']['staffs'] == 1 || Yii::$app->session['post']['staff_payroll']) {
-                                                        ?>
-
+                                        <?php
+                                        if (Yii::$app->session['post']['staffs'] == 1 || Yii::$app->session['post']['staff_payroll']) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -161,13 +161,13 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
-
-                                                <?php
-                                                if (Yii::$app->session['post']['enquiry'] == 1) {
-                                                        ?>
-
+                                        <?php
+                                        if (Yii::$app->session['post']['enquiry'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -188,12 +188,13 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
-
-                                                <?php
-                                                if (Yii::$app->session['post']['service'] == 1) {
-                                                        ?>
+                                        <?php
+                                        if (Yii::$app->session['post']['service'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -227,11 +228,11 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
 
-
-
+                                        <ul id="main-menu" class="main-menu">
                                                 <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                 <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                 <li>
@@ -245,14 +246,14 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </li>
                                                         </ul>
                                                 </li>
+                                        </ul>
 
 
+                                        <?php
+                                        if (Yii::$app->session['post']['invoice'] == 1 || Yii::$app->session['post']['account_head'] == 1 || Yii::$app->session['post']['expenses'] == 1) {
+                                                ?>
 
-                                                <?php
-                                                if (Yii::$app->session['post']['invoice'] == 1 || Yii::$app->session['post']['account_head'] == 1 || Yii::$app->session['post']['expenses'] == 1) {
-                                                        ?>
-
-
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -308,14 +309,14 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
 
+                                        <?php } ?>
 
-                                                <?php } ?>
-
-                                                <?php
-                                                if (Yii::$app->session['post']['attendance'] == 1) {
-                                                        ?>
-
+                                        <?php
+                                        if (Yii::$app->session['post']['attendance'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -332,15 +333,15 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
 
 
-
-                                                <?php
-                                                if (Yii::$app->session['post']['reports'] == 1) {
-                                                        ?>
-
+                                        <?php
+                                        if (Yii::$app->session['post']['reports'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -382,13 +383,13 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
-
-                                                <?php
-                                                if (Yii::$app->session['post']['inventory'] == 1) {
-                                                        ?>
-
+                                        <?php
+                                        if (Yii::$app->session['post']['inventory'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -441,14 +442,14 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+
+                                        <?php } ?>
 
 
-                                                <?php } ?>
 
-
-
-                                                <?php if (Yii::$app->session['post']['leave_approval'] == 1 || Yii::$app->session['post']['leave_application'] == 1 || Yii::$app->session['post']['admin'] == 1) { ?>
-
+                                        <?php if (Yii::$app->session['post']['leave_approval'] == 1 || Yii::$app->session['post']['leave_application'] == 1 || Yii::$app->session['post']['admin'] == 1) { ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -472,13 +473,13 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
-
-                                                <?php
-                                                if (Yii::$app->session['post']['contact_directory'] == 1) {
-                                                        ?>
-
+                                        <?php
+                                        if (Yii::$app->session['post']['contact_directory'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -499,24 +500,24 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
-
-                                                <?php } ?>
-
-
+                                                </ul>
+                                        <?php } ?>
 
 
 
 
 
 
-                                                <?php
-                                                if (Yii::$app->session['post']['id'] == 1) {
-                                                        ?>
 
+
+                                        <?php
+                                        if (Yii::$app->session['post']['id'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
-                                                                <a href="">
+                                                                <a href="dashboard-1.html">
                                                                         <i class="fa fa-comments-o"></i>
                                                                         <span class="title">Comments</span>
                                                                 </a>
@@ -527,15 +528,15 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
 
 
-
-                                                <?php
-                                                if (Yii::$app->session['post']['id'] == 1) {
-                                                        ?>
-
+                                        <?php
+                                        if (Yii::$app->session['post']['id'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -550,13 +551,13 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
-
-                                                <?php
-                                                if (Yii::$app->session['post']['masters'] == 1) {
-                                                        ?>
-
+                                        <?php
+                                        if (Yii::$app->session['post']['masters'] == 1) {
+                                                ?>
+                                                <ul id="main-menu" class="main-menu">
                                                         <!-- add class "multiple-expanded" to allow multiple submenus to open -->
                                                         <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
                                                         <li>
@@ -626,10 +627,10 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                                                 </ul>
                                                         </li>
 
+                                                </ul>
+                                        <?php } ?>
 
-                                                <?php } ?>
 
-                                        </ul>
 
 
 
@@ -1213,7 +1214,6 @@ $limit_notifications = NotificationViewStatus::find()->where(['staff_id_' => Yii
                                         }
                                 }))
                                         if ($(window).width() < 900) {
-                                                alert();
                                                 $("#side-menuss").removeClass("collapsed");
                                         } else {
 

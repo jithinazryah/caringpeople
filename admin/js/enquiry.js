@@ -5,7 +5,12 @@
  */
 
 $("document").ready(function () {
+        if ($(window).width() < 900) {
+                $("#side-menuss").removeClass("collapsed");
+        } else {
 
+                //   $("#side-menuss").addClass('collapsed');
+        }
         /*
          -----------------PATIENT ENQUIRY GENERAL INFO FORM--------------
          */

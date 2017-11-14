@@ -88,6 +88,7 @@ if (Yii::$app->user->identity->branch_id != '0') {
                                                             },
                                                             'filter' => DatePicker::widget([
                                                                 'model' => $searchModel,
+                                                                'attribute' => 'logged_in',
                                                                 'name' => 'LoginHistorySearch[logged_in]',
                                                                 'pluginOptions' => [
                                                                     'format' => 'dd-mm-yyyy',
@@ -95,6 +96,14 @@ if (Yii::$app->user->identity->branch_id != '0') {
                                                                 ]
                                                             ])
                                                         ],
+//                                                            ['attribute' => 'date',
+//                                                            'format' => 'raw',
+//                                                            'filter' => \yii\jui\DatePicker::widget([
+//                                                                'model' => $searchModel,
+//                                                                'attribute' => 'date',
+//                                                                'language' => 'en',
+//                                                                'dateFormat' => 'yyyy-MM-dd',]),
+//                                                        ],
                                                         // 'logged_out',
                                                         [
                                                             'attribute' => 'logged_out',
@@ -107,6 +116,7 @@ if (Yii::$app->user->identity->branch_id != '0') {
                                                             },
                                                             'filter' => DatePicker::widget([
                                                                 'model' => $searchModel,
+                                                                'attribute' => 'logged_out',
                                                                 'name' => 'LoginHistorySearch[logged_out]',
                                                                 'pluginOptions' => [
                                                                     'format' => 'dd-mm-yyyy',

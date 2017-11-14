@@ -48,13 +48,22 @@ class StaffLeaveController extends Controller {
          * 	 */
         public function actionIndex() {
 
-                if (Yii::$app->session['post']['leave_approval'] != 1) {
-                        return $this->redirect(['../site/home']);
+                $searchModel = new StaffLeaveSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                if (Yii::$app->session['post']['id'] != 1) {
+                        $dataProvider->query->andWhere(['employee_id' => Yii::$app->user->identity->id]);
                 }
-                $pending_leave = StaffLeave::find()->where('commencing_date >=:today', [':today' => date('Y-m-d')])->andWhere(['status' => 1])->all();
+                if (!empty(Yii::$app->request->queryParams['StaffLeaveSearch']['status'])) {
+                        $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffLeaveSearch']['status']]);
+                } else {
+                        $dataProvider->query->andWhere(['status' => 1]);
+                }
+                $dataProvider->query->orderBy(['id' => SORT_DESC]);
+                $dataProvider->pagination = ['pagesize' => 10];
 
                 return $this->render('index', [
-                            'pending_leave' => $pending_leave
+                            'dataProvider' => $dataProvider,
+                            'searchModel' => $searchModel,
                 ]);
         }
 
@@ -96,12 +105,10 @@ class StaffLeaveController extends Controller {
                         $check = StaffLeave::findOne(['employee_id' => Yii::$app->user->identity->id, 'commencing_date' => $model->commencing_date]);
                         if (empty($check)) {
                                 if ($model->validate() && $model->save()) {
-                                        if ($model->no_of_days > 1)
-                                                $this->MultipleDays($model);
-                                        return $this->redirect(Yii::$app->request->referrer);
+                                        return $this->redirect('index');
                                 }
-                        }else {
-                                Yii::$app->getSession()->setFlash('error', "<strong>Error! </strong>data already entered");
+                        } else {
+                                Yii::$app->getSession()->setFlash('error', "<strong>Error! </strong>Leave alreday applied in this date range");
                         }
                 }
                 return $this->render('create', [
@@ -268,6 +275,27 @@ class StaffLeaveController extends Controller {
                         return $model;
                 } else {
                         throw new NotFoundHttpException('The requested page does not exist.');
+                }
+        }
+
+        public function actionApproval() {
+                if (Yii::$app->request->isAjax) {
+                        $leave_id = $_POST['id'];
+                        $model = StaffLeave::findOne($leave_id);
+                        $leave_update = $this->renderPartial('staff_leave', ['model' => $model]);
+                        echo $leave_update;
+                }
+        }
+
+        public function actionApprove() {
+                if (Yii::$app->request->isAjax) {
+                        $model = StaffLeave::findOne($_POST['leave_id']);
+                        $model->commencing_date = date('Y-m-d', strtotime($_POST['StaffLeave']['commencing_date']));
+                        $model->ending_date = date('Y-m-d', strtotime($_POST['StaffLeave']['ending_date']));
+                        $model->admin_comment = $_POST['StaffLeave']['admin_comment'];
+                        $model->status = $_POST['StaffLeave']['status'];
+                        $model->approved_by = Yii::$app->user->identity->id;
+                        $model->save();
                 }
         }
 

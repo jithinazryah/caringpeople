@@ -84,7 +84,7 @@ $notifications = array_merge($notification, $notification1);
                                                         </a>
                                                         <ul>
                                                                 <li>
-                                                                        <?= Html::a('Services', ['/dashboard/index'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('Services', ['/dashboard/services'], ['class' => 'title']) ?>
                                                                 </li>
 
                                                         </ul>

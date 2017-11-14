@@ -32,7 +32,7 @@ class SiteController extends Controller {
                         'class' => AccessControl::className(),
                         'rules' => [
                                 [
-                                'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'staff-login', 'staff-home', 'notifications', 'pending-followups', 'report'],
+                                'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'staff-login', 'staff-home', 'notifications', 'pending-followups', 'report', 'staff'],
                                 'allow' => true,
                             ],
                                 [
@@ -77,7 +77,12 @@ class SiteController extends Controller {
                 $model->scenario = 'login';
                 if ($model->load(Yii::$app->request->post()) && $model->login() && $this->setSession()) {
                         Yii::$app->SetValues->LogIn(1, Yii::$app->user->identity->id, Yii::$app->user->identity->branch_id);
-                        return $this->redirect(array('site/home'));
+
+                        if (Yii::$app->user->identity->post_id == 5) {
+                                return $this->redirect(array('home/schedules'));
+                        } else {
+                                return $this->redirect(array('site/home'));
+                        }
                 } else {
                         return $this->render('login', [
                                     'model' => $model,
@@ -131,6 +136,18 @@ class SiteController extends Controller {
                 } else {
                         throw new \yii\web\HttpException(2000, 'Session Expired.');
                 }
+        }
+
+        public function actionStaff() {
+
+                $this->layout = "@app/views/layouts/staff";
+                return $this->render('dashboard', [
+                            'staffs' => $staffs,
+                            'patients' => $patients,
+                            'services' => $services,
+                            'tasks' => $tasks,
+                            'pending_tasks' => $pending_tasks,
+                ]);
         }
 
         /**

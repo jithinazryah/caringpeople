@@ -657,6 +657,7 @@ $("document").ready(function () {
         });
 
         $(document).on('click', '.remarks_Staff', function (e) {
+                alert();
                 var schedule_id = $(this).attr('id');
                 $.ajax({
                         type: 'POST',
