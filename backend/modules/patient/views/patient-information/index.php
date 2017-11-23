@@ -81,6 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             [
                                                 'attribute' => 'status',
                                                 'value' => function($model, $key, $index, $column) {
+
                                                         if ($model->status == '1') {
                                                                 return 'Enabled';
                                                         } elseif ($model->status == '2') {

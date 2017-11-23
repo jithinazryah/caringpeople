@@ -60,6 +60,7 @@ class StaffInfoController extends Controller {
          */
         public function actionIndex() {
 
+
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

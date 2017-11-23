@@ -166,6 +166,7 @@ class PatientInformationController extends Controller {
                 $transaction = PatientGeneral::getDb()->beginTransaction();
                 try {
                         $patient_general->patient_id = $codes;
+                        $patient_general->status = 1;
                         if ($patient_general->save(false)) {
                                 $enquiry_data->status = 3;
                                 $enquiry_data->proceed = 1;

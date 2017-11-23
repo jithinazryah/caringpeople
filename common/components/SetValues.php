@@ -190,7 +190,6 @@ class SetValues extends Component {
 
                 $schedule_remarks = 0;
                 $schedule_remarks_count = 0;
-
                 if ($type == '2') {
 
                         $person = \common\models\PatientGeneral::findOne($id);
@@ -198,17 +197,23 @@ class SetValues extends Component {
 
                         $person = \common\models\StaffInfo::findOne($id);
                         $schedule_remarks = ServiceSchedule::find()->where(['staff' => $id])->sum('rating');
+                        if (!isset($schedule_remarks)) {
+                                $schedule_remarks = 0;
+                        }
                         $schedule_remarks_count = ServiceSchedule::find()->where(['staff' => $id])->andWhere(['not', ['rating' => null]])->count();
                 }
-
                 $remarks_point = Remarks::find()->where(['type_id' => $id])->sum('point');
                 $remarks_count = Remarks::find()->where(['type_id' => $id])->count();
-                $total_remarks_point = $schedule_remarks + $remarks_point;
-                $total_remarks = $schedule_remarks_count + $remarks_count;
-                $rating = $total_remarks_point / $total_remarks * 100;
 
-                $person->average_point = $rating;
-                $person->update(FALSE);
+                $total_remarks_point = $schedule_remarks + $remarks_point;
+                $total_remarks = ($schedule_remarks_count + $remarks_count) * 9;
+                if ($total_remarks_point > 0) {
+
+                        $rating = ($total_remarks_point / $total_remarks) * 100;
+                        $rating = round($rating);
+                        $person->average_point = $rating;
+                        $person->update(FALSE);
+                }
         }
 
         public function Rating1($id, $type) {
