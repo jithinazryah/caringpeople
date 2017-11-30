@@ -98,7 +98,7 @@ class PatientEnquiryGeneralFirst extends \yii\db\ActiveRecord {
                 return $this->hasOne(PatientEnquiryHospitalSecond::className(), ['enquiry_id' => 'id']);
         }
 
-        public function getPatientAssessment() {
+       public function getPatientAssessment() {
                 return $this->hasOne(PatientAssessment::className(), ['patient_enquiry_id' => 'id']);
         }
 

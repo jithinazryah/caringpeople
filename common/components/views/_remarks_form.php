@@ -8,6 +8,8 @@ use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 
+
+
 $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $type, 'status' => 1])->all(), 'id', 'category');
 ?>
 
@@ -15,7 +17,7 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $ty
 
 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'category')->dropDownList($model_category, ['prompt' => '--Select--', 'class' => 'form-control', 'id' => 'remarks_category']) ?>
 
-        <a class="add-option-dropdown add-new" id="remarks_category-2" type="<?= $type ?>"> + Add New</a>
+        <a class="add-option-dropdown add-new" id="remarks_category-2" type="<?= $type ?>"> <div class="div-add-new">+ Add New </div></a>
 
 </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form_remark->field($remark, 'sub_category')->textInput(['maxlength' => true]) ?>
 
@@ -59,7 +61,6 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $ty
                         <input type="radio" id="star1" name="rating" value="1" onclick="postToController();"/><label for="star1" title="Very Poor">1 star</label>
                 </fieldset>
 
-
                 <?php echo $form_remark->field($remark, 'point')->hiddenInput(['value' => $type, 'id' => 'rating'])->label(false); ?>
 
         </div>
@@ -71,7 +72,7 @@ $model_category = ArrayHelper::map(RemarksCategory::find()->where(['type' => $ty
 
 <div class='col-md-12 col-sm-6 col-xs-12' >
         <div class="form-group" >
-                <?= Html::submitButton($remark->isNewRecord ? 'Create' : 'Create', ['class' => $remark->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Create', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
 
         </div>
 </div>

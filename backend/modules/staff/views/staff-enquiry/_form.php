@@ -83,8 +83,9 @@ use common\models\MasterDesignations;
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'place')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                <?php $designation = MasterDesignations::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>   <?= $form->field($staff_enquiry, 'designation')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['prompt' => '--Select--', 'class' => 'form-control']) ?>
+                <?php $designation = MasterDesignations::find()->where(['status' => '1'])->orderBy(['title' => SORT_ASC])->all(); ?>   <?= $form->field($staff_enquiry, 'designation')->dropDownList(ArrayHelper::map($designation, 'id', 'title'), ['prompt' => '--Select--', 'class' => 'form-control','id' => 'staffenqudesination']) ?>
                 <?php //$form->field($staff_enquiry, 'designation')->dropDownList(['' => '--Select--', '1' => 'Registered Nurse', '2' => 'Care Assistant', '3' => 'Doctor visit at home', '4' => 'OP Clinic', '5' => 'DV + OP', '6' => 'Physio', '7' => 'Psychologist', '8' => 'Dietician', '9' => 'Receptionist', '10' => 'Office Staff', '11' => 'Accountant'])  ?>
+ <div class="div-add-new" style="margin-top: -20px;"><a class="add-option-dropdown add-new" id="staffenqudesination<?= $rand ?>-12" style="margin-top:0px;"> + Add New</a></div>
 
         </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'address')->textarea(['rows' => 1]) ?>
 
@@ -94,7 +95,7 @@ use common\models\MasterDesignations;
 
         </div>
 
-
+        
 
         <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_enquiry, 'status')->dropDownList(['1' => 'Active', '2' => 'Closed']) ?>
 
@@ -107,7 +108,7 @@ use common\models\MasterDesignations;
         <?php } ?>
 
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
         <div id = "p_attach">
                 <input type = "hidden" id = "delete_port_vals" name = "delete_port_vals" value = "">
                 <h4 style = "color:#000;font-style: italic;">Attachments</h4>
@@ -130,7 +131,7 @@ use common\models\MasterDesignations;
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
                                         <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
-                                        <div class="div-add-new"><a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a></div>
+                                        <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"><div class="div-add-new"> + Add New </div></a>
 
                                 </div>
                         </div>
@@ -138,7 +139,7 @@ use common\models\MasterDesignations;
 
                         <div style="clear:both"></div>
                 </span>
-
+                
         </div>
 
 

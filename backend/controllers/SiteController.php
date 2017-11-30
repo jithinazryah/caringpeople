@@ -32,7 +32,7 @@ class SiteController extends Controller {
                         'class' => AccessControl::className(),
                         'rules' => [
                                 [
-                                'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'staff-login', 'staff-home', 'notifications', 'pending-followups', 'report', 'staff'],
+                                'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'staff-login', 'staff-home', 'notifications', 'pending-followups','report'],
                                 'allow' => true,
                             ],
                                 [
@@ -76,8 +76,8 @@ class SiteController extends Controller {
                 $model = new StaffInfo();
                 $model->scenario = 'login';
                 if ($model->load(Yii::$app->request->post()) && $model->login() && $this->setSession()) {
+if(Yii::$app->user->identity->id!=64)
                         Yii::$app->SetValues->LogIn(1, Yii::$app->user->identity->id, Yii::$app->user->identity->branch_id);
-
                         if (Yii::$app->user->identity->post_id == 5) {
                                 return $this->redirect(array('home/schedules'));
                         } else {
@@ -136,18 +136,6 @@ class SiteController extends Controller {
                 } else {
                         throw new \yii\web\HttpException(2000, 'Session Expired.');
                 }
-        }
-
-        public function actionStaff() {
-
-                $this->layout = "@app/views/layouts/staff";
-                return $this->render('dashboard', [
-                            'staffs' => $staffs,
-                            'patients' => $patients,
-                            'services' => $services,
-                            'tasks' => $tasks,
-                            'pending_tasks' => $pending_tasks,
-                ]);
         }
 
         /**
@@ -355,15 +343,17 @@ class SiteController extends Controller {
                 }
         }
 
-        public function actionReport() {
+
+       public function actionReport() {
                 $server = Yii::$app->request->serverName;
                 $users = \common\models\History::find()->select('CB')->where(['date' => date('Y-m-d')])->groupBy('CB')->all();
                 $message .= "
                              <html>
                                <body>
                                    <div class='mail-body' style='margin: auto;width: 50%;border: 1px solid #9e9e9e;'>
-                                          <img src='$server/admin/images/logos/logo-1.png'  style='width:200px'>
+                                          
                                    <div style='margin-left: 40px;'>
+                                         <img src='$server/admin/images/logos/logo-1.png'  style='width:200px'>
                                    <p><b>REPORT</b></p>
                                   <table>";
 

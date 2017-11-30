@@ -136,7 +136,6 @@ class SiteController extends Controller {
                         }
                 }
                 return $this->render('contact');
-                //  return $this->renderPartial('contact')
         }
 
         /**
@@ -201,6 +200,7 @@ class SiteController extends Controller {
                         ->setFrom('info@caringpeople.in')
                         ->setTo($model->email)
                         ->setSubject('Welcome to Caringpeople');
+
                 $message->attach($path);
                 $message->send();
                 return TRUE;
@@ -345,12 +345,17 @@ class SiteController extends Controller {
          * @return mixed
          */
         public function actionSignUp() {
+
                 if (isset($_POST['sign_up'])) {
+
                         $patient_id = $_POST['patient_id'];
                         $patient_registered = User::find()->where(['patient_id' => $patient_id, 'status' => 1])->exists();
+
                         if ($patient_registered != 1) {
+
                                 $check = PatientGeneral::find()->where(['patient_id' => $patient_id, 'status' => 1])->exists();
-                                if ($check == 1) {
+                            
+   if ($check == 1) {
                                         $patient_details = PatientGeneral::find()->where(['contact_number' => $_POST['contact_no']])->orWhere(['email' => $_POST['contact_no']])->andWhere(['patient_id' => $patient_id])->exists();
                                         if ($patient_details == 1) {
                                                 $verify_sent = User::find()->where(['patient_id' => $patient_id, 'status' => 0])->one();
@@ -369,8 +374,7 @@ class SiteController extends Controller {
                                                 $model->save();
                                                 $val = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $model->id);
                                                 $message = $this->renderPartial('email-verify-mail', ['id' => $val]);
-                                                echo $message;
-                                                exit;
+                                                
                                                 Yii::$app->SetValues->Email($patient_details->email, 'Email Verification', $message);
                                                 Yii::$app->getSession()->setFlash('success', 'Thank you for registering with us.. A mail has been sent to your email id !!');
                                                 return $this->render('signup', [
@@ -381,6 +385,7 @@ class SiteController extends Controller {
                         if ($patient_registered == 1) {
                                 Yii::$app->getSession()->setFlash('error', 'This Patient is already registered');
                         } else {
+
                                 Yii::$app->getSession()->setFlash('error', 'Invalid Patient ID or Contact Number/Email');
                         }
                         return $this->render('signup', [
@@ -409,7 +414,7 @@ class SiteController extends Controller {
                 }
         }
 
-        public function actionRegister() {
+         public function actionRegister() {
                 if (isset($_POST['register'])) {
                         $user = User::findOne($_POST['patient_id']);
                         $user_name_Exists = User::find()->where(['username' => $_POST['uname']])->exists();
@@ -420,8 +425,6 @@ class SiteController extends Controller {
                                 $user->status = 1;
                                 $user->save();
                                 if (Yii::$app->getUser()->login($user)) {
-                                        $patient = PatientGeneral::find()->where(['patient_id' => $user->patient_id])->one();
-                                        Yii::$app->session['patient_id'] = $patient->id;
                                         return $this->redirect('../dashboard/index');
                                 }
                         } else {
@@ -447,9 +450,8 @@ class SiteController extends Controller {
                                 $token_model->user_id = $check_exists->id;
                                 $token_model->token = $token_value;
                                 $token_model->save();
-                                $message = $this->renderPartial('forgot-mail', ['model' => $check_exists, 'val' => $val]);
-                                echo $message;
-                                exit;
+                                $message= $this->renderPartial('forgot-mail', ['model' => $check_exists, 'val' => $val]);
+                               
                                 Yii::$app->SetValues->Email($check_exists->email, 'Password Reset', $message);
                                 Yii::$app->getSession()->setFlash('success', 'A mail has been sent');
                         } else {

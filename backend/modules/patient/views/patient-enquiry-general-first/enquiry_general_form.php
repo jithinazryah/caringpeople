@@ -255,7 +255,7 @@ use common\models\ReferralSource;
 
 
                         <span>
-                                <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
                                         <div class = "form-group field-staffperviousemployer-hospital_address">
                                                 <label class = "control-label">Attachment</label>
                                                 <input type = "file" name = "creates[file][]">
@@ -266,11 +266,11 @@ use common\models\ReferralSource;
                                 $rand = rand();
                                 $uploads_type = common\models\UploadCategory::find()->where(['status' => 1])->all();
                                 ?>
-                                <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                                <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                         <div class="form-group field-staffperviousemployer-designation">
                                                 <label class="control-label" for="">Attachment Name</label>
                                                 <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>
-                                                <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"> + Add New</a>
+                                                <a class="add-option-dropdown add-new" id="atachment_<?= $rand ?>-5" style="margin-top:0px;"><div class="div-add-new"> + Add New </div></a>
 
                                         </div>
                                 </div>
@@ -281,9 +281,9 @@ use common\models\ReferralSource;
                         <br/>
                 </div>
 
-                <div class="row">
+                <div class="row" style="margin:0">
                         <div class="col-md-6">
-                                <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" ><i class="fa-plus"></i><span> Add More</span></a>
+                                <a id="addAttach" class="btn btn-blue btn-icon btn-icon-standalone addAttach" ><i class="fa-plus"></i><span> Add More Attachments</span></a>
                         </div>
                 </div>
 
@@ -355,4 +355,15 @@ use common\models\ReferralSource;
         }
 </style>
 
+<script>
+        $(document).ready(function () {
+                $("#referral_source").select2({
+                        //   placeholder: 'Select',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+        });
+</script>
 

@@ -17,6 +17,7 @@ use kartik\mpdf\Pdf;
  */
 class InvoiceController extends Controller {
 
+
         public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
@@ -46,16 +47,16 @@ class InvoiceController extends Controller {
          * Lists all Invoice models.
          * @return mixed
          */
-        public function actionIndex($id = null) {
+         public function actionIndex($id = null) {
                 $searchModel = new InvoiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
-                if (!empty($id)) {
+
+              if (!empty($id)) {
                         $dataProvider->query->andWhere(['service_id' => $id]);
                 }
-
                 if (!empty(Yii::$app->request->queryParams['InvoiceSearch']['status'])) {
                         $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['InvoiceSearch']['status']]);
                 } else {
@@ -82,7 +83,8 @@ class InvoiceController extends Controller {
                 ]);
         }
 
-        public function actionServiceInvoiceView($branch, $patient) {
+
+         public function actionServiceInvoiceView($branch, $patient) {
                 $model = new Invoice;
                 $model->branch_id = $branch;
                 $model->patient_id = $patient;
@@ -134,7 +136,8 @@ class InvoiceController extends Controller {
                 ]);
         }
 
-        public function actionPrint($id = null) {
+
+       public function actionPrint($id = null) {
                 $model = $this->findModel($id);
                 $pdf = new Pdf([
                     'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
@@ -147,7 +150,7 @@ class InvoiceController extends Controller {
                 return $pdf->render();
         }
 
-        public function actionRefund($id = null) {
+      public function actionRefund($id = null) {
                 $refund = $this->findModel($id);
                 $model = new Invoice;
                 $model->attributes = $refund->attributes;
@@ -189,6 +192,8 @@ class InvoiceController extends Controller {
                         ]);
                 }
         }
+
+        
 
         /**
          * Updates an existing Invoice model.

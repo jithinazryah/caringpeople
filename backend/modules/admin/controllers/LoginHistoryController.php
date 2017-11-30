@@ -38,7 +38,7 @@ class LoginHistoryController extends Controller {
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
-
+                $dataProvider->query->orderBy(['id' => SORT_DESC]);
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,

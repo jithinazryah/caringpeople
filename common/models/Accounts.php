@@ -48,7 +48,6 @@ class Accounts extends \yii\db\ActiveRecord {
                 return [
                     'id' => 'ID',
                     'branch_id' => 'Branch',
-                    'reference_type' => 'Type',
                     'invoice_id' => 'Invoice ID',
                     'debited_to_credited_by' => 'Debited To Credited By',
                     'type' => 'Type',
@@ -60,6 +59,7 @@ class Accounts extends \yii\db\ActiveRecord {
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
+                   'reference_type' => 'Type',
                 ];
         }
 

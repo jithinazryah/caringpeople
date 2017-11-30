@@ -16,6 +16,7 @@ use common\models\RepeatedFollowups;
  */
 class FollowupsController extends Controller {
 
+
         public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;

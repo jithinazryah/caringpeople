@@ -103,11 +103,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </div>
 
 
-                                                        <div class="table-responsive">
+                                                        <div class = "table-responsive">
                                                                 <?php
                                                                 $gridColumns = [
                                                                         ['class' => 'yii\grid\SerialColumn'],
-                                                                    'patient_id',
+                                                                     'patient_id',
                                                                     'first_name',
                                                                         [
                                                                         'header' => 'Amount',

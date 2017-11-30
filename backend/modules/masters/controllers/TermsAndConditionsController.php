@@ -14,7 +14,8 @@ use yii\filters\VerbFilter;
  */
 class TermsAndConditionsController extends Controller {
 
-        public function beforeAction($action) {
+
+     public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }

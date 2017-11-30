@@ -14,7 +14,8 @@ use yii\filters\VerbFilter;
  */
 class ContactDirectoryDesignationController extends Controller {
 
-        public function beforeAction($action) {
+
+               public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }
@@ -24,6 +25,7 @@ class ContactDirectoryDesignationController extends Controller {
                 }
                 return true;
         }
+ 
 
         /**
          * @inheritdoc

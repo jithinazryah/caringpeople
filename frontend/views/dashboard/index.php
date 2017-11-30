@@ -90,7 +90,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                         // 'CB',
                                                         // 'DOC',
                                                         ['class' => 'yii\grid\ActionColumn',
-                                                            'template' => '{view}{bill}',
+                                                              'template' => '{view}{bill}',
                                                             'buttons' => [
                                                                 //view button
                                                                 'view' => function ($url, $model) {

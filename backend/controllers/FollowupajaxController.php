@@ -16,6 +16,7 @@ use common\models\FollowupSubType;
 use common\models\StaffInfo;
 use kartik\datetime\DateTimePicker;
 use yii\web\UploadedFile;
+use common\components\SetValues;
 
 class FollowupajaxController extends \yii\web\Controller {
 
@@ -67,7 +68,7 @@ class FollowupajaxController extends \yii\web\Controller {
                                 }
                                 if ($repeated == 0) {
                                         return \yii\helpers\Json::encode($followups_one);
-                                } else {
+                                }else {
                                         echo '0';
                                 }
                         }
@@ -143,7 +144,7 @@ class FollowupajaxController extends \yii\web\Controller {
                                 $assigned_from = StaffInfo::findOne($followup->assigned_from);
                                 if (isset($assigned_from->email)) {
                                         $message = $this->renderPartial('tasks_completed', ['followups' => $followups]);
-                                        Yii::$app->SetValues->Email($followup->assigned_from, 'Taskl Completed', $message);
+                                        SetValues::Email($followup->assigned_from, 'Taskl Completed', $message);
                                 }
                         } else {
                                 $followup = \common\models\RepeatedFollowups::find()->where(['id' => $followup_id])->one();
@@ -223,6 +224,7 @@ class FollowupajaxController extends \yii\web\Controller {
                         }
                 }
         }
+
 
         public function actionCheckingDuty() {
                 if (Yii::$app->request->isAjax) {

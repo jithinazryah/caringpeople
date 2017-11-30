@@ -374,7 +374,7 @@ and open the template in the editor.
 
 <!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                             ?></td>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                          ?></td>
                 </tr>-->
 
 
@@ -419,6 +419,7 @@ and open the template in the editor.
                                 }
                                 ?></td>
                 </tr>
+
 
                 <tr class="bank-details">
                         <td style="width:222px;">Bank</td>

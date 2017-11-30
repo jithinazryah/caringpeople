@@ -36,7 +36,7 @@ class HomeController extends \yii\web\Controller {
                 $searchModel = new \common\models\ServiceScheduleSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['staff' => Yii::$app->user->identity->id, 'status' => 1]);
-                $dataProvider->query->orderBy(['date' => SORT_DESC]);
+            //    $dataProvider->query->orderBy(['date' => SORT_DESC]);
                 $dataProvider->pagination->pageSize = 10;
                 return $this->render('schedules', [
                             'searchModel' => $searchModel,

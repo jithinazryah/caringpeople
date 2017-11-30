@@ -17,7 +17,7 @@ use common\models\StaffExperienceList;
 
 
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'police_station_name')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'police_station_name')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_1')->textInput(['maxlength' => true]) ?>
 
@@ -32,8 +32,8 @@ use common\models\StaffExperienceList;
                 $staff_interview_third->staff_experience = explode(',', $staff_interview_third->staff_experience);
         }
         ?>
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'skills_staffs']) ?>
-                <a class="add-option-dropdown add-new" id="skills_staffs-4" type="<?= $type ?>" style="margin-top:0px;"> + Add New</a>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staff_interview_third, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'skills_staffs']) ?>
+                <a class="add-option-dropdown add-new" id="skills_staffs-4" type="<?= $type ?>" style="margin-top:0px;"> <div class="div-add-new">+ Add New </div></a>
         </div>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>
 
@@ -41,7 +41,7 @@ use common\models\StaffExperienceList;
 
         </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'drink', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
 
-        </div><div class='col-md-1 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'other', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
+        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'other', ['template' => "<label class='cbr-inline top'>{input}</label>",])->checkbox(['class' => 'cbr', 'style' => 'margin-top:10px;']) ?>
 
         </div><div style="clear: both">
 
@@ -348,7 +348,7 @@ use common\models\StaffExperienceList;
 
         </div>
 
-        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_emergency_contact_name')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_emergency_contact_name')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_relationship')->textInput(['maxlength' => true]) ?>
 
@@ -356,7 +356,7 @@ use common\models\StaffExperienceList;
 
         </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'alt_mobile')->textInput(['maxlength' => true]) ?>
 
-        </div><div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'alt_contact_verified_by')->textInput(['maxlength' => true,]) ?>
+        </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'alt_contact_verified_by')->textInput(['maxlength' => true,]) ?>
 
         </div>
 

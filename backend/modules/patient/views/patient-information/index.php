@@ -81,7 +81,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                             [
                                                 'attribute' => 'status',
                                                 'value' => function($model, $key, $index, $column) {
-
                                                         if ($model->status == '1') {
                                                                 return 'Enabled';
                                                         } elseif ($model->status == '2') {
@@ -116,16 +115,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 ],
                                                 'buttons' => [
                                                     'missing' => function($url, $model, $key) {     // render your custom button
-                                                            $checking = $model->check($model->id);
+                                                       $checking = $model->check($model->id);
                                                             if ($checking == 1) {
-                                                                    return Html::a('<span class="fa fa-file-image-o" style="padding-top: 0px;"></span>', ['#'], [
-                                                                                'title' => Yii::t('app', 'Missing Fileds/ Files'),
-                                                                                'class' => 'actions missing-files',
-                                                                                'type' => '1',
-                                                                                'target' => '_blank',
-                                                                                'id' => $model->id
-                                                                    ]);
-                                                            }
+                                                            return Html::a('<span class="fa fa-file-image-o" style="padding-top: 0px;"></span>', ['#'], [
+                                                                        'title' => Yii::t('app', 'Missing Fileds/ Files'),
+                                                                        'class' => 'actions missing-files',
+                                                                        'type' => '1',
+                                                                        'target' => '_blank',
+                                                                        'id' => $model->id
+                                                            ]);
+                                                       }
                                                     },
                                                 ]
                                             ],

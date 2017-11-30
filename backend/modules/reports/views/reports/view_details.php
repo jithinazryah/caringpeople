@@ -52,14 +52,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?php
                                                         $gridColumns = [
                                                                 ['class' => 'yii\grid\SerialColumn'],
-                                                            //  'staff_name',
+
+
                                                             [
                                                                 'attribute' => 'staff_id',
                                                                 'value' => function($model) {
                                                                         return $model->staff_id;
                                                                 },
                                                             ],
-                                                                [
+
+                                                            [
                                                                 'attribute' => 'staff_name',
                                                                 'value' => function($model) {
                                                                         return $model->staff_name;

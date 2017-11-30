@@ -69,7 +69,7 @@ class ReportController extends \yii\web\Controller {
                 }
         }
 
-        /*
+       /*
          * show services on patient change :-service report
          */
 
@@ -85,7 +85,7 @@ class ReportController extends \yii\web\Controller {
                 }
         }
 
-        public function actionReferenceno() {
+      public function actionReferenceno() {
                 if (Yii::$app->request->isAjax) {
                         $reference_no = $_POST['reference_no'];
                         $exists = \common\models\Invoice::find()->where(['reference_no' => $reference_no])->exists();
@@ -97,7 +97,7 @@ class ReportController extends \yii\web\Controller {
                 }
         }
 
-        public function actionListStaffs() {
+      public function actionListStaffs() {
                 if (Yii::$app->request->isAjax) {
                         $branch = $_POST['branch'];
                         $staffs = StaffInfo::find()->where(['branch_id' => $branch, 'status' => 1])->andWhere(['<>', 'post_id', '1'])->orderBy(['staff_name' => SORT_ASC])->all();
@@ -108,5 +108,7 @@ class ReportController extends \yii\web\Controller {
                         echo $options;
                 }
         }
+
+
 
 }

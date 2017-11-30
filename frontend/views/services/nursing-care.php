@@ -1,6 +1,6 @@
 <div class="mkdf-content">
     <div class="mkdf-content-inner">
-        <div class="mkdf-title mkdf-standard-type mkdf-preload-background mkdf-has-background mkdf-has-parallax-background mkdf-content-center-alignment mkdf-animation-no mkdf-title-image-not-responsive" style="color:#ffffff;;background-image:url(<?= Yii::$app->homeUrl; ?>images/banner/4.png);;height:385px;;border-bottom: none" data-height="385" data-background-width=&quot;1920&quot;>
+        <div class="mkdf-title mkdf-standard-type mkdf-preload-background mkdf-has-background mkdf-has-parallax-background mkdf-content-center-alignment mkdf-animation-no mkdf-title-image-not-responsive" style="color:#ffffff;;background-image:url(<?= Yii::$app->homeUrl; ?>images/banner/caregiver.jpg);;height:385px;;border-bottom: none" data-height="385" data-background-width=&quot;1920&quot;>
             <div class="mkdf-title-image"><img src="<?= Yii::$app->homeUrl; ?>images/banner/2.png" alt="&nbsp;" /> </div>
         </div>
 

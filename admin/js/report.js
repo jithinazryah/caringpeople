@@ -1,5 +1,3 @@
-
-
 /*
  * Created by   :- Sabitha
  * Created date :- 22-06-2017
@@ -123,10 +121,13 @@ $("document").ready(function () {
 
 
 
+
 //--------------------------------------------------------------Staff Payment------------------------------------------//
 
 
 });
+
+
 
 function ListStaffs() {
         var branch = $('#staffpayroll-branch_id').val();

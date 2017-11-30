@@ -168,5 +168,7 @@ $designations = \common\models\MasterDesignations::designationlist();
         }.add-remarks{
                 cursor: pointer;
                 padding-left: 10px !important;
-        }
+        }.modal-dialog{
+z-index:9999 !important;
+}
 </style>

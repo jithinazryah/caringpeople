@@ -29,6 +29,7 @@ use common\models\Followups;
 use common\models\PatientEnquiryGeneralFirst;
 use common\models\StaffEnquiry;
 
+
 class SetValues extends Component {
 
         public function Attributes($model) {
@@ -114,6 +115,7 @@ class SetValues extends Component {
                 } else {
                         $service_data = Service::find()->where(['id' => $service])->one();
                 }
+
                 $model = new History();
                 $model->reference_id = $service->id;
                 $model->history_type = $master_history_type;
@@ -393,9 +395,10 @@ class SetValues extends Component {
         }
 
         public function GetContent($master_history_type, $master_history_type_model, $service_data, $schedule_days, $schedule_id, $old_staff) {
-                if ($master_history_type == 1)
+                if ($master_history_type == 1){
+
                         $model_content = $master_history_type_model->content . ' for patient ' . $service_data->patient->first_name;
-                elseif (!empty($schedule_days)) {
+                }elseif (!empty($schedule_days)) {
                         $model_content = $schedule_days . ' more ' . $master_history_type_model->content . ' ' . $service_data->service_id;
                 } elseif (!empty($schedule_id)) {
                         $content = $this->StaffChangeContent($master_history_type_model, $schedule_id, $old_staff);
@@ -438,15 +441,16 @@ class SetValues extends Component {
                 $history->date = date('Y-m-d');
                 $history->save();
         }
+    public function Email($to, $subject, $message) {
 
-        public function Email($to, $subject, $message) {
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
                         "From: info@caringpeople.in";
-                //mail($to, $subject, $message, $headers);
+                mail($to, $subject, $message, $headers);
+
         }
 
-        public function History($id, $content) {
+     public function History($id, $content) {
 
                 $history = new History();
                 $history->reference_id = $id;
@@ -456,7 +460,8 @@ class SetValues extends Component {
                 $history->save();
         }
 
-        public function Check($id, $type) {
+
+     public function Check($id, $type) {
                 $uploaded = array();
                 $not_uploaded = array();
                 if ($type == 1) {
@@ -545,7 +550,6 @@ class SetValues extends Component {
                 }
                 return $not_uploaded;
         }
-
         public function LogIn($type_id, $user_id, $branch_id) {
 
                 $log_history = new \common\models\LoginHistory;

@@ -50,13 +50,13 @@ class NationalityController extends Controller {
 
                 if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate() && $model->save()) {
                         return $this->redirect(['index']);
-                }
+                } 
 
                 return $this->render('index', [
-                            'searchModel' => $searchModel,
-                            'dataProvider' => $dataProvider,
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
                             'model' => $model,
-                ]);
+		]);
         }
 
         /**
@@ -102,10 +102,10 @@ class NationalityController extends Controller {
                         return $this->redirect(['index']);
                 } else {
                         return $this->render('index', [
-                                    'searchModel' => $searchModel,
-                                    'dataProvider' => $dataProvider,
-                                    'model' => $model,
-                        ]);
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+                            'model' => $model,
+		]);
                 }
         }
 

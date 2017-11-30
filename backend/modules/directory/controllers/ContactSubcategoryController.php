@@ -14,7 +14,8 @@ use yii\filters\VerbFilter;
  */
 class ContactSubcategoryController extends Controller {
 
-        public function beforeAction($action) {
+
+               public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }
@@ -53,10 +54,10 @@ class ContactSubcategoryController extends Controller {
                 }
 
                 return $this->render('index', [
-                            'searchModel' => $searchModel,
-                            'dataProvider' => $dataProvider,
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
                             'model' => $model,
-                ]);
+		]);
         }
 
         /**
@@ -102,10 +103,10 @@ class ContactSubcategoryController extends Controller {
                         return $this->redirect(['index']);
                 } else {
                         return $this->render('index', [
-                                    'searchModel' => $searchModel,
-                                    'dataProvider' => $dataProvider,
-                                    'model' => $model,
-                        ]);
+			    'searchModel' => $searchModel,
+			    'dataProvider' => $dataProvider,
+                            'model' => $model,
+		]);
                 }
         }
 

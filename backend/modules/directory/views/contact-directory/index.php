@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'value' => 'categoryType.category_name',
                                                     'filterOptions' => ['id' => 'cat_type'],
                                                     'filter' => ArrayHelper::map(ContactCategoryTypes::find()->where(['status' => '1'])->asArray()->all(), 'id', 'category_name'),
+                                                    'filterOptions' => array('id' => "contact_categorytype_search"),
                                                 ],
                                                     [
                                                     'attribute' => 'subcategory_type',
@@ -49,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             return ContactSubcategory::findOne($data->subcategory_type)->sub_category;
                                                     },
                                                     'filter' => ArrayHelper::map(ContactSubcategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'sub_category'),
+                                                    'filterOptions' => array('id' => "contact_subcategorytype_search"),
                                                 ],
                                                 'name',
                                                 'email_1:email',
@@ -59,6 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 ['attribute' => 'designation',
                                                     'value' => 'designationType.designation',
                                                     'filter' => ArrayHelper::map(common\models\ContactDirectoryDesignation::find()->where(['status' => '1'])->asArray()->all(), 'id', 'designation'),
+                                                    'filterOptions' => array('id' => "contact_designation_search"),
                                                 ],
                                                 // 'company_name',
                                                 // 'references',
@@ -91,4 +94,36 @@ $this->params['breadcrumbs'][] = $this->title;
         }
 </style>
 
+<script>
 
+        $(document).ready(function () {
+                $('#contact_categorytype_search select').attr('id', 'contact_categorytype');
+                $('#contact_subcategorytype_search select').attr('id', 'contact_subcategorytype');
+                $('#contact_designation_search select').attr('id', 'contact_designation');
+
+                $("#contact_categorytype").select2({
+                        placeholder: '',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+                $("#contact_subcategorytype").select2({
+                        placeholder: '',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+                $("#contact_designation").select2({
+                        placeholder: '',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+        });
+</script>

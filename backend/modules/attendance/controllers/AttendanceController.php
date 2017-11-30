@@ -19,7 +19,7 @@ use yii\db\Expression;
  */
 class AttendanceController extends Controller {
 
-        public function beforeAction($action) {
+                public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }
@@ -214,7 +214,7 @@ class AttendanceController extends Controller {
                         $from = date('Y-m-d', strtotime($model->date));
                         $to = date('Y-m-d', strtotime($model->DOC));
                         $staff = $model->staff;
-                        $report = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->orderBy(['date' => SORT_ASC])->all();
+                         $report = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>','status',4])->orderBy(['date' => SORT_ASC])->all();
                         $total_attendance = ServiceSchedule::find()->where(['staff' => $staff, 'status' => 2])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->count();
                         $total_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->sum('rate');
                 }
@@ -242,11 +242,11 @@ class AttendanceController extends Controller {
                         $to = date('Y-m-d', strtotime($model->DOC));
                         if (isset($model->service_id)) {
                                 if ($model->service_id != 0) {
-                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->orderBy(['date' => SORT_ASC])->all();
-                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->all();
+                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>','status',4])->orderBy(['date' => SORT_ASC])->all();
+                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id, 'service_id' => $model->service_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>','status',4])->all();
                                 } else {
-                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->orderBy(['date' => SORT_ASC])->all();
-                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>', 'status', 4])->all();
+                                        $report = ServiceSchedule::find()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>','status',4])->orderBy(['date' => SORT_ASC])->all();
+                                        $patient_services = ServiceSchedule::find()->select('service_id')->distinct()->where(['patient_id' => $model->patient_id])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['<>','status',4])->all();
                                 }
                         }
                 }
@@ -259,7 +259,9 @@ class AttendanceController extends Controller {
                 ]);
         }
 
-        /*
+
+
+       /*
          * Service-wise report
          */
 
@@ -288,6 +290,8 @@ class AttendanceController extends Controller {
                 ]);
         }
 
+
+
         /*
          * on call staff report by destination wise
          */
@@ -311,7 +315,7 @@ class AttendanceController extends Controller {
         public function actionViewdetails($from = null, $to = null, $type = null, $branch_id = null) {
                 $from = date('Y-m-d', strtotime($from));
                 $to = date('Y-m-d', strtotime($to));
-                $staffs = StaffInfo::find()->where(['branch_id' => $branch_id])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $type])->all();
+                 $staffs = StaffInfo::find()->where(['branch_id' => $branch_id])->andWhere(new Expression('FIND_IN_SET(:designation, designation)'))->addParams([':designation' => $type])->all();
 
                 return $this->render('view_details', [
                             'from' => $from,
@@ -322,7 +326,7 @@ class AttendanceController extends Controller {
         }
 
         public function actionStaffdetails($from = null, $to = null, $staff = null) {
-                $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->orderBy(['date' => SORT_ASC])->all();
+                 $schedules = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->orderBy(['date' => SORT_ASC])->all();
                 $staff_amount = ServiceSchedule::find()->where(['staff' => $staff])->andWhere(['>=', 'date', $from])->andWhere(['<=', 'date', $to])->andWhere(['>', 'rate', 0])->sum('rate');
                 return $this->render('staff_details', [
                             'schedules' => $schedules,
@@ -332,6 +336,7 @@ class AttendanceController extends Controller {
                             'to' => $to,
                 ]);
         }
+
 
         /**
          * Displays a single Attendance model.

@@ -324,6 +324,60 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                 </tr>
 
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.guardian_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->guardian_name) && $model->staffOtherinfo->guardian_name != '') {
+                                                                                        echo $model->staffOtherinfo->guardian_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.guardian_phone'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->guardian_phone) && $model->staffOtherinfo->guardian_phone != '') {
+                                                                                        echo $model->staffOtherinfo->guardian_phone;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.guardian_email'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->guardian_email) && $model->staffOtherinfo->guardian_email != '') {
+                                                                                        echo $model->staffOtherinfo->guardian_email;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_guardian_name'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_guardian_name) && $model->staffOtherinfo->alt_guardian_name != '') {
+                                                                                        echo $model->staffOtherinfo->alt_guardian_name;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_guardian_phone'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_guardian_phone) && $model->staffOtherinfo->alt_guardian_phone != '') {
+                                                                                        echo $model->staffOtherinfo->alt_guardian_phone;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                        <td class="labell"><?= $model->getAttributeLabel('staffOtherinfo.alt_guardian_email'); ?> </td><td class="value"><?php
+                                                                                if (isset($model->staffOtherinfo->alt_guardian_email) && $model->staffOtherinfo->alt_guardian_email != '') {
+                                                                                        echo $model->staffOtherinfo->alt_guardian_email;
+                                                                                }
+                                                                                ?>
+                                                                        </td>
+
+                                                                </tr>
+
                                                                 <?php
                                                                 if (!empty($staff_family_details)) {
                                                                         foreach ($staff_family_details as $staff_family_details) {

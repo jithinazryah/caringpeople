@@ -27,7 +27,7 @@ $notifications = array_merge($notification, $notification1);
                 <meta name="author" content="" />
                 <title>Caring People</title>
                 <script src="<?= Yii::$app->homeUrl; ?>js/jquery-1.11.1.min.js"></script>
-
+                <link rel="icon" href="<?= Yii::$app->homeUrl; ?>images/f-logo.png" sizes="40x40" />
                 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
                 <!--[if lt IE 9]>
                         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -107,18 +107,18 @@ $notifications = array_merge($notification, $notification1);
                                                         </ul>
                                                 </li>
 
-                                                <!--                                                <li>
-                                                                                                        <a href="">
-                                                                                                                <i class="fa fa-book"></i>
-                                                                                                                <span class="title">Tasks</span>
-                                                                                                        </a>
-                                                                                                        <ul>
-                                                                                                                <li>
-                                                <?= Html::a('My Tasks', ['/dashboard/invoices'], ['class' => 'title']) ?>
-                                                                                                                </li>
+                                              <!--  <li>
+                                                        <a href="">
+                                                                <i class="fa fa-book"></i>
+                                                                <span class="title">Tasks</span>
+                                                        </a>
+                                                        <ul>
+                                                                <li>
+                                                                        <?= Html::a('My Tasks', ['/dashboard/invoices'], ['class' => 'title']) ?>
+                                                                </li>
 
-                                                                                                        </ul>
-                                                                                                </li>-->
+                                                        </ul>
+                                                </li>-->
 
 
                                                 <li>
@@ -132,7 +132,7 @@ $notifications = array_merge($notification, $notification1);
                                                                 </li>
 
                                                                 <li>
-                                                                        <?= Html::a('Edit Profile', ['/dashboard/edit-profile'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('Profile', ['/dashboard/edit-profile'], ['class' => 'title']) ?>
                                                                 </li>
                                                                 <?php
                                                                 echo '<li>'
@@ -297,7 +297,7 @@ $notifications = array_merge($notification, $notification1);
                                                                 </li>
 
                                                                 <li>
-                                                                        <?= Html::a('<i class="fa-pencil"></i>Edit Profile', ['/dashboard/edit-profile'], ['class' => 'title']) ?>
+                                                                        <?= Html::a('<i class="fa-pencil"></i>Profile', ['/dashboard/edit-profile'], ['class' => 'title']) ?>
                                                                 </li>
 
                                                                 <?php

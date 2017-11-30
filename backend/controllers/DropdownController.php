@@ -47,6 +47,10 @@ class DropdownController extends \yii\web\Controller {
                         $form = $this->renderPartial('_relationships', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 } else if ($type == 11) { /* add referral source  */
                         $form = $this->renderPartial('_refferal_source', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                } else if ($type == 12) { /* add referral source  */
+                        $form = $this->renderPartial('designation', ['type' => $type, 'field_id' => $_POST['field_id']]);
+                } else if ($type == 13) { /* add referral source  */
+                        $form = $this->renderPartial('designation', ['type' => $type, 'field_id' => $_POST['field_id']]);
                 }
 
                 echo $form;
@@ -82,6 +86,10 @@ class DropdownController extends \yii\web\Controller {
                                 $model = new \common\models\MasterRelationships();
                         } else if ($type == 11) {
                                 $model = new \common\models\ReferralSource();
+                        } else if ($type == 12) {
+                                $model = new \common\models\MasterDesignations();
+                        } else if ($type == 13) {
+                                $model = new \common\models\MasterDesignations();
                         }
                         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
                                 $model->status = 1;
@@ -109,6 +117,10 @@ class DropdownController extends \yii\web\Controller {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
                                         } else if ($type == 11) {
                                                 $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
+                                        } else if ($type == 12) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '1');
+                                        } else if ($type == 13) {
+                                                $arr_variable = array('id' => $model->id, 'name' => $model->title, 'field_id' => $_POST['field_id'], 'type' => '2');
                                         }
                                         $data['result'] = $arr_variable;
                                         echo json_encode($data);
@@ -133,7 +145,7 @@ class DropdownController extends \yii\web\Controller {
                                 if ($remarks->type == '2' || $remarks->type == '4')
                                         $rates = SetValues::Rating($remarks->type_id, $remarks->type);
 
-                                if ($remarks->type == 5) { /* if remark is added from service then add a copy to the staff and patient in that service */
+                                if ($remarks->type == 5) {  /*if remark is added from copy then add a copy to the staff and patient in that service*/
                                         $service_staff = \common\models\ServiceSchedule::find()->select('staff')->distinct()->where(['service_id' => $remarks->type_id])->all();
                                         $patient = \common\models\Service::findOne($remarks->type_id);
 
@@ -156,7 +168,6 @@ class DropdownController extends \yii\web\Controller {
                                 }
                                 $this->AddHistory($remarks);
 
-
                                 $count = Remarks::find()->where(['type' => $remarks->type, 'type_id' => $remarks->type_id, 'status' => 1])->count();
                                 $category = \common\models\RemarksCategory::findOne($remarks->category);
 
@@ -166,6 +177,9 @@ class DropdownController extends \yii\web\Controller {
                         }
                 }
         }
+
+
+
 
         public function AddHistory($remarks) {
                 if ($remarks->type == 1) {

@@ -155,7 +155,7 @@ and open the template in the editor.
                         <tr>
                                 <td class="bill">
                                         <div>
-                                                <span>RECEIPT</span>
+                                                <span>BILL</span>
                                         </div>
                                 </td>
                         </tr>
@@ -183,9 +183,9 @@ and open the template in the editor.
                 <tr>
                         <td>Patient Name</td>
                         <?php
-                        $service = common\models\Service::findOne($model->service_id);
                         $patient_name = '';
                         $patient_id = '';
+                        $service = common\models\Service::findOne($model->service_id);
                         if (isset($model->patient_id)) {
                                 $patient = \common\models\PatientGeneral::findOne($model->patient_id);
                                 $patient_name = $patient->first_name . ' ' . $patient->last_name;
@@ -201,7 +201,7 @@ and open the template in the editor.
                         <td>Patient ID</td>
                         <td><?= $patient_id; ?></td>
                         <td>Ref No</td>
-                        <td><?= $service->service_id ?></td>
+                        <td></td>
                 </tr>
         </table>
 
@@ -214,6 +214,7 @@ and open the template in the editor.
                 </tr>
 
                 <?php
+                
                 $service_detail = common\models\MasterServiceTypes::findOne($service->service);
                 $service_name = $service_detail->service_name;
                 $first_estimated_price = ServiceScheduleHistory::find()->select('price')->where(['service_id' => $model->service_id, 'type' => 1])->one();
@@ -357,7 +358,7 @@ and open the template in the editor.
 
                 <tr class="bank-details">
                         <td style="width:222px;">Bank</td>
-                        <td style="width:200px;">State Bank Of India</td>
+                        <td style="width:200px;">State BAnk Of India</td>
                 </tr>
 
                 <tr class="bank-details">

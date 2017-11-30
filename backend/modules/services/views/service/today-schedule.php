@@ -54,8 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <tbody>
 
                                                                         <?php
-                                                                        $date_now = date('Y-m-d');
                                                                         $p = 0;
+
                                                                         foreach ($services as $value1) {
 
                                                                                 $service_schedules = \common\models\ServiceSchedule::find()->where(['date' => $date_now, 'status' => 1, 'service_id' => $value1->id])->all();
@@ -252,7 +252,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                                                                         <td class="sas">
 
-                                                                                                                <button class="btn btn-gray" style="margin: 15px 0px 0px 30px;float: left;"><a id="<?= $value->id ?>" class="remarks_Staff"><?php if (!isset($value->remarks_from_staff) && $value->remarks_from_staff == '') { ?> Add Remarks<?php } else { ?> View Remarks<?php } ?></a></button>
+                                                                                                               <button class="btn btn-gray" style="margin: 15px 0px 0px 30px;float: left;"><a id="<?= $value->id ?>" class="remarks_Staff"><?php if (!isset($value->remarks_from_staff) && $value->remarks_from_staff == '') { ?> Add Remarks<?php } else { ?> View Remarks<?php } ?></a></button>
                                                                                                         </td>
 
                                                                                                 </tr>

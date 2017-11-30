@@ -30,23 +30,24 @@ use yii\helpers\Html;
         if (!$model->isNewRecord) {
                 ?>
 
-                <li>
+                 <li>
                         <a href="#home-7" data-toggle="tab"><span class="visible-xs"><i class="fa fa-minus-circle hidden-xs"></i></span>
                                 <i class="fa fa-minus-circle"></i><span class="hidden-xs span-font-size">Discounts</span></a>
                 </li>
-                <?php if ($model->proforma_sent == 2) { ?>
-                        <li>
-                                <a href="#home-5" data-toggle="tab"><span class="visible-xs"><i class="fa-user hidden-xs"></i></span>
-                                        <i class="fa-user"></i><span class="hidden-xs span-font-size">Schedules</span></a>
-                        </li>
-                <?php } ?>
+
+            <?php if ($model->proforma_sent == 2) { ?>
+                <li>
+                        <a href="#home-5" data-toggle="tab"><span class="visible-xs"><i class="fa-user hidden-xs"></i></span>
+                                <i class="fa-user"></i><span class="hidden-xs span-font-size">Schedules</span></a>
+                </li>
+            <?php } ?>
 
                 <li>
                         <a href="#home-6" data-toggle="tab"><span class="visible-xs"><i class="fa fa-book hidden-xs"></i></span>
                                 <i class="fa fa-book"></i><span class="hidden-xs span-font-size">Assessment</span></a>
                 </li>
 
-
+                
 
 
                 <li>

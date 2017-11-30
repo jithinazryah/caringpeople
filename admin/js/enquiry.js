@@ -5,12 +5,15 @@
  */
 
 $("document").ready(function () {
+
         if ($(window).width() < 900) {
                 $("#side-menuss").removeClass("collapsed");
         } else {
 
                 //   $("#side-menuss").addClass('collapsed');
         }
+
+
         /*
          -----------------PATIENT ENQUIRY GENERAL INFO FORM--------------
          */
@@ -441,6 +444,7 @@ $("document").ready(function () {
 
         $(document).on('change', '.hospital', function (e) {
                 var hospital = $(this).val();
+
                 var id = $(this).attr('id');
                 var idd = id.split('_');
                 showLoader();
@@ -500,7 +504,7 @@ $("document").ready(function () {
 
         /////////////////////////------------------  ---------------------/////////////////////////
 
-        $('.patient-enquiry-img-remove').on('click', function (e) {
+               $('.patient-enquiry-img-remove').on('click', function (e) {
                 var data = $(this).attr('id');
                 var datas = data.split("-");
                 $.ajax({
@@ -514,7 +518,8 @@ $("document").ready(function () {
                 });
         });
 
-        $('.patient-img-remove').on('click', function (e) {
+
+     $('.patient-img-remove').on('click', function (e) {
                 var data = $(this).attr('id');
                 var datas = data.split("-");
                 $.ajax({
@@ -530,8 +535,7 @@ $("document").ready(function () {
 
 
 
-
-        $('#enquirer_1').click(function () {
+       $('#enquirer_1').click(function () {
                 $('.enquirer_1').toggle();
                 $('#enquirer_1').hide();
 
@@ -542,7 +546,7 @@ $("document").ready(function () {
                 $('#enquirer_2').hide();
         });
 
-        $('#close_1').click(function () {
+         $('#close_1').click(function () {
                 $('#patientenquirygeneralsecond-caller_name_1').val('');
                 $('#patientenquirygeneralsecond-caller_gender_1').val('');
                 $('#patientenquirygeneralsecond-mobile_number_alt_1').val('');
@@ -600,8 +604,7 @@ $("document").ready(function () {
         });
 
 
-
-        $('.missing-files').click(function (e) {
+      $('.missing-files').click(function (e) {
                 e.preventDefault();
                 var id = $(this).attr('id');
                 var type = $(this).attr('type');
@@ -617,9 +620,5 @@ $("document").ready(function () {
                 });
 
         });
-
-
-
-
 
 });

@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 </div>
                                 <div class="panel-body">
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>
+                                                <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <?=
                                                 GridView::widget([
@@ -31,26 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'columns' => [
                                                             ['class' => 'yii\grid\SerialColumn'],
                                                         // 'id',
-//                                                        [
-//                                                            'attribute' => 'category_type',
-//                                                            'value' => function($model, $key, $index, $column) {
-//                                                                    if ($model->category_type == 1) {
-//                                                                            return 'Profile';
-//                                                                    } else if ($model->category_type == 2) {
-//                                                                            return 'Government Issued Identification';
-//                                                                    } else if ($model->category_type == 3) {
-//                                                                            return 'Permanent Address';
-//                                                                    } else if ($model->category_type == 4) {
-//                                                                            return 'Current Address';
-//                                                                    } else if ($model->category_type == 5) {
-//                                                                            return 'Educational Document';
-//                                                                    } else if ($model->category_type == 6) {
-//                                                                            return 'IMC Document';
-//                                                                    }
-//                                                            },
-//                                                            'filter' => ['1' => 'Profile', '2' => 'Government Issued Identification', '3' => 'Permanent Address', '4' => 'Current Address', '5' => 'Educational Document', '6' => 'IMC Document'],
-//                                                        ],
-                                                        [
+                                                              [
                                                             'attribute' => 'type',
                                                             'value' => function($model, $key, $index, $column) {
                                                                     if ($model->type == 1) {
@@ -72,8 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         // 'UB',
                                                         // 'DOC',
                                                         // 'DOU',
-                                                        ['class' => 'yii\grid\ActionColumn',
-                                                            'template' => '{update}{delete}'],
+                                                        
                                                     ],
                                                 ]);
                                                 ?>
@@ -84,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <h4>Add Upload Category</h4>
                                                         <?php } else { ?>
                                                                 <h4>Update Upload Category</h4>
-                                                        <?php } ?>
+<?php } ?>
                                                 </div>
 
                                                 <div class="small-forms-form">

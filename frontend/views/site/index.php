@@ -291,7 +291,7 @@
                                                                                         <h2 class="mkdf-section-title mkdf-section-title-large" style="text-align: center">
                                                                                                 The Care You Need</h2>
 
-                                                                                        <h4 style="font-weight: 18px;text-align: center">IN THE PLACE YOU LOVE – YOUR OWN HOME</h4>
+                                                                                        <h4 style="font-size:18px;text-align:center;">IN THE PLACE YOU LOVE – YOUR OWN HOME</h4>
                                                                                         <h3 class="mkdf-item-title">
                                                                                                 <a href="#" >
 

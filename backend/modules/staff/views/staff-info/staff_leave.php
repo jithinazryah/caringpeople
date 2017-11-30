@@ -16,7 +16,7 @@ $staff_detail = common\models\StaffInfo::findOne($staff);
 
 if (!empty($today)) {
         $detail = "Today  $staff_detail->staff_name is on leave";
-} else if ($staff->working_status == 0) {
+} else if ($staff_detail->working_status == 0) {
         $detail = "Today  $staff_detail->staff_name is on bench";
 } else {
         $detail = "Today  $staff_detail->staff_name is on duty ";

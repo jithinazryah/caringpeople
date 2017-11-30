@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
  */
 class MasterRelationshipsController extends Controller {
 
-        public function beforeAction($action) {
+       public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }

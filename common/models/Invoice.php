@@ -32,9 +32,8 @@ class Invoice extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['status'], 'required'],
                         [['branch_id', 'patient_id', 'service_id', 'type', 'CB', 'payment_type', 'status'], 'integer'],
-                        [['total_amount', 'amount', 'due_amount', 'refund_amount'], 'number'],
+                        [['total_amount', 'amount', 'due_amount'], 'number'],
                         [['DOC', 'due_date', 'payment_date'], 'safe'],
                         [['reference_no'], 'string', 'max' => 200],
                         [['branch_id', 'patient_id'], 'required', 'on' => 'invoice'],
@@ -56,10 +55,6 @@ class Invoice extends \yii\db\ActiveRecord {
                     'due_amount' => 'Due Amount',
                     'payment_type' => 'Payment Type',
                     'reference_no' => 'Reference No',
-                    'status' => 'Status',
-                    'due_date' => 'Due Date',
-                    'refund_amount' => 'Refund Amount',
-                    'payment_date' => 'Payment Date',
                     'CB' => 'Cb',
                     'DOC' => 'Doc',
                 ];

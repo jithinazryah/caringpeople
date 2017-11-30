@@ -188,12 +188,11 @@ $("document").ready(function () {
         var i = $('#p_attach span').size() + 1;
 
         $('#addAttach').on('click', function () {
-                var type = $(this).attr('type');
-
+var type = $(this).attr('type');
                 $.ajax({
                         type: 'POST',
                         cache: false,
-                        data: {type: type},
+                        data: {type: 1},
                         url: homeUrl + 'ajax/attachment',
                         success: function (data) {
                                 $(data).appendTo(scntDiv);
@@ -286,7 +285,7 @@ $("document").ready(function () {
         {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
-        $("#staffinfo-designation").select2({
+        $("#staffdesignation").select2({
                 //   placeholder: 'Select',
                 allowClear: true
         }).on('select2-open', function ()

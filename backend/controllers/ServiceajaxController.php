@@ -230,7 +230,7 @@ class ServiceajaxController extends \yii\web\Controller {
                 }
         }
 
-        public function actionServicestatus() {
+         public function actionServicestatus() {
                 if (Yii::$app->request->isAjax) {
                         $service_id = $_POST['service_id'];
                         $type = $_POST['type'];
@@ -368,7 +368,7 @@ class ServiceajaxController extends \yii\web\Controller {
 
 
                                 if ($status == 2 || $status == 4) { /* if status completed or cancelled */
-                                        //   $this->CheckRateAdded($schedule_detail->id, $schedule_detail->service_id, $schedule_detail->rate, $schedule_detail->patient_rate);
+                                     //   $this->CheckRateAdded($schedule_detail->id, $schedule_detail->service_id, $schedule_detail->rate, $schedule_detail->patient_rate);
                                         $taff_exists = ServiceSchedule::find()->where(['staff' => $schedule_detail->staff, 'status' => 1])->exists();
                                         if ($taff_exists != '1') {
                                                 $this->StaffStatus($schedule_detail->staff, 0);
@@ -544,6 +544,7 @@ class ServiceajaxController extends \yii\web\Controller {
                                                 $night_schedule->rate = 0;
                                                 $day_schedule->save(false);
                                                 $night_schedule->save(false);
+                                                
                                         }
                                 } else {
                                         for ($x = 0; $x < $schedule_count; $x++) {
@@ -579,9 +580,9 @@ class ServiceajaxController extends \yii\web\Controller {
 
                         $history_id = Yii::$app->SetValues->ServiceHistory($service, 3, $add_days); /* 3 implies masterservice history type id 3 for more added schedules */
                         Yii::$app->SetValues->Notifications($history_id, $service->id, $service, 1); /* 1 => notification type is for service */
+
                         $service->days = $service->days + $add_days;
                         $service->to_date = date('Y-m-d', strtotime($service->to_date . ' + ' . $add_days . ' days'));
-
 
                         if ($_POST['change_price'] == 'on') {
                                 $rate = $this->ChangePrice($service, $add_days, 1);
@@ -679,6 +680,8 @@ class ServiceajaxController extends \yii\web\Controller {
                 } else if ($service->duty_type == 3 || $service->duty_type == 4 || $service->duty_type == 5) {
 
                         $rate = $days * $service->rate_card_value;
+                } else if ($service->duty_type == 2) {
+                        $rate = $days * $service->rate_card_value;
                 } else {
 
                         $total_hours = $service->hours * $days;
@@ -737,6 +740,8 @@ class ServiceajaxController extends \yii\web\Controller {
                         $service->gender_preference = $_POST['service-staff-prefernce'];
                         $service->staff_manager = $_POST['service_staff_amanger'];
                         $service->client_notes = $_POST['client_notes'];
+                        $service->status= $_POST['status'];
+
                         $service->update();
                         $service->service_staffs = $this->Servicestaffs($service_id);
                         $service->update();

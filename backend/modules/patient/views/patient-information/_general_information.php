@@ -306,6 +306,7 @@ use common\models\Branch;
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'email_2')->textInput(['maxlength' => true]) ?>
 
                         </div><div style="clear:both"></div>
+                        
 
                 </div>
 
@@ -346,7 +347,7 @@ use common\models\Branch;
 
 
                 <span>
-                        <div class = 'col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class = 'col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class = "form-group field-staffperviousemployer-hospital_address">
                                         <label class = "control-label">Attachment</label>
                                         <input type = "file" name = "creates[file][]">
@@ -357,7 +358,7 @@ use common\models\Branch;
                         $rand = rand();
                         $uploads_type = common\models\UploadCategory::find()->where(['status' => 1, 'type' => 1])->all();
                         ?>
-                        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
+                        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                                 <div class="form-group field-staffperviousemployer-designation">
                                         <label class="control-label" for="">Attachment Name</label>
                                         <?= Html::dropDownList('creates[file_name][]', null, ArrayHelper::map($uploads_type, 'id', 'sub_category'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'atachment_' . $rand]); ?>

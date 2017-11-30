@@ -43,8 +43,8 @@ class StaffEnquiryInterviewFirst extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['staff_id', 'age', 'height', 'weight', 'smoke_or_drink', 'mentioned_per_day_salary', 'terms_conditions', 'drink', 'other'], 'integer'],
-                        [['police_station_name', 'language_1', 'language_2', 'language_3', 'language_4'], 'string', 'max' => 200],
+                        [['staff_id', 'age', 'height', 'weight', 'smoke_or_drink', 'mentioned_per_day_salary', 'terms_conditions','drink','other'], 'integer'],
+                        [['police_station_name','language_1', 'language_2', 'language_3', 'language_4'], 'string', 'max' => 200],
                         [['muncipality_corporation', 'alternate_number_1', 'alternate_number_2', 'ward', 'member_name', 'member_phone'], 'string', 'max' => 255],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],
                 ];
@@ -61,8 +61,8 @@ class StaffEnquiryInterviewFirst extends \yii\db\ActiveRecord {
                     'height' => 'Height',
                     'weight' => 'Weight',
                     'smoke_or_drink' => 'Smoke',
-                    'drink' => 'Drink',
-                    'other' => 'Other',
+                    'drink'=>'Drink',
+                    'other'=>'Other',
                     'police_station_name' => 'Police Station Name',
                     'muncipality_corporation' => 'Panchayat / Muncipality / Corporation',
                     'mentioned_per_day_salary' => 'Mentioned Per Day Salary',

@@ -18,7 +18,7 @@ use common\models\AssessmentCategorySearch;
  */
 class StaffExperienceListController extends Controller {
 
-        public function beforeAction($action) {
+         public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }

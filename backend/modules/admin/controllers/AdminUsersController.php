@@ -17,15 +17,13 @@ class AdminUsersController extends Controller {
         /**
          * @inheritdoc
          */
-        public function beforeAction($action) {
-                if (!parent::beforeAction($action)) {
-                        return false;
-                }
-                if (Yii::$app->user->isGuest) {
+        public function init() {
+                if (Yii::$app->user->isGuest)
                         $this->redirect(['/site/index']);
-                        return false;
+
+                if ((Yii::$app->session['post']['admin'] != 1)) {
+                        $this->redirect(['/site/home']);
                 }
-                return true;
         }
 
         public function behaviors() {

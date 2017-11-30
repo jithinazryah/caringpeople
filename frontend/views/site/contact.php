@@ -23,6 +23,7 @@ use yii\helpers\Html;
                                                                         ['Kochi', 9.9665616, 76.29993890000003, 'Caring People , Door No. 5, DD Vyapar Bhavan ,K P Vallon Road, Kadavnthra, Cochin 20'],
                                                                         ['Thodupuzha', 9.8929802, 76.72210819999998, 'Caring People ,First Floor,Calicut College Building,Private Bus Stand,Thodupuzha-685 584 '],
                                                                         ['Mumbai', 18.1633637, 74.96149349999996, 'Caring People, Shop No 6, J2 Vijay Park, Dias & Periera Nagar, Naigaon Mumbai'],
+['UK', 52.3555177, -1.1743197000000691, 'Caring People, 21 Summerhouse View,Yeovil,Somerset,BA21 4DJ'],
                                                                 ];
 
                                                                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -92,7 +93,7 @@ use yii\helpers\Html;
                                                                 <div class="vc_column-inner ">
                                                                         <div class="wpb_wrapper">
 
-                                                                                <div class="col-md-4 col-sm-6 col-xs-12 addr">
+                                                                                <div class="col-md-3 col-sm-6 col-xs-12 addr">
                                                                                         <div data-original-height="22" class="vc_empty_space" style="height: 22px"><span class="vc_empty_space_inner"></span></div>
                                                                                         <div class="wpb_text_column wpb_content_element ">
                                                                                                 <div class="wpb_wrapper">
@@ -120,7 +121,7 @@ use yii\helpers\Html;
                                                                                 </div>
 
 
-                                                                                <div class="col-md-4 col-sm-6 col-xs-12 addr">
+                                                                                <div class="col-md-3 col-sm-6 col-xs-12 addr">
                                                                                         <div data-original-height="22" class="vc_empty_space" style="height: 22px"><span class="vc_empty_space_inner"></span></div>
                                                                                         <div class="wpb_text_column wpb_content_element ">
                                                                                                 <div class="wpb_wrapper">
@@ -150,7 +151,7 @@ use yii\helpers\Html;
                                                                                 </div>
 
 
-                                                                                <div class="col-md-4 col-sm-6 col-xs-12 addr">
+                                                                                <div class="col-md-3 col-sm-6 col-xs-12 addr">
                                                                                         <div data-original-height="22" class="vc_empty_space" style="height: 22px"><span class="vc_empty_space_inner"></span></div>
                                                                                         <div class="wpb_text_column wpb_content_element ">
                                                                                                 <div class="wpb_wrapper">
@@ -177,11 +178,38 @@ use yii\helpers\Html;
                                                                                 </div>
 
 
+                                                                                <div class="col-md-3 col-sm-6 col-xs-12 addr">
+                                                                                        <div data-original-height="22" class="vc_empty_space" style="height: 22px"><span class="vc_empty_space_inner"></span></div>
+                                                                                        <div class="wpb_text_column wpb_content_element ">
+                                                                                                <div class="wpb_wrapper">
+                                                                                                        <h5>UK</h5>
+
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <div data-original-height="20" class="vc_empty_space" style="height: 20px"><span class="vc_empty_space_inner"></span></div>
+                                                                                        <div class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">
+                                                                                                <div class="mkdf-icon-list-icon-holder">
+                                                                                                        <div class="mkdf-icon-list-icon-holder-inner clearfix">
+                                                                                                                <i class="mkdf-icon-linear-icon lnr lnr-apartment " style="color:#545454;font-size:18px"></i> </div>
+                                                                                                </div>
+                                                                                                <p class="mkdf-icon-list-text" style="font-size:12px">
+                                                                                                        Caring People<br/>
+                                                                                                        21 Summerhouse View,<br/>
+                                                                                                        Yeovil,<br/>
+                                                                                                        Somerset,<br/>
+                                                                                                        BA21 4DJ</p>
+                                                                                        </div>
+
+
+
+                                                                                </div>
+
+
 
                                                                                 <div class="row">
 
                                                                                         <div class="col-md-12 col-sm-12 col-lg-12" style="text-align: center;">
-                                                                                                <p><span style="font-weight: 700;"> Helpline Numbers : </span> Domestic : +91 90 20 599 599 | International : +44 7445 968106
+                                                                                                <p><span style="font-weight: 700;"> Helpline Numbers : </span> Domestic : +91 90 20 599 599 | International : +44 7445 968106 
                                                                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     <span style="font-weight: 700;"> Email : </span>  info@caringpeople.in
                                                                                                 </p>
                                                                                         </div>

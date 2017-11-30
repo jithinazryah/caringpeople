@@ -28,7 +28,7 @@ use yii\web\UploadedFile;
  */
 class PatientEnquiryGeneralFirstController extends Controller {
 
-        public function beforeAction($action) {
+         public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }

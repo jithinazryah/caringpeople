@@ -53,7 +53,7 @@ class StaffLeaveController extends Controller {
                 if (Yii::$app->session['post']['id'] != 1) {
                         $dataProvider->query->andWhere(['employee_id' => Yii::$app->user->identity->id]);
                 }
-                if (!empty(Yii::$app->request->queryParams['StaffLeaveSearch']['status'])) {
+if (!empty(Yii::$app->request->queryParams['StaffLeaveSearch']['status'])) {
                         $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffLeaveSearch']['status']]);
                 } else {
                         $dataProvider->query->andWhere(['status' => 1]);

@@ -50,7 +50,7 @@ class ServiceBin extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['branch_id', 'patient_id', 'service', 'sub_service', 'gender_preference', 'duty_type', 'day_night_staff', 'staff_manager', 'co_worker', 'registration_fees', 'status', 'CB', 'UB', 'service_table_id', 'proforma_sent'], 'integer'],
+                        [['branch_id', 'patient_id', 'service', 'sub_service', 'gender_preference', 'duty_type', 'day_night_staff', 'staff_manager', 'co_worker', 'registration_fees', 'status', 'CB', 'UB','service_table_id', 'proforma_sent'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
                         [['estimated_price', 'registration_fees_amount', 'due_amount'], 'number'],
                         [['client_notes'], 'string'],

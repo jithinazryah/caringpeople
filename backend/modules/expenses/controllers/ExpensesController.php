@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
  */
 class ExpensesController extends Controller {
 
+
         public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;

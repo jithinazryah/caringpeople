@@ -103,8 +103,9 @@ class PatientGeneral extends \yii\db\ActiveRecord {
                 return $due_amount;
         }
 
-        public static function Check($id) {
+         public static function Check($id) {
                 $not_uploaded = \common\components\SetValues::Check($id, 1);
+
                 if (count($not_uploaded) > 0)
                         return '1';
                 else

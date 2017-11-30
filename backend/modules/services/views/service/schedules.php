@@ -28,7 +28,7 @@ use common\models\StaffInfo;
 
         </div>
 
-
+        
 
         <div class="table-responsive">
 
@@ -39,6 +39,7 @@ use common\models\StaffInfo;
                                         <?php if ($model->duty_type == 5 && $model->day_night_staff == 2) { ?>  <th style="width:10px;">Duty</th><?php } ?>
                                         <th>Date</th>
                                         <th>Staff on duty</th>
+
                                         <th>Remarks from patient</th>
                                         <th>Staff Rating</th>
                                         <th>Status</th>
@@ -51,8 +52,6 @@ use common\models\StaffInfo;
                         <tbody>
                                 <?php
                                 $p = 0;
-
-
                                 foreach ($service_schedule as $value) {
                                         $p++;
 
@@ -69,16 +68,15 @@ use common\models\StaffInfo;
                                                         $class1 = 'hide-class';
                                                 }
                                         }
+
                                         if ($model->status == 2) {
                                                 $event = 'pointer-events:none !important';
                                         }
                                         ?>
-                                        <tr  id="<?= $value->id; ?>" style="text-align:center; <?= $event ?>" class="<?= $class; ?>">
-                                                <td>
-                                                        <?= $p ?>
-                                                </td>
-
-                                                <?php if ($model->duty_type == 5 && $model->day_night_staff == 2) { ?>
+                                        <tr  id="<?= $value->id; ?>" style="text-align:center;<?= $event ?>" class="<?= $class; ?>">
+                                                <td><?= $p; ?></td>
+                                                 
+                                                 <?php if ($model->duty_type == 5 && $model->day_night_staff == 2) { ?>
                                                         <td><span>
                                                                         <?php
                                                                         if ($value->day_night == 1) {
@@ -229,7 +227,7 @@ use common\models\StaffInfo;
 
                                                 <td>
                                                         <?php if (isset($value->status) && $value->status != 1) { ?>
-                                                                <a title="View Schedule Details" class="view_schedule"  id="<?= $value->id ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                                <a title="View Schedule Details" class="view_schedule" id="<?= $value->id ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                         <?php } ?>
                                                 </td>
 
@@ -300,7 +298,7 @@ use common\models\StaffInfo;
                 cursor: pointer;
         }
         table td{
-                padding: 3px !important;
+                padding: 0 !important;
         }
         table td .sorting_1{
                 text-align: center !important;

@@ -25,7 +25,7 @@ return [
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
-                    [
+                [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
@@ -46,17 +46,17 @@ return [
                 'contact' => 'site/contact',
             ],
         ],
-        'assetManager' => [
-            'bundles' => [
-                'dosamigos\google\maps\MapAsset' => [
-                    'options' => [
-                        'key' => 'AIzaSyAn8gxT-1o2u1ouEKd1O-o9idyl62NS_Y0',
-                        'language' => 'id',
-                        'version' => '3.1.18'
-                    ]
-                ],
-            ],
-        ],
+	'assetManager' => [
+	    'bundles' => [
+		'dosamigos\google\maps\MapAsset' => [
+		    'options' => [
+			'key' => 'AIzaSyB9x-YCwXE-drWPq8ZWenSPexeHEZLJfLs',
+			'language' => 'id',
+			'version' => '3.1.18'
+		    ]
+		]
+	    ]
+	],
     ],
     'params' => $params,
 ];

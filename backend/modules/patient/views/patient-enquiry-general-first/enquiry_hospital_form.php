@@ -123,9 +123,9 @@ use kartik\select2\Select2;
                                                 </div>
                                         </div>
 
-
-                                        <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" style="margin-top:15px;"><i class="fa-remove"></i></a>
-
+                                        
+                                                <a id="remScnt" val="<?= $data->id; ?>" class="btn btn-icon btn-red remScnt" style="margin-top:15px;"><i class="fa-remove"></i></a>
+                                        
                                         <div style="clear:both"></div>
                                 </span>
                                 <hr style="border-top: 1px solid #979898 !important;">
@@ -157,7 +157,7 @@ use kartik\select2\Select2;
 
                                         <?= Html::dropDownList('addhospital[hospital_name][]', null, ArrayHelper::map($hospital_name, 'id', 'sub_category'), ['class' => 'form-control hospital', 'prompt' => '--Select--', 'id' => 'hospital_4']);
                                         ?>
-                                        <a class="add-option-dropdown add-new" id="hospital_4-1" style="margin-top:0px;"> + Add New</a>
+                                        <a class="add-option-dropdown add-new" id="hospital_4-1" style="margin-top:0px;"> <div class="div-add-new">+ Add New </div></a>
                                 </div>
 
                         </div>
@@ -165,7 +165,7 @@ use kartik\select2\Select2;
                                 <div class="form-group field-patientenquiryhospitaldetails-consultant_doctor">
                                         <label class="control-label" for="">Consultant Doctor</label>
                                         <select name="addhospital[consultant_doctor][]" class="form-control doctor" id="doctor_4"></select>
-                                        <a class="add-option-dropdown add-new" id="doctor_4-9" style="margin-top:0px;"> + Add New</a>
+                                        <a class="add-option-dropdown add-new" id="doctor_4-9" style="margin-top:0px;"><div class="div-add-new"> + Add New </div></a>
 
                                 </div>
                         </div>
@@ -263,7 +263,7 @@ use kartik\select2\Select2;
                         <?= Html::submitButton($patient_hospital_second->isNewRecord ? 'Create' : 'Update', ['class' => $patient_hospital_second->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;', 'id' => 'form_button', 'name' => 'update_button']) ?>
                         <?php if (!$patient_info->isNewRecord && $patient_info->status != 3) { ?>
                                 <?= Html::submitButton('Proceed to Patient', ['class' => 'btn btn-primary', 'style' => 'margin-top: 18px;height: 36px; width: auto;', 'name' => 'patinet_info']) ?>
-                                <?php
+                        <?php
                         }
                 }
                 ?>

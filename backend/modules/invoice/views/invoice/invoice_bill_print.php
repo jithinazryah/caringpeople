@@ -34,10 +34,13 @@ and open the template in the editor.
                                                                 <img src="<?= Yii::$app->homeUrl ?>images/logos/logo-1.png" height="100"/>
                                                         </div>
                                                         <div style="">
+                                                        <?php
+                                                        $branch = Branch::findOne($model->branch_id);
+                                                        ?>
                                                                 <table style="width:100%">
-                                                                        <tr><td  class="company_address">Door No.5, DD Vyapar Bhavan, K.P Vallon Road, Kavandthra Jn</td></tr>
-                                                                        <tr><td class="company_address">Kochi-20 | Tel:0484 4033505</td></tr>
-                                                                        <tr><td class="company_address">www.caringpeople.in , Email :info@caringpeople.in , Helpline No: 90 20 599 599</td></tr>
+                                                                        <tr>
+                                                                                <td class="company_address" style="text-align:center"> <?= $branch->address ?></td>
+                                                                        </tr>
                                                                 </table>
                                                         </div>
                                                 </div>
@@ -270,7 +273,8 @@ and open the template in the editor.
                 <?php
                 $branch = Branch::findOne($model->branch_id);
                 ?>
-                <tr class="bank-details">
+
+                 <tr class="bank-details">
                         <td style="width:222px;">Account Holder</td>
                         <td style="width:200px;"><?php
                                 if (isset($branch->account_holder)) {
@@ -278,8 +282,8 @@ and open the template in the editor.
                                 }
                                 ?></td>
                 </tr>
-                <tr class="bank-details">
 
+                <tr class="bank-details">
                         <td style="width:222px;">Bank</td>
                         <td style="width:200px;"><?php
                                 if (isset($branch->bank_name)) {
@@ -316,15 +320,13 @@ and open the template in the editor.
 
         </table>
 
-        <table class="main-tabl">
+<table class="main-tabl">
                 <tr>
                         <td>
                                 <p class="message" style="font-size:10px;font-style: italic">**This is a computer generated copy stamp or seal is not required.<p>
                         </td>
                 </tr>
         </table>
-
-
 
 
 

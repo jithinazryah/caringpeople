@@ -84,7 +84,7 @@ use kartik\date\DatePicker;
                                         <?php $relations = \common\models\MasterRelationships::find()->where(['status' => 1])->all(); ?>
                                         <?= Html::dropDownList('createfamily[relationship][]', null, ArrayHelper::map($relations, 'id', 'title'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'family_relationships_1']);
                                         ?>
-                                        <div class="div-add-new"><a class="add-option-dropdown add-new" id="family_relationships_1-10" style="margin-top:0px;"> + Add New</a></div>
+                                        <a class="add-option-dropdown add-new" id="family_relationships_1-10" style="margin-top:0px;"> <div class="div-add-new">+ Add New</div></a>
 
                                 </div>
                         </div>

@@ -62,7 +62,8 @@ use yii\helpers\ArrayHelper;
                         <a class="add-option-dropdown add-new" id="contactsubcategory-99" style="visibility: hidden;"> + Add New</a>
 
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($model, 'references')->dropDownList(['' => '--Select--', '0' => 'Internet', '1' => 'Care and care', '2' => 'Guardian Angel', '3' => 'Caremark', '4' => 'Cancure', '6' => 'Dont Know', '5' => 'Other']) ?>
+                        <?= $form->field($model, 'references')->dropDownList(['' => '--Select--', '0' => 'Internet', '1' => 'Care and care', '2' => 'Guardian Angel', '3' => 'Caremark', '4' => 'Cancure', '6' => 'Dont Know', '5' => 'Other'], ['id' => 'referral_source']) ?>
+                        <div class="div-add-new" style="margin-top: -20px;"><a class="add-option-dropdown add-new" id="referral_source-11" style="margin-top:0px;"> + Add New</a></div>
 
                 </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'remarks')->textarea(['rows' => 6]) ?>
 
@@ -76,3 +77,15 @@ use yii\helpers\ArrayHelper;
         <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+        $(document).ready(function () {
+                $("#referral_source").select2({
+                        //   placeholder: 'Select',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+        });
+</script>

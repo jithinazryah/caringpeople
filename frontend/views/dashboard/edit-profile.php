@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model common\models\AdminPosts */
 Pjax::begin();
-$this->title = 'Edit Profile';
+$this->title = 'Profile';
 $this->params['breadcrumbs'][] = ['label' => 'Admin Posts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

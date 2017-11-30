@@ -16,7 +16,8 @@ use common\models\Service;
  */
 class StaffPayrollController extends Controller {
 
-        public function beforeAction($action) {
+
+                public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }

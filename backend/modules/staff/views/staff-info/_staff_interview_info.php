@@ -14,7 +14,7 @@ use common\models\StaffExperienceList;
 <div class="staff-other-info-form form-inline">
 
 
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'police_station_name')->textInput(['maxlength' => true]) ?>
+        <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'police_station_name')->textInput(['maxlength' => true]) ?>
 
         </div><div class='col-md-3 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_second, 'verified_name_1')->textInput(['maxlength' => true]) ?>
 
@@ -36,7 +36,7 @@ use common\models\StaffExperienceList;
         }
         ?>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?php $exp = StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->orderBy(['title' => SORT_ASC])->all(); ?>  <?= $form->field($staffinfo, 'staff_experience')->dropDownList(ArrayHelper::map($exp, 'id', 'title'), ['class' => 'form-control', 'multiple' => 'multiple', 'id' => 'staff_skillss']) ?>
-                <a class="add-option-dropdown add-new" id="staff_skillss-4" type="<?= $type ?>"> + Add New</a>
+                <a class="add-option-dropdown add-new" id="staff_skillss-4" type="<?= $type ?>"> <div class="div-add-new">+ Add New </div></a>
         </div>
         <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($staff_interview_first, 'mentioned_per_day_salary')->textInput(['maxlength' => true]) ?>
 
@@ -288,7 +288,7 @@ use common\models\StaffExperienceList;
                                         <?php $relations = \common\models\MasterRelationships::find()->where(['status' => 1])->all(); ?>
                                         <?= Html::dropDownList('createfamily[relationship][]', null, ArrayHelper::map($relations, 'id', 'title'), ['class' => 'form-control', 'prompt' => '--Select--', 'id' => 'family_relationships_1']);
                                         ?>
-                                        <a class="add-option-dropdown add-new" id="family_relationships_1-10" style="margin-top:0px;"> + Add New</a>
+                                        <a class="add-option-dropdown add-new" id="family_relationships_1-10" style="margin-top:0px;"><div class="div-add-new"> + Add New </div></a>
                                 </div>
                         </div>
 

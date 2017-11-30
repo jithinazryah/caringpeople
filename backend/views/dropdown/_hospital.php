@@ -28,10 +28,10 @@ $form = ActiveForm::begin(['id' => 'submit-add-form']);
                         <div class='col-md-4 col-sm-6 col-xs-12 left_padd' style="display:none">    <?= $form->field($model, 'category_id')->textInput(['maxlength' => true])->label(FALSE) ?>
 
                         </div>
-                        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'  style="margin-left: 20px;">
-                                <label class="control-label" for="uploadcategory-sub_category">Hospital</label>
+                        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'  style="margin-left: 20px;">  
+<label class="control-label" for="uploadcategory-sub_category">Hospital</label>
 
-                                <?= $form->field($model, 'sub_category')->textInput(['maxlength' => true])->label(FALSE) ?>
+  <?= $form->field($model, 'sub_category')->textInput(['maxlength' => true])->label(FALSE) ?>
 
                         </div>
                         <input type="hidden" name="type" id="type" value="<?= $type; ?>">

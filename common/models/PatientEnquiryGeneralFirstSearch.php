@@ -104,10 +104,10 @@ class PatientEnquiryGeneralFirstSearch extends PatientEnquiryGeneralFirst {
                         ->andFilterWhere(['like', 'patient_enquiry_hospital_first.patient_gender', $this->patient_gender])
                         ->andFilterWhere(['like', 'patient_enquiry_hospital_first.patient_age', $this->patient_age])
                         ->andFilterWhere(['like', 'patient_enquiry_hospital_first.person_city', $this->patient_city])
-//                        ->andFilterWhere(['>=', 'contacted_date', $params['PatientEnquiryGeneralFirst']['contactedFrom']])
-//                        ->andFilterWhere(['<=', 'contacted_date', $params['PatientEnquiryGeneralFirst']['contactedTo']])
-//                        ->andFilterWhere(['>=', 'outgoing_call_date', $params['PatientEnquiryGeneralFirst']['outgoingFrom']])
-//                        ->andFilterWhere(['<=', 'outgoing_call_date', $params['PatientEnquiryGeneralFirst']['outgoingTo']])
+                        ->andFilterWhere(['>=', 'contacted_date', $params['PatientEnquiryGeneralFirst']['contactedFrom']])
+                        ->andFilterWhere(['<=', 'contacted_date', $params['PatientEnquiryGeneralFirst']['contactedTo']])
+                        ->andFilterWhere(['>=', 'outgoing_call_date', $params['PatientEnquiryGeneralFirst']['outgoingFrom']])
+                        ->andFilterWhere(['<=', 'outgoing_call_date', $params['PatientEnquiryGeneralFirst']['outgoingTo']])
                         ->andFilterWhere(['like', 'mobile_number_3', $this->mobile_number_3]);
 
 

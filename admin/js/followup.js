@@ -1,4 +1,3 @@
-
 /*
  * Created by   :- Sabitha
  * Created date :- 04-04-2017
@@ -55,6 +54,7 @@ $("document").ready(function () {
                         data: formData,
                         async: false,
                         success: function (data) {
+
                                 if (data != 0) {
                                         var rowCount = $('.followups-table table tr').length;
                                         var count = rowCount - 1;
@@ -70,7 +70,7 @@ $("document").ready(function () {
                                                                   <td>Active</td>\n\
                                                                   <td><input type="checkbox" class="iswitch iswitch-secondary followup-status" id="' + res.id + '"></td></tr>');
 
-                                } else {
+                                }else {
                                         alert('Followup added successfully');
                                 }
                                 $('#add-followup')[0].reset();
@@ -226,7 +226,6 @@ $("document").ready(function () {
                 $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
         });
         $(document).on('change', '.create-assignedto', function () {
-                alert();
                 var str = $("#" + $(this).attr('id') + " option:selected").text();
                 if (str.indexOf('Patient') > -1)
                 {
@@ -236,7 +235,7 @@ $("document").ready(function () {
                 }
         });
 
-        $('#create-assigned_to').change(function () {
+       $('#create-assigned_to').change(function () {
                 var assigned_to = $(this).val();
                 var date = $('#Followup_date').val();
                 $.ajax({
@@ -252,4 +251,6 @@ $("document").ready(function () {
                         }
                 });
         });
+
+
 });

@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
  */
 class DoctorsController extends Controller {
 
-        public function beforeAction($action) {
+ public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }
@@ -24,6 +24,7 @@ class DoctorsController extends Controller {
                 }
                 return true;
         }
+
 
         /**
          * @inheritdoc

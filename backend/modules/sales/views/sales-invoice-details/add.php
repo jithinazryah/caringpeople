@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="panel-body">
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Invoice</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                <?php if (isset($id) && $id != '') { ?>
+                                  <?php if (isset($id) && $id != '') { ?>
                                         <?= Html::a('<i class="fa-th-list"></i><span> Manage Services</span>', ['/services/service/index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <?php } ?>
                                 <div class="modal fade" id="modal-6">
@@ -68,12 +68,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                                                                 <?php
-                                                                if (Yii::$app->user->identity->branch_id != '0') {
-                                                                        $partner_datas = \common\models\Service::find()->where(['<>', 'status', 2])->andWhere(['branch_id' => Yii::$app->user->identity->branch_id])->all();
+                                                                 if (Yii::$app->user->identity->branch_id != '0') {
+                                                                        $partner_datas = \common\models\Service::find()->where(['branch_id' => Yii::$app->user->identity->branch_id])->andWhere(['<>', 'status', 2])->all();
                                                                 } else {
                                                                         $partner_datas = \common\models\Service::find()->where(['<>', 'status', 2])->all();
                                                                 }
-                                                                if (isset($id) && $id != '')
+                                                                  if (isset($id) && $id != '')
                                                                         $model_sales_master->busines_partner_code = $id;
                                                                 ?>
 
