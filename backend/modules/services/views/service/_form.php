@@ -166,7 +166,7 @@ use yii\db\Expression;
 
 
                         <div class='col-md-2 col-sm-6 col-xs-12 left_padd' >
-                                <?= $form->field($model, 'status')->dropDownList(['1' => 'Opened', '2' => 'Closed', '3' => 'Advanced','4'=>'Pending']) ?>
+                                <?= $form->field($model, 'status')->dropDownList(['1' => 'Opened', '2' => 'Closed', '3' => 'Advanced', '4' => 'Pending']) ?>
 
                         </div>
 
@@ -426,13 +426,13 @@ use yii\db\Expression;
 
 
                                                 <td class = "labell">Status</td><td class = "value"><span class="service-status-text"><?php
-                                                                 if ($model->status == 2) {
+                                                                if ($model->status == 2) {
                                                                         echo 'Closed';
-                                                                } else if ($model->status == 1){
+                                                                } else if ($model->status == 1) {
                                                                         echo 'Opened';
-                                                                }else if ($model->status == 3){
+                                                                } else if ($model->status == 3) {
                                                                         echo 'Advanced';
-                                                                }else if ($model->status == 4){
+                                                                } else if ($model->status == 4) {
                                                                         echo 'Pending';
                                                                 }
                                                                 ?>  </span></td>
@@ -486,7 +486,7 @@ use yii\db\Expression;
                                         </div>
                                 </div>
 
-                     
+
                         <?php }
                         ?>
                 </div>

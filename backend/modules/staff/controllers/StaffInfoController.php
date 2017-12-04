@@ -28,7 +28,6 @@ use yii\db\Expression;
  */
 class StaffInfoController extends Controller {
 
-
         public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
@@ -60,11 +59,27 @@ class StaffInfoController extends Controller {
          * @return mixed
          */
         public function actionIndex() {
- 
+
+
+                $check_exists = explode('?', Yii::$app->request->url);
+                if (empty($check_exists[1]))
+                        Yii::$app->session->remove('new_size');
+
+                if (isset($_POST['size'])) {
+                        $pagesize = $_POST['size'];
+                        \Yii::$app->session->set('new_size', $pagesize);
+                } else {
+                        $pagesize = Yii::$app->session->get('new_size');
+                        if (!isset($pagesize))
+                                $pagesize = 50;
+                }
+
                 $searchModel = new StaffInfoSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->pagination = ['pagesize' => 50];
+                $dataProvider->pagination->pageSize = $pagesize;
 
-                $dataProvider->query->andWhere(['<>','id',3000]);
+                $dataProvider->query->andWhere(['<>', 'id', 3000]);
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
@@ -73,16 +88,21 @@ class StaffInfoController extends Controller {
                 } else {
                         $dataProvider->query->andWhere(['status' => 1]);
                 }
-             
-                $dataProvider->pagination = ['pagesize' => 50];
+
+
+
+
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
+                            'pagesize' => $pagesize,
                 ]);
         }
 
         public function actionChoose($branch = null, $gender = null, $service = null, $type = null, $schedule = null, $replace = null) {
                 $searchModel = new StaffInfoSearch();
+//                var_dump(Yii::$app->request->queryParams);
+//                exit;
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['branch_id' => $branch]);
                 $dataProvider->query->andWhere(['post_id' => 5]);
@@ -321,8 +341,7 @@ class StaffInfoController extends Controller {
                 ]);
         }
 
-
-      public function AutoNumber($model) {
+        public function AutoNumber($model) {
                 if ($model->branch_id == 1) {
                         $val = \common\models\Settings::findOne(3);
                 } else {
@@ -494,13 +513,13 @@ class StaffInfoController extends Controller {
 
                         foreach ($arrfu as $key => $value) {
                                 $add_family = \common\models\StaffEnquiryFamilyDetails::findOne($key);
-                                  if (!empty($add_family)) {
-                                $add_family->name = $value['name'];
-                                $add_family->relationship = $value['relationship'];
-                                $add_family->job = $value['job'];
-                                $add_family->mobile_no = $value['mobile_no'];
-                                $add_family->update();
-                               }
+                                if (!empty($add_family)) {
+                                        $add_family->name = $value['name'];
+                                        $add_family->relationship = $value['relationship'];
+                                        $add_family->job = $value['job'];
+                                        $add_family->mobile_no = $value['mobile_no'];
+                                        $add_family->update();
+                                }
                         }
                 }
 
@@ -772,15 +791,15 @@ class StaffInfoController extends Controller {
 
                         foreach ($arr as $key => $value) {
                                 $add_previous = StaffPerviousEmployer::findOne($key);
-                               if (!empty($add_previous)) {
-                                $add_previous->hospital_address = $value['hospitaladdress'];
-                                $add_previous->designation = $value['designation'];
-                                $add_previous->length_of_service = $value['length'];
-                                $add_previous->service_from = date('Y-m-d', strtotime($value['from']));
-                                $add_previous->service_to = date('Y-m-d', strtotime($value['to']));
-                                $add_previous->salary = $value['salary'];
-                                $add_previous->update();
-                               }
+                                if (!empty($add_previous)) {
+                                        $add_previous->hospital_address = $value['hospitaladdress'];
+                                        $add_previous->designation = $value['designation'];
+                                        $add_previous->length_of_service = $value['length'];
+                                        $add_previous->service_from = date('Y-m-d', strtotime($value['from']));
+                                        $add_previous->service_to = date('Y-m-d', strtotime($value['to']));
+                                        $add_previous->salary = $value['salary'];
+                                        $add_previous->update();
+                                }
                         }
                 }
 
@@ -932,7 +951,7 @@ class StaffInfoController extends Controller {
                 }
         }
 
-   public function actionLeave($id) {
+        public function actionLeave($id) {
                 $staff_previous_leaves = \common\models\StaffLeave::find()->where(['status' => 2, 'employee_id' => $id])->andWhere(['<=', 'commencing_date', date('Y-m-d')])->all();
                 $upcoming_leaves = \common\models\StaffLeave::find()->where(['employee_id' => $id])->andWhere(['>=', 'commencing_date', date('Y-m-d')])->all();
                 $today = \common\models\StaffLeave::find()->where(['status' => 2, 'employee_id' => $id])->andWhere(['=', 'commencing_date', date('Y-m-d')])->exists();
@@ -943,7 +962,5 @@ class StaffInfoController extends Controller {
                             'staff' => $id,
                 ]);
         }
-
-
 
 }

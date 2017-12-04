@@ -28,7 +28,7 @@ use common\models\StaffInfo;
 
         </div>
 
-        
+
 
         <div class="table-responsive">
 
@@ -40,7 +40,7 @@ use common\models\StaffInfo;
                                         <th>Date</th>
                                         <th>Staff on duty</th>
 
-                                        <th>Remarks from patient</th>
+
                                         <th>Staff Rating</th>
                                         <th>Status</th>
                                         <th style="width:1px;"></th>
@@ -75,8 +75,8 @@ use common\models\StaffInfo;
                                         ?>
                                         <tr  id="<?= $value->id; ?>" style="text-align:center;<?= $event ?>" class="<?= $class; ?>">
                                                 <td><?= $p; ?></td>
-                                                 
-                                                 <?php if ($model->duty_type == 5 && $model->day_night_staff == 2) { ?>
+
+                                                <?php if ($model->duty_type == 5 && $model->day_night_staff == 2) { ?>
                                                         <td><span>
                                                                         <?php
                                                                         if ($value->day_night == 1) {
@@ -136,16 +136,7 @@ use common\models\StaffInfo;
                                                 </td>
 
 
-                                                <td>
 
-                                                        <textarea class="form-control schedule-update <?= $class ?>" name="remarks_from_patient" id="remarks_from_patient-<?= $value->id; ?>">
-                                                                <?php
-                                                                if (isset($value->remarks_from_patient) && $value->remarks_from_patient != '') {
-                                                                        echo $value->remarks_from_patient;
-                                                                }
-                                                                ?>
-                                                        </textarea>
-                                                </td>
 
                                                 <td>
                                                         <select class="form-control schedule-rating <?= $class ?>" id="<?= $value->id; ?>">
@@ -232,7 +223,196 @@ use common\models\StaffInfo;
                                                 </td>
 
                                         </tr>
-                                <?php } ?>
+                                        <?php
+                                }
+
+                                foreach ($extra_schedule as $extra) {
+                                        $p++;
+                                        $class2 = '';
+                                        $class3 = '';
+                                        $event1 = '';
+
+
+
+                                        if (isset($extra->status) && $extra->status != 1) {
+                                                if (Yii::$app->user->identity->post_id == '1') {
+                                                        $class2 = 'completed-admin';
+                                                } else {
+                                                        $class2 = 'completed';
+                                                        $class3 = 'hide-class';
+                                                }
+                                        } else {
+                                                $class2 = 'extra-added-schedules';
+                                        }
+
+                                        if ($model->status == 2) {
+                                                $event1 = 'pointer-events:none !important';
+                                        }
+                                        ?>
+
+                                        <tr  id="<?= $extra->id; ?>" style="text-align:center;<?= $event1 ?>background-color: #f5efb5;" class="<?= $class2; ?>">
+                                                <td><span style="visibility:hidden"><?= $p ?></span></td>
+
+                                                <?php if ($model->duty_type == 5 && $model->day_night_staff == 2) {
+                                                        ?>
+                                                        <td><span>
+                                                                        <?php
+                                                                        if ($extra->day_night == 1) {
+                                                                                echo '<span> Day </span>';
+                                                                        } else if ($extra->day_night == 2) {
+                                                                                echo 'Night';
+                                                                        }
+                                                                        ?>
+                                                                </span> </td>
+                                                <?php } ?>
+
+                                                <td><?php
+                                                        if (isset($extra->date) && $extra->date != '' && $extra->date != '1970-01-01') {
+                                                                $date = date('d-m-Y', strtotime($extra->date));
+                                                                //$date = date('Y/m/d', strtotime($value->date));
+                                                        } else {
+                                                                $date = '';
+                                                        }
+                                                        echo DatePicker::widget([
+                                                            'name' => 'date',
+                                                            'id' => 'schedule_date-' . $extra->id,
+                                                            'type' => DatePicker::TYPE_INPUT,
+                                                            'value' => $date,
+                                                            'pluginOptions' => [
+                                                                'autoclose' => true,
+                                                                'format' => 'dd-mm-yyyy',
+                                                            ],
+                                                            'options' => [
+                                                                'class' => 'schedule-update-date ' . $class2 . '',
+                                                            ]
+                                                        ]);
+                                                        ?>
+                                                </td>
+                                                <td>
+                                                        <?php
+                                                        if (isset($extra->staff)) {
+                                                                $staff = StaffInfo::findOne($extra->staff);
+                                                                $staff_on_duty = $staff->staff_name;
+                                                        } else {
+                                                                $staff_on_duty = '';
+                                                        }
+                                                        if (isset($extra->status) && $extra->status != '') {
+                                                                if ($extra->status == 2) {
+                                                                        $stat = 1;
+                                                                } else {
+                                                                        $stat = 0;
+                                                                }
+                                                        } else {
+                                                                $stat = 0;
+                                                        }
+                                                        ?>
+
+                                                        <input type="text" val='<?= $extra->staff ?>' value="<?= $staff_on_duty; ?>" name="staff_on_duty" class="form-control staff_duty_<?= $extra->service_id; ?>_<?= $stat ?>  <?= $class2 ?>" id="staff_on_duty_<?= $extra->id ?>" readonly="true">
+                                                        <?php if ($staff_on_duty != '') { ?>  <a id="<?= $extra->id ?>" title="Remove Staff" style="cursor:pointer" class="remove-staff"><i class="fa fa-times absent" aria-hidden="true" style="color:red"></i></a> <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $extra->id; ?>&&replace=1" id="<?= $extra->id; ?>" type="1"  class="staff-allotment <?= $class3 ?>">Replace staff</a><?php } else { ?>
+                                                                <a target="_blank"  href="<?= Yii::$app->homeUrl ?>/staff/staff-info/choose?branch=<?= $model->branch_id; ?>&&gender=<?= $model->gender_preference; ?>&&service=<?= $model->id; ?>&&type=2&&schedule=<?= $extra->id; ?>&&replace=0" id="<?= $extra->id; ?>" type="2" class="staff-allotment">Add staff</a>
+                                                        <?php } ?>
+                                                </td>
+
+
+                                                <td>
+
+                                                        <textarea class="form-control schedule-update <?= $class2 ?>" name="remarks_from_patient" id="remarks_from_patient-<?= $extra->id; ?>">
+                                                                <?php
+                                                                if (isset($extra->remarks_from_patient) && $extra->remarks_from_patient != '') {
+                                                                        echo $extra->remarks_from_patient;
+                                                                }
+                                                                ?>
+                                                        </textarea>
+                                                </td>
+
+                                                <td>
+                                                        <select class="form-control schedule-rating <?= $class2 ?>" id="<?= $extra->id; ?>">
+                                                                <option value="">-Select Rating-</option>
+                                                                <option value="9" <?php
+                                                                if ($extra->rating == '9') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Excellent</option>
+                                                                <option value="8" <?php
+                                                                if ($extra->rating == '8') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Very Good</option>
+                                                                <option value="7" <?php
+                                                                if ($extra->rating == '7') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Satisfactory</option>
+                                                                <option value="6" <?php
+                                                                if ($extra->rating == '6') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Good</option>
+                                                                <option value="5" <?php
+                                                                if ($extra->rating == '5') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Average</option>
+                                                                <option value="4" <?php
+                                                                if ($extra->rating == '4') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Unsatisfactory</option>
+                                                                <option value="3" <?php
+                                                                if ($extra->rating == '3') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Bad</option>
+                                                                <option value="2" <?php
+                                                                if ($extra->rating == '2') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Very Bad</option>
+                                                                <option value="1" <?php
+                                                                if ($extra->rating == '1') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Very Poor</option>
+                                                        </select>
+                                                </td>
+
+                                                <td>
+                                                        <select name="status" id="status_<?= $extra->id; ?>" class="form-control schedule-update status-update <?= $class2 ?>">
+
+                                                                <option value="1" <?php
+                                                                if ($extra->status == '1') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Pending</option>
+
+                                                                <option value="2" <?php
+                                                                if ($extra->status == '2') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Completed</option>
+                                                                <option value="3" <?php
+                                                                if ($extra->status == '3') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Interrupted</option>
+                                                                <option value="4" <?php
+                                                                if ($extra->status == '4') {
+                                                                        echo 'selected';
+                                                                }
+                                                                ?>>Cancelled</option>
+                                                        </select>
+                                                </td>
+
+                                                <td>
+                                                        <?php if (isset($extra->status) && $extra->status != 1) { ?>
+                                                                <a title="View Schedule Details" class="view_schedule" id="<?= $extra->id ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                        <?php } ?>
+                                                </td>
+
+                                        </tr>
+
+                                <?php }
+                                ?>
                         </tbody>
                 </table>
         </div>
@@ -326,6 +506,8 @@ use common\models\StaffInfo;
                 top: -30px;
                 right: 10px;
                 position: relative;
+        }.extra-added-schedules{
+                background-color: #f5efb5 !important;
         }
 
 </style>

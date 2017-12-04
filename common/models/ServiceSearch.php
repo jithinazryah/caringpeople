@@ -24,7 +24,7 @@ class ServiceSearch extends Service {
         public function rules() {
                 return [
                         [['id', 'patient_id', 'service', 'staff_manager', 'status', 'branch_id', 'CB', 'UB'], 'integer'],
-                        [['from_date', 'to_date', 'estimated_price', 'service_id', 'DOC', 'DOU', 'duty_type', 'pending_schedules', 'days', 'due_amount', 'compare', 'compareOp'], 'safe'],
+                        [['from_date', 'to_date', 'estimated_price', 'service_id', 'DOC', 'DOU', 'duty_type', 'pending_schedules', 'days', 'due_amount', 'compare', 'compareOp', 'proforma_sent'], 'safe'],
                         [['staffName'], 'safe']
                 ];
         }
@@ -95,6 +95,7 @@ class ServiceSearch extends Service {
                 $query->andFilterWhere(['like', 'estimated_price', $this->estimated_price])
                         ->andFilterWhere([$operator, 'due_amount', $val])
                         ->andFilterWhere(['like', 'days', $this->days])
+                        ->andFilterWhere(['like', 'proforma_sent', $this->proforma_sent])
                         ->andFilterWhere(['like', 'service_id', $this->service_id]);
 
                 return $dataProvider;

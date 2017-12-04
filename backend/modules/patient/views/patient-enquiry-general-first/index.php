@@ -61,6 +61,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> New Enquiry </span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
 
+
+                                        <div style="float: right">
+                                                <?php
+                                                $_SESSION['page_size'] = $pagesize;
+                                                ?>
+                                                <?= Html::beginForm() ?>
+
+                                                <label style="float: left">Show
+                                                        <?= Html::dropDownList('size', $pagesize, ['20' => '20', '50' => '50', '100' => '100'], ['class' => 'page-size-dropdwn', 'id' => 'size']); ?>
+                                                        Entries
+                                                </label>
+                                                <input type="hidden" name="page-hidden" value="<?= $pagesize ?>">
+
+                                                <?= Html::endForm() ?>
+
+                                        </div>
+
                                         <?php
                                         $gridColumns = [
                                                 ['class' => 'yii\grid\SerialColumn'],

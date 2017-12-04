@@ -16,6 +16,9 @@ use yii\helpers\ArrayHelper;
 
         <div class="modal-body">
                 <div class="row clearfix">
+
+
+
                         <form id="schedule-daily-rate" >
 
                                 <input type="hidden" name="scheduleid" id="scheduleid" value="<?= $schedule_id ?>">
@@ -24,6 +27,59 @@ use yii\helpers\ArrayHelper;
                                 $service_schedule = common\models\ServiceSchedule::findOne($schedule_id);
                                 $service = common\models\Service::findOne($service_schedule->service_id);
                                 ?>
+                                <div class="row" style="margin-left: 0px;">
+                                        <div class="col-md-6">
+                                                <?php
+                                                $dddate = '';
+                                                if (!empty($service_schedule)) {
+                                                        $dddate = date('d-m-Y', strtotime($service_schedule->date));
+                                                }
+                                                ?>
+                                                <label>Schedule Date :</label>  <?= $dddate; ?>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                                <?php
+                                                $service_id = '';
+                                                if (!empty($service)) {
+                                                        $service_id = $service->service_id;
+                                                }
+                                                ?>
+                                                <label>Service :</label>  <?= $service_id; ?>
+                                        </div>
+
+
+
+                                </div>
+
+                                <div class="row" style="margin-left: 0px;">
+
+
+                                        <div class="col-md-6">
+                                                <?php
+                                                $patient = common\models\PatientGeneral::findOne($service_schedule->patient_id);
+                                                $patient_id = '';
+                                                if (!empty($patient)) {
+                                                        $patient_id = $patient->first_name;
+                                                }
+                                                ?>
+                                                <label>Patient :</label>  <?= $patient_id; ?>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                                <?php
+                                                $staff_detail = common\models\StaffInfo::findOne($service_schedule->staff);
+                                                $staff = '';
+                                                if (!empty($staff_detail)) {
+                                                        $staff = $staff_detail->staff_name;
+                                                }
+                                                ?>
+                                                <label>Staff :</label>  <?= $staff; ?>
+                                        </div>
+
+                                </div>
+
+
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
                                                 <div class="col-md-4">
@@ -42,35 +98,56 @@ use yii\helpers\ArrayHelper;
                                                                 echo $schedule->remarks_from_staff;
                                                         } else {
                                                                 ?>
-                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
-                                                                                                                                                                                                                                                                <br><br>
-                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Medication Advice </h3>
-                                                                                                                                                                                                                                                                <br><br>
-                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Lab test advice  </h3>
-                                                                                                                                                                                                                                                                <br><br>
-                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Prescription   </h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
                                                         <?php } ?>
                                                 </textarea>
                                         </div>
                                 </div>
 
                                 <div class="row">
-                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="col-md-4">
+                                                        <label>Remarks from Patient :</label>
+                                                </div>
+
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="col-md-4">
                                                         <label>Remarks from Manager :</label>
                                                 </div>
 
                                         </div>
                                 </div>
+
                                 <div class="row">
-                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+
+                                                <textarea  class="fields" name="remarks_patient" id="remarks_patient"><?php
+                                                        if (Yii::$app->user->identity->post_id == '1') {
+                                                                echo $schedule->remarks_from_patient;
+                                                        }
+                                                        ?></textarea>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <textarea  class="fields" name="remarks_manager" id="page_body"><?php
                                                         if (Yii::$app->user->identity->post_id == '1') {
                                                                 echo $schedule->remarks_from_manager;
                                                         }
                                                         ?></textarea>
                                         </div>
+
+
                                 </div>
+
+
+
+
+
+
 
                                 <div class="row">
                                         <div class="col-md-12 col-sm-6 col-xs-12">
@@ -202,6 +279,11 @@ use yii\helpers\ArrayHelper;
 
                 });
         CKEDITOR.replace('page_body',
+                {
+                        toolbar: 'Basic', /* this does the magic */
+                        height: '100px',
+                });
+        CKEDITOR.replace('remarks_patient',
                 {
                         toolbar: 'Basic', /* this does the magic */
                         height: '100px',

@@ -17,7 +17,6 @@ use kartik\mpdf\Pdf;
  */
 class InvoiceController extends Controller {
 
-
         public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
@@ -47,14 +46,28 @@ class InvoiceController extends Controller {
          * Lists all Invoice models.
          * @return mixed
          */
-         public function actionIndex($id = null) {
+        public function actionIndex($id = null) {
+
+                $check_exists = explode('?', Yii::$app->request->url);
+                if (empty($check_exists[1]))
+                        Yii::$app->session->remove('new_size');
+
+                if (isset($_POST['size'])) {
+                        $pagesize = $_POST['size'];
+                        \Yii::$app->session->set('new_size', $pagesize);
+                } else {
+                        $pagesize = Yii::$app->session->get('new_size');
+                }
+
                 $searchModel = new InvoiceSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->pagination->pageSize = $pagesize;
+
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
 
-              if (!empty($id)) {
+                if (!empty($id)) {
                         $dataProvider->query->andWhere(['service_id' => $id]);
                 }
                 if (!empty(Yii::$app->request->queryParams['InvoiceSearch']['status'])) {
@@ -66,6 +79,7 @@ class InvoiceController extends Controller {
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
+                            'pagesize' => $pagesize,
                 ]);
         }
 
@@ -83,8 +97,7 @@ class InvoiceController extends Controller {
                 ]);
         }
 
-
-         public function actionServiceInvoiceView($branch, $patient) {
+        public function actionServiceInvoiceView($branch, $patient) {
                 $model = new Invoice;
                 $model->branch_id = $branch;
                 $model->patient_id = $patient;
@@ -136,8 +149,7 @@ class InvoiceController extends Controller {
                 ]);
         }
 
-
-       public function actionPrint($id = null) {
+        public function actionPrint($id = null) {
                 $model = $this->findModel($id);
                 $pdf = new Pdf([
                     'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
@@ -150,7 +162,7 @@ class InvoiceController extends Controller {
                 return $pdf->render();
         }
 
-      public function actionRefund($id = null) {
+        public function actionRefund($id = null) {
                 $refund = $this->findModel($id);
                 $model = new Invoice;
                 $model->attributes = $refund->attributes;
@@ -192,8 +204,6 @@ class InvoiceController extends Controller {
                         ]);
                 }
         }
-
-        
 
         /**
          * Updates an existing Invoice model.
@@ -238,6 +248,29 @@ class InvoiceController extends Controller {
                 } else {
                         throw new NotFoundHttpException('The requested page does not exist.');
                 }
+        }
+
+        public function actionEstimatedProformas() {
+
+                $check_exists = explode('?', Yii::$app->request->url);
+                if (empty($check_exists[1]))
+                        Yii::$app->session->remove('new_size');
+
+                if (isset($_POST['size'])) {
+                        $pagesize = $_POST['size'];
+                        \Yii::$app->session->set('new_size', $pagesize);
+                } else {
+                        $pagesize = Yii::$app->session->get('new_size');
+                }
+
+                $searchModel = new \common\models\ServiceSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->pagination->pageSize = $pagesize;
+                return $this->render('estimated-proformas', [
+                            'searchModel' => $searchModel,
+                            'dataProvider' => $dataProvider,
+                            'pagesize' => $pagesize,
+                ]);
         }
 
 }

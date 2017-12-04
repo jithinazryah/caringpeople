@@ -43,28 +43,28 @@ $designations = \common\models\MasterDesignations::designationlist();
                                         <?php // echo $this->render('_search', ['model' => $searchModel]);   ?>
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> Create Service</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                                       
+
                                         <?= Html::a("<i class='fa fa-book'></i><span>Schedules</span>", ['todayschedules'], ['target' => '_blank', 'class' => 'btn btn-info  btn-icon btn-icon-standalone', 'style' => 'float:right', 'id' => 'previous_schedule']) ?>
-                                       
-
-<div style="float: right">
-                        <?php
-                        $_SESSION['page_size'] = $pagesize;
-                        ?>
-                        <?= Html::beginForm() ?>
-
-                        <label style="float: left">Show
-                            <?= Html::dropDownList('size', $pagesize, ['20' => '20', '50' => '50', '100' => '100'], ['class' => 'page-size-dropdwn', 'id' => 'size']); ?>
-                            Entries
-                        </label>
-                        <input type="hidden" name="page-hidden" value="<?= $pagesize ?>">
-
-                        <?= Html::endForm() ?>
-
-                    </div>
 
 
- <?php
+                                        <div style="float: right">
+                                                <?php
+                                                $_SESSION['page_size'] = $pagesize;
+                                                ?>
+                                                <?= Html::beginForm() ?>
+
+                                                <label style="float: left">Show
+                                                        <?= Html::dropDownList('size', $pagesize, ['20' => '20', '50' => '50', '100' => '100'], ['class' => 'page-size-dropdwn', 'id' => 'size']); ?>
+                                                        Entries
+                                                </label>
+                                                <input type="hidden" name="page-hidden" value="<?= $pagesize ?>">
+
+                                                <?= Html::endForm() ?>
+
+                                        </div>
+
+
+                                        <?php
                                         $gridColumns = [
                                                 ['class' => 'yii\grid\SerialColumn'],
                                             'service_id',
@@ -111,10 +111,11 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                         } else if ($model->status == 3) {
                                                                 return 'Advanced';
                                                         } else if ($model->status == 4) {
-                                    return 'Pending';
-                                }
+                                                                return 'Pending';
+                                                        }
                                                 },
                                                 'filter' => [1 => 'Opened', 2 => 'Closed', 3 => 'Advanced'],
+                                                'filterInputOptions' => ['class' => 'form-control', 'id' => '12', 'prompt' => ''],
                                             ],
                                                 [
                                                 'attribute' => 'due_amount',
@@ -144,8 +145,8 @@ $designations = \common\models\MasterDesignations::designationlist();
                                             [
                                                 'class' => 'yii\grid\ActionColumn',
                                                 'template' => ' {update} {delete} {estimated}  {invoice}', // the default buttons + your custom button
-                                                 'visibleButtons' => [
-                                                     'delete' => function ($model, $key, $index) {
+                                                'visibleButtons' => [
+                                                    'delete' => function ($model, $key, $index) {
                                                             return Yii::$app->user->identity->post_id == '1' ? true : false;
                                                     },
                                                     'estimated' => function ($model, $key, $index) {
@@ -163,7 +164,7 @@ $designations = \common\models\MasterDesignations::designationlist();
                                                                         'target' => '_blank',
                                                             ]);
                                                     },
-                                                       'invoice' => function($url, $model, $key) {     // render your custom button
+                                                    'invoice' => function($url, $model, $key) {     // render your custom button
                                                             return Html::a('<span class="fa fa-inr" style="padding-top: 0px;"></span>', ['/invoice/invoice/service-invoice-view', 'branch' => $model->branch_id, 'patient' => $model->patient_id], [
                                                                         'title' => Yii::t('app', 'Invoices'),
                                                                         'class' => 'actions',
@@ -185,13 +186,13 @@ $designations = \common\models\MasterDesignations::designationlist();
                                             'filterModel' => $searchModel,
                                             'columns' => $gridColumns,
                                             'rowOptions' => function($model) {
-                                                if (Yii::$app->user->identity->post_id == '1') {
-                                                    if ($model->due_amount <= 0) {
-                                                            return ['class' => 'amount_paid'];
-                                                    } else {
-                                                            return ['class' => 'other_amount'];
+                                                    if (Yii::$app->user->identity->post_id == '1') {
+                                                            if ($model->due_amount <= 0) {
+                                                                    return ['class' => 'amount_paid'];
+                                                            } else {
+                                                                    return ['class' => 'other_amount'];
+                                                            }
                                                     }
-                                               }
                                             },
                                         ]);
                                         ?>
@@ -231,10 +232,10 @@ $designations = \common\models\MasterDesignations::designationlist();
                 });
 
                 $('#size').change(function () {
-            //var d = $('#size :selected').val();
-            this.form.submit();
+                        //var d = $('#size :selected').val();
+                        this.form.submit();
 
-        });
+                });
 
         });
 </script>
@@ -245,12 +246,12 @@ $designations = \common\models\MasterDesignations::designationlist();
         }.amount_paid{
                 background-color: #ddefdd !important;
         }.page-size-dropdwn{
-        height: 30px !important;
-        line-height: 30px;
-        font-size: 13px;
-        display: inline-block;
-        padding: 0px 0px 0px 7px;
-    }.other_amount{
+                height: 30px !important;
+                line-height: 30px;
+                font-size: 13px;
+                display: inline-block;
+                padding: 0px 0px 0px 7px;
+        }.other_amount{
                 background-color: #faeae9 !important;
         }
 </style>

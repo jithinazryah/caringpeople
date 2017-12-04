@@ -345,6 +345,19 @@ $("document").ready(function () {
 
         });
 
+        $('#service-sub_service').change(function () {
+                EstimatedPrice();
+
+        });
+
+
+
+        $('#service-duty_type').change(function () {
+                $('#service-days').val('');
+                $('#service-estimated_price').val('');
+
+        });
+
         var duty_type = $('#service-duty_type').val();
         if (duty_type) {
                 $('.service-frequency').show();
@@ -355,7 +368,7 @@ $("document").ready(function () {
 
         }
 
-         $('.service_status').change(function () {
+        $('.service_status').change(function () {
                 var type = $(this).attr('statustype');
                 var service_id = $(this).val();
                 $.ajax({
@@ -381,6 +394,8 @@ $("document").ready(function () {
                                         $('.service-status-text').text('Closed');
                                         $(".service_stat_stop").css({"pointer-events": "none"});
                                         alert('Service closed successfully');
+                                } else if (data == '6') {
+                                        alert('Sorry ! You cannot stop this service');
                                 }
 
                         }
@@ -417,7 +432,7 @@ $("document").ready(function () {
                 });
         });
 
- 
+
 
         /********************************************************  Service  **********************************************/
 
@@ -487,7 +502,7 @@ $("document").ready(function () {
          * change status of schedule
          */
 
-       // $('.status-update').change(function () {
+        // $('.status-update').change(function () {
         $(document).on('change', '.status-update', function (e) {
                 var flag = 0;
                 var flag1 = 0;
@@ -569,13 +584,13 @@ $("document").ready(function () {
                 var staff = $('#choosed_staff').val();
                 var service_id = $('#service_id').val();
                 var schedule_id = $('#schedule_id').val();
-                 var replace_or_new = $('#replace_or_new').val();
+                var replace_or_new = $('#replace_or_new').val();
                 var type = $('#type').val();
                 var day_night_staff_type = $('#select-day-night-staff').val();
                 $.ajax({
                         type: 'POST',
                         url: homeUrl + 'serviceajax/selectedstaff',
-                         data: {staff: staff, service_id: service_id, schedule_id: schedule_id, type: type, replace_or_new: replace_or_new, day_night_staff_type: day_night_staff_type, },
+                        data: {staff: staff, service_id: service_id, schedule_id: schedule_id, type: type, replace_or_new: replace_or_new, day_night_staff_type: day_night_staff_type, },
                         success: function (data) {
 
                                 opener.location.reload();
@@ -638,6 +653,7 @@ $("document").ready(function () {
         });
 
         $(document).on('submit', '#schedule-daily-rate-update', function (e) {
+
                 e.preventDefault();
                 var data = $(this).serialize();
                 $.ajax({
@@ -652,7 +668,7 @@ $("document").ready(function () {
         });
 
 
-         $(document).on('click', '.remarks_Staff', function (e) {
+        $(document).on('click', '.remarks_Staff', function (e) {
                 var schedule_id = $(this).attr('id');
                 $.ajax({
                         type: 'POST',
@@ -679,7 +695,7 @@ $("document").ready(function () {
                 });
         });
 
-         $(document).on('click', '.remove-staff', function (e) {
+        $(document).on('click', '.remove-staff', function (e) {
                 var schedule_id = $(this).attr('id');
                 $.ajax({
                         type: 'POST',
@@ -716,7 +732,7 @@ $("document").ready(function () {
 
 
         /********************************************************  Service Discounts **********************************************/
-       
+
         $('#today_schedule').click(function (e) {
                 $.ajax({
                         url: homeUrl + 'serviceajax/userbranch',
@@ -747,13 +763,13 @@ $("document").ready(function () {
 
         });
 
-      $('#previous_schedule').click(function (e) {
+        $('#previous_schedule').click(function (e) {
                 $('#modal-8').modal('show');
                 e.preventDefault();
         });
 
 
-      $('.schedule_generate').change(function (e) {
+        $('.schedule_generate').change(function (e) {
 
                 var service_id = $(this).val();
                 e.preventDefault();
@@ -762,7 +778,7 @@ $("document").ready(function () {
                         url: homeUrl + 'services/service/confirm-service',
                         data: {service_id: service_id},
                         success: function (data) {
-alert('Confirmed ! Schedule createdd successfully');
+                                alert('Confirmed ! Schedule createdd successfully');
                                 location.reload();
 
                         }
@@ -827,8 +843,6 @@ function EstimatedPrice() {
                         }
                 });
 
-        } else {
-                alert('An error occured');
         }
 }
 

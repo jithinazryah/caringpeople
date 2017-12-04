@@ -15,7 +15,18 @@ use yii\helpers\ArrayHelper;
         <div class="modal-body">
                 <div class="row clearfix">
                         <form id="schedule-daily-rate-update" >
+
                                 <div class="row" style="margin-left: 0px;">
+                                        <div class="col-md-6">
+                                                <?php
+                                                $dddate = '';
+                                                if (!empty($schedule)) {
+                                                        $dddate = date('d-m-Y', strtotime($schedule->date));
+                                                }
+                                                ?>
+                                                <label>Schedule Date :</label>  <?= $dddate; ?>
+                                        </div>
+
                                         <div class="col-md-6">
                                                 <?php
                                                 $service = common\models\Service::findOne($schedule->service_id);
@@ -26,9 +37,61 @@ use yii\helpers\ArrayHelper;
                                                 ?>
                                                 <label>Service :</label>  <?= $service_id; ?>
                                         </div>
+
+
+
+                                </div>
+
+                                <div class="row" style="margin-left: 0px;">
+
+
+                                        <div class="col-md-6">
+                                                <?php
+                                                $patient = common\models\PatientGeneral::findOne($schedule->patient_id);
+                                                $patient_id = '';
+                                                if (!empty($patient)) {
+                                                        $patient_id = $patient->first_name;
+                                                }
+                                                ?>
+                                                <label>Patient :</label>  <?= $patient_id; ?>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                                <?php
+                                                $staff_detail = common\models\StaffInfo::findOne($schedule->staff);
+                                                $staff = '';
+                                                if (!empty($staff_detail)) {
+                                                        $staff = $staff_detail->staff_name;
+                                                }
+                                                ?>
+                                                <label>Staff :</label>  <?= $staff; ?>
+                                        </div>
+
                                 </div>
 
                                 <input type="hidden" name="schedule_id" value="<?= $schedule->id ?>" id="schedule_id">
+
+
+                                <div class="row" style="margin-left: 0px;">
+                                        <div class="col-md-6">
+                                                <label>Remarks from patient : </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <label>Remarks from manager : </label>
+                                        </div>
+                                </div>
+
+
+                                <div class="row" style="margin-left: 0px;">
+                                        <div class="col-md-6">
+                                                <textarea id="page_body2" name="remarks_patient"><?= $schedule->remarks_from_patient; ?></textarea>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                                <textarea id="page_body1" name="remarks_manager"><?= $schedule->remarks_from_manager; ?></textarea>
+                                        </div>
+                                </div>
+
 
                                 <div class="row" style="margin-left: 0px;">
                                         <div class="col-md-12">
@@ -47,13 +110,7 @@ use yii\helpers\ArrayHelper;
                                                                         echo $schedule->remarks_from_staff;
                                                                 } else {
                                                                         ?>
-                <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
-                                                                                        <br><br>
-                                                                                        <h3 style="font-weight:bold!important">Medication Advice </h3>
-                                                                                        <br><br>
-                                                                                        <h3 style="font-weight:bold!important">Lab test advice  </h3>
-                                                                                        <br><br>
-                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
+                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
                                                                         <?php
                                                                 }
                                                         } else {
@@ -64,23 +121,6 @@ use yii\helpers\ArrayHelper;
                                                 </textarea>
                                         </div>
                                 </div>
-
-
-
-
-                                <div class="row" style="margin-left: 0px;">
-                                        <div class="col-md-12">
-                                                <label>Remarks from manager : </label>
-                                        </div>
-                                </div>
-
-
-                                <div class="row" style="margin-left: 0px;">
-                                        <div class="col-md-12">
-                                                <textarea id="page_body1" name="remarks_manager"><?= $schedule->remarks_from_manager; ?></textarea>
-                                        </div>
-                                </div>
-
 
 
                                 <div class="row" style="margin-left: 0px;margin-top:10px;">
@@ -189,6 +229,11 @@ use yii\helpers\ArrayHelper;
                         });
 
                 CKEDITOR.replace('page_body1',
+                        {
+                                toolbar: 'Basic', /* this does the magic */
+                                height: '100px',
+                        });
+                CKEDITOR.replace('page_body2',
                         {
                                 toolbar: 'Basic', /* this does the magic */
                                 height: '100px',

@@ -33,8 +33,21 @@ class LoginHistoryController extends Controller {
          * @return mixed
          */
         public function actionIndex() {
+
+                $check_exists = explode('?', Yii::$app->request->url);
+                if (empty($check_exists[1]))
+                        Yii::$app->session->remove('new_size');
+
+                if (isset($_POST['size'])) {
+                        $pagesize = $_POST['size'];
+                        \Yii::$app->session->set('new_size', $pagesize);
+                } else {
+                        $pagesize = Yii::$app->session->get('new_size');
+                }
+
                 $searchModel = new LoginHistorySearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->pagination->pageSize = $pagesize;
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
@@ -42,6 +55,7 @@ class LoginHistoryController extends Controller {
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
+                            'pagesize' => $pagesize,
                 ]);
         }
 

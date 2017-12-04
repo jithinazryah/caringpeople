@@ -41,9 +41,9 @@ class ContactDirectory extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['category_type', 'subcategory_type', 'field_1', 'field_2', 'CB', 'UB'], 'integer'],
-                        [['remarks'], 'string'],
-                        [['DOC', 'DOU'], 'safe'],
+                        [['category_type', 'subcategory_type', 'field_1', 'field_2', 'CB', 'UB', 'notes_1_added', 'notes_2_added', 'notes_3_added'], 'integer'],
+                        [['remarks', 'notes_1', 'notes_2', 'notes_3'], 'string'],
+                        [['DOC', 'DOU', 'notes_1_time', 'notes_2_time', 'notes_3_time'], 'safe'],
                         [['name', 'email_1', 'email_2', 'phone_1', 'phone_2'], 'string', 'max' => 100],
                         [['email_1', 'email_2'], 'email'],
                         [['designation', 'company_name', 'references'], 'string', 'max' => 200],
@@ -71,6 +71,9 @@ class ContactDirectory extends \yii\db\ActiveRecord {
                     'remarks' => 'Remarks',
                     'field_1' => 'Field 1',
                     'field_2' => 'Field 2',
+                    'notes_1' => 'Notes 1',
+                    'notes_2' => 'Notes 2',
+                    'notes_3' => 'Notes 3',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',

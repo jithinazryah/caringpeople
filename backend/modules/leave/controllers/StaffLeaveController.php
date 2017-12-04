@@ -48,22 +48,34 @@ class StaffLeaveController extends Controller {
          * 	 */
         public function actionIndex() {
 
+                $check_exists = explode('?', Yii::$app->request->url);
+                if (empty($check_exists[1]))
+                        Yii::$app->session->remove('new_size');
+
+                if (isset($_POST['size'])) {
+                        $pagesize = $_POST['size'];
+                        \Yii::$app->session->set('new_size', $pagesize);
+                } else {
+                        $pagesize = Yii::$app->session->get('new_size');
+                }
+
                 $searchModel = new StaffLeaveSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->pagination->pageSize = $pagesize;
                 if (Yii::$app->session['post']['id'] != 1) {
                         $dataProvider->query->andWhere(['employee_id' => Yii::$app->user->identity->id]);
                 }
-if (!empty(Yii::$app->request->queryParams['StaffLeaveSearch']['status'])) {
+                if (!empty(Yii::$app->request->queryParams['StaffLeaveSearch']['status'])) {
                         $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['StaffLeaveSearch']['status']]);
                 } else {
                         $dataProvider->query->andWhere(['status' => 1]);
                 }
                 $dataProvider->query->orderBy(['id' => SORT_DESC]);
-                $dataProvider->pagination = ['pagesize' => 10];
 
                 return $this->render('index', [
                             'dataProvider' => $dataProvider,
                             'searchModel' => $searchModel,
+                            'pagesize' => $pagesize,
                 ]);
         }
 

@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
 
                                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Service</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;']) ?>
- <?php if (!$model->isNewRecord) { ?>
+                                <?php if (!$model->isNewRecord) { ?>
                                         <?= Html::a('<i class="fa-plus"></i><span> Add Materials</span>', ['/sales/sales-invoice-details/add', 'id' => $model->id], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;', 'target' => '_blank']) ?>
                                         <?= Html::a('<i class="fa-print"></i><span> Generate Estimate</span>', ['estimated-bill', 'id' => $model->id], ['class' => 'btn btn-success  btn-icon btn-icon-standalone', 'style' => 'margin-top:10px;', 'target' => '_blank']) ?>
-                                        
-<div class="row" style="margin-left: -6px;margin-right: 0px;">
+
+                                        <div class="row" style="margin-left: -6px;margin-right: 0px;">
 
                                                 <?=
                                                 $this->render('_patient_details', [
@@ -70,6 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         $this->render('schedules', [
                                                                             'model' => $model,
                                                                             'service_schedule' => $service_schedule,
+                                                                            'extra_schedule' => $extra_schedule,
                                                                         ]);
                                                                 } else {
                                                                         echo $this->render('staff_schedules', [

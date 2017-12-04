@@ -40,7 +40,7 @@ class ServiceSchedule extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['service_id', 'patient_id', 'staff', 'status', 'CB', 'UB', 'rating','day_night'], 'integer'],
+                        [['service_id', 'patient_id', 'staff', 'status', 'CB', 'UB', 'rating', 'day_night', 'xtra_schedules'], 'integer'],
                         [['date', 'DOC', 'DOU'], 'safe'],
                         [['remarks_from_manager', 'remarks_from_staff', 'remarks_from_patient', 'time_in', 'time_out', 'patient_rate'], 'string'],
                         [['rate'], 'string', 'max' => 255],
@@ -71,6 +71,7 @@ class ServiceSchedule extends \yii\db\ActiveRecord {
                     'time_in' => 'Time In',
                     'time_out' => 'Time Out',
                     'status' => 'Status',
+                    'xtra_schedules' => 'xtra_schedules',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Date To',

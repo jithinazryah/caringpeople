@@ -18,6 +18,19 @@ $this->params['breadcrumbs'][] = $this->title;
 $path = Yii::getAlias(Yii::$app->params['uploadPath']);
 $branch = Branch::branch();
 $designations = \common\models\MasterDesignations::designationlist();
+if (isset(Yii::$app->request->queryParams)) {
+        $branch_id = Yii::$app->request->queryParams['branch'];
+
+        $gender = Yii::$app->request->queryParams['gender'];
+        if ($gender == 0 && $gender != '') {
+                $staffs = \common\models\StaffInfo::find()->where(['status' => 1, 'post_id' => 5, 'gender' => 0, 'branch_id' => $branch_id])->orderBy(['staff_name' => S0RT_ASC])->all();
+        } else
+        if ($gender == 1 && $gender != '') {
+                $staffs = \common\models\StaffInfo::find()->where(['status' => 1, 'post_id' => 5, 'gender' => 1, 'branch_id' => $branch_id])->orderBy(['staff_name' => S0RT_ASC])->all();
+        } else {
+                $staffs = \common\models\StaffInfo::find()->where(['status' => 1, 'post_id' => 5, 'branch_id' => $branch_id])->orderBy(['staff_name' => S0RT_ASC])->all();
+        }
+}
 ?>
 <div class="staff-info-index">
 
@@ -33,62 +46,67 @@ $designations = \common\models\MasterDesignations::designationlist();
                                 <div class="panel-body">
 
 
-					<?=
-					GridView::widget([
-					    'dataProvider' => $dataProvider,
-					    'filterModel' => $searchModel,
-					    'columns' => [
-						'staff_id',
-						'staff_name',
-						'contact_no',
-						    [
-						    'attribute' => 'designation',
-						    'value' => function($model, $key, $index, $column) {
-							    return $model->designation($model->designation);
-						    },
-						    'filter' => ArrayHelper::map(\common\models\MasterDesignations::designationlist(), 'id', 'title'),
-						],
-						    [
-						    'attribute' => 'years_of_experience',
-						    'header' => 'Experience',
-						],
-						    [
-						    'attribute' => 'staff_experience',
-						    'value' => function($model, $key, $index, $column) {
-							    return $model->skills($model->staff_experience);
-						    },
-						    'filter' => Html::activeDropDownList($searchModel, 'staff_experience', ArrayHelper::map(\common\models\StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->asArray()->all(), 'id', 'title'), ['class' => 'form-control', 'multiple' => true]),
-						    'filterOptions' => array('id' => "staff_skills_search"),
-						],
-						'average_point',
-						    [
-						    'header' => 'Work Status',
-						    'attribute' => 'working_status',
-						    'value' => function($model, $key, $index, $column) {
-							    if ($model->working_status == '0') {
-								    return 'Bench';
-							    } else if ($model->working_status == '1') {
-								    return 'On Duty';
-							    }
-						    },
-						    'filter' => [0 => 'Bench', 1 => 'On Duty'],
-						],
-						    ['class' => 'yii\grid\ActionColumn',
-						    'template' => '{staff_choose}',
-						    'buttons' => [
-							'staff_choose' => function ($url, $model) {
+                                        <?=
+                                        GridView::widget([
+                                            'dataProvider' => $dataProvider,
+                                            'filterModel' => $searchModel,
+                                            'columns' => [
+                                                'staff_id',
+                                                // 'staff_name',
+                                                [
+                                                    'attribute' => 'staff_name',
+                                                    'filter' => ArrayHelper::map($staffs, 'staff_name', 'staff_name'),
+                                                    'filterOptions' => array('id' => "staff_name_search"),
+                                                ],
+                                                'contact_no',
+                                                    [
+                                                    'attribute' => 'designation',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            return $model->designation($model->designation);
+                                                    },
+                                                    'filter' => ArrayHelper::map(\common\models\MasterDesignations::designationlist(), 'id', 'title'),
+                                                ],
+                                                    [
+                                                    'attribute' => 'years_of_experience',
+                                                    'header' => 'Experience',
+                                                ],
+                                                    [
+                                                    'attribute' => 'staff_experience',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            return $model->skills($model->staff_experience);
+                                                    },
+                                                    'filter' => Html::activeDropDownList($searchModel, 'staff_experience', ArrayHelper::map(\common\models\StaffExperienceList::find()->where(['status' => '1', 'category' => 2])->asArray()->all(), 'id', 'title'), ['class' => 'form-control', 'multiple' => true]),
+                                                    'filterOptions' => array('id' => "staff_skills_search"),
+                                                ],
+                                                'average_point',
+                                                    [
+                                                    'header' => 'Work Status',
+                                                    'attribute' => 'working_status',
+                                                    'value' => function($model, $key, $index, $column) {
+                                                            if ($model->working_status == '0') {
+                                                                    return 'Bench';
+                                                            } else if ($model->working_status == '1') {
+                                                                    return 'On Duty';
+                                                            }
+                                                    },
+                                                    'filter' => [0 => 'Bench', 1 => 'On Duty'],
+                                                ],
+                                                    ['class' => 'yii\grid\ActionColumn',
+                                                    'template' => '{staff_choose}',
+                                                    'buttons' => [
+                                                        'staff_choose' => function ($url, $model) {
 
-								return Html::radio('staff_choose', false, ['class' => 'cbr cbr-primary', 'id' => $model->id, 'value' => $model->id]);
-							},
-						    ],
-						],
-					    ],
-					]);
-					?>
+                                                                return Html::radio('staff_choose', false, ['class' => 'cbr cbr-primary', 'id' => $model->id, 'value' => $model->id]);
+                                                        },
+                                                    ],
+                                                ],
+                                            ],
+                                        ]);
+                                        ?>
 
 
                                         <form id="searchChooseStaff">
-                                               <?php
+                                                <?php
                                                 if (isset($service) && $service != '') {
                                                         $service_id = $service;
                                                 } else if (isset($schedule) && $schedule != '') {
@@ -128,16 +146,26 @@ $designations = \common\models\MasterDesignations::designationlist();
 
 
 <script>
-	$(document).ready(function () {
-		$('#staff_skills_search select').attr('id', 'skills_search');
-		$("#skills_search").select2({
-			placeholder: '',
-			allowClear: true
-		}).on('select2-open', function ()
-		{
-			// Adding Custom Scrollbar
-			$(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-		});
+        $(document).ready(function () {
+                $('#staff_skills_search select').attr('id', 'skills_search');
+                $('#staff_name_search select').attr('id', 'staff_name');
+                $("#skills_search").select2({
+                        placeholder: '',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
 
-	});
+                $("#staff_name").select2({
+                        placeholder: '',
+                        allowClear: true
+                }).on('select2-open', function ()
+                {
+                        // Adding Custom Scrollbar
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+
+        });
 </script>

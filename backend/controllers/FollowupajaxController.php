@@ -68,7 +68,7 @@ class FollowupajaxController extends \yii\web\Controller {
                                 }
                                 if ($repeated == 0) {
                                         return \yii\helpers\Json::encode($followups_one);
-                                }else {
+                                } else {
                                         echo '0';
                                 }
                         }
@@ -84,6 +84,8 @@ class FollowupajaxController extends \yii\web\Controller {
                 $followups_one->releated_notification_patient = $followups->releated_notification_patient;
                 $followups_one->assigned_to = $followups->assigned_to;
                 $followups_one->assigned_from = Yii::$app->user->identity->id;
+                $followups_one->CB = Yii::$app->user->identity->id;
+                $followups_one->DOC = date('Y-m-d H:i:s');
                 if (isset($_POST['RepeatedFollowups']['related_staffs']) && $_POST['RepeatedFollowups']['related_staffs'] != '')
                         $followups_one->related_staffs = implode(',', $_POST['RepeatedFollowups']['related_staffs']);
         }
@@ -224,7 +226,6 @@ class FollowupajaxController extends \yii\web\Controller {
                         }
                 }
         }
-
 
         public function actionCheckingDuty() {
                 if (Yii::$app->request->isAjax) {

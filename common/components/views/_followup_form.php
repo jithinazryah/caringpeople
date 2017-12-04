@@ -226,6 +226,23 @@ if ($type == 5) {
                     },
                     'filter' => [0 => 'Active', 1 => 'Closed'],
                 ],
+                    [
+                    'attribute' => 'CB',
+                    'header' => 'Added By',
+                    'value' => function($model) {
+                            if (isset($model->CB)) {
+                                    $added_by = StaffInfo::findOne($model->CB);
+                                    if (isset($added_by)) {
+                                            if (isset($model->DOC))
+                                                    return $added_by->staff_name . ' (' . date('d-m-Y H:i:s', strtotime($model->DOC)) . ' )';
+                                            else
+                                                    return $added_by->staff_name;
+                                    }
+                            } else {
+                                    return '';
+                            }
+                    },
+                ],
                     ['class' => 'yii\grid\ActionColumn',
                     'template' => '{status}',
                     'visibleButtons' => [

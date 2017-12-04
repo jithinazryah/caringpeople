@@ -54,7 +54,7 @@ use yii\db\Expression;
 
                 <?php
                 if (!$model->isNewRecord) {
-                        $sub_services = common\models\SubServices::find()->where(['service' => $model->service])->all();
+                        $sub_services = common\models\SubServices::find()->where(['branch_id' => $model->branch_id])->orWhere(['branch_id' => 0])->andWhere(['service' => $model->service])->all();
                 } else {
                         $sub_services = [];
                 }
@@ -151,7 +151,7 @@ use yii\db\Expression;
 
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
                         <?php
-                        $staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 6, 'branch_id' => $model->branch_id])->orderBy(['staff_name' => SORT_ASC])->all();
+                        $staff_managers = StaffInfo::find()->where(['status' => 1, 'post_id' => 6, 'branch_id' => $model->branch_id])->orWhere(['post_id' => 1])->orWhere(['post_id' => 13])->orderBy(['staff_name' => SORT_ASC])->all();
                         ?>
                         <?= $form->field($model, 'staff_manager')->dropDownList(ArrayHelper::map($staff_managers, 'id', 'staff_name'), ['class' => 'form-control', 'prompt' => '--Select--']) ?>
                 </div>

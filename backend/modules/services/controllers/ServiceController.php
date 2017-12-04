@@ -78,8 +78,12 @@ class ServiceController extends Controller {
                 }
 
                 if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
+
                         $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
+                } else if (isset($check_exists[1]) && Yii::$app->request->queryParams['ServiceSearch']['status'] == '') {
+
                 } else {
+
                         $dataProvider->query->andWhere(['<>', 'status', 2]);
                         $dataProvider->query->andWhere(['<>', 'status', 3]);
                 }
@@ -122,6 +126,7 @@ class ServiceController extends Controller {
                         $model->validate();
 
                         if ($model->validate() && $model->save()) {
+
                                 $history_id = Yii::$app->SetValues->ServiceHistory($model, 1); /* 1 implies masterservice history type id 1 for new service */
                                 if (!empty($history_id)) {
                                         Yii::$app->SetValues->Notifications($history_id, $model->id, $model, 1); /* 1 => notification type is service */
@@ -167,7 +172,8 @@ class ServiceController extends Controller {
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
                 $previous_estimated_price = $model->estimated_price;
-                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'), 'date' => SORT_ASC])->all();
+                $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->andWhere(['<>', 'xtra_schedules', 2])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'), 'date' => SORT_ASC])->all();
+                $extra_schedule = ServiceSchedule::find()->where(['service_id' => $id, 'xtra_schedules' => 2])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)')])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
                 $discounts = new ServiceDiscounts();
                 if (empty($patient_assessment)) {
@@ -197,6 +203,20 @@ class ServiceController extends Controller {
                                 $total_due = $this->CalculateAmount($model);
                                 $model->estimated_price = $total_due - $model->registration_fees_amount;
                                 $model->due_amount = $total_due;
+
+                                $ratecard = \common\models\RateCard::find()->where(['service_id' => $model->service, 'branch_id' => $model->branch_id, 'status' => 1, 'sub_service' => $model->sub_service])->one();
+                                if ($model->duty_type == 1) {
+                                        $type = 'rate_per_hour';
+                                } else if ($model->duty_type == 2) {
+                                        $type = 'rate_per_visit';
+                                } else if ($model->duty_type == 3) {
+                                        $type = 'rate_per_day';
+                                } else if ($model->duty_type == 4) {
+                                        $type = 'rate_per_night';
+                                } else if ($model->duty_type == 5) {
+                                        $type = 'rate_per_day_night';
+                                }
+                                $model->rate_card_value = $ratecard->$type;
                         } else {
                                 $model->estimated_price = $model->estimated_price - $discounts->discount_value;
                                 $model->due_amount = $model->due_amount - $discounts->discount_value;
@@ -222,7 +242,8 @@ class ServiceController extends Controller {
                             'model' => $model,
                             'service_schedule' => $service_schedule,
                             'patient_assessment' => $patient_assessment,
-                            'discounts' => $discounts
+                            'discounts' => $discounts,
+                            'extra_schedule' => $extra_schedule
                 ]);
         }
 
@@ -469,7 +490,7 @@ class ServiceController extends Controller {
                         $model->proforma_sent = 2;
                         $model->save();
                         $this->ServiceSchedule($model);
-                      //  Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
+                        //  Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
                 }
         }
 

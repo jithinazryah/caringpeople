@@ -117,6 +117,14 @@ $("document").ready(function () {
                 //  alert($('#staff_skills').val());
         });
 
+
+        $('#size').change(function () {
+                //var d = $('#size :selected').val();
+                this.form.submit();
+
+        });
+
+
 });
 
 function postToController() {

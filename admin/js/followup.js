@@ -68,9 +68,10 @@ $("document").ready(function () {
                                                                   <td>' + $('#repeatedfollowups-assigned_from').val() + '</td>\n\
                                                                   <td>' + $('#create-related_staffs option:selected').text() + '</td>\n\
                                                                   <td>Active</td>\n\
+                                                                  <td></td>\n\
                                                                   <td><input type="checkbox" class="iswitch iswitch-secondary followup-status" id="' + res.id + '"></td></tr>');
-
-                                }else {
+                                        location.reload();
+                                } else {
                                         alert('Followup added successfully');
                                 }
                                 $('#add-followup')[0].reset();
@@ -235,7 +236,7 @@ $("document").ready(function () {
                 }
         });
 
-       $('#create-assigned_to').change(function () {
+        $('#create-assigned_to').change(function () {
                 var assigned_to = $(this).val();
                 var date = $('#Followup_date').val();
                 $.ajax({

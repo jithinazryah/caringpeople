@@ -28,7 +28,7 @@ use yii\web\UploadedFile;
  */
 class PatientEnquiryGeneralFirstController extends Controller {
 
-         public function beforeAction($action) {
+        public function beforeAction($action) {
                 if (!parent::beforeAction($action)) {
                         return false;
                 }
@@ -58,8 +58,24 @@ class PatientEnquiryGeneralFirstController extends Controller {
          * @return mixed
          */
         public function actionIndex() {
+
+                $check_exists = explode('?', Yii::$app->request->url);
+                if (empty($check_exists[1]))
+                        Yii::$app->session->remove('new_size');
+
+                if (isset($_POST['size'])) {
+                        $pagesize = $_POST['size'];
+                        \Yii::$app->session->set('new_size', $pagesize);
+                } else {
+                        $pagesize = Yii::$app->session->get('new_size');
+                        if (!isset($pagesize))
+                                $pagesize = 50;
+                }
+
                 $searchModel = new PatientEnquiryGeneralFirstSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $dataProvider->pagination = ['pagesize' => 50];
+                $dataProvider->pagination->pageSize = $pagesize;
                 if (Yii::$app->user->identity->branch_id != '0') {
                         $dataProvider->query->andWhere(['branch_id' => Yii::$app->user->identity->branch_id]);
                 }
@@ -68,10 +84,11 @@ class PatientEnquiryGeneralFirstController extends Controller {
                 } else {
                         $dataProvider->query->andWhere(['<>', 'status', 3]);
                 }
-                $dataProvider->pagination = ['pagesize' => 50];
+
                 return $this->render('index', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,
+                            'pagesize' => $pagesize,
                 ]);
         }
 

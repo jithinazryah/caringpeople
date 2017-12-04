@@ -610,26 +610,32 @@ label.cbr-inline{
 
 
 .div-add-new{
-    height: 30px;
-    padding: 10px;
+        height: 30px;
+        padding: 10px;
 }.div-add-new a{
-    text-decoration: none;
-} 
+        text-decoration: none;
+}
 #pop-form .form-control{
-    border:1px solid #eee;
+        border:1px solid #eee;
 }
 #pop-form .form-control:focus{
-    border:1px solid #eee!important;
+        border:1px solid #eee!important;
 
 }.pop-heading{
-    color: #b60d14;
+        color: #b60d14;
 }.pop-submit-btn{
-    margin-top: 20px;
-    margin-left: 23px;
+        margin-top: 20px;
+        margin-left: 23px;
 } .marg0{
-    margin-left: 0;
+        margin-left: 0;
 }.add-option-dropdown{
-text-decoration:none;
+        text-decoration:none;
+}.page-size-dropdwn{
+        height: 30px !important;
+        line-height: 30px;
+        font-size: 13px;
+        display: inline-block;
+        padding: 0px 0px 0px 7px;
 }
 
 

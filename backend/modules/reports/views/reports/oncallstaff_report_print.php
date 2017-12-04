@@ -10,7 +10,7 @@ use common\models\StaffInfo;
 use common\models\AttendanceEntry;
 use yii\db\Expression;
 
-$this->title = 'Staff Report';
+$this->title = 'Staff Report  ( ' . date('d-m-Y', strtotime($from)) . ' to ' . date('d-m-Y', strtotime($to)) . ' )';
 $this->params['breadcrumbs'][] = ['label' => 'Attendances', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

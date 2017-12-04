@@ -65,9 +65,81 @@ use yii\helpers\ArrayHelper;
                         <?= $form->field($model, 'references')->dropDownList(['' => '--Select--', '0' => 'Internet', '1' => 'Care and care', '2' => 'Guardian Angel', '3' => 'Caremark', '4' => 'Cancure', '6' => 'Dont Know', '5' => 'Other'], ['id' => 'referral_source']) ?>
                         <div class="div-add-new" style="margin-top: -20px;"><a class="add-option-dropdown add-new" id="referral_source-11" style="margin-top:0px;"> + Add New</a></div>
 
-                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'remarks')->textarea(['rows' => 6]) ?>
+                </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'remarks')->textarea(['rows' => 2]) ?>
 
-                </div>        </div>
+                </div>
+
+        </div>
+
+        <div class="row" style="margin: 0;">
+
+                <span class="inquiry">
+                        <h4 class="h4-labels" style="position: relative;">Notes</h4>
+                        <hr class="enquiry-hr"/>
+                </span>
+                <div class='col-md-9 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'notes_1')->textarea(['rows' => 4]) ?>
+
+                </div>
+
+                <?php
+                if (isset($model->notes_1_added) && $model->notes_1_added != '') {
+                        $added_by = common\models\StaffInfo::findOne($model->notes_1_added);
+                        if (isset($added_by)) {
+
+                                $added_details = $added_by->staff_name . ' ( ' . date('d-m-Y h:i:s', strtotime($model->notes_1_time)) . ' )';
+                        }
+                        ?>
+                        <p style="margin-top: 55px;">Created by :  <b><?= $added_details ?></b></p>
+                <?php } ?>
+        </div>
+
+
+        <div class="row" style="margin:0;float: right">
+                <a class="btn btn-blue btn-icon btn-icon-standalone" id="notes_1" style="<?php if (isset($model->notes_2) && $model->notes_2 != '') { ?> display:none; <?php } else { ?> display:show; <?php } ?>"><i class="fa-plus"></i><span>Add New Notes</span></a>
+
+        </div>
+
+        <div class="row notes_1" style="margin: 0;<?php if (isset($model->notes_1) && $model->notes_1 != '') { ?> display:show; <?php } else { ?> display:none; <?php } ?>">
+                <div class='col-md-9 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'notes_2')->textarea(['rows' => 4]) ?><a id="close_note_1" class="btn btn-icon btn-red remove-enquirer"><i class="fa-remove"></i></a>
+                </div>
+
+                <?php
+                if (isset($model->notes_2_added) && $model->notes_2_added != '') {
+                        $added_by = common\models\StaffInfo::findOne($model->notes_2_added);
+                        if (isset($added_by)) {
+
+                                $added_details = $added_by->staff_name . ' ( ' . date('d-m-Y h:i:s', strtotime($model->notes_2_time)) . ' )';
+                        }
+                        ?>
+                        <p style="margin-top: 55px;">Created by :  <b><?= $added_details ?></b></p>
+                <?php } ?>
+
+                <div class="row" style="margin:0;float: right">
+                        <a class="btn btn-blue btn-icon btn-icon-standalone" id="notes_2" style="<?php if (isset($model->notes_3) && $model->notes_3 != '') { ?> display:none; <?php } else { ?> display:show; <?php } ?>"><i class="fa-plus"></i><span>Add New Notes</span></a>
+                </div>
+
+        </div>
+
+
+        <div class="row notes_2" style="margin: 0;<?php if (isset($model->notes_3) && $model->notes_3 != '') { ?> display:show; <?php } else { ?> display:none; <?php } ?>">
+                <div class='col-md-9 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'notes_3')->textarea(['rows' => 4]) ?><a id="close_note_2" class="btn btn-icon btn-red remove-enquirer"><i class="fa-remove"></i></a>
+                </div>
+
+                <?php
+                if (isset($model->notes_3_added) && $model->notes_3_added != '') {
+                        $added_by = common\models\StaffInfo::findOne($model->notes_3_added);
+                        if (isset($added_by)) {
+
+                                $added_details = $added_by->staff_name . ' ( ' . date('d-m-Y h:i:s', strtotime($model->notes_3_time)) . ' )';
+                        }
+                        ?>
+                        <p style="margin-top: 55px;">Created by :  <b><?= $added_details ?></b></p>
+                <?php } ?>
+
+        </div>
+
+
+
         <div class='col-md-4 col-sm-6 col-xs-12' style="float:right;">
                 <div class="form-group" style="float: right;">
                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px;']) ?>
@@ -87,5 +159,42 @@ use yii\helpers\ArrayHelper;
                 {
                         $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
                 });
+
+
+
+                $('#notes_1').click(function () {
+                        $('.notes_1').toggle();
+                        $('#notes_1').hide();
+
+                });
+
+                $('#notes_2').click(function () {
+                        $('.notes_2').toggle();
+                        $('#notes_2').hide();
+                });
+
+                $('#close_note_1').click(function () {
+                        $('#contactdirectory-notes_2').val('');
+
+                        $('.notes_1').hide();
+                        $('#notes_1').show();
+                });
+
+                $('#close_note_2').click(function () {
+                        $('#contactdirectory-notes_3').val('');
+                        $('.notes_2').hide();
+                        $('#notes_2').show();
+                });
+
         });
 </script>
+
+<style>
+        .remove-enquirer{
+                position: absolute;
+                right: 0px;
+                margin-bottom: 0px;
+                top: -10px;
+                margin-top: 10px;
+        }
+</style>
