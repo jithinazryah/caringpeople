@@ -43,10 +43,10 @@ class Service extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker','registration_fees','proforma_sent'], 'integer'],
+                        [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker', 'registration_fees', 'proforma_sent'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
                         [['frequency', 'hours', 'days', 'rate_card_value'], 'string', 'max' => 255],
-                        [['estimated_price', 'due_amount','registration_fees_amount'], 'number'],
+                        [['estimated_price', 'due_amount', 'registration_fees_amount', 'service_amount'], 'number'],
                         [['client_notes'], 'string'],
                         [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
                         [['service'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service' => 'id']],
@@ -92,7 +92,7 @@ class Service extends \yii\db\ActiveRecord {
                     'service_staffs' => 'service_staffs',
                     'co_worker' => 'Co-Worker',
                     'due_amount' => 'Due amount',
-                    'registration_fees'=>'Registration fees',
+                    'registration_fees' => 'Registration fees',
                     'registration_fees_amount' => 'Amount',
                     'client_notes' => 'Client Notes',
                     'CB' => 'Cb',
@@ -101,6 +101,7 @@ class Service extends \yii\db\ActiveRecord {
                     'DOU' => 'Dou',
                     'status' => 'Status',
                     'proforma_sent' => 'Sent Proforma',
+                    'service_amount' => 'Service Amount',
                 ];
         }
 

@@ -103,15 +103,16 @@ class ServiceBinController extends Controller {
                         $service->id = $service_bin->service_table_id;
                         $service->service_id = $service_bin->service_id;
                         $service->save();
-                        $service_bin->delete();
+                        $service_bin->delete(FALSE);
 
                         if (!empty($service_bin_schedules)) {
                                 foreach ($service_bin_schedules as $value) {
                                         $service_schedule = new \common\models\ServiceSchedule;
                                         $service_schedule->attributes = $value->attributes;
                                         $service_schedule->service_id = $service->id;
+                                        $this->StaffStatus($value->staff, $service->id);
                                         if ($service_schedule->save())
-                                                $value->delete();
+                                                $value->delete(FALSE);
                                 }
                         }
 
@@ -121,7 +122,7 @@ class ServiceBinController extends Controller {
                                         $service_discounts->attributes = $discounts->attributes;
                                         $service_discounts->service_id = $service->id;
                                         if ($service_discounts->save())
-                                                $discounts->delete();
+                                                $discounts->delete(FALSE);
                                 }
                         }
                         $transaction->commit();
@@ -135,6 +136,16 @@ class ServiceBinController extends Controller {
                 }
 
                 return $this->redirect(['index']);
+        }
+
+        public function StaffStatus($id, $service_id) {
+
+                $staff_status_update = \common\models\StaffInfo::findOne($id);
+
+                if (!empty($staff_status_update)) {
+                        $staff_status_update->working_status = 1;
+                        $staff_status_update->update();
+                }
         }
 
         /**

@@ -214,6 +214,11 @@ use common\models\StaffInfo;
                                                                 }
                                                                 ?>>Cancelled</option>
                                                         </select>
+
+                                                        <?php if (isset($value->status) && $value->status == 2) {
+                                                                ?>
+                                                                <p style="float:right"><?= $value->patient_rate ?> (P) / <?= $value->rate ?> (S)</p>
+                                                        <?php } ?>
                                                 </td>
 
                                                 <td>

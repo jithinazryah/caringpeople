@@ -152,6 +152,7 @@ class ServiceController extends Controller {
                                 }
                                 $model->due_amount = $model->estimated_price + $registration;
                                 $model->proforma_sent = 1;
+                                $model->service_amount = $model->estimated_price;
                                 $model->update();
 //                                $this->ServiceSchedule($model);
                                 Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
@@ -375,6 +376,7 @@ class ServiceController extends Controller {
                                 $service_schedule_bin = new \common\models\ServiceScheduleBin;
                                 $service_schedule_bin->attributes = $service_scheduless->attributes;
                                 $service_schedule_bin->service_id = $service_bin->id;
+                                $this->StaffStatus($service_scheduless->staff, $service->id);
                                 $service_schedule_bin->save();
                         }
                 }
@@ -386,6 +388,7 @@ class ServiceController extends Controller {
                                 $service_discounts_bin->save();
                         }
                 }
+
 
                 $transaction = Service::getDb()->beginTransaction();
                 try {
@@ -418,6 +421,18 @@ class ServiceController extends Controller {
                 }
                 Yii::$app->getSession()->setFlash('success', 'Deleted succuessfully');
                 return $this->redirect(['index']);
+        }
+
+        public function StaffStatus($id, $service_id) {
+
+                $service_schedule_staff = ServiceSchedule::find()->where(['status' => 1, 'staff' => $id])->andWhere(['<>', 'service_id', $service_id])->exists();
+                if (!$service_schedule_staff) {
+                        $staff_status_update = \common\models\StaffInfo::findOne($id);
+                        if (!empty($staff_status_update)) {
+                                $staff_status_update->working_status = 0;
+                                $staff_status_update->update();
+                        }
+                }
         }
 
         /**

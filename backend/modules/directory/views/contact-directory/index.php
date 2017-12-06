@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                             return ContactSubcategory::findOne($data->subcategory_type)->sub_category;
                                                     },
-                                                    'filter' => ArrayHelper::map(ContactSubcategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'sub_category'),
+                                                    'filter' => common\models\ContactDirectory::subcategory($searchModel->category_type),
                                                     'filterOptions' => array('id' => "contact_subcategorytype_search"),
                                                 ],
                                                 'name',

@@ -41,7 +41,7 @@ class StaffEnquiryInterviewThird extends \yii\db\ActiveRecord {
         public function rules() {
                 return [
                         [['staff_id', 'form_filled', 'interest_level'], 'integer'],
-                        [['expected_date_of_joining', 'interviewed_date'], 'safe'],
+                        [['expected_date_of_joining', 'interviewed_date', 'caution_deposit', 'caution_refund', 'resignation_letter', 'id_card_return', 'uniform_return', 'experience_certificate'], 'safe'],
                         [['interview_notes'], 'string'],
                         [['bank_ac_no', 'bank_ac_hodername', 'bank_name', 'bank_branch', 'bank_ifsc', 'document_required', 'document_received', 'interviewed_by'], 'string', 'max' => 200],
                         [['staff_id'], 'exist', 'skipOnError' => true, 'targetClass' => StaffInfo::className(), 'targetAttribute' => ['staff_id' => 'id']],

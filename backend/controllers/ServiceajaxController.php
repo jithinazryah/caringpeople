@@ -385,6 +385,10 @@ class ServiceajaxController extends \yii\web\Controller {
                                                 $service_detail->service_staffs = $this->Servicestaffs($schedule_detail->service_id);
                                                 $service_detail->update(FALSE);
                                         }
+                                        if ($status == 2) {
+                                                $service_detail->service_amount = $service_detail->service_amount - $service_detail->rate_card_value;
+                                                $service_detail->update(FALSE);
+                                        }
                                 }
                                 if ($status == 3 || $status == 4) { /* status is interupted or cancelled */
                                         if ($_POST['change_price'] == 'on') {

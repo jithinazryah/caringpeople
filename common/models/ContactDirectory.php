@@ -92,4 +92,13 @@ class ContactDirectory extends \yii\db\ActiveRecord {
                 return $this->hasOne(ContactDirectoryDesignation::className(), ['id' => 'designation']);
         }
 
+        public static function subcategory($category) {
+                if ($category) {
+                        $subcategory = \yii\helpers\ArrayHelper::map(ContactSubcategory::find()->where(['status' => '1', 'category_id' => $category])->asArray()->all(), 'id', 'sub_category');
+                } else {
+                        $subcategory = \yii\helpers\ArrayHelper::map(ContactSubcategory::find()->where(['status' => '1'])->asArray()->all(), 'id', 'sub_category');
+                }
+                return $subcategory;
+        }
+
 }
