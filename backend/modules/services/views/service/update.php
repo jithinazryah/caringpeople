@@ -159,7 +159,7 @@ use yii\db\Expression;
 
 
                 <div class='col-md-2 col-sm-6 col-xs-12 left_padd'>
-                        <?= $form->field($model, 'estimated_price')->textInput(['maxlength' => true, 'readonly' => true]) ?>
+                        <?= $form->field($model, 'estimated_price')->textInput(['maxlength' => true]) ?>
 
                 </div>
 

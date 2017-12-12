@@ -43,10 +43,10 @@ class Service extends \yii\db\ActiveRecord {
          */
         public function rules() {
                 return [
-                        [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker', 'registration_fees', 'proforma_sent'], 'integer'],
+                        [['patient_id', 'service', 'staff_manager', 'status', 'CB', 'UB', 'duty_type', 'gender_preference', 'day_night_staff', 'sub_service', 'status', 'co_worker', 'registration_fees', 'proforma_sent', 'change_estimated_price'], 'integer'],
                         [['from_date', 'to_date', 'DOC', 'DOU'], 'safe'],
-                        [['frequency', 'hours', 'days', 'rate_card_value'], 'string', 'max' => 255],
-                        [['estimated_price', 'due_amount', 'registration_fees_amount', 'service_amount'], 'number'],
+                        [['frequency', 'hours', 'days'], 'string', 'max' => 255],
+                        [['estimated_price', 'due_amount', 'registration_fees_amount', 'service_amount', 'rate_card_value'], 'number'],
                         [['client_notes'], 'string'],
                         [['patient_id'], 'exist', 'skipOnError' => true, 'targetClass' => PatientGeneral::className(), 'targetAttribute' => ['patient_id' => 'id']],
                         [['service'], 'exist', 'skipOnError' => true, 'targetClass' => MasterServiceTypes::className(), 'targetAttribute' => ['service' => 'id']],

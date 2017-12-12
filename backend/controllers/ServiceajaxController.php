@@ -827,4 +827,17 @@ class ServiceajaxController extends \yii\web\Controller {
                 }
         }
 
+        public function actionTimeout() {
+                if (Yii::$app->request->isAjax) {
+                        $staff_rate = $_POST['staff_rate'];
+                        $time_in = strtotime($_POST['time_in']);
+                        $time_out = strtotime($_POST['time_out']);
+                        $diff = $time_out - $time_in;
+                        echo 'Difference: ' . date('H:i:s', $diff);
+                        exit;
+                        $minutes = 24 * 60;
+                        //  $work_time =
+                }
+        }
+
 }

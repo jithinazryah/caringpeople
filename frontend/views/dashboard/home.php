@@ -61,17 +61,15 @@ $designations = \common\models\MasterDesignations::designationlist();
         </div>
 
         <div class="col-sm-3">
-                <a href="<?= Yii::$app->homeUrl ?>services/service/index">
-                        <div class="xe-widget xe-counter xe-counter-yellow"  >
-                                <div class="xe-icon">
-                                        <i class="fa fa-shield"></i>
-                                </div>
-                                <div class="xe-label">
-                                        <strong class="num"><?= $closed_services ?></strong>
-                                        <span>Closed Services</span>
-                                </div>
+                <div class="xe-widget xe-counter xe-counter-yellow"  >
+                        <div class="xe-icon">
+                                <i class="fa fa-shield"></i>
                         </div>
-                </a>
+                        <div class="xe-label">
+                                <strong class="num"><?= $closed_services ?></strong>
+                                <span>Closed Services</span>
+                        </div>
+                </div>
 
         </div>
 

@@ -98,8 +98,8 @@ use yii\helpers\ArrayHelper;
                                                                 echo $schedule->remarks_from_staff;
                                                         } else {
                                                                 ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
-                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3 style="font-weight:bold!important">Prescription   </h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Notes (patient daignosis and findings) </h3>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                <h3 style="font-weight:bold!important">Prescription   </h3>
                                                         <?php } ?>
                                                 </textarea>
                                         </div>
@@ -205,7 +205,7 @@ use yii\helpers\ArrayHelper;
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                        <input type="text" id="time_in" name="time_in"  class="fields" <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->time_in ?>" <?php } ?>>
+                                                        <input type="time" id="time_in" name="time_in"  class="fields" <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->time_in ?>" <?php } ?>>
                                                 </div>
 
 
@@ -214,7 +214,7 @@ use yii\helpers\ArrayHelper;
                                                 </div>
 
                                                 <div class="col-md-3">
-                                                        <input type="text" id="time_out" name="time_out"  class="fields" <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->time_out ?>" <?php } ?>>
+                                                        <input type="time" id="time_out" name="time_out"  class="fields" <?php if (Yii::$app->user->identity->post_id == '1') { ?>value="<?= $schedule->time_out ?>" <?php } ?>>
                                                 </div>
                                         </div>
                                 </div>

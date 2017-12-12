@@ -80,8 +80,6 @@ class ServiceController extends Controller {
                 if (!empty(Yii::$app->request->queryParams['ServiceSearch']['status'])) {
 
                         $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['ServiceSearch']['status']]);
-                } else if (isset($check_exists[1]) && Yii::$app->request->queryParams['ServiceSearch']['status'] == '') {
-
                 } else {
 
                         $dataProvider->query->andWhere(['<>', 'status', 2]);
@@ -134,22 +132,13 @@ class ServiceController extends Controller {
                                 $code = $branch_details->branch_code . 'SR-' . $service_type . '-' . date('d') . date('m') . date('y') . '-' . $model->id;
                                 $model->service_id = $code;
                                 $ratecard = \common\models\RateCard::find()->where(['service_id' => $model->service, 'branch_id' => $model->branch_id, 'status' => 1, 'sub_service' => $model->sub_service])->one();
-                                if ($model->duty_type == 1) {
-                                        $type = 'rate_per_hour';
-                                } else if ($model->duty_type == 2) {
-                                        $type = 'rate_per_visit';
-                                } else if ($model->duty_type == 3) {
-                                        $type = 'rate_per_day';
-                                } else if ($model->duty_type == 4) {
-                                        $type = 'rate_per_night';
-                                } else if ($model->duty_type == 5) {
-                                        $type = 'rate_per_day_night';
-                                }
-                                $model->rate_card_value = $ratecard->$type;
                                 $registration = 0;
                                 if ($model->registration_fees == 1) {
                                         $registration = $model->registration_fees_amount;
                                 }
+                                $schedule_price = $this->CalculateEP($model, $ratecard);
+
+                                $model->rate_card_value = $schedule_price;
                                 $model->due_amount = $model->estimated_price + $registration;
                                 $model->proforma_sent = 1;
                                 $model->service_amount = $model->estimated_price;
@@ -200,41 +189,27 @@ class ServiceController extends Controller {
                                 $patient_assessment->suggested_professional = implode(',', $_POST['suggested_professional']);
                         }
                         $discounts->load(Yii::$app->request->post());
-                        if ($previous_estimated_price != $model->estimated_price) {
-                                $total_due = $this->CalculateAmount($model);
-                                $model->estimated_price = $total_due - $model->registration_fees_amount;
-                                $model->due_amount = $total_due;
-
-                                $ratecard = \common\models\RateCard::find()->where(['service_id' => $model->service, 'branch_id' => $model->branch_id, 'status' => 1, 'sub_service' => $model->sub_service])->one();
-                                if ($model->duty_type == 1) {
-                                        $type = 'rate_per_hour';
-                                } else if ($model->duty_type == 2) {
-                                        $type = 'rate_per_visit';
-                                } else if ($model->duty_type == 3) {
-                                        $type = 'rate_per_day';
-                                } else if ($model->duty_type == 4) {
-                                        $type = 'rate_per_night';
-                                } else if ($model->duty_type == 5) {
-                                        $type = 'rate_per_day_night';
-                                }
-                                $model->rate_card_value = $ratecard->$type;
-                        } else {
-                                $model->estimated_price = $model->estimated_price - $discounts->discount_value;
-                                $model->due_amount = $model->due_amount - $discounts->discount_value;
-                        }
                         $patient_assessment->save();
                         $transaction = Yii::$app->db->beginTransaction();
-                        try {
-                                if ($model->update()) {
-                                        $discounts->service_id = $model->id;
-                                        $discounts->date = date('Y-m-d');
-                                        $discounts->save();
-                                        $transaction->commit();
-                                }
-                        } catch (Exception $ex) {
-                                $transaction->rollBack();
-                                throw new UserException('Error Code:  1050');
+                        $discounts->service_id = $model->id;
+                        $discounts->date = date('Y-m-d');
+                        $discounts->save();
+                        $transaction->commit();
+
+
+                        if ($previous_estimated_price != $model->estimated_price) {
+
+                                $ratecard = \common\models\RateCard::find()->where(['service_id' => $model->service, 'branch_id' => $model->branch_id, 'status' => 1, 'sub_service' => $model->sub_service])->one();
+                                $schedule_price = $this->CalculateEP($model, $ratecard);
+                                $model->rate_card_value = $schedule_price;
+                                $total_due = $this->CalculateAmount($model);
+                                $model->estimated_price = $model->estimated_price - $model->registration_fees_amount;
+                                $model->due_amount = $total_due;
+                                $this->UpdateHistory($model);
+                        } else {
+                                $model->due_amount = $model->due_amount - $discounts->discount_value;
                         }
+                        $model->update();
 
 
                         return $this->redirect(['index']);
@@ -353,6 +328,50 @@ class ServiceController extends Controller {
                                 $schedule->save(false);
                         }
                 }
+        }
+
+        /*
+         * Calculate estimated price
+         *
+         */
+
+        public function CalculateEP($model, $ratecard) {
+
+                if ($model->duty_type == 1) {
+                        $type = 'rate_per_hour';
+                } else if ($model->duty_type == 2) {
+                        $type = 'rate_per_visit';
+                } else if ($model->duty_type == 3) {
+                        $type = 'rate_per_day';
+                } else if ($model->duty_type == 4) {
+                        $type = 'rate_per_night';
+                } else if ($model->duty_type == 5) {
+                        $type = 'rate_per_day_night';
+                }
+                $per_schedule_price = 0;
+                $days = $model->days;
+                $hours = $model->hours;
+
+                if ($model->frequency == 1 && ($model->duty_type == 3 || $model->duty_type == 4 || $model->duty_type == 5)) {
+                        if (isset($ratecard->$type)) {
+                                $price = $days * $ratecard->$type;
+                        }
+                        $total_hours = $days;
+                } else {
+                        $total_hours = $hours * $days;
+
+                        if (isset($ratecard->$type)) {
+                                $price = $total_hours * $ratecard->$type;
+                        }
+                }
+                if ($price != $model->estimated_price) {
+                        $per_schedule_price = $model->estimated_price / $total_hours;
+                        $model->change_estimated_price = 1;
+                        $model->update();
+                } else {
+                        $per_schedule_price = $ratecard->$type;
+                }
+                return $per_schedule_price;
         }
 
         /**
@@ -505,8 +524,15 @@ class ServiceController extends Controller {
                         $model->proforma_sent = 2;
                         $model->save();
                         $this->ServiceSchedule($model);
-                        //  Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
+                        $this->UpdateHistory($model);
                 }
+        }
+
+        public function UpdateHistory($model) {
+                $history = \common\models\ServiceScheduleHistory::find()->where(['type' => 1, 'service_id' => $model->id])->one();
+                $history->schedules = $model->days;
+                $history->price = $model->estimated_price;
+                $history->update();
         }
 
 }

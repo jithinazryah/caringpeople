@@ -433,6 +433,20 @@ $("document").ready(function () {
         });
 
 
+//        $(document).on('change', '#time_out', function (e) {
+//                var staff_rate = $('#rate').val();
+//                var time_in = $('#time_in').val();
+//                var time_out = $('#time_out').val();
+//                $.ajax({
+//                        type: 'POST',
+//                        url: homeUrl + 'serviceajax/timeout',
+//                        data: {staff_rate: staff_rate, time_in: time_in, time_out: time_out},
+//                        success: function (data) {
+//                        }
+//                });
+//        });
+
+
 
         /********************************************************  Service  **********************************************/
 
