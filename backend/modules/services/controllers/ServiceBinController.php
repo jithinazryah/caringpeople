@@ -79,6 +79,7 @@ class ServiceBinController extends Controller {
         public function actionUpdate($id) {
                 $model = $this->findModel($id);
                 $service_schedule = \common\models\ServiceScheduleBin::find()->where(['service_id' => $id])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'), 'date' => SORT_ASC])->all();
+                $service_expenses = \common\models\ServiceExpensesBin::find()->where(['service_id' => $id])->all();
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                         return $this->redirect(['view', 'id' => $model->id]);
@@ -86,7 +87,8 @@ class ServiceBinController extends Controller {
                 return $this->render('create', [
                             'model' => $model,
                             'service_schedule' => $service_schedule,
-                            'discounts' => $discounts
+                            'discounts' => $discounts,
+                            'service_expenses' => $service_expenses,
                 ]);
         }
 
@@ -95,6 +97,7 @@ class ServiceBinController extends Controller {
                 $service = new \common\models\Service;
                 $service_bin_schedules = \common\models\ServiceScheduleBin::find()->where(['service_id' => $id])->all();
                 $service_discounts_bin = \common\models\ServiceDiscountsBin::find()->where(['service_id' => $id])->all();
+                $service_expenses_bin = \common\models\ServiceExpensesBin::find()->where(['service_id' => $id])->all();
 
 
                 $transaction = \common\models\Service::getDb()->beginTransaction();
@@ -116,13 +119,24 @@ class ServiceBinController extends Controller {
                                 }
                         }
 
-                        if (!empty($service_bin_schedules)) {
+                        if (!empty($service_discounts_bin)) {
                                 foreach ($service_discounts_bin as $discounts) {
                                         $service_discounts = new \common\models\ServiceDiscounts;
                                         $service_discounts->attributes = $discounts->attributes;
                                         $service_discounts->service_id = $service->id;
                                         if ($service_discounts->save())
                                                 $discounts->delete(FALSE);
+                                }
+                        }
+
+
+                        if (!empty($service_expenses_bin)) {
+                                foreach ($service_expenses_bin as $expenses) {
+                                        $service_expenses = new \common\models\ServiceExpenses;
+                                        $service_expenses->attributes = $expenses->attributes;
+                                        $service_expenses->service_id = $service->id;
+                                        if ($service_expenses->save())
+                                                $expenses->delete(FALSE);
                                 }
                         }
                         $transaction->commit();

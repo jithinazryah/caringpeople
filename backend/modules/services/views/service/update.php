@@ -197,6 +197,74 @@ use yii\db\Expression;
 
         </div>
 
+
+        <div style="clear:both"></div>
+
+        <div class="row" style="margin:0">
+                <label style="color:#000;font-weight: bold;font-size: 14px;text-decoration: underline">Add Other Expenses</label>
+        </div>
+
+        <div id="service-expenses" class="row" style="margin: 20px 0px;">
+
+                <div class="row" style="margin: 20px 0px;">
+
+                        <?php
+                        if (!empty($service_expenses)) {
+                                foreach ($service_expenses as $expenses) {
+                                        ?>
+                                        <span>
+                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class="form-group field-service">
+                                                                <label class="control-label">Expense</label>
+                                                                <input type="text" class="form-control" name="updateexpense[<?= $expenses->id; ?>][expense][]" value="<?= $expenses->expense; ?>" id="expense">
+                                                        </div>
+                                                </div>
+
+                                                <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                                        <div class="form-group field-service">
+                                                                <label class="control-label">Amount</label>
+                                                                <input type="text" class="form-control" name="updateexpense[<?= $expenses->id; ?>][amount][]" value="<?= $expenses->expense_amount; ?>" id="expense">
+                                                        </div>
+                                                </div>
+
+                                                <a id="remExpense" val="<?= $expenses->id; ?>" class="btn btn-icon btn-red remExpense" style="margin-top:15px;"><i class="fa-remove"></i></a>
+
+                                        </span>
+                                        <div style="clear:both"></div>
+                                        <?php
+                                }
+                        }
+                        ?>
+                </div>
+
+
+                <input type="hidden" id="delete_service_expense_vals"  name="delete_service_expense_vals" value="">
+                <span>
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-service">
+                                        <label class="control-label">Expense</label>
+                                        <input type="text" class="form-control" name="service[expense][]" id="expense">
+                                </div>
+                        </div>
+
+
+                        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+                                <div class="form-group field-service">
+                                        <label class="control-label">Amount</label>
+                                        <input type="text" class="form-control" name="service[amount][]" id="amount">
+                                </div>
+                        </div>
+
+                        <div style="clear:both"></div>
+                </span>
+        </div>
+
+        <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6"><a id="addExpenses" class="btn btn-icon btn-blue addExpenses"><i class="fa-plus"></i>  Add Expenses</a></div>
+        </div>
+
+
         <div class="row">
                 <div class="form-group">
                         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'margin-top: 18px; height: 36px; width:100px; ']) ?>

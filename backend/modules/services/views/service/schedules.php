@@ -319,16 +319,7 @@ use common\models\StaffInfo;
                                                 </td>
 
 
-                                                <td>
 
-                                                        <textarea class="form-control schedule-update <?= $class2 ?>" name="remarks_from_patient" id="remarks_from_patient-<?= $extra->id; ?>">
-                                                                <?php
-                                                                if (isset($extra->remarks_from_patient) && $extra->remarks_from_patient != '') {
-                                                                        echo $extra->remarks_from_patient;
-                                                                }
-                                                                ?>
-                                                        </textarea>
-                                                </td>
 
                                                 <td>
                                                         <select class="form-control schedule-rating <?= $class2 ?>" id="<?= $extra->id; ?>">

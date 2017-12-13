@@ -61,16 +61,16 @@ return [
         'expenses' => [
             'class' => 'backend\modules\expenses\Module',
         ],
-         'accounts' => [
+        'accounts' => [
             'class' => 'backend\modules\accounts\Module',
         ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],
-         'invoice' => [
+        'invoice' => [
             'class' => 'backend\modules\invoice\Module',
         ],
-           'product' => [
+        'product' => [
             'class' => 'backend\modules\product\Module',
         ],
         'sales' => [
@@ -79,7 +79,7 @@ return [
         'stock' => [
             'class' => 'backend\modules\stock\Module',
         ],
-          'reports' => [
+        'reports' => [
             'class' => 'backend\modules\reports\Module',
         ],
     ],

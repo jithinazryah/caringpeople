@@ -800,6 +800,45 @@ $("document").ready(function () {
         });
 
 
+        var scntDivs = $('#service-expenses');
+        var j = $('#service-expenses span').size() + 1;
+
+        $(document).on('click', '#addExpenses', function (e) {
+                var vers = '<span>\n\
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="form-group field-service">\n\
+                                <label class="control-label">Expense</label>\n\
+                                <input type="text" class="form-control" name="service[expense][]" id="expense">\n\
+                                </div> \n\
+                                </div> \n\
+                                <div class="col-md-3 col-sm-6 col-xs-12 left_padd">\n\
+                                <div class="form-group field-service">\n\
+                                <label class="control-label">Amount</label>\n\
+                                <input type="text" class="form-control" name="service[amount][]" id="amount">\n\
+                                </div> \n\
+                                </div> \n\
+                                <a id="remExpense" class="btn btn-icon btn-red remExpense" style="margin-top: 15px;"><i class="fa-remove"></i></a>\n\
+                                <div style="claer:both"></div><br/>\n\
+                                </span>\n\
+                                <div style="clear:both"></div><br/>';
+                $(vers).appendTo(scntDivs);
+                j++;
+                return false;
+        });
+        $('#service-expenses').on('click', '.remExpense', function () {
+                if (j > 2) {
+                        $(this).parents('span').remove();
+                        j--;
+                }
+                if (this.hasAttribute("val")) {
+                        var valu = $(this).attr('val');
+                        $('#delete_service_expense_vals').val($('#delete_service_expense_vals').val() + valu + ',');
+                        var value = $('#delete_service_expense_vals').val();
+                }
+                return false;
+        });
+
+
 });
 
 function FrequencyChange() {

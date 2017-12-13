@@ -139,9 +139,9 @@ and open the template in the editor.
                                                         </div>
                                                         <div style="">
                                                                 <table style="width:100%">
-<?php
-                                                        $branch = Branch::findOne($model->branch_id);
-                                                        ?>
+                                                                        <?php
+                                                                        $branch = Branch::findOne($model->branch_id);
+                                                                        ?>
                                                                         <tr>
                                                                                 <td class="company_address"> <?= $branch->address ?></td>
                                                                         </tr>
@@ -198,7 +198,7 @@ and open the template in the editor.
                         <td>Date</td>
                         <td><?= date('d-m-Y', strtotime($model->DOC)) ?></td>
                 </tr>
- <?php
+                <?php
                 $service = common\models\Service::findOne($model->service_id);
                 ?>
                 <tr>
@@ -230,30 +230,29 @@ and open the template in the editor.
                                 $count++
                                 ?></td>
                         <td>
-                                        <?php
-                $added_schedules_count = 0;
-                $added_schedules_amount = 0;
-                $added_schedule_days = 0;
-                $price = 0;
-                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
-                foreach ($added_schedules as $added_schedules) {
-                        $added_schedules_count++;
-                        $added_schedules_amount += $added_schedules->price;
-                        $added_schedule_days += $added_schedules->schedules;
-                }
+                                <?php
+                                $added_schedules_count = 0;
+                                $added_schedules_amount = 0;
+                                $added_schedule_days = 0;
+                                $price = 0;
+                                $added_schedules = ServiceScheduleHistory::find()->where(['service_id' => $model->service_id, 'type' => 2])->andWhere(['>', 'price', 0])->all();
+                                foreach ($added_schedules as $added_schedules) {
+                                        $added_schedules_count++;
+                                        $added_schedules_amount += $added_schedules->price;
+                                        $added_schedule_days += $added_schedules->schedules;
+                                }
 
-                $cancelled_schedules_amount = 0;
-                $cancelled_schedule_days = 0;
-                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
-                foreach ($cancelled_schedules as $cancelled_schedules) {
-                        $cancelled_schedules_count++;
-                        $cancelled_schedules_amount += $cancelled_schedules->price;
-                        $cancelled_schedule_days += $cancelled_schedules->schedules;
-                }
-$service_price=$first_estimated_price->price+$added_schedules_amount-$cancelled_schedules_amount;
-               
-                        ?>
-                                        <?= $service_name ?> <br>
+                                $cancelled_schedules_amount = 0;
+                                $cancelled_schedule_days = 0;
+                                $cancelled_schedules = ServiceScheduleHistory::find()->where(['type' => 3])->orWhere(['type' => 4])->andWhere(['>', 'price', 0])->andWhere(['service_id' => $model->service_id])->all();
+                                foreach ($cancelled_schedules as $cancelled_schedules) {
+                                        $cancelled_schedules_count++;
+                                        $cancelled_schedules_amount += $cancelled_schedules->price;
+                                        $cancelled_schedule_days += $cancelled_schedules->schedules;
+                                }
+                                $service_price = $first_estimated_price->price + $added_schedules_amount - $cancelled_schedules_amount;
+                                ?>
+                                <?= $service_name ?> <br>
                                 <?php
                                 $from = date('d-m-Y', strtotime($service->from_date));
                                 $to = date('d-m-Y', strtotime($service->to_date));
@@ -289,31 +288,51 @@ $service_price=$first_estimated_price->price+$added_schedules_amount-$cancelled_
                 <?php } ?>
 
 
-<?php
-$registration_fees=0;
-if($service->registration_fees==1){
-    $registration_fees = $service->registration_fees_amount;
-    ?>
-        <tr>
-            <td><?=
-                $count;
-                $count++
-                ?></td>
-            <td class="sub"> Registration Fees</td>
-            <td></td>
-            <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $registration_fees, 2, '.', ','); ?> </td>
+                <?php
+                $registration_fees = 0;
+                if ($service->registration_fees == 1) {
+                        $registration_fees = $service->registration_fees_amount;
+                        ?>
+                        <tr>
+                                <td><?=
+                                        $count;
+                                        $count++
+                                        ?></td>
+                                <td class="sub"> Registration Fees</td>
+                                <td></td>
+                                <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $registration_fees, 2, '.', ','); ?> </td>
 
-        </tr>
-<?php } ?>
-                
-                        
-                
+                        </tr>
+                <?php } ?>
+
+                <?php
+                $expenses = common\models\ServiceExpenses::find()->where(['service_id' => $model->service_id])->all();
+                $expense_amount = 0;
+                foreach ($expenses as $expense) {
+                        if (isset($expense->expense_amount) && $expense->expense_amount != '') {
+                                $expense_amount += $expense->expense_amount;
+                                ?>
+                                <tr>
+                                        <td><?=
+                                                $count;
+                                                $count++
+                                                ?></td>
+                                        <td class="sub"> <?= $expense->expense ?></td>
+                                        <td></td>
+                                        <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $expense->expense_amount, 2, '.', ','); ?> </td>
+
+                                </tr>
+                                <?php
+                        }
+                }
+                ?>
+
 
 
 
 
                 <tr>
-                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $cancelled_schedules_amount+$registration_fees; ?>
+                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount - $cancelled_schedules_amount + $registration_fees + $expense_amount; ?>
                         <td></td>
                         <td colspan="2" style="text-align:center">Bill Total</td>
                         <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $total_amount, 2, '.', ','); ?></td>
@@ -381,7 +400,7 @@ if($service->registration_fees==1){
                 ?>
 
 
-                 <tr class="bank-details">
+                <tr class="bank-details">
                         <td style="width:222px;">Account Holder</td>
                         <td style="width:200px;"><?php
                                 if (isset($branch->account_holder)) {
@@ -426,7 +445,7 @@ if($service->registration_fees==1){
 
 
         </table>
-<table class="main-tabl">
+        <table class="main-tabl">
                 <tr>
                         <td>
                                 <p class="message" style="font-size:10px;font-style: italic">**This is a computer generated copy stamp or seal is not required.<p>
@@ -460,7 +479,7 @@ if($service->registration_fees==1){
                 <button onclick="printContent('print')"  class="print_btn print_btn_color">Print</button>
                 <a href="<?= Yii::$app->homeUrl ?>invoice/invoice/print?id=<?= $model->id ?>"><button  class="print_btn print_btn_color">Save as PDF</button></a>
                 <button onclick="window.close();"  class="print_btn close_btn_color">Close</button>
-                
+
 
         </div>
 </div>

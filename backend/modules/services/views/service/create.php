@@ -52,10 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         if ($model->proforma_sent == 2) {
                                                                 echo $this->render('_form', [
                                                                     'model' => $model,
+                                                                    'service_expenses' => $service_expenses,
                                                                 ]);
                                                         } else {
                                                                 echo $this->render('update', [
                                                                     'model' => $model,
+                                                                    'service_expenses' => $service_expenses,
                                                                 ]);
                                                         }
                                                         ?>

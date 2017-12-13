@@ -461,33 +461,44 @@ use yii\db\Expression;
 
                                 </table>
                         </div>
-                        <?php if ($model->status == 3) { ?>
-                                <div class="row status" >
-                                        <div class="col-md-12" >
-                                                <p style="float: right;">
-                                                        <a class="btn btn-secondary popover-secondary service_stat" data-toggle="popover" data-trigger="hover" data-placement="top" ><input type="checkbox" class="cbr service_status" value="<?= $model->id; ?>" statustype="3"><span>&nbsp;Check here to mark this service as opened</span></a>
-                                                <p>
-                                        </div>
-                                </div>
-                        <?php } else if ($model->status != 2) { ?>
-                                <div class="row status" >
-                                        <div class="col-md-12" >
-                                                <p style="float: right;">
-                                                        <a class="btn btn-secondary popover-secondary service_stat" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Pending schedules will be marked as Cancelled, if you close this service!!" data-original-title="Confirm Before closing"><input type="checkbox" class="cbr service_status" value="<?= $model->id; ?>" statustype="1"><span>&nbsp;Check here to close this service</span></a>
-                                                <p>
-                                        </div>
-                                </div>
-                        <?php }
-                        ?>
+
                 </div>
 
+                <?php if (!empty($service_expenses)) { ?>
 
+                        <div class="row" style="margin:0">
+                                <label style="color:#000;font-weight: bold;font-size: 14px;text-decoration: underline">Other Expenses</label>
+                        </div>
+                        <div class="table-responsive">
+                                <table  class=" " style="width:50%">
+                                        <tr>
+                                                <th>Expense</th>
+                                                <th>Amount</th>
+                                        </tr>
+                                        <?php foreach ($service_expenses as $value1) { ?>
+                                                <tr>
+                                                        <td><?= $value1->expense ?></td>
+                                                        <td><?php
+                                                                if (isset($value1->expense_amount)) {
+                                                                        echo $value1->expense_amount;
+                                                                } else {
+                                                                        echo '-';
+                                                                }
+                                                                ?></td>
+                                                </tr>
+                                        <?php } ?>
+                                </table>
+                        </div>
+                <?php }
+                ?>
 
 
 
                 <?php
         }
         ?>
+
+
 
 </div>
 

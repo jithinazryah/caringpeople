@@ -141,8 +141,8 @@ class ServiceController extends Controller {
                                 $model->rate_card_value = $schedule_price;
                                 $model->due_amount = $model->estimated_price + $registration;
                                 $model->proforma_sent = 1;
-                                $model->service_amount = $model->estimated_price;
                                 $model->update();
+                                $this->AddExpenses($model);
 //                                $this->ServiceSchedule($model);
                                 Yii::$app->SetValues->ServiceScheduleHistory($model->id, 1, $model->days, $model->estimated_price);
                                 return $this->redirect(['update', 'id' => $model->id]);
@@ -165,6 +165,7 @@ class ServiceController extends Controller {
                 $service_schedule = ServiceSchedule::find()->where(['service_id' => $id])->andWhere(['<>', 'xtra_schedules', 2])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)'), 'date' => SORT_ASC])->all();
                 $extra_schedule = ServiceSchedule::find()->where(['service_id' => $id, 'xtra_schedules' => 2])->orderBy([new \yii\db\Expression('FIELD (status, 1,3,4,2)')])->all();
                 $patient_assessment = PatientAssessment::find()->where(['service_id' => $id])->one();
+                $service_expenses = \common\models\ServiceExpenses::find()->where(['service_id' => $id])->all();
                 $discounts = new ServiceDiscounts();
                 if (empty($patient_assessment)) {
                         $patient_assessment = new PatientAssessment ();
@@ -209,8 +210,10 @@ class ServiceController extends Controller {
                         } else {
                                 $model->due_amount = $model->due_amount - $discounts->discount_value;
                         }
-                        $model->update();
 
+                        $model->update();
+                        $this->AddExpenses($model);
+                        $this->CalculateDue($model);
 
                         return $this->redirect(['index']);
                 }
@@ -219,7 +222,8 @@ class ServiceController extends Controller {
                             'service_schedule' => $service_schedule,
                             'patient_assessment' => $patient_assessment,
                             'discounts' => $discounts,
-                            'extra_schedule' => $extra_schedule
+                            'extra_schedule' => $extra_schedule,
+                            'service_expenses' => $service_expenses,
                 ]);
         }
 
@@ -385,6 +389,7 @@ class ServiceController extends Controller {
                 $service = $this->findModel($id);
                 $service_schedules = ServiceSchedule::findAll(['service_id' => $id]);
                 $service_discounts = ServiceDiscounts::findAll(['service_id' => $id]);
+                $service_expenses = \common\models\ServiceExpenses::findAll(['service_id' => $id]);
                 $service_schedule_history = \common\models\ServiceScheduleHistory::findAll(['service_id' => $id]);
 
                 $service_bin->attributes = $service->attributes;
@@ -408,6 +413,15 @@ class ServiceController extends Controller {
                         }
                 }
 
+                if (!empty($service_expenses)) {
+                        foreach ($service_expenses as $service_expense) {
+                                $service_expenses_bin = new \common\models\ServiceExpensesBin;
+                                $service_expenses_bin->attributes = $service_expense->attributes;
+                                $service_expenses_bin->service_id = $service_bin->id;
+                                $service_expenses_bin->save();
+                        }
+                }
+
 
                 $transaction = Service::getDb()->beginTransaction();
                 try {
@@ -422,11 +436,13 @@ class ServiceController extends Controller {
                                 }
                         }
 
-                        if (!empty($service_schedule_history)) {
-                                foreach ($service_schedule_history as $value2) {
+                        if (!empty($service_expenses)) {
+
+                                foreach ($service_expenses as $value2) {
                                         $value2->delete();
                                 }
                         }
+
                         $service->delete();
 
                         // ...other DB operations...
@@ -533,6 +549,99 @@ class ServiceController extends Controller {
                 $history->schedules = $model->days;
                 $history->price = $model->estimated_price;
                 $history->update();
+        }
+
+        public function AddExpenses($model) {
+
+                if (isset($_POST['service']) && $_POST['service'] != '') {
+                        $arr = [];
+
+                        $i = 0;
+                        foreach ($_POST['service']['expense'] as $val) {
+                                $arr[$i]['expense'] = $val;
+                                $i++;
+                        }
+
+                        $i = 0;
+                        foreach ($_POST['service']['amount'] as $val) {
+                                $arr[$i]['amount'] = $val;
+                                $i++;
+                        }
+
+                        foreach ($arr as $val) {
+                                $service = Service::findOne($model->id);
+                                $add_expense = new \common\models\ServiceExpenses();
+                                $add_expense->service_id = $model->id;
+                                $add_expense->expense = $val['expense'];
+                                $add_expense->expense_amount = $val['amount'];
+
+                                if (!empty($add_expense->expense)) {
+                                        $add_expense->save();
+                                        $service->due_amount = $service->due_amount + $add_expense->expense_amount;
+                                        $service->update();
+                                }
+                        }
+
+
+                        if (isset($_POST['updateexpense']) && $_POST['updateexpense'] != '') {
+
+                                $arr = [];
+                                $i = 0;
+                                foreach ($_POST['updateexpense'] as $key => $val) {
+                                        $arr[$key]['expense'] = $val['expense'][0];
+                                        $arr[$key]['amount'] = $val['amount'][0];
+                                        $i++;
+                                }
+
+                                foreach ($arr as $key => $value) {
+                                        $add_expense = \common\models\ServiceExpenses::findOne($key);
+                                        $previous_amount = $add_expense->expense_amount;
+                                        $add_expense->expense = $value['expense'];
+                                        $add_expense->expense_amount = $value['amount'];
+                                        if ($previous_amount != $add_expense->expense_amount) {
+                                                $changed_amount = $add_expense->expense_amount - $previous_amount;
+                                                $service = Service::findOne($add_expense->service_id);
+                                                $service->due_amount = $service->due_amount + $changed_amount;
+                                                $service->save();
+                                        }
+                                        $add_expense->update();
+                                }
+                        }
+
+                        if (isset($_POST['delete_service_expense_vals']) && $_POST['delete_service_expense_vals'] != '') {
+
+                                $vals = rtrim($_POST['delete_service_expense_vals'], ',');
+                                $vals = explode(',', $vals);
+                                foreach ($vals as $val) {
+
+                                        $model = \common\models\ServiceExpenses::findOne($val);
+                                        $service = Service::findOne($add_expense->service_id);
+                                        $service->due_amount = $service->due_amount - $model->expense_amount;
+                                        $service->save();
+                                        $model->delete();
+                                }
+                        }
+                }
+        }
+
+        public function actionExpense() {
+                if (\Yii::$app->request->post()) {
+                        $service_id = $_POST['expense_service'];
+                        $model = $this->findModel($service_id);
+                        if (isset($model))
+                                $this->AddExpenses($model);
+                        return $this->redirect(['index']);
+                }
+        }
+
+        public function CalculateDue($model) {
+                $discounts = ServiceDiscounts::find()->where(['service_id' => $model->id])->sum('discount_value');
+                $materials_added = \common\models\SalesInvoiceMaster::find()->where(['busines_partner_code' => $model->id])->sum('due_amount');
+                $amount_paid = \common\models\Invoice::find()->where(['service_id' => $model->id])->sum('amount');
+                $expenses = \common\models\ServiceExpenses::find()->where(['service_id' => $model->id])->sum('expense_amount');
+                $due_amount = $model->estimated_price - $discounts + $model->registration_fees_amount + $materials_added - $amount_paid + $expenses;
+                $model->due_amount = $due_amount;
+                $model->save();
         }
 
 }
