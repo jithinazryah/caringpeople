@@ -166,14 +166,21 @@ class InvoiceController extends Controller {
                 $refund = $this->findModel($id);
                 $model = new Invoice;
                 $model->attributes = $refund->attributes;
+                $refund_entry = new \common\models\RefundAmount();
                 if ($model->load(Yii::$app->request->post())) {
-                        if ($model->refund_amount < $model->amount) {
-                                $model->view = 1;
-                                $model->status = 3;
-                                $model->save();
+                        if ($model->refund_amount <= $model->amount) {
+
                                 $refund->refund_amount = $refund->refund_amount + $model->refund_amount;
+                                $refund->amount = $refund->amount - $model->refund_amount;
                                 $refund->save();
-                                Yii::$app->SetValues->Accounts($model->branch_id, 4, $model->id, 1, 'Patient Invoice Refund', $model->payment_type, $model->refund_amount, date('Y-m-d'));
+                                $refund_entry->invoice_id = $refund->id;
+                                $refund_entry->service_id = $refund->service_id;
+                                $refund_entry->refund_amount = $model->refund_amount;
+                                $refund_entry->save();
+                                $service = Service::findOne($refund->service_id);
+                                $service->due_amount = $service->due_amount + $model->refund_amount;
+                                $service->save();
+                                Yii::$app->SetValues->Accounts($refund->branch_id, 4, $refund->id, 1, 'Patient Invoice Refund', $refund->payment_type, $model->refund_amount, date('Y-m-d'));
                                 $this->redirect('index');
                         } else {
                                 $model->addError('refund_amount', 'Refund amount should be less than or equal to amount paid');
@@ -271,6 +278,61 @@ class InvoiceController extends Controller {
                             'dataProvider' => $dataProvider,
                             'pagesize' => $pagesize,
                 ]);
+        }
+
+        public function actionPrintInvoice() {
+
+                $model = new Invoice;
+                $services = '';
+                if ($model->load(Yii::$app->request->post())) {
+                        $service = Service::find()->where(['patient_id' => $model->patient_id])->select(['id'])->all();
+
+                        $services = array();
+                        foreach ($service as $value) {
+                                $invoice = Invoice::find()->where(['service_id' => $value->id])->one();
+
+                                if (isset($invoice) && $invoice->amount > 0) {
+
+                                        $services[] = $value->id;
+                                }
+                        }
+                }
+                return $this->render('print-invoice', [
+                            'model' => $model,
+                            'services' => $services,
+                ]);
+        }
+
+        public function actionPrintBill() {
+                $checked_services = $_POST['checked'];
+                foreach ($checked_services as $value) {
+                        $check_service .= $value . ',';
+                }
+                $check_service = Yii::$app->EncryptDecrypt->Encrypt('encrypt', $check_service);
+                $patient_id = $_POST['serv_patient_id'];
+                return $this->renderPartial('print-bill', [
+                            'services' => $checked_services,
+                            'patient_id' => $patient_id,
+                            'check_service' => $check_service,
+                ]);
+        }
+
+        public function actionPrints($checked_services = null, $patient_id = null) {
+                $checked_services = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $checked_services);
+                $checked_services = explode(',', $checked_services);
+
+                echo $patient_id = $_POST['serv_patient_id'];
+                exit;
+                $pdf = new Pdf([
+                    'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
+                    'content' => $this->renderPartial('print-bill', [
+                        'services' => $checked_services,
+                        'patient_id' => $patient_id,
+                    ]),
+                    'cssInline' => '.table{margin-top:20px;font-family: sans-serif;} ',
+                    'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/other.css',
+                ]);
+                return $pdf->render();
         }
 
 }

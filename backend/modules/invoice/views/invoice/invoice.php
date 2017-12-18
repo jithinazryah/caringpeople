@@ -280,18 +280,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 <!----------------------------Discounts------------------------------------------>
 
                                                                                 <?php
-                                                                                if ($discount_amount > 0) {
-                                                                                        ?>
-                                                                                        <tr>
-                                                                                                <td class="sub">DISCOUNTS</td>
-                                                                                                <td><?= 'Rs ' . number_format((float) $discount_amount, 2, '.', ''); ?></td>
-
-                                                                                        </tr>
-                                                                                <?php } ?>
-
-
-
-                                                                                <?php
                                                                                 foreach ($expenses as $each_expense) {
                                                                                         ?>
                                                                                         <tr >
@@ -306,6 +294,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         <?php
                                                                                 }
                                                                                 ?>
+
+
+                                                                                <?php
+                                                                                if ($discount_amount > 0) {
+                                                                                        ?>
+                                                                                        <tr>
+                                                                                                <td class="sub">DISCOUNTS</td>
+                                                                                                <td><?= 'Rs ' . number_format((float) $discount_amount, 2, '.', ''); ?></td>
+
+                                                                                        </tr>
+                                                                                <?php } ?>
+
+
+
+
 
 
 

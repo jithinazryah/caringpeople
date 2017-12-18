@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <?= Html::a('<i class="fa-th-list"></i><span> New Invoice</span>', ['invoice'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <?= Html::a('<i class="fa fa-print"></i><span> Estimated Pro Formas</span>', ['estimated-proformas'], ['class' => 'btn btn-success  btn-icon btn-icon-standalone']) ?>
+                                        <?= Html::a('<i class="fa fa-print"></i><span> Print invoice</span>', ['print-invoice'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone', 'target' => '_blank']) ?>
 
 
                                         <div style="float: right">
@@ -110,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         // 'CB',
                                                         // 'DOC',
                                                         ['class' => 'yii\grid\ActionColumn',
-                                                            'template' => '{print}',
+                                                            'template' => '{print}{refund}',
                                                             'buttons' => [
                                                                 //view button
                                                                 'print' => function ($url, $model) {
@@ -120,10 +121,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                     'target' => '_blank',
                                                                         ]);
                                                                 },
+                                                                'refund' => function ($url, $model) {
+                                                                        if ($model->amount > 0) {
+                                                                                return Html::a('<span class="fa fa-inr" style="padding-top: 0px;font-size: 18px;"></span>', $url, [
+                                                                                            'title' => Yii::t('app', 'Refund'),
+                                                                                            'class' => 'actions',
+                                                                                            'target' => '_blank',
+                                                                                ]);
+                                                                        }
+                                                                }
                                                             ],
                                                             'urlCreator' => function ($action, $model) {
                                                                     if ($action === 'print') {
                                                                             $url = Url::to(['invoice/invoicebill', 'id' => $model->id]);
+                                                                            return $url;
+                                                                    }
+
+                                                                    if ($action === 'refund') {
+                                                                            $url = Url::to(['invoice/refund', 'id' => $model->id]);
                                                                             return $url;
                                                                     }
                                                             }

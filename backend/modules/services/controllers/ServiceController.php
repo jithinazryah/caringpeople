@@ -385,76 +385,82 @@ class ServiceController extends Controller {
          * @return mixed
          */
         public function actionDelete($id) {
-                $service_bin = new \common\models\ServiceBin;
-                $service = $this->findModel($id);
-                $service_schedules = ServiceSchedule::findAll(['service_id' => $id]);
-                $service_discounts = ServiceDiscounts::findAll(['service_id' => $id]);
-                $service_expenses = \common\models\ServiceExpenses::findAll(['service_id' => $id]);
-                $service_schedule_history = \common\models\ServiceScheduleHistory::findAll(['service_id' => $id]);
 
-                $service_bin->attributes = $service->attributes;
-                $service_bin->service_table_id = $service->id;
-                $service_bin->save();
-                if (!empty($service_schedules)) {
-                        foreach ($service_schedules as $service_scheduless) {
-                                $service_schedule_bin = new \common\models\ServiceScheduleBin;
-                                $service_schedule_bin->attributes = $service_scheduless->attributes;
-                                $service_schedule_bin->service_id = $service_bin->id;
-                                $this->StaffStatus($service_scheduless->staff, $service->id);
-                                $service_schedule_bin->save();
-                        }
-                }
-                if (!empty($service_discounts)) {
-                        foreach ($service_discounts as $service_discountss) {
-                                $service_discounts_bin = new \common\models\ServiceDiscountsBin;
-                                $service_discounts_bin->attributes = $service_discountss->attributes;
-                                $service_discounts_bin->service_id = $service_bin->id;
-                                $service_discounts_bin->save();
-                        }
-                }
+                $invoices = \common\models\Invoice::find()->where(['service_id' => $id])->exists();
+                if (!$invoices) {
+                        $service_bin = new \common\models\ServiceBin;
+                        $service = $this->findModel($id);
+                        $service_schedules = ServiceSchedule::findAll(['service_id' => $id]);
+                        $service_discounts = ServiceDiscounts::findAll(['service_id' => $id]);
+                        $service_expenses = \common\models\ServiceExpenses::findAll(['service_id' => $id]);
+                        $service_schedule_history = \common\models\ServiceScheduleHistory::findAll(['service_id' => $id]);
 
-                if (!empty($service_expenses)) {
-                        foreach ($service_expenses as $service_expense) {
-                                $service_expenses_bin = new \common\models\ServiceExpensesBin;
-                                $service_expenses_bin->attributes = $service_expense->attributes;
-                                $service_expenses_bin->service_id = $service_bin->id;
-                                $service_expenses_bin->save();
-                        }
-                }
-
-
-                $transaction = Service::getDb()->beginTransaction();
-                try {
+                        $service_bin->attributes = $service->attributes;
+                        $service_bin->service_table_id = $service->id;
+                        $service_bin->save();
                         if (!empty($service_schedules)) {
-                                foreach ($service_schedules as $value) {
-                                        $value->delete();
+                                foreach ($service_schedules as $service_scheduless) {
+                                        $service_schedule_bin = new \common\models\ServiceScheduleBin;
+                                        $service_schedule_bin->attributes = $service_scheduless->attributes;
+                                        $service_schedule_bin->service_id = $service_bin->id;
+                                        $this->StaffStatus($service_scheduless->staff, $service->id);
+                                        $service_schedule_bin->save();
                                 }
                         }
                         if (!empty($service_discounts)) {
-                                foreach ($service_discounts as $value1) {
-                                        $value1->delete();
+                                foreach ($service_discounts as $service_discountss) {
+                                        $service_discounts_bin = new \common\models\ServiceDiscountsBin;
+                                        $service_discounts_bin->attributes = $service_discountss->attributes;
+                                        $service_discounts_bin->service_id = $service_bin->id;
+                                        $service_discounts_bin->save();
                                 }
                         }
 
                         if (!empty($service_expenses)) {
-
-                                foreach ($service_expenses as $value2) {
-                                        $value2->delete();
+                                foreach ($service_expenses as $service_expense) {
+                                        $service_expenses_bin = new \common\models\ServiceExpensesBin;
+                                        $service_expenses_bin->attributes = $service_expense->attributes;
+                                        $service_expenses_bin->service_id = $service_bin->id;
+                                        $service_expenses_bin->save();
                                 }
                         }
 
-                        $service->delete();
 
-                        // ...other DB operations...
-                        $transaction->commit();
-                } catch (\Exception $e) {
-                        $transaction->rollBack();
-                        throw $e;
-                } catch (\Throwable $e) {
-                        $transaction->rollBack();
-                        throw $e;
+                        $transaction = Service::getDb()->beginTransaction();
+                        try {
+                                if (!empty($service_schedules)) {
+                                        foreach ($service_schedules as $value) {
+                                                $value->delete();
+                                        }
+                                }
+                                if (!empty($service_discounts)) {
+                                        foreach ($service_discounts as $value1) {
+                                                $value1->delete();
+                                        }
+                                }
+
+                                if (!empty($service_expenses)) {
+
+                                        foreach ($service_expenses as $value2) {
+                                                $value2->delete();
+                                        }
+                                }
+
+                                $service->delete();
+
+                                // ...other DB operations...
+                                $transaction->commit();
+                        } catch (\Exception $e) {
+                                $transaction->rollBack();
+                                throw $e;
+                        } catch (\Throwable $e) {
+                                $transaction->rollBack();
+                                throw $e;
+                        }
+                        Yii::$app->getSession()->setFlash('success', 'Deleted succuessfully');
+                } else {
+                        Yii::$app->getSession()->setFlash('error', 'Sorry !! You cannot delete this service, an invoice amount is received aganist this service !');
                 }
-                Yii::$app->getSession()->setFlash('success', 'Deleted succuessfully');
                 return $this->redirect(['index']);
         }
 
@@ -515,18 +521,22 @@ class ServiceController extends Controller {
 
         public function actionEstimatedBill($id) {
                 $model = $this->findModel($id);
+                $expense = \common\models\ServiceExpenses::find()->where(['service_id' => $id])->all();
                 echo $this->renderPartial('estimated_bill', [
                     'model' => $model,
+                    'expense' => $expense,
                 ]);
         }
 
         public function actionPrint($id = null) {
 
                 $model = $this->findModel($id);
+                $expense = \common\models\ServiceExpenses::find()->where(['service_id' => $id])->all();
                 $pdf = new Pdf([
                     'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
                     'content' => $this->renderPartial('estimated_bill_print', [
                         'model' => $model,
+                        'expense' => $expense,
                     ]),
                     'cssInline' => '.table{margin-top:20px;font-family: sans-serif;} ',
                     'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/other.css',

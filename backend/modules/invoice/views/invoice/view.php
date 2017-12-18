@@ -20,37 +20,41 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Invoice</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?= Html::a('<i class="fa-th-list"></i><span> Manage Invoice</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <div class="panel-body"><div class="invoice-view">
                                                 <p>
                                                         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                                                        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                                                        'class' => 'btn btn-danger',
-                                                        'data' => [
-                                                        'confirm' => 'Are you sure you want to delete this item?',
-                                                        'method' => 'post',
-                                                        ],
-                                                        ]) ?>
+                                                        <?=
+                                                        Html::a('Delete', ['delete', 'id' => $model->id], [
+                                                            'class' => 'btn btn-danger',
+                                                            'data' => [
+                                                                'confirm' => 'Are you sure you want to delete this item?',
+                                                                'method' => 'post',
+                                                            ],
+                                                        ])
+                                                        ?>
                                                 </p>
 
-                                                <?= DetailView::widget([
-                                                'model' => $model,
-                                                'attributes' => [
-                                                            'id',
-            'branch_id',
-            'patient_id',
-            'service_id',
-            'type',
-            'amount',
-            'CB',
-            'DOC',
-                                                ],
-                                                ]) ?>
-</div>
+                                                <?=
+                                                DetailView::widget([
+                                                    'model' => $model,
+                                                    'attributes' => [
+                                                        'id',
+                                                        'branch_id',
+                                                        'patient_id',
+                                                        'service_id',
+                                                        'type',
+                                                        'amount',
+                                                        'CB',
+                                                        'DOC',
+                                                    ],
+                                                ])
+                                                ?>
                                         </div>
                                 </div>
                         </div>
                 </div>
         </div>
+</div>
 
 

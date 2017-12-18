@@ -346,8 +346,31 @@ and open the template in the editor.
                         </tr>
                 <?php } ?>
 
+                <?php
+                $total_expense = 0;
+                foreach ($expense as $each_expense) {
+                        $total_expense += $each_expense->expense_amount;
+                        ?>
+                        <tr>
+                                <td><?=
+                                        $count;
+                                        $count++
+                                        ?></td>
+                                <td class="sub"> <?= $each_expense->expense ?></td>
+                                <td></td>
+                                <?php if (isset($each_expense->expense_amount) && $each_expense->expense_amount != '') { ?>
+                                        <td style="text-align:right;padding-right: 15px;"><?= $each_expense->expense_amount ?> </td>
+                                <?php } else { ?>
+                                        <td style="text-align:right;padding-right: 15px;"></td>
+                                <?php } ?>
+
+                        </tr>
+                        <?php
+                }
+                ?>
+
                 <tr>
-                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount + $registration_fees; ?>
+                        <?php $total_amount = $first_estimated_price->price + $added_schedules_amount + $materials_used_amount + $registration_fees + $total_expense; ?>
                         <td></td>
                         <td colspan="2" style="text-align:center">Bill Total</td>
                         <td style="text-align:right;padding-right: 15px;"><?= number_format((float) $total_amount, 2, '.', ','); ?></td>
@@ -374,7 +397,7 @@ and open the template in the editor.
 
 <!--                <tr>
                         <td colspan="3" style="text-align:center"><b>Amount Paid</b></td>
-                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                          ?></td>
+                        <td style="text-align:right"><?php // number_format((float) $model->amount, 2, '.', '');                                                                                    ?></td>
                 </tr>-->
 
 
