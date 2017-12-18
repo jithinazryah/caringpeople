@@ -321,8 +321,7 @@ class InvoiceController extends Controller {
                 $checked_services = Yii::$app->EncryptDecrypt->Encrypt('decrypt', $checked_services);
                 $checked_services = explode(',', $checked_services);
 
-                echo $patient_id = $_POST['serv_patient_id'];
-                exit;
+
                 $pdf = new Pdf([
                     'mode' => Pdf::MODE_CORE, // leaner size using standard fonts
                     'content' => $this->renderPartial('print-bill', [
